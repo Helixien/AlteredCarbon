@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Vanilla Factions Expanded - Ultratech</li>
+		</mods>
+		<nomatch Class="PatchOperationSequence">
+			<operations>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs</xpath>
+					<value>
+						<!-- ================================ Load Sleeve Buildings when VFE-Ultratech isnt found ====================== -->
+						<ThingDef ParentName="BuildingBase">
+							<defName>VFEU_SleeveIncubator</defName>
+							<label>sleeve incubator</label>
+							<description>Text.todo</description>
+							<thingClass>AlteredCarbon.Building_SleeveGrower</thingClass>
+							<tickerType>Normal</tickerType>
+							<drawerType>RealtimeOnly</drawerType>
+							<graphicData>
+								<texPath>Things/Building/Misc/SleeveGrower/SleeveGrowerBottom</texPath>
+								<graphicClass>Graphic_Multi</graphicClass>
+								<drawSize>(7,7)</drawSize>
+								<shaderType>CutoutComplex</shaderType>
+								<damageData>
+									<cornerTL>Damage/Corner</cornerTL>
+									<cornerTR>Damage/Corner</cornerTR>
+									<cornerBL>Damage/Corner</cornerBL>
+									<cornerBR>Damage/Corner</cornerBR>
+								</damageData>
+							</graphicData>
+							<size>(3,3)</size>
+							<statBases>
+								<MarketValue>3580</MarketValue>
+								<MaxHitPoints>400</MaxHitPoints>
+								<Flammability>0.5</Flammability>
+								<Mass>60</Mass>
+							</statBases>
+							<costList>
+								<Plasteel>220</Plasteel>
+								<ComponentSpacer>8</ComponentSpacer>
+							</costList>
+							<techLevel>Ultra</techLevel>
+							<altitudeLayer>Building</altitudeLayer>
+							<neverMultiSelect>true</neverMultiSelect>
+							<rotatable>true</rotatable>
+							<fillPercent>0.6</fillPercent>
+							<passability>PassThroughOnly</passability>
+							<pathCost>70</pathCost>
+							<castEdgeShadows>True</castEdgeShadows>
+							<canOverlapZones>false</canOverlapZones>
+							<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+							<blockWind>true</blockWind>
+							<surfaceType>Item</surfaceType>
+							<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+							<uiIconPath>Things/Building/Misc/SleeveGrower/SleeveGrowerUI_Icon</uiIconPath>
+							<uiIconScale>1</uiIconScale>
+							<defaultPlacingRot>South</defaultPlacingRot>
+							<interactionCellOffset>(0,0,2)</interactionCellOffset>
+							<hasInteractionCell>true</hasInteractionCell>
+							<building>
+								<spawnedConceptLearnOpportunity>VFEU_SleeveGrowing</spawnedConceptLearnOpportunity>
+								<boughtConceptLearnOpportunity>VFEU_SleeveGrowing</boughtConceptLearnOpportunity>
+								<ai_chillDestination>false</ai_chillDestination>
+								<destroySound>BuildingDestroyed_Metal_Big</destroySound>
+							</building>
+							<placeWorkers>
+								<li>PlaceWorker_FuelingPort</li>
+							</placeWorkers>
+							<comps>
+								<li Class="AlteredCarbon.CompProperties_SleeveGrowerPostDraw"/>
+								<li Class="CompProperties_Power">
+									<compClass>CompPowerTrader</compClass>
+									<shortCircuitInRain>true</shortCircuitInRain>
+									<basePowerConsumption>350</basePowerConsumption>
+								</li>
+								<li Class="CompProperties_Refuelable">
+									<fuelLabel>Neutroamine</fuelLabel>
+									<fuelGizmoLabel>Neutroamine</fuelGizmoLabel>
+									<outOfFuelMessage>Cannot grow: Needs neutroamine</outOfFuelMessage>
+									<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+									<targetFuelLevelConfigurable>false</targetFuelLevelConfigurable>
+									<fuelCapacity>200.0</fuelCapacity>
+									<fuelFilter>
+										<thingDefs>
+											<li>Neutroamine</li>
+										</thingDefs>
+									</fuelFilter>
+									<initialFuelPercent>1</initialFuelPercent>
+									<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+									<showFuelGizmo>true</showFuelGizmo>
+								</li>
+								<li Class="CompProperties_Glower">
+									<glowRadius>5</glowRadius>
+									<glowColor>(96,161,153,0)</glowColor>
+								</li>
+								<li Class="CompProperties_Flickable"/>
+								<li Class="CompProperties_Breakdownable"/>
+							</comps>
+							<minifiedDef>MinifiedThing</minifiedDef>
+							<thingCategories>
+								<li>BuildingsMisc</li>
+							</thingCategories>
+							<tradeTags>
+								<li>BuyableFromHunterCorp</li>
+							</tradeTags>
+						</ThingDef>
+						<ThingDef ParentName="FurnitureBase">
+							<defName>VFEU_SleeveCasket</defName>
+							<label>sleeve casket</label>
+							<description>Text.todo</description>
+							<thingClass>AlteredCarbon.Building_SleeveCasket</thingClass>
+							<tickerType>Normal</tickerType>
+							<drawerType>RealtimeOnly</drawerType>
+							<passability>PassThroughOnly</passability>
+							<graphicData>
+								<texPath>Things/Building/Furniture/Bed/SleeveCasket</texPath>
+								<graphicClass>Graphic_Multi</graphicClass>
+								<shaderType>CutoutComplex</shaderType>
+								<drawSize>(2,2)</drawSize>
+							</graphicData>
+							<size>(1,2)</size>
+							<statBases>
+								<MaxHitPoints>250</MaxHitPoints>
+								<Mass>40</Mass>
+								<Flammability>0.5</Flammability>
+							</statBases>
+							<costList>
+								<Steel>180</Steel>
+								<Plasteel>30</Plasteel>
+								<ComponentSpacer>3</ComponentSpacer>
+							</costList>
+							<techLevel>Ultra</techLevel>
+							<altitudeLayer>Building</altitudeLayer>
+							<rotatable>true</rotatable>
+							<castEdgeShadows>True</castEdgeShadows>
+							<staticSunShadowHeight>0.17</staticSunShadowHeight>
+							<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+							<drawGUIOverlay>true</drawGUIOverlay>
+							<canOverlapZones>false</canOverlapZones>
+							<defaultPlacingRot>South</defaultPlacingRot>
+							<building>
+								<spawnedConceptLearnOpportunity>VFEU_UsingSleeveCaskets</spawnedConceptLearnOpportunity>
+								<boughtConceptLearnOpportunity>VFEU_UsingSleeveCaskets</boughtConceptLearnOpportunity>
+								<bed_showSleeperBody>True</bed_showSleeperBody>
+								<buildingSizeCategory>Small</buildingSizeCategory>
+								<bed_humanlike>true</bed_humanlike>
+								<bed_healPerDay>0</bed_healPerDay>
+								<bed_defaultMedical>true</bed_defaultMedical>
+							</building>
+							<fillPercent>0.5</fillPercent>
+							<pathCost>42</pathCost>
+							<uiIconScale>1.0</uiIconScale>
+							<comps>
+								<li Class="CompProperties_Power">
+									<compClass>CompPowerTrader</compClass>
+									<shortCircuitInRain>false</shortCircuitInRain>
+									<basePowerConsumption>60</basePowerConsumption>
+								</li>
+								<li Class="CompProperties_Refuelable">
+									<fuelLabel>Neutroamine</fuelLabel>
+									<fuelGizmoLabel>Neutroamine</fuelGizmoLabel>
+									<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+									<targetFuelLevelConfigurable>false</targetFuelLevelConfigurable>
+									<fuelCapacity>100.0</fuelCapacity>
+									<fuelFilter>
+										<thingDefs>
+											<li>Neutroamine</li>
+										</thingDefs>
+									</fuelFilter>
+									<initialFuelPercent>1</initialFuelPercent>
+									<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+									<showFuelGizmo>true</showFuelGizmo>
+								</li>
+								<li Class="CompProperties_AssignableToPawn">
+									<drawAssignmentOverlay>false</drawAssignmentOverlay>
+									<compClass>CompAssignableToPawn_Bed</compClass>
+								</li>
+								<li Class="AlteredCarbon.CompProperties_SleeveCasketPostDraw"/>
+								<li Class="CompProperties_Breakdownable"/>
+							</comps>
+							<minifiedDef>MinifiedThing</minifiedDef>
+							<thingCategories>
+								<li>BuildingsMisc</li>
+							</thingCategories>
+							<tradeTags>
+								<li>BuyableFromHunterCorp</li>
+							</tradeTags>
+						</ThingDef>
+						<!-- ================================ Load Stack textures when VFE-Ultratech isnt found ====================== -->
+						<ThingDef ParentName="ResourceBase">
+							<defName>VFEU_AncientStack</defName>
+							<label>ancient cortical stack</label>
+							<description>An ancient, ultratech implant that once stored a human's consciousness. Due to its age and having not been maintained in years, it is corrupted, but there might still be data worth salvaging on it</description>
+							<graphicData>
+								<texPath>Things/Item/Stacks/AncientStack</texPath>
+								<graphicClass>Graphic_Single</graphicClass>
+								<drawSize>0.80</drawSize>
+							</graphicData>
+							<resourceReadoutPriority>Middle</resourceReadoutPriority>
+							<soundInteract>Standard_Drop</soundInteract>
+							<soundDrop>Standard_Drop</soundDrop>
+							<uiIconForStackCount>1</uiIconForStackCount>
+							<stackLimit>25</stackLimit>
+							<tradeNeverStack>false</tradeNeverStack>
+							<useHitPoints>true</useHitPoints>
+							<statBases>
+								<Mass>0.3</Mass>
+								<DeteriorationRate>0</DeteriorationRate>
+								<MaxHitPoints>125</MaxHitPoints>
+								<Flammability>0</Flammability>
+								<MarketValue>250</MarketValue>
+							</statBases>
+							<costList>
+								<Plasteel>15</Plasteel>
+								<ComponentSpacer>4</ComponentSpacer>
+							</costList>
+							<thingCategories>
+								<li>VFEU_BodyPartsUltra</li>
+								<li>Artifacts</li>
+							</thingCategories>
+							<thingSetMakerTags>
+								<li>RewardStandardHighFreq</li>
+							</thingSetMakerTags>
+							<drawGUIOverlay>true</drawGUIOverlay>
+							<tradeability>Sellable</tradeability>
+							<techLevel>Ultra</techLevel>
+							<tradeTags inherit="False"/>
+							<storedConceptLearnOpportunity>VFEU_AncientStacks</storedConceptLearnOpportunity>
+						</ThingDef>
+						<ThingDef ParentName="UnfinishedBase">
+							<defName>VFEU_UnfinishedAncientStack</defName>
+							<label>unfinished ancient stack</label>
+							<description>An unfinished ancient stack.</description>
+							<thingClass>AlteredCarbon.UnfinishedAncientStack</thingClass>
+							<statBases>
+								<Flammability>0</Flammability>
+							</statBases>
+							<graphicData>
+								<texPath>Things/Item/Stacks/AncientStack</texPath>
+								<graphicClass>Graphic_Single</graphicClass>
+								<drawSize>0.80</drawSize>
+							</graphicData>
+							<stuffCategories Inherit="false" />
+						</ThingDef>
+					</value>
+				</li>
+			</operations>
+		</nomatch>
+	</Operation>
+</Patch>
