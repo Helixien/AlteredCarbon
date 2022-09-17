@@ -9,7 +9,7 @@
 				<li Class="PatchOperationAdd">
 					<xpath>Defs</xpath>
 					<value>
-						<!-- ================================ Load Sleeve Buildings when VFE-Ultratech isnt found ====================== -->
+						<!-- ================================ Add buildings ====================== -->
 						<ThingDef ParentName="BuildingBase">
 							<defName>VFEU_SleeveIncubator</defName>
 							<label>sleeve incubator</label>
@@ -187,7 +187,77 @@
 								<li>BuyableFromHunterCorp</li>
 							</tradeTags>
 						</ThingDef>
-						<!-- ================================ Load Stack textures when VFE-Ultratech isnt found ====================== -->
+						<ThingDef ParentName="BenchBase">
+							<defName>VFEU_DecryptionBench</defName>
+							<label>decryption bench</label>
+							<description>Text.todo</description>
+							<thingClass>AlteredCarbon.Building_DecryptionBench</thingClass>
+							<graphicData>
+								<texPath>Things/Building/Production/HackingWorkbench</texPath>
+								<graphicClass>Graphic_Multi</graphicClass>
+								<shaderType>CutoutComplex</shaderType>
+								<drawSize>(4,2)</drawSize>
+								<damageData>
+									<cornerTL>Damage/Corner</cornerTL>
+									<cornerTR>Damage/Corner</cornerTR>
+									<cornerBL>Damage/Corner</cornerBL>
+									<cornerBR>Damage/Corner</cornerBR>
+								</damageData>
+							</graphicData>
+							<size>(3,1)</size>
+							<statBases>
+								<Mass>20</Mass>
+								<MaxHitPoints>180</MaxHitPoints>
+								<WorkToBuild>5000</WorkToBuild>
+								<Flammability>0.5</Flammability>
+							</statBases>
+							<costList>
+								<Steel>80</Steel>
+								<Plasteel>70</Plasteel>
+								<ComponentSpacer>6</ComponentSpacer>
+							</costList>
+							<techLevel>Ultra</techLevel>
+							<altitudeLayer>Building</altitudeLayer>
+							<passability>PassThroughOnly</passability>
+							<fillPercent>0.5</fillPercent>
+							<pathCost>42</pathCost>
+							<castEdgeShadows>true</castEdgeShadows>
+							<staticSunShadowHeight>0.20</staticSunShadowHeight>
+							<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+							<hasInteractionCell>true</hasInteractionCell>
+							<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+							<surfaceType>Item</surfaceType>
+							<building>
+								<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+							</building>
+							<recipes>
+								<li>VFEU_DecryptAncientStack</li>
+								<li>VFEU_WipeFilledCorticalStack</li>
+							</recipes>
+							<inspectorTabs>
+								<li>ITab_Bills</li>
+							</inspectorTabs>
+							<comps>
+								<li Class="CompProperties_Power">
+									<compClass>CompPowerTrader</compClass>
+									<basePowerConsumption>350</basePowerConsumption>
+									<shortCircuitInRain>true</shortCircuitInRain>
+								</li>
+								<li Class="CompProperties_Flickable"/>
+								<li Class="CompProperties_Breakdownable"/>
+							</comps>
+							<placeWorkers>
+								<li>PlaceWorker_PreventInteractionSpotOverlap</li>
+							</placeWorkers>
+							<minifiedDef>MinifiedThing</minifiedDef>
+							<thingCategories>
+								<li>BuildingsMisc</li>
+							</thingCategories>
+							<tradeTags>
+								<li>BuyableFromHunterCorp</li>
+							</tradeTags>
+						</ThingDef>
+						<!-- ================================ Add Stack items ====================== -->
 						<ThingDef ParentName="ResourceBase">
 							<defName>VFEU_AncientStack</defName>
 							<label>ancient cortical stack</label>
@@ -241,8 +311,1165 @@
 								<graphicClass>Graphic_Single</graphicClass>
 								<drawSize>0.80</drawSize>
 							</graphicData>
-							<stuffCategories Inherit="false" />
+							<stuffCategories Inherit="false"/>
 						</ThingDef>
+						<!-- ================================ Add Stacks ====================== -->
+						<HediffDef ParentName="ImplantHediffBase">
+							<defName>VFEU_CorticalStack</defName>
+							<label>cortical stack</label>
+							<labelNoun>a cortical stack</labelNoun>
+							<hediffClass>AlteredCarbon.Hediff_CorticalStack</hediffClass>
+							<description>An installed cortical stack.</description>
+							<descriptionHyperlinks>
+								<ThingDef>VFEU_FilledCorticalStack</ThingDef>
+							</descriptionHyperlinks>
+							<spawnThingOnRemoved>VFEU_FilledCorticalStack</spawnThingOnRemoved>
+							<isBad>false</isBad>
+							<addedPartProps>
+								<solid>true</solid>
+								<partEfficiency>1.25</partEfficiency>
+								<betterThanNatural>true</betterThanNatural>
+							</addedPartProps>
+						</HediffDef>
+						<ThingDef Name="VFEU_StackBase" ParentName="BodyPartArchotechBase" Abstract="True">
+							<techLevel>Ultra</techLevel>
+							<thingCategories Inherit="False">
+								<li>VFEU_BodyPartsUltra</li>
+							</thingCategories>
+							<graphicData>
+								<texPath>Things/Item/Health/HealthItem</texPath>
+								<graphicClass>Graphic_Single</graphicClass>
+							</graphicData>
+							<uiIconForStackCount>1</uiIconForStackCount>
+							<stackLimit>25</stackLimit>
+							<tradeNeverStack>false</tradeNeverStack>
+							<useHitPoints>true</useHitPoints>
+							<techHediffsTags>
+								<li>Ultra</li>
+							</techHediffsTags>
+							<statBases>
+								<Mass>0.3</Mass>
+								<DeteriorationRate>0</DeteriorationRate>
+								<MaxHitPoints>125</MaxHitPoints>
+								<Flammability>0</Flammability>
+								<MarketValue>1000</MarketValue>
+							</statBases>
+							<modExtensions>
+								<li Class="AlteredCarbon.StackSavingOptionsModExtension">
+									<ignoresTraits>
+										<li>Beauty</li>
+										<li>Immunity</li>
+										<li>AnnoyingVoice</li>
+										<li>CreepyBreathing</li>
+										<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_IronStomach</li>
+										<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_BigBoned</li>
+										<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_Dunce</li>
+										<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_Squeamish</li>
+										<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_ThickSkinned</li>
+										<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_ThinSkinned</li>
+										<li MayRequire="syrchalis.individuality">SYR_Agile</li>
+										<li MayRequire="syrchalis.individuality">SYR_KeenEye</li>
+										<li MayRequire="syrchalis.individuality">SYR_StrongBack</li>
+										<li MayRequire="Sierra.RTGT">RT_Nearsighted</li>
+										<li MayRequire="Sierra.RTGT">RT_Farsighted</li>
+										<li MayRequire="Sierra.RTGT">RT_Muscular</li>
+										<li MayRequire="Sierra.RTGT">RT_Frail</li>
+										<li MayRequire="Sierra.RTGT">RT_Hardy</li>
+										<li MayRequire="Sierra.RTGT">RT_Feeble</li>
+										<li MayRequire="Sierra.RTGT">RT_Healthy</li>
+										<li MayRequire="Sierra.RTGT">RT_ChronicallyIll</li>
+									</ignoresTraits>
+								</li>
+							</modExtensions>
+						</ThingDef>
+						<ThingDef ParentName="VFEU_StackBase">
+							<defName>VFEU_EmptyCorticalStack</defName>
+							<label>empty cortical stack</label>
+							<description>An empty, ultra tech implant which can store a human consciousness. Being implanted directly into a person's neck, blunt force trauma and bullets to the head and neck should be avoided at all cost. Extremely rare and hard to make.</description>
+							<descriptionHyperlinks>
+								<RecipeDef>VFEU_InstallCorticalStack</RecipeDef>
+							</descriptionHyperlinks>
+							<drawGUIOverlay>true</drawGUIOverlay>
+							<thingClass>AlteredCarbon.CorticalStack</thingClass>
+							<graphicData>
+								<texPath>Things/Item/Stacks/EmptyStack</texPath>
+								<graphicClass>Graphic_StackCount</graphicClass>
+							</graphicData>
+							<tradeTags Inherit="False">
+								<li>VFEU_StacksUltra</li>
+								<li MayRequire="Ludeon.RimWorld.Royalty">ImplantEmpireRoyal</li>
+								<li>ExoticMisc</li>
+								<li>BuyableFromHunterCorp</li>
+							</tradeTags>
+							<costList>
+								<Plasteel>15</Plasteel>
+								<ComponentSpacer>4</ComponentSpacer>
+							</costList>
+							<thingSetMakerTags>
+								<li>RewardStandardLowFreq</li>
+							</thingSetMakerTags>
+							<storedConceptLearnOpportunity>VFEU_EmptyStacks</storedConceptLearnOpportunity>
+						</ThingDef>
+						<ThingDef ParentName="VFEU_StackBase">
+							<defName>VFEU_FilledCorticalStack</defName>
+							<label>cortical stack</label>
+							<description>An ultra tech implant with a human consciousness stored on it. Can be implanted into an empty sleeve or random body to bring back the person stored on the cortical stack.</description>
+							<descriptionHyperlinks>
+								<RecipeDef>VFEU_InstallCorticalStack</RecipeDef>
+							</descriptionHyperlinks>
+							<inspectorTabs>
+								<li>ITab_Pawn_Character</li>
+							</inspectorTabs>
+							<uiIconForStackCount>1</uiIconForStackCount>
+							<healthAffectsPrice>false</healthAffectsPrice>
+							<stackLimit>1</stackLimit>
+							<tradeNeverStack>false</tradeNeverStack>
+							<tickerType>Normal</tickerType>
+							<thingClass>AlteredCarbon.CorticalStack</thingClass>
+							<tradeTags Inherit="False"/>
+							<graphicData>
+								<texPath>Things/Item/Stacks/FriendlyStack</texPath>
+								<graphicClass>Graphic_Single</graphicClass>
+							</graphicData>
+							<tradeability>None</tradeability>
+							<storedConceptLearnOpportunity>VFEU_FilledStacks</storedConceptLearnOpportunity>
+						</ThingDef>
+						<!-- ================================ Add Sleeve Hediffs ====================== -->
+						<HediffDef Name="VFEU_SleeveQualityBase" Abstract="True">
+							<hediffClass>HediffWithComps</hediffClass>
+							<initialSeverity>0.001</initialSeverity>
+							<isBad>false</isBad>
+							<makesSickThought>false</makesSickThought>
+						</HediffDef>
+						<HediffDef ParentName="VFEU_SleeveQualityBase">
+							<defName>VFEU_Sleeve_Quality_Awful</defName>
+							<label>awful quality sleeve</label>
+							<description>text.todo</description>
+							<stages>
+								<li>
+									<naturalHealingFactor>0.5</naturalHealingFactor>
+									<statFactors>
+										<ImmunityGainSpeed>0.8</ImmunityGainSpeed>
+										<MarketValue>0.5</MarketValue>
+									</statFactors>
+									<capMods>
+										<li>
+											<capacity>Consciousness</capacity>
+											<offset>-0.20</offset>
+										</li>
+										<li>
+											<capacity>Moving</capacity>
+											<offset>-0.20</offset>
+										</li>
+										<li>
+											<capacity>Manipulation</capacity>
+											<offset>-0.20</offset>
+										</li>
+										<li>
+											<capacity>Talking</capacity>
+											<offset>-0.20</offset>
+										</li>
+										<li>
+											<capacity>Eating</capacity>
+											<offset>-0.20</offset>
+										</li>
+										<li>
+											<capacity>Sight</capacity>
+											<offset>-0.20</offset>
+										</li>
+										<li>
+											<capacity>Hearing</capacity>
+											<offset>-0.20</offset>
+										</li>
+										<li>
+											<capacity>Breathing</capacity>
+											<offset>-0.20</offset>
+										</li>
+										<li>
+											<capacity>BloodFiltration</capacity>
+											<offset>-0.20</offset>
+										</li>
+										<li>
+											<capacity>BloodPumping</capacity>
+											<offset>-0.20</offset>
+										</li>
+										<li>
+											<capacity>Metabolism</capacity>
+											<offset>-0.20</offset>
+										</li>
+									</capMods>
+								</li>
+							</stages>
+						</HediffDef>
+						<HediffDef ParentName="VFEU_SleeveQualityBase">
+							<defName>VFEU_Sleeve_Quality_Poor</defName>
+							<label>poor quality sleeve</label>
+							<description>text.todo</description>
+							<stages>
+								<li>
+									<naturalHealingFactor>0.8</naturalHealingFactor>
+									<statFactors>
+										<MarketValue>0.75</MarketValue>
+									</statFactors>
+									<capMods>
+										<li>
+											<capacity>Consciousness</capacity>
+											<offset>-0.10</offset>
+										</li>
+										<li>
+											<capacity>Moving</capacity>
+											<offset>-0.10</offset>
+										</li>
+										<li>
+											<capacity>Manipulation</capacity>
+											<offset>-0.10</offset>
+										</li>
+										<li>
+											<capacity>Talking</capacity>
+											<offset>-0.10</offset>
+										</li>
+										<li>
+											<capacity>Eating</capacity>
+											<offset>-0.10</offset>
+										</li>
+										<li>
+											<capacity>Sight</capacity>
+											<offset>-0.10</offset>
+										</li>
+										<li>
+											<capacity>Hearing</capacity>
+											<offset>-0.10</offset>
+										</li>
+										<li>
+											<capacity>Breathing</capacity>
+											<offset>-0.10</offset>
+										</li>
+										<li>
+											<capacity>BloodFiltration</capacity>
+											<offset>-0.10</offset>
+										</li>
+										<li>
+											<capacity>BloodPumping</capacity>
+											<offset>-0.10</offset>
+										</li>
+										<li>
+											<capacity>Metabolism</capacity>
+											<offset>-0.10</offset>
+										</li>
+									</capMods>
+								</li>
+							</stages>
+						</HediffDef>
+						<HediffDef ParentName="VFEU_SleeveQualityBase">
+							<defName>VFEU_Sleeve_Quality_Normal</defName>
+							<label>normal quality sleeve</label>
+							<description>text.todo</description>
+						</HediffDef>
+						<HediffDef ParentName="VFEU_SleeveQualityBase">
+							<defName>VFEU_Sleeve_Quality_Good</defName>
+							<label>good quality sleeve</label>
+							<description>text.todo</description>
+							<stages>
+								<li>
+									<naturalHealingFactor>1.1</naturalHealingFactor>
+									<statFactors>
+										<MarketValue>1.25</MarketValue>
+									</statFactors>
+									<capMods>
+										<li>
+											<capacity>Consciousness</capacity>
+											<offset>0.10</offset>
+										</li>
+										<li>
+											<capacity>Moving</capacity>
+											<offset>0.10</offset>
+										</li>
+										<li>
+											<capacity>Manipulation</capacity>
+											<offset>0.10</offset>
+										</li>
+										<li>
+											<capacity>Talking</capacity>
+											<offset>0.10</offset>
+										</li>
+										<li>
+											<capacity>Eating</capacity>
+											<offset>0.10</offset>
+										</li>
+										<li>
+											<capacity>Sight</capacity>
+											<offset>0.10</offset>
+										</li>
+										<li>
+											<capacity>Hearing</capacity>
+											<offset>0.10</offset>
+										</li>
+										<li>
+											<capacity>Breathing</capacity>
+											<offset>0.10</offset>
+										</li>
+										<li>
+											<capacity>BloodFiltration</capacity>
+											<offset>0.10</offset>
+										</li>
+										<li>
+											<capacity>BloodPumping</capacity>
+											<offset>0.10</offset>
+										</li>
+										<li>
+											<capacity>Metabolism</capacity>
+											<offset>0.10</offset>
+										</li>
+									</capMods>
+								</li>
+							</stages>
+						</HediffDef>
+						<HediffDef ParentName="VFEU_SleeveQualityBase">
+							<defName>VFEU_Sleeve_Quality_Excellent</defName>
+							<label>excellent quality sleeve</label>
+							<description>text.todo</description>
+							<stages>
+								<li>
+									<naturalHealingFactor>1.25</naturalHealingFactor>
+									<statFactors>
+										<MarketValue>1.5</MarketValue>
+									</statFactors>
+									<capMods>
+										<li>
+											<capacity>Consciousness</capacity>
+											<offset>0.20</offset>
+										</li>
+										<li>
+											<capacity>Moving</capacity>
+											<offset>0.20</offset>
+										</li>
+										<li>
+											<capacity>Manipulation</capacity>
+											<offset>0.20</offset>
+										</li>
+										<li>
+											<capacity>Talking</capacity>
+											<offset>0.20</offset>
+										</li>
+										<li>
+											<capacity>Eating</capacity>
+											<offset>0.20</offset>
+										</li>
+										<li>
+											<capacity>Sight</capacity>
+											<offset>0.20</offset>
+										</li>
+										<li>
+											<capacity>Hearing</capacity>
+											<offset>0.20</offset>
+										</li>
+										<li>
+											<capacity>Breathing</capacity>
+											<offset>0.20</offset>
+										</li>
+										<li>
+											<capacity>BloodFiltration</capacity>
+											<offset>0.20</offset>
+										</li>
+										<li>
+											<capacity>BloodPumping</capacity>
+											<offset>0.20</offset>
+										</li>
+										<li>
+											<capacity>Metabolism</capacity>
+											<offset>0.20</offset>
+										</li>
+									</capMods>
+								</li>
+							</stages>
+						</HediffDef>
+						<HediffDef ParentName="VFEU_SleeveQualityBase">
+							<defName>VFEU_Sleeve_Quality_Masterwork</defName>
+							<label>masterwork quality sleeve</label>
+							<description>text.todo</description>
+							<stages>
+								<li>
+									<naturalHealingFactor>1.5</naturalHealingFactor>
+									<statFactors>
+										<ImmunityGainSpeed>1.25</ImmunityGainSpeed>
+										<MarketValue>2.5</MarketValue>
+									</statFactors>
+									<capMods>
+										<li>
+											<capacity>Consciousness</capacity>
+											<offset>0.30</offset>
+										</li>
+										<li>
+											<capacity>Moving</capacity>
+											<offset>0.30</offset>
+										</li>
+										<li>
+											<capacity>Manipulation</capacity>
+											<offset>0.30</offset>
+										</li>
+										<li>
+											<capacity>Talking</capacity>
+											<offset>0.30</offset>
+										</li>
+										<li>
+											<capacity>Eating</capacity>
+											<offset>0.30</offset>
+										</li>
+										<li>
+											<capacity>Sight</capacity>
+											<offset>0.30</offset>
+										</li>
+										<li>
+											<capacity>Hearing</capacity>
+											<offset>0.30</offset>
+										</li>
+										<li>
+											<capacity>Breathing</capacity>
+											<offset>0.30</offset>
+										</li>
+										<li>
+											<capacity>BloodFiltration</capacity>
+											<offset>0.30</offset>
+										</li>
+										<li>
+											<capacity>BloodPumping</capacity>
+											<offset>0.30</offset>
+										</li>
+										<li>
+											<capacity>Metabolism</capacity>
+											<offset>0.30</offset>
+										</li>
+									</capMods>
+								</li>
+							</stages>
+						</HediffDef>
+						<HediffDef ParentName="VFEU_SleeveQualityBase">
+							<defName>VFEU_Sleeve_Quality_Legendary</defName>
+							<label>legendary quality sleeve</label>
+							<description>text.todo</description>
+							<stages>
+								<li>
+									<naturalHealingFactor>2</naturalHealingFactor>
+									<statFactors>
+										<ImmunityGainSpeed>1.5</ImmunityGainSpeed>
+										<MarketValue>5</MarketValue>
+									</statFactors>
+									<capMods>
+										<li>
+											<capacity>Consciousness</capacity>
+											<offset>0.50</offset>
+										</li>
+										<li>
+											<capacity>Moving</capacity>
+											<offset>0.50</offset>
+										</li>
+										<li>
+											<capacity>Manipulation</capacity>
+											<offset>0.50</offset>
+										</li>
+										<li>
+											<capacity>Talking</capacity>
+											<offset>0.50</offset>
+										</li>
+										<li>
+											<capacity>Eating</capacity>
+											<offset>0.50</offset>
+										</li>
+										<li>
+											<capacity>Sight</capacity>
+											<offset>0.50</offset>
+										</li>
+										<li>
+											<capacity>Hearing</capacity>
+											<offset>0.50</offset>
+										</li>
+										<li>
+											<capacity>Breathing</capacity>
+											<offset>0.50</offset>
+										</li>
+										<li>
+											<capacity>BloodFiltration</capacity>
+											<offset>0.50</offset>
+										</li>
+										<li>
+											<capacity>BloodPumping</capacity>
+											<offset>0.50</offset>
+										</li>
+										<li>
+											<capacity>Metabolism</capacity>
+											<offset>0.50</offset>
+										</li>
+									</capMods>
+								</li>
+							</stages>
+						</HediffDef>
+						<HediffDef ParentName="VFEU_SleeveQualityBase">
+							<defName>VFEU_EmptySleeve</defName>
+							<label>empty sleeve</label>
+							<description>An empty sleeve.</description>
+							<isBad>false</isBad>
+							<stages>
+								<li>
+									<label>empty</label>
+									<becomeVisible>false</becomeVisible>
+									<painFactor>0</painFactor>
+									<capMods>
+										<li>
+											<capacity>Consciousness</capacity>
+											<setMax>0.01</setMax>
+										</li>
+									</capMods>
+								</li>
+							</stages>
+						</HediffDef>
+						<HediffDef ParentName="VFEU_SleeveQualityBase">
+							<defName>VFEU_SleeveShock</defName>
+							<label>sleeve shock</label>
+							<description>In shock due to switching bodies.</description>
+							<isBad>true</isBad>
+							<initialSeverity>1</initialSeverity>
+							<maxSeverity>1</maxSeverity>
+							<stages>
+								<li>
+									<label>wearing off</label>
+									<partEfficiencyOffset>-0.02</partEfficiencyOffset>
+									<vomitMtbDays>1</vomitMtbDays>
+									<minSeverity>0.1</minSeverity>
+									<painOffset>0.02</painOffset>
+									<capMods>
+										<li>
+											<capacity>Moving</capacity>
+											<offset>-0.02</offset>
+										</li>
+										<li>
+											<capacity>Manipulation</capacity>
+											<offset>-0.02</offset>
+										</li>
+										<li>
+											<capacity>Sight</capacity>
+											<offset>-0.05</offset>
+										</li>
+									</capMods>
+								</li>
+								<li>
+									<label>irritated</label>
+									<partEfficiencyOffset>-0.05</partEfficiencyOffset>
+									<vomitMtbDays>3</vomitMtbDays>
+									<minSeverity>0.5</minSeverity>
+									<painOffset>0.05</painOffset>
+									<capMods>
+										<li>
+											<capacity>Moving</capacity>
+											<offset>-0.05</offset>
+										</li>
+										<li>
+											<capacity>Manipulation</capacity>
+											<offset>-0.05</offset>
+										</li>
+										<li>
+											<capacity>Sight</capacity>
+											<offset>-0.10</offset>
+										</li>
+									</capMods>
+									<mentalStateGivers>
+										<li>
+											<mentalState>WanderConfused</mentalState>
+											<mtbDays>50</mtbDays>
+										</li>
+									</mentalStateGivers>
+								</li>
+							</stages>
+							<comps>
+								<li Class="HediffCompProperties_SeverityPerDay">
+									<severityPerDay>-0.5</severityPerDay>
+								</li>
+							</comps>
+						</HediffDef>
+						<!-- ================================ Add Sleeve backstories ====================== -->
+						<VFECore.BackstoryDef>
+							<defName>VFEU_VatGrownSleeveChildhood</defName>
+							<title>Vat-Grown Sleeve</title>
+							<titleShort>Vat-Grown Sleeve</titleShort>
+							<baseDescription>This body was grown in a vat. Having no consciousness inside, it is effectively braindead and only servers as a sleeve for someone's cortical stack.</baseDescription>
+							<slot>Childhood</slot>
+							<workDisables>
+								<li>Animals</li>
+								<li>Artistic</li>
+								<li>Caring</li>
+								<li>Cleaning</li>
+								<li>Cooking</li>
+								<li>Crafting</li>
+								<li>Firefighting</li>
+								<li>Hauling</li>
+								<li>Intellectual</li>
+								<li>ManualDumb</li>
+								<li>ManualSkilled</li>
+								<li>Mining</li>
+								<li>PlantWork</li>
+								<li>Social</li>
+							</workDisables>
+							<spawnCategories/>
+							<shuffleable>false</shuffleable>
+							<saveKeyIdentifier>VFEU_VatGrown45</saveKeyIdentifier>
+						</VFECore.BackstoryDef>
+						<VFECore.BackstoryDef>
+							<defName>VFEU_VatGrownSleeve</defName>
+							<title>Vat-Grown Sleeve</title>
+							<titleShort>Vat-Grown Sleeve</titleShort>
+							<baseDescription>This body was grown in a vat. Having no consciousness inside, it is effectively braindead and only servers as a sleeve for someone's cortical stack.</baseDescription>
+							<slot>Adulthood</slot>
+							<workDisables>
+								<li>Animals</li>
+								<li>Artistic</li>
+								<li>Caring</li>
+								<li>Cleaning</li>
+								<li>Cooking</li>
+								<li>Crafting</li>
+								<li>Firefighting</li>
+								<li>Hauling</li>
+								<li>Intellectual</li>
+								<li>ManualDumb</li>
+								<li>ManualSkilled</li>
+								<li>Mining</li>
+								<li>PlantWork</li>
+								<li>Social</li>
+							</workDisables>
+							<spawnCategories/>
+							<shuffleable>false</shuffleable>
+							<saveKeyIdentifier>VFEU_VatGrown46</saveKeyIdentifier>
+						</VFECore.BackstoryDef>
+						<!-- ================================ Add effects ====================== -->
+						<EffecterDef>
+							<defName>VFEU_Hacking</defName>
+							<children>
+								<li>
+									<subEffecterClass>SubEffecter_SprayerContinuous</subEffecterClass>
+									<moteDef>VFEU_Mote_Hacking</moteDef>
+									<spawnLocType>BetweenTouchingCells</spawnLocType>
+									<positionLerpFactor>0.6</positionLerpFactor>
+									<scale>0.3~0.5</scale>
+									<color>(0, 255, 0)</color>
+									<positionRadius>0.4</positionRadius>
+									<ticksBetweenMotes>20</ticksBetweenMotes>
+								</li>
+							</children>
+						</EffecterDef>
+						<ThingDef ParentName="MoteBase">
+							<defName>VFEU_Mote_Hacking</defName>
+							<altitudeLayer>MoteOverhead</altitudeLayer>
+							<mote>
+								<fadeInTime>0.2</fadeInTime>
+								<solidTime>0.2</solidTime>
+								<fadeOutTime>0.2</fadeOutTime>
+							</mote>
+							<graphicData>
+								<texPath>Things/Mote/Hacking</texPath>
+								<shaderType>MoteGlow</shaderType>
+							</graphicData>
+						</ThingDef>
+						<!-- ================================ Add jobs and worktypes ====================== -->
+						<JobDef>
+							<defName>VFEU_ExtractStack</defName>
+							<driverClass>AlteredCarbon.JobDriver_ExtractStack</driverClass>
+							<reportString>extracts cortical stack from target</reportString>
+						</JobDef>
+						<JobDef>
+							<defName>VFEU_ReleaseSleeve</defName>
+							<driverClass>AlteredCarbon.JobDriver_ReleaseSleeve</driverClass>
+							<reportString>releasing sleeve</reportString>
+						</JobDef>
+						<JobDef>
+							<defName>VFEU_StartIncubatingProcess</defName>
+							<driverClass>AlteredCarbon.JobDriver_StartIncubatingProcess</driverClass>
+							<reportString>starting growth process on incubator</reportString>
+						</JobDef>
+						<JobDef>
+							<defName>VFEU_CancelIncubatingProcess</defName>
+							<driverClass>AlteredCarbon.JobDriver_CancelIncubatingProcess</driverClass>
+							<reportString>canceling growth process on incubator</reportString>
+						</JobDef>
+						<JobDef>
+							<defName>VFEU_FreeMemorySpace</defName>
+							<driverClass>VFEUltratech.JobDriver_FreeMemorySpace</driverClass>
+							<reportString>freeing memory space</reportString>
+							<casualInterruptible>false</casualInterruptible>
+							<playerInterruptible>false</playerInterruptible>
+						</JobDef>
+						<WorkGiverDef>
+							<defName>VFEU_ExtractStack</defName>
+							<label>extracting cortical stack</label>
+							<giverClass>AlteredCarbon.WorkGiver_ExtractStack</giverClass>
+							<workType>Hauling</workType>
+							<verb>extract cortical stack</verb>
+							<gerund>extracting cortical stack</gerund>
+							<priorityInType>20</priorityInType>
+							<requiredCapacities>
+								<li>Manipulation</li>
+							</requiredCapacities>
+						</WorkGiverDef>
+						<WorkGiverDef>
+							<defName>VFEU_DoBillsDecryptionBench</defName>
+							<label>hack stacks</label>
+							<giverClass>WorkGiver_DoBill</giverClass>
+							<workType>Research</workType>
+							<priorityInType>50</priorityInType>
+							<fixedBillGiverDefs>
+								<li>VFEU_DecryptionBench</li>
+							</fixedBillGiverDefs>
+							<verb>hacking stacks</verb>
+							<gerund>hacking stacks at</gerund>
+							<requiredCapacities>
+								<li>Manipulation</li>
+							</requiredCapacities>
+							<prioritizeSustains>true</prioritizeSustains>
+						</WorkGiverDef>
+						<WorkGiverDef>
+							<defName>VFEU_StartIncubatingProcess</defName>
+							<label>start growing process</label>
+							<giverClass>AlteredCarbon.WorkGiver_StartIncubatingProcess</giverClass>
+							<workType>BasicWorker</workType>
+							<priorityInType>50</priorityInType>
+							<verb>starting growing process</verb>
+							<gerund>starting growth process at</gerund>
+							<requiredCapacities>
+								<li>Manipulation</li>
+							</requiredCapacities>
+							<prioritizeSustains>true</prioritizeSustains>
+						</WorkGiverDef>
+						<WorkGiverDef>
+							<defName>VFEU_CancelIncubatingProcess</defName>
+							<label>cancel growing process</label>
+							<giverClass>AlteredCarbon.WorkGiver_CancelIncubatingProcess</giverClass>
+							<workType>BasicWorker</workType>
+							<priorityInType>50</priorityInType>
+							<verb>canceling growing process</verb>
+							<gerund>canceling growth process at</gerund>
+							<requiredCapacities>
+								<li>Manipulation</li>
+							</requiredCapacities>
+							<prioritizeSustains>true</prioritizeSustains>
+						</WorkGiverDef>
+						<!-- ================================ Add designations====================== -->
+						<DesignationDef>
+							<defName>VFEU_ExtractStackDesignation</defName>
+							<texturePath>UI/Icons/ExtractStacks_2</texturePath>
+							<targetType>Thing</targetType>
+						</DesignationDef>
+						<!-- ================================ Add recipes ====================== -->
+						<RecipeDef Name="VFEU_RecipeHacking" Abstract="True">
+							<workSpeedStat>ResearchSpeed</workSpeedStat>
+							<effectWorking>VFEU_Hacking</effectWorking>
+							<soundWorking>Recipe_Machining</soundWorking>
+						</RecipeDef>
+						<RecipeDef ParentName="VFEU_RecipeHacking">
+							<defName>VFEU_DecryptAncientStack</defName>
+							<label>decrypt ancient stack</label>
+							<description>Decrypt ancient stacks in an attempt to repair them or acquire information from them.</description>
+							<jobString>decrypting ancient stack.</jobString>
+							<workerClass>AlteredCarbon.Recipe_DecryptAncientCorticalStack</workerClass>
+							<workAmount>15000</workAmount>
+							<unfinishedThingDef>VFEU_UnfinishedAncientStack</unfinishedThingDef>
+							<ingredients>
+								<li>
+									<filter>
+										<thingDefs>
+											<li>VFEU_AncientStack</li>
+										</thingDefs>
+									</filter>
+									<count>1</count>
+								</li>
+							</ingredients>
+							<skillRequirements>
+								<Intellectual>8</Intellectual>
+							</skillRequirements>
+						</RecipeDef>
+						<RecipeDef ParentName="VFEU_RecipeHacking">
+							<defName>VFEU_HackBiocodedThings</defName>
+							<label>hack biocoded things</label>
+							<description>Attempt to hack and remove biocoding from weapons and equipment to make them usable. If unsuccessful, the item will break.</description>
+							<jobString>hacking biocoded things.</jobString>
+							<workerClass>AlteredCarbon.Recipe_HackBiocodedThings</workerClass>
+							<workAmount>25000</workAmount>
+							<ingredients>
+								<li>
+									<filter>
+										<thingDefs>
+											<li>Apparel_PowerArmorHelmet</li>
+											<li>Gun_TripleRocket</li>
+										</thingDefs>
+									</filter>
+									<count>1</count>
+								</li>
+							</ingredients>
+							<fixedIngredientFilter>
+								<thingDefs>
+									<li>Apparel_PowerArmorHelmet</li>
+									<li>Gun_TripleRocket</li>
+								</thingDefs>
+							</fixedIngredientFilter>
+							<skillRequirements>
+								<Intellectual>10</Intellectual>
+							</skillRequirements>
+						</RecipeDef>
+						<RecipeDef ParentName="VFEU_RecipeHacking">
+							<defName>VFEU_WipeFilledCorticalStack</defName>
+							<label>wipe cortical stack</label>
+							<description>Wipe a cortical stack and remove the pawn stored on it.</description>
+							<jobString>wiping cortical stack.</jobString>
+							<workerClass>AlteredCarbon.Recipe_WipeFilledCorticalStack</workerClass>
+							<workAmount>180</workAmount>
+							<ingredients>
+								<li>
+									<filter>
+										<thingDefs>
+											<li>VFEU_FilledCorticalStack</li>
+										</thingDefs>
+										<specialFiltersToAllow>
+											<li>VFEU_AllowStacksColonist</li>
+											<li>VFEU_AllowStacksStranger</li>
+											<li>VFEU_AllowStacksHostile</li>
+										</specialFiltersToAllow>
+									</filter>
+									<count>1</count>
+								</li>
+							</ingredients>
+							<fixedIngredientFilter>
+								<thingDefs>
+									<li>VFEU_FilledCorticalStack</li>
+								</thingDefs>
+								<specialFiltersToAllow>
+									<li>VFEU_AllowStacksColonist</li>
+									<li>VFEU_AllowStacksStranger</li>
+									<li>VFEU_AllowStacksHostile</li>
+								</specialFiltersToAllow>
+							</fixedIngredientFilter>
+							<defaultIngredientFilter>
+								<thingDefs>
+									<li>VFEU_FilledCorticalStack</li>
+								</thingDefs>
+								<specialFiltersToAllow>
+									<li>VFEU_AllowStacksColonist</li>
+									<li>VFEU_AllowStacksStranger</li>
+									<li>VFEU_AllowStacksHostile</li>
+								</specialFiltersToAllow>
+							</defaultIngredientFilter>
+							<skillRequirements>
+								<Intellectual>8</Intellectual>
+							</skillRequirements>
+						</RecipeDef>
+						<RecipeDef ParentName="VFEU_RecipeHacking">
+							<defName>VFEU_HackFilledCorticalStack</defName>
+							<label>hack cortical stack</label>
+							<description>Convert a cortical stack to the players faction.</description>
+							<jobString>hacking cortical stack.</jobString>
+							<workerClass>AlteredCarbon.Recipe_HackFilledCorticalStack</workerClass>
+							<workAmount>180</workAmount>
+							<ingredients>
+								<li>
+									<filter>
+										<thingDefs>
+											<li>VFEU_FilledCorticalStack</li>
+											<li>VFEU_EmptyCorticalStack</li>
+										</thingDefs>
+										<specialFiltersToAllow>
+											<li>VFEU_AllowStacksColonist</li>
+											<li>VFEU_AllowStacksStranger</li>
+											<li>VFEU_AllowStacksHostile</li>
+										</specialFiltersToAllow>
+									</filter>
+									<count>1</count>
+								</li>
+							</ingredients>
+							<fixedIngredientFilter>
+								<thingDefs>
+									<li>VFEU_FilledCorticalStack</li>
+								</thingDefs>
+								<specialFiltersToAllow>
+									<li>VFEU_AllowStacksColonist</li>
+									<li>VFEU_AllowStacksStranger</li>
+									<li>VFEU_AllowStacksHostile</li>
+								</specialFiltersToAllow>
+							</fixedIngredientFilter>
+							<defaultIngredientFilter>
+								<thingDefs>
+									<li>VFEU_FilledCorticalStack</li>
+								</thingDefs>
+								<specialFiltersToAllow>
+									<li>VFEU_AllowStacksColonist</li>
+									<li>VFEU_AllowStacksStranger</li>
+									<li>VFEU_AllowStacksHostile</li>
+								</specialFiltersToAllow>
+							</defaultIngredientFilter>
+							<skillRequirements>
+								<Intellectual>8</Intellectual>
+							</skillRequirements>
+						</RecipeDef>
+						<RecipeDef ParentName="SurgeryInstallImplantBase">
+							<defName>VFEU_InstallEmptyCorticalStack</defName>
+							<label>install empty cortical stack</label>
+							<description>Install an empty cortical stack.</description>
+							<descriptionHyperlinks>
+								<ThingDef>VFEU_EmptyCorticalStack</ThingDef>
+							</descriptionHyperlinks>
+							<workerClass>AlteredCarbon.Recipe_InstallCorticalStack</workerClass>
+							<jobString>Installing cortical stack.</jobString>
+							<uiIconThing>VFEU_EmptyCorticalStack</uiIconThing>
+							<ingredients>
+								<li>
+									<filter>
+										<thingDefs>
+											<li>VFEU_EmptyCorticalStack</li>
+										</thingDefs>
+									</filter>
+									<count>1</count>
+								</li>
+							</ingredients>
+							<fixedIngredientFilter>
+								<thingDefs>
+									<li>VFEU_EmptyCorticalStack</li>
+								</thingDefs>
+							</fixedIngredientFilter>
+							<appliedOnFixedBodyParts>
+								<li>Neck</li>
+							</appliedOnFixedBodyParts>
+							<addsHediff>VFEU_CorticalStack</addsHediff>
+						</RecipeDef>
+						<RecipeDef ParentName="SurgeryInstallImplantBase">
+							<defName>VFEU_InstallCorticalStack</defName>
+							<label>install filled cortical stack</label>
+							<description>Install a cortical stack.</description>
+							<descriptionHyperlinks>
+								<ThingDef>VFEU_FilledCorticalStack</ThingDef>
+							</descriptionHyperlinks>
+							<workerClass>AlteredCarbon.Recipe_InstallFilledCorticalStack</workerClass>
+							<jobString>Installing cortical stack.</jobString>
+							<uiIconThing>VFEU_FilledCorticalStack</uiIconThing>
+							<ingredients>
+								<li>
+									<filter>
+										<thingDefs>
+											<li>VFEU_FilledCorticalStack</li>
+										</thingDefs>
+									</filter>
+									<count>1</count>
+								</li>
+							</ingredients>
+							<fixedIngredientFilter>
+								<thingDefs>
+									<li>VFEU_FilledCorticalStack</li>
+								</thingDefs>
+							</fixedIngredientFilter>
+							<appliedOnFixedBodyParts>
+								<li>Neck</li>
+							</appliedOnFixedBodyParts>
+							<addsHediff>VFEU_CorticalStack</addsHediff>
+						</RecipeDef>
+						<RecipeDef ParentName="SurgeryRemoveImplantBase">
+							<defName>VFEU_RemoveCorticalStack</defName>
+							<label>remove cortical stack</label>
+							<description>Remove cortical stack.</description>
+							<descriptionHyperlinks>
+								<ThingDef>VFEU_FilledCorticalStack</ThingDef>
+							</descriptionHyperlinks>
+							<workerClass>AlteredCarbon.Recipe_RemoveCorticalStack</workerClass>
+							<jobString>Removing cortical stack.</jobString>
+							<uiIconThing>VFEU_FilledCorticalStack</uiIconThing>
+							<removesHediff>VFEU_CorticalStack</removesHediff>
+						</RecipeDef>
+						<!-- ================================ Add SpecialThingFilters ====================== -->
+						<SpecialThingFilterDef>
+							<defName>VFEU_AllowStacksColonist</defName>
+							<label>allow colonist stacks</label>
+							<description>Allow the stacks of colonists.</description>
+							<parentCategory>VFEU_BodyPartsUltra</parentCategory>
+							<allowedByDefault>true</allowedByDefault>
+							<saveKey>allowStacksColonist</saveKey>
+							<workerClass>AlteredCarbon.SpecialThingFilterWorker_StacksColonist</workerClass>
+						</SpecialThingFilterDef>
+						<SpecialThingFilterDef>
+							<defName>VFEU_AllowStacksStranger</defName>
+							<label>allow stranger stacks</label>
+							<description>Allow the stacks of strangers.</description>
+							<parentCategory>VFEU_BodyPartsUltra</parentCategory>
+							<allowedByDefault>false</allowedByDefault>
+							<saveKey>allowStacksStranger</saveKey>
+							<workerClass>AlteredCarbon.SpecialThingFilterWorker_StacksStranger</workerClass>
+						</SpecialThingFilterDef>
+						<SpecialThingFilterDef>
+							<defName>VFEU_AllowStacksHostile</defName>
+							<label>allow hostile stacks</label>
+							<description>Allow the stacks of hostiles and enemies.</description>
+							<parentCategory>VFEU_BodyPartsUltra</parentCategory>
+							<allowedByDefault>false</allowedByDefault>
+							<saveKey>allowStacksHostile</saveKey>
+							<workerClass>AlteredCarbon.SpecialThingFilterWorker_StacksHostile</workerClass>
+						</SpecialThingFilterDef>
+						<!-- ================================ Add research ====================== -->
+						<ResearchProjectDef Name="VFEU_ResearchBase" Abstract="True">
+							<techLevel>Ultra</techLevel>
+							<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
+							<requiredResearchFacilities>
+								<li>MultiAnalyzer</li>
+							</requiredResearchFacilities>
+						</ResearchProjectDef>
+						<ResearchProjectDef ParentName="VFEU_ResearchBase">
+							<defName>VFEU_Hacking</defName>
+							<label>hacking</label>
+							<description>Hack into closed systems, remove restrictions or wipe cortical stacks.</description>
+							<baseCost>1200</baseCost>
+							<researchViewX>0.00</researchViewX>
+							<researchViewY>1.40</researchViewY>
+						</ResearchProjectDef>
+						<!-- ================================ Add categories ====================== -->
+						<ThingCategoryDef>
+							<defName>VFEU_BodyPartsUltra</defName>
+							<label>cortical stack</label>
+							<parent>Items</parent>
+						</ThingCategoryDef>
+						<!-- ================================ Add thoughts ====================== -->
+						<ThoughtDef>
+							<defName>VFEU_WrongRace</defName>
+							<durationDays>120</durationDays>
+							<stackLimit>1</stackLimit>
+							<nullifyingTraits>
+								<li>Masochist</li>
+								<li>VFEU_FreeMind</li>
+							</nullifyingTraits>
+							<stages>
+								<li>
+									<label>different sleeve race</label>
+									<description>The race of my sleeve is not my own, this feels wrong.</description>
+									<baseMoodEffect>-5</baseMoodEffect>
+								</li>
+							</stages>
+						</ThoughtDef>
+						<ThoughtDef>
+							<defName>VFEU_WrongGender</defName>
+							<durationDays>120</durationDays>
+							<stackLimit>1</stackLimit>
+							<nullifyingTraits>
+								<li>Bisexual</li>
+								<li>Masochist</li>
+								<li>Asexual</li>
+								<li>VFEU_FreeMind</li>
+							</nullifyingTraits>
+							<stages>
+								<li>
+									<label>different sleeve gender</label>
+									<description>The gender of my sleeve is not my own, this feels wrong.</description>
+									<baseMoodEffect>-5</baseMoodEffect>
+								</li>
+							</stages>
+						</ThoughtDef>
+						<ThoughtDef>
+							<defName>VFEU_WrongGenderDouble</defName>
+							<durationDays>120</durationDays>
+							<stackLimit>1</stackLimit>
+							<nullifyingTraits>
+								<li>Bisexual</li>
+								<li>Masochist</li>
+								<li>Asexual</li>
+								<li>VFEU_FreeMind</li>
+							</nullifyingTraits>
+							<stages>
+								<li>
+									<label>different sleeve gender</label>
+									<description>The gender of my sleeve is not my own, this is wrong.</description>
+									<baseMoodEffect>-10</baseMoodEffect>
+								</li>
+							</stages>
+						</ThoughtDef>
+						<ThoughtDef>
+							<defName>VFEU_NewSleeve</defName>
+							<durationDays>30</durationDays>
+							<stackLimit>1</stackLimit>
+							<nullifyingTraits>
+								<li>Transhumanist</li>
+								<li>VFEU_Sleever</li>
+							</nullifyingTraits>
+							<stages>
+								<li>
+									<label>New sleeve</label>
+									<description>I have a new body, this will take some getting used to.</description>
+									<baseMoodEffect>-2</baseMoodEffect>
+								</li>
+							</stages>
+						</ThoughtDef>
+						<ThoughtDef>
+							<defName>VFEU_NewSleeveDouble</defName>
+							<durationDays>30</durationDays>
+							<stackLimit>1</stackLimit>
+							<nullifyingTraits>
+								<li>Bisexual</li>
+								<li>Masochist</li>
+								<li>Asexual</li>
+								<li>VFEU_Sleever</li>
+							</nullifyingTraits>
+							<stages>
+								<li>
+									<label>New sleeve</label>
+									<description>I have a new body, this will take some getting used to.</description>
+									<baseMoodEffect>-5</baseMoodEffect>
+								</li>
+							</stages>
+						</ThoughtDef>
+						<ThoughtDef>
+							<defName>VFEU_MansBody</defName>
+							<workerClass>AlteredCarbon.ThoughtWorker_MansBody</workerClass>
+							<stackLimit>1</stackLimit>
+							<stages>
+								<li>
+									<label>A man’s body</label>
+									<description>I am in the body of a man, I don't like it!</description>
+									<baseMoodEffect>-3</baseMoodEffect>
+								</li>
+							</stages>
+						</ThoughtDef>
+						<ThoughtDef>
+							<defName>VFEU_WomansBody</defName>
+							<workerClass>AlteredCarbon.ThoughtWorker_WomansBody</workerClass>
+							<stackLimit>1</stackLimit>
+							<stages>
+								<li>
+									<label>A woman's body</label>
+									<description>I am in the body of a woman, I don't like it!</description>
+									<baseMoodEffect>-3</baseMoodEffect>
+								</li>
+							</stages>
+						</ThoughtDef>
+						<ThoughtDef>
+							<defName>VFEU_SomethingIsWrong</defName>
+							<durationDays>120</durationDays>
+							<stackLimit>1</stackLimit>
+							<stages>
+								<li>
+									<label>Something is wrong</label>
+									<description>Something feels wrong, as if I am not really myself. Am I imagining it?</description>
+									<baseMoodEffect>-15</baseMoodEffect>
+								</li>
+							</stages>
+						</ThoughtDef>
+						<!-- ================================ Add traits ====================== -->
+						<TraitDef>
+							<defName>VFEU_FreeMind</defName>
+							<commonality>0.6</commonality>
+							<degreeDatas>
+								<li>
+									<label>free mind</label>
+									<description>[PAWN_nameDef] always saw their body as nothing more than a vessel for their mind. [PAWN_pronoun] does not care about the gender, age or looks of a body.</description>
+								</li>
+							</degreeDatas>
+						</TraitDef>
+						<TraitDef>
+							<defName>VFEU_Sleever</defName>
+							<commonality>0.6</commonality>
+							<degreeDatas>
+								<li>
+									<label>sleever</label>
+									<description>{PAWN_nameDef} is used to changing sleeves like they are clothes. {Pawn_pronoun} doesn’t care how often {Pawn_pronoun} switches his sleeves or what sleeve {Pawn_pronoun} is currently using.</description>
+								</li>
+							</degreeDatas>
+						</TraitDef>
 					</value>
 				</li>
 			</operations>
