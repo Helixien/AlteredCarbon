@@ -1328,7 +1328,7 @@
 						</ThingCategoryDef>
 						<!-- ================================ Add thoughts ====================== -->
 						<ThoughtDef>
-							<defName>VFEU_WrongRace</defName>
+							<defName>VFEU_WrongXenoType</defName>
 							<durationDays>120</durationDays>
 							<stackLimit>1</stackLimit>
 							<nullifyingTraits>
@@ -1338,7 +1338,7 @@
 							<stages>
 								<li>
 									<label>different sleeve race</label>
-									<description>The race of my sleeve is not my own, this feels wrong.</description>
+									<description>The xenotype of my sleeve is not my own, this feels wrong.</description>
 									<baseMoodEffect>-5</baseMoodEffect>
 								</li>
 							</stages>
