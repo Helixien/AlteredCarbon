@@ -77,7 +77,6 @@
 		<thingSetMakerTags>
 			<li>RewardStandardLowFreq</li>
 		</thingSetMakerTags>
-		<storedConceptLearnOpportunity>VFEU_EmptyStacks</storedConceptLearnOpportunity>
 	</ThingDef>
 	<ThingDef ParentName="VFEU_StackBase">
 		<defName>VFEU_FilledCorticalStack</defName>
@@ -101,6 +100,5 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<tradeability>None</tradeability>
-		<storedConceptLearnOpportunity>VFEU_FilledStacks</storedConceptLearnOpportunity>
 	</ThingDef>
 </Defs>
