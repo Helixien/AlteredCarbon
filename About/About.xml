@@ -6,7 +6,7 @@
 		<li>1.4</li>
 	</supportedVersions>
 	<packageId>Hlx.UltratechAlteredCarbon</packageId>
-	<description>Mod Version: 4.0
+	<description>Mod Version: 5.0
 
 Check the workshop page for information.</description>
 	<url>https://steamcommunity.com/sharedfiles/filedetails/?id=2196278117</url>
@@ -18,7 +18,7 @@ Check the workshop page for information.</description>
 			<steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=2196278117</steamWorkshopUrl>
 		</li>
 		<li>
-			<packageId>OskarPotocki.VanillaExpandedFramework</packageId>
+			<packageId>OskarPotocki.VanillaFactionsExpanded.Core</packageId>
 			<displayName>Vanilla Expanded Framework</displayName>
 			<downloadUrl>https://github.com/AndroidQuazar/VanillaExpandedFramework</downloadUrl>
 			<steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=2023507013</steamWorkshopUrl>
@@ -26,6 +26,6 @@ Check the workshop page for information.</description>
 	</modDependencies>
 	<loadAfter>
 		<li>brrainz.harmony</li>	
-		<li>OskarPotocki.VanillaExpandedFramework</li>
+		<li>OskarPotocki.VanillaFactionsExpanded.Core</li>
 	</loadAfter>
 </ModMetaData>
