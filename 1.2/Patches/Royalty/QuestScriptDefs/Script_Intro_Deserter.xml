@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Royalty</li>
+        </mods>
+        <match Class="PatchOperationSequence">
+            <success>Always</success>
+            <operations>
+                <li Class="PatchOperationAdd">
+                    <xpath>/Defs/QuestScriptDef[defName="Intro_Deserter"]/root[@Class="QuestNode_Sequence"]/nodes/li[@Class="QuestNode_SetItemStashContents"]/items</xpath>
+                    <value>
+						<li>AC_EmptyCorticalStack</li>
+						<li>AC_EmptyCorticalStack</li>
+                    </value>
+                </li>
+            </operations>
+        </match>
+    </Operation>
+
+</Patch>

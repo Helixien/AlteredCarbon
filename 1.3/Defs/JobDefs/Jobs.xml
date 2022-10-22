@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<JobDef>
+		<defName>UT_ExtractStack</defName>
+		<driverClass>AlteredCarbon.JobDriver_ExtractStack</driverClass>
+		<reportString>extracts cortical stack from target</reportString>
+	</JobDef>
+	
+	<JobDef>
+		<defName>UT_DuplicateStack</defName>
+		<driverClass>AlteredCarbon.JobDriver_DuplicateStack</driverClass>
+		<reportString>duplicating cortical stack</reportString>
+	</JobDef>
+	
+	<JobDef>
+		<defName>UT_CreateStackFromBackup</defName>
+		<driverClass>AlteredCarbon.JobDriver_CreateStackFromBackup</driverClass>
+		<reportString>restoring cortical stack from backup</reportString>
+	</JobDef>
+	
+	<JobDef>
+		<defName>UT_ReleaseSleeve</defName>
+		<driverClass>AlteredCarbon.JobDriver_ReleaseSleeve</driverClass>
+		<reportString>releasing sleeve</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>UT_InsertBrainTemplate</defName>
+		<driverClass>AlteredCarbon.JobDriver_InsertBrainTemplate</driverClass>
+		<reportString>inserting brain template</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>UT_ExtractActiveBrainTemplate</defName>
+		<driverClass>AlteredCarbon.JobDriver_ExtractActiveBrainTemplate</driverClass>
+		<reportString>extracting brain template from incubator</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>UT_StartIncubatingProcess</defName>
+		<driverClass>AlteredCarbon.JobDriver_StartIncubatingProcess</driverClass>
+		<reportString>starting growth process on incubator</reportString>
+	</JobDef>
+	
+	<JobDef>
+		<defName>UT_CancelIncubatingProcess</defName>
+		<driverClass>AlteredCarbon.JobDriver_CancelIncubatingProcess</driverClass>
+		<reportString>canceling growth process on incubator</reportString>
+	</JobDef>
+	
+	<WorkGiverDef>
+		<defName>UT_ExtractActiveBrainTemplate</defName>
+		<label>extracting brain template from incubator</label>
+		<giverClass>AlteredCarbon.WorkGiver_ExtractBrainTemplate</giverClass>
+		<workType>Hauling</workType>
+		<verb>extract brain template from incubator</verb>
+		<gerund>extracting brain template from incubator</gerund>
+		<priorityInType>20</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+
+	<WorkGiverDef>
+		<defName>UT_InsertBrainTemplate</defName>
+		<label>inserting brain template in incubator</label>
+		<giverClass>AlteredCarbon.WorkGiver_InsertBrainTemplate</giverClass>
+		<workType>Hauling</workType>
+		<verb>insert brain template in incubator</verb>
+		<gerund>inserting brain template in incubator</gerund>
+		<priorityInType>20</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+
+	<WorkGiverDef>
+		<defName>UT_ExtractStack</defName>
+		<label>extracting cortical stack</label>
+		<giverClass>AlteredCarbon.WorkGiver_ExtractStack</giverClass>
+		<workType>Hauling</workType>
+		<verb>extract cortical stack</verb>
+		<gerund>extracting cortical stack</gerund>
+		<priorityInType>20</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+
+	<WorkGiverDef>
+		<defName>UT_DuplicateStacks</defName>
+		<label>duplicate stacks</label>
+		<giverClass>AlteredCarbon.WorkGiver_DuplicateStacks</giverClass>
+		<workType>Research</workType>
+		<verb>duplicate</verb>
+		<gerund>duplicating</gerund>
+		<priorityInType>999</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+
+	<WorkGiverDef>
+		<defName>UT_HaulStacksToStorage</defName>
+		<label>haul stacks</label>
+		<giverClass>AlteredCarbon.WorkGiver_HaulStacks</giverClass>
+		<workType>Hauling</workType>
+		<verb>haul</verb>
+		<gerund>hauling</gerund>
+		<priorityInType>999</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+
+	<WorkGiverDef>
+		<defName>UT_DoBillsDecryptionBench</defName>
+		<label>hack stacks</label>
+		<giverClass>WorkGiver_DoBill</giverClass>
+		<workType>Research</workType>
+		<priorityInType>50</priorityInType>
+		<fixedBillGiverDefs>
+			<li>UT_DecryptionBench</li>
+		</fixedBillGiverDefs>
+		<verb>hacking stacks</verb>
+		<gerund>hacking stacks at</gerund>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+		<prioritizeSustains>true</prioritizeSustains>
+	</WorkGiverDef>
+	
+	<WorkGiverDef>
+		<defName>UT_StartIncubatingProcess</defName>
+		<label>start growing process</label>
+		<giverClass>AlteredCarbon.WorkGiver_StartIncubatingProcess</giverClass>
+		<workType>BasicWorker</workType>
+		<priorityInType>50</priorityInType>
+		<verb>starting growing process</verb>
+		<gerund>starting growth process at</gerund>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+		<prioritizeSustains>true</prioritizeSustains>
+	</WorkGiverDef>
+	
+	<WorkGiverDef>
+		<defName>UT_CancelIncubatingProcess</defName>
+		<label>cancel growing process</label>
+		<giverClass>AlteredCarbon.WorkGiver_CancelIncubatingProcess</giverClass>
+		<workType>BasicWorker</workType>
+		<priorityInType>50</priorityInType>
+		<verb>canceling growing process</verb>
+		<gerund>canceling growth process at</gerund>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+		<prioritizeSustains>true</prioritizeSustains>
+	</WorkGiverDef>
+	
+	<WorkGiverDef>
+		<defName>UT_CreateStackFromBackup</defName>
+		<label>restore stack from backup</label>
+		<giverClass>AlteredCarbon.WorkGiver_CreateStackFromBackup</giverClass>
+		<workType>Research</workType>
+		<verb>restore stack from backup</verb>
+		<gerund>restoring stack from backup</gerund>
+		<priorityInType>999</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+</Defs>

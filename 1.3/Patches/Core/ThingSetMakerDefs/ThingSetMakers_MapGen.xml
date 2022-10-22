@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Core</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<success>Always</success>
+			<operations>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/ThingSetMakerDef[defName="MapGen_AncientTempleContents"]/root/options/li/thingSetMaker/fixedParams/qualityGenerator[text()="Reward"]/../filter/thingDefs</xpath>
+					<value>
+						<li>UT_AncientStack</li>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+
+</Patch>

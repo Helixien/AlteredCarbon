@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+	<AlteredCarbon.BackstoryDef>
+		<defName>AC_EmptySleeveChildhood</defName>
+		<title>Empty Sleeve</title>
+		<titleShort>Empty Sleeve</titleShort>
+		<baseDescription>Grown in a vat, this body is basically brain dead and cannot live on its own.</baseDescription>
+		<slot>Childhood</slot>
+		<workDisables>
+			<li>Animals</li>
+			<li>Artistic</li>
+			<li>Caring</li>
+			<li>Cleaning</li>
+			<li>Cooking</li>
+			<li>Crafting</li>
+			<li>Firefighting</li>
+			<li>Hauling</li>
+			<li>Intellectual</li>
+			<li>ManualDumb</li>
+			<li>ManualSkilled</li>
+			<li>Mining</li>
+			<li>PlantWork</li>
+			<li>Social</li>
+		</workDisables>
+		<spawnCategories>
+			<li>Civil</li>
+		</spawnCategories>
+		<shuffleable>false</shuffleable>
+		<saveKeyIdentifier>AC_VatGrown45</saveKeyIdentifier>
+	</AlteredCarbon.BackstoryDef>
+
+</Defs>

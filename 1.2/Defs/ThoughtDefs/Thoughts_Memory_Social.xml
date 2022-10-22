@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThoughtDef>
+		<defName>AC_KilledMyOriginal</defName>
+		<thoughtClass>Thought_MemorySocial</thoughtClass>
+		<durationDays>120</durationDays>
+		<stackLimit>300</stackLimit>
+		<stackLimitForSameOtherPawn>10</stackLimitForSameOtherPawn>
+		<stages>
+			<li>
+				<label>killed my original</label>
+				<baseOpinionOffset>-80</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>AC_KilledMyCopy</defName>
+		<thoughtClass>Thought_MemorySocial</thoughtClass>
+		<durationDays>120</durationDays>
+		<stackLimit>300</stackLimit>
+		<stackLimitForSameOtherPawn>10</stackLimitForSameOtherPawn>
+		<stages>
+			<li>
+				<label>killed my copy</label>
+				<baseOpinionOffset>-80</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+</Defs>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<FactionDef Abstract="True" Name="AC_SleeveBase">
+		<defName>AC_EmptySleeves</defName>
+		<label>empty sleeves</label>
+		<pawnSingular>sleeve</pawnSingular>
+		<pawnsPlural>sleeves</pawnsPlural>
+		<requiredCountAtGameStart>1</requiredCountAtGameStart>
+		<fixedName>Empty Sleeves</fixedName>
+		<hidden>true</hidden>
+		<rescueesCanJoin>false</rescueesCanJoin>
+		<autoFlee>false</autoFlee>
+	</FactionDef>
+
+</Defs>

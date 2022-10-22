@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<RecipeDef ParentName="SurgeryInstallImplantBase">
+		<defName>UT_InstallEmptyCorticalStack</defName>
+		<label>install empty cortical stack</label>
+		<description>Install an empty cortical stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>UT_EmptyCorticalStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_InstallCorticalStack</workerClass>
+		<jobString>Installing cortical stack.</jobString>
+		<uiIconThing>UT_EmptyCorticalStack</uiIconThing>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>UT_EmptyCorticalStack</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>UT_EmptyCorticalStack</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Neck</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>UT_CorticalStack</addsHediff>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SurgeryInstallImplantBase">
+		<defName>UT_InstallCorticalStack</defName>
+		<label>install filled cortical stack</label>
+		<description>Install a cortical stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>UT_FilledCorticalStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_InstallFilledCorticalStack</workerClass>
+		<jobString>Installing cortical stack.</jobString>
+		<uiIconThing>UT_FilledCorticalStack</uiIconThing>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>UT_FilledCorticalStack</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>UT_FilledCorticalStack</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Neck</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>UT_CorticalStack</addsHediff>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SurgeryRemoveImplantBase">
+		<defName>UT_RemoveCorticalStack</defName>
+		<label>remove cortical stack</label>
+		<description>Remove cortical stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>UT_FilledCorticalStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_RemoveCorticalStack</workerClass>
+		<jobString>Removing cortical stack.</jobString>
+		<uiIconThing>UT_FilledCorticalStack</uiIconThing>
+		<removesHediff>UT_CorticalStack</removesHediff>
+	</RecipeDef>
+
+</Defs>

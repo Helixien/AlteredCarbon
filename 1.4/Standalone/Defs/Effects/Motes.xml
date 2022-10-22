@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+	<ThingDef ParentName="MoteBase">
+		<defName>VFEU_Mote_Hacking</defName>
+		<altitudeLayer>MoteOverhead</altitudeLayer>
+		<mote>
+			<fadeInTime>0.2</fadeInTime>
+			<solidTime>0.2</solidTime>
+			<fadeOutTime>0.2</fadeOutTime>
+		</mote>
+		<graphicData>
+			<texPath>Things/Mote/Hacking</texPath>
+			<shaderType>MoteGlow</shaderType>
+		</graphicData>
+	</ThingDef>
+</Defs>

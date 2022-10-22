@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Core</li>
+        </mods>
+        <match Class="PatchOperationSequence">
+            <success>Always</success>
+            <operations>
+                <li Class="PatchOperationAddModExtension">
+                    <xpath>/Defs/PawnKindDef[defName="Tribal_ChiefMelee"]</xpath>
+                    <value>
+                        <li Class="AlteredCarbon.StackSpawnModExtension">
+                            <SpawnsWithStack>true</SpawnsWithStack>
+                            <ChanceToSpawnWithStack>1</ChanceToSpawnWithStack>
+                        </li>
+                    </value>
+                </li>
+                <li Class="PatchOperationAddModExtension">
+                    <xpath>/Defs/PawnKindDef[defName="Tribal_ChiefRanged"]</xpath>
+                    <value>
+                        <li Class="AlteredCarbon.StackSpawnModExtension">
+                            <SpawnsWithStack>true</SpawnsWithStack>
+                            <ChanceToSpawnWithStack>1</ChanceToSpawnWithStack>
+                        </li>
+                    </value>
+                </li>
+            </operations>
+        </match>
+    </Operation>
+
+</Patch>

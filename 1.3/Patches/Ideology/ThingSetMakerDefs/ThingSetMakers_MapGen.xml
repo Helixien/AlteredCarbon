@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Ideology</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<success>Always</success>
+			<operations>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/ThingSetMakerDef[defName="MapGen_AncientComplexRoomLoot_Default" or defName="MapGen_AncientComplexRoomLoot_Better" or defName="MapGen_AncientComplex_SecurityCrate"]/root/options</xpath>
+					<value>
+						<li>
+							<weight>0.05</weight>
+							<thingSetMaker Class="ThingSetMaker_StackCount">
+								<fixedParams>
+									<filter>
+										<thingDefs>
+											<li>UT_AncientStack</li>
+										</thingDefs>
+									</filter>
+									<countRange>1</countRange>
+								</fixedParams>
+							</thingSetMaker>
+						</li>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+
+</Patch>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThoughtDef>
+		<defName>UT_WrongRace</defName>
+		<durationDays>120</durationDays>
+		<stackLimit>1</stackLimit>
+		<nullifyingTraits>
+			<li>Masochist</li>
+		</nullifyingTraits>
+		<stages>
+			<li>
+				<label>different sleeve race</label>
+				<description>The race of my sleeve is not my own, this feels wrong.</description>
+				<baseMoodEffect>-5</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>UT_WrongGender</defName>
+		<durationDays>120</durationDays>
+		<stackLimit>1</stackLimit>
+		<nullifyingTraits>
+			<li>Bisexual</li>
+			<li>Masochist</li>
+			<li>Asexual</li>
+		</nullifyingTraits>
+		<stages>
+			<li>
+				<label>different sleeve gender</label>
+				<description>The gender of my sleeve is not my own, this feels wrong.</description>
+				<baseMoodEffect>-5</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>UT_WrongGenderDouble</defName>
+		<durationDays>120</durationDays>
+		<stackLimit>1</stackLimit>
+		<nullifyingTraits>
+			<li>Bisexual</li>
+			<li>Masochist</li>
+			<li>Asexual</li>
+		</nullifyingTraits>
+		<stages>
+			<li>
+				<label>different sleeve gender</label>
+				<description>The gender of my sleeve is not my own, this is wrong.</description>
+				<baseMoodEffect>-10</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>UT_NewSleeve</defName>
+		<durationDays>30</durationDays>
+		<stackLimit>1</stackLimit>
+		<nullifyingTraits>
+			<li>Transhumanist</li>
+		</nullifyingTraits>
+		<stages>
+			<li>
+				<label>New sleeve</label>
+				<description>I have a new body, this will take some getting used to.</description>
+				<baseMoodEffect>-2</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>UT_NewSleeveDouble</defName>
+		<durationDays>30</durationDays>
+		<stackLimit>1</stackLimit>
+		<nullifyingTraits>
+			<li>Bisexual</li>
+			<li>Masochist</li>
+			<li>Asexual</li>
+		</nullifyingTraits>
+		<stages>
+			<li>
+				<label>New sleeve</label>
+				<description>I have a new body, this will take some getting used to.</description>
+				<baseMoodEffect>-5</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>UT_MansBody</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_MansBody</workerClass>
+		<stackLimit>1</stackLimit>
+		<stages>
+			<li>
+				<label>A man’s body</label>
+				<description>I am in the body of a man, I don't like it!</description>
+				<baseMoodEffect>-3</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>UT_WomansBody</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_WomansBody</workerClass>
+		<stackLimit>1</stackLimit>
+		<stages>
+			<li>
+				<label>A woman's body</label>
+				<description>I am in the body of a woman, I don't like it!</description>
+				<baseMoodEffect>-3</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>UT_JustCopy</defName>
+		<durationDays>60</durationDays>
+		<stackLimit>1</stackLimit>
+		<nullifyingTraits>
+			<li>Transhumanist</li>
+			<li>Psychopath</li>
+		</nullifyingTraits>
+		<stages>
+			<li>
+				<label>Just a copy</label>
+				<description>I am nothing more than a copy... What even am I?</description>
+				<baseMoodEffect>-15</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>UT_LostMySpouse</defName>
+		<durationDays>30</durationDays>
+		<stackLimit>1</stackLimit>
+		<stages>
+			<li>
+				<label>Lost my spouse</label>
+				<description>My spouse stayed with my original copy, but I still love them. This isn't fair...</description>
+				<baseMoodEffect>-10</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>UT_LostMyFiance</defName>
+		<durationDays>30</durationDays>
+		<stackLimit>1</stackLimit>
+		<stages>
+			<li>
+				<label>Lost my fiance</label>
+				<description>My fiance stayed with my original copy, but I still love them. This isn't fair...</description>
+				<baseMoodEffect>-10</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>UT_LostMyLover</defName>
+		<durationDays>30</durationDays>
+		<stackLimit>1</stackLimit>
+		<stages>
+			<li>
+				<label>Lost my lover</label>
+				<description>My lover stayed with my original copy, but I still love them. This isn't fair...</description>
+				<baseMoodEffect>-10</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>UT_SomethingIsWrong</defName>
+		<durationDays>120</durationDays>
+		<stackLimit>1</stackLimit>
+		<stages>
+			<li>
+				<label>Something is wrong</label>
+				<description>Something feels wrong, as if I am not really myself. Am I imagining it?</description>
+				<baseMoodEffect>-15</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+</Defs>

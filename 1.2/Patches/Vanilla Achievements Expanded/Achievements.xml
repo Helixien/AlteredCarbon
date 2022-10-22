@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Vanilla Achievements Expanded</li>
+		</mods>
+		<match Class="PatchOperationAdd">
+			<xpath>/Defs</xpath>
+			<value>
+				<AchievementsExpanded.AchievementDef>
+					<defName>AC_DeathIsNoMore</defName>
+					<label>Death Is No More</label>
+					<description>Install a cortical stack.</description>
+					<tracker Class="AchievementsExpanded.HediffTracker">
+						<def>AC_CorticalStack</def>
+						<count>1</count>
+					</tracker>
+					<texPath>Achievements/DeathIsNoMore</texPath>
+					<points>20</points>
+				</AchievementsExpanded.AchievementDef>
+
+				<AchievementsExpanded.AchievementDef>
+					<defName>AC_StackingStacks</defName>
+					<label>Stacking Stacks</label>
+					<description>Obtain 10 empty cortical stack.</description>
+					<tracker Class="AchievementsExpanded.ItemTracker">
+						<def>AC_EmptyCorticalStack</def>
+						<count>10</count>
+					</tracker>
+					<texPath>Achievements/StackingStacks</texPath>
+					<points>40</points>
+				</AchievementsExpanded.AchievementDef>
+
+				<AchievementsExpanded.AchievementDef>
+					<defName>AC_GrowingBabies</defName>
+					<label>Growing Babies</label>
+					<description>Build a sleeve incubator.</description>
+					<tracker Class="AchievementsExpanded.BuildingTracker">
+						<def>AC_SleeveIncubator</def>
+						<count>1</count>
+					</tracker>
+					<texPath>Achievements/AC_GrowingBabies</texPath>
+					<points>25</points>
+				</AchievementsExpanded.AchievementDef>
+			</value>
+		</match>
+	</Operation>
+
+</Patch>

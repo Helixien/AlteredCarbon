@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<RecipeDef ParentName="SurgeryInstallImplantBase">
+		<defName>VFEU_InstallEmptyCorticalStack</defName>
+		<label>install empty cortical stack</label>
+		<description>Install an empty cortical stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>VFEU_EmptyCorticalStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_InstallCorticalStack</workerClass>
+		<jobString>Installing cortical stack.</jobString>
+		<uiIconThing>VFEU_EmptyCorticalStack</uiIconThing>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>VFEU_EmptyCorticalStack</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>VFEU_EmptyCorticalStack</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Neck</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>VFEU_CorticalStack</addsHediff>
+	</RecipeDef>
+	<RecipeDef ParentName="SurgeryInstallImplantBase">
+		<defName>VFEU_InstallCorticalStack</defName>
+		<label>install filled cortical stack</label>
+		<description>Install a cortical stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>VFEU_FilledCorticalStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_InstallFilledCorticalStack</workerClass>
+		<jobString>Installing cortical stack.</jobString>
+		<uiIconThing>VFEU_FilledCorticalStack</uiIconThing>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>VFEU_FilledCorticalStack</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>VFEU_FilledCorticalStack</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Neck</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>VFEU_CorticalStack</addsHediff>
+	</RecipeDef>
+	<RecipeDef ParentName="SurgeryRemoveImplantBase">
+		<defName>VFEU_RemoveCorticalStack</defName>
+		<label>remove cortical stack</label>
+		<description>Remove cortical stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>VFEU_FilledCorticalStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_RemoveCorticalStack</workerClass>
+		<jobString>Removing cortical stack.</jobString>
+		<uiIconThing>VFEU_FilledCorticalStack</uiIconThing>
+		<removesHediff>VFEU_CorticalStack</removesHediff>
+	</RecipeDef>
+</Defs>

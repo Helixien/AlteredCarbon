@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+    <HairDef>
+        <defName>UT_Kovacs</defName>
+        <label>kovacs</label>
+        <hairGender>Male</hairGender>
+        <texPath>Things/Pawn/Humanlike/Hairs/AC_Kovacs</texPath>
+        <hairTags>
+            <li>Urban</li>
+			<li>Soldier</li>
+			<li>HairShort</li>
+        </hairTags>
+    </HairDef>
+
+</Defs>

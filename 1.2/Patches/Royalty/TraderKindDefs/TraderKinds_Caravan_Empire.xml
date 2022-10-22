@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Royalty</li>
+        </mods>
+        <match Class="PatchOperationSequence">
+            <success>Always</success>
+            <operations>
+                <li Class="PatchOperationAdd">
+                    <xpath>/Defs/TraderKindDef[defName="Empire_Caravan_TributeCollector"]/stockGenerators</xpath>
+                    <value>
+						<li Class="StockGenerator_BuySingleDef">
+							<thingDef>AC_EmptyCorticalStack</thingDef>
+						</li>
+                    </value>
+                </li>
+                <li Class="PatchOperationAdd">
+                    <xpath>/Defs/TraderKindDef[defName="Empire_Caravan_TraderGeneral"]/stockGenerators</xpath>
+                    <value>
+						<li Class="StockGenerator_BuySingleDef">
+							<thingDef>AC_EmptyCorticalStack</thingDef>
+						</li>
+						<li Class="StockGenerator_Tag">
+							<tradeTag>AC_TemplatesUltra</tradeTag>
+							<thingDefCountRange>0~2</thingDefCountRange>
+							<countRange>0~2</countRange>
+						</li>
+						<li Class="StockGenerator_BuyTradeTag">
+							<tag>AC_TemplatesUltra</tag>
+						</li>
+                    </value>
+                </li>
+            </operations>
+        </match>
+    </Operation>
+
+</Patch>

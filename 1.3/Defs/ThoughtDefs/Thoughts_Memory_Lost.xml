@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThoughtDef ParentName="LostMemoryFamily">
+		<defName>UT_MyOriginalLostMale</defName>
+		<stages>
+			<li>
+				<label>my original copy {0} is missing</label>
+				<description>My original copy has gone missing. I hope he will get back to us someday.</description>
+				<baseMoodEffect>-14</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef ParentName="LostMemoryFamily">
+		<defName>UT_MyOriginalLostFemale</defName>
+		<stages>
+			<li>
+				<label>my original copy {0} is missing</label>
+				<description>My original copy has gone missing. I hope she will get back to us someday.</description>
+				<baseMoodEffect>-14</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef ParentName="LostMemoryFamily">
+		<defName>UT_MyCopyLostMale</defName>
+		<stages>
+			<li>
+				<label>my copy {0} is missing</label>
+				<description>My copy has gone missing. I hope he will get back to us someday.</description>
+				<baseMoodEffect>-14</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef ParentName="LostMemoryFamily">
+		<defName>UT_MyCopyLostFemale</defName>
+		<stages>
+			<li>
+				<label>my copy {0} is missing</label>
+				<description>My copy has gone missing. I hope she will get back to us someday.</description>
+				<baseMoodEffect>-14</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+</Defs>

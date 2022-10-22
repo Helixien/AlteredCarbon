@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>Altered Carbon Remastered</name>
-	<author>Helixien, OskarPotocki, Taranchuk</author>
+	<name>Altered Carbon</name>
+	<author>Helixien</author>
 	<supportedVersions>
 		<li>1.4</li>
 	</supportedVersions>
-	<packageId>Hlx.UltratechAlteredCarbon</packageId>
-	<description>Mod Version: 5.0
-
-Check the workshop page for information.</description>
+	<packageId>hlx.UltratechAlteredCarbon</packageId>
+	<description>text.todo</description>
 	<url>https://steamcommunity.com/sharedfiles/filedetails/?id=2196278117</url>
 	<modDependencies>
-		<li>
-			<packageId>brrainz.harmony</packageId>
-			<displayName>Harmony</displayName>
-			<downloadUrl>https://github.com/pardeike/HarmonyRimWorld</downloadUrl>
-			<steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=2196278117</steamWorkshopUrl>
-		</li>
 		<li>
 			<packageId>OskarPotocki.VanillaFactionsExpanded.Core</packageId>
 			<displayName>Vanilla Expanded Framework</displayName>
@@ -25,7 +17,12 @@ Check the workshop page for information.</description>
 		</li>
 	</modDependencies>
 	<loadAfter>
-		<li>brrainz.harmony</li>	
+		<li>brrainz.harmony</li>
+		<li>Ludeon.RimWorld</li>
+		<li>Ludeon.RimWorld.Royalty</li>
+		<li>Ludeon.RimWorld.Ideology</li>
+		<li>Ludeon.RimWorld.Biotech</li>
 		<li>OskarPotocki.VanillaFactionsExpanded.Core</li>
+		<li>OskarPotocki.VFE.Ultratech</li>
 	</loadAfter>
 </ModMetaData>

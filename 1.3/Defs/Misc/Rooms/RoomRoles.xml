@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<RoomRoleDef>
+		<defName>UT_Laboratory</defName>
+		<label>Ultra Laboratory Room</label>
+		<workerClass>AlteredCarbon.RoomRoleWorker_UltraTech</workerClass>
+		<relatedStats>
+			<li>Cleanliness</li>
+			<li>Space</li>
+		</relatedStats>
+	</RoomRoleDef>
+
+</Defs>

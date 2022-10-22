@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<TraitDef>
+		<defName>UT_FreeMind</defName>
+		<commonality>0.6</commonality>
+		<degreeDatas>
+			<li>
+				<label>free mind</label>
+				<description>[PAWN_nameDef] always saw their body as nothing more than a vessel for their mind. [PAWN_pronoun] does not care about the gender, age or looks of a body.</description>
+			</li>
+		</degreeDatas>
+	</TraitDef>
+
+</Defs>

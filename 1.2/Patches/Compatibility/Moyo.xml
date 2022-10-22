@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Explicitly alien physiology, disable growing to prevent bypassing the core mechanic of the mod-->
+<Patch>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Moyo-From the depth</li>
+		</mods>
+		<success>Always</success>
+		<match Class="PatchOperationSequence">
+			<success>Always</success>
+			<operations>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName='Alien_Moyo']/modExtensions</xpath>
+					<order>Append</order>
+					<value>
+						<li Class="AlteredCarbon.ExcludeRacesModExtension">
+							<canBeGrown>false</canBeGrown>
+							<acceptsStacks>true</acceptsStacks>
+						</li>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+</Patch>

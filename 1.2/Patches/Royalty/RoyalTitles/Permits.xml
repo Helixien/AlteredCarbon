@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Royalty</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<success>Always</success>
+			<operations>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs</xpath>
+					<value>
+						<RoyalTitlePermitDef>
+							<defName>AC_CallNeuroformers</defName>
+							<label>call neuroformers</label>
+							<description>Call neuroformers.</description>
+							<workerClass>AlteredCarbon.RoyalTitlePermitWorker_CallNeuroformers</workerClass>
+							<minTitle>Baron</minTitle>
+							<faction>Empire</faction>
+							<permitPointCost>1</permitPointCost>
+							<uiPosition>(0,9)</uiPosition>
+							<royalAid>
+								<favorCost>4</favorCost>
+								<targetingRange>39.9</targetingRange>
+							</royalAid>
+							<cooldownDays>40</cooldownDays>
+						</RoyalTitlePermitDef>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+
+</Patch>

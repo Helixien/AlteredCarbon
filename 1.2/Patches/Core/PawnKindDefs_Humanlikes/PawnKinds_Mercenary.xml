@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Core</li>
+        </mods>
+        <match Class="PatchOperationSequence">
+            <success>Always</success>
+            <operations>
+                <li Class="PatchOperationAddModExtension">
+                    <xpath>/Defs/PawnKindDef[defName="Grenadier_Destructive"]</xpath>
+                    <value>
+                        <li Class="AlteredCarbon.StackSpawnModExtension">
+                            <SpawnsWithStack>true</SpawnsWithStack>
+                            <ChanceToSpawnWithStack>10</ChanceToSpawnWithStack>
+                        </li>
+                    </value>
+                </li>
+                <li Class="PatchOperationAddModExtension">
+                    <xpath>/Defs/PawnKindDef[defName="Grenadier_EMP"]</xpath>
+                    <value>
+                        <li Class="AlteredCarbon.StackSpawnModExtension">
+                            <SpawnsWithStack>true</SpawnsWithStack>
+                            <ChanceToSpawnWithStack>10</ChanceToSpawnWithStack>
+                        </li>
+                    </value>
+                </li>
+                <li Class="PatchOperationAddModExtension">
+                    <xpath>/Defs/PawnKindDef[defName="Grenadier_Smoke"]</xpath>
+                    <value>
+                        <li Class="AlteredCarbon.StackSpawnModExtension">
+                            <SpawnsWithStack>true</SpawnsWithStack>
+                            <ChanceToSpawnWithStack>10</ChanceToSpawnWithStack>
+                        </li>
+                    </value>
+                </li>
+                <li Class="PatchOperationAddModExtension">
+                    <xpath>/Defs/PawnKindDef[defName="Mercenary_Gunner"]</xpath>
+                    <value>
+                        <li Class="AlteredCarbon.StackSpawnModExtension">
+                            <SpawnsWithStack>true</SpawnsWithStack>
+                            <ChanceToSpawnWithStack>5</ChanceToSpawnWithStack>
+                        </li>
+                    </value>
+                </li>
+                <li Class="PatchOperationAddModExtension">
+                    <xpath>/Defs/PawnKindDef[defName="Mercenary_Gunner_Acidifier"]</xpath>
+                    <value>
+                        <li Class="AlteredCarbon.StackSpawnModExtension">
+                            <SpawnsWithStack>true</SpawnsWithStack>
+                            <ChanceToSpawnWithStack>5</ChanceToSpawnWithStack>
+                        </li>
+                    </value>
+                </li>
+                <li Class="PatchOperationAddModExtension">
+                    <xpath>/Defs/PawnKindDef[defName="Mercenary_Sniper"]</xpath>
+                    <value>
+                        <li Class="AlteredCarbon.StackSpawnModExtension">
+                            <SpawnsWithStack>true</SpawnsWithStack>
+                            <ChanceToSpawnWithStack>5</ChanceToSpawnWithStack>
+                        </li>
+                    </value>
+                </li>
+                <li Class="PatchOperationAddModExtension">
+                    <xpath>/Defs/PawnKindDef[defName="Mercenary_Sniper_Acidifier"]</xpath>
+                    <value>
+                        <li Class="AlteredCarbon.StackSpawnModExtension">
+                            <SpawnsWithStack>true</SpawnsWithStack>
+                            <ChanceToSpawnWithStack>5</ChanceToSpawnWithStack>
+                        </li>
+                    </value>
+                </li>
+                <li Class="PatchOperationAddModExtension">
+                    <xpath>/Defs/PawnKindDef[defName="Mercenary_Slasher"]</xpath>
+                    <value>
+                        <li Class="AlteredCarbon.StackSpawnModExtension">
+                            <SpawnsWithStack>true</SpawnsWithStack>
+                            <ChanceToSpawnWithStack>5</ChanceToSpawnWithStack>
+                        </li>
+                    </value>
+                </li>
+                <li Class="PatchOperationAddModExtension">
+                    <xpath>/Defs/PawnKindDef[defName="Mercenary_Slasher_Acidifier"]</xpath>
+                    <value>
+                        <li Class="AlteredCarbon.StackSpawnModExtension">
+                            <SpawnsWithStack>true</SpawnsWithStack>
+                            <ChanceToSpawnWithStack>5</ChanceToSpawnWithStack>
+                        </li>
+                    </value>
+                </li>
+                <li Class="PatchOperationAddModExtension">
+                    <xpath>/Defs/PawnKindDef[defName="Mercenary_Heavy"]</xpath>
+                    <value>
+                        <li Class="AlteredCarbon.StackSpawnModExtension">
+                            <SpawnsWithStack>true</SpawnsWithStack>
+                            <ChanceToSpawnWithStack>10</ChanceToSpawnWithStack>
+                        </li>
+                    </value>
+                </li>
+                <li Class="PatchOperationAddModExtension">
+                    <xpath>/Defs/PawnKindDef[defName="PirateBoss"]</xpath>
+                    <value>
+                        <li Class="AlteredCarbon.StackSpawnModExtension">
+                            <SpawnsWithStack>true</SpawnsWithStack>
+                            <ChanceToSpawnWithStack>25</ChanceToSpawnWithStack>
+                        </li>
+                    </value>
+                </li>
+                <li Class="PatchOperationAddModExtension">
+                    <xpath>/Defs/PawnKindDef[defName="Mercenary_Elite"]</xpath>
+                    <value>
+                        <li Class="AlteredCarbon.StackSpawnModExtension">
+                            <SpawnsWithStack>true</SpawnsWithStack>
+                            <ChanceToSpawnWithStack>10</ChanceToSpawnWithStack>
+                        </li>
+                    </value>
+                </li>
+                <li Class="PatchOperationAddModExtension">
+                    <xpath>/Defs/PawnKindDef[defName="Mercenary_Elite_Acidifier"]</xpath>
+                    <value>
+                        <li Class="AlteredCarbon.StackSpawnModExtension">
+                            <SpawnsWithStack>true</SpawnsWithStack>
+                            <ChanceToSpawnWithStack>10</ChanceToSpawnWithStack>
+                        </li>
+                    </value>
+                </li>
+            </operations>
+        </match>
+    </Operation>
+
+</Patch>

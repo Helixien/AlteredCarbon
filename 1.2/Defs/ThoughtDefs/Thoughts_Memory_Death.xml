@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThoughtDef ParentName="DeathMemoryFamily">
+		<defName>AC_MyOriginalDied</defName>
+		<nullifyingTraits>
+			<li>Psychopath</li>
+			<li>Bloodlust</li>
+		</nullifyingTraits>
+		<stages>
+			<li>
+				<label>my original copy {0} died</label>
+				<description>My original copy is dead. I am alone again.</description>
+				<baseMoodEffect>-15</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef ParentName="DeathMemoryFamily">
+		<defName>AC_MyCopyDied</defName>
+		<nullifyingTraits>
+			<li>Psychopath</li>
+			<li>Bloodlust</li>
+		</nullifyingTraits>
+		<stages>
+			<li>
+				<label>my copy {0} died</label>
+				<description>My copy is dead. I am alone again.</description>
+				<baseMoodEffect>-15</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+</Defs>

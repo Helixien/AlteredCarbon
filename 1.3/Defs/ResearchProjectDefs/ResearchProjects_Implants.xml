@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ResearchProjectDef Name="UT_ResearchBase" Abstract="True">
+		<tab>Ultratech</tab>
+		<techLevel>Ultra</techLevel>
+		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
+		<requiredResearchFacilities>
+			<li>MultiAnalyzer</li>
+		</requiredResearchFacilities>
+	</ResearchProjectDef>
+
+	<ResearchProjectDef ParentName="UT_ResearchBase">
+		<defName>UT_Hacking</defName>
+		<label>hacking</label>
+		<description>Hack into closed systems, remove restrictions or wipe cortical stacks.</description>
+		<baseCost>1200</baseCost>
+		<researchViewX>0.00</researchViewX>
+		<researchViewY>1.40</researchViewY>
+	</ResearchProjectDef>
+	
+	<ResearchProjectDef ParentName="UT_ResearchBase">
+		<defName>UT_CorticalStackMatrix</defName>
+		<label>quantum matrix</label>
+		<description>Store cortical stacks in an advanced storage system.</description>
+		<baseCost>4000</baseCost>
+		<prerequisites>
+			<li>Fabrication</li>
+			<li>UT_Hacking</li>
+		</prerequisites>
+		<researchViewX>2.00</researchViewX>
+		<researchViewY>1.40</researchViewY>
+	</ResearchProjectDef>
+
+	<ResearchProjectDef ParentName="UT_ResearchBase">
+		<defName>UT_OrganProduction</defName>
+		<label>organ growing</label>
+		<description>Grow human organs in organ incubators.</description>
+		<baseCost>1500</baseCost>
+		<prerequisites>
+			<li>Fabrication</li>
+		</prerequisites>
+		<researchViewX>0.00</researchViewX>
+		<researchViewY>3.50</researchViewY>
+	</ResearchProjectDef>
+
+	<ResearchProjectDef ParentName="UT_ResearchBase">
+		<defName>UT_SleeveProduction</defName>
+		<label>human sleeves</label>
+		<description>Grow perfect human bodies (sleeves) in sleeve incubators.</description>
+		<baseCost>3000</baseCost>
+		<prerequisites>
+			<li>UT_OrganProduction</li>
+		</prerequisites>
+		<researchViewX>2.00</researchViewX>
+		<researchViewY>3.50</researchViewY>
+	</ResearchProjectDef>
+
+</Defs>

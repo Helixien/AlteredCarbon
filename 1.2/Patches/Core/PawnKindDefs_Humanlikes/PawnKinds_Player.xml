@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Core</li>
+        </mods>
+        <match Class="PatchOperationSequence">
+            <success>Always</success>
+            <operations>
+                <li Class="PatchOperationAddModExtension">
+                    <xpath>/Defs/PawnKindDef[defName="Colonist"]</xpath>
+                    <value>
+                        <li Class="AlteredCarbon.StackSpawnModExtension">
+                            <SpawnsWithStack>false</SpawnsWithStack>
+                        </li>
+                    </value>
+                </li>
+                <li Class="PatchOperationAddModExtension">
+                    <xpath>/Defs/PawnKindDef[defName="Tribesperson"]</xpath>
+                    <value>
+                        <li Class="AlteredCarbon.StackSpawnModExtension">
+                            <SpawnsWithStack>false</SpawnsWithStack>
+                        </li>
+                    </value>
+                </li>
+            </operations>
+        </match>
+    </Operation>
+
+</Patch>

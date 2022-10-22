@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<!-- =========================== Good ============================-->
+	<IncidentDef>
+		<defName>AC_StackRequest</defName>
+		<label>stack request</label>
+		<category>Misc</category>
+		<targetTags>
+			<li>Map_PlayerHome</li>
+		</targetTags>
+		<workerClass>AlteredCarbon.IncidentWorker_StackRequest</workerClass>
+		<baseChance>1.0</baseChance>
+	</IncidentDef>
+
+</Defs>

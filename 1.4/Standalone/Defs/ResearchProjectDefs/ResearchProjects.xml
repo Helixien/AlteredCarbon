@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<ResearchProjectDef Name="VFEU_ResearchBase" Abstract="True">
+		<techLevel>Ultra</techLevel>
+		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
+		<requiredResearchFacilities>
+			<li>MultiAnalyzer</li>
+		</requiredResearchFacilities>
+	</ResearchProjectDef>
+	<ResearchProjectDef ParentName="VFEU_ResearchBase">
+		<defName>VFEU_Hacking</defName>
+		<label>hacking</label>
+		<description>Hack into closed systems, remove restrictions or wipe cortical stacks.</description>
+		<baseCost>1200</baseCost>
+		<researchViewX>0.00</researchViewX>
+		<researchViewY>1.40</researchViewY>
+	</ResearchProjectDef>
+</Defs>
