@@ -49,8 +49,6 @@
 		<interactionCellOffset>(0,0,2)</interactionCellOffset>
 		<hasInteractionCell>true</hasInteractionCell>
 		<building>
-			<spawnedConceptLearnOpportunity>VFEU_SleeveGrowing</spawnedConceptLearnOpportunity>
-			<boughtConceptLearnOpportunity>VFEU_SleeveGrowing</boughtConceptLearnOpportunity>
 			<ai_chillDestination>false</ai_chillDestination>
 			<destroySound>BuildingDestroyed_Metal_Big</destroySound>
 		</building>
@@ -91,9 +89,6 @@
 		<thingCategories>
 			<li>BuildingsMisc</li>
 		</thingCategories>
-		<tradeTags>
-			<li>BuyableFromHunterCorp</li>
-		</tradeTags>
 	</ThingDef>
 	<ThingDef ParentName="FurnitureBase">
 		<defName>VFEU_SleeveCasket</defName>
@@ -130,8 +125,6 @@
 		<canOverlapZones>false</canOverlapZones>
 		<defaultPlacingRot>South</defaultPlacingRot>
 		<building>
-			<spawnedConceptLearnOpportunity>VFEU_UsingSleeveCaskets</spawnedConceptLearnOpportunity>
-			<boughtConceptLearnOpportunity>VFEU_UsingSleeveCaskets</boughtConceptLearnOpportunity>
 			<bed_showSleeperBody>True</bed_showSleeperBody>
 			<buildingSizeCategory>Small</buildingSizeCategory>
 			<bed_humanlike>true</bed_humanlike>
@@ -173,9 +166,6 @@
 		<thingCategories>
 			<li>BuildingsMisc</li>
 		</thingCategories>
-		<tradeTags>
-			<li>BuyableFromHunterCorp</li>
-		</tradeTags>
 	</ThingDef>
 	<ThingDef ParentName="BenchBase">
 		<defName>VFEU_DecryptionBench</defName>
@@ -243,8 +233,5 @@
 		<thingCategories>
 			<li>BuildingsMisc</li>
 		</thingCategories>
-		<tradeTags>
-			<li>BuyableFromHunterCorp</li>
-		</tradeTags>
 	</ThingDef>
 </Defs>
