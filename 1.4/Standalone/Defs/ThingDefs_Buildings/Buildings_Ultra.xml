@@ -1,25 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<ThingDef ParentName="BuildingBase">
+	<!-- ================================ Sleeve Building Base ====================== -->
+	<ThingDef Name="VFEU_SleeveBuildingBase" ParentName="BuildingBase" Abstract="True">
+		<altitudeLayer>Building</altitudeLayer>
+		<designationCategory>Misc</designationCategory>
+		<uiOrder>2100</uiOrder>
+		<pathCost>42</pathCost>
+		<building>
+			<ai_chillDestination>false</ai_chillDestination>
+			<buildingTags>
+				<li>Biotech</li>
+			</buildingTags>
+		</building>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<comps>
+			<li Class="CompProperties_Forbiddable"/>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+	</ThingDef>
+	<!-- ================================ Sleeve Vat ====================== -->
+	<ThingDef ParentName="VFEU_SleeveBuildingBase">
 		<defName>VFEU_SleeveIncubator</defName>
 		<label>sleeve incubator</label>
 		<description>Text.todo</description>
 		<thingClass>AlteredCarbon.Building_SleeveGrower</thingClass>
-		<tickerType>Normal</tickerType>
-		<drawerType>RealtimeOnly</drawerType>
+		<passability>Impassable</passability>
+		<castEdgeShadows>true</castEdgeShadows>
 		<graphicData>
 			<texPath>Things/Building/Misc/SleeveGrower/SleeveGrowerBottom</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<drawSize>(7,7)</drawSize>
 			<shaderType>CutoutComplex</shaderType>
-			<damageData>
-				<cornerTL>Damage/Corner</cornerTL>
-				<cornerTR>Damage/Corner</cornerTR>
-				<cornerBL>Damage/Corner</cornerBL>
-				<cornerBR>Damage/Corner</cornerBR>
-			</damageData>
+			<shadowData>
+				<volume>(2.55, 0.75, 1.7)</volume>
+			</shadowData>
 		</graphicData>
+		<uiIconPath>Things/Building/Misc/SleeveGrower/SleeveGrowerUI_Icon</uiIconPath>
+		<uiIconScale>1.2</uiIconScale>
+		<descriptionHyperlinks>
+			<ThingDef MayRequire="Ludeon.RimWorld.Biotech">GeneBank</ThingDef>
+			<ThingDef MayRequire="Ludeon.RimWorld.Biotech">GeneProcessor</ThingDef>
+		</descriptionHyperlinks>
+		<tickerType>Normal</tickerType>
+		<drawerType>RealtimeOnly</drawerType>
 		<size>(3,3)</size>
+		<hasInteractionCell>true</hasInteractionCell>
+		<interactionCellOffset>(0,0,2)</interactionCellOffset>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<neverMultiSelect>true</neverMultiSelect>
 		<statBases>
 			<MarketValue>3580</MarketValue>
 			<MaxHitPoints>400</MaxHitPoints>
@@ -27,29 +58,17 @@
 			<Mass>60</Mass>
 		</statBases>
 		<costList>
-			<Plasteel>220</Plasteel>
-			<ComponentSpacer>8</ComponentSpacer>
+			<Steel>150</Steel>
+			<Plasteel>50</Plasteel>
+			<ComponentSpacer>6</ComponentSpacer>
 		</costList>
-		<techLevel>Ultra</techLevel>
-		<altitudeLayer>Building</altitudeLayer>
-		<neverMultiSelect>true</neverMultiSelect>
-		<rotatable>true</rotatable>
+		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
 		<fillPercent>0.6</fillPercent>
-		<passability>PassThroughOnly</passability>
-		<pathCost>70</pathCost>
-		<castEdgeShadows>True</castEdgeShadows>
+		<pathCost Inherit="False">70</pathCost>
 		<canOverlapZones>false</canOverlapZones>
 		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
 		<blockWind>true</blockWind>
-		<surfaceType>Item</surfaceType>
-		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
-		<uiIconPath>Things/Building/Misc/SleeveGrower/SleeveGrowerUI_Icon</uiIconPath>
-		<uiIconScale>1</uiIconScale>
-		<defaultPlacingRot>South</defaultPlacingRot>
-		<interactionCellOffset>(0,0,2)</interactionCellOffset>
-		<hasInteractionCell>true</hasInteractionCell>
 		<building>
-			<ai_chillDestination>false</ai_chillDestination>
 			<destroySound>BuildingDestroyed_Metal_Big</destroySound>
 		</building>
 		<placeWorkers>
@@ -68,28 +87,33 @@
 				<outOfFuelMessage>Cannot grow: Needs neutroamine</outOfFuelMessage>
 				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
 				<targetFuelLevelConfigurable>false</targetFuelLevelConfigurable>
-				<fuelCapacity>200.0</fuelCapacity>
+				<fuelCapacity>300</fuelCapacity>
 				<fuelFilter>
 					<thingDefs>
 						<li>Neutroamine</li>
 					</thingDefs>
 				</fuelFilter>
-				<initialFuelPercent>1</initialFuelPercent>
+				<initialFuelPercent>0</initialFuelPercent>
 				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
 				<showFuelGizmo>true</showFuelGizmo>
+			</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech" Class="CompProperties_AffectedByFacilities">
+				<linkableFacilities>
+					<li>GeneBank</li>
+					<li>GeneProcessor</li>
+				</linkableFacilities>
 			</li>
 			<li Class="CompProperties_Glower">
 				<glowRadius>5</glowRadius>
 				<glowColor>(96,161,153,0)</glowColor>
 			</li>
 			<li Class="CompProperties_Flickable"/>
-			<li Class="CompProperties_Breakdownable"/>
 		</comps>
-		<minifiedDef>MinifiedThing</minifiedDef>
-		<thingCategories>
-			<li>BuildingsMisc</li>
-		</thingCategories>
 	</ThingDef>
+	
+	
+	
+	
 	<ThingDef ParentName="FurnitureBase">
 		<defName>VFEU_SleeveCasket</defName>
 		<label>sleeve casket</label>
@@ -119,6 +143,7 @@
 		<altitudeLayer>Building</altitudeLayer>
 		<rotatable>true</rotatable>
 		<castEdgeShadows>True</castEdgeShadows>
+		<designationCategory>Misc</designationCategory>
 		<staticSunShadowHeight>0.17</staticSunShadowHeight>
 		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
 		<drawGUIOverlay>true</drawGUIOverlay>
@@ -203,6 +228,7 @@
 		<pathCost>42</pathCost>
 		<castEdgeShadows>true</castEdgeShadows>
 		<staticSunShadowHeight>0.20</staticSunShadowHeight>
+		<designationCategory>Misc</designationCategory>
 		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
 		<hasInteractionCell>true</hasInteractionCell>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
@@ -234,8 +260,6 @@
 			<li>BuildingsMisc</li>
 		</thingCategories>
 	</ThingDef>
-	
-
 	<ThingDef ParentName="BuildingBase">
 		<defName>VFEU_OrganIncubator</defName>
 		<label>organ incubator</label>
@@ -325,10 +349,7 @@
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Breakdownable"/>
 		</comps>
-
 	</ThingDef>
-	
-
 	<ThingDef ParentName="BuildingBase">
 		<defName>VFEU_CorticalStackStorage</defName>
 		<label>quantum storage matrix</label>
