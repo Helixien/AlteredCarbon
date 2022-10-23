@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ConceptDef ParentName="NotedOpportunisticBase">
+		<defName>VFEU_SleeveGrowing</defName>
+		<label>Growing Sleeves</label>
+		<helpText>Learning helpers will be back with the next update!</helpText>
+	</ConceptDef>
+
+	<ConceptDef ParentName="NotedOpportunisticBase">
+		<defName>VFEU_UsingSleeveCaskets</defName>
+		<label>Sleeve Caskets</label>
+		<helpText>Learning helpers will be back with the next update!</helpText>
+	</ConceptDef>
+
+	<ConceptDef ParentName="NotedOpportunisticBase">
+		<defName>VFEU_UsingBrainTemplates</defName>
+		<label>Brain Templates</label>
+		<helpText>Learning helpers will be back with the next update!</helpText>
+	</ConceptDef>
+
+	<ConceptDef ParentName="NotedOpportunisticBase">
+		<defName>VFEU_EmptyStacks</defName>
+		<label>Cortical Stacks</label>
+		<helpText>Learning helpers will be back with the next update!</helpText>
+	</ConceptDef>
+
+	<ConceptDef ParentName="NotedOpportunisticBase">
+		<defName>VFEU_FilledStacks</defName>
+		<label>Filled Stacks</label>
+		<helpText>Learning helpers will be back with the next update!</helpText>
+	</ConceptDef>
+
+	<ConceptDef ParentName="NotedOpportunisticBase">
+		<defName>VFEU_DeadPawnWithStack</defName>
+		<label>Extract Stacks</label>
+		<helpText>Learning helpers will be back with the next update!</helpText>
+	</ConceptDef>
+	
+	<ConceptDef ParentName="NotedOpportunisticBase">
+		<defName>VFEU_AncientStacks</defName>
+		<label>Ancient Stacks</label>
+		<helpText>Learning helpers will be back with the next update!</helpText>
+	</ConceptDef>
+
+</Defs>

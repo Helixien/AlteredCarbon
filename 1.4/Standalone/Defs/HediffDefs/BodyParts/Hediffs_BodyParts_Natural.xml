@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingDef ParentName="BodyPartNaturalBase">
+		<defName>VFEU_OrganicArm</defName>
+		<label>arm</label>
+		<description>A biological human arm. Attached to the shoulder, it allows the body to carry and manipulate things.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>VFEU_InstallOrganicArm</RecipeDef>
+		</descriptionHyperlinks>
+		<statBases>
+			<MarketValue>200</MarketValue>
+			<Mass>3</Mass>
+		</statBases>
+	</ThingDef>
+
+	<RecipeDef ParentName="SurgeryInstallBodyPartNaturalBase">
+		<defName>VFEU_InstallOrganicArm</defName>
+		<label>install arm</label>
+		<description>Install a arm.</description>
+		<descriptionHyperlinks>
+			<ThingDef>VFEU_OrganicArm</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Installing arm.</jobString>
+		<deathOnFailedSurgeryChance>0.05</deathOnFailedSurgeryChance>
+		<skillRequirements>
+			<Medicine>6</Medicine>
+		</skillRequirements>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>VFEU_OrganicArm</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>VFEU_OrganicArm</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Arm</li>
+		</appliedOnFixedBodyParts>
+	</RecipeDef>
+
+	<ThingDef ParentName="BodyPartNaturalBase">
+		<defName>VFEU_OrganicLeg</defName>
+		<label>leg</label>
+		<description>A biological human leg.  Attached to the pelvis, it allows the body to move.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>VFEU_InstallOrganicLeg</RecipeDef>
+		</descriptionHyperlinks>
+		<statBases>
+			<MarketValue>200</MarketValue>
+			<Mass>3</Mass>
+		</statBases>
+	</ThingDef>
+
+	<RecipeDef ParentName="SurgeryInstallBodyPartNaturalBase">
+		<defName>VFEU_InstallOrganicLeg</defName>
+		<label>install leg</label>
+		<description>Install a leg.</description>
+		<descriptionHyperlinks>
+			<ThingDef>VFEU_OrganicLeg</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Installing leg.</jobString>
+		<deathOnFailedSurgeryChance>0.05</deathOnFailedSurgeryChance>
+		<skillRequirements>
+			<Medicine>6</Medicine>
+		</skillRequirements>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>VFEU_OrganicLeg</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>VFEU_OrganicLeg</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Leg</li>
+		</appliedOnFixedBodyParts>
+	</RecipeDef>
+
+	<ThingDef ParentName="BodyPartNaturalBase">
+		<defName>VFEU_OrganicStomach</defName>
+		<label>stomach</label>
+		<description>A biological human stomach. Breaks down food into nutrients with acids and enzymes.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>VFEU_InstallOrganicStomach</RecipeDef>
+		</descriptionHyperlinks>
+		<statBases>
+			<MarketValue>400</MarketValue>
+			<Mass>2</Mass>
+		</statBases>
+	</ThingDef>
+
+	<RecipeDef ParentName="SurgeryInstallBodyPartNaturalBase">
+		<defName>VFEU_InstallOrganicStomach</defName>
+		<label>install stomach</label>
+		<description>Install stomach.</description>
+		<descriptionHyperlinks>
+			<ThingDef>VFEU_OrganicStomach</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Installing stomach.</jobString>
+		<deathOnFailedSurgeryChance>0.25</deathOnFailedSurgeryChance>
+		<skillRequirements>
+			<Medicine>8</Medicine>
+		</skillRequirements>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>VFEU_OrganicStomach</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>VFEU_OrganicStomach</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Stomach</li>
+		</appliedOnFixedBodyParts>
+	</RecipeDef>
+
+	<ThingDef ParentName="BodyPartNaturalBase">
+		<defName>VFEU_OrganicEye</defName>
+		<label>eye</label>
+		<description>A biological human eye. Converts light into electrical signals and transmits them to the brain.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>VFEU_InstallOrganicEye</RecipeDef>
+		</descriptionHyperlinks>
+		<statBases>
+			<MarketValue>280</MarketValue>
+			<Mass>1</Mass>
+		</statBases>
+	</ThingDef>
+
+	<RecipeDef ParentName="SurgeryInstallBodyPartNaturalBase">
+		<defName>VFEU_InstallOrganicEye</defName>
+		<label>install eye</label>
+		<description>Install an eye.</description>
+		<descriptionHyperlinks>
+			<ThingDef>VFEU_OrganicEye</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Installing eye.</jobString>
+		<deathOnFailedSurgeryChance>0.10</deathOnFailedSurgeryChance>
+		<skillRequirements>
+			<Medicine>6</Medicine>
+		</skillRequirements>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>VFEU_OrganicEye</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>VFEU_OrganicEye</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Eye</li>
+		</appliedOnFixedBodyParts>
+	</RecipeDef>
+
+	<ThingDef ParentName="BodyPartNaturalBase">
+		<defName>VFEU_OrganicEar</defName>
+		<label>ear</label>
+		<description>A biological human ear. Converts vibrations in the air into electrical signals and transmits them to the brain.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>VFEU_InstallOrganicEar</RecipeDef>
+		</descriptionHyperlinks>
+		<statBases>
+			<MarketValue>80</MarketValue>
+			<Mass>1</Mass>
+		</statBases>
+	</ThingDef>
+
+	<RecipeDef ParentName="SurgeryInstallBodyPartNaturalBase">
+		<defName>VFEU_InstallOrganicEar</defName>
+		<label>install ear</label>
+		<description>Install a biological ear.</description>
+		<descriptionHyperlinks>
+			<ThingDef>VFEU_OrganicEar</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Installing ear.</jobString>
+		<deathOnFailedSurgeryChance>0.05</deathOnFailedSurgeryChance>
+		<skillRequirements>
+			<Medicine>5</Medicine>
+		</skillRequirements>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>VFEU_OrganicEar</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>VFEU_OrganicEar</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Ear</li>
+		</appliedOnFixedBodyParts>
+	</RecipeDef>
+
+	<ThingDef ParentName="BodyPartNaturalBase">
+		<defName>VFEU_OrganicNose</defName>
+		<label>nose</label>
+		<description>A biological human nose. Recognizes and identifies smells in the air and transmits them to the brain.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>VFEU_InstallOrganicNose</RecipeDef>
+		</descriptionHyperlinks>
+		<statBases>
+			<MarketValue>75</MarketValue>
+			<Mass>1</Mass>
+		</statBases>
+	</ThingDef>
+
+	<RecipeDef ParentName="SurgeryInstallBodyPartNaturalBase">
+		<defName>VFEU_InstallOrganicNose</defName>
+		<label>install nose</label>
+		<description>Install a nose.</description>
+		<descriptionHyperlinks>
+			<ThingDef>VFEU_OrganicNose</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Installing nose.</jobString>
+		<deathOnFailedSurgeryChance>0.05</deathOnFailedSurgeryChance>
+		<skillRequirements>
+			<Medicine>5</Medicine>
+		</skillRequirements>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>VFEU_OrganicNose</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>VFEU_OrganicNose</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Nose</li>
+		</appliedOnFixedBodyParts>
+	</RecipeDef>
+
+</Defs>

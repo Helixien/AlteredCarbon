@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<RecipeDef Name="VFEU_OrganRecipeBase" Abstract="True">
+		<researchPrerequisite>VFEU_OrganProduction</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="VFEU_OrganRecipeBase">
+		<defName>VFEU_GrowOrganicHeart</defName>
+		<label>organic heart</label>
+		<descriptionHyperlinks>
+			<ThingDef>Heart</ThingDef>
+		</descriptionHyperlinks>
+		<products>
+			<Heart>1</Heart>
+		</products>
+		<workAmount>60000</workAmount>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="VFEU_OrganRecipeBase">
+		<defName>VFEU_GrowOrganicLung</defName>
+		<label>organic lung</label>
+		<descriptionHyperlinks>
+			<ThingDef>Lung</ThingDef>
+		</descriptionHyperlinks>
+		<products>
+			<Lung>1</Lung>
+		</products>
+		<workAmount>50000</workAmount>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="VFEU_OrganRecipeBase">
+		<defName>VFEU_GrowOrganicKidney</defName>
+		<label>organic kidney</label>
+		<descriptionHyperlinks>
+			<ThingDef>Kidney</ThingDef>
+		</descriptionHyperlinks>
+		<products>
+			<Kidney>1</Kidney>
+		</products>
+		<workAmount>35000</workAmount>
+	</RecipeDef>
+
+	<RecipeDef ParentName="VFEU_OrganRecipeBase">
+		<defName>VFEU_GrowOrganicLiver</defName>
+		<label>organic liver</label>
+		<descriptionHyperlinks>
+			<ThingDef>Liver</ThingDef>
+		</descriptionHyperlinks>
+		<products>
+			<Liver>1</Liver>
+		</products>
+		<workAmount>35000</workAmount>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="VFEU_OrganRecipeBase">
+		<defName>VFEU_GrowOrganicStomach</defName>
+		<label>organic stomach</label>
+		<descriptionHyperlinks>
+			<ThingDef>VFEU_OrganicStomach</ThingDef>
+		</descriptionHyperlinks>
+		<products>
+			<VFEU_OrganicStomach>1</VFEU_OrganicStomach>
+		</products>
+		<workAmount>38000</workAmount>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="VFEU_OrganRecipeBase">
+		<defName>VFEU_GrowOrganicArm</defName>
+		<label>organic arm</label>
+		<descriptionHyperlinks>
+			<ThingDef>VFEU_OrganicArm</ThingDef>
+		</descriptionHyperlinks>
+		<products>
+			<VFEU_OrganicArm>1</VFEU_OrganicArm>
+		</products>
+		<workAmount>20000</workAmount>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="VFEU_OrganRecipeBase">
+		<defName>VFEU_GrowOrganicLeg</defName>
+		<label>organic leg</label>
+		<descriptionHyperlinks>
+			<ThingDef>VFEU_OrganicLeg</ThingDef>
+		</descriptionHyperlinks>
+		<products>
+			<VFEU_OrganicLeg>1</VFEU_OrganicLeg>
+		</products>
+		<workAmount>22000</workAmount>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="VFEU_OrganRecipeBase">
+		<defName>VFEU_GrowOrganicEye</defName>
+		<label>organic eye</label>
+		<descriptionHyperlinks>
+			<ThingDef>VFEU_OrganicEye</ThingDef>
+		</descriptionHyperlinks>
+		<products>
+			<VFEU_OrganicEye>1</VFEU_OrganicEye>
+		</products>
+		<workAmount>39500</workAmount>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="VFEU_OrganRecipeBase">
+		<defName>VFEU_GrowOrganicEar</defName>
+		<label>organic ear</label>
+		<descriptionHyperlinks>
+			<ThingDef>VFEU_OrganicEar</ThingDef>
+		</descriptionHyperlinks>
+		<products>
+			<VFEU_OrganicEar>1</VFEU_OrganicEar>
+		</products>
+		<workAmount>15000</workAmount>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="VFEU_OrganRecipeBase">
+		<defName>VFEU_GrowOrganicNose</defName>
+		<label>organic nose</label>
+		<descriptionHyperlinks>
+			<ThingDef>VFEU_OrganicNose</ThingDef>
+		</descriptionHyperlinks>
+		<products>
+			<VFEU_OrganicNose>1</VFEU_OrganicNose>
+		</products>
+		<workAmount>15000</workAmount>
+	</RecipeDef>
+
+</Defs>

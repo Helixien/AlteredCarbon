@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<PawnRelationDef>
+		<defName>VFEU_Original</defName>
+		<label>original</label>
+		<importance>185</importance>
+		<diedThought>VFEU_MyOriginalDied</diedThought>
+		<killedThought>VFEU_KilledMyOriginal</killedThought>
+		<lostThought>VFEU_MyOriginalLostMale</lostThought>
+		<lostThoughtFemale>VFEU_MyOriginalLostFemale</lostThoughtFemale>
+		<soldThoughts>
+			<li>SoldMyLovedOne</li>
+		</soldThoughts>
+		<opinionOffset>30</opinionOffset>
+		<generationChanceFactor>0</generationChanceFactor>
+		<romanceChanceFactor>0.01</romanceChanceFactor>
+		<incestOpinionOffset>-50</incestOpinionOffset>
+		<implied>false</implied>
+		<familyByBloodRelation>true</familyByBloodRelation>
+	</PawnRelationDef>
+
+	<PawnRelationDef>
+		<defName>VFEU_Copy</defName>
+		<label>copy</label>
+		<importance>185</importance>
+		<diedThought>VFEU_MyCopyDied</diedThought>
+		<killedThought>VFEU_KilledMyCopy</killedThought>
+		<lostThought>VFEU_MyCopyLostMale</lostThought>
+		<lostThoughtFemale>VFEU_MyCopyLostFemale</lostThoughtFemale>
+		<soldThoughts>
+			<li>SoldMyLovedOne</li>
+		</soldThoughts>
+		<opinionOffset>30</opinionOffset>
+		<generationChanceFactor>0</generationChanceFactor>
+		<romanceChanceFactor>0.01</romanceChanceFactor>
+		<incestOpinionOffset>-50</incestOpinionOffset>
+		<implied>false</implied>
+		<familyByBloodRelation>true</familyByBloodRelation>
+	</PawnRelationDef>
+
+</Defs>

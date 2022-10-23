@@ -234,4 +234,194 @@
 			<li>BuildingsMisc</li>
 		</thingCategories>
 	</ThingDef>
+	
+
+	<ThingDef ParentName="BuildingBase">
+		<defName>VFEU_OrganIncubator</defName>
+		<label>organ incubator</label>
+		<description>A small ultratech vat tank used to grow organs of any kind in a short period of time. Requires neutroamine to work.</description>
+		<tickerType>Normal</tickerType>
+		<thingClass>AlteredCarbon.Building_OrganIncubator</thingClass>
+		<drawerType>RealtimeOnly</drawerType>
+		<graphicData>
+			<texPath>Things/Building/Misc/OrganIncubator/OrganIncubator</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(4,4)</drawSize>
+		</graphicData>
+		<size>(2,2)</size>
+		<passability>PassThroughOnly</passability>
+		<pathCost>100</pathCost>
+		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+		<hasInteractionCell>true</hasInteractionCell>
+		<statBases>
+			<MaxHitPoints>500</MaxHitPoints>
+			<WorkToBuild>5000</WorkToBuild>
+			<Flammability>0.5</Flammability>
+			<Cleanliness>1</Cleanliness>
+		</statBases>
+		<costList>
+			<Steel>75</Steel>
+			<Plasteel>35</Plasteel>
+			<ComponentSpacer>2</ComponentSpacer>
+		</costList>
+		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+		<techLevel>Ultra</techLevel>
+		<designationCategory>VFEU_Ultra</designationCategory>
+		<altitudeLayer>BuildingOnTop</altitudeLayer>
+		<neverMultiSelect>true</neverMultiSelect>
+		<rotatable>true</rotatable>
+		<castEdgeShadows>true</castEdgeShadows>
+		<canOverlapZones>false</canOverlapZones>
+		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+		<constructEffect>ConstructMetal</constructEffect>
+		<blockWind>true</blockWind>
+		<researchPrerequisites>
+			<li>VFEU_OrganProduction</li>
+		</researchPrerequisites>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<uiIconPath>Things/Building/Misc/OrganIncubator/OrganIncubatorUI_Icon</uiIconPath>
+		<uiIconScale>1</uiIconScale>
+		<recipes>
+			<li>VFEU_GrowOrganicHeart</li>
+			<li>VFEU_GrowOrganicLung</li>
+			<li>VFEU_GrowOrganicKidney</li>
+			<li>VFEU_GrowOrganicLiver</li>
+			<li>VFEU_GrowOrganicStomach</li>
+			<li>VFEU_GrowOrganicArm</li>
+			<li>VFEU_GrowOrganicLeg</li>
+			<li>VFEU_GrowOrganicEye</li>
+			<li>VFEU_GrowOrganicEar</li>
+			<li>VFEU_GrowOrganicNose</li>
+		</recipes>
+		<placeWorkers>
+			<li>PlaceWorker_FuelingPort</li>
+		</placeWorkers>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<shortCircuitInRain>true</shortCircuitInRain>
+				<basePowerConsumption>250</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Refuelable">
+				<fuelLabel>Neutroamine</fuelLabel>
+				<fuelGizmoLabel>Neutroamine</fuelGizmoLabel>
+				<outOfFuelMessage>Cannot grow: Needs neutroamine</outOfFuelMessage>
+				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+				<targetFuelLevelConfigurable>false</targetFuelLevelConfigurable>
+				<fuelCapacity>100.0</fuelCapacity>
+				<fuelFilter>
+					<thingDefs>
+						<li>Neutroamine</li>
+					</thingDefs>
+				</fuelFilter>
+				<initialFuelPercent>1</initialFuelPercent>
+				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+				<showFuelGizmo>true</showFuelGizmo>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>3</glowRadius>
+				<glowColor>(96,161,153,0)</glowColor>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+
+	</ThingDef>
+	
+
+	<ThingDef ParentName="BuildingBase">
+		<defName>VFEU_CorticalStackStorage</defName>
+		<label>quantum storage matrix</label>
+		<description>A ultratech, quantum computing matrix made to store cortical stacks. If in range of auto-linked stacks, the matrix can make emergency backups in case of catastrophic stack faliure. Can be linked to a rVR server.</description>
+		<thingClass>AlteredCarbon.Building_StackStorage</thingClass>
+		<tickerType>Normal</tickerType>
+		<drawerType>RealtimeOnly</drawerType>
+		<graphicData>
+			<texPath>Things/Building/Misc/StackMatrix/StackMatrix</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(7,7)</drawSize>
+			<shaderType>CutoutComplex</shaderType>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<size>(3,3)</size>
+		<statBases>
+			<MaxHitPoints>800</MaxHitPoints>
+			<WorkToBuild>8000</WorkToBuild>
+			<Flammability>1.0</Flammability>
+			<Cleanliness>1</Cleanliness>
+		</statBases>
+		<costList>
+			<Steel>250</Steel>
+			<Plasteel>150</Plasteel>
+			<ComponentSpacer>12</ComponentSpacer>
+		</costList>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+		<techLevel>Ultra</techLevel>
+		<designationCategory>VFEU_Ultra</designationCategory>
+		<altitudeLayer>BuildingOnTop</altitudeLayer>
+		<neverMultiSelect>true</neverMultiSelect>
+		<hasInteractionCell>True</hasInteractionCell>
+		<interactionCellOffset>(0,0,2)</interactionCellOffset>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<rotatable>true</rotatable>
+		<passability>PassThroughOnly</passability>
+		<pathCost>100</pathCost>
+		<castEdgeShadows>true</castEdgeShadows>
+		<canOverlapZones>false</canOverlapZones>
+		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+		<constructEffect>ConstructMetal</constructEffect>
+		<blockWind>true</blockWind>
+		<researchPrerequisites>
+			<li>VFEU_CorticalStackMatrix</li>
+		</researchPrerequisites>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<uiIconPath>Things/Building/Misc/StackMatrix/StackStorageUI_Icon</uiIconPath>
+		<uiIconScale>1</uiIconScale>
+		<placeWorkers>
+			<li>AlteredCarbon.PlaceWorker_MatrixStorage</li>
+		</placeWorkers>
+		<building>
+			<ai_chillDestination>false</ai_chillDestination>
+			<destroySound>BuildingDestroyed_Metal_Big</destroySound>
+			<preventDeteriorationOnTop>true</preventDeteriorationOnTop>
+			<ignoreStoredThingsBeauty>true</ignoreStoredThingsBeauty>
+			<fixedStorageSettings>
+				<filter>
+					<thingDefs>
+						<li>VFEU_FilledCorticalStack</li>
+					</thingDefs>
+				</filter>
+			</fixedStorageSettings>
+			<defaultStorageSettings>
+				<priority>Important</priority>
+				<filter>
+					<thingDefs>
+						<li>VFEU_FilledCorticalStack</li>
+					</thingDefs>
+				</filter>
+			</defaultStorageSettings>
+		</building>
+		<inspectorTabs>
+			<li>AlteredCarbon.ITab_StackStorageContents</li>
+			<li>AlteredCarbon.ITab_StackBackupContents</li>
+		</inspectorTabs>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<shortCircuitInRain>true</shortCircuitInRain>
+				<basePowerConsumption>5000</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>5</glowRadius>
+				<glowColor>(0,181,240,0)</glowColor>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+	</ThingDef>
 </Defs>

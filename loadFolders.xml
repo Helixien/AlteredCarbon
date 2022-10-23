@@ -2,6 +2,6 @@
 	<v1.4>
 		<li>/</li>
 		<li>1.4</li>
-		<li IfModNotActive="Hlx.UltratechAlteredCarbon">1.4/Standalone</li>
+		<li IfModNotActive="OskarPotocki.VFE.Ultratech">1.4/Standalone</li>
 	</v1.4>
 </loadFolders>
