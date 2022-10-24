@@ -54,32 +54,6 @@
 		</requiredCapacities>
 		<prioritizeSustains>true</prioritizeSustains>
 	</WorkGiverDef>
-	
-	<WorkGiverDef>
-		<defName>VFEU_ExtractActiveBrainTemplate</defName>
-		<label>extracting brain template from incubator</label>
-		<giverClass>AlteredCarbon.WorkGiver_ExtractBrainTemplate</giverClass>
-		<workType>Hauling</workType>
-		<verb>extract brain template from incubator</verb>
-		<gerund>extracting brain template from incubator</gerund>
-		<priorityInType>20</priorityInType>
-		<requiredCapacities>
-			<li>Manipulation</li>
-		</requiredCapacities>
-	</WorkGiverDef>
-
-	<WorkGiverDef>
-		<defName>VFEU_InsertBrainTemplate</defName>
-		<label>inserting brain template in incubator</label>
-		<giverClass>AlteredCarbon.WorkGiver_InsertBrainTemplate</giverClass>
-		<workType>Hauling</workType>
-		<verb>insert brain template in incubator</verb>
-		<gerund>inserting brain template in incubator</gerund>
-		<priorityInType>20</priorityInType>
-		<requiredCapacities>
-			<li>Manipulation</li>
-		</requiredCapacities>
-	</WorkGiverDef>
 
 	<WorkGiverDef>
 		<defName>VFEU_DuplicateStacks</defName>

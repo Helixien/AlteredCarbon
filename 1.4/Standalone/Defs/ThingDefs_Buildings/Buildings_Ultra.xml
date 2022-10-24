@@ -73,7 +73,9 @@
 			<li MayRequire="Ludeon.RimWorld.Biotech">PlaceWorker_ShowFacilitiesConnections</li>
 		</placeWorkers>
 		<comps>
-			<li Class="AlteredCarbon.CompProperties_SleeveGrowerPostDraw"/>
+			<li Class="AlteredCarbon.CompProperties_SleeveGrowerPostDraw">
+				<overlayTexPath>Things/Building/Misc/SleeveGrower/SleeveGrowingVatTop</overlayTexPath>
+			</li>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
 				<shortCircuitInRain>true</shortCircuitInRain>
@@ -108,9 +110,6 @@
 			<li Class="CompProperties_Flickable"/>
 		</comps>
 	</ThingDef>
-	
-	
-	
 	
 	<ThingDef ParentName="FurnitureBase">
 		<defName>VFEU_SleeveCasket</defName>
@@ -237,6 +236,7 @@
 		<recipes>
 			<li>VFEU_DecryptAncientStack</li>
 			<li>VFEU_WipeFilledCorticalStack</li>
+			<li>VFEU_HackBiocodedThings</li>
 		</recipes>
 		<inspectorTabs>
 			<li>ITab_Bills</li>
