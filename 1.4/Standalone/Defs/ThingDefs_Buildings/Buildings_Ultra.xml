@@ -12,9 +12,6 @@
 				<li>Biotech</li>
 			</buildingTags>
 		</building>
-		<placeWorkers>
-			<li>PlaceWorker_ShowFacilitiesConnections</li>
-		</placeWorkers>
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<comps>
 			<li Class="CompProperties_Forbiddable"/>
@@ -73,6 +70,7 @@
 		</building>
 		<placeWorkers>
 			<li>PlaceWorker_FuelingPort</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">PlaceWorker_ShowFacilitiesConnections</li>
 		</placeWorkers>
 		<comps>
 			<li Class="AlteredCarbon.CompProperties_SleeveGrowerPostDraw"/>

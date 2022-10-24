@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Defs>
-	<BackstoryDef>
+	<VFECore.VEBackstoryDef>
 		<defName>VFEU_VatGrownChild</defName>
 		<title>Vat-Grown Sleeve</title>
 		<titleShort>Vat-Grown Sleeve</titleShort>
@@ -22,10 +22,12 @@
 			<li>PlantWork</li>
 			<li>Social</li>
 		</workDisables>
-		<spawnCategories/>
+		<spawnCategories>
+			<li>NullCheck</li>
+		</spawnCategories>
 		<shuffleable>false</shuffleable>
-	</BackstoryDef>
-	<BackstoryDef>
+	</VFECore.VEBackstoryDef>
+	<VFECore.VEBackstoryDef>
 		<defName>VFEU_VatGrownAdult</defName>
 		<title>Vat-Grown Sleeve</title>
 		<titleShort>Vat-Grown Sleeve</titleShort>
@@ -47,7 +49,9 @@
 			<li>PlantWork</li>
 			<li>Social</li>
 		</workDisables>
-		<spawnCategories/>
+		<spawnCategories>
+			<li>NullCheck</li>
+		</spawnCategories>
 		<shuffleable>false</shuffleable>
-	</BackstoryDef>
+	</VFECore.VEBackstoryDef>
 </Defs>
