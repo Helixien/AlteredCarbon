@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<ThingDef Name="AC_ArchoStackBase" ParentName="VFEU_StackBase" Abstract="True">
+		<techLevel>Archotech</techLevel>
+		<graphicData>
+			<texPath>Things/Item/Health/HealthItem</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<uiIconForStackCount>1</uiIconForStackCount>
+		<stackLimit>25</stackLimit>
+		<tradeNeverStack>false</tradeNeverStack>
+		<useHitPoints>true</useHitPoints>
+		<techHediffsTags Inherit="False">
+			<li>Archotech</li>
+		</techHediffsTags>
+		<statBases>
+			<Mass>0.3</Mass>
+			<DeteriorationRate>0</DeteriorationRate>
+			<MaxHitPoints>250</MaxHitPoints>
+			<MarketValue>3000</MarketValue>
+		</statBases>
+	</ThingDef>
+	<ThingDef ParentName="AC_ArchoStackBase">
+		<defName>AC_EmptyArchoStack</defName>
+		<label>empty archo stack</label>
+		<description>Text.Todo</description>
+		<descriptionHyperlinks>
+			<RecipeDef>VFEU_InstallCorticalStack</RecipeDef>
+		</descriptionHyperlinks>
+		<drawGUIOverlay>true</drawGUIOverlay>
+		<thingClass>AlteredCarbon.CorticalStack</thingClass>
+		<graphicData>
+			<texPath>Things/Item/Stacks/EmptyStack</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<tradeTags Inherit="False">
+			<li>AC_ArchoStacksArchotech</li>
+			<li>ExoticMisc</li>
+		</tradeTags>
+		<thingSetMakerTags>
+			<li>RewardStandardMidFreq</li>
+		</thingSetMakerTags>
+	</ThingDef>
+	<ThingDef ParentName="AC_ArchoStackBase">
+		<defName>AC_FilledArchoStack</defName>
+		<label>archo stack</label>
+		<description>Text.Todo</description>
+		<descriptionHyperlinks>
+			<RecipeDef>VFEU_InstallCorticalStack</RecipeDef>
+		</descriptionHyperlinks>
+		<inspectorTabs>
+			<li>ITab_Pawn_Character</li>
+		</inspectorTabs>
+		<uiIconForStackCount>1</uiIconForStackCount>
+		<healthAffectsPrice>false</healthAffectsPrice>
+		<stackLimit>1</stackLimit>
+		<tickerType>Normal</tickerType>
+		<thingClass>AlteredCarbon.CorticalStack</thingClass>
+		<tradeTags Inherit="False"/>
+		<graphicData>
+			<texPath>Things/Item/Stacks/FriendlyStack</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<tradeability>None</tradeability>
+	</ThingDef>
+</Defs>
