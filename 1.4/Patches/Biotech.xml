@@ -4,15 +4,27 @@
 		<mods>
 			<li>Biotech</li>
 		</mods>
-		<match Class="PatchOperationSequence">
+		<nomatch Class="PatchOperationAdd">
 			<operations>
-				<li Class="PatchOperationReplace">
-					<xpath>/Defs/ThingDef[@Name="VFEU_SleeveBuildingBase"]/designationCategory</xpath>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs</xpath>
 					<value>
-						<designationCategory>Biotech</designationCategory>
+						<DesignationCategoryDef>
+							<defName>Biotech</defName>
+							<label>biotech</label>
+							<order>12</order>
+							<specialDesignatorClasses>
+								<li>Designator_Cancel</li>
+								<li>Designator_Deconstruct</li>
+							</specialDesignatorClasses>
+							<preferredColumn>1</preferredColumn>
+							<researchPrerequisites>
+								<li>Electricity</li>
+							</researchPrerequisites>
+						</DesignationCategoryDef>
 					</value>
 				</li>
 			</operations>
-		</match>
+		</nomatch>
 	</Operation>
 </Patch>
