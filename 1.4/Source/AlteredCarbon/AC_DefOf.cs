@@ -14,7 +14,6 @@ namespace AlteredCarbon
     [DefOf]
     public static class AC_DefOf
     {
-        [MayRequireHelixienMod] public static ThingDef VFEU_CorticalStackStorage;
         [MayRequireHelixienMod] public static ThoughtDef VFEU_JustCopy;
         [MayRequireHelixienMod] public static ThoughtDef VFEU_LostMySpouse;
         [MayRequireHelixienMod] public static ThoughtDef VFEU_LostMyFiance;
@@ -58,7 +57,6 @@ namespace AlteredCarbon
         public static ThoughtDef VFEU_WomansBody;
         public static ThoughtDef VFEU_SomethingIsWrong;
         public static DesignationDef VFEU_ExtractStackDesignation;
-        public static ConceptDef VFEU_DeadPawnWithStack;
         public static DamageDef VFEU_Deterioration;
     }
 }

@@ -78,7 +78,7 @@
     <Compile Include="Jobs\WorkGiver_HaulStacks.cs" />
     <Compile Include="Lords\LordJob_TakeStacks.cs" />
     <Compile Include="Misc\ACUtilsExtra.cs" />
-    <Compile Include="Misc\AC_DefOf.cs" />
+    <Compile Include="Misc\AC_Extra_DefOf.cs" />
     <Compile Include="Misc\PlaceWorker_MatrixStorage.cs" />
     <Compile Include="Misc\RoomRoleWorker_UltraTech.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -49,13 +49,6 @@ namespace AlteredCarbon
             }
         }
 
-        public static bool IsUltraTech(this Thing thing)
-        {
-            return thing.def == AC_DefOf.VFEU_SleeveIncubator
-                || thing.def == AC_DefOf.VFEU_SleeveCasket || thing.def == AC_DefOf.VFEU_SleeveCasket
-                || (AC_DefOf.VFEU_CorticalStackStorage != null && thing.def == AC_DefOf.VFEU_CorticalStackStorage)
-                || thing.def == AC_DefOf.VFEU_DecryptionBench;
-        }
         public static bool IsCopy(this Pawn pawn)
         {
             if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is Hediff_CorticalStack hediff && AlteredCarbonManager.Instance.stacksRelationships.TryGetValue(hediff.PersonaData.stackGroupID, out StacksData stackData))

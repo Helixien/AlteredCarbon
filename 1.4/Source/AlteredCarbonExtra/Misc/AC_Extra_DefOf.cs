@@ -7,9 +7,9 @@ namespace AlteredCarbon
     [DefOf]
     public static class AC_Extra_DefOf
     {
+        public static ThingDef VFEU_StackArray;
         public static JobDef VFEU_DuplicateStack;
         public static JobDef VFEU_CreateStackFromBackup;
-        public static ThingDef VFEU_CorticalStackStorage;
         public static ThoughtDef VFEU_JustCopy;
         public static ThoughtDef VFEU_LostMySpouse;
         public static ThoughtDef VFEU_LostMyFiance;

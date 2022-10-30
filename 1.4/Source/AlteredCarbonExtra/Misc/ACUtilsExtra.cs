@@ -99,7 +99,13 @@ namespace AlteredCarbon
             }
 
         }
-
+        public static bool IsUltraTech(this Thing thing)
+        {
+            return thing.def == AC_DefOf.VFEU_SleeveIncubator
+                || thing.def == AC_DefOf.VFEU_SleeveCasket || thing.def == AC_DefOf.VFEU_SleeveCasket
+                || thing.def == AC_Extra_DefOf.VFEU_StackArray
+                || thing.def == AC_DefOf.VFEU_DecryptionBench;
+        }
         public static void ResetStaticData()
         {
             Building_StackStorage.building_StackStorages?.Clear();

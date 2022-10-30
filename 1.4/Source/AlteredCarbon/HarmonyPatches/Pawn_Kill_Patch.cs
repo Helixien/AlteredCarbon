@@ -29,7 +29,6 @@ namespace AlteredCarbon
                     {
                         stackHediff.PersonaData.diedFromCombat = true;
                     }
-                    LessonAutoActivator.TeachOpportunity(AC_DefOf.VFEU_DeadPawnWithStack, __instance, OpportunityType.Important);
                     AlteredCarbonManager.Instance.deadPawns.Add(__instance);
                     __state = __instance.GetCaravan();
                 }
