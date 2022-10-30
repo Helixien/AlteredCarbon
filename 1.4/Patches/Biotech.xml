@@ -4,10 +4,11 @@
 		<mods>
 			<li>Biotech</li>
 		</mods>
-		<nomatch Class="PatchOperationAdd">
+		<nomatch Class="PatchOperationSequence">
 			<operations>
+				<!-- ================================ Designationor if no Biotech is found ====================== -->
 				<li Class="PatchOperationAdd">
-					<xpath>/Defs</xpath>
+					<xpath>Defs</xpath>
 					<value>
 						<DesignationCategoryDef>
 							<defName>Biotech</defName>
@@ -16,6 +17,7 @@
 							<specialDesignatorClasses>
 								<li>Designator_Cancel</li>
 								<li>Designator_Deconstruct</li>
+								<li>AlteredCarbon.Designator_ExtractStack</li>
 							</specialDesignatorClasses>
 							<preferredColumn>1</preferredColumn>
 							<researchPrerequisites>
@@ -26,5 +28,16 @@
 				</li>
 			</operations>
 		</nomatch>
+		<match Class="PatchOperationSequence">
+			<operations>
+				<!-- ================================ Adds the stack extractor if Biotech is found ====================== -->
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/DesignationCategoryDef[defName="Biotech"]/specialDesignatorClasses</xpath>
+					<value>
+						<li>AlteredCarbon.Designator_ExtractStack</li>
+					</value>
+				</li>
+			</operations>
+		</match>
 	</Operation>
 </Patch>

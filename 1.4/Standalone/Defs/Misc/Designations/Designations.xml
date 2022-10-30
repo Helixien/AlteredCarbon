@@ -5,16 +5,4 @@
 		<texturePath>UI/Icons/ExtractStacks_2</texturePath>
 		<targetType>Thing</targetType>
 	</DesignationDef>
-
-	<DesignationCategoryDef>
-		<defName>VFEU_Ultra</defName>
-		<label>ultra</label>
-		<order>45</order>
-		<specialDesignatorClasses>
-			<li>Designator_Cancel</li>
-			<li>Designator_Deconstruct</li>
-			<li>AlteredCarbon.Designator_ExtractStack</li>
-		</specialDesignatorClasses>
-	</DesignationCategoryDef>
-
 </Defs>

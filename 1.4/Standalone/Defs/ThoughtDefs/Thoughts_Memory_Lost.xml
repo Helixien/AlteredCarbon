@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
-
 	<ThoughtDef ParentName="LostMemoryFamily">
 		<defName>VFEU_MyOriginalLostMale</defName>
 		<stages>
@@ -11,7 +10,6 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-
 	<ThoughtDef ParentName="LostMemoryFamily">
 		<defName>VFEU_MyOriginalLostFemale</defName>
 		<stages>
@@ -22,7 +20,6 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-
 	<ThoughtDef ParentName="LostMemoryFamily">
 		<defName>VFEU_MyCopyLostMale</defName>
 		<stages>
@@ -33,7 +30,6 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-
 	<ThoughtDef ParentName="LostMemoryFamily">
 		<defName>VFEU_MyCopyLostFemale</defName>
 		<stages>
@@ -44,5 +40,4 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-
 </Defs>

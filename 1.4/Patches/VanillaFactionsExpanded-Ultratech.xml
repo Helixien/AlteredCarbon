@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<Operation Class="PatchOperationSequence">
+		<!-- ================================ Patches in new stuff into the base game ====================== -->
+		<operations>
+			<!-- ================================ Patches in new mechanoids into the default faction pawnGroupMakers ====================== -->
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[@Name="VFEU_SleeveBuildingBase"]</xpath>
+				<value>
+					<designationCategory>Biotech</designationCategory>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+</Patch>

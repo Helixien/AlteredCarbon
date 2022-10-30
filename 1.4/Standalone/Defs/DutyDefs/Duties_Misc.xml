@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-
 	<DutyDef>
 		<defName>VFEU_TakeStacks</defName>
 		<thinkNode Class="ThinkNode_Priority">
@@ -13,5 +12,4 @@
 			</subNodes>
 		</thinkNode>
 	</DutyDef>
-
 </Defs>

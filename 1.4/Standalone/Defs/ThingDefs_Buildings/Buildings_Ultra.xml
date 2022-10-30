@@ -3,7 +3,7 @@
 	<!-- ================================ Sleeve Building Base ====================== -->
 	<ThingDef Name="VFEU_SleeveBuildingBase" ParentName="BuildingBase" Abstract="True">
 		<altitudeLayer>Building</altitudeLayer>
-		<designationCategory>Misc</designationCategory>
+		<techLevel>Ultra</techLevel>
 		<uiOrder>2100</uiOrder>
 		<pathCost>42</pathCost>
 		<building>
@@ -136,11 +136,8 @@
 			<Plasteel>30</Plasteel>
 			<ComponentSpacer>3</ComponentSpacer>
 		</costList>
-		<techLevel>Ultra</techLevel>
 		<altitudeLayer>Building</altitudeLayer>
-		<rotatable>true</rotatable>
 		<castEdgeShadows>True</castEdgeShadows>
-		<designationCategory>Misc</designationCategory>
 		<staticSunShadowHeight>0.17</staticSunShadowHeight>
 		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
 		<drawGUIOverlay>true</drawGUIOverlay>
@@ -218,14 +215,12 @@
 			<Plasteel>70</Plasteel>
 			<ComponentSpacer>6</ComponentSpacer>
 		</costList>
-		<techLevel>Ultra</techLevel>
 		<altitudeLayer>Building</altitudeLayer>
 		<passability>PassThroughOnly</passability>
 		<fillPercent>0.5</fillPercent>
 		<pathCost>42</pathCost>
 		<castEdgeShadows>true</castEdgeShadows>
 		<staticSunShadowHeight>0.20</staticSunShadowHeight>
-		<designationCategory>Misc</designationCategory>
 		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
 		<hasInteractionCell>true</hasInteractionCell>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
@@ -259,96 +254,6 @@
 		</thingCategories>
 	</ThingDef>
 	<ThingDef ParentName="BuildingBase">
-		<defName>VFEU_OrganIncubator</defName>
-		<label>organ incubator</label>
-		<description>A small ultratech vat tank used to grow organs of any kind in a short period of time. Requires neutroamine to work.</description>
-		<tickerType>Normal</tickerType>
-		<thingClass>AlteredCarbon.Building_OrganIncubator</thingClass>
-		<drawerType>RealtimeOnly</drawerType>
-		<graphicData>
-			<texPath>Things/Building/Misc/OrganIncubator/OrganIncubator</texPath>
-			<graphicClass>Graphic_Multi</graphicClass>
-			<drawSize>(4,4)</drawSize>
-		</graphicData>
-		<size>(2,2)</size>
-		<passability>PassThroughOnly</passability>
-		<pathCost>100</pathCost>
-		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
-		<hasInteractionCell>true</hasInteractionCell>
-		<statBases>
-			<MaxHitPoints>500</MaxHitPoints>
-			<WorkToBuild>5000</WorkToBuild>
-			<Flammability>0.5</Flammability>
-			<Cleanliness>1</Cleanliness>
-		</statBases>
-		<costList>
-			<Steel>75</Steel>
-			<Plasteel>35</Plasteel>
-			<ComponentSpacer>2</ComponentSpacer>
-		</costList>
-		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
-		<techLevel>Ultra</techLevel>
-		<designationCategory>VFEU_Ultra</designationCategory>
-		<altitudeLayer>BuildingOnTop</altitudeLayer>
-		<neverMultiSelect>true</neverMultiSelect>
-		<rotatable>true</rotatable>
-		<castEdgeShadows>true</castEdgeShadows>
-		<canOverlapZones>false</canOverlapZones>
-		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
-		<constructEffect>ConstructMetal</constructEffect>
-		<blockWind>true</blockWind>
-		<researchPrerequisites>
-			<li>VFEU_OrganProduction</li>
-		</researchPrerequisites>
-		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
-		<uiIconPath>Things/Building/Misc/OrganIncubator/OrganIncubatorUI_Icon</uiIconPath>
-		<uiIconScale>1</uiIconScale>
-		<recipes>
-			<li>VFEU_GrowOrganicHeart</li>
-			<li>VFEU_GrowOrganicLung</li>
-			<li>VFEU_GrowOrganicKidney</li>
-			<li>VFEU_GrowOrganicLiver</li>
-			<li>VFEU_GrowOrganicStomach</li>
-			<li>VFEU_GrowOrganicArm</li>
-			<li>VFEU_GrowOrganicLeg</li>
-			<li>VFEU_GrowOrganicEye</li>
-			<li>VFEU_GrowOrganicEar</li>
-			<li>VFEU_GrowOrganicNose</li>
-		</recipes>
-		<placeWorkers>
-			<li>PlaceWorker_FuelingPort</li>
-		</placeWorkers>
-		<comps>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerTrader</compClass>
-				<shortCircuitInRain>true</shortCircuitInRain>
-				<basePowerConsumption>250</basePowerConsumption>
-			</li>
-			<li Class="CompProperties_Refuelable">
-				<fuelLabel>Neutroamine</fuelLabel>
-				<fuelGizmoLabel>Neutroamine</fuelGizmoLabel>
-				<outOfFuelMessage>Cannot grow: Needs neutroamine</outOfFuelMessage>
-				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
-				<targetFuelLevelConfigurable>false</targetFuelLevelConfigurable>
-				<fuelCapacity>100.0</fuelCapacity>
-				<fuelFilter>
-					<thingDefs>
-						<li>Neutroamine</li>
-					</thingDefs>
-				</fuelFilter>
-				<initialFuelPercent>1</initialFuelPercent>
-				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
-				<showFuelGizmo>true</showFuelGizmo>
-			</li>
-			<li Class="CompProperties_Glower">
-				<glowRadius>3</glowRadius>
-				<glowColor>(96,161,153,0)</glowColor>
-			</li>
-			<li Class="CompProperties_Flickable"/>
-			<li Class="CompProperties_Breakdownable"/>
-		</comps>
-	</ThingDef>
-	<ThingDef ParentName="BuildingBase">
 		<defName>VFEU_CorticalStackStorage</defName>
 		<label>quantum storage matrix</label>
 		<description>A ultratech, quantum computing matrix made to store cortical stacks. If in range of auto-linked stacks, the matrix can make emergency backups in case of catastrophic stack faliure. Can be linked to a rVR server.</description>
@@ -380,8 +285,6 @@
 			<ComponentSpacer>12</ComponentSpacer>
 		</costList>
 		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
-		<techLevel>Ultra</techLevel>
-		<designationCategory>VFEU_Ultra</designationCategory>
 		<altitudeLayer>BuildingOnTop</altitudeLayer>
 		<neverMultiSelect>true</neverMultiSelect>
 		<hasInteractionCell>True</hasInteractionCell>

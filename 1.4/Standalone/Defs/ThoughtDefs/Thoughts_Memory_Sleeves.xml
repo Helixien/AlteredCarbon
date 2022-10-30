@@ -122,7 +122,6 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-
 	<ThoughtDef>
 		<defName>VFEU_JustCopy</defName>
 		<durationDays>60</durationDays>
@@ -139,7 +138,6 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-
 	<ThoughtDef>
 		<defName>VFEU_LostMySpouse</defName>
 		<durationDays>30</durationDays>
@@ -152,7 +150,6 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-
 	<ThoughtDef>
 		<defName>VFEU_LostMyFiance</defName>
 		<durationDays>30</durationDays>
@@ -165,7 +162,6 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-
 	<ThoughtDef>
 		<defName>VFEU_LostMyLover</defName>
 		<durationDays>30</durationDays>
@@ -178,5 +174,4 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-	
 </Defs>

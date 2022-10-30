@@ -15,7 +15,6 @@
 		<researchViewX>0.00</researchViewX>
 		<researchViewY>1.40</researchViewY>
 	</ResearchProjectDef>
-	
 	<ResearchProjectDef ParentName="VFEU_ResearchBase">
 		<defName>VFEU_CorticalStackMatrix</defName>
 		<label>quantum matrix</label>
@@ -28,7 +27,6 @@
 		<researchViewX>2.00</researchViewX>
 		<researchViewY>1.40</researchViewY>
 	</ResearchProjectDef>
-
 	<ResearchProjectDef ParentName="VFEU_ResearchBase">
 		<defName>VFEU_OrganProduction</defName>
 		<label>organ growing</label>
@@ -40,7 +38,6 @@
 		<researchViewX>0.00</researchViewX>
 		<researchViewY>3.50</researchViewY>
 	</ResearchProjectDef>
-
 	<ResearchProjectDef ParentName="VFEU_ResearchBase">
 		<defName>VFEU_SleeveProduction</defName>
 		<label>human sleeves</label>

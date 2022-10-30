@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-
 	<ThoughtDef ParentName="DeathMemoryFamily">
 		<defName>VFEU_MyOriginalDied</defName>
 		<nullifyingTraits>
@@ -15,7 +14,6 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-
 	<ThoughtDef ParentName="DeathMemoryFamily">
 		<defName>VFEU_MyCopyDied</defName>
 		<nullifyingTraits>
@@ -30,5 +28,4 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-
 </Defs>

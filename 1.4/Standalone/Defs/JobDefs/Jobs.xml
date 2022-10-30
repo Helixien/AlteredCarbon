@@ -20,17 +20,14 @@
 		<driverClass>AlteredCarbon.JobDriver_CancelIncubatingProcess</driverClass>
 		<reportString>canceling growth process on incubator</reportString>
 	</JobDef>
-	
 	<JobDef>
 		<defName>VFEU_DuplicateStack</defName>
 		<driverClass>AlteredCarbon.JobDriver_DuplicateStack</driverClass>
 		<reportString>duplicating cortical stack</reportString>
 	</JobDef>
-
 	<JobDef>
 		<defName>VFEU_CreateStackFromBackup</defName>
 		<driverClass>AlteredCarbon.JobDriver_CreateStackFromBackup</driverClass>
 		<reportString>restoring cortical stack from backup</reportString>
 	</JobDef>
-
 </Defs>

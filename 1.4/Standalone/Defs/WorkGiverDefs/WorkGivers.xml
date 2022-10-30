@@ -54,7 +54,6 @@
 		</requiredCapacities>
 		<prioritizeSustains>true</prioritizeSustains>
 	</WorkGiverDef>
-
 	<WorkGiverDef>
 		<defName>VFEU_DuplicateStacks</defName>
 		<label>duplicate stacks</label>
@@ -67,7 +66,6 @@
 			<li>Manipulation</li>
 		</requiredCapacities>
 	</WorkGiverDef>
-
 	<WorkGiverDef>
 		<defName>VFEU_HaulStacksToStorage</defName>
 		<label>haul stacks</label>
@@ -80,7 +78,6 @@
 			<li>Manipulation</li>
 		</requiredCapacities>
 	</WorkGiverDef>
-	
 	<WorkGiverDef>
 		<defName>VFEU_CreateStackFromBackup</defName>
 		<label>restore stack from backup</label>

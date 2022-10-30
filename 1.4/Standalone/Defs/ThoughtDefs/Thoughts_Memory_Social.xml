@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
-
 	<ThoughtDef>
 		<defName>VFEU_KilledMyOriginal</defName>
 		<thoughtClass>Thought_MemorySocial</thoughtClass>
@@ -14,7 +13,6 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-
 	<ThoughtDef>
 		<defName>VFEU_KilledMyCopy</defName>
 		<thoughtClass>Thought_MemorySocial</thoughtClass>
@@ -28,5 +26,4 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-
 </Defs>

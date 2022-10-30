@@ -58,18 +58,12 @@
 		<descriptionHyperlinks>
 			<RecipeDef>VFEU_InstallCorticalStack</RecipeDef>
 		</descriptionHyperlinks>
-		<drawGUIOverlay>true</drawGUIOverlay>
-		<thingClass>AlteredCarbon.CorticalStack</thingClass>
 		<graphicData>
 			<texPath>Things/Item/Stacks/EmptyStack</texPath>
 			<graphicClass>Graphic_StackCount</graphicClass>
 		</graphicData>
-		<tradeTags Inherit="False">
-			<li>VFEU_StacksUltra</li>
-			<li MayRequire="Ludeon.RimWorld.Royalty">ImplantEmpireRoyal</li>
-			<li>ExoticMisc</li>
-			<li>BuyableFromHunterCorp</li>
-		</tradeTags>
+		<thingClass>AlteredCarbon.CorticalStack</thingClass>
+		<drawGUIOverlay>true</drawGUIOverlay>
 		<costList>
 			<Plasteel>15</Plasteel>
 			<ComponentSpacer>4</ComponentSpacer>
@@ -77,6 +71,12 @@
 		<thingSetMakerTags>
 			<li>RewardStandardLowFreq</li>
 		</thingSetMakerTags>
+		<tradeTags Inherit="False">
+			<li>VFEU_StacksUltra</li>
+			<li MayRequire="Ludeon.RimWorld.Royalty">ImplantEmpireRoyal</li>
+			<li>ExoticMisc</li>
+			<li>BuyableFromHunterCorp</li>
+		</tradeTags>
 	</ThingDef>
 	<ThingDef ParentName="VFEU_StackBase">
 		<defName>VFEU_FilledCorticalStack</defName>
@@ -85,20 +85,20 @@
 		<descriptionHyperlinks>
 			<RecipeDef>VFEU_InstallCorticalStack</RecipeDef>
 		</descriptionHyperlinks>
-		<inspectorTabs>
-			<li>ITab_Pawn_Character</li>
-		</inspectorTabs>
+		<graphicData>
+			<texPath>Things/Item/Stacks/FriendlyStack</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<thingClass>AlteredCarbon.CorticalStack</thingClass>
 		<uiIconForStackCount>1</uiIconForStackCount>
 		<healthAffectsPrice>false</healthAffectsPrice>
 		<stackLimit>1</stackLimit>
 		<tradeNeverStack>false</tradeNeverStack>
 		<tickerType>Normal</tickerType>
-		<thingClass>AlteredCarbon.CorticalStack</thingClass>
 		<tradeTags Inherit="False"/>
-		<graphicData>
-			<texPath>Things/Item/Stacks/FriendlyStack</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-		</graphicData>
 		<tradeability>None</tradeability>
+		<inspectorTabs>
+			<li>ITab_Pawn_Character</li>
+		</inspectorTabs>
 	</ThingDef>
 </Defs>

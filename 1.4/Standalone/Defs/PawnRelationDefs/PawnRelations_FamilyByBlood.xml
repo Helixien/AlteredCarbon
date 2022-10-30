@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
-
 	<PawnRelationDef>
 		<defName>VFEU_Original</defName>
 		<label>original</label>
@@ -19,7 +18,6 @@
 		<implied>false</implied>
 		<familyByBloodRelation>true</familyByBloodRelation>
 	</PawnRelationDef>
-
 	<PawnRelationDef>
 		<defName>VFEU_Copy</defName>
 		<label>copy</label>
@@ -38,5 +36,4 @@
 		<implied>false</implied>
 		<familyByBloodRelation>true</familyByBloodRelation>
 	</PawnRelationDef>
-
 </Defs>
