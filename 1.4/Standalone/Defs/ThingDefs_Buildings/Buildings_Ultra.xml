@@ -1,33 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<!-- ================================ Sleeve Building Base ====================== -->
-	<ThingDef Name="VFEU_SleeveBuildingBase" ParentName="BuildingBase" Abstract="True">
-		<altitudeLayer>Building</altitudeLayer>
-		<techLevel>Ultra</techLevel>
-		<uiOrder>2100</uiOrder>
-		<pathCost>42</pathCost>
-		<building>
-			<ai_chillDestination>false</ai_chillDestination>
-			<buildingTags>
-				<li>Biotech</li>
-			</buildingTags>
-		</building>
-		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
-		<comps>
-			<li Class="CompProperties_Forbiddable"/>
-			<li Class="CompProperties_Breakdownable"/>
-		</comps>
-	</ThingDef>
-	<!-- ================================ Sleeve Vat ====================== -->
-	<ThingDef ParentName="VFEU_SleeveBuildingBase">
+	<!-- ================================ Sleeve Incubator ====================== -->
+	<ThingDef ParentName="BuildingBase">
 		<defName>VFEU_SleeveIncubator</defName>
 		<label>sleeve incubator</label>
 		<description>Text.todo</description>
-		<thingClass>AlteredCarbon.Building_SleeveGrower</thingClass>
-		<passability>Impassable</passability>
-		<castEdgeShadows>true</castEdgeShadows>
+		<descriptionHyperlinks>
+			<ThingDef MayRequire="Ludeon.RimWorld.Biotech">GeneBank</ThingDef>
+			<ThingDef MayRequire="Ludeon.RimWorld.Biotech">GeneProcessor</ThingDef>
+		</descriptionHyperlinks>
 		<graphicData>
-			<texPath>Things/Building/Misc/SleeveGrower/SleeveGrowerBottom</texPath>
+			<texPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorBottom</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<drawSize>(7,7)</drawSize>
 			<shaderType>CutoutComplex</shaderType>
@@ -35,46 +18,53 @@
 				<volume>(2.55, 0.75, 1.7)</volume>
 			</shadowData>
 		</graphicData>
-		<uiIconPath>Things/Building/Misc/SleeveGrower/SleeveGrowerUI_Icon</uiIconPath>
-		<uiIconScale>1.2</uiIconScale>
-		<descriptionHyperlinks>
-			<ThingDef MayRequire="Ludeon.RimWorld.Biotech">GeneBank</ThingDef>
-			<ThingDef MayRequire="Ludeon.RimWorld.Biotech">GeneProcessor</ThingDef>
-		</descriptionHyperlinks>
+		<thingClass>AlteredCarbon.Building_SleeveGrower</thingClass>
 		<tickerType>Normal</tickerType>
 		<drawerType>RealtimeOnly</drawerType>
+		<passability>Impassable</passability>
+		<castEdgeShadows>true</castEdgeShadows>
+		<uiIconPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorUI_Icon</uiIconPath>
+		<uiIconScale>1.2</uiIconScale>
 		<size>(3,3)</size>
 		<hasInteractionCell>true</hasInteractionCell>
 		<interactionCellOffset>(0,0,2)</interactionCellOffset>
 		<defaultPlacingRot>South</defaultPlacingRot>
 		<neverMultiSelect>true</neverMultiSelect>
+		<fillPercent>0.6</fillPercent>
+		<pathCost>70</pathCost>
+		<canOverlapZones>false</canOverlapZones>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<blockWind>true</blockWind>
 		<statBases>
 			<MarketValue>3580</MarketValue>
 			<MaxHitPoints>400</MaxHitPoints>
 			<Flammability>0.5</Flammability>
 			<Mass>60</Mass>
 		</statBases>
+		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
 		<costList>
 			<Steel>150</Steel>
 			<Plasteel>50</Plasteel>
 			<ComponentSpacer>6</ComponentSpacer>
 		</costList>
-		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
-		<fillPercent>0.6</fillPercent>
-		<pathCost Inherit="False">70</pathCost>
-		<canOverlapZones>false</canOverlapZones>
-		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-		<blockWind>true</blockWind>
 		<building>
 			<destroySound>BuildingDestroyed_Metal_Big</destroySound>
+			<ai_chillDestination>false</ai_chillDestination>
+			<buildingTags>
+				<li>Biotech</li>
+			</buildingTags>
 		</building>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<placeWorkers>
 			<li>PlaceWorker_FuelingPort</li>
 			<li MayRequire="Ludeon.RimWorld.Biotech">PlaceWorker_ShowFacilitiesConnections</li>
 		</placeWorkers>
 		<comps>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Forbiddable"/>
+			<li Class="CompProperties_Breakdownable"/>
 			<li Class="AlteredCarbon.CompProperties_SleeveGrowerPostDraw">
-				<overlayTexPath>Things/Building/Misc/SleeveGrower/SleeveGrowingVatTop</overlayTexPath>
+				<overlayTexPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorTop</overlayTexPath>
 			</li>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
@@ -107,24 +97,27 @@
 				<glowRadius>5</glowRadius>
 				<glowColor>(96,161,153,0)</glowColor>
 			</li>
-			<li Class="CompProperties_Flickable"/>
 		</comps>
 	</ThingDef>
-	
+	<!-- ================================ Sleeve Casket	====================== -->
 	<ThingDef ParentName="FurnitureBase">
 		<defName>VFEU_SleeveCasket</defName>
 		<label>sleeve casket</label>
 		<description>Text.todo</description>
-		<thingClass>AlteredCarbon.Building_SleeveCasket</thingClass>
-		<tickerType>Normal</tickerType>
-		<drawerType>RealtimeOnly</drawerType>
-		<passability>PassThroughOnly</passability>
+		<descriptionHyperlinks>
+			<ThingDef>VFEU_SleeveIncubator</ThingDef>
+		</descriptionHyperlinks>
 		<graphicData>
 			<texPath>Things/Building/Furniture/Bed/SleeveCasket</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<shaderType>CutoutComplex</shaderType>
 			<drawSize>(2,2)</drawSize>
 		</graphicData>
+		<thingClass>AlteredCarbon.Building_SleeveCasket</thingClass>
+		<tickerType>Normal</tickerType>
+		<drawerType>RealtimeOnly</drawerType>
+		<passability>PassThroughOnly</passability>
+
 		<size>(1,2)</size>
 		<statBases>
 			<MaxHitPoints>250</MaxHitPoints>
@@ -218,6 +211,7 @@
 		<altitudeLayer>Building</altitudeLayer>
 		<passability>PassThroughOnly</passability>
 		<fillPercent>0.5</fillPercent>
+		<designationCategory>Misc</designationCategory>
 		<pathCost>42</pathCost>
 		<castEdgeShadows>true</castEdgeShadows>
 		<staticSunShadowHeight>0.20</staticSunShadowHeight>
