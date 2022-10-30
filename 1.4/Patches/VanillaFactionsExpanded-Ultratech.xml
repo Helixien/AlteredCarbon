@@ -5,7 +5,7 @@
 		<operations>
 			<!-- ================================ Patches in new mechanoids into the default faction pawnGroupMakers ====================== -->
 			<li Class="PatchOperationAdd">
-				<xpath>/Defs/ThingDef[defName="VFEU_SleeveIncubator" or defName="VFEU_SleeveCasket" or defName="VFEU_CorticalStackStorage"]</xpath>
+				<xpath>/Defs/ThingDef[defName="VFEU_SleeveIncubator" or defName="VFEU_SleeveCasket" or defName="VFEU_StackArray"]</xpath>
 				<value>
 					<designationCategory>Biotech</designationCategory>
 				</value>
@@ -14,7 +14,7 @@
 				<xpath>/Defs/ThingDef[defName="VFEU_SleeveIncubator"]</xpath>
 				<value>
 					<researchPrerequisites>
-						<li>AC_SleeveProduction</li>
+						<li>AC_Sleeving</li>
 					</researchPrerequisites>
 					<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
 					<costList>
@@ -28,7 +28,7 @@
 				<xpath>/Defs/ThingDef[defName="VFEU_SleeveCasket"]</xpath>
 				<value>
 					<researchPrerequisites>
-						<li>AC_SleeveProduction</li>
+						<li>AC_Sleeving</li>
 					</researchPrerequisites>
 					<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
 					<costList>
@@ -39,10 +39,10 @@
 				</value>
 			</li>
 			<li Class="PatchOperationAdd">
-				<xpath>/Defs/ThingDef[defName="VFEU_CorticalStackStorage"]</xpath>
+				<xpath>/Defs/ThingDef[defName="VFEU_StackArray"]</xpath>
 				<value>
 					<researchPrerequisites>
-						<li>AC_CorticalStackMatrix</li>
+						<li>AC_CorticalStorage</li>
 					</researchPrerequisites>
 					<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 					<costList>

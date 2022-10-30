@@ -13,8 +13,8 @@
 	</ResearchProjectDef>
 	<!-- ================================ Sleeve Production	====================== -->
 	<ResearchProjectDef ParentName="AC_ResearchBase">
-		<defName>AC_SleeveProduction</defName>
-		<label>human sleeves</label>
+		<defName>AC_Sleeving</defName>
+		<label>sleeving</label>
 		<description>text.todo</description>
 		<baseCost>3000</baseCost>
 		<researchViewX>2.00</researchViewX>
@@ -22,8 +22,8 @@
 	</ResearchProjectDef>
 	<!-- ================================ Cortical Stack storage ====================== -->
 	<ResearchProjectDef ParentName="AC_ResearchBase">
-		<defName>AC_CorticalStackMatrix</defName>
-		<label>quantum matrix</label>
+		<defName>AC_CorticalStorage</defName>
+		<label>cortical storage</label>
 		<description>text.todo</description>
 		<baseCost>4000</baseCost>
 		<researchViewX>2.00</researchViewX>
