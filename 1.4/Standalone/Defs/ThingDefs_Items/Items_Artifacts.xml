@@ -38,7 +38,6 @@
 		<tradeability>Sellable</tradeability>
 		<techLevel>Ultra</techLevel>
 		<tradeTags inherit="False"/>
-		<storedConceptLearnOpportunity>VFEU_AncientStacks</storedConceptLearnOpportunity>
 	</ThingDef>
 	<ThingDef ParentName="UnfinishedBase">
 		<defName>VFEU_UnfinishedAncientStack</defName>
