@@ -41,12 +41,6 @@
 			<Flammability>0.5</Flammability>
 			<Mass>60</Mass>
 		</statBases>
-		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
-		<costList>
-			<Steel>150</Steel>
-			<Plasteel>50</Plasteel>
-			<ComponentSpacer>6</ComponentSpacer>
-		</costList>
 		<building>
 			<destroySound>BuildingDestroyed_Metal_Big</destroySound>
 			<ai_chillDestination>false</ai_chillDestination>
@@ -117,18 +111,12 @@
 		<tickerType>Normal</tickerType>
 		<drawerType>RealtimeOnly</drawerType>
 		<passability>PassThroughOnly</passability>
-
 		<size>(1,2)</size>
 		<statBases>
 			<MaxHitPoints>250</MaxHitPoints>
 			<Mass>40</Mass>
 			<Flammability>0.5</Flammability>
 		</statBases>
-		<costList>
-			<Steel>180</Steel>
-			<Plasteel>30</Plasteel>
-			<ComponentSpacer>3</ComponentSpacer>
-		</costList>
 		<altitudeLayer>Building</altitudeLayer>
 		<castEdgeShadows>True</castEdgeShadows>
 		<staticSunShadowHeight>0.17</staticSunShadowHeight>
@@ -142,6 +130,10 @@
 			<bed_humanlike>true</bed_humanlike>
 			<bed_healPerDay>0</bed_healPerDay>
 			<bed_defaultMedical>true</bed_defaultMedical>
+			<ai_chillDestination>false</ai_chillDestination>
+			<buildingTags>
+				<li>Biotech</li>
+			</buildingTags>
 		</building>
 		<fillPercent>0.5</fillPercent>
 		<pathCost>42</pathCost>
@@ -221,6 +213,10 @@
 		<surfaceType>Item</surfaceType>
 		<building>
 			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+			<ai_chillDestination>false</ai_chillDestination>
+			<buildingTags>
+				<li>Biotech</li>
+			</buildingTags>
 		</building>
 		<recipes>
 			<li>VFEU_DecryptAncientStack</li>
@@ -273,12 +269,6 @@
 			<Flammability>1.0</Flammability>
 			<Cleanliness>1</Cleanliness>
 		</statBases>
-		<costList>
-			<Steel>250</Steel>
-			<Plasteel>150</Plasteel>
-			<ComponentSpacer>12</ComponentSpacer>
-		</costList>
-		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 		<altitudeLayer>BuildingOnTop</altitudeLayer>
 		<neverMultiSelect>true</neverMultiSelect>
 		<hasInteractionCell>True</hasInteractionCell>
@@ -292,9 +282,6 @@
 		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
 		<constructEffect>ConstructMetal</constructEffect>
 		<blockWind>true</blockWind>
-		<researchPrerequisites>
-			<li>VFEU_CorticalStackMatrix</li>
-		</researchPrerequisites>
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<uiIconPath>Things/Building/Misc/StackMatrix/StackStorageUI_Icon</uiIconPath>
 		<uiIconScale>1</uiIconScale>
@@ -321,6 +308,9 @@
 					</thingDefs>
 				</filter>
 			</defaultStorageSettings>
+			<buildingTags>
+				<li>Biotech</li>
+			</buildingTags>
 		</building>
 		<inspectorTabs>
 			<li>AlteredCarbon.ITab_StackStorageContents</li>
