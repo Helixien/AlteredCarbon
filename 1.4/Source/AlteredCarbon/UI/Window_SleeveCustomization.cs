@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using Verse;
+using Verse.Sound;
 using static AlteredCarbon.UIHelpers;
 
 namespace AlteredCarbon
@@ -14,7 +15,7 @@ namespace AlteredCarbon
     public class HotSwappableAttribute : Attribute
     {
     }
-
+    [StaticConstructorOnStartup]
     [HotSwappable]
     public class Window_SleeveCustomization : Window
     {
@@ -26,6 +27,7 @@ namespace AlteredCarbon
         public Pawn curSleeve;
         private PawnKindDef currentPawnKindDef;
         private readonly Building_SleeveGrower sleeveGrower;
+        public static Texture2D ChangeColor = ContentFinder<Texture2D>.Get("UI/Commands/ChangeColor");
 
         private bool allowMales = true;
         private bool allowFemales = true;
@@ -172,7 +174,7 @@ namespace AlteredCarbon
         private void InitUI()
         {
             forcePause = true;
-            absorbInputAroundWindow = false;
+            absorbInputAroundWindow = true;
         }
 
         public Window_SleeveCustomization(Building_SleeveGrower sleeveGrower)
@@ -305,9 +307,60 @@ namespace AlteredCarbon
             return str;
         }
 
+        private static List<BodyTypeDef> invalidBodies = new List<BodyTypeDef>
+        {
+            BodyTypeDefOf.Baby, BodyTypeDefOf.Child
+        };
         public List<BodyTypeDef> GetAllowedBodyTypesFor(Pawn pawn)
         {
-            return ModCompatibility.AlienRacesIsActive ? ModCompatibility.GetAllowedBodyTypes(pawn.def) : DefDatabase<BodyTypeDef>.AllDefsListForReading;
+            return (ModCompatibility.AlienRacesIsActive ? 
+                ModCompatibility.GetAllowedBodyTypes(pawn.def) : 
+                DefDatabase<BodyTypeDef>.AllDefsListForReading).Except(invalidBodies).ToList();
+        }
+
+        private List<BeardDef> GetPermittedBeards()
+        {
+            permittedBeards = DefDatabase<BeardDef>.AllDefs.Where(x => (curSleeve.gender == Gender.Male
+            && (x.styleGender == StyleGender.MaleUsually || x.styleGender == StyleGender.Male || x.styleGender == StyleGender.Any))
+            || (curSleeve.gender == Gender.Female && (x.styleGender == StyleGender.FemaleUsually || x.styleGender == StyleGender.Female
+            || x.styleGender == StyleGender.Any))).ToList();
+            return permittedBeards;
+        }
+
+        private List<HairDef> GetPermittedHairs()
+        {
+            permittedHairs = ModCompatibility.AlienRacesIsActive
+                ? ModCompatibility.GetPermittedHair(currentPawnKindDef.race)
+                : DefDatabase<HairDef>.AllDefs.ToList();
+            return permittedHairs;
+        }
+
+        private static List<HeadTypeDef> invalidHeads = new List<HeadTypeDef>
+        {
+            HeadTypeDefOf.Skull, HeadTypeDefOf.Stump
+        };
+        private List<HeadTypeDef> GetPermittedHeads()
+        {
+            permittedHeads = DefDatabase<HeadTypeDef>.AllDefs.Except(invalidHeads).Where(x => CanUseHeadType(x)).ToList();
+            bool CanUseHeadType(HeadTypeDef head)
+            {
+                if (ModsConfig.BiotechActive && !head.requiredGenes.NullOrEmpty())
+                {
+                    if (curSleeve.genes == null)
+                    {
+                        return false;
+                    }
+                    foreach (GeneDef requiredGene in head.requiredGenes)
+                    {
+                        if (!curSleeve.genes.HasGene(requiredGene))
+                        {
+                            return false;
+                        }
+                    }
+                }
+                return head.gender == 0 || head.gender == curSleeve.gender;
+            }
+            return permittedHeads;
         }
 
         public List<Color> GetSkinColors()
@@ -356,8 +409,9 @@ namespace AlteredCarbon
                 float initialYPos = pos.y;
                 //Gender
                 Text.Anchor = TextAnchor.MiddleLeft;
-                Rect genderRect = GetLabelRect(ref pos);
-                Widgets.Label(genderRect, "Gender".Translate() + ":");
+                var genderLabel = "Gender".Translate() + ":";
+                Rect genderRect = GetLabelRect(genderLabel, ref pos);
+                Widgets.Label(genderRect, genderLabel);
                 Rect maleGenderRect = new Rect(genderRect.xMax + buttonOffsetFromText, genderRect.y, buttonWidth, buttonHeight);
                 Rect femaleGenderRect = new Rect(maleGenderRect.xMax + buttonOffsetFromButton, genderRect.y, buttonWidth, buttonHeight);
                 if (allowMales && Widgets.ButtonText(maleGenderRect, "Male".Translate().CapitalizeFirst()))
@@ -395,7 +449,7 @@ namespace AlteredCarbon
                     }
                     curSkinColor = x;
                     UpdateSleeveGraphic();
-                }, ModCompatibility.AlienRacesIsActive);
+                }, true);
 
                 DoSelectionButtons(ref pos, "AC.HeadShape".Translate(), ref headTypeIndex,
                     (HeadTypeDef x) => ExtractHeadLabels(x.graphicPath),
@@ -622,13 +676,13 @@ namespace AlteredCarbon
             bool includeColorPicker)
         {
             Text.Anchor = TextAnchor.MiddleLeft;
-            Rect labelRect = GetLabelRect(ref pos);
+            Rect labelRect = GetLabelRect(label + ":", ref pos);
             Widgets.Label(labelRect, label + ":");
 
             if (includeColorPicker)
             {
                 Rect colorPickerButton = new Rect(labelRect.xMax + buttonOffsetFromText + (5 * 50) + 15, labelRect.y, 32, 32);
-                if (Widgets.ButtonImage(colorPickerButton, BaseContent.BadTex))
+                if (Widgets.ButtonImage(colorPickerButton, ChangeColor))
                 {
                     Find.WindowStack.Add(new Window_ColorPicker(curColor, delegate (Color pick)
                     {
@@ -664,13 +718,14 @@ namespace AlteredCarbon
             if (list.Any())
             {
                 Text.Anchor = TextAnchor.MiddleLeft;
-                Rect labelRect = GetLabelRect(ref pos);
+                Rect labelRect = GetLabelRect(label + ":", ref pos);
                 Widgets.Label(labelRect, label + ":");
                 Rect highlightRect = new Rect(labelRect.xMax + buttonOffsetFromText, labelRect.y, (buttonWidth * 2) + buttonOffsetFromButton, buttonHeight);
                 Widgets.DrawHighlight(highlightRect);
                 Rect leftSelectRect = new Rect(highlightRect.x + 2, highlightRect.y, highlightRect.height, highlightRect.height);
                 if (ButtonTextSubtleCentered(leftSelectRect, "<"))
                 {
+                    SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                     if (index == 0)
                     {
                         index = list.Count() - 1;
@@ -684,6 +739,7 @@ namespace AlteredCarbon
                 Rect centerButtonRect = new Rect(leftSelectRect.xMax + 2, leftSelectRect.y, highlightRect.width - (2 * leftSelectRect.width), buttonHeight);
                 if (ButtonTextSubtleCentered(centerButtonRect, labelGetter(list[index])))
                 {
+                    SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                     FloatMenuUtility.MakeMenu<T>(list, x => labelGetter(x), (T x) => delegate
                     {
                         selectAction(x);
@@ -692,6 +748,7 @@ namespace AlteredCarbon
                 Rect rightButtonRect = new Rect(centerButtonRect.xMax + 2, leftSelectRect.y, leftSelectRect.width, leftSelectRect.height);
                 if (ButtonTextSubtleCentered(rightButtonRect, ">"))
                 {
+                    SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                     if (index == list.Count() - 1)
                     {
                         index = 0;
@@ -704,14 +761,11 @@ namespace AlteredCarbon
                 }
             }
         }
-        private static Rect GetLabelRect(Vector2 pos)
+
+        private static Rect GetLabelRect(string label, ref Vector2 pos)
         {
-            Rect rect = new Rect(pos.x, pos.y, labelWidth, buttonHeight);
-            return rect;
-        }
-        private static Rect GetLabelRect(ref Vector2 pos)
-        {
-            Rect rect = new Rect(pos.x, pos.y, labelWidth, buttonHeight);
+            var height = Mathf.Max(buttonHeight, Text.CalcHeight(label, labelWidth));
+            Rect rect = new Rect(pos.x, pos.y, labelWidth, height);
             pos.y += buttonHeight + 5;
             return rect;
         }
@@ -867,46 +921,6 @@ namespace AlteredCarbon
             ApplyBeauty();
             ApplySensitivity();
             UpdateGrowCost();
-        }
-        private List<BeardDef> GetPermittedBeards()
-        {
-            permittedBeards = DefDatabase<BeardDef>.AllDefs.Where(x => (curSleeve.gender == Gender.Male
-            && (x.styleGender == StyleGender.MaleUsually || x.styleGender == StyleGender.Male || x.styleGender == StyleGender.Any))
-            || (curSleeve.gender == Gender.Female && (x.styleGender == StyleGender.FemaleUsually || x.styleGender == StyleGender.Female
-            || x.styleGender == StyleGender.Any))).ToList();
-            return permittedBeards;
-        }
-
-        private List<HairDef> GetPermittedHairs()
-        {
-            permittedHairs = ModCompatibility.AlienRacesIsActive
-                ? ModCompatibility.GetPermittedHair(currentPawnKindDef.race)
-                : DefDatabase<HairDef>.AllDefs.ToList();
-            return permittedHairs;
-        }
-
-        private List<HeadTypeDef> GetPermittedHeads()
-        {
-            permittedHeads = DefDatabase<HeadTypeDef>.AllDefs.Where(x => CanUseHeadType(x)).ToList();
-            bool CanUseHeadType(HeadTypeDef head)
-            {
-                if (ModsConfig.BiotechActive && !head.requiredGenes.NullOrEmpty())
-                {
-                    if (curSleeve.genes == null)
-                    {
-                        return false;
-                    }
-                    foreach (GeneDef requiredGene in head.requiredGenes)
-                    {
-                        if (!curSleeve.genes.HasGene(requiredGene))
-                        {
-                            return false;
-                        }
-                    }
-                }
-                return head.gender == 0 || head.gender == curSleeve.gender;
-            }
-            return permittedHeads;
         }
 
         //button text subtle copied from Rimworld basecode but with minor changes to fit this UI
