@@ -77,7 +77,7 @@
 						<li>Neutroamine</li>
 					</thingDefs>
 				</fuelFilter>
-				<initialFuelPercent>0</initialFuelPercent>
+				<initialFuelPercent>1</initialFuelPercent>
 				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
 				<showFuelGizmo>true</showFuelGizmo>
 			</li>
