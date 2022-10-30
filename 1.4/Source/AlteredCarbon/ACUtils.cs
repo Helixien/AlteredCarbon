@@ -51,7 +51,7 @@ namespace AlteredCarbon
 
         public static bool IsUltraTech(this Thing thing)
         {
-            return thing.def == AC_DefOf.VFEU_SleeveIncubator || (AC_DefOf.VFEU_OrganIncubator != null && thing.def == AC_DefOf.VFEU_OrganIncubator)
+            return thing.def == AC_DefOf.VFEU_SleeveIncubator
                 || thing.def == AC_DefOf.VFEU_SleeveCasket || thing.def == AC_DefOf.VFEU_SleeveCasket
                 || (AC_DefOf.VFEU_CorticalStackStorage != null && thing.def == AC_DefOf.VFEU_CorticalStackStorage)
                 || thing.def == AC_DefOf.VFEU_DecryptionBench;

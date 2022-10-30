@@ -14,7 +14,6 @@ namespace AlteredCarbon
     [DefOf]
     public static class AC_DefOf
     {
-        [MayRequireHelixienMod] public static ThingDef VFEU_OrganIncubator;
         [MayRequireHelixienMod] public static ThingDef VFEU_CorticalStackStorage;
         [MayRequireHelixienMod] public static ThoughtDef VFEU_JustCopy;
         [MayRequireHelixienMod] public static ThoughtDef VFEU_LostMySpouse;

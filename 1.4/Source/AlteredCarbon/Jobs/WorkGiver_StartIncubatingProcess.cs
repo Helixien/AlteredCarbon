@@ -11,13 +11,6 @@ namespace AlteredCarbon
 		public override PathEndMode PathEndMode => PathEndMode.InteractionCell;
 		public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)
 		{
-			if (ModCompatibility.HelixienAlteredCarbonIsActive)
-			{
-                foreach (var thing in pawn.Map.listerThings.ThingsOfDef(AC_DefOf.VFEU_OrganIncubator))
-                {
-                    yield return thing;
-                }
-            }
 			foreach (var thing in pawn.Map.listerThings.ThingsOfDef(AC_DefOf.VFEU_SleeveIncubator))
             {
 				yield return thing;

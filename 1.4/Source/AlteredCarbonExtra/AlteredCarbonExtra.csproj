@@ -25,7 +25,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\Standalone\Assemblies\</OutputPath>
+    <OutputPath>..\..\Standalone\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -39,9 +39,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AlteredCarbon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Standalone\Assemblies\AlteredCarbon.dll</HintPath>
+    <Reference Include="AlteredCarbon">
+      <HintPath>..\..\Standalone\Assemblies\AlteredCarbon.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
