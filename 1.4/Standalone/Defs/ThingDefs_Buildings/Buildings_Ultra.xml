@@ -6,8 +6,9 @@
 		<label>sleeve incubator</label>
 		<description>Text.todo</description>
 		<descriptionHyperlinks>
-			<ThingDef MayRequire="Ludeon.RimWorld.Biotech">GeneBank</ThingDef>
-			<ThingDef MayRequire="Ludeon.RimWorld.Biotech">GeneProcessor</ThingDef>
+			<ThingDef>VFEU_SleeveCasket</ThingDef>
+			<ThingDef>GeneBank</ThingDef>
+			<ThingDef>GeneProcessor</ThingDef>
 		</descriptionHyperlinks>
 		<graphicData>
 			<texPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorBottom</texPath>
@@ -51,12 +52,11 @@
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<placeWorkers>
 			<li>PlaceWorker_FuelingPort</li>
-			<li MayRequire="Ludeon.RimWorld.Biotech">PlaceWorker_ShowFacilitiesConnections</li>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
 		</placeWorkers>
 		<comps>
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Forbiddable"/>
-			<li Class="CompProperties_Breakdownable"/>
 			<li Class="AlteredCarbon.CompProperties_SleeveGrowerPostDraw">
 				<overlayTexPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorTop</overlayTexPath>
 			</li>
@@ -81,7 +81,7 @@
 				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
 				<showFuelGizmo>true</showFuelGizmo>
 			</li>
-			<li MayRequire="Ludeon.RimWorld.Biotech" Class="CompProperties_AffectedByFacilities">
+			<li Class="CompProperties_AffectedByFacilities">
 				<linkableFacilities>
 					<li>GeneBank</li>
 					<li>GeneProcessor</li>
@@ -171,78 +171,7 @@
 			<li>BuildingsMisc</li>
 		</thingCategories>
 	</ThingDef>
-	<ThingDef ParentName="BenchBase">
-		<defName>VFEU_DecryptionBench</defName>
-		<label>decryption bench</label>
-		<description>Text.todo</description>
-		<thingClass>AlteredCarbon.Building_DecryptionBench</thingClass>
-		<graphicData>
-			<texPath>Things/Building/Production/HackingWorkbench</texPath>
-			<graphicClass>Graphic_Multi</graphicClass>
-			<shaderType>CutoutComplex</shaderType>
-			<drawSize>(4,2)</drawSize>
-			<damageData>
-				<cornerTL>Damage/Corner</cornerTL>
-				<cornerTR>Damage/Corner</cornerTR>
-				<cornerBL>Damage/Corner</cornerBL>
-				<cornerBR>Damage/Corner</cornerBR>
-			</damageData>
-		</graphicData>
-		<size>(3,1)</size>
-		<statBases>
-			<Mass>20</Mass>
-			<MaxHitPoints>180</MaxHitPoints>
-			<WorkToBuild>5000</WorkToBuild>
-			<Flammability>0.5</Flammability>
-		</statBases>
-		<costList>
-			<Steel>80</Steel>
-			<Plasteel>70</Plasteel>
-			<ComponentSpacer>6</ComponentSpacer>
-		</costList>
-		<altitudeLayer>Building</altitudeLayer>
-		<passability>PassThroughOnly</passability>
-		<fillPercent>0.5</fillPercent>
-		<designationCategory>Misc</designationCategory>
-		<pathCost>42</pathCost>
-		<castEdgeShadows>true</castEdgeShadows>
-		<staticSunShadowHeight>0.20</staticSunShadowHeight>
-		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
-		<hasInteractionCell>true</hasInteractionCell>
-		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
-		<surfaceType>Item</surfaceType>
-		<building>
-			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
-			<ai_chillDestination>false</ai_chillDestination>
-			<buildingTags>
-				<li>Biotech</li>
-			</buildingTags>
-		</building>
-		<recipes>
-			<li>VFEU_DecryptAncientStack</li>
-			<li>VFEU_WipeFilledCorticalStack</li>
-			<li>VFEU_HackBiocodedThings</li>
-		</recipes>
-		<inspectorTabs>
-			<li>ITab_Bills</li>
-		</inspectorTabs>
-		<comps>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerTrader</compClass>
-				<basePowerConsumption>350</basePowerConsumption>
-				<shortCircuitInRain>true</shortCircuitInRain>
-			</li>
-			<li Class="CompProperties_Flickable"/>
-			<li Class="CompProperties_Breakdownable"/>
-		</comps>
-		<placeWorkers>
-			<li>PlaceWorker_PreventInteractionSpotOverlap</li>
-		</placeWorkers>
-		<minifiedDef>MinifiedThing</minifiedDef>
-		<thingCategories>
-			<li>BuildingsMisc</li>
-		</thingCategories>
-	</ThingDef>
+	<!-- ================================ Stack Array ====================== -->
 	<ThingDef ParentName="BuildingBase">
 		<defName>VFEU_StackArray</defName>
 		<label>stack array</label>
@@ -329,5 +258,78 @@
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Breakdownable"/>
 		</comps>
+	</ThingDef>
+	<!-- ================================ Decryption Bench ====================== -->
+	<ThingDef ParentName="BenchBase">
+		<defName>VFEU_DecryptionBench</defName>
+		<label>decryption bench</label>
+		<description>Text.todo</description>
+		<thingClass>AlteredCarbon.Building_DecryptionBench</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Production/HackingWorkbench</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
+			<drawSize>(4,2)</drawSize>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<size>(3,1)</size>
+		<statBases>
+			<Mass>20</Mass>
+			<MaxHitPoints>180</MaxHitPoints>
+			<WorkToBuild>5000</WorkToBuild>
+			<Flammability>0.5</Flammability>
+		</statBases>
+		<costList>
+			<Steel>80</Steel>
+			<Plasteel>70</Plasteel>
+			<ComponentSpacer>6</ComponentSpacer>
+		</costList>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<fillPercent>0.5</fillPercent>
+		<designationCategory>Misc</designationCategory>
+		<pathCost>42</pathCost>
+		<castEdgeShadows>true</castEdgeShadows>
+		<staticSunShadowHeight>0.20</staticSunShadowHeight>
+		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+		<hasInteractionCell>true</hasInteractionCell>
+		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+		<surfaceType>Item</surfaceType>
+		<building>
+			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+			<ai_chillDestination>false</ai_chillDestination>
+			<buildingTags>
+				<li>Biotech</li>
+			</buildingTags>
+		</building>
+		<recipes>
+			<li>VFEU_DecryptAncientStack</li>
+			<li>VFEU_WipeFilledCorticalStack</li>
+			<li>VFEU_HackBiocodedThings</li>
+		</recipes>
+		<inspectorTabs>
+			<li>ITab_Bills</li>
+		</inspectorTabs>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>350</basePowerConsumption>
+				<shortCircuitInRain>true</shortCircuitInRain>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_PreventInteractionSpotOverlap</li>
+		</placeWorkers>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsMisc</li>
+		</thingCategories>
 	</ThingDef>
 </Defs>

@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<!-- ================================ Base ====================== -->
+	<ThingDef Name="VFEU_HuntersArmourBase" ParentName="ApparelBase" Abstract="True">
+		<techLevel>Ultra</techLevel>
+		<tickerType>Normal</tickerType>
+		<generateCommonality>2</generateCommonality>
+		<equippedStatOffsets>
+			<SlaveSuppressionOffset MayRequire="Ludeon.RimWorld.Ideology">-0.3</SlaveSuppressionOffset>
+		</equippedStatOffsets>
+		<thingCategories>
+			<li>ApparelArmor</li>
+		</thingCategories>
+		<tradeTags>
+			<li>BuyableFromHunterCorpGoodQuality</li>
+		</tradeTags>
+		<costList>
+			<ComponentSpacer>6</ComponentSpacer>
+			<Plasteel>140</Plasteel>
+			<Uranium>20</Uranium>
+		</costList>
+		<apparel>
+			<bodyPartGroups>
+				<li>Torso</li>
+				<li>Neck</li>
+				<li>Shoulders</li>
+				<li>Arms</li>
+				<li>Legs</li>
+			</bodyPartGroups>
+			<layers>
+				<li>Middle</li>
+				<li>Shell</li>
+			</layers>
+			<defaultOutfitTags>
+				<li>Soldier</li>
+			</defaultOutfitTags>
+			<useDeflectMetalEffect>true</useDeflectMetalEffect>
+		</apparel>
+		<colorGenerator Class="ColorGenerator_Options">
+			<options>
+				<li>
+					<weight>10</weight>
+					<only>(0.9,0.9,0.9)</only>
+				</li>
+				<li>
+					<weight>10</weight>
+					<only>(0.33,0.33,0.33)</only>
+				</li>
+				<li>
+					<weight>10</weight>
+					<only>(0.65,0.65,0.65)</only>
+				</li>
+				<li>
+					<weight>6</weight>
+					<min>(0.3,0.3,0.3)</min>
+					<max>(0.5,0.5,0.5)</max>
+				</li>
+			</options>
+		</colorGenerator>
+		<comps>
+			<li Class="CompProperties_Biocodable"/>
+		</comps>
+		<thingSetMakerTags>
+			<li>HunterCorpReward</li>
+		</thingSetMakerTags>
+	</ThingDef>
+	<!-- ================================ Protector Armour ====================== -->
+	<ThingDef ParentName="VFEU_HuntersArmourBase">
+		<defName>VFEU_Apparel_ProtectorArmor</defName>
+		<label>protector armor</label>
+		<description>text.todo</description>
+		<graphicData>
+			<texPath>Things/Apparel/ProtectorArmor/ProtectorArmor</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<MaxHitPoints>340</MaxHitPoints>
+			<Mass>18</Mass>
+			<Flammability>0.4</Flammability>
+			<ArmorRating_Sharp>1.24</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.64</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.66</ArmorRating_Heat>
+			<Insulation_Cold>42</Insulation_Cold>
+			<Insulation_Heat>18</Insulation_Heat>
+			<EquipDelay>14</EquipDelay>
+		</statBases>
+		<equippedStatOffsets>
+			<PainShockThreshold>1.0</PainShockThreshold>
+		</equippedStatOffsets>
+		<apparel>
+			<wornGraphicPath>Things/Apparel/ProtectorArmor/ProtectorArmor</wornGraphicPath>
+			<tags>
+				<li>VFEU_HuntersBasic</li>
+			</tags>
+		</apparel>
+		<comps>
+			<li Class="VFECore.CompProperties_ApparelHediffs">
+				<hediffDefnames>
+					<li>VFEU_PainProtection</li>
+				</hediffDefnames>
+			</li>
+		</comps>
+	</ThingDef>
+</Defs>
