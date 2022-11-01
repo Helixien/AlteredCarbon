@@ -63,6 +63,43 @@ namespace AlteredCarbon
                 decryptionBench = this
             };
 
+            //TODO: move this to AC_E as a harmony patch
+            yield return new Command_Action
+            {
+                defaultLabel = "hack",
+                defaultDesc = "hack",
+                icon = ContentFinder<Texture2D>.Get("UI/Icons/EditStack"),
+                action = delegate()
+                {
+                    Find.Targeter.BeginTargeting(ForFilledStack(), delegate(LocalTargetInfo x)
+                    {
+                        if (x.Thing is CorticalStack corticalStack)
+                        {
+                            //TODO: change this for edit stack
+                            if (this.billStack.Bills.Any(y => y is Bill_HackStack bill && bill.corticalStack == corticalStack && bill.recipe == AC_DefOf.VFEU_HackFilledCorticalStack))
+                            {
+                                Messages.Message("AC.AlreadyOrderedToWipeStack".Translate(), MessageTypeDefOf.CautionInput);
+                            }
+                            else
+                            {
+                                // this.billStack.AddBill(new Bill_HackStack(corticalStack, AC_DefOf.VFEU_HackFilledCorticalStack, null));
+                                Find.WindowStack.Add(new Window_StackEditor(this, corticalStack));
+                            }
+                        }
+                    });
+                }
+            };
+
+        }
+
+        private TargetingParameters ForFilledStack()
+        {
+            return new TargetingParameters
+            {
+                canTargetItems = true,
+                mapObjectTargetsMustBeAutoAttackable = false,
+                validator = (TargetInfo x) => x.Thing is CorticalStack stack && stack.PersonaData.ContainsInnerPersona
+            };
         }
 
         public void InstallWipeStackRecipe(CorticalStack corticalStack)
