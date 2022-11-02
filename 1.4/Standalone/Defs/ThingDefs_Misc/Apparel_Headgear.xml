@@ -69,7 +69,7 @@
 		<label>protector helmet</label>
 		<description>text.todo</description>
 		<graphicData>
-			<texPath>Things/Apparel/ProtectorArmor/AC_ProtectorHelmet</texPath>
+			<texPath>Things/Pawn/Humanlike/Apparel/ProtectorArmor/AC_ProtectorHelmet</texPath>
 		</graphicData>
 		<statBases>
 			<MaxHitPoints>150</MaxHitPoints>
@@ -84,7 +84,7 @@
 			<VEF_RangedCooldownFactor>0.9</VEF_RangedCooldownFactor>
 		</statBases>
 		<apparel>
-			<wornGraphicPath>Things/Apparel/ProtectorArmor/AC_ProtectorHelmet</wornGraphicPath>
+			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/ProtectorArmor/AC_ProtectorHelmet</wornGraphicPath>
 			<tags>
 				<li>VFEU_HuntersBasic</li>
 			</tags>

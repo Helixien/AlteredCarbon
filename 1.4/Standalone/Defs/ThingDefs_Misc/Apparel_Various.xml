@@ -70,7 +70,7 @@
 		<label>protector armor</label>
 		<description>text.todo</description>
 		<graphicData>
-			<texPath>Things/Apparel/ProtectorArmor/ProtectorArmor</texPath>
+			<texPath>Things/Pawn/Humanlike/Apparel/ProtectorArmor/ProtectorArmor</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<statBases>
@@ -88,17 +88,10 @@
 			<PainShockThreshold>1.0</PainShockThreshold>
 		</equippedStatOffsets>
 		<apparel>
-			<wornGraphicPath>Things/Apparel/ProtectorArmor/ProtectorArmor</wornGraphicPath>
+			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/ProtectorArmor/ProtectorArmor</wornGraphicPath>
 			<tags>
 				<li>VFEU_HuntersBasic</li>
 			</tags>
 		</apparel>
-		<comps>
-			<li Class="VFECore.CompProperties_ApparelHediffs">
-				<hediffDefnames>
-					<li>VFEU_PainProtection</li>
-				</hediffDefnames>
-			</li>
-		</comps>
 	</ThingDef>
 </Defs>
