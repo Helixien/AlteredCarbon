@@ -234,12 +234,22 @@ namespace AlteredCarbon
 
                     var permittedHeads = GetPermittedHeads();
                     DoSelectionButtons(ref pos, "AC.HeadShape".Translate(), ref headTypeIndex,
-                        (HeadTypeDef x) => ExtractHeadLabels(x.graphicPath),
-                        permittedHeads, delegate (HeadTypeDef x)
+                        (KeyValuePair<GeneDef, HeadTypeDef> x) => x.Value.defName, permittedHeads, 
+                        delegate (KeyValuePair<GeneDef, HeadTypeDef> selected)
                         {
-                            curSleeve.story.headType = x;
+                            var geneDef = selected.Key;
+                            if (geneDef?.forcedHeadTypes.NullOrEmpty() is false)
+                            {
+                                var gene = curSleeve.genes.GetGene(selected.Key);
+                                curSleeve.story.TryGetRandomHeadFromSet(geneDef.forcedHeadTypes);
+                                curSleeve.genes.OverrideAllConflicting(gene);
+                            }
+                            else
+                            {
+                                curSleeve.story.headType = selected.Value;
+                            }
                             UpdateSleeveGraphic();
-                            headTypeIndex = permittedHeads.IndexOf(x);
+                            headTypeIndex = permittedHeads.IndexOf(selected);
                         });
 
                     if (curSleeve.gender == Gender.Male)
@@ -249,7 +259,10 @@ namespace AlteredCarbon
                             (KeyValuePair<GeneDef, BodyTypeDef> x) => x.Value.defName, list, delegate (KeyValuePair<GeneDef, BodyTypeDef> x)
                             {
                                 var gene = curSleeve.genes.GetGene(x.Key);
-                                curSleeve.genes.OverrideAllConflicting(gene);
+                                if (gene != null)
+                                {
+                                    curSleeve.genes.OverrideAllConflicting(gene);
+                                }
                                 curSleeve.story.bodyType = x.Value;
                                 UpdateSleeveGraphic();
                                 maleBodyTypeIndex = list.IndexOf(x);
@@ -262,7 +275,10 @@ namespace AlteredCarbon
                             (KeyValuePair<GeneDef, BodyTypeDef> x) => x.Value.defName, list, delegate (KeyValuePair<GeneDef, BodyTypeDef> x)
                             {
                                 var gene = curSleeve.genes.GetGene(x.Key);
-                                curSleeve.genes.OverrideAllConflicting(gene);
+                                if (gene != null)
+                                {
+                                    curSleeve.genes.OverrideAllConflicting(gene);
+                                }
                                 curSleeve.story.bodyType = x.Value;
                                 UpdateSleeveGraphic();
                                 femaleBodyTypeIndex = list.IndexOf(x);
@@ -611,9 +627,30 @@ namespace AlteredCarbon
         {
             HeadTypeDefOf.Skull, HeadTypeDefOf.Stump
         };
-        private List<HeadTypeDef> GetPermittedHeads()
+        public List<KeyValuePair<GeneDef, HeadTypeDef>> GetPermittedHeads()
         {
-            return DefDatabase<HeadTypeDef>.AllDefs.Except(invalidHeads).Where(x => CanUseHeadType(x)).ToList();
+            var keyValuePairs = new List<KeyValuePair<GeneDef, HeadTypeDef>>();
+            foreach (var gene in curSleeve.genes.GenesListForReading)
+            {
+                if (gene.def.forcedHeadTypes.NullOrEmpty() is false)
+                {
+                    foreach (var head in gene.def.forcedHeadTypes)
+                    {
+                        keyValuePairs.Add(new KeyValuePair<GeneDef, HeadTypeDef>(gene.def, head));
+                    }
+                }
+            }
+
+            if (keyValuePairs.Any())
+            {
+                return keyValuePairs;
+            }
+            var list = DefDatabase<HeadTypeDef>.AllDefs.Except(invalidHeads).Where(x => CanUseHeadType(x)).ToList();
+            foreach (var entry in list)
+            {
+                keyValuePairs.Add(new KeyValuePair<GeneDef, HeadTypeDef>(null, entry));
+            }
+            return keyValuePairs;
             bool CanUseHeadType(HeadTypeDef head)
             {
                 if (!head.requiredGenes.NullOrEmpty())
@@ -716,7 +753,7 @@ namespace AlteredCarbon
         {
             hairTypeIndex = GetPermittedHairs().IndexOf(curSleeve.story.hairDef);
             beardTypeIndex = GetPermittedBeards().IndexOf(curSleeve.style.beardDef);
-            headTypeIndex = GetPermittedHeads().IndexOf(curSleeve.story.headType);
+            headTypeIndex = GetPermittedHeads().Select(x => x.Value).ToList().IndexOf(curSleeve.story.headType);
             if (curXenogerm != null)
             {
                 indexesPerCategory = new Dictionary<string, int>();
