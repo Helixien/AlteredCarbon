@@ -12,7 +12,7 @@ namespace AlteredCarbon
     public class PersonaData : IExposable
     {
         public Name name;
-        private Pawn origPawn;
+        public Pawn origPawn;
         private int hostilityMode;
         private Area areaRestriction;
         private MedicalCareCategory medicalCareCategory;
@@ -25,7 +25,7 @@ namespace AlteredCarbon
         public Faction faction;
         public bool isFactionLeader;
         private List<Thought_Memory> thoughts;
-        private List<Trait> traits;
+        public List<Trait> traits;
         private List<DirectPawnRelation> relations;
         private HashSet<Pawn> relatedPawns;
         private List<SkillRecord> skills;

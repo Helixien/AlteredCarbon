@@ -23,7 +23,9 @@ namespace AlteredCarbon
             this.corticalStack = corticalStack;
             this.backstoryChildIndex = DefDatabase<BackstoryDef>.AllDefsListForReading
                 .Where(x => x.slot == BackstorySlot.Childhood).ToList()
-                .FindIndex(x => x.defName==this.corticalStack.PersonaData.childhood);
+                .FindIndex(x => x.defName == this.corticalStack.PersonaData.childhood);
+
+            this.traitsList = corticalStack.PersonaData.traits;
         }
 
         public override Vector2 InitialSize
@@ -33,7 +35,7 @@ namespace AlteredCarbon
 
         private int backstoryChildIndex;
         private int backstoryAdult = 0;
-        private List<TraitDef> traitsList;
+        private List<Trait> traitsList;
         private Ideo ideo;
         private Faction faction = Faction.OfPlayer;
         private List<SkillRecord> skills;
@@ -49,23 +51,101 @@ namespace AlteredCarbon
 
             Text.Anchor = TextAnchor.UpperLeft;
             inRect.y += Text.LineHeight;
+            Text.Font = GameFont.Small;
 
-            Rect backstoryHeader = new Rect(inRect.x + this.Margin * 2f, inRect.y, inRect.width / 2f - this.Margin, inRect.height);
-            Widgets.Label(backstoryHeader, "Backstory");
-            inRect.y += Text.LineHeight;
 
-            Rect backstoryHighlightRect = new Rect(inRect.x + this.Margin, inRect.y, inRect.width / 2f, inRect.height);
-            DrawBackstoryPanel(backstoryHighlightRect);
-            
-            //TODO: traits panel
+            DrawBackstoryPanel(ref inRect);
+            DrawTraitsPanel(ref inRect);
             //TODO: ideo panel
+            DrawIdeoPanel(ref inRect);
             //TODO: faction panel
+            DrawFactionPanel(ref inRect);
             //TODO: editing time panel
+            DrawTimePanel(ref inRect);
             //TODO: skills panel
+            DrawSkillsPanel(ref inRect);
             //TODO: shadow tutorial panel
+            DrawTutorialPanel(ref inRect);
             //TODO: accept/cancel buttons
+            DrawAcceptCancelButtons(ref inRect);
         }
-        protected void DrawBackstoryPanel(Rect rect)
+
+        private void DrawAcceptCancelButtons(ref Rect inRect)
+        {
+            //throw new System.NotImplementedException();
+        }
+
+        private void DrawTutorialPanel(ref Rect inRect)
+        {
+            //throw new System.NotImplementedException();
+        }
+
+        private void DrawSkillsPanel(ref Rect inRect)
+        {
+            //throw new System.NotImplementedException();
+        }
+
+        private void DrawTimePanel(ref Rect inRect)
+        {
+            //throw new System.NotImplementedException();
+        }
+
+        private void DrawFactionPanel(ref Rect inRect)
+        {
+            //throw new System.NotImplementedException();
+        }
+
+        private void DrawIdeoPanel(ref Rect inRect)
+        {
+            //throw new System.NotImplementedException();
+        }
+
+        private void DrawTraitsPanel(ref Rect inRect)
+        {
+            Text.Font = GameFont.Medium;
+            Rect backstoryHeader = new Rect(inRect.x + this.Margin * 2f, inRect.y, inRect.width / 2f - this.Margin, inRect.height);
+            Widgets.Label(backstoryHeader, "Traits");
+
+            Rect addTraitRect = new Rect(inRect.x + (backstoryHeader.width), backstoryHeader.y + (Text.LineHeight / 2 - 13f), 26f, 26f);
+            //TODO: add Traits float menu
+            GUI.DrawTexture(addTraitRect, TexButton.Add);
+
+            Rect backstoryHighlightRect = new Rect(inRect.x + this.Margin, inRect.y + Text.LineHeight, inRect.width / 2f, inRect.height/ 4f);
+            Widgets.DrawRectFast(backstoryHighlightRect, Widgets.MenuSectionBGFillColor, null);
+
+            GUI.BeginGroup(backstoryHighlightRect);
+            Rect traitsContainer = new Rect(0f, 0f, backstoryHighlightRect.width - this.Margin, backstoryHighlightRect.height);
+
+            traitsContainer.y += this.Margin / 4f;
+            traitsContainer.x += this.Margin / 4f;
+            Text.Font = GameFont.Small;
+
+            GUI.BeginGroup(traitsContainer);
+            if (traitsList != null)
+            {
+                GenUI.DrawElementStack(traitsContainer, Text.LineHeight, traitsList, delegate(Rect rect, Trait element)
+                {
+                    //TODO: hover event for trait desc
+                    Widgets.DrawRectFast(rect, Color.black,null);
+                    rect.x += 5f;
+                    Widgets.Label(rect, element.LabelCap);
+                    var buttonRect = new Rect(
+                        rect.x + Text.CalcSize(element.LabelCap).x + Text.LineHeight *0.25f, 
+                        rect.y + rect.height/2 - Text.LineHeight * 0.3f,
+                        Text.LineHeight * 0.7f, 
+                        Text.LineHeight * 0.7f
+                    );
+                    
+                    //TODO: make button work
+                    GUI.DrawTexture(buttonRect,TexButton.Minus);
+                },  trait => Text.CalcSize(trait.LabelCap).x + Text.LineHeight + 10f);
+            }
+
+            GUI.EndGroup();
+            GUI.EndGroup();
+        }
+
+        protected void DrawBackstoryPanel(ref Rect inRect)
         {
             GUI.BeginGroup(rect);
             Rect rect2 = new Rect(0f, 0f, rect.width, (Text.LineHeight * 2.5f) + (this.Margin));
