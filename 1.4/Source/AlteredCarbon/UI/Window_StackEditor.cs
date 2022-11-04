@@ -147,8 +147,13 @@ namespace AlteredCarbon
 
         protected void DrawBackstoryPanel(ref Rect inRect)
         {
-            GUI.BeginGroup(rect);
-            Rect rect2 = new Rect(0f, 0f, rect.width, (Text.LineHeight * 2.5f) + (this.Margin));
+            Text.Font = GameFont.Medium;
+            Rect backstoryHeader = new Rect(inRect.x + this.Margin * 2f, inRect.y, inRect.width / 2f - this.Margin, inRect.height);
+            Widgets.Label(backstoryHeader, "Backstory");
+
+            Rect backstoryHighlightRect = new Rect(inRect.x + this.Margin, inRect.y + Text.LineHeight, inRect.width / 2f, inRect.height);
+            GUI.BeginGroup(backstoryHighlightRect);
+            Rect rect2 = new Rect(0f, 0f, backstoryHighlightRect.width, (Text.LineHeight * 2.5f) + (this.Margin));
             Widgets.DrawRectFast(rect2, Widgets.MenuSectionBGFillColor, null);
 
             rect2.y += this.Margin;
@@ -157,7 +162,7 @@ namespace AlteredCarbon
             Rect rect3 = new Rect(rect2.x + (this.Margin / 2), rect2.y, rect2.width, rect2.height);
             Widgets.Label(rect3, "Childhood");
 
-            Rect lftButton =  new Rect(rect2.x + 100f, rect2.y+2, Text.LineHeight/2, Text.LineHeight-4f);
+            Rect lftButton = new Rect(rect2.x + 100f, rect2.y + 2, Text.LineHeight / 2, Text.LineHeight - 4f);
             if (Widgets.ButtonInvisible(lftButton, true))
             {
                 SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
@@ -169,8 +174,8 @@ namespace AlteredCarbon
             }
 
             GUI.DrawTexture(lftButton, TexUI.ArrowTexLeft);
-            
-            Rect rghtButton =  new Rect(rect2.width - (this.Margin * 4f), rect2.y+2, Text.LineHeight/2, Text.LineHeight-4f);
+        
+            Rect rghtButton = new Rect(rect2.width - (this.Margin * 4f), rect2.y + 2, Text.LineHeight / 2, Text.LineHeight - 4f);
             //TODO: move this to generic, or refactor the method in Window_SleeveCustomization
             if (Widgets.ButtonInvisible(rghtButton, true))
             {
@@ -182,27 +187,27 @@ namespace AlteredCarbon
                 else backstoryChildIndex++;
             }
             GUI.DrawTexture(rghtButton, TexUI.ArrowTexRight);
-            
+
             Rect background = new Rect(
                 lftButton.x + lftButton.width + 2f,
                 rect3.y,
                 rghtButton.x - lftButton.xMax - 4f,
                 Text.LineHeight
             );
-            Widgets.DrawRectFast(background, new Color(24f/255f, 20f/255f, 20f/255f), null);
+            Widgets.DrawRectFast(background, new Color(24f / 255f, 20f / 255f, 20f / 255f), null);
 
             Text.Anchor = TextAnchor.MiddleCenter;
             Widgets.Label(background, DefDatabase<BackstoryDef>.AllDefsListForReading.Where(x => x.slot == BackstorySlot.Childhood).ToList()[backstoryChildIndex].title);
             Text.Anchor = TextAnchor.UpperLeft;
-            
+
             rect2.y += Text.LineHeight * 1.5f;
 
             Rect rect4 = new Rect(rect2.x + (this.Margin / 2), rect2.y, rect2.width, rect2.height);
             Widgets.Label(rect4, "Adulthood");
 
-            Rect lftButtonAdult = new Rect(rect2.x + 100f, rect2.y+2, Text.LineHeight/2, Text.LineHeight-4f);
+            Rect lftButtonAdult = new Rect(rect2.x + 100f, rect2.y + 2, Text.LineHeight / 2, Text.LineHeight - 4f);
             GUI.DrawTexture(lftButtonAdult, TexUI.ArrowTexLeft);
-            Rect rghtButtonAdult = new Rect(rect2.width - (this.Margin * 4f), rect2.y+2, Text.LineHeight/2, Text.LineHeight-4f);
+            Rect rghtButtonAdult = new Rect(rect2.width - (this.Margin * 4f), rect2.y + 2, Text.LineHeight / 2, Text.LineHeight - 4f);
             GUI.DrawTexture(rghtButtonAdult, TexUI.ArrowTexRight);
 
             Rect backgroundAdult = new Rect(
@@ -211,12 +216,13 @@ namespace AlteredCarbon
                 rghtButtonAdult.x - lftButtonAdult.xMax - 4f,
                 Text.LineHeight
             );
-            Widgets.DrawRectFast(backgroundAdult, new Color(24f/255f, 20f/255f, 20f/255f), null);
+            Widgets.DrawRectFast(backgroundAdult, new Color(24f / 255f, 20f / 255f, 20f / 255f), null);
 
             Text.Anchor = TextAnchor.MiddleCenter;
             Widgets.Label(backgroundAdult, "Adult Background");
-            
             Text.Anchor = TextAnchor.UpperLeft;
+
+            inRect.y += rect2.yMax;
             GUI.EndGroup();
         }
     }
