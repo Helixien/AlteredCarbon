@@ -132,15 +132,15 @@ namespace AlteredCarbon
                 Vector2 pos = new Vector2(0, 0);
                 foreach (var data in hediffsForParts)
                 {
-                    var bodyPartLabel = new Rect(pos.x, pos.y, 100, UIHelpers.buttonHeight);
+                    var bodyPartLabel = new Rect(pos.x, pos.y, 100, UIHelper.buttonHeight);
                     Widgets.Label(bodyPartLabel, data.Key.LabelCap + ": ");
-                    var btnBodyPartChangeArrowLeft = new Rect(bodyPartLabel.xMax + 5, pos.y, UIHelpers.buttonHeight, UIHelpers.buttonHeight);
-                    var btnBodyPartChangeSelection = new Rect(btnBodyPartChangeArrowLeft.xMax + 2, pos.y, 200, UIHelpers.buttonHeight);
-                    var btnBodyPartChangeArrowRight = new Rect(btnBodyPartChangeSelection.xMax + 2, pos.y, UIHelpers.buttonHeight, UIHelpers.buttonHeight);
-                    var outline = new Rect(btnBodyPartChangeArrowLeft.x, pos.y, btnBodyPartChangeArrowLeft.width + btnBodyPartChangeSelection.width + btnBodyPartChangeArrowRight.width, UIHelpers.buttonHeight);
+                    var btnBodyPartChangeArrowLeft = new Rect(bodyPartLabel.xMax + 5, pos.y, UIHelper.buttonHeight, UIHelper.buttonHeight);
+                    var btnBodyPartChangeSelection = new Rect(btnBodyPartChangeArrowLeft.xMax + 2, pos.y, 200, UIHelper.buttonHeight);
+                    var btnBodyPartChangeArrowRight = new Rect(btnBodyPartChangeSelection.xMax + 2, pos.y, UIHelper.buttonHeight, UIHelper.buttonHeight);
+                    var outline = new Rect(btnBodyPartChangeArrowLeft.x, pos.y, btnBodyPartChangeArrowLeft.width + btnBodyPartChangeSelection.width + btnBodyPartChangeArrowRight.width, UIHelper.buttonHeight);
                     Widgets.DrawHighlight(outline);
 
-                    if (Window_SleeveCustomization.ButtonTextSubtleCentered(btnBodyPartChangeArrowLeft, "<"))
+                    if (UIHelper.ButtonTextSubtleCentered(btnBodyPartChangeArrowLeft, "<"))
                     {
                         if (partIndex[data.Key] == 0)
                         {
@@ -156,14 +156,14 @@ namespace AlteredCarbon
                     var hediffStage = data.Value[curInd];
                     var hediffDef = hediffStage.hediffDef;
 
-                    if (Window_SleeveCustomization.ButtonTextSubtleCentered(btnBodyPartChangeSelection, GetLabel(hediffStage.hediffDef, hediffStage.stageInd)))
+                    if (UIHelper.ButtonTextSubtleCentered(btnBodyPartChangeSelection, GetLabel(hediffStage.hediffDef, hediffStage.stageInd)))
                     {
                         FloatMenuUtility.MakeMenu<HediffStage>(data.Value, x => GetLabel(x.hediffDef, x.stageInd), (HediffStage stage) => delegate
                         {
                             partIndex[data.Key] = data.Value.IndexOf(stage);
                         });
                     }
-                    if (Window_SleeveCustomization.ButtonTextSubtleCentered(btnBodyPartChangeArrowRight, ">"))
+                    if (UIHelper.ButtonTextSubtleCentered(btnBodyPartChangeArrowRight, ">"))
                     {
                         if (partIndex[data.Key] == data.Value.Count() - 1)
                         {
@@ -181,10 +181,10 @@ namespace AlteredCarbon
                 Widgets.EndScrollView();
             }
 
-            var btnAccept = new Rect(InitialSize.x * .5f - UIHelpers.buttonWidth / 2 - UIHelpers.buttonOffsetFromButton / 2 - UIHelpers.buttonWidth / 2, 
-                InitialSize.y - UIHelpers.buttonHeight - 38, UIHelpers.buttonWidth, UIHelpers.buttonHeight);
-            var btnCancel = new Rect(InitialSize.x * .5f + UIHelpers.buttonWidth / 2 + UIHelpers.buttonOffsetFromButton / 2 - UIHelpers.buttonWidth / 2, 
-                InitialSize.y - UIHelpers.buttonHeight - 38, UIHelpers.buttonWidth, UIHelpers.buttonHeight);
+            var btnAccept = new Rect(InitialSize.x * .5f - UIHelper.buttonWidth / 2 - UIHelper.buttonOffsetFromButton / 2 - UIHelper.buttonWidth / 2, 
+                InitialSize.y - UIHelper.buttonHeight - 38, UIHelper.buttonWidth, UIHelper.buttonHeight);
+            var btnCancel = new Rect(InitialSize.x * .5f + UIHelper.buttonWidth / 2 + UIHelper.buttonOffsetFromButton / 2 - UIHelper.buttonWidth / 2, 
+                InitialSize.y - UIHelper.buttonHeight - 38, UIHelper.buttonWidth, UIHelper.buttonHeight);
             if (Widgets.ButtonText(btnAccept, "Accept".Translate().CapitalizeFirst()))
             {
                 foreach (var data in hediffsForParts)

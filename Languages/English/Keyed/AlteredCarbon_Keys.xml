@@ -149,4 +149,7 @@
 	<AC.FuelSleeveWillBeLostIn>Due to lack of neutroamine, the sleeve will be lost in {0}.</AC.FuelSleeveWillBeLostIn>
 	<AC.FuelSleeveWillBeDeteriorated>Due to lack of neutroamine, the sleeve will begin to deteriorate in {0}</AC.FuelSleeveWillBeDeteriorated>
 	<AC.FuelSleeveIsDeteriorating>Due to lack of neutroamine, the sleeve is deteriorating.</AC.FuelSleeveIsDeteriorating>
+	<AC.GeneOptions>Gene options</AC.GeneOptions>
+	<AC.BodyOptions>Body options</AC.BodyOptions>
+	<AC.Genes>Genes</AC.Genes>
 </LanguageData>

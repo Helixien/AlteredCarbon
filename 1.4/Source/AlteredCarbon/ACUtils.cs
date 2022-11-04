@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Verse;
 
 namespace AlteredCarbon
@@ -9,10 +10,29 @@ namespace AlteredCarbon
     public static class ACUtils
     {
         public static Harmony harmony;
+
+        public static Dictionary<string, List<GeneDef>> genesByCategories = new Dictionary<string, List<GeneDef>>();
         static ACUtils()
         {
             harmony = new Harmony("Altered.Carbon");
             harmony.PatchAll();
+
+            foreach (var gene in DefDatabase<GeneDef>.AllDefs)
+            {
+                if (gene.exclusionTags.NullOrEmpty() is false)
+                {
+                    var tag = gene.exclusionTags.FirstOrDefault();
+                    if (tag == "SkinColorOverride")
+                    {
+                        tag = "SkinColor";
+                    }
+                    if (genesByCategories.TryGetValue(tag, out var list) is false)
+                    {
+                        genesByCategories[tag] = list = new List<GeneDef>();
+                    }
+                    list.Add(gene);
+                }
+            }
 
             foreach (IngredientCount li in AC_DefOf.VFEU_InstallCorticalStack.ingredients)
             {
