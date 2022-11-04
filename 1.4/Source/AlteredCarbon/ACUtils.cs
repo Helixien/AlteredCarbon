@@ -21,16 +21,19 @@ namespace AlteredCarbon
             {
                 if (gene.exclusionTags.NullOrEmpty() is false)
                 {
-                    var tag = gene.exclusionTags.FirstOrDefault();
-                    if (tag == "SkinColorOverride")
+                    for (var i = 0; i < gene.exclusionTags.Count; i++)
                     {
-                        tag = "SkinColor";
+                        var tag = gene.exclusionTags[i];
+                        if (tag == "SkinColorOverride")
+                        {
+                            tag = "SkinColor";
+                        }
+                        if (genesByCategories.TryGetValue(tag, out var list) is false)
+                        {
+                            genesByCategories[tag] = list = new List<GeneDef>();
+                        }
+                        list.Add(gene);
                     }
-                    if (genesByCategories.TryGetValue(tag, out var list) is false)
-                    {
-                        genesByCategories[tag] = list = new List<GeneDef>();
-                    }
-                    list.Add(gene);
                 }
             }
 
