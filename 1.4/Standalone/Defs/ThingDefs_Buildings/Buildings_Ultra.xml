@@ -23,6 +23,7 @@
 		<tickerType>Normal</tickerType>
 		<drawerType>RealtimeOnly</drawerType>
 		<passability>Impassable</passability>
+		<containedPawnsSelectable>true</containedPawnsSelectable>
 		<castEdgeShadows>true</castEdgeShadows>
 		<uiIconPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorUI_Icon</uiIconPath>
 		<uiIconScale>1.2</uiIconScale>
@@ -52,7 +53,6 @@
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<placeWorkers>
 			<li>PlaceWorker_FuelingPort</li>
-			<li>PlaceWorker_ShowFacilitiesConnections</li>
 		</placeWorkers>
 		<comps>
 			<li Class="CompProperties_Flickable"/>
@@ -80,12 +80,6 @@
 				<initialFuelPercent>1</initialFuelPercent>
 				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
 				<showFuelGizmo>true</showFuelGizmo>
-			</li>
-			<li Class="CompProperties_AffectedByFacilities">
-				<linkableFacilities>
-					<li>GeneBank</li>
-					<li>GeneProcessor</li>
-				</linkableFacilities>
 			</li>
 			<li Class="CompProperties_Glower">
 				<glowRadius>5</glowRadius>
