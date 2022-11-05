@@ -25,7 +25,7 @@
 		<containedPawnsSelectable>true</containedPawnsSelectable>
 		<castEdgeShadows>true</castEdgeShadows>
 		<uiIconPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorUI_Icon</uiIconPath>
-		<uiIconScale>1.2</uiIconScale>
+		<uiIconScale>1.1</uiIconScale>
 		<size>(3,3)</size>
 		<hasInteractionCell>true</hasInteractionCell>
 		<interactionCellOffset>(0,0,2)</interactionCellOffset>

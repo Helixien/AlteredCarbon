@@ -30,7 +30,7 @@
 		<drawGUIOverlay>true</drawGUIOverlay>
 		<thingClass>AlteredCarbon.CorticalStack</thingClass>
 		<graphicData>
-			<texPath>Things/Item/Stacks/EmptyStack</texPath>
+			<texPath>Things/Item/ArchoStacks/ArchopStackEmpty</texPath>
 			<graphicClass>Graphic_StackCount</graphicClass>
 		</graphicData>
 		<tradeTags Inherit="False">
@@ -58,7 +58,7 @@
 		<thingClass>AlteredCarbon.CorticalStack</thingClass>
 		<tradeTags Inherit="False"/>
 		<graphicData>
-			<texPath>Things/Item/Stacks/FriendlyStack</texPath>
+			<texPath>Things/Item/ArchoStacks/FriendlyArchoStack</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<tradeability>None</tradeability>
