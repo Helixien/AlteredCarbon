@@ -25,7 +25,7 @@ namespace AlteredCarbon
                 .Where(x => x.slot == BackstorySlot.Childhood).ToList()
                 .FindIndex(x => x.defName == this.corticalStack.PersonaData.childhood);
 
-            this.traitsList = corticalStack.PersonaData.traits;
+            this.traitsList = new List<Trait>(corticalStack.PersonaData.traits);
         }
 
         public override Vector2 InitialSize
@@ -121,9 +121,10 @@ namespace AlteredCarbon
             Text.Font = GameFont.Small;
 
             GUI.BeginGroup(traitsContainer);
-            if (traitsList != null)
+            if (this.traitsList != null)
             {
-                GenUI.DrawElementStack(traitsContainer, Text.LineHeight, traitsList, delegate(Rect rect, Trait element)
+                var innerTraitsList = new List<Trait>(this.traitsList);
+                GenUI.DrawElementStack(traitsContainer, Text.LineHeight, innerTraitsList, delegate(Rect rect, Trait element)
                 {
                     //TODO: hover event for trait desc
                     Widgets.DrawRectFast(rect, Color.black,null);
@@ -136,8 +137,11 @@ namespace AlteredCarbon
                         Text.LineHeight * 0.7f
                     );
                     
-                    //TODO: make button work
                     GUI.DrawTexture(buttonRect,TexButton.Minus);
+                    if (Widgets.ButtonInvisible(buttonRect, true))
+                    {
+                        traitsList.Remove(element);
+                    }
                 },  trait => Text.CalcSize(trait.LabelCap).x + Text.LineHeight + 10f);
             }
 
