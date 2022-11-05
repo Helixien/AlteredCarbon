@@ -21,6 +21,7 @@ namespace AlteredCarbon
         public static float buttonOffsetFromButton = 15;
         public static readonly Color StackElementBackground = new Color(1f, 1f, 1f, 0.1f);
         public static Texture2D ChangeColor = ContentFinder<Texture2D>.Get("UI/Commands/ChangeColor");
+        public static Texture2D RotateSleeve = ContentFinder<Texture2D>.Get("UI/Icons/RotateSleeve");
         public static void DoColorButtons<T>(ref Vector2 pos, string label, List<T> colors, 
             Func<T, Color> colorGetter, Action<T> selectAction)
         {
@@ -191,7 +192,7 @@ namespace AlteredCarbon
                 ),
                 @"(\p{Ll})(\P{Ll})",
                 "$1 $2"
-            ).FirstCharToUpper();
+            );
         }
 
         public static string FirstCharToUpper(this string input)

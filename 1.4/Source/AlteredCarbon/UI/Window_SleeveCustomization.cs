@@ -168,6 +168,7 @@ namespace AlteredCarbon
                 {
                     curXenogerm = x;
                     GeneUtility.ImplantXenogermItem(curSleeve, curXenogerm);
+                    convertedGenes = new List<Gene>();
                     RecheckBodyOptions();
                     InitializeIndexes();
                 }));
@@ -186,6 +187,7 @@ namespace AlteredCarbon
                     });
             }
 
+            var genes = curSleeve.genes?.GenesListForReading;
             if (curXenogerm != null)
             {
                 bool geneOptionsDrawn = false;
@@ -207,7 +209,7 @@ namespace AlteredCarbon
                             {
                                 var gene = curSleeve.genes.GetGene(x);
                                 curSleeve.genes.OverrideAllConflicting(gene);
-                                UpdateSleeve();
+                                RecheckEverything();
                                 indexesPerCategory[category.Key] = xenogermGenes.IndexOf(x);
                             });
                     }
@@ -222,7 +224,18 @@ namespace AlteredCarbon
                     Widgets.Checkbox(new Vector2(labelRect.xMax, labelRect.y), ref convertXenogenesToEndegones);
                     if (oldValue != convertXenogenesToEndegones)
                     {
-
+                        if (convertXenogenesToEndegones)
+                        {
+                            convertedGenes = genes.Where(x => curSleeve.genes.Xenogenes.Contains(x)).ToList();
+                            curSleeve.genes.endogenes.AddRange(convertedGenes);
+                            curSleeve.genes.xenogenes.RemoveAll(x => convertedGenes.Contains(x));
+                        }
+                        else
+                        {
+                            curSleeve.genes.endogenes.RemoveAll(x => convertedGenes.Contains(x));
+                            curSleeve.genes.xenogenes.AddRange(convertedGenes);
+                        }
+                        RecheckEverything();
                     }
                 }
 
@@ -254,12 +267,12 @@ namespace AlteredCarbon
                     }
                     curSleeve.genes.OverrideAllConflicting(gene);
                     curSleeve.genes.Notify_GenesChanged(gene.def);
-                    UpdateSleeve();
+                    RecheckEverything();
                 });
 
             var permittedHeads = GetPermittedHeads();
             DoSelectionButtons(ref firstColumnPos, "AC.HeadShape".Translate(), ref headTypeIndex,
-                (KeyValuePair<GeneDef, HeadTypeDef> x) => x.Value.defName, permittedHeads,
+                (KeyValuePair<GeneDef, HeadTypeDef> x) => ExtractHeadLabels(x.Value.defName), permittedHeads,
                 delegate (KeyValuePair<GeneDef, HeadTypeDef> selected)
                 {
                     var geneDef = selected.Key;
@@ -273,7 +286,7 @@ namespace AlteredCarbon
                     {
                         curSleeve.story.headType = selected.Value;
                     }
-                    UpdateSleeve();
+                    RecheckEverything();
                     headTypeIndex = permittedHeads.IndexOf(selected);
                 });
 
@@ -289,7 +302,7 @@ namespace AlteredCarbon
                             curSleeve.genes.OverrideAllConflicting(gene);
                         }
                         curSleeve.story.bodyType = x.Value;
-                        UpdateSleeve();
+                        RecheckEverything();
                         maleBodyTypeIndex = permittedBodyTypes.IndexOf(x);
                     });
             }
@@ -305,7 +318,7 @@ namespace AlteredCarbon
                             curSleeve.genes.OverrideAllConflicting(gene);
                         }
                         curSleeve.story.bodyType = x.Value;
-                        UpdateSleeve();
+                        RecheckEverything();
                         femaleBodyTypeIndex = permittedBodyTypes.IndexOf(x);
                     });
             }
@@ -330,14 +343,14 @@ namespace AlteredCarbon
 
                         curSleeve.genes.OverrideAllConflicting(gene);
                         curSleeve.genes.Notify_GenesChanged(gene.def);
-                        UpdateSleeve();
+                        RecheckEverything();
                     });
 
                 DoSelectionButtons(ref firstColumnPos, "AC.HairType".Translate(), ref hairTypeIndex,
                 (HairDef x) => x.LabelCap, permittedHairs, delegate (HairDef x)
                 {
                     curSleeve.story.hairDef = x;
-                    UpdateSleeve();
+                    RecheckEverything();
                     hairTypeIndex = permittedHairs.IndexOf(x);
                 });
             }
@@ -346,7 +359,7 @@ namespace AlteredCarbon
                 (BeardDef x) => x.LabelCap, permittedBeards, delegate (BeardDef x)
                 {
                     curSleeve.style.beardDef = x;
-                    UpdateSleeve();
+                    RecheckEverything();
                     beardTypeIndex = permittedBeards.IndexOf(x);
                 });
 
@@ -366,8 +379,13 @@ namespace AlteredCarbon
             Widgets.DrawShadowAround(pawnBox);
             Rect pawnBoxPawn = new Rect(pawnBox.x + pawnSpacingFromEdge, pawnBox.y + pawnSpacingFromEdge, pawnBox.width - (pawnSpacingFromEdge * 2), pawnBox.height - (pawnSpacingFromEdge * 2));
             UpdateSleeveGraphic();
-            GUI.DrawTexture(pawnBoxPawn, PortraitsCache.Get(curSleeve, pawnBoxPawn.size, Rot4.South, default, 1f));
-            Widgets.InfoCardButton(pawnBox.x + pawnBox.width - Widgets.InfoCardButtonSize - 10f, pawnBox.y + pawnBox.height - Widgets.InfoCardButtonSize - 10f, curSleeve);
+            GUI.DrawTexture(pawnBoxPawn, PortraitsCache.Get(curSleeve, pawnBoxPawn.size, curSleeve.Rotation, default, 1f));
+            Widgets.InfoCardButton(pawnBox.x + pawnBox.width - Widgets.InfoCardButtonSize - 10f, pawnBox.y + pawnBox.height - 
+                Widgets.InfoCardButtonSize - 10f, curSleeve);
+            if (Widgets.ButtonImage(new Rect(pawnBox.x + pawnBox.width - Widgets.InfoCardButtonSize - 10f, pawnBox.y + 10, 24, 24), RotateSleeve))
+            {
+                curSleeve.Rotation = curSleeve.Rotation.Rotated(RotationDirection.Clockwise);
+            }
 
             secondColumnPos.y = pawnBox.yMax + 15;
             //Hediff printout
@@ -400,7 +418,6 @@ namespace AlteredCarbon
             secondColumnPos.y = healthBox.yMax + 15;
 
             Text.Font = GameFont.Small;
-            var genes = curSleeve.genes?.GenesListForReading;
             if (genes == null || genes.Count == 0)
             {
                 Color color = GUI.color;
@@ -417,40 +434,12 @@ namespace AlteredCarbon
             else
             {
                 Rect geneBox = default;
-                var endogenes = genes.Where(x => curSleeve.genes.Endogenes.Contains(x)).ToList();
                 Rect rect = default;
-                if (endogenes.Any())
-                {
-                    label = "Endogenes".Translate().CapitalizeFirst();
-                    secondColumnPos.x -= 15;
-                    ListSeparator(ref secondColumnPos, healthBox.width, label);
-                    secondColumnPos.x += 15;
-                    secondColumnPos.y += 5;
 
-                    geneBox = new Rect(secondColumnPos.x - 15, secondColumnPos.y, pawnBox.width + 50, 60);
-                    rect = GenUI.DrawElementStack(geneBox, 22f, endogenes, delegate (Rect r, Gene gene)
-                    {
-                        DrawGene(r, gene, secondColumnPos);
-                    }, (Gene gene) => Text.CalcSize(gene.LabelCap).x + 10f + 22);
-                    secondColumnPos.y += rect.height;
-                }
-
+                var endogenes = genes.Where(x => curSleeve.genes.Endogenes.Contains(x)).ToList();
+                DrawGenes(ref secondColumnPos, "Endogenes".Translate().CapitalizeFirst(), pawnBox, healthBox, ref geneBox, endogenes, ref rect);
                 var xenogenes = genes.Where(x => curSleeve.genes.Xenogenes.Contains(x)).ToList();
-                if (xenogenes.Any())
-                {
-                    label = "Xenogenes".Translate().CapitalizeFirst();
-                    secondColumnPos.x -= 15;
-                    ListSeparator(ref secondColumnPos, healthBox.width, label);
-                    secondColumnPos.x += 15;
-
-                    secondColumnPos.y += 5;
-                    geneBox.y = secondColumnPos.y;
-                    rect = GenUI.DrawElementStack(geneBox, 22f, xenogenes, delegate (Rect r, Gene gene)
-                    {
-                        DrawGene(r, gene, secondColumnPos);
-                    }, (Gene gene) => Text.CalcSize(gene.LabelCap).x + 10f + 22);
-                    secondColumnPos.y += rect.height;
-                }
+                DrawGenes(ref secondColumnPos, "Xenogenes".Translate().CapitalizeFirst(), pawnBox, healthBox, ref geneBox, xenogenes, ref rect);
             }
 
             if (ModCompatibility.RimJobWorldIsActive && ModCompatibility.HelixienAlteredCarbonIsActive)
@@ -503,30 +492,46 @@ namespace AlteredCarbon
 
             Text.Anchor = TextAnchor.UpperLeft;
         }
-        private void DrawGene(Rect r, Gene gene, Vector2 pos)
+
+        private void DrawGenes(ref Vector2 pos, TaggedString label, Rect pawnBox, 
+            Rect healthBox, ref Rect geneBox, List<Gene> genes, ref Rect rect)
         {
-            Color color2 = GUI.color;
-            GUI.color = StackElementBackground;
-            GUI.DrawTexture(r, BaseContent.WhiteTex);
-            GUI.color = color2;
-
-            if (Mouse.IsOver(r))
+            if (genes.Any())
             {
-                Widgets.DrawHighlight(r);
-            }
+                pos.x -= 15;
+                ListSeparator(ref pos, healthBox.width, label);
+                pos.x += 15;
+                pos.y += 5;
 
-            var iconRect = new Rect(r.x, r.y, 22f, 22f);
-            Color iconColor = gene.def.IconColor;
-            Widgets.DefIcon(iconRect, gene.def, null, 1f, null, drawPlaceholder: false, iconColor);
+                geneBox = new Rect(pos.x - 15, pos.y, pawnBox.width + 50, 60);
+                rect = GenUI.DrawElementStack(geneBox, 22f, genes, delegate (Rect r, Gene gene)
+                {
+                    Color color2 = GUI.color;
+                    GUI.color = StackElementBackground;
+                    GUI.DrawTexture(r, BaseContent.WhiteTex);
+                    GUI.color = color2;
 
-            var labelRect = new Rect(iconRect.xMax, r.y, r.width - 10f - 15f, r.height);
-            Widgets.Label(labelRect, gene.LabelCap);
-            if (Mouse.IsOver(r))
-            {
-                Gene trLocal = gene;
-                TooltipHandler.TipRegion(tip: new TipSignal(() => trLocal.def.DescriptionFull, (int)pos.y * 37), rect: r);
+                    if (Mouse.IsOver(r))
+                    {
+                        Widgets.DrawHighlight(r);
+                    }
+
+                    var iconRect = new Rect(r.x, r.y, 22f, 22f);
+                    Color iconColor = gene.def.IconColor;
+                    Widgets.DefIcon(iconRect, gene.def, null, 1f, null, drawPlaceholder: false, iconColor);
+
+                    var labelRect = new Rect(iconRect.xMax, r.y, r.width - 10f - 15f, r.height);
+                    Widgets.Label(labelRect, gene.LabelCap);
+                    if (Mouse.IsOver(r))
+                    {
+                        Gene trLocal = gene;
+                        TooltipHandler.TipRegion(tip: new TipSignal(() => trLocal.def.DescriptionFull, gene.LabelCap.GetHashCode()), rect: r);
+                    }
+                }, (Gene gene) => Text.CalcSize(gene.LabelCap).x + 10f + 22);
+                pos.y += rect.height;
             }
         }
+
         public string GetQualityLabel(int sleeveQualityIndex)
         {
             return ((QualityCategory)sleeveQualityIndex).GetLabel().CapitalizeFirst();
@@ -537,6 +542,10 @@ namespace AlteredCarbon
             ticksToGrow = AlteredCarbonMod.settings.baseGrowingTimeDuration;
             ticksToGrow += sleeveQualitiesTimeCost[sleeveQualities[sleeveQualityIndex]];
             ticksToGrow = Mathf.Max(AlteredCarbonMod.settings.baseGrowingTimeDuration, ticksToGrow);
+            if (convertXenogenesToEndegones)
+            {
+                ticksToGrow *= 2;
+            }
             growCost = 12 * (ticksToGrow / GenDate.TicksPerDay);
         }
 
@@ -564,10 +573,11 @@ namespace AlteredCarbon
             return str;
         }
 
-        public void UpdateSleeve()
+        public void RecheckEverything()
         {
             RecheckBodyOptions();
             InitializeIndexes();
+            UpdateGrowCost();
         }
 
         public void UpdateSleeveGraphic()
@@ -616,10 +626,15 @@ namespace AlteredCarbon
             pawn.health = new Pawn_HealthTracker(pawn);
         }
 
-        public string ExtractHeadLabels(string path)
+        public string ExtractHeadLabels(string headLabel)
         {
-            string str = Regex.Replace(path, ".*/[A-Z]+?_", "", RegexOptions.IgnoreCase).Replace("_", " ");
-            return str;
+            headLabel = Regex.Replace(headLabel, @"^[A-Z]+_", @"");
+            headLabel = Regex.Replace(headLabel, @"^[A-Z]+([A-Z])", @"$1");
+            headLabel = headLabel.Replace("_", " ");
+            headLabel = headLabel.SplitCamelCase();
+            headLabel = Regex.Replace(headLabel, @" +", " ");
+            headLabel = headLabel.FirstCharToUpper();
+            return headLabel;
         }
 
         private List<ThingDef> GetPermittedRaces()
@@ -806,7 +821,7 @@ namespace AlteredCarbon
                 curSleeve.story.SkinColorBase = source.story.SkinColor;
                 curSleeve.story.headType = source.story.headType;
             }
-            UpdateSleeve();
+            RecheckEverything();
         }
 
         public void LoadSleeve(SleevePreset preset)
@@ -883,6 +898,7 @@ namespace AlteredCarbon
             curSleeve?.inventory.DestroyAll();
             curSleeve.apparel.DestroyAll();
             RemoveAllTraits(curSleeve);
+            convertedGenes = new List<Gene>();
             if (curSleeve.playerSettings == null)
             {
                 curSleeve.playerSettings = new Pawn_PlayerSettings(curSleeve);
@@ -927,11 +943,10 @@ namespace AlteredCarbon
                 curSleeve.style.BodyTattoo = TattooDefOf.NoTattoo_Body;
                 curSleeve.style.FaceTattoo = TattooDefOf.NoTattoo_Face;
             }
-
+            curSleeve.Rotation = Rot4.South;
 
             ApplyHediffs();
-            UpdateGrowCost();
-            UpdateSleeve();
+            RecheckEverything();
         }
     }
 }
