@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using Verse;
 using Verse.Sound;
@@ -100,10 +101,11 @@ namespace AlteredCarbon
             }
         }
 
-        public static Rect GetLabelRect(string label, ref Vector2 pos)
+        public static Rect GetLabelRect(string label, ref Vector2 pos, float? labelWidthOverride = null)
         {
-            var height = Mathf.Max(buttonHeight, Text.CalcHeight(label, labelWidth));
-            Rect rect = new Rect(pos.x, pos.y, labelWidth, height);
+            var width = labelWidthOverride ?? labelWidth;
+            var height = Mathf.Max(buttonHeight, Text.CalcHeight(label, width));
+            Rect rect = new Rect(pos.x, pos.y, width, height);
             pos.y += buttonHeight + 5;
             return rect;
         }
@@ -124,7 +126,7 @@ namespace AlteredCarbon
             Widgets.Label(rect, label);
             pos.y += 20f;
             GUI.color = Widgets.SeparatorLineColor;
-            Widgets.DrawLineHorizontal(0f, pos.y, width);
+            Widgets.DrawLineHorizontal(pos.x, pos.y, width);
             pos.y += 2f;
             GUI.color = color;
             Text.Anchor = TextAnchor.UpperLeft;
@@ -167,6 +169,34 @@ namespace AlteredCarbon
             y += optionOffset;
 
             return y;
+        }
+
+        public static void DrawExplanation(ref Vector2 pos, float width, float height, string explanation)
+        {
+            Rect explanationLabelRect = GetLabelRect(ref pos, width, height);
+            Text.Font = GameFont.Tiny;
+            GUI.color = Color.grey;
+            Widgets.Label(explanationLabelRect, explanation);
+            GUI.color = Color.white;
+            Text.Font = GameFont.Small;
+        }
+
+        public static string SplitCamelCase(this string str)
+        {
+            return Regex.Replace(
+                Regex.Replace(
+                    str,
+                    @"(\P{Ll})(\P{Ll}\p{Ll})",
+                    "$1 $2"
+                ),
+                @"(\p{Ll})(\P{Ll})",
+                "$1 $2"
+            ).FirstCharToUpper();
+        }
+
+        public static string FirstCharToUpper(this string input)
+        {
+            return input[0].ToString().ToUpper() + input.Substring(1).ToLower();
         }
     }
 }
