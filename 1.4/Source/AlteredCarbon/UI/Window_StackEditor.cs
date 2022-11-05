@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
 using UnityEngine;
@@ -25,19 +26,29 @@ namespace AlteredCarbon
                 .Where(x => x.slot == BackstorySlot.Childhood).ToList()
                 .FindIndex(x => x.defName == this.corticalStack.PersonaData.childhood);
 
+            if (!corticalStack.PersonaData.adulthood.NullOrEmpty())
+            {
+                this.backstoryAdultIndex = DefDatabase<BackstoryDef>.AllDefsListForReading
+                    .Where(x => x.slot == BackstorySlot.Adulthood).ToList()
+                    .FindIndex(x => x.defName == this.corticalStack.PersonaData.adulthood);
+            }
+            
             this.traitsList = new List<Trait>(corticalStack.PersonaData.traits);
+            this.ideo = corticalStack.PersonaData.ideo;
+            this.faction = corticalStack.PersonaData.faction;
+            this.skills = new List<SkillRecord>(corticalStack.PersonaData.skills);
         }
 
         public override Vector2 InitialSize
         {
-            get { return new Vector2(768f, 690f); }
+            get { return new Vector2(768f, 768f); }
         }
 
         private int backstoryChildIndex;
-        private int backstoryAdult = 0;
+        private int? backstoryAdultIndex = null;
         private List<Trait> traitsList;
         private Ideo ideo;
-        private Faction faction = Faction.OfPlayer;
+        private Faction faction;
         private List<SkillRecord> skills;
 
         // public Vector2 Margin = new Vector2(10f, 3f);
@@ -47,25 +58,36 @@ namespace AlteredCarbon
             Text.Font = GameFont.Medium;
             Rect rect3 = new Rect(inRect.x, inRect.y, inRect.width, Text.LineHeight);
             Text.Anchor = TextAnchor.MiddleCenter;
-            Widgets.Label(rect3, "ACE.EditStack".Translate());
+            // Widgets.Label(rect3, "ACE.EditStack".Translate());
+            Widgets.Label(rect3, "Edit Cortical Stack");
 
             Text.Anchor = TextAnchor.UpperLeft;
-            inRect.y += Text.LineHeight;
+            inRect.y += Text.LineHeight * 1.2f;
             Text.Font = GameFont.Small;
+            // Widgets.DrawBoxSolidWithOutline(inRect, Color.black, Color.blue, 1);
 
+            //TODO: skills panel
+            DrawSkillsPanel(ref inRect);
 
             DrawBackstoryPanel(ref inRect);
+            
+            
+            
             DrawTraitsPanel(ref inRect);
             //TODO: ideo panel
             DrawIdeoPanel(ref inRect);
             //TODO: faction panel
             DrawFactionPanel(ref inRect);
-            //TODO: editing time panel
-            DrawTimePanel(ref inRect);
-            //TODO: skills panel
-            DrawSkillsPanel(ref inRect);
+            
+            
             //TODO: shadow tutorial panel
             DrawTutorialPanel(ref inRect);
+            
+            //TODO: editing time panel
+            DrawTimePanel(ref inRect);
+            
+            
+            
             //TODO: accept/cancel buttons
             DrawAcceptCancelButtons(ref inRect);
         }
@@ -82,39 +104,103 @@ namespace AlteredCarbon
 
         private void DrawSkillsPanel(ref Rect inRect)
         {
-            //throw new System.NotImplementedException();
+            Text.Font = GameFont.Medium;
+            Rect backstoryHeader = new Rect(inRect.x+inRect.width / 2f + this.Margin*3f, inRect.y, inRect.width / 2f - this.Margin * 4f, inRect.height);
+            Widgets.Label(backstoryHeader, "Skills");
+
+
+            GUI.BeginGroup(backstoryHeader);
+            Rect traitsFill = new Rect(0f, Text.LineHeight, backstoryHeader.width, inRect.height * 0.55f);
+            Widgets.DrawRectFast(traitsFill, Widgets.MenuSectionBGFillColor, null);
+            Text.Font = GameFont.Small;
+            // GUI.BeginGroup(traitsFill);
+
+            var scrollPos = new Vector2();
+            Rect skillsContainer = new Rect(traitsFill.x + this.Margin/1.6f, traitsFill.y + this.Margin/2, traitsFill.width - this.Margin, traitsFill.height);
+            Widgets.BeginScrollView(skillsContainer, ref scrollPos, skillsContainer);
+
+                
+                GenUI.DrawElementStackVertical(skillsContainer, Text.LineHeight, this.skills, delegate(Rect rect, SkillRecord element)
+                    {
+                        var skillLabel = new Rect(rect){width = rect.width / 2.5f};
+                    
+                        // RenderRect(skillLabel);
+                        Widgets.Label(skillLabel, element.def.LabelCap);
+                    }, element => skillsContainer.width
+                );
+            Widgets.EndScrollView();
+            // GUI.EndGroup();
+            GUI.EndGroup();
         }
 
         private void DrawTimePanel(ref Rect inRect)
         {
-            //throw new System.NotImplementedException();
+            
+            // Widgets.DrawBoxSolidWithOutline(inRect, Color.black, Color.blue, 1);
+            
+            Text.Font = GameFont.Medium;
+            Rect editTime = new Rect(inRect.x + this.Margin, inRect.y + this.Margin, inRect.width / 2f - this.Margin, inRect.height);
+            
+            Widgets.Label(editTime, "Total time to edit:");
+            editTime.y += Text.LineHeight;
+            
+            Widgets.Label(editTime, "Total stack degeneration:");
         }
 
         private void DrawFactionPanel(ref Rect inRect)
         {
-            //throw new System.NotImplementedException();
+            Text.Font = GameFont.Medium;
+            Rect factionHeader = new Rect(inRect.x + this.Margin * 2f, inRect.y, inRect.width / 2f - this.Margin, inRect.height);
+            Widgets.Label(factionHeader, "Faction");
+            
+            
+
+            Rect backstoryHighlightRect = new Rect(inRect.x + this.Margin, inRect.y + Text.LineHeight, inRect.width / 2f, inRect.height);
+            GUI.BeginGroup(backstoryHighlightRect);
+            Rect rect2 = new Rect(0f, 0f, backstoryHighlightRect.width, (Text.LineHeight * 1.5f) + (this.Margin));
+            Widgets.DrawRectFast(rect2, Widgets.MenuSectionBGFillColor, null);
+            
+            GUI.EndGroup();
+            
+            inRect.y += rect2.yMax + Text.lineHeights[2];
         }
 
         private void DrawIdeoPanel(ref Rect inRect)
         {
-            //throw new System.NotImplementedException();
+            Text.Font = GameFont.Medium;
+            Rect ideoHeader = new Rect(inRect.x + this.Margin * 2f, inRect.y, inRect.width / 2f - this.Margin, inRect.height);
+            Widgets.Label(ideoHeader, "Ideology");
+            inRect.y += Text.LineHeight;
+            
+
+            Rect ideoBody = new Rect(inRect.x + this.Margin, inRect.y, inRect.width / 2f, inRect.height);
+            GUI.BeginGroup(ideoBody);
+            Rect ideoBodyFill = new Rect(0f, 0f, ideoBody.width, (Text.LineHeight * 1.5f) + (this.Margin));
+            Widgets.DrawRectFast(ideoBodyFill, Widgets.MenuSectionBGFillColor, null);
+
+            GUI.EndGroup();
+            inRect.y += ideoBodyFill.height + this.Margin;
+
+
+            // Widgets.DrawBoxSolidWithOutline(inRect, Color.black, Color.blue, 1);
         }
 
         private void DrawTraitsPanel(ref Rect inRect)
         {
             Text.Font = GameFont.Medium;
-            Rect backstoryHeader = new Rect(inRect.x + this.Margin * 2f, inRect.y, inRect.width / 2f - this.Margin, inRect.height);
-            Widgets.Label(backstoryHeader, "Traits");
+            Rect traitHeader = new Rect(inRect.x + this.Margin * 2f, inRect.y, inRect.width / 2f - this.Margin, inRect.height);
+            Widgets.Label(traitHeader, "Traits");
+            inRect.y += Text.LineHeight;
 
-            Rect addTraitRect = new Rect(inRect.x + (backstoryHeader.width), backstoryHeader.y + (Text.LineHeight / 2 - 13f), 26f, 26f);
+            Rect addTraitRect = new Rect(inRect.x + (traitHeader.width), traitHeader.y + (Text.LineHeight / 2 - 13f), 26f, 26f);
             //TODO: add Traits float menu
             GUI.DrawTexture(addTraitRect, TexButton.Add);
 
-            Rect backstoryHighlightRect = new Rect(inRect.x + this.Margin, inRect.y + Text.LineHeight, inRect.width / 2f, inRect.height/ 4f);
-            Widgets.DrawRectFast(backstoryHighlightRect, Widgets.MenuSectionBGFillColor, null);
+            Rect traitsFill = new Rect(inRect.x + this.Margin, inRect.y, inRect.width / 2f, inRect.height/ 5f);
+            Widgets.DrawRectFast(traitsFill, Widgets.MenuSectionBGFillColor, null);
 
-            GUI.BeginGroup(backstoryHighlightRect);
-            Rect traitsContainer = new Rect(0f, 0f, backstoryHighlightRect.width - this.Margin, backstoryHighlightRect.height);
+            GUI.BeginGroup(traitsFill);
+            Rect traitsContainer = new Rect(0f, 0f, traitsFill.width - this.Margin, traitsFill.height);
 
             traitsContainer.y += this.Margin / 4f;
             traitsContainer.x += this.Margin / 4f;
@@ -147,6 +233,7 @@ namespace AlteredCarbon
 
             GUI.EndGroup();
             GUI.EndGroup();
+            inRect.y += traitsFill.height + this.Margin;
         }
 
         protected void DrawBackstoryPanel(ref Rect inRect)
@@ -157,14 +244,16 @@ namespace AlteredCarbon
 
             Rect backstoryHighlightRect = new Rect(inRect.x + this.Margin, inRect.y + Text.LineHeight, inRect.width / 2f, inRect.height);
             GUI.BeginGroup(backstoryHighlightRect);
-            Rect rect2 = new Rect(0f, 0f, backstoryHighlightRect.width, (Text.LineHeight * 2.5f) + (this.Margin));
+            
+            Rect rect2 = new Rect(0f, 0f, backstoryHighlightRect.width, Text.LineHeight * (1.25f + (this.backstoryAdultIndex != null ? 1f : -0.2f)) + (this.Margin));
+            // Rect rect2 = new Rect(0f, 0f, backstoryHighlightRect.width, (Text.LineHeight * (2.25f) + (this.Margin)));
             Widgets.DrawRectFast(rect2, Widgets.MenuSectionBGFillColor, null);
 
-            rect2.y += this.Margin;
+            rect2.y += this.Margin * 0.75f;
 
             Text.Font = GameFont.Small;
-            Rect rect3 = new Rect(rect2.x + (this.Margin / 2), rect2.y, rect2.width, rect2.height);
-            Widgets.Label(rect3, "Childhood");
+            Rect childhoodLabel = new Rect(rect2.x + (this.Margin / 2), rect2.y, rect2.width, rect2.height);
+            Widgets.Label(childhoodLabel, "Childhood");
 
             Rect lftButton = new Rect(rect2.x + 100f, rect2.y + 2, Text.LineHeight / 2, Text.LineHeight - 4f);
             if (Widgets.ButtonInvisible(lftButton, true))
@@ -176,7 +265,6 @@ namespace AlteredCarbon
                 }
                 else backstoryChildIndex--;
             }
-
             GUI.DrawTexture(lftButton, TexUI.ArrowTexLeft);
         
             Rect rghtButton = new Rect(rect2.width - (this.Margin * 4f), rect2.y + 2, Text.LineHeight / 2, Text.LineHeight - 4f);
@@ -194,11 +282,11 @@ namespace AlteredCarbon
 
             Rect background = new Rect(
                 lftButton.x + lftButton.width + 2f,
-                rect3.y,
+                childhoodLabel.y,
                 rghtButton.x - lftButton.xMax - 4f,
                 Text.LineHeight
             );
-            Widgets.DrawRectFast(background, new Color(24f / 255f, 20f / 255f, 20f / 255f), null);
+            Widgets.DrawRectFast(background, new Color(19f / 255f, 22f / 255f, 22f / 255f), null);
 
             Text.Anchor = TextAnchor.MiddleCenter;
             Widgets.Label(background, DefDatabase<BackstoryDef>.AllDefsListForReading.Where(x => x.slot == BackstorySlot.Childhood).ToList()[backstoryChildIndex].title);
@@ -206,28 +294,55 @@ namespace AlteredCarbon
 
             rect2.y += Text.LineHeight * 1.5f;
 
-            Rect rect4 = new Rect(rect2.x + (this.Margin / 2), rect2.y, rect2.width, rect2.height);
-            Widgets.Label(rect4, "Adulthood");
+            if (backstoryAdultIndex != null && backstoryAdultIndex is int backstoryAdultIndexInternal)
+            {
+                Rect rect4 = new Rect(rect2.x + (this.Margin / 2), rect2.y, rect2.width, rect2.height);
+                Widgets.Label(rect4, "Adulthood");
 
-            Rect lftButtonAdult = new Rect(rect2.x + 100f, rect2.y + 2, Text.LineHeight / 2, Text.LineHeight - 4f);
-            GUI.DrawTexture(lftButtonAdult, TexUI.ArrowTexLeft);
-            Rect rghtButtonAdult = new Rect(rect2.width - (this.Margin * 4f), rect2.y + 2, Text.LineHeight / 2, Text.LineHeight - 4f);
-            GUI.DrawTexture(rghtButtonAdult, TexUI.ArrowTexRight);
+                Rect lftButtonAdult = new Rect(rect2.x + 100f, rect2.y + 2, Text.LineHeight / 2, Text.LineHeight - 4f);
+                if (Widgets.ButtonInvisible(lftButtonAdult, true))
+                {
+                    SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
+                    if (backstoryAdultIndexInternal == 0)
+                    {
+                        backstoryAdultIndex = DefDatabase<BackstoryDef>.AllDefsListForReading.Where(x => x.slot == BackstorySlot.Adulthood).Count() - 1;
+                    }
+                    else backstoryAdultIndex--;
+                }
+                GUI.DrawTexture(lftButtonAdult, TexUI.ArrowTexLeft);
+                Rect rghtButtonAdult = new Rect(rect2.width - (this.Margin * 4f), rect2.y + 2, Text.LineHeight / 2, Text.LineHeight - 4f);
+                if (Widgets.ButtonInvisible(rghtButtonAdult, true))
+                {
+                    SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
+                    if (backstoryAdultIndexInternal == DefDatabase<BackstoryDef>.AllDefsListForReading.Where(x => x.slot == BackstorySlot.Adulthood).Count() - 1)
+                    {
+                        backstoryAdultIndex = 0;
+                    }
+                    else backstoryAdultIndex++;
+                }
+                GUI.DrawTexture(rghtButtonAdult, TexUI.ArrowTexRight);
 
-            Rect backgroundAdult = new Rect(
-                lftButtonAdult.x + lftButtonAdult.width + 2f,
-                rect4.y,
-                rghtButtonAdult.x - lftButtonAdult.xMax - 4f,
-                Text.LineHeight
-            );
-            Widgets.DrawRectFast(backgroundAdult, new Color(24f / 255f, 20f / 255f, 20f / 255f), null);
+                Rect backgroundAdult = new Rect(
+                    lftButtonAdult.x + lftButtonAdult.width + 2f,
+                    rect4.y,
+                    rghtButtonAdult.x - lftButtonAdult.xMax - 4f,
+                    Text.LineHeight
+                );
+                Widgets.DrawRectFast(backgroundAdult, new Color(19f / 255f, 22f / 255f, 22f / 255f), null);
 
-            Text.Anchor = TextAnchor.MiddleCenter;
-            Widgets.Label(backgroundAdult, "Adult Background");
-            Text.Anchor = TextAnchor.UpperLeft;
+                Text.Anchor = TextAnchor.MiddleCenter;
+                Widgets.Label(backgroundAdult, DefDatabase<BackstoryDef>.AllDefsListForReading.Where(x => x.slot == BackstorySlot.Adulthood).ToList()[backstoryAdultIndexInternal].title);
+                Text.Anchor = TextAnchor.UpperLeft;
+            }
 
             inRect.y += rect2.yMax;
             GUI.EndGroup();
+        }
+
+        private void RenderRect(Rect debugRect)
+        {
+            
+            Widgets.DrawRectFast(debugRect, new Color(19f / 255f, 22f / 255f, 22f / 255f), null);
         }
     }
 }
