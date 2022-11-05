@@ -31,7 +31,17 @@ namespace AlteredCarbon
 
 		public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
 		{
-			return JobMaker.MakeJob(AC_DefOf.VFEU_StartIncubatingProcess, t);
+			var grower = t as Building_SleeveGrower;
+			if (grower.xenogermToConsume != null)
+			{
+				if (grower.xenogermToConsume.Destroyed || grower.xenogermToConsume.Spawned is false 
+					|| pawn.CanReserveAndReach(grower.xenogermToConsume, PathEndMode.ClosestTouch, Danger.Deadly) is false)
+				{
+					return null;
+				}
+                return JobMaker.MakeJob(AC_DefOf.VFEU_StartIncubatingProcess, t, grower.xenogermToConsume);
+            }
+            return JobMaker.MakeJob(AC_DefOf.VFEU_StartIncubatingProcess, t);
 		}
 	}
 }

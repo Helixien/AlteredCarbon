@@ -90,11 +90,11 @@ namespace AlteredCarbon
             InitUI();
         }
 
-        public Window_SleeveCustomization(Building_SleeveGrower sleeveGrower, Pawn pawn)
+        public Window_SleeveCustomization(Building_SleeveGrower sleeveGrower, Pawn pawnToClone)
         {
             this.sleeveGrower = sleeveGrower;
-            Init(pawn.kindDef, pawn.gender);
-            CopyBodyFrom(pawn);
+            Init(pawnToClone.kindDef, pawnToClone.gender);
+            CopyBodyFrom(pawnToClone);
             InitUI();
         }
 
@@ -125,7 +125,8 @@ namespace AlteredCarbon
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.MiddleCenter;
 
-            Vector2 firstColumnPos = new Vector2(leftOffset, 50);
+            float innerRectYOffset = 50;
+            Vector2 firstColumnPos = new Vector2(leftOffset, innerRectYOffset);
             Vector2 secondColumnPos = new Vector2(600, firstColumnPos.y);
 
             var outRect = new Rect(0, firstColumnPos.y, inRect.width, inRect.height - 250);
@@ -226,7 +227,8 @@ namespace AlteredCarbon
                     {
                         if (convertXenogenesToEndegones)
                         {
-                            convertedGenes = genes.Where(x => curSleeve.genes.Xenogenes.Contains(x)).ToList();
+                            convertedGenes = genes.Where(x => curSleeve.genes.Xenogenes.Contains(x) 
+                                && x.def.displayCategory != GeneCategoryDefOf.Archite).ToList();
                             curSleeve.genes.endogenes.AddRange(convertedGenes);
                             curSleeve.genes.xenogenes.RemoveAll(x => convertedGenes.Contains(x));
                         }
@@ -394,19 +396,17 @@ namespace AlteredCarbon
             Rect healthBoxLabel = GetLabelRect(ref secondColumnPos, 150, 32);
             Text.Font = GameFont.Medium;
             Widgets.Label(healthBoxLabel, "AC.SleeveHealthPreview".Translate().CapitalizeFirst());
-            Rect healthBox = new Rect(pawnBox.x - 15, healthBoxLabel.yMax, pawnBox.width + 30, 50f);
+            Rect healthBox = new Rect(pawnBox.x - 15, healthBoxLabel.yMax, pawnBox.width + 30, (diffs.Count * 25f) + 10);
             Widgets.DrawHighlight(healthBox);
             GUI.color = HealthUtility.GoodConditionColor;
             Listing_Standard diffListing = new Listing_Standard();
-            Rect heDiffPrintout = healthBox.BottomPart(0.95f).LeftPart(0.95f).RightPart(0.95f);
-            diffListing.Begin(heDiffPrintout);
+            diffListing.Begin(healthBox.ContractedBy(5));
             Text.Anchor = TextAnchor.MiddleLeft;
             for (int ii = 0; ii < diffs.Count; ++ii)
             {
                 diffListing.Label(diffs[ii].LabelCap);
             }
             diffListing.End();
-            healthBox.height = Mathf.Max(50f, diffs.Count * 25f);
 
             GUI.color = Color.white;
             if (Mouse.IsOver(healthBox))
@@ -452,7 +452,7 @@ namespace AlteredCarbon
             }
 
             Widgets.EndScrollView();
-            scrollHeightCount = (int)Mathf.Max(firstColumnPos.y, secondColumnPos.y);
+            scrollHeightCount = (int)(Mathf.Max(firstColumnPos.y, secondColumnPos.y) - innerRectYOffset);
 
             firstColumnPos.x = leftOffset;
             firstColumnPos.y = (inRect.y + inRect.height) - 170;
@@ -480,7 +480,7 @@ namespace AlteredCarbon
             Rect acceptRect = new Rect(inRect.xMax - (loadTemplateRect.width * 2f) - 15, loadTemplateRect.y, loadTemplateRect.width, loadTemplateRect.height);
             if (Widgets.ButtonText(acceptRect, "Accept".Translate().CapitalizeFirst()))
             {
-                sleeveGrower.StartGrowth(curSleeve, ticksToGrow, growCost);
+                sleeveGrower.StartGrowth(curSleeve, curXenogerm, ticksToGrow, growCost);
                 Close();
             }
 
@@ -801,6 +801,27 @@ namespace AlteredCarbon
         {
             curSleeve.gender = source.gender;
             curSleeve.kindDef = source.kindDef;
+
+            var genes = curSleeve.genes.GenesListForReading;
+            foreach (var oldGene in genes)
+            {
+                curSleeve.genes.RemoveGene(oldGene);
+            }
+
+            var sourceGenes = source.genes.GenesListForReading;
+            foreach (var sourceGene in sourceGenes)
+            {
+                curSleeve.genes.AddGene(sourceGene.def, source.genes.Xenogenes.Contains(sourceGene));
+            }
+            for (var i = 0; i < sourceGenes.Count; i++)
+            {
+                var gene = curSleeve.genes.GenesListForReading[i];
+                if (sourceGenes[i].Active)
+                {
+                    curSleeve.genes.OverrideAllConflicting(gene);
+                }
+            }
+
             curSleeve.story.bodyType = source.story.bodyType;
             curSleeve.story.hairDef = source.story.hairDef;
             curSleeve.style.beardDef = source.style.beardDef;
@@ -821,6 +842,7 @@ namespace AlteredCarbon
                 curSleeve.story.SkinColorBase = source.story.SkinColor;
                 curSleeve.story.headType = source.story.headType;
             }
+
             RecheckEverything();
         }
 
@@ -890,8 +912,11 @@ namespace AlteredCarbon
             }
             curSleeve = PawnGenerator.GeneratePawn(new PawnGenerationRequest(currentPawnKindDef, null, PawnGenerationContext.NonPlayer,
                 -1, true, false, false, false, false, 0f, false, true, true, false, false, false, true,
-                fixedGender: gender, fixedBiologicalAge: 20, fixedChronologicalAge: 20));
+                fixedGender: gender));
+            curSleeve.ageTracker.AgeBiologicalTicks = 0;
+            curSleeve.ageTracker.AgeChronologicalTicks = 0;
             curSleeve.story.Adulthood = null;
+            curSleeve.relations = new Pawn_RelationsTracker(curSleeve);
             curSleeve.Name = new NameSingle("AC.EmptySleeve".Translate());
             curSleeve.story.title = "";
             curSleeve?.equipment.DestroyAllEquipment();

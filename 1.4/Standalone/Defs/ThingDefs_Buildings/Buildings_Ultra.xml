@@ -21,7 +21,7 @@
 		<thingClass>AlteredCarbon.Building_SleeveGrower</thingClass>
 		<tickerType>Normal</tickerType>
 		<drawerType>RealtimeOnly</drawerType>
-		<passability>Impassable</passability>
+		<passability>PassThroughOnly</passability>
 		<containedPawnsSelectable>true</containedPawnsSelectable>
 		<castEdgeShadows>true</castEdgeShadows>
 		<uiIconPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorUI_Icon</uiIconPath>
