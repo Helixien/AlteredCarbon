@@ -53,6 +53,8 @@ namespace AlteredCarbon
 
         // public Vector2 Margin = new Vector2(10f, 3f);
         // public float custMargin = 20f;
+        
+        private Vector2 scrollPos;
         public override void DoWindowContents(Rect inRect)
         {
             Text.Font = GameFont.Medium;
@@ -113,23 +115,41 @@ namespace AlteredCarbon
             Rect traitsFill = new Rect(0f, Text.LineHeight, backstoryHeader.width, inRect.height * 0.55f);
             Widgets.DrawRectFast(traitsFill, Widgets.MenuSectionBGFillColor, null);
             Text.Font = GameFont.Small;
-            // GUI.BeginGroup(traitsFill);
 
-            var scrollPos = new Vector2();
-            Rect skillsContainer = new Rect(traitsFill.x + this.Margin/1.6f, traitsFill.y + this.Margin/2, traitsFill.width - this.Margin, traitsFill.height);
-            Widgets.BeginScrollView(skillsContainer, ref scrollPos, skillsContainer);
+            Rect skillsContainer = new Rect(traitsFill.x, traitsFill.y, traitsFill.width - this.Margin, this.skills.Count() * (Text.LineHeight + 5f));
+            Widgets.BeginScrollView(traitsFill, ref scrollPos, skillsContainer);
 
-                
-                GenUI.DrawElementStackVertical(skillsContainer, Text.LineHeight, this.skills, delegate(Rect rect, SkillRecord element)
+            skillsContainer.x += this.Margin/2;
+            skillsContainer.y += 5f;
+
+            GenUI.DrawElementStackVertical(skillsContainer, Text.LineHeight, this.skills, delegate(Rect rect, SkillRecord skill)
+                {
+                    //Reimplmented from Rimworld.SkillsUI
+                    Rect labelRect = new Rect(rect.x, rect.y, rect.width / 2.5f, rect.height);
+                    RenderRect(labelRect);
+                    Widgets.Label(labelRect, skill.def.skillLabel.CapitalizeFirst());
+
+                    Rect position = new Rect(labelRect.xMax, labelRect.y, labelRect.height, labelRect.height);
+                    //TODO: keep in mind vanilla skills expanded
+                    if (Mouse.IsOver(position))
                     {
-                        var skillLabel = new Rect(rect){width = rect.width / 2.5f};
-                    
-                        // RenderRect(skillLabel);
-                        Widgets.Label(skillLabel, element.def.LabelCap);
-                    }, element => skillsContainer.width
-                );
+                        RenderRect(position);
+                    }
+
+                    if (Widgets.ButtonInvisible(position))
+                    {
+                        skill.passion = Enums.Next(skill.passion);
+                    }
+
+                    if (skill.passion > Passion.None)
+                    {
+                        Texture2D image = (skill.passion == Passion.Major) ? SkillUI.PassionMajorIcon : SkillUI.PassionMinorIcon;
+                        GUI.DrawTexture(position, image);
+                    }
+
+                }, element => skillsContainer.width
+            );
             Widgets.EndScrollView();
-            // GUI.EndGroup();
             GUI.EndGroup();
         }
 
@@ -339,10 +359,25 @@ namespace AlteredCarbon
             GUI.EndGroup();
         }
 
+        private Color col =  new Color(19f / 255f, 22f / 255f, 22f / 255f);
         private void RenderRect(Rect debugRect)
         {
             
-            Widgets.DrawRectFast(debugRect, new Color(19f / 255f, 22f / 255f, 22f / 255f), null);
+            Widgets.DrawRectFast(debugRect,col, null);
         }
+    }
+}
+
+
+public static class Enums
+{
+    public static T Next<T>(this T v) where T : struct
+    {
+        return Enum.GetValues(v.GetType()).Cast<T>().Concat(new[] { default(T) }).SkipWhile(e => !v.Equals(e)).Skip(1).First();
+    }
+
+    public static T Previous<T>(this T v) where T : struct
+    {
+        return Enum.GetValues(v.GetType()).Cast<T>().Concat(new[] { default(T) }).Reverse().SkipWhile(e => !v.Equals(e)).Skip(1).First();
     }
 }
