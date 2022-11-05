@@ -138,6 +138,7 @@ namespace AlteredCarbon
 
                     if (Widgets.ButtonInvisible(position))
                     {
+                        SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                         skill.passion = Enums.Next(skill.passion);
                     }
 
@@ -246,6 +247,7 @@ namespace AlteredCarbon
                     GUI.DrawTexture(buttonRect,TexButton.Minus);
                     if (Widgets.ButtonInvisible(buttonRect, true))
                     {
+                        SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                         traitsList.Remove(element);
                     }
                 },  trait => Text.CalcSize(trait.LabelCap).x + Text.LineHeight + 10f);
