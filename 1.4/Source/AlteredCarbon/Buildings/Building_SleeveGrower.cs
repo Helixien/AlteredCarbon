@@ -42,7 +42,8 @@ namespace AlteredCarbon
             {
                 if (fetusEarlyStageGraphic == null)
                 {
-                    fetusEarlyStageGraphic = GraphicDatabase.Get<Graphic_Single>("Other/VatGrownFetus_EarlyStage", ShaderDatabase.Cutout, Vector2.one, Color.white);
+                    fetusEarlyStageGraphic = GraphicDatabase.Get<Graphic_Single>("Other/VatGrownFetus_EarlyStage", 
+                        ShaderDatabase.Cutout, Vector2.one, InnerPawn.story.SkinColor);
                 }
                 return fetusEarlyStageGraphic;
             }
@@ -55,7 +56,7 @@ namespace AlteredCarbon
                 if (fetusLateStageGraphic == null)
                 {
                     fetusLateStageGraphic = GraphicDatabase.Get<Graphic_Single>("Other/VatGrownFetus_LateStage",
-                        ShaderDatabase.Cutout, Vector2.one, Color.white);
+                        ShaderDatabase.Cutout, Vector2.one, InnerPawn.story.SkinColor);
                 }
                 return fetusLateStageGraphic;
             }
@@ -114,6 +115,13 @@ namespace AlteredCarbon
                         action = FinishGrowth
                     };
                     yield return command_Action;
+
+                    command_Action = new Command_Action
+                    {
+                        defaultLabel = "Debug: grow +1%",
+                        action = AddGrowth
+                    };
+                    yield return command_Action;
                 }
             }
             yield break;
@@ -131,16 +139,16 @@ namespace AlteredCarbon
                 float growthProgress = GrowthProgress;
                 if (growthProgress < 0.05f)
                 {
-                    Vector2 drawSize = Vector2.one * Mathf.Lerp(0.4f, 0.95f, growthProgress / 0.05f);
+                    Vector2 drawSize = Vector2.one * Mathf.Lerp(0.3f, 0.7f, growthProgress / 0.05f);
                     if (growthProgress < 0.02f)
                     {
                         FetusEarlyStage.drawSize = drawSize;
-                        FetusEarlyStage.DrawFromDef(DrawPos + PawnDrawOffset + Altitudes.AltIncVect * 0.25f, base.Rotation, null);
+                        FetusEarlyStage.DrawFromDef(newPos + PawnDrawOffset, base.Rotation, null);
                     }
                     else
                     {
                         FetusLateStage.drawSize = drawSize;
-                        FetusLateStage.DrawFromDef(DrawPos + PawnDrawOffset + Altitudes.AltIncVect * 0.25f, base.Rotation, null);
+                        FetusLateStage.DrawFromDef(newPos + PawnDrawOffset, base.Rotation, null);
                     }
                 }
                 else
@@ -215,6 +223,7 @@ namespace AlteredCarbon
             this.totalTicksToGrow = totalTicksToGrow;
             this.totalGrowthCost = totalGrowthCost;
             incubatorState = IncubatorState.ToBeActivated;
+            InnerPawn.Rotation = Rot4.South;
         }
 
         private void Reset()
@@ -225,6 +234,10 @@ namespace AlteredCarbon
             runningOutFuelInTicks = 0;
             totalGrowthCost = 0;
             totalTicksToGrow = 0;
+        }
+        public void AddGrowth()
+        {
+            curTicksToGrow += totalTicksToGrow / 100;
         }
 
         public void FinishGrowth()
@@ -380,38 +393,38 @@ namespace AlteredCarbon
                     {
                         {
                             Rot4.South,
-                            ThingDefOf.Mote_VatGlowVertical
+                            AC_DefOf.VFEU_Mote_VatGlowVertical
                         },
                         {
                             Rot4.East,
-                            ThingDefOf.Mote_VatGlowHorizontal
+                            AC_DefOf.VFEU_Mote_VatGlowHorizontal
                         },
                         {
                             Rot4.West,
-                            ThingDefOf.Mote_VatGlowHorizontal
+                            AC_DefOf.VFEU_Mote_VatGlowHorizontal
                         },
                         {
                             Rot4.North,
-                            ThingDefOf.Mote_VatGlowVertical
+                            AC_DefOf.VFEU_Mote_VatGlowVertical
                         }
                     };
                     BubbleEffecterPerRotation = new Dictionary<Rot4, EffecterDef>
                     {
                         {
                             Rot4.South,
-                            EffecterDefOf.Vat_Bubbles_South
+                            AC_DefOf.VFEU_Vat_Bubbles_South
                         },
                         {
                             Rot4.East,
-                            EffecterDefOf.Vat_Bubbles_East
+                            AC_DefOf.VFEU_Vat_Bubbles_East
                         },
                         {
                             Rot4.West,
-                            EffecterDefOf.Vat_Bubbles_West
+                            AC_DefOf.VFEU_Vat_Bubbles_West
                         },
                         {
                             Rot4.North,
-                            EffecterDefOf.Vat_Bubbles_North
+                            AC_DefOf.VFEU_Vat_Bubbles_North
                         }
                     };
                 }

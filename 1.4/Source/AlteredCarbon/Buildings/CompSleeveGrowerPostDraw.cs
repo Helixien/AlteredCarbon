@@ -3,6 +3,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
+	[HotSwappable]
 	[StaticConstructorOnStartup]
 	public class CompSleeveGrowerPostDraw : ThingComp
 	{
@@ -24,8 +25,8 @@ namespace AlteredCarbon
 		{
 			base.PostDraw();
 			Vector3 vector = parent.DrawPos + Altitudes.AltIncVect;
-			vector.y += 1;
-			Glass.Draw(vector, Rot4.North, parent);
-		}
-	}
+            vector.y += 3;
+            Glass.Draw(vector, Rot4.North, parent);
+        }
+    }
 }

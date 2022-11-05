@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Buildings\Building_DecryptionBench.cs" />
     <Compile Include="Buildings\Building_Incubator.cs" />
+    <Compile Include="HarmonyPatches\ChildcareUtility_SwaddleBaby_Patch.cs" />
     <Compile Include="HarmonyPatches\ColonistBarColonistDrawer_HandleClicks_Patch.cs" />
     <Compile Include="HarmonyPatches\BedPatches\CompAssignableToPawn_PlayerCanSeeAssignments_Patch.cs" />
     <Compile Include="HarmonyPatches\Faction_Notify_LeaderDied_Patch.cs" />

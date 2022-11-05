@@ -913,8 +913,10 @@ namespace AlteredCarbon
             curSleeve = PawnGenerator.GeneratePawn(new PawnGenerationRequest(currentPawnKindDef, null, PawnGenerationContext.NonPlayer,
                 -1, true, false, false, false, false, 0f, false, true, true, false, false, false, true,
                 fixedGender: gender));
-            curSleeve.ageTracker.AgeBiologicalTicks = 0;
-            curSleeve.ageTracker.AgeChronologicalTicks = 0;
+
+            var lastAdultAge = curSleeve.RaceProps.lifeStageAges.LastOrDefault((LifeStageAge lifeStageAge) => lifeStageAge.def.developmentalStage.Adult())?.minAge ?? 0f;
+            curSleeve.ageTracker.AgeBiologicalTicks = (long)Mathf.FloorToInt(lastAdultAge * 3600000f);
+            curSleeve.ageTracker.AgeChronologicalTicks = (long)Mathf.FloorToInt(lastAdultAge * 3600000f);
             curSleeve.story.Adulthood = null;
             curSleeve.relations = new Pawn_RelationsTracker(curSleeve);
             curSleeve.Name = new NameSingle("AC.EmptySleeve".Translate());
