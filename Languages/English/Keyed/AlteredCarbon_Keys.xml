@@ -152,4 +152,8 @@
 	<AC.GeneOptions>Gene options</AC.GeneOptions>
 	<AC.BodyOptions>Body options</AC.BodyOptions>
 	<AC.Genes>Genes</AC.Genes>
+	<AC.XenogermExplanation>Selected xenogerm will be consumed in the process. If no xenogerm is selected, the sleeve will be grown as a "Baseliner".</AC.XenogermExplanation>
+	<AC.GeneOptionsExplanation>Available options depend on the genes of the selected xenogerm. Chosen options will be used as active genes, while conflicting ones will be dormant.</AC.GeneOptionsExplanation>
+	<AC.BodyOptionsExplanation>Baseliner skins and hair colour options are always available. Chosen options will be used as active genes, while conflicting ones will be dormant.</AC.BodyOptionsExplanation>
+	<AC.ConvertGenesToGermline>Grow non-archotech genes in xenogerm as germline genes: </AC.ConvertGenesToGermline>
 </LanguageData>
