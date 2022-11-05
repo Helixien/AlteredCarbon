@@ -7,8 +7,7 @@
 		<description>Text.todo</description>
 		<descriptionHyperlinks>
 			<ThingDef>VFEU_SleeveCasket</ThingDef>
-			<ThingDef>GeneBank</ThingDef>
-			<ThingDef>GeneProcessor</ThingDef>
+			<ThingDef>GeneAssembler</ThingDef>
 		</descriptionHyperlinks>
 		<graphicData>
 			<texPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorBottom</texPath>
