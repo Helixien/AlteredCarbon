@@ -4,8 +4,9 @@
 	<AC.InstallStack>Implant cortical stack</AC.InstallStack>
 	<AC.InstallStackDesc>Select a pawn or empty sleeve to implant the cortical stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallStackDesc>
 
-
-
+	<!-- ================================ Sleeve Incubator ====================== -->
+	<AC.CreateSleeveBody>Grow sleeve</AC.CreateSleeveBody>
+	<AC.CreateSleeveBodyDesc>Create a new baseliner or xenotype sleeve using available xenogerms.</AC.CreateSleeveBodyDesc>
 
 
 
@@ -42,7 +43,7 @@
 	<AC.SleveOf>Sleeve of </AC.SleveOf>
 	<AC.EmptyStackConfirmation>Deleting Stack:\nWARNING! You are about to wipe this stack, killing the person saved on it. Are you sure you want to continue?</AC.EmptyStackConfirmation>
 	<AC.DestroyStackConfirmation>Destroying Stack:\nWARNING! You are about to destroy this stack. Are you sure you want to continue?</AC.DestroyStackConfirmation>
-	<!-- ================================ Sleeve Incubator ====================== -->
+
 	<AC.SleeveCustomization>Sleeve Customization</AC.SleeveCustomization>
 	<AC.NoSleeve>No Sleeve</AC.NoSleeve>
 	<AC.Sleeve>Sleeve</AC.Sleeve>
@@ -52,8 +53,7 @@
 	<AC.CantWipeStackTooDumb>Wipe Stack (requires intellectual skill of 5 or higher)</AC.CantWipeStackTooDumb>
 	<AC.CancelSleeveBodyGrowing>Cancel the sleeve growing process.</AC.CancelSleeveBodyGrowing>
 	<AC.CancelSleeveBodyGrowingDesc>Cancel sleeve growing.</AC.CancelSleeveBodyGrowingDesc>
-	<AC.CreateSleeveBody>Create sleeve</AC.CreateSleeveBody>
-	<AC.CreateSleeveBodyDesc>Create a new sleeve.</AC.CreateSleeveBodyDesc>
+
 	<AC.ReleaseSleeve>Release sleeve</AC.ReleaseSleeve>
 	<AC.NoHairAllowed>This race does not support hair!</AC.NoHairAllowed>
 
