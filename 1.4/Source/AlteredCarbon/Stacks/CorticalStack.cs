@@ -164,10 +164,11 @@ namespace AlteredCarbon
             }
             if (def == AC_DefOf.VFEU_FilledCorticalStack)
             {
-                yield return new Command_Action
+                var installStack = new Command_Action
                 {
                     defaultLabel = "AC.InstallStack".Translate(),
-                    defaultDesc = "AC.InstallStack".Translate(),
+                    defaultDesc = "AC.InstallStackDesc".Translate(),
+                    activateSound = SoundDefOf.Tick_Tiny,
                     icon = ContentFinder<Texture2D>.Get("UI/Icons/InstallStack"),
                     action = delegate ()
                     {
@@ -177,6 +178,7 @@ namespace AlteredCarbon
                         });
                     }
                 };
+                yield return installStack;
             }
         }
 

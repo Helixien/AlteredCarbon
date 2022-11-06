@@ -60,6 +60,7 @@ namespace AlteredCarbon
         public Ideo ideoForConversion;
         private bool everEnslaved = false;
         public bool getRescuedThoughtOnUndownedBecauseOfPlayer;
+        public bool recruitable;
 
         private DefMap<RecordDef, float> records = new DefMap<RecordDef, float>();
         private Battle battleActive;
@@ -258,6 +259,7 @@ namespace AlteredCarbon
                 ideoForConversion = pawn.guest.ideoForConversion;
                 everEnslaved = pawn.guest.EverEnslaved;
                 getRescuedThoughtOnUndownedBecauseOfPlayer = pawn.guest.getRescuedThoughtOnUndownedBecauseOfPlayer;
+                recruitable = pawn.guest.recruitable;
             }
             if (pawn.records != null)
             {
@@ -421,7 +423,7 @@ namespace AlteredCarbon
             ideoForConversion = other.ideoForConversion;
             everEnslaved = other.everEnslaved;
             getRescuedThoughtOnUndownedBecauseOfPlayer = other.getRescuedThoughtOnUndownedBecauseOfPlayer;
-
+            recruitable = other.recruitable;
             records = other.records;
             battleActive = other.battleActive;
             battleExitTick = other.battleExitTick;
@@ -758,7 +760,8 @@ namespace AlteredCarbon
             pawnToOverwrite.guest.resistance = resistance;
             pawnToOverwrite.guest.will = will;
             pawnToOverwrite.guest.ideoForConversion = ideoForConversion;
-            Traverse.Create(pawnToOverwrite.guest).Field("everEnslaved").SetValue(everEnslaved);
+            pawnToOverwrite.guest.everEnslaved = everEnslaved;
+            pawnToOverwrite.guest.recruitable = recruitable;
             pawnToOverwrite.guest.getRescuedThoughtOnUndownedBecauseOfPlayer = getRescuedThoughtOnUndownedBecauseOfPlayer;
 
             if (pawnToOverwrite.records is null)
@@ -1070,6 +1073,7 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref will, "will");
             Scribe_References.Look(ref ideoForConversion, "ideoForConversion");
             Scribe_Values.Look(ref everEnslaved, "everEnslaved");
+            Scribe_Values.Look(ref recruitable, "recruitable");
             Scribe_Values.Look(ref getRescuedThoughtOnUndownedBecauseOfPlayer, "getRescuedThoughtOnUndownedBecauseOfPlayer");
 
             Scribe_Deep.Look(ref records, "records");

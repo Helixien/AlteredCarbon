@@ -72,24 +72,26 @@ namespace AlteredCarbon
             {
                 if (innerContainer.Count > 0 && incubatorState == IncubatorState.Growing)
                 {
-                    Command_Action command_Action = new Command_Action
+                    Command_Action cancelSleeveBody = new Command_Action
                     {
                         action = OrderToCancel,
                         defaultLabel = "AC.CancelSleeveBodyGrowing".Translate(),
                         defaultDesc = "AC.CancelSleeveBodyGrowingDesc".Translate(),
                         hotKey = KeyBindingDefOf.Misc8,
+                        activateSound = SoundDefOf.Tick_Tiny,
                         icon = ContentFinder<Texture2D>.Get("UI/Icons/CancelSleeve")
                     };
-                    yield return command_Action;
+                    yield return cancelSleeveBody;
                 }
 
                 if (InnerPawn == null || innerPawnIsDead)
                 {
                     Command_Action createSleeveBody = new Command_Action
                     {
-                        action = new Action(CreateSleeve),
+                        action = CreateSleeve,
                         defaultLabel = "AC.CreateSleeveBody".Translate(),
                         defaultDesc = "AC.CreateSleeveBodyDesc".Translate(),
+                        activateSound = SoundDefOf.Tick_Tiny,
                         hotKey = KeyBindingDefOf.Misc8,
                         icon = ContentFinder<Texture2D>.Get("UI/Icons/CreateSleeve", true)
                     };
@@ -97,10 +99,11 @@ namespace AlteredCarbon
 
                     Command_Action copySleeveBody = new Command_Action
                     {
-                        action = new Action(CopyPawnBody),
+                        action = CopyPawnBody,
                         defaultLabel = "AC.CloneSleeve".Translate(),
                         defaultDesc = "AC.CloneSleeveDesc".Translate(),
                         hotKey = KeyBindingDefOf.Misc8,
+                        activateSound = SoundDefOf.Tick_Tiny,
                         icon = ContentFinder<Texture2D>.Get("UI/Icons/CloneSleeve", true)
                     };
                     yield return copySleeveBody;
@@ -434,9 +437,9 @@ namespace AlteredCarbon
                     MoteMaker.MakeStaticMote(DrawPos + offset, base.MapHeld, GlowMotePerRotation[base.Rotation], 1.6f);
                 }
 
-                if (bubbleEffecter == null)
+                if (bubbleEffecter == null || Rand.Chance(0.01f))
                 {
-                    var offset = new Vector3(0, 0, -0.5f);
+                    var offset = base.Rotation == Rot4.North ? new Vector3(0, 0, 0.5f) : new Vector3(0, 0, -0.5f);
                     bubbleEffecter = BubbleEffecterPerRotation[base.Rotation].Spawn(this.TrueCenter().ToIntVec3(), base.MapHeld, offset);
                 }
                 bubbleEffecter.EffectTick(this, this);

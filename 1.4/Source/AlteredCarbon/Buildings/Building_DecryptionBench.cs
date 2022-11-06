@@ -53,6 +53,7 @@ namespace AlteredCarbon
                 defaultLabel = "AC.WipeStack".Translate(),
                 defaultDesc = "AC.WipeStackDesc".Translate(),
                 icon = ContentFinder<Texture2D>.Get("UI/Icons/WipeStack"),
+                activateSound = SoundDefOf.Tick_Tiny,
                 action = delegate ()
                 {
                     Find.Targeter.BeginTargeting(ForWipableStack(), delegate (LocalTargetInfo x)

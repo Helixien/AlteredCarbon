@@ -101,7 +101,7 @@ namespace AlteredCarbon
         private void InitUI()
         {
             forcePause = true;
-            absorbInputAroundWindow = true;
+            absorbInputAroundWindow = false;
         }
 
         private void Init(PawnKindDef pawnKindDef, Gender? gender = null)
@@ -205,11 +205,10 @@ namespace AlteredCarbon
                             geneOptionsDrawn = true;
                         }
                         var index = indexesPerCategory[category.Key];
-                        DoSelectionButtons(ref firstColumnPos, category.Key.SplitCamelCase(), ref index,
+                        DoSelectionButtons(ref firstColumnPos, category.Key.SplitCamelCase().FirstCharToUpper(), ref index,
                             (GeneDef x) => x.LabelCap, xenogermGenes, delegate (GeneDef x)
                             {
-                                var gene = curSleeve.genes.GetGene(x);
-                                curSleeve.genes.OverrideAllConflicting(gene);
+                                ApplyGene(x);
                                 RecheckEverything();
                                 indexesPerCategory[category.Key] = xenogermGenes.IndexOf(x);
                             });
@@ -251,8 +250,7 @@ namespace AlteredCarbon
             DoColorButtons(ref firstColumnPos, "AC.SkinColour".Translate(), GetPermittedSkinColors(), (KeyValuePair<GeneDef, Color> x) => x.Value,
                 delegate (KeyValuePair<GeneDef, Color> selected)
                 {
-                    curSleeve.story.skinColorOverride = curSleeve.story.skinColorBase = null;
-                    var gene = curSleeve.genes.GetGene(selected.Key);
+                    var gene = ApplyGene(selected.Key);
                     if (selected.Key.endogeneCategory == EndogeneCategory.Melanin)
                     {
                         var melaninGene = curSleeve.genes.GenesListForReading
@@ -262,13 +260,6 @@ namespace AlteredCarbon
                             curSleeve.genes.RemoveGene(melaninGene);
                         }
                     }
-
-                    if (gene is null)
-                    {
-                        gene = curSleeve.genes.AddGene(selected.Key, selected.Key.endogeneCategory != EndogeneCategory.Melanin);
-                    }
-                    curSleeve.genes.OverrideAllConflicting(gene);
-                    curSleeve.genes.Notify_GenesChanged(gene.def);
                     RecheckEverything();
                 });
 
@@ -277,12 +268,9 @@ namespace AlteredCarbon
                 (KeyValuePair<GeneDef, HeadTypeDef> x) => ExtractHeadLabels(x.Value.defName), permittedHeads,
                 delegate (KeyValuePair<GeneDef, HeadTypeDef> selected)
                 {
-                    var geneDef = selected.Key;
-                    if (geneDef?.forcedHeadTypes.NullOrEmpty() is false)
+                    if (selected.Key != null)
                     {
-                        var gene = curSleeve.genes.GetGene(selected.Key);
-                        curSleeve.story.TryGetRandomHeadFromSet(geneDef.forcedHeadTypes);
-                        curSleeve.genes.OverrideAllConflicting(gene);
+                        ApplyGene(selected.Key);
                     }
                     else
                     {
@@ -298,12 +286,14 @@ namespace AlteredCarbon
                 DoSelectionButtons(ref firstColumnPos, "AC.BodyShape".Translate(), ref maleBodyTypeIndex,
                     (KeyValuePair<GeneDef, BodyTypeDef> x) => x.Value.defName, permittedBodyTypes, delegate (KeyValuePair<GeneDef, BodyTypeDef> x)
                     {
-                        var gene = curSleeve.genes.GetGene(x.Key);
-                        if (gene != null)
+                        if (x.Key != null)
                         {
-                            curSleeve.genes.OverrideAllConflicting(gene);
+                            ApplyGene(x.Key);
                         }
-                        curSleeve.story.bodyType = x.Value;
+                        else
+                        {
+                            curSleeve.story.bodyType = x.Value;
+                        }
                         RecheckEverything();
                         maleBodyTypeIndex = permittedBodyTypes.IndexOf(x);
                     });
@@ -314,12 +304,14 @@ namespace AlteredCarbon
                 DoSelectionButtons(ref firstColumnPos, "AC.BodyShape".Translate(), ref femaleBodyTypeIndex,
                     (KeyValuePair<GeneDef, BodyTypeDef> x) => x.Value.defName, permittedBodyTypes, delegate (KeyValuePair<GeneDef, BodyTypeDef> x)
                     {
-                        var gene = curSleeve.genes.GetGene(x.Key);
-                        if (gene != null)
+                        if (x.Key != null)
                         {
-                            curSleeve.genes.OverrideAllConflicting(gene);
+                            ApplyGene(x.Key);
                         }
-                        curSleeve.story.bodyType = x.Value;
+                        else
+                        {
+                            curSleeve.story.bodyType = x.Value;
+                        }
                         RecheckEverything();
                         femaleBodyTypeIndex = permittedBodyTypes.IndexOf(x);
                     });
@@ -330,21 +322,13 @@ namespace AlteredCarbon
                 DoColorButtons(ref firstColumnPos, "AC.HairColour".Translate(), GetPermittedHairColors(), (KeyValuePair<GeneDef, Color> x) => x.Value,
                     delegate (KeyValuePair<GeneDef, Color> selected)
                     {
-                        var gene = curSleeve.genes.GetGene(selected.Key);
-                        if (gene is null)
-                        {
-                            gene = curSleeve.genes.AddGene(selected.Key, false);
-                        }
-
+                        var gene = ApplyGene(selected.Key);
                         var hairGene = curSleeve.genes.GenesListForReading
                             .FirstOrDefault(x => selected.Key.endogeneCategory == x.def.endogeneCategory);
                         if (hairGene != null && gene != hairGene)
                         {
                             curSleeve.genes.RemoveGene(hairGene);
                         }
-
-                        curSleeve.genes.OverrideAllConflicting(gene);
-                        curSleeve.genes.Notify_GenesChanged(gene.def);
                         RecheckEverything();
                     });
 
@@ -458,11 +442,13 @@ namespace AlteredCarbon
             firstColumnPos.y = (inRect.y + inRect.height) - 170;
             Rect timeToGrowRect = GetLabelRect(ref firstColumnPos, 300, 32);
             Text.Font = GameFont.Medium;
+            Text.Anchor = TextAnchor.MiddleLeft;
             Widgets.Label(timeToGrowRect, "AC.TimeToGrow".Translate(GenDate.ToStringTicksToDays(ticksToGrow)));
             Text.Font = GameFont.Small;
             Rect growCostRect = GetLabelRect(ref firstColumnPos, inRect.width, 32);
             Widgets.Label(growCostRect, "  " + "AC.GrowCost".Translate(growCost));
             Widgets.DrawHighlight(new Rect(growCostRect.x, growCostRect.y, inRect.width - 50, growCostRect.height));
+            Text.Anchor = TextAnchor.UpperLeft;
 
             DrawExplanation(ref firstColumnPos, inRect.width - 50, 50, "AC.SleeveCustomizationExplanation".Translate());
 
@@ -493,11 +479,112 @@ namespace AlteredCarbon
             Text.Anchor = TextAnchor.UpperLeft;
         }
 
+        private Gene ApplyGene(GeneDef geneDef)
+        {
+            var gene = curSleeve.genes.GetGene(geneDef);
+            if (gene is null)
+            {
+                gene = curSleeve.genes.AddGene(geneDef, false);
+            }
+            ApplyGene(gene);
+            return gene;
+        }
+
+        private void ApplyGene(Gene gene)
+        {
+            OverrideAllConflicting(gene);
+            if (ModLister.BiotechInstalled && gene.def.graphicData != null && gene.def.graphicData.skinIsHairColor)
+            {
+                curSleeve.story.skinColorOverride = curSleeve.story.HairColor;
+            }
+            if (gene.def.hairColorOverride.HasValue)
+            {
+                Color value = gene.def.hairColorOverride.Value;
+                if (gene.def.randomBrightnessFactor != 0f)
+                {
+                    value *= 1f + Rand.Range(0f - gene.def.randomBrightnessFactor, gene.def.randomBrightnessFactor);
+                }
+                curSleeve.story.HairColor = value.ClampToValueRange(GeneTuning.HairColorValueRange);
+            }
+            if (gene.def.skinColorBase.HasValue)
+            {
+                if (gene.def.skinColorBase.HasValue)
+                {
+                    curSleeve.story.SkinColorBase = gene.def.skinColorBase.Value;
+                }
+            }
+            if (ModLister.BiotechInstalled)
+            {
+                if (gene.def.skinColorOverride.HasValue)
+                {
+                    if (gene.def.skinColorOverride.HasValue)
+                    {
+                        Color value2 = gene.def.skinColorOverride.Value;
+                        if (gene.def.randomBrightnessFactor != 0f)
+                        {
+                            value2 *= 1f + Rand.Range(0f - gene.def.randomBrightnessFactor, gene.def.randomBrightnessFactor);
+                        }
+                        curSleeve.story.skinColorOverride = value2.ClampToValueRange(GeneTuning.SkinColorValueRange);
+                    }
+                }
+                if (gene.def.bodyType.HasValue && !curSleeve.DevelopmentalStage.Juvenile())
+                {
+                    if (gene.def.bodyType.HasValue)
+                    {
+                        curSleeve.story.bodyType = gene.def.bodyType.Value.ToBodyType(curSleeve);
+                    }
+                }
+                if (!gene.def.forcedHeadTypes.NullOrEmpty())
+                {
+                    if (!gene.def.forcedHeadTypes.NullOrEmpty())
+                    {
+                        curSleeve.story.TryGetRandomHeadFromSet(gene.def.forcedHeadTypes);
+                    }
+                }
+                if ((gene.def.forcedHair != null || gene.def.hairTagFilter != null) 
+                    && !PawnStyleItemChooser.WantsToUseStyle(curSleeve, curSleeve.story.hairDef))
+                {
+                    curSleeve.story.hairDef = PawnStyleItemChooser.RandomHairFor(curSleeve);
+                }
+                if (gene.def.beardTagFilter != null && curSleeve.style != null 
+                    && !PawnStyleItemChooser.WantsToUseStyle(curSleeve, curSleeve.style.beardDef))
+                {
+                    curSleeve.style.beardDef = PawnStyleItemChooser.RandomBeardFor(curSleeve);
+                }
+                if (gene.def.graphicData?.fur != null)
+                {
+                    curSleeve.story.furDef = gene.def.graphicData.fur;
+                }
+
+
+                if (gene.def.soundCall != null)
+                {
+                    PawnComponentsUtility.AddAndRemoveDynamicComponents(curSleeve);
+                }
+                curSleeve.needs?.AddOrRemoveNeedsAsAppropriate();
+                curSleeve.health.hediffSet.DirtyCache();
+                curSleeve.skills?.Notify_GenesChanged();
+                curSleeve.Notify_DisabledWorkTypesChanged();
+            }
+        }
+
+        private void OverrideAllConflicting(Gene gene)
+        {
+            gene.OverrideBy(null);
+            foreach (Gene item in curSleeve.genes.GenesListForReading)
+            {
+                if (item != gene && item.def.ConflictsWith(gene.def))
+                {
+                    item.OverrideBy(gene);
+                }
+            }
+        }
         private void DrawGenes(ref Vector2 pos, TaggedString label, Rect pawnBox, 
             Rect healthBox, ref Rect geneBox, List<Gene> genes, ref Rect rect)
         {
             if (genes.Any())
             {
+                genes.SortGenes();
                 pos.x -= 15;
                 ListSeparator(ref pos, healthBox.width, label);
                 pos.x += 15;
@@ -518,14 +605,33 @@ namespace AlteredCarbon
 
                     var iconRect = new Rect(r.x, r.y, 22f, 22f);
                     Color iconColor = gene.def.IconColor;
-                    Widgets.DefIcon(iconRect, gene.def, null, 1f, null, drawPlaceholder: false, iconColor);
+                    if (gene.Overridden)
+                    {
+                        iconColor.a = 0.75f;
+                        GUI.color = ColoredText.SubtleGrayColor;
+                    }
 
+                    Widgets.DefIcon(iconRect, gene.def, null, 1f, null, drawPlaceholder: false, iconColor);
                     var labelRect = new Rect(iconRect.xMax, r.y, r.width - 10f - 15f, r.height);
+                    if (gene.Overridden)
+                    {
+                        GUI.color = ColoredText.SubtleGrayColor;
+                    }
                     Widgets.Label(labelRect, gene.LabelCap);
+                    GUI.color = Color.white;
                     if (Mouse.IsOver(r))
                     {
                         Gene trLocal = gene;
-                        TooltipHandler.TipRegion(tip: new TipSignal(() => trLocal.def.DescriptionFull, gene.LabelCap.GetHashCode()), rect: r);
+                        var tooltip = gene.LabelCap.Colorize(ColoredText.TipSectionTitleColor) + "\n\n" + gene.def.DescriptionFull;
+                        if (gene.Overridden)
+                        {
+                            tooltip += "\n\n";
+                            tooltip = ((gene.overriddenByGene.def != gene.def) ? (tooltip + ("OverriddenByGene".Translate() 
+                            + ": " + gene.overriddenByGene.LabelCap).Colorize(ColorLibrary.RedReadable)) 
+                            : (tooltip + ("OverriddenByIdenticalGene".Translate() 
+                            + ": " + gene.overriddenByGene.LabelCap).Colorize(ColorLibrary.RedReadable)));
+                        }
+                        TooltipHandler.TipRegion(tip: new TipSignal(() => tooltip, gene.LabelCap.GetHashCode()), rect: r);
                     }
                 }, (Gene gene) => Text.CalcSize(gene.LabelCap).x + 10f + 22);
                 pos.y += rect.height;
@@ -808,17 +914,17 @@ namespace AlteredCarbon
                 curSleeve.genes.RemoveGene(oldGene);
             }
 
-            var sourceGenes = source.genes.GenesListForReading;
+            var sourceGenes = source.genes.Endogenes;
             foreach (var sourceGene in sourceGenes)
             {
-                curSleeve.genes.AddGene(sourceGene.def, source.genes.Xenogenes.Contains(sourceGene));
+                curSleeve.genes.AddGene(sourceGene.def, false);
             }
             for (var i = 0; i < sourceGenes.Count; i++)
             {
-                var gene = curSleeve.genes.GenesListForReading[i];
+                var gene = curSleeve.genes.Endogenes[i];
                 if (sourceGenes[i].Active)
                 {
-                    curSleeve.genes.OverrideAllConflicting(gene);
+                    ApplyGene(gene);
                 }
             }
 
@@ -918,6 +1024,7 @@ namespace AlteredCarbon
             curSleeve.ageTracker.AgeBiologicalTicks = (long)Mathf.FloorToInt(lastAdultAge * 3600000f);
             curSleeve.ageTracker.AgeChronologicalTicks = (long)Mathf.FloorToInt(lastAdultAge * 3600000f);
             curSleeve.story.Adulthood = null;
+            curSleeve.guest.recruitable = true;
             curSleeve.relations = new Pawn_RelationsTracker(curSleeve);
             curSleeve.Name = new NameSingle("AC.EmptySleeve".Translate());
             curSleeve.story.title = "";
