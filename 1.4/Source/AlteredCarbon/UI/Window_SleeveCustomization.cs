@@ -933,22 +933,12 @@ namespace AlteredCarbon
             curSleeve.style.beardDef = source.style.beardDef;
             if (ModCompatibility.AlienRacesIsActive)
             {
-                ModCompatibility.SetSkinColorFirst(curSleeve, ModCompatibility.GetSkinColorFirst(source));
-                ModCompatibility.SetSkinColorSecond(curSleeve, ModCompatibility.GetSkinColorSecond(source));
-
-                ModCompatibility.SetHairColorFirst(curSleeve, ModCompatibility.GetHairColorFirst(source));
-                ModCompatibility.SetHairColorSecond(curSleeve, ModCompatibility.GetHairColorSecond(source));
-
                 ModCompatibility.CopyBodyAddons(source, curSleeve);
             }
             else
             {
-
-                curSleeve.story.HairColor = source.story.HairColor;
-                curSleeve.story.SkinColorBase = source.story.SkinColor;
                 curSleeve.story.headType = source.story.headType;
             }
-
             RecheckEverything();
         }
 
@@ -1004,6 +994,7 @@ namespace AlteredCarbon
         }
         private void CreateSleeve(Gender gender)
         {
+            curXenogerm = null;
             if (ModCompatibility.AlienRacesIsActive)
             {
                 ModCompatibility.UpdateGenderRestrictions(currentPawnKindDef.race, out allowMales, out allowFemales);

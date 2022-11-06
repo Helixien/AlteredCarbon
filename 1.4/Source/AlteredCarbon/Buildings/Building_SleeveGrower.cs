@@ -21,9 +21,6 @@ namespace AlteredCarbon
         protected override bool InnerThingIsDead => innerPawnIsDead;
         public override Thing InnerThing => innerContainer.FirstOrDefault();
 
-        private static Dictionary<Rot4, ThingDef> GlowMotePerRotation;
-
-        private static Dictionary<Rot4, EffecterDef> BubbleEffecterPerRotation;
         [Unsaved(false)]
         private Effecter bubbleEffecter;
 
@@ -390,57 +387,16 @@ namespace AlteredCarbon
             compRefuelable.ConsumeFuel(fuelCost);
             if (curTicksToGrow < totalTicksToGrow)
             {
-                if (GlowMotePerRotation == null)
-                {
-                    GlowMotePerRotation = new Dictionary<Rot4, ThingDef>
-                    {
-                        {
-                            Rot4.South,
-                            AC_DefOf.VFEU_Mote_VatGlowVertical
-                        },
-                        {
-                            Rot4.East,
-                            AC_DefOf.VFEU_Mote_VatGlowHorizontal
-                        },
-                        {
-                            Rot4.West,
-                            AC_DefOf.VFEU_Mote_VatGlowHorizontal
-                        },
-                        {
-                            Rot4.North,
-                            AC_DefOf.VFEU_Mote_VatGlowVertical
-                        }
-                    };
-                    BubbleEffecterPerRotation = new Dictionary<Rot4, EffecterDef>
-                    {
-                        {
-                            Rot4.South,
-                            AC_DefOf.VFEU_Vat_Bubbles_South
-                        },
-                        {
-                            Rot4.East,
-                            AC_DefOf.VFEU_Vat_Bubbles_East
-                        },
-                        {
-                            Rot4.West,
-                            AC_DefOf.VFEU_Vat_Bubbles_West
-                        },
-                        {
-                            Rot4.North,
-                            AC_DefOf.VFEU_Vat_Bubbles_North
-                        }
-                    };
-                }
                 if (this.IsHashIntervalTick(132))
                 {
                     var offset = new Vector3(0, 1, -0.5f);
-                    MoteMaker.MakeStaticMote(DrawPos + offset, base.MapHeld, GlowMotePerRotation[base.Rotation], 1.6f);
+                    MoteMaker.MakeStaticMote(DrawPos + offset, base.MapHeld, AC_DefOf.VFEU_Mote_VatGlow, 1.6f);
                 }
 
                 if (bubbleEffecter == null || Rand.Chance(0.01f))
                 {
-                    var offset = base.Rotation == Rot4.North ? new Vector3(0, 0, 0.5f) : new Vector3(0, 0, -0.5f);
-                    bubbleEffecter = BubbleEffecterPerRotation[base.Rotation].Spawn(this.TrueCenter().ToIntVec3(), base.MapHeld, offset);
+                    var offset = new Vector3(0, 0, -0.5f);
+                    bubbleEffecter = AC_DefOf.VFEU_Vat_Bubbles.Spawn(this.TrueCenter().ToIntVec3(), base.MapHeld, offset);
                 }
                 bubbleEffecter.EffectTick(this, this);
 

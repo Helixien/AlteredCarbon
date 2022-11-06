@@ -58,12 +58,7 @@ namespace AlteredCarbon
         public static ThoughtDef VFEU_SomethingIsWrong;
         public static DesignationDef VFEU_ExtractStackDesignation;
         public static DamageDef VFEU_Deterioration;
-        public static ThingDef VFEU_Mote_VatGlowHorizontal;
-        public static ThingDef VFEU_Mote_VatGlowVertical;
-
-        public static EffecterDef VFEU_Vat_Bubbles_South;
-        public static EffecterDef VFEU_Vat_Bubbles_North;
-        public static EffecterDef VFEU_Vat_Bubbles_West;
-        public static EffecterDef VFEU_Vat_Bubbles_East;
+        public static ThingDef VFEU_Mote_VatGlow;
+        public static EffecterDef VFEU_Vat_Bubbles;
     }
 }
