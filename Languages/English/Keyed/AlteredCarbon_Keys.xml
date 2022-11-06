@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
+	<!-- ================================ Stacks ====================== -->
+	<AC.InstallStack>Implant cortical stack</AC.InstallStack>
+	<AC.InstallStackDesc>Select a pawn or empty sleeve to implant the cortical stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallStackDesc>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	<AC.Name>Name</AC.Name>
 	<AC.Faction>Faction</AC.Faction>
@@ -23,7 +42,7 @@
 	<AC.SleveOf>Sleeve of </AC.SleveOf>
 	<AC.EmptyStackConfirmation>Deleting Stack:\nWARNING! You are about to wipe this stack, killing the person saved on it. Are you sure you want to continue?</AC.EmptyStackConfirmation>
 	<AC.DestroyStackConfirmation>Destroying Stack:\nWARNING! You are about to destroy this stack. Are you sure you want to continue?</AC.DestroyStackConfirmation>
-
+	<!-- ================================ Sleeve Incubator ====================== -->
 	<AC.SleeveCustomization>Sleeve Customization</AC.SleeveCustomization>
 	<AC.NoSleeve>No Sleeve</AC.NoSleeve>
 	<AC.Sleeve>Sleeve</AC.Sleeve>
@@ -37,6 +56,8 @@
 	<AC.CreateSleeveBodyDesc>Create a new sleeve.</AC.CreateSleeveBodyDesc>
 	<AC.ReleaseSleeve>Release sleeve</AC.ReleaseSleeve>
 	<AC.NoHairAllowed>This race does not support hair!</AC.NoHairAllowed>
+
+
 
 	<AC.BodyShape>Body shape</AC.BodyShape>
 	<AC.BodyTypeReplace>Body type</AC.BodyTypeReplace>
@@ -94,8 +115,6 @@
 	<AC.CreateOrgan>Grow organ</AC.CreateOrgan>
 	<AC.CreateOrganDesc>Grow an organ.</AC.CreateOrganDesc>
 	<AC.FinishedGrowingSleeve>Sleeve Incubator: Finished growing sleeve!</AC.FinishedGrowingSleeve>
-	<AC.InstallStack>Install stack</AC.InstallStack>
-	<AC.InstallStackDesc>Install a stack.</AC.InstallStackDesc>
 	<AC.MustPlaceDistantToOtherCorticalMatrixes>Cannot be placed too close to existing Quantum Storage Matrix!</AC.MustPlaceDistantToOtherCorticalMatrixes>
 	<AC.HackStack>Hack stack</AC.HackStack>
 	<AC.HackStackDesc>Convert a stack to the players faction.</AC.HackStackDesc>
