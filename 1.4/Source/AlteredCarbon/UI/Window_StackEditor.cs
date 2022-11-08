@@ -33,10 +33,32 @@ namespace AlteredCarbon
                     .FindIndex(x => x.defName == this.corticalStack.PersonaData.adulthood);
             }
             
-            this.traitsList = new List<Trait>(corticalStack.PersonaData.traits);
+            this.traitsList = new List<Trait>();
+            foreach (Trait trait in corticalStack.PersonaData.traits)
+            {
+                Trait x = new Trait(trait.def, trait.degree)
+                {
+                    pawn = corticalStack.PersonaData.GetDummyPawn
+                };
+                this.traitsList.Add(x);
+            }
+            
+            
             this.ideo = corticalStack.PersonaData.ideo;
             this.faction = corticalStack.PersonaData.faction;
-            this.skills = new List<SkillRecord>(corticalStack.PersonaData.skills);
+            
+            this.skills = new List<SkillRecord>();
+            foreach (SkillRecord skill in corticalStack.PersonaData.skills)
+            {
+                SkillRecord newSkill = new SkillRecord(corticalStack.PersonaData.GetDummyPawn, skill.def)
+                {
+                    passion = skill.passion,
+                    levelInt = skill.levelInt,
+                    xpSinceLastLevel = skill.xpSinceLastLevel,
+                    xpSinceMidnight = skill.xpSinceMidnight
+                };
+                this.skills.Add(newSkill);
+            }
         }
 
         public override Vector2 InitialSize
@@ -68,7 +90,6 @@ namespace AlteredCarbon
             Text.Font = GameFont.Small;
             // Widgets.DrawBoxSolidWithOutline(inRect, Color.black, Color.blue, 1);
 
-            //TODO: skills panel
             DrawSkillsPanel(ref inRect);
 
             DrawBackstoryPanel(ref inRect);
@@ -116,40 +137,75 @@ namespace AlteredCarbon
             Widgets.DrawRectFast(traitsFill, Widgets.MenuSectionBGFillColor, null);
             Text.Font = GameFont.Small;
 
-            Rect skillsContainer = new Rect(traitsFill.x, traitsFill.y, traitsFill.width - this.Margin, this.skills.Count() * (Text.LineHeight + 5f));
-            Widgets.BeginScrollView(traitsFill, ref scrollPos, skillsContainer);
+            if (this.skills != null)
+            {
+                Rect skillsContainer = new Rect(traitsFill.x, traitsFill.y, traitsFill.width - this.Margin, this.skills.Count() * (Text.LineHeight + 5f));
+                Widgets.BeginScrollView(traitsFill, ref scrollPos, skillsContainer);
 
-            skillsContainer.x += this.Margin/2;
-            skillsContainer.y += 5f;
+                skillsContainer.x += this.Margin / 2;
+                skillsContainer.y += 5f;
 
-            GenUI.DrawElementStackVertical(skillsContainer, Text.LineHeight, this.skills, delegate(Rect rect, SkillRecord skill)
-                {
-                    //Reimplmented from Rimworld.SkillsUI
-                    Rect labelRect = new Rect(rect.x, rect.y, rect.width / 2.5f, rect.height);
-                    RenderRect(labelRect);
-                    Widgets.Label(labelRect, skill.def.skillLabel.CapitalizeFirst());
-
-                    Rect position = new Rect(labelRect.xMax, labelRect.y, labelRect.height, labelRect.height);
-                    //TODO: keep in mind vanilla skills expanded
-                    if (Mouse.IsOver(position))
+                GenUI.DrawElementStackVertical(skillsContainer, Text.LineHeight, this.skills, delegate(Rect rect, SkillRecord skill)
                     {
-                        RenderRect(position);
-                    }
+                        //Reimplmented from Rimworld.SkillsUI
+                        Rect labelRect = new Rect(rect.x, rect.y, rect.width / 2.5f, rect.height);
+                        RenderRect(labelRect);
+                        Widgets.Label(labelRect, skill.def.skillLabel.CapitalizeFirst());
 
-                    if (Widgets.ButtonInvisible(position))
-                    {
-                        SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
-                        skill.passion = Enums.Next(skill.passion);
-                    }
+                        Rect position = new Rect(labelRect.xMax, labelRect.y, labelRect.height, labelRect.height);
+                        //TODO: keep in mind vanilla skills expanded
+                        if (Mouse.IsOver(position))
+                        {
+                            RenderRect(position);
+                        }
 
-                    if (skill.passion > Passion.None)
-                    {
-                        Texture2D image = (skill.passion == Passion.Major) ? SkillUI.PassionMajorIcon : SkillUI.PassionMinorIcon;
-                        GUI.DrawTexture(position, image);
-                    }
+                        if (Widgets.ButtonInvisible(position))
+                        {
+                            SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
+                            skill.passion = Enums.Next(skill.passion);
+                        }
 
-                }, element => skillsContainer.width
-            );
+                        if (!skill.TotallyDisabled)
+                        {
+                            if (skill.passion > Passion.None)
+                            {
+                                Texture2D image = (skill.passion == Passion.Major) ? SkillUI.PassionMajorIcon : SkillUI.PassionMinorIcon;
+                                GUI.DrawTexture(position, image);
+                            }
+
+                            Rect rect2 = new Rect(position.xMax, position.y, rect.width - position.width - 45f, rect.height);
+                            float fillPercent = Mathf.Max(0.01f, skill.Level / 20f);
+                            Texture2D fillTex = SkillUI.SkillBarFillTex;
+                            Widgets.FillableBar(rect2, fillPercent, fillTex, null, false);
+                        }
+
+
+                        Rect rect3 = new Rect(position.xMax + 4f, position.y, 999f, rect.height);
+                        rect3.yMin += 3f;
+                        string label;
+                        if (skill.TotallyDisabled)
+                        {
+                            GUI.color = SkillUI.DisabledSkillColor;
+                            label = "-";
+                        }
+                        else
+                        {
+                            if (skill.Level == 0 && skill.Aptitude != 0)
+                            {
+                                GUI.color = ((skill.Aptitude > 0) ? ColorLibrary.BrightGreen : ColorLibrary.RedReadable);
+                            }
+
+                            label = skill.Level.ToStringCached();
+                        }
+
+                        GenUI.SetLabelAlign(TextAnchor.MiddleLeft);
+                        Widgets.Label(rect3, label);
+                        GenUI.ResetLabelAlign();
+                        GUI.color = Color.white;
+                    }, element => skillsContainer.width
+                );
+            }
+
             Widgets.EndScrollView();
             GUI.EndGroup();
         }
@@ -230,8 +286,7 @@ namespace AlteredCarbon
             GUI.BeginGroup(traitsContainer);
             if (this.traitsList != null)
             {
-                var innerTraitsList = new List<Trait>(this.traitsList);
-                GenUI.DrawElementStack(traitsContainer, Text.LineHeight, innerTraitsList, delegate(Rect rect, Trait element)
+                GenUI.DrawElementStack(traitsContainer, Text.LineHeight, this.traitsList, delegate(Rect rect, Trait element)
                 {
                     //TODO: hover event for trait desc
                     Widgets.DrawRectFast(rect, Color.black,null);

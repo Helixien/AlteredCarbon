@@ -1039,7 +1039,7 @@ namespace AlteredCarbon
 
             Scribe_Values.Look<int>(ref pawnID, "pawnID", 0, false);
             Scribe_Collections.Look<Trait>(ref traits, "traits");
-            Scribe_Collections.Look<SkillRecord>(ref skills, "skills");
+            Scribe_Collections.Look<SkillRecord>(ref skills, "skills",LookMode.Deep);
             Scribe_Collections.Look<DirectPawnRelation>(ref relations, "relations");
             Scribe_Values.Look(ref everSeenByPlayer, "everSeenByPlayer");
 
