@@ -149,7 +149,6 @@ namespace AlteredCarbon
                     {
                         //Reimplmented from Rimworld.SkillsUI
                         Rect labelRect = new Rect(rect.x, rect.y, rect.width / 2.5f, rect.height);
-                        RenderRect(labelRect);
                         Widgets.Label(labelRect, skill.def.skillLabel.CapitalizeFirst());
 
                         Rect position = new Rect(labelRect.xMax, labelRect.y, labelRect.height, labelRect.height);
