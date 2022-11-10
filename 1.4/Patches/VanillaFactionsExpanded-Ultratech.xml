@@ -38,20 +38,6 @@
 					</costList>
 				</value>
 			</li>
-			<li Class="PatchOperationAdd">
-				<xpath>/Defs/ThingDef[defName="VFEU_StackArray"]</xpath>
-				<value>
-					<researchPrerequisites>
-						<li>AC_CorticalStorage</li>
-					</researchPrerequisites>
-					<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
-					<costList>
-						<Steel>250</Steel>
-						<Plasteel>150</Plasteel>
-						<ComponentSpacer>12</ComponentSpacer>
-					</costList>
-				</value>
-			</li>
 		</operations>
 	</Operation>
 </Patch>
