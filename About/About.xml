@@ -17,18 +17,18 @@
 			<downloadUrl>https://github.com/AndroidQuazar/VanillaExpandedFramework</downloadUrl>
 			<steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=2023507013</steamWorkshopUrl>
 		</li>
-		<li>
-			<packageId>Ludeon.RimWorld.Biotech</packageId>
-			<displayName>Biotech</displayName>
-			<downloadUrl>https://store.steampowered.com/app/1826140/RimWorld__Biotech/</downloadUrl>
-		</li>
 	</modDependencies>
+	<modDependenciesByVersion>
+		<v1.4>
+			<li>
+				<packageId>Ludeon.RimWorld.Biotech</packageId>
+				<displayName>Biotech</displayName>
+				<downloadUrl>https://store.steampowered.com/app/1826140/RimWorld__Biotech/</downloadUrl>
+			</li>
+		</v1.4>
+	</modDependenciesByVersion>
 	<loadAfter>
 		<li>brrainz.harmony</li>
-		<li>Ludeon.RimWorld</li>
-		<li>Ludeon.RimWorld.Royalty</li>
-		<li>Ludeon.RimWorld.Ideology</li>
-		<li>Ludeon.RimWorld.Biotech</li>
 		<li>OskarPotocki.VanillaFactionsExpanded.Core</li>
 		<li>OskarPotocki.VFE.Ultratech</li>
 	</loadAfter>
