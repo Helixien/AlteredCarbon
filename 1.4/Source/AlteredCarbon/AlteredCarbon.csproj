@@ -42,7 +42,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Psychology">
-      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\2016263135\1.3\Assemblies\Psychology.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\2016263135\1.4\Assemblies\Psychology.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="RJW">
@@ -50,7 +50,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="SyrTraits">
-      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\1497105115\1.2\Assemblies\SyrTraits.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\1497105115\1.4\Assemblies\SyrTraits.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Core" />
@@ -164,7 +164,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Krafs.Rimworld.Ref">
-      <Version>1.4.3525</Version>
+      <Version>1.4.3542</Version>
     </PackageReference>
     <PackageReference Include="Lib.Harmony">
       <Version>2.2.2</Version>

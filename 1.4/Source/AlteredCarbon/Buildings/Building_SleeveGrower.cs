@@ -143,12 +143,12 @@ namespace AlteredCarbon
                     if (growthProgress < 0.02f)
                     {
                         FetusEarlyStage.drawSize = drawSize;
-                        FetusEarlyStage.DrawFromDef(newPos + PawnDrawOffset, base.Rotation, null);
+                        FetusEarlyStage.DrawFromDef(newPos + PawnDrawOffset, Rot4.North, null);
                     }
                     else
                     {
                         FetusLateStage.drawSize = drawSize;
-                        FetusLateStage.DrawFromDef(newPos + PawnDrawOffset, base.Rotation, null);
+                        FetusLateStage.DrawFromDef(newPos + PawnDrawOffset, Rot4.North, null);
                     }
                 }
                 else
