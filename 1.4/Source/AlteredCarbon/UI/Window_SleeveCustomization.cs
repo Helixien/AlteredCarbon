@@ -250,6 +250,7 @@ namespace AlteredCarbon
             DoColorButtons(ref firstColumnPos, "AC.SkinColour".Translate(), GetPermittedSkinColors(), (KeyValuePair<GeneDef, Color> x) => x.Value,
                 delegate (KeyValuePair<GeneDef, Color> selected)
                 {
+                    curSleeve.story.skinColorOverride = curSleeve.story.skinColorBase = null;
                     var gene = ApplyGene(selected.Key);
                     if (selected.Key.endogeneCategory == EndogeneCategory.Melanin)
                     {
@@ -258,6 +259,13 @@ namespace AlteredCarbon
                         if (melaninGene != null && gene != melaninGene)
                         {
                             curSleeve.genes.RemoveGene(melaninGene);
+                        }
+                    }
+                    foreach (var otherGene in curSleeve.genes.GenesListForReading) 
+                    {
+                        if (otherGene != gene && (otherGene.def.skinColorOverride != null || otherGene.def.skinColorBase != null))
+                        {
+                            otherGene.OverrideBy(gene);
                         }
                     }
                     RecheckEverything();
