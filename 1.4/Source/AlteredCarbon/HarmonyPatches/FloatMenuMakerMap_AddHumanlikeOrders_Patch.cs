@@ -39,8 +39,8 @@ namespace AlteredCarbon
                 canTargetPawns = true,
                 canTargetItems = true,
                 mapObjectTargetsMustBeAutoAttackable = false,
-                validator = ((TargetInfo targ) => targ.HasThing &&
-                targ.Thing is Corpse corpse && corpse.InnerPawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) != null)
+                validator = (TargetInfo targ) => targ.HasThing &&
+                targ.Thing is Corpse corpse && corpse.InnerPawn.HasCorticalStack(out _)
             };
         }
     }

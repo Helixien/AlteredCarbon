@@ -21,9 +21,10 @@ namespace AlteredCarbon
                 if (__instance != null && (__instance.HasStack() || __instance.IsEmptySleeve()))
                 {
                     __instance.DisableKilledEffects();
+
                 }
-                var stackHediff = __instance.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) as Hediff_CorticalStack;
-                if (stackHediff != null)
+
+                if (__instance.HasCorticalStack(out var stackHediff))
                 {
                     if (dinfo.HasValue && dinfo.Value.Def.ExternalViolenceFor(__instance))
                     {
@@ -32,6 +33,7 @@ namespace AlteredCarbon
                     AlteredCarbonManager.Instance.deadPawns.Add(__instance);
                     __state = __instance.GetCaravan();
                 }
+
                 if (AlteredCarbonManager.Instance.StacksIndex.TryGetValue(__instance.thingIDNumber, out var corticalStack))
                 {
                     if (LookTargets_Patch.targets.TryGetValue(__instance, out var targets))
@@ -48,9 +50,8 @@ namespace AlteredCarbon
         }
         public static void Postfix(Caravan __state, Pawn __instance, DamageInfo? dinfo, Hediff exactCulprit = null)
         {
-            if (__state != null && __state.PawnsListForReading.Any())
+            if (__state != null && __state.PawnsListForReading.Any() && __instance.HasCorticalStack(out var stackHediff))
             {
-                var stackHediff = __instance.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) as Hediff_CorticalStack;
                 if (stackHediff.def.spawnThingOnRemoved != null)
                 {
                     var corticalStackThing = ThingMaker.MakeThing(stackHediff.def.spawnThingOnRemoved) as CorticalStack;

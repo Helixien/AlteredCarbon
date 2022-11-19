@@ -12,7 +12,7 @@ namespace AlteredCarbon
     public class PersonaData : IExposable
     {
         public Name name;
-        private Pawn origPawn;
+        public Pawn origPawn;
         private int hostilityMode;
         private Area areaRestriction;
         private MedicalCareCategory medicalCareCategory;
@@ -189,6 +189,7 @@ namespace AlteredCarbon
             times = pawn.timetable?.times;
             thoughts = pawn.needs?.mood?.thoughts?.memories?.Memories;
             faction = pawn.Faction;
+            Log.Message("orig pawn: " + origPawn);
             if (pawn.Faction?.leader == pawn)
             {
                 isFactionLeader = true;
@@ -272,7 +273,7 @@ namespace AlteredCarbon
 
             if (copyRaceGenderInfo)
             {
-                if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is Hediff_CorticalStack hediff)
+                if (pawn.HasCorticalStack(out var hediff))
                 {
                     race = hediff.PersonaData.race;
                     gender = hediff.PersonaData.gender;
@@ -509,6 +510,8 @@ namespace AlteredCarbon
                 {
                     thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGender);
                     thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGenderDouble);
+                    thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGenderPregnant);
+                    thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGenderChild);
                 }
                 if (race == pawnToOverwrite.kindDef.race)
                 {
@@ -960,7 +963,7 @@ namespace AlteredCarbon
                 ModCompatibility.SetRjwData(pawnToOverwrite, rjwData);
             }
         }
-        private Pawn GetOriginalPawn(Pawn pawn)
+        public Pawn GetOriginalPawn(Pawn pawn)
         {
             if (origPawn != null)
             {
@@ -978,6 +981,7 @@ namespace AlteredCarbon
                             {
                                 if (rel.otherPawn.Name.ToStringFull == pawn.Name.ToStringFull && rel.otherPawn != pawn)
                                 {
+                                    origPawn = rel.otherPawn;
                                     return rel.otherPawn;
                                 }
                             }
@@ -990,6 +994,7 @@ namespace AlteredCarbon
             {
                 if (otherPawn?.Name != null && otherPawn.Name.ToStringFull == pawn.Name?.ToStringFull && otherPawn != pawn)
                 {
+                    origPawn = otherPawn;
                     return otherPawn;
                 }
             }

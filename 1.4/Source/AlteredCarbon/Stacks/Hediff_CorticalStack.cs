@@ -17,8 +17,13 @@ namespace AlteredCarbon
                 if (personaData is null)
                 {
                     personaData = new PersonaData();
+                    personaData.CopyPawn(pawn, true);
                 }
                 return personaData;
+            }
+            set
+            {
+                personaData = value;
             }
         }
 

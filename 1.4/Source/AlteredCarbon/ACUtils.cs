@@ -72,9 +72,19 @@ namespace AlteredCarbon
             }
         }
 
+        public static bool HasCorticalStack(this Pawn pawn, out Hediff_CorticalStack hediff_CorticalStack)
+        {
+            if (pawn?.health?.hediffSet?.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is Hediff_CorticalStack hediff)
+            {
+                hediff_CorticalStack = hediff;
+                return true;
+            }
+            hediff_CorticalStack = null;
+            return false;
+        }
         public static bool IsCopy(this Pawn pawn)
         {
-            if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is Hediff_CorticalStack hediff && AlteredCarbonManager.Instance.stacksRelationships.TryGetValue(hediff.PersonaData.stackGroupID, out StacksData stackData))
+            if (pawn.HasCorticalStack(out var hediff) && AlteredCarbonManager.Instance.stacksRelationships.TryGetValue(hediff.PersonaData.stackGroupID, out StacksData stackData))
             {
                 if (stackData.originalPawn != null && pawn != stackData.originalPawn)
                 {
@@ -126,7 +136,8 @@ namespace AlteredCarbon
         }
         public static bool HasStack(this Pawn pawn)
         {
-            return AlteredCarbonManager.Instance.StacksIndex.ContainsKey(pawn.thingIDNumber) || AlteredCarbonManager.Instance.PawnsWithStacks.Contains(pawn);
+            return AlteredCarbonManager.Instance.StacksIndex.ContainsKey(pawn.thingIDNumber) 
+                || AlteredCarbonManager.Instance.PawnsWithStacks.Contains(pawn);
         }
 
         public static Hediff MakeHediff(HediffDef hediffDef, Pawn pawn, BodyPartRecord part)

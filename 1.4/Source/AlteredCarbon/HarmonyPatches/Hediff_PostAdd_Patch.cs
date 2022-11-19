@@ -10,16 +10,12 @@ namespace AlteredCarbon
     {
         public static void Prefix(Hediff __instance, DamageInfo? dinfo)
         {
-            if (__instance.Part?.def == BodyPartDefOf.Neck && __instance is Hediff_MissingPart)
+            if (__instance.Part?.def == BodyPartDefOf.Neck && __instance is Hediff_MissingPart && __instance.pawn.HasCorticalStack(out var hediff))
             {
-                var stackHediff = __instance.pawn.health.hediffSet.hediffs.FirstOrDefault((Hediff x) => x.def == AC_DefOf.VFEU_CorticalStack) as Hediff_CorticalStack;
-                if (stackHediff != null)
+                hediff.TryRecoverOrSpawnOnGround();
+                if (!__instance.pawn.Dead)
                 {
-                    stackHediff.TryRecoverOrSpawnOnGround();
-                    if (!__instance.pawn.Dead)
-                    {
-                        __instance.pawn.Kill(null);
-                    }
+                    __instance.pawn.Kill(null);
                 }
             }
         }

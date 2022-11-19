@@ -48,7 +48,7 @@ namespace AlteredCarbon
 			{
 				return false;
 			}
-			return t is Corpse corpse && corpse.InnerPawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) != null
+			return t is Corpse corpse && corpse.InnerPawn.HasCorticalStack(out _)
 				? (AcceptanceReport)true
 				: (AcceptanceReport)false;
 		}

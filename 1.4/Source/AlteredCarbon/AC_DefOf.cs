@@ -50,6 +50,8 @@ namespace AlteredCarbon
         public static SpecialThingFilterDef VFEU_AllowStacksHostile;
         public static ThoughtDef VFEU_WrongGender;
         public static ThoughtDef VFEU_WrongGenderDouble;
+        public static ThoughtDef VFEU_WrongGenderPregnant;
+        public static ThoughtDef VFEU_WrongGenderChild;
         public static ThoughtDef VFEU_WrongRace;
         public static ThoughtDef VFEU_NewSleeve;
         public static ThoughtDef VFEU_NewSleeveDouble;
@@ -60,5 +62,6 @@ namespace AlteredCarbon
         public static DamageDef VFEU_Deterioration;
         public static ThingDef VFEU_Mote_VatGlow;
         public static EffecterDef VFEU_Vat_Bubbles;
+        public static LetterDef HumanPregnancy;
     }
 }

@@ -25,7 +25,7 @@ namespace AlteredCarbon
                 initAction = delegate ()
                 {
                     Corpse corpse = (Corpse)TargetThingA;
-                    if (corpse.InnerPawn.health.hediffSet.hediffs.FirstOrDefault((Hediff x) => x.def == AC_DefOf.VFEU_CorticalStack) is Hediff_CorticalStack hediff)
+                    if (corpse.InnerPawn.HasCorticalStack(out var hediff))
                     {
                         if (hediff.def.spawnThingOnRemoved != null)
                         {

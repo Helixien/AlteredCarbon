@@ -17,7 +17,7 @@ namespace AlteredCarbon
         public static void Postfix(CompRottable __instance, RotStage __result)
         {
             if (__result == RotStage.Dessicated && __instance.parent is Corpse corpse
-                && (corpse.InnerPawn?.health?.hediffSet?.HasHediff(AC_DefOf.VFEU_CorticalStack) ?? true))
+                && corpse.InnerPawn.HasCorticalStack(out var hediff))
             {
                 try
                 {

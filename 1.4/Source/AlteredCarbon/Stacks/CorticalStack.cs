@@ -152,7 +152,7 @@ namespace AlteredCarbon
             TargetingParameters targetingParameters = new TargetingParameters
             {
                 canTargetPawns = true,
-                validator = (TargetInfo x) => x.Thing is Pawn pawn && pawn.RaceProps.Humanlike
+                validator = (TargetInfo x) => x.Thing is Pawn pawn && pawn.RaceProps.Humanlike && pawn.DevelopmentalStage == DevelopmentalStage.Adult
             };
             return targetingParameters;
         }
@@ -274,8 +274,11 @@ namespace AlteredCarbon
             StringBuilder stringBuilder = new StringBuilder();
             if (PersonaData.ContainsInnerPersona)
             {
-                stringBuilder.AppendLineTagged("AC.Name".Translate() + ": " + personaData.PawnNameColored);
-                stringBuilder.AppendLineTagged("AC.Faction".Translate() + ": " + PersonaData.faction.NameColored);
+                stringBuilder.AppendLineTagged("AC.Name".Translate() + ": " + PersonaData.PawnNameColored);
+                if (PersonaData.faction != null)
+                {
+                    stringBuilder.AppendLineTagged("AC.Faction".Translate() + ": " + PersonaData.faction.NameColored);
+                }
                 if (ModCompatibility.AlienRacesIsActive && PersonaData.race != null)
                 {
                     stringBuilder.AppendLineTagged("AC.Race".Translate() + ": " + PersonaData.race.LabelCap);

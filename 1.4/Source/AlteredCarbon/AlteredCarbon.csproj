@@ -75,6 +75,7 @@
     <Compile Include="HarmonyPatches\Hediff_PostAdd_Patch.cs" />
     <Compile Include="HarmonyPatches\Ideo_RecacheColonistBelieverCount_Patch.cs" />
     <Compile Include="HarmonyPatches\ITab_Pawn_Character_PawnToShowInfoAbout_Patch.cs" />
+    <Compile Include="HarmonyPatches\LetterStack_ReceiveLetter_Patch.cs" />
     <Compile Include="HarmonyPatches\LookTargets_Patch.cs" />
     <Compile Include="HarmonyPatches\BestowingPatches\LordJob_BestowingCeremony_FinishCeremony_Patch.cs" />
     <Compile Include="HarmonyPatches\MapDeiniter_PassPawnsToWorld_Patch.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="HarmonyPatches\BedPatches\RestUtility_IsValidBedFor_Patch.cs" />
     <Compile Include="HarmonyPatches\BedPatches\RestUtility_Reset_Patch.cs" />
     <Compile Include="HarmonyPatches\BestowingPatches\Reward_BestowingCeremony_StackElements_Patch.cs" />
+    <Compile Include="HarmonyPatches\PregnancyUtility_ApplyBirthOutcome_Patch.cs" />
     <Compile Include="HarmonyPatches\SocialCardUtility_GetPawnSituationLabel_Patch.cs" />
     <Compile Include="HarmonyPatches\StatsRecord_Notify_ColonistKilled_Patch.cs" />
     <Compile Include="UI\Dialog_PresetList.cs" />

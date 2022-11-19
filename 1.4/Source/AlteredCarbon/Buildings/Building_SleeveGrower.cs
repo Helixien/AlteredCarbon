@@ -133,6 +133,7 @@ namespace AlteredCarbon
             base.DrawAt(drawLoc, flip);
             if (incubatorState != IncubatorState.ToBeActivated && InnerPawn != null)
             {
+                AdjustAge();
                 Vector3 newPos = drawLoc;
                 newPos.z += 0.2f;
                 newPos.y += 1;
@@ -156,6 +157,8 @@ namespace AlteredCarbon
                     InnerPawn.Rotation = Rotation;
                     InnerPawn.DrawAt(newPos + PawnDrawOffset, flip);
                 }
+                var lastAdultAge = InnerPawn.RaceProps.lifeStageAges.LastOrDefault((LifeStageAge lifeStageAge) => lifeStageAge.def.developmentalStage.Adult())?.minAge ?? 0f;
+                InnerPawn.ageTracker.AgeBiologicalTicks = (long)(Mathf.FloorToInt(lastAdultAge * 3600000f));
             }
             base.Comps_PostDraw();
         }
@@ -408,8 +411,6 @@ namespace AlteredCarbon
                 {
                     sustainerWorking.Maintain();
                 }
-
-                AdjustAge();
                 curTicksToGrow++;
             }
             else

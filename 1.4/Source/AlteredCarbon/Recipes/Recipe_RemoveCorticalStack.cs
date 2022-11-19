@@ -35,8 +35,7 @@ namespace AlteredCarbon
 					return;
 				}
 
-				var hediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) as Hediff_CorticalStack;
-				if (hediff != null)
+				if (pawn.HasCorticalStack(out var hediff))
 				{
 					var corticalStack = ThingMaker.MakeThing(hediff.def.spawnThingOnRemoved) as CorticalStack;
 					hediff.PersonaData.CopyPawn(pawn);

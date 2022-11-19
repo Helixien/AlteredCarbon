@@ -9,7 +9,7 @@ namespace AlteredCarbon
     {
         public static void Prefix(Fire __instance, Thing targ)
         {
-            if (targ is Corpse corpse && targ.HitPoints <= 3 && (corpse.InnerPawn?.health?.hediffSet?.HasHediff(AC_DefOf.VFEU_CorticalStack) ?? true))
+            if (targ is Corpse corpse && targ.HitPoints <= 3 && corpse.InnerPawn.HasCorticalStack(out _))
             {
                 var corticalStack = ThingMaker.MakeThing(AC_DefOf.VFEU_FilledCorticalStack) as CorticalStack;
                 corticalStack.PersonaData.CopyPawn(corpse.InnerPawn);
@@ -18,7 +18,7 @@ namespace AlteredCarbon
                 __instance.Destroy(DestroyMode.Vanish);
             }
             else if (targ is Pawn pawn && pawn.health.summaryHealth.SummaryHealthPercent < 0.001f
-                && (pawn.health?.hediffSet?.HasHediff(AC_DefOf.VFEU_CorticalStack) ?? true))
+                && pawn.HasCorticalStack(out _))
             {
                 var corticalStack = ThingMaker.MakeThing(AC_DefOf.VFEU_FilledCorticalStack) as CorticalStack;
                 corticalStack.PersonaData.CopyPawn(pawn);

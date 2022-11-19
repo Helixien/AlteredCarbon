@@ -18,6 +18,14 @@ namespace AlteredCarbon
     }
     public class Recipe_InstallCorticalStack : Recipe_Surgery
     {
+        public override bool AvailableOnNow(Thing thing, BodyPartRecord part = null)
+        {
+            if (thing is Pawn pawn && pawn.DevelopmentalStage != DevelopmentalStage.Adult)
+            {
+                return false;
+            }
+            return base.AvailableOnNow(thing, part);
+        }
         public override IEnumerable<BodyPartRecord> GetPartsToApplyOn(Pawn pawn, RecipeDef recipe)
         {
             return MedicalRecipesUtility.GetFixedPartsToApplyOn(recipe, pawn, delegate (BodyPartRecord record)
@@ -41,99 +49,6 @@ namespace AlteredCarbon
             }
             base.ConsumeIngredient(ingredient, recipe, map);
         }
-
-
-        // All these thought methods are for debugging only
-
-        //private static List<ISocialThought> tmpTotalOpinionOffsetThoughts = new List<ISocialThought>();
-        //public int TotalOpinionOffset(string prefix, Pawn pawn, Pawn otherPawn)
-        //{
-        //    pawn.needs.mood.thoughts.GetDistinctSocialThoughtGroups(otherPawn, tmpTotalOpinionOffsetThoughts);
-        //    int num = 0;
-        //    for (int i = 0; i < tmpTotalOpinionOffsetThoughts.Count; i++)
-        //    {
-        //        Log.Message(prefix + " - " + pawn + " - " + otherPawn + " - " + tmpTotalOpinionOffsetThoughts[i] + " - " + tmpTotalOpinionOffsetThoughts[i].GetType());
-        //        CurrentSocialStateInternal(pawn, otherPawn);
-        //        num += pawn.needs.mood.thoughts.OpinionOffsetOfGroup(tmpTotalOpinionOffsetThoughts[i], otherPawn);
-        //    }
-        //    tmpTotalOpinionOffsetThoughts.Clear();
-        //    return num;
-        //}
-        //
-        //private bool CurrentSocialStateInternal(Pawn pawn, Pawn other)
-        //{
-        //    if (!other.RaceProps.Humanlike || other.Dead)
-        //    {
-        //        Log.Message(" - CurrentSocialStateInternal - return false; - 2", true);
-        //        return false;
-        //    }
-        //    if (!RelationsUtility.PawnsKnowEachOther(pawn, other))
-        //    {
-        //        Log.Message(" - CurrentSocialStateInternal - return false; - 4", true);
-        //        return false;
-        //    }
-        //    if (!RelationsUtility.IsDisfigured(other, pawn))
-        //    {
-        //        Log.Message(" - CurrentSocialStateInternal - return false; - 6", true);
-        //        return false;
-        //    }
-        //    if (PawnUtility.IsBiologicallyBlind(pawn))
-        //    {
-        //        Log.Message(" - CurrentSocialStateInternal - return false; - 8", true);
-        //        return false;
-        //    }
-        //    if (pawn.story.traits.HasTrait(TraitDefOf.Kind))
-        //    {
-        //        Log.Message(" - CurrentSocialStateInternal - return false; - 10", true);
-        //        return false;
-        //    }
-        //    if (pawn.Ideo != null && pawn.Ideo.IdeoApprovesOfBlindness() && !RelationsUtility.IsDisfigured(other, pawn, ignoreSightSources: true) && (PawnUtility.IsBiologicallyBlind(other) || ThoughtWorker_Precept_HalfBlind.IsHalfBlind(other)))
-        //    {
-        //        Log.Message(" - CurrentSocialStateInternal - return false; - 12", true);
-        //        return false;
-        //    }
-        //    Log.Message("Return true");
-        //    return true;
-        //}
-        //public int OpinionOf(string prefix, Pawn pawn, Pawn other)
-        //{
-        //    if (!other.RaceProps.Humanlike || pawn == other)
-        //    {
-        //        return 0;
-        //    }
-        //    if (pawn.Dead)
-        //    {
-        //        return 0;
-        //    }
-        //    int num = 0;
-        //    foreach (PawnRelationDef relation in pawn.GetRelations(other))
-        //    {
-        //        num += relation.opinionOffset;
-        //    }
-        //    if (pawn.RaceProps.Humanlike && pawn.needs.mood != null)
-        //    {
-        //        num += TotalOpinionOffset(prefix, pawn, other);
-        //    }
-        //    if (num != 0)
-        //    {
-        //        float num2 = 1f;
-        //        List<Hediff> hediffs = pawn.health.hediffSet.hediffs;
-        //        for (int i = 0; i < hediffs.Count; i++)
-        //        {
-        //            if (hediffs[i].CurStage != null)
-        //            {
-        //                num2 *= hediffs[i].CurStage.opinionOfOthersFactor;
-        //            }
-        //        }
-        //        num = Mathf.RoundToInt((float)num * num2);
-        //    }
-        //    if (num > 0 && pawn.HostileTo(other))
-        //    {
-        //        num = 0;
-        //    }
-        //    return Mathf.Clamp(num, -100, 100);
-        //}
-
         private void CopyAllPhysicalDataFrom(Pawn source, Pawn to)
         {
             to.health.hediffSet.hediffs = new List<Hediff>();
@@ -177,9 +92,7 @@ namespace AlteredCarbon
                     //        Log.Message("pawn (rev): " + OpinionOf("pawn (rev): ", item, pawn));
                     //    }
                     //}
-
-                    hediff.PersonaData.gender = corticalStack.PersonaData.gender;
-                    hediff.PersonaData.race = corticalStack.PersonaData.race;
+                    hediff.PersonaData = corticalStack.PersonaData;
                     
                     if (pawn.IsEmptySleeve())
                     {
@@ -220,7 +133,6 @@ namespace AlteredCarbon
                         corticalStack.PersonaData.OverwritePawn(pawn, corticalStack.def.GetModExtension<StackSavingOptionsModExtension>(), dummyPawn);
                     }
 
-                    hediff.PersonaData.stackGroupID = corticalStack.PersonaData.stackGroupID;
                     pawn.health.AddHediff(hediff, part);
                     AlteredCarbonManager.Instance.StacksIndex.Remove(corticalStack.PersonaData.pawnID);
                     AlteredCarbonManager.Instance.ReplaceStackWithPawn(corticalStack, pawn);

@@ -73,7 +73,7 @@ namespace AlteredCarbon
         {
             if (ModCompatibility.HelixienAlteredCarbonIsActive)
             {
-                if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is Hediff_CorticalStack hediff && stacksRelationships.TryGetValue(hediff.PersonaData.stackGroupID, out StacksData stackData))
+                if (pawn.HasCorticalStack(out Hediff_CorticalStack hediff) && stacksRelationships.TryGetValue(hediff.PersonaData.stackGroupID, out StacksData stackData))
                 {
                     if (stackData.originalPawn != null)
                     {
@@ -164,7 +164,7 @@ namespace AlteredCarbon
 
         public void ReplacePawnWithStack(Pawn pawn, CorticalStack stack)
         {
-            if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is Hediff_CorticalStack hediff)
+            if (pawn.HasCorticalStack(out Hediff_CorticalStack hediff))
             {
                 stack.PersonaData.stackGroupID = hediff.PersonaData.stackGroupID;
                 if (stacksRelationships.TryGetValue(hediff.PersonaData.stackGroupID, out StacksData stackData))
@@ -190,7 +190,7 @@ namespace AlteredCarbon
 
         public void ReplaceStackWithPawn(CorticalStack stack, Pawn pawn)
         {
-            if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is Hediff_CorticalStack hediff)
+            if (pawn.HasCorticalStack(out Hediff_CorticalStack hediff))
             {
                 hediff.PersonaData.stackGroupID = stack.PersonaData.stackGroupID;
                 if (stacksRelationships.TryGetValue(hediff.PersonaData.stackGroupID, out StacksData stackData))
@@ -238,7 +238,7 @@ namespace AlteredCarbon
 
         public void RegisterPawn(Pawn pawn)
         {
-            if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is Hediff_CorticalStack hediff)
+            if (pawn.HasCorticalStack(out Hediff_CorticalStack hediff))
             {
                 if (!stacksRelationships.ContainsKey(hediff.PersonaData.stackGroupID))
                 {
