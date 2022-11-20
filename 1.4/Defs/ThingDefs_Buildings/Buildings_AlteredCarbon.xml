@@ -52,9 +52,6 @@
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<uiIconPath>Things/Building/Misc/StackArray/StackArrayUI_Icon</uiIconPath>
 		<uiIconScale>1.1</uiIconScale>
-		<placeWorkers>
-			<li>AlteredCarbon.PlaceWorker_MatrixStorage</li>
-		</placeWorkers>
 		<building>
 			<ai_chillDestination>false</ai_chillDestination>
 			<destroySound>BuildingDestroyed_Metal_Big</destroySound>
