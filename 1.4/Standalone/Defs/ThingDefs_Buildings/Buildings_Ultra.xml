@@ -214,7 +214,7 @@
 		<recipes>
 			<li>VFEU_DecryptAncientStack</li>
 			<li>VFEU_WipeFilledCorticalStack</li>
-			<li>VFEU_HackBiocodedThings</li>
+			<li>AC_HackBiocodedThings</li>
 		</recipes>
 		<inspectorTabs>
 			<li>ITab_Bills</li>

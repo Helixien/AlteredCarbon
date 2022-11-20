@@ -28,7 +28,7 @@
 		</skillRequirements>
 	</RecipeDef>
 	<RecipeDef ParentName="VFEU_RecipeHacking">
-		<defName>VFEU_HackBiocodedThings</defName>
+		<defName>AC_HackBiocodedThings</defName>
 		<label>hack biocoded things</label>
 		<description>Attempt to hack and remove biocoding from weapons and equipment to make them usable. If unsuccessful, the item will break.</description>
 		<jobString>hacking biocoded things.</jobString>

@@ -32,6 +32,8 @@ namespace AlteredCarbon
         public string childhood;
         public string adulthood;
         public string title;
+        public XenotypeDef xenotypeDef;
+        public string xenotypeName;
 
         public bool everSeenByPlayer;
         public bool canGetRescuedThought = true;
@@ -189,12 +191,11 @@ namespace AlteredCarbon
             times = pawn.timetable?.times;
             thoughts = pawn.needs?.mood?.thoughts?.memories?.Memories;
             faction = pawn.Faction;
-            Log.Message("orig pawn: " + origPawn);
             if (pawn.Faction?.leader == pawn)
             {
                 isFactionLeader = true;
             }
-            traits = pawn.story?.traits?.allTraits;
+            traits = pawn.story?.traits?.allTraits.Where(x => x.sourceGene != null || x.suppressedByGene != null).ToList();
 
             if (pawn.relations != null)
             {
@@ -229,7 +230,11 @@ namespace AlteredCarbon
                 adulthood = pawn.story.Adulthood.defName;
             }
             title = pawn.story?.title;
-
+            if (ModsConfig.BiotechActive && pawn.genes != null)
+            {
+                xenotypeDef = pawn.genes.Xenotype;
+                xenotypeName = pawn.genes.xenotypeName;
+            }
             priorities = new Dictionary<WorkTypeDef, int>();
             if (pawn.workSettings != null && Traverse.Create(pawn.workSettings).Field("priorities").GetValue<DefMap<WorkTypeDef, int>>() != null)
             {
@@ -398,7 +403,8 @@ namespace AlteredCarbon
 
             relatedPawns = other.relatedPawns;
             skills = other.skills;
-
+            xenotypeDef = other.xenotypeDef;
+            xenotypeName = other.xenotypeName;
             childhood = other.childhood;
             adulthood = other.adulthood;
             title = other.title;
@@ -713,9 +719,7 @@ namespace AlteredCarbon
             }
 
             pawnToOverwrite.story.Adulthood = !adulthood.NullOrEmpty() ? DefDatabase<BackstoryDef>.GetNamedSilentFail(adulthood) : null;
-
             pawnToOverwrite.story.title = title;
-
             if (pawnToOverwrite.workSettings == null)
             {
                 pawnToOverwrite.workSettings = new Pawn_WorkSettings(pawnToOverwrite);
@@ -1044,7 +1048,8 @@ namespace AlteredCarbon
             Scribe_Values.Look<string>(ref childhood, "childhood", null, false);
             Scribe_Values.Look<string>(ref adulthood, "adulthood", null, false);
             Scribe_Values.Look<string>(ref title, "title", null, false);
-
+            Scribe_Defs.Look(ref xenotypeDef, "xenotypeDef");
+            Scribe_Values.Look(ref xenotypeName, "xenotypeName");
             Scribe_Values.Look<int>(ref pawnID, "pawnID", 0, false);
             Scribe_Collections.Look<Trait>(ref traits, "traits");
             Scribe_Collections.Look<SkillRecord>(ref skills, "skills");
