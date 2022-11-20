@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<JobDef>
+		<defName>AC_DuplicateStack</defName>
+		<driverClass>AlteredCarbon.JobDriver_DuplicateStack</driverClass>
+		<reportString>duplicating cortical stack</reportString>
+	</JobDef>
+	<JobDef>
+		<defName>AC_CreateStackFromBackup</defName>
+		<driverClass>AlteredCarbon.JobDriver_CreateStackFromBackup</driverClass>
+		<reportString>restoring cortical stack from backup</reportString>
+	</JobDef>
+</Defs>

@@ -2,7 +2,7 @@
 <Defs>
 	<!-- ================================ Stack Array ====================== -->
 	<ThingDef ParentName="BuildingBase">
-		<defName>VFEU_StackArray</defName>
+		<defName>AC_StackArray</defName>
 		<label>stack array</label>
 		<description>A ultratech, quantum computing matrix made to store cortical stacks. If in range of auto-linked stacks, the matrix can make emergency backups in case of catastrophic stack faliure. Can be linked to a rVR server.</description>
 		<thingClass>AlteredCarbon.Building_StackStorage</thingClass>
