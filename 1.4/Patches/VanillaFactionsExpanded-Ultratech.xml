@@ -5,7 +5,7 @@
 		<operations>
 			<!-- ================================ Patches in new mechanoids into the default faction pawnGroupMakers ====================== -->
 			<li Class="PatchOperationAdd">
-				<xpath>/Defs/ThingDef[defName="VFEU_SleeveIncubator" or defName="VFEU_SleeveCasket" or defName="VFEU_StackArray"]</xpath>
+				<xpath>/Defs/ThingDef[defName="VFEU_SleeveIncubator" or defName="VFEU_SleeveCasket" or defName="AC_StackArray"]</xpath>
 				<value>
 					<designationCategory>Biotech</designationCategory>
 				</value>
