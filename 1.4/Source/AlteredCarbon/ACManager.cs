@@ -79,8 +79,8 @@ namespace AlteredCarbon
                     {
                         if (pawn != stackData.originalPawn)
                         {
-                            pawn.relations.AddDirectRelation(AC_DefOf.VFEU_Original, stackData.originalPawn);
-                            stackData.originalPawn.relations.AddDirectRelation(AC_DefOf.VFEU_Copy, pawn);
+                            pawn.relations.AddDirectRelation(AC_DefOf.AC_Original, stackData.originalPawn);
+                            stackData.originalPawn.relations.AddDirectRelation(AC_DefOf.AC_Copy, pawn);
                         }
                         else if (stackData.copiedPawns != null)
                         {
@@ -88,8 +88,8 @@ namespace AlteredCarbon
                             {
                                 if (pawn != copiedPawn)
                                 {
-                                    pawn.relations.AddDirectRelation(AC_DefOf.VFEU_Original, copiedPawn);
-                                    copiedPawn.relations.AddDirectRelation(AC_DefOf.VFEU_Copy, pawn);
+                                    pawn.relations.AddDirectRelation(AC_DefOf.AC_Original, copiedPawn);
+                                    copiedPawn.relations.AddDirectRelation(AC_DefOf.AC_Copy, pawn);
                                 }
                             }
                         }
@@ -100,8 +100,8 @@ namespace AlteredCarbon
                         {
                             if (pawn != copiedPawn)
                             {
-                                pawn.relations.AddDirectRelation(AC_DefOf.VFEU_Copy, copiedPawn);
-                                copiedPawn.relations.AddDirectRelation(AC_DefOf.VFEU_Copy, pawn);
+                                pawn.relations.AddDirectRelation(AC_DefOf.AC_Copy, copiedPawn);
+                                copiedPawn.relations.AddDirectRelation(AC_DefOf.AC_Copy, pawn);
                             }
                         }
                     }
@@ -118,8 +118,8 @@ namespace AlteredCarbon
                                 {
                                     if (pawn != copiedPawn)
                                     {
-                                        pawn.relations.AddDirectRelation(AC_DefOf.VFEU_Original, copiedPawn);
-                                        copiedPawn.relations.AddDirectRelation(AC_DefOf.VFEU_Copy, pawn);
+                                        pawn.relations.AddDirectRelation(AC_DefOf.AC_Original, copiedPawn);
+                                        copiedPawn.relations.AddDirectRelation(AC_DefOf.AC_Copy, pawn);
                                     }
                                 }
                             }
@@ -129,8 +129,8 @@ namespace AlteredCarbon
                                 {
                                     if (pawn == copiedPawn && stackGroup.Value.originalPawn != null)
                                     {
-                                        pawn.relations.AddDirectRelation(AC_DefOf.VFEU_Original, stackGroup.Value.originalPawn);
-                                        stackGroup.Value.originalPawn.relations.AddDirectRelation(AC_DefOf.VFEU_Copy, pawn);
+                                        pawn.relations.AddDirectRelation(AC_DefOf.AC_Original, stackGroup.Value.originalPawn);
+                                        stackGroup.Value.originalPawn.relations.AddDirectRelation(AC_DefOf.AC_Copy, pawn);
                                     }
                                 }
                             }
@@ -140,23 +140,23 @@ namespace AlteredCarbon
 
                 if (pawn.IsCopy())
                 {
-                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_JustCopy);
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_JustCopy);
                     Pawn otherPawn = pawn.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Spouse);
                     if (pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Spouse, otherPawn))
                     {
-                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_LostMySpouse, otherPawn);
+                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_LostMySpouse, otherPawn);
                     }
 
                     otherPawn = pawn.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Fiance);
                     if (pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Fiance, otherPawn))
                     {
-                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_LostMyFiance, otherPawn);
+                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_LostMyFiance, otherPawn);
                     }
 
                     otherPawn = pawn.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Lover);
                     if (pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Lover, otherPawn))
                     {
-                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_LostMyLover, otherPawn);
+                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_LostMyLover, otherPawn);
                     }
                 }
             }

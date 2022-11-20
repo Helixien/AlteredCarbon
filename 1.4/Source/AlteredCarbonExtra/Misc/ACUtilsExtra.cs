@@ -54,7 +54,7 @@ namespace AlteredCarbon
                 harmony.Patch(hook, new HarmonyMethod(typeof(ACUtilsExtra), nameof(ACUtilsExtra.ResetStaticData)));
             }
 
-            foreach (IngredientCount li in AC_Extra_DefOf.VFEU_HackBiocodedThings.ingredients)
+            foreach (IngredientCount li in AC_Extra_DefOf.AC_HackBiocodedThings.ingredients)
             {
                 li.filter = new ThingFilterBiocodable();
                 List<ThingDef> list = Traverse.Create(li.filter).Field("thingDefs").GetValue<List<ThingDef>>();
@@ -69,33 +69,33 @@ namespace AlteredCarbon
                     list.Add(thingDef);
                 }
             }
-            AC_Extra_DefOf.VFEU_HackBiocodedThings.fixedIngredientFilter = new ThingFilterBiocodable();
-            List<ThingDef> list2 = Traverse.Create(AC_Extra_DefOf.VFEU_HackBiocodedThings.fixedIngredientFilter).Field("thingDefs").GetValue<List<ThingDef>>();
+            AC_Extra_DefOf.AC_HackBiocodedThings.fixedIngredientFilter = new ThingFilterBiocodable();
+            List<ThingDef> list2 = Traverse.Create(AC_Extra_DefOf.AC_HackBiocodedThings.fixedIngredientFilter).Field("thingDefs").GetValue<List<ThingDef>>();
             if (list2 is null)
             {
                 list2 = new List<ThingDef>();
-                Traverse.Create(AC_Extra_DefOf.VFEU_HackBiocodedThings.fixedIngredientFilter).Field("thingDefs").SetValue(list2);
+                Traverse.Create(AC_Extra_DefOf.AC_HackBiocodedThings.fixedIngredientFilter).Field("thingDefs").SetValue(list2);
             }
 
             foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs.Where(x => x.comps != null && x.HasAssignableCompFrom(typeof(CompBiocodable))))
             {
                 list2.Add(thingDef);
-                AC_Extra_DefOf.VFEU_HackBiocodedThings.fixedIngredientFilter.SetAllow(thingDef, true);
+                AC_Extra_DefOf.AC_HackBiocodedThings.fixedIngredientFilter.SetAllow(thingDef, true);
             }
 
 
-            AC_Extra_DefOf.VFEU_HackBiocodedThings.defaultIngredientFilter = new ThingFilterBiocodable();
-            List<ThingDef> list3 = Traverse.Create(AC_Extra_DefOf.VFEU_HackBiocodedThings.defaultIngredientFilter).Field("thingDefs").GetValue<List<ThingDef>>();
+            AC_Extra_DefOf.AC_HackBiocodedThings.defaultIngredientFilter = new ThingFilterBiocodable();
+            List<ThingDef> list3 = Traverse.Create(AC_Extra_DefOf.AC_HackBiocodedThings.defaultIngredientFilter).Field("thingDefs").GetValue<List<ThingDef>>();
             if (list3 is null)
             {
                 list3 = new List<ThingDef>();
-                Traverse.Create(AC_Extra_DefOf.VFEU_HackBiocodedThings.defaultIngredientFilter).Field("thingDefs").SetValue(list2);
+                Traverse.Create(AC_Extra_DefOf.AC_HackBiocodedThings.defaultIngredientFilter).Field("thingDefs").SetValue(list2);
             }
 
             foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs.Where(x => x.comps != null && x.HasAssignableCompFrom(typeof(CompBiocodable))))
             {
                 list3.Add(thingDef);
-                AC_Extra_DefOf.VFEU_HackBiocodedThings.defaultIngredientFilter.SetAllow(thingDef, true);
+                AC_Extra_DefOf.AC_HackBiocodedThings.defaultIngredientFilter.SetAllow(thingDef, true);
             }
 
         }
@@ -103,7 +103,7 @@ namespace AlteredCarbon
         {
             return thing.def == AC_DefOf.VFEU_SleeveIncubator
                 || thing.def == AC_DefOf.VFEU_SleeveCasket || thing.def == AC_DefOf.VFEU_SleeveCasket
-                || thing.def == AC_Extra_DefOf.VFEU_StackArray
+                || thing.def == AC_Extra_DefOf.AC_StackArray
                 || thing.def == AC_DefOf.VFEU_DecryptionBench;
         }
         public static void ResetStaticData()

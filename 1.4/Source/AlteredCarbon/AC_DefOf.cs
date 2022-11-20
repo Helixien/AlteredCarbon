@@ -14,12 +14,12 @@ namespace AlteredCarbon
     [DefOf]
     public static class AC_DefOf
     {
-        [MayRequireHelixienMod] public static ThoughtDef VFEU_JustCopy;
-        [MayRequireHelixienMod] public static ThoughtDef VFEU_LostMySpouse;
-        [MayRequireHelixienMod] public static ThoughtDef VFEU_LostMyFiance;
-        [MayRequireHelixienMod] public static ThoughtDef VFEU_LostMyLover;
-        [MayRequireHelixienMod] public static PawnRelationDef VFEU_Original;
-        [MayRequireHelixienMod] public static PawnRelationDef VFEU_Copy;
+        [MayRequireHelixienMod] public static ThoughtDef AC_JustCopy;
+        [MayRequireHelixienMod] public static ThoughtDef AC_LostMySpouse;
+        [MayRequireHelixienMod] public static ThoughtDef AC_LostMyFiance;
+        [MayRequireHelixienMod] public static ThoughtDef AC_LostMyLover;
+        [MayRequireHelixienMod] public static PawnRelationDef AC_Original;
+        [MayRequireHelixienMod] public static PawnRelationDef AC_Copy;
 
         public static VEBackstoryDef VFEU_VatGrownChild;
         public static VEBackstoryDef VFEU_VatGrownAdult;

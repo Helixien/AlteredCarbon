@@ -7,17 +7,17 @@ namespace AlteredCarbon
     [DefOf]
     public static class AC_Extra_DefOf
     {
-        public static ThingDef VFEU_StackArray;
-        public static JobDef VFEU_DuplicateStack;
-        public static JobDef VFEU_CreateStackFromBackup;
-        public static ThoughtDef VFEU_JustCopy;
-        public static ThoughtDef VFEU_LostMySpouse;
-        public static ThoughtDef VFEU_LostMyFiance;
-        public static ThoughtDef VFEU_LostMyLover;
-        public static PawnRelationDef VFEU_Original;
-        public static PawnRelationDef VFEU_Copy;
-        public static DutyDef VFEU_TakeStacks;
-        public static RecipeDef VFEU_HackBiocodedThings;
+        public static ThingDef AC_StackArray;
+        public static JobDef AC_DuplicateStack;
+        public static JobDef AC_CreateStackFromBackup;
+        public static ThoughtDef AC_JustCopy;
+        public static ThoughtDef AC_LostMySpouse;
+        public static ThoughtDef AC_LostMyFiance;
+        public static ThoughtDef AC_LostMyLover;
+        public static PawnRelationDef AC_Original;
+        public static PawnRelationDef AC_Copy;
+        public static DutyDef AC_TakeStacks;
+        public static RecipeDef AC_HackBiocodedThings;
     }
 }
 

@@ -37,7 +37,7 @@ namespace AlteredCarbon
         {
             Thing emptyCorticalStack = GenClosest.ClosestThingReachable(pawn.Position, pawn.Map,
                 ThingRequest.ForDef(AC_DefOf.VFEU_EmptyCorticalStack), PathEndMode.Touch, TraverseParms.For(pawn));
-            Job job = JobMaker.MakeJob(AC_Extra_DefOf.VFEU_CreateStackFromBackup, t, emptyCorticalStack);
+            Job job = JobMaker.MakeJob(AC_Extra_DefOf.AC_CreateStackFromBackup, t, emptyCorticalStack);
             job.count = 1;
             return job;
         }

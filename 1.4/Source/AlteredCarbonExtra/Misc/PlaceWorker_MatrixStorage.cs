@@ -13,7 +13,7 @@ namespace AlteredCarbon
 	{
         public override AcceptanceReport AllowsPlacing(BuildableDef checkingDef, IntVec3 loc, Rot4 rot, Map map, Thing thingToIgnore = null, Thing thing = null)
         {
-            if (map.listerThings.ThingsOfDef(AC_Extra_DefOf.VFEU_StackArray).Any())
+            if (map.listerThings.ThingsOfDef(AC_Extra_DefOf.AC_StackArray).Any())
             {
                 return "AC.OneMatrixStorageCanBeBuild".Translate();
             }

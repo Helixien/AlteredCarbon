@@ -9,7 +9,7 @@ namespace AlteredCarbon
 {
 	public class LordToil_TakeStack : LordToil
 	{
-		protected DutyDef DutyDef => AC_Extra_DefOf.VFEU_TakeStacks;
+		protected DutyDef DutyDef => AC_Extra_DefOf.AC_TakeStacks;
 
 		public override bool ForceHighStoryDanger => false;
 
