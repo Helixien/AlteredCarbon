@@ -30,7 +30,7 @@ namespace AlteredCarbon
             {
                 initAction = delegate ()
                 {
-                    Building_StackStorage.PerformStackRestoration(pawn);
+                    GameComponent_DigitalStorage.Instance.PerformStackRestoration(pawn);
                     job.targetB.Thing.Destroy();
                 }
             };

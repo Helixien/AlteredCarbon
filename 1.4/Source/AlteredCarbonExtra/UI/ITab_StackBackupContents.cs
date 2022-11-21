@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Verse;
@@ -6,6 +7,7 @@ using Verse.Sound;
 
 namespace AlteredCarbon
 {
+    [HotSwappable]
     public class ITab_StackBackupContents : ITab
     {
         private static readonly Vector2 WinSize = new Vector2(432f, 480f);
@@ -24,8 +26,8 @@ namespace AlteredCarbon
             Text.Font = GameFont.Small;
             GUI.color = Color.white;
             float num = 0;
-            System.Collections.Generic.List<PersonaData> backedUpStacks = Building_StackStorage.StoredBackedUpStacks.ToList();
-            Widgets.ListSeparator(ref num, viewRect.width, "AC.BackedUpStacksInMatrix".Translate(backedUpStacks.Count()));
+            List<PersonaData> backedUpStacks = GameComponent_DigitalStorage.Instance.StoredBackedUpStacks.ToList();
+            Widgets.ListSeparator(ref num, viewRect.width, "AC.BackedUpStacksInArray".Translate(backedUpStacks.Count()));
             Rect scrollRect = new Rect(0, num, viewRect.width - 16, viewRect.height);
             Rect outerRect = scrollRect;
             outerRect.width += 16;
@@ -35,7 +37,7 @@ namespace AlteredCarbon
 
             foreach (PersonaData backedUpStack in backedUpStacks)
             {
-                DrawThingRow(ref num, viewRect.width, backedUpStack);
+                DoRow(ref num, viewRect.width, backedUpStack);
             }
 
             Widgets.EndScrollView();
@@ -43,7 +45,7 @@ namespace AlteredCarbon
             GUI.color = Color.white;
             Text.Anchor = TextAnchor.UpperLeft;
         }
-        private void DrawThingRow(ref float y, float width, PersonaData personaData)
+        private void DoRow(ref float y, float width, PersonaData personaData)
         {
             Rect rect1 = new Rect(0.0f, y, width, 28f);
             Rect rect2 = new Rect(rect1.width - 38f, y, 24f, 24f);
@@ -51,33 +53,19 @@ namespace AlteredCarbon
             if (Widgets.ButtonImage(rect2, ContentFinder<Texture2D>.Get("UI/Icons/Erase", true)))
             {
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
-                Building_StackStorage.backedUpStacks.Remove(personaData.pawnID);
+                GameComponent_DigitalStorage.Instance.backedUpStacks.Remove(personaData.pawnID);
             }
 
             Rect installStackRect = rect2;
             installStackRect.x -= 28;
 
-            TooltipHandler.TipRegion(installStackRect, "AC.BackupNow".Translate());
-            if (Widgets.ButtonImage(installStackRect, ContentFinder<Texture2D>.Get("UI/Icons/Backup", true)))
+            TooltipHandler.TipRegion(installStackRect, "AC.RestoreToStackAutomatically".Translate());
+            if (Widgets.ButtonImage(installStackRect, personaData.restoreToEmptyStack
+                ? ContentFinder<Texture2D>.Get("UI/Icons/RestoreToStackOn", true)
+                : ContentFinder<Texture2D>.Get("UI/Icons/RestoreToStackOff", true)))
             {
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
-                Pawn pawn = AlteredCarbonManager.Instance.PawnsWithStacks.FirstOrDefault(x => x.thingIDNumber == personaData.pawnID);
-                if (pawn is null)
-                {
-                    Messages.Message("AC.CannotBackupNoSuchPawn".Translate(personaData.PawnNameColored), Building_StackStorage, MessageTypeDefOf.CautionInput);
-                }
-                else if (pawn.MapHeld != Building_StackStorage.MapHeld)
-                {
-                    Messages.Message("AC.CannotBackupPawnOnAnotherLocation".Translate(personaData.PawnNameColored), Building_StackStorage, MessageTypeDefOf.CautionInput);
-                }
-                else if (!Building_StackStorage.compPower.PowerOn)
-                {
-                    Messages.Message("AC.CannotBackupNoPower".Translate(personaData.PawnNameColored), Building_StackStorage, MessageTypeDefOf.CautionInput);
-                }
-                else if (Building_StackStorage.CanBackup(pawn))
-                {
-                    Building_StackStorage.Backup(pawn);
-                }
+                personaData.restoreToEmptyStack = !personaData.restoreToEmptyStack;
             }
             rect1.width -= 54f;
             Rect rect3 = rect1;
@@ -92,12 +80,12 @@ namespace AlteredCarbon
 
             Text.Anchor = TextAnchor.MiddleLeft;
             GUI.color = ITab_Pawn_Gear.ThingLabelColor;
-            Rect rect4 = new Rect(6f, y, rect1.width - 36f, rect1.height);
+            Rect rect4 = new Rect(21, y, rect1.width - 30f + 21, rect1.height);
             TaggedString pawnLabel = personaData.PawnNameColored.Truncate(rect4.width);
             Widgets.Label(rect4, pawnLabel);
-
+            Widgets.InfoCardButton(0, y, personaData.GetDummyPawn);
             Rect timeRect = new Rect(rect1.xMax - 200, rect1.y, 200, rect1.height);
-            Widgets.Label(timeRect, "AC.TimeSinceLastBackup".Translate((Find.TickManager.TicksGame - personaData.lastTimeUpdated).ToStringTicksToPeriod()));
+            Widgets.Label(timeRect, "AC.TimeSinceLastBackup".Translate((Find.TickManager.TicksAbs - personaData.lastTimeUpdated).ToStringTicksToPeriod()));
             y += 28;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using RimWorld;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -53,7 +54,52 @@ namespace AlteredCarbon
             AC_DefOf.VFEU_InstallCorticalStack.defaultIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksHostile, true);
         }
 
+        public static void UpdateGraphic(this Pawn pawn)
+        {
+            pawn.Drawer.renderer.graphics.ResolveAllGraphics();
+            PortraitsCache.SetDirty(pawn);
+            PortraitsCache.PortraitsCacheUpdate();
+            GlobalTextureAtlasManager.TryMarkPawnFrameSetDirty(pawn);
+        }
+        public static void CopyBody(Pawn source, Pawn dest)
+        {
+            dest.gender = source.gender;
+            dest.kindDef = source.kindDef;
+            if (ModCompatibility.AlienRacesIsActive)
+            {
+                ModCompatibility.CopyBodyAddons(source, dest);
+            }
+
+            var genes = dest.genes.GenesListForReading;
+            foreach (var oldGene in genes)
+            {
+                dest.genes.RemoveGene(oldGene);
+            }
+
+            var sourceGenes = source.genes.Endogenes;
+            foreach (var sourceGene in sourceGenes)
+            {
+                dest.genes.AddGene(sourceGene.def, false);
+            }
+            for (var i = 0; i < sourceGenes.Count; i++)
+            {
+                var gene = dest.genes.Endogenes[i];
+                if (sourceGenes[i].Active)
+                {
+                    GeneUtils.ApplyGene(gene, dest);
+                }
+            }
+
+            dest.story.skinColorOverride = source.story.skinColorOverride;
+            dest.story.skinColorBase = source.story.skinColorBase;
+            dest.story.hairColor = source.story.hairColor;
+            dest.story.bodyType = source.story.bodyType;
+            dest.story.hairDef = source.story.hairDef;
+            dest.style.beardDef = source.style.beardDef;
+            dest.story.headType = source.story.headType;
+        }
         public static string PawnTemplatesPath => Path.Combine(GenFilePaths.ConfigFolderPath, "AC_PawnTemplates.xml");
+
         public static void SavePresets()
         {
             Scribe.saver.InitSaving(PawnTemplatesPath, "PawnTemplates");

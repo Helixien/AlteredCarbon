@@ -30,7 +30,7 @@ namespace AlteredCarbon
             DoAllowOption(ref num, viewRect, labelWidth, "AC.AllowHostileStacks", ref Building_StackStorage.allowHostileCorticalStacks);
 
             System.Collections.Generic.List<CorticalStack> storedStacks = Building_StackStorage.StoredStacks.ToList();
-            Widgets.ListSeparator(ref num, viewRect.width, "AC.CorticalStacksInMatrix".Translate(storedStacks.Count(), Building_StackStorage.MaxFilledStackCapacity));
+            Widgets.ListSeparator(ref num, viewRect.width, "AC.CorticalStacksInArray".Translate(storedStacks.Count(), Building_StackStorage.MaxFilledStackCapacity));
             Rect scrollRect = new Rect(0, num, viewRect.width - 16, viewRect.height);
             Rect outerRect = scrollRect;
             outerRect.width += 16;

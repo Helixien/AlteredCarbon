@@ -9,6 +9,7 @@ using Verse.AI;
 
 namespace AlteredCarbon
 {
+    [HotSwappable]
     public class PersonaData : IExposable
     {
         public Name name;
@@ -106,6 +107,8 @@ namespace AlteredCarbon
         public int stackGroupID = -1;
         public int lastTimeUpdated;
 
+        public bool restoreToEmptyStack = true;
+
         private Pawn dummyPawn;
         public Pawn GetDummyPawn
         {
@@ -114,7 +117,7 @@ namespace AlteredCarbon
                 if (dummyPawn is null)
                 {
                     dummyPawn = PawnGenerator.GeneratePawn(PawnKindDefOf.Colonist, Faction.OfPlayer);
-                    OverwritePawn(dummyPawn, null);
+                    RefreshDummyPawn();
                 }
                 return dummyPawn;
             }
@@ -123,6 +126,11 @@ namespace AlteredCarbon
         {
             dummyPawn = PawnGenerator.GeneratePawn(PawnKindDefOf.Colonist, Faction.OfPlayer);
             OverwritePawn(dummyPawn, null);
+            if (origPawn != null)
+            {
+                ACUtils.CopyBody(origPawn, dummyPawn);
+                dummyPawn.UpdateGraphic();
+            }
         }
 
         public bool IsMatchingPawn(Pawn pawn)
@@ -1115,6 +1123,7 @@ namespace AlteredCarbon
             Scribe_Values.Look<float>(ref romanceFactor, "romanceFactor", -1f);
             Scribe_Deep.Look(ref psychologyData, "psychologyData");
             Scribe_Deep.Look(ref rjwData, "rjwData");
+            Scribe_Values.Look(ref restoreToEmptyStack, "restoreToEmptyStack", true);
         }
 
         private List<Faction> favorKeys = new List<Faction>();

@@ -98,7 +98,9 @@
 	<AC.FactionDemandsStacks>{FACTION_name} demands stacks of their members back.\n\n{0}</AC.FactionDemandsStacks>
 	<AC.AppeptFactionDemand>Accept: (+{0} goodwill)</AC.AppeptFactionDemand>
 	<AC.RejectFactionDemand>Reject: ({0} goodwill)</AC.RejectFactionDemand>
-	<AC.CorticalStacksInMatrix>Cortical Stacks in Matrix: ({0}/{1})</AC.CorticalStacksInMatrix>
+	<AC.CorticalStacksInArray>Cortical Stacks in array: ({0}/{1})</AC.CorticalStacksInArray>
+	<AC.CorticalStacksStored>Cortical Stacks stored: {0}</AC.CorticalStacksStored>
+	<AC.LastBackup>Last Backup: {0}</AC.LastBackup>
 	<AC.StackStorage>Contents</AC.StackStorage>
 	
 	<AC.AllowColonistStacks>*Allow colonist cortical stacks</AC.AllowColonistStacks>
@@ -115,7 +117,6 @@
 	<AC.CreateOrgan>Grow organ</AC.CreateOrgan>
 	<AC.CreateOrganDesc>Grow an organ.</AC.CreateOrganDesc>
 	<AC.FinishedGrowingSleeve>Sleeve Incubator: Finished growing sleeve!</AC.FinishedGrowingSleeve>
-	<AC.MustPlaceDistantToOtherCorticalMatrixes>Cannot be placed too close to existing Quantum Storage Matrix!</AC.MustPlaceDistantToOtherCorticalMatrixes>
 	<AC.HackStack>Hack stack</AC.HackStack>
 	<AC.HackStackDesc>Convert a stack to the players faction.</AC.HackStackDesc>
 	<AC.ConvertStack>Convert stack ideo</AC.ConvertStack>
@@ -137,7 +138,7 @@
 	<AC.SetBodyParts>Install body parts</AC.SetBodyParts>
 	<AC.None>None</AC.None>
 	<AC.Backup>Backup</AC.Backup>
-	<AC.BackedUpStacksInMatrix>Backed up stacks in Matrix: {0}</AC.BackedUpStacksInMatrix>
+	<AC.BackedUpStacksInArray>Cortical Stack backups in saved in arrays: {0}</AC.BackedUpStacksInArray>
 	<AC.Erase>Erase</AC.Erase>
 	<AC.Backup>Backup</AC.Backup>
 	<AC.BackupNow>Backup now</AC.BackupNow>
@@ -145,15 +146,17 @@
 	<AC.CannotBackupPawnOnAnotherLocation>Cannot backup, {0} is on different location.</AC.CannotBackupPawnOnAnotherLocation>
 	<AC.CannotBackupNoPower>Cannot backup {0}, the building is not powered.</AC.CannotBackupNoPower>
 	<AC.EnableBackup>Enable automatic backup</AC.EnableBackup>
-	<AC.EnableBackupDesc>Allow the matrix to make backups of all installed cortical stacks belonging to the player who are on the local map.</AC.EnableBackupDesc>
+	<AC.EnableBackupDesc>Allow the array to make backups of all installed cortical stacks belonging to the player who are on the local map.</AC.EnableBackupDesc>
 	<AC.BackupAllStacks>Emergency Backup</AC.BackupAllStacks>
 	<AC.BackupAllStacksDesc>Force backup all installed cortical stacks belonging to the player now.</AC.BackupAllStacksDesc>
 	<AC.TimeSinceLastBackup>({0} since last backup)</AC.TimeSinceLastBackup>
 	<AC.CannotRestoreBackupNoOtherEmptyStacks>Restore stack from backup (no available empty stacks on the map)</AC.CannotRestoreBackupNoOtherEmptyStacks>
 	<AC.SuccessfullyRestoredStackFromBackup>{PAWN_nameDef} successfully restored cortical stack from backup.</AC.SuccessfullyRestoredStackFromBackup>
-	<AC.OneMatrixStorageCanBeBuild>Only one Quantum Storage Matrix can be build per colony!</AC.OneMatrixStorageCanBeBuild>
 	<AC.OrganGrowingRecipesRequiresResearch>You need to research at least one organ growing recipe.</AC.OrganGrowingRecipesRequiresResearch>
-	<AC.BackupsCompleted>Quantum Storage Matrix: Backups Completed! {0} colonists were backed up!</AC.BackupsCompleted>
+	<AC.BackupsCompleted>Quantum Storage array: Backups Completed! {0} colonists were backed up!</AC.BackupsCompleted>
+	<AC.CopyToStackAutomatically>Toggle if this person should be copied to a stack automatically.</AC.CopyToStackAutomatically>
+	<AC.EnableAutoRestore>Toggle automatic restoring</AC.EnableAutoRestore>
+	<AC.EnableAutoRestoreDesc>Toggle automatic restoring</AC.EnableAutoRestoreDesc>
 	<AC.Race>Race</AC.Race>
 	<AC.ActiveBrainTemplateDesc>Active brain template: </AC.ActiveBrainTemplateDesc>
 	<AC.AwaitingBrainTemplateDesc>Awaiting brain template: </AC.AwaitingBrainTemplateDesc>

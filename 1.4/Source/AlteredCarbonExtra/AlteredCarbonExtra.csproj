@@ -66,8 +66,8 @@
     <Publicize Include="Assembly-CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Buildings\Building_OrganIncubator.cs" />
     <Compile Include="Buildings\Building_StackStorage.cs" />
+    <Compile Include="GameComponent_DigitalStorage.cs" />
     <Compile Include="Incidents\IncidentWorker_StackRequest.cs" />
     <Compile Include="Jobs\JobDriver_CreateStackFromBackup.cs" />
     <Compile Include="Jobs\JobDriver_DuplicateStack.cs" />
