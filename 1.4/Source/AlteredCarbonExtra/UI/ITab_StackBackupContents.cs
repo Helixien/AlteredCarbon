@@ -16,7 +16,7 @@ namespace AlteredCarbon
         public ITab_StackBackupContents()
         {
             size = WinSize;
-            labelKey = "AC.Backup";
+            labelKey = "AC.Backups";
         }
         public override void FillTab()
         {

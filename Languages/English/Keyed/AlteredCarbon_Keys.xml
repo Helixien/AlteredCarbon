@@ -140,7 +140,7 @@
 	<AC.Backup>Backup</AC.Backup>
 	<AC.BackedUpStacksInArray>Cortical Stack backups in saved in arrays: {0}</AC.BackedUpStacksInArray>
 	<AC.Erase>Erase</AC.Erase>
-	<AC.Backup>Backup</AC.Backup>
+	<AC.Backups>Backups</AC.Backups>
 	<AC.BackupNow>Backup now</AC.BackupNow>
 	<AC.CannotBackupNoSuchPawn>Cannot backup {0}: there's no such pawn!</AC.CannotBackupNoSuchPawn>
 	<AC.CannotBackupPawnOnAnotherLocation>Cannot backup, {0} is on different location.</AC.CannotBackupPawnOnAnotherLocation>
@@ -154,9 +154,9 @@
 	<AC.SuccessfullyRestoredStackFromBackup>{PAWN_nameDef} successfully restored cortical stack from backup.</AC.SuccessfullyRestoredStackFromBackup>
 	<AC.OrganGrowingRecipesRequiresResearch>You need to research at least one organ growing recipe.</AC.OrganGrowingRecipesRequiresResearch>
 	<AC.BackupsCompleted>Quantum Storage array: Backups Completed! {0} colonists were backed up!</AC.BackupsCompleted>
-	<AC.CopyToStackAutomatically>Toggle if this person should be copied to a stack automatically.</AC.CopyToStackAutomatically>
+	<AC.RestoreToStackAutomatically>Toggle if this person should be restored to a new stack automatically when the current stack is destroyed.</AC.RestoreToStackAutomatically>
 	<AC.EnableAutoRestore>Toggle automatic restoring</AC.EnableAutoRestore>
-	<AC.EnableAutoRestoreDesc>Toggle automatic restoring</AC.EnableAutoRestoreDesc>
+	<AC.EnableAutoRestoreDesc>Placeholder</AC.EnableAutoRestoreDesc>
 	<AC.Race>Race</AC.Race>
 	<AC.ActiveBrainTemplateDesc>Active brain template: </AC.ActiveBrainTemplateDesc>
 	<AC.AwaitingBrainTemplateDesc>Awaiting brain template: </AC.AwaitingBrainTemplateDesc>

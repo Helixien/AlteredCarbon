@@ -60,6 +60,7 @@ namespace AlteredCarbon
             Text.Anchor = TextAnchor.UpperLeft;
             Widgets.Checkbox(new Vector2(labelWidth, num), ref option, 24, disabled: false, paintable: true);
             num += 24f;
+            SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
         }
         private void DrawThingRow(ref float y, float width, CorticalStack corticalStack, bool showDuplicateStatus)
         {

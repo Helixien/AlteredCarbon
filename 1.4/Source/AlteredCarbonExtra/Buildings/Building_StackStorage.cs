@@ -24,7 +24,7 @@ namespace AlteredCarbon
         public bool allowHostileCorticalStacks;
         public CompPowerTrader compPower;
         public bool backupIsEnabled;
-        public bool autoRestoreIsEnabled;
+        public bool autoRestoreIsEnabled = true;
         public CorticalStack stackToDuplicate;
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
@@ -98,6 +98,7 @@ namespace AlteredCarbon
                         defaultLabel = "AC.DuplicateStack".Translate(),
                         defaultDesc = "AC.DuplicateStackDesc".Translate(),
                         icon = ContentFinder<Texture2D>.Get("UI/Icons/DuplicateStack"),
+                        activateSound = SoundDefOf.Tick_Tiny,
                         action = delegate ()
                         {
                             var floatList = new List<FloatMenuOption>();
@@ -128,6 +129,7 @@ namespace AlteredCarbon
                     defaultLabel = "AC.EnableBackup".Translate(),
                     defaultDesc = "AC.EnableBackupDesc".Translate(),
                     icon = ContentFinder<Texture2D>.Get("UI/Icons/EnableBackup"),
+                    activateSound = SoundDefOf.Tick_Tiny,
                     toggleAction = delegate ()
                     {
                         backupIsEnabled = !backupIsEnabled;
@@ -142,6 +144,7 @@ namespace AlteredCarbon
                         defaultLabel = "AC.BackupAllStacks".Translate(),
                         defaultDesc = "AC.BackupAllStacksDesc".Translate(),
                         icon = ContentFinder<Texture2D>.Get("UI/Icons/BackupAllStacks"),
+                        activateSound = SoundDefOf.Tick_Tiny,
                         action = delegate
                         {
                             GameComponent_DigitalStorage.Instance.BackupAllColonistsWithStacks();
@@ -153,18 +156,18 @@ namespace AlteredCarbon
                     }
                     yield return backupAll;
                 }
-                var enableCopy = new Command_Toggle()
+                yield return new Command_Toggle()
                 {
                     defaultLabel = "AC.EnableAutoRestore".Translate(),
                     defaultDesc = "AC.EnableAutoRestoreDesc".Translate(),
                     icon = ContentFinder<Texture2D>.Get("UI/Icons/EnableAutoRestore"),
+                    activateSound = SoundDefOf.Tick_Tiny,
                     toggleAction = delegate ()
                     {
                         autoRestoreIsEnabled = !autoRestoreIsEnabled;
                     },
                     isActive = () => autoRestoreIsEnabled
                 };
-                yield return enableCopy;
             }
         }
 
@@ -238,7 +241,7 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref this.allowHostileCorticalStacks, "allowHostileCorticalStacks", false);
             Scribe_Values.Look(ref this.allowStrangerCorticalStacks, "allowStrangerCorticalStacks", false);
             Scribe_Values.Look(ref this.backupIsEnabled, "backupIsEnabled");
-            Scribe_Values.Look(ref this.autoRestoreIsEnabled, "autoRestoreIsEnabled");
+            Scribe_Values.Look(ref this.autoRestoreIsEnabled, "autoRestoreIsEnabled", true);
             Scribe_References.Look(ref this.stackToDuplicate, "stackToDuplicate");
         }
 
