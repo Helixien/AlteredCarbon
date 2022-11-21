@@ -109,18 +109,20 @@ namespace AlteredCarbon
                 allowFlip = def.graphicData.allowFlip
             };
         }
+
+        public bool FilledStack => this.def == AC_DefOf.VFEU_FilledCorticalStack || this.def == AC_DefOf.AC_FilledArchoStack;
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             corticalStacks.Add(this);
             try
             {
 
-                if (!respawningAfterLoad && !PersonaData.ContainsInnerPersona && def == AC_DefOf.VFEU_FilledCorticalStack)
+                if (!respawningAfterLoad && !PersonaData.ContainsInnerPersona && FilledStack)
                 {
                     PawnKindDef pawnKind = DefDatabase<PawnKindDef>.AllDefs.Where(x => x.RaceProps.Humanlike).RandomElement();
                     Faction faction = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction).RandomElement();
                     Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnKind, faction));
-                    PersonaData.CopyPawn(pawn);
+                    PersonaData.CopyPawn(pawn, this.def);
                     PersonaData.gender = pawn.gender;
                     PersonaData.race = pawn.kindDef.race;
                     PersonaData.stackGroupID = AlteredCarbonManager.Instance.GetStackGroupID(this);
@@ -362,12 +364,14 @@ namespace AlteredCarbon
         }
         public void EmptyStack(Pawn affecter, bool affectFactionRelationship = false)
         {
-            Thing newStack = ThingMaker.MakeThing(AC_DefOf.VFEU_EmptyCorticalStack);
+            Thing newStack = ThingMaker.MakeThing(this.GetEmptyStackVariant());
             GenPlace.TryPlaceThing(newStack, affecter.Position, affecter.Map, ThingPlaceMode.Near);
             AlteredCarbonManager.Instance.StacksIndex.Remove(PersonaData.pawnID);
             KillInnerPawn(affectFactionRelationship, affecter);
             Destroy();
         }
+
+
         public override void ExposeData()
         {
             base.ExposeData();

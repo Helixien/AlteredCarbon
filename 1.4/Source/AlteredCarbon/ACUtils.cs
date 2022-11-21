@@ -53,7 +53,23 @@ namespace AlteredCarbon
             AC_DefOf.VFEU_InstallCorticalStack.defaultIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksStranger, true);
             AC_DefOf.VFEU_InstallCorticalStack.defaultIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksHostile, true);
         }
+        public static ThingDef GetEmptyStackVariant(this CorticalStack corticalStack)
+        {
+            if (corticalStack.def == AC_DefOf.AC_FilledArchoStack)
+            {
+                return AC_DefOf.AC_EmptyArchoStack;
+            }
+            return AC_DefOf.VFEU_EmptyCorticalStack;
+        }
 
+        public static ThingDef GetFilledStackVariant(this CorticalStack corticalStack)
+        {
+            if (corticalStack.def == AC_DefOf.AC_EmptyArchoStack)
+            {
+                return AC_DefOf.AC_FilledArchoStack;
+            }
+            return AC_DefOf.VFEU_FilledCorticalStack;
+        }
         public static void UpdateGraphic(this Pawn pawn)
         {
             pawn.Drawer.renderer.graphics.ResolveAllGraphics();

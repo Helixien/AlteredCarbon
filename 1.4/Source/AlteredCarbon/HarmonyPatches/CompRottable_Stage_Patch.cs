@@ -21,8 +21,9 @@ namespace AlteredCarbon
             {
                 try
                 {
-                    var corticalStack = ThingMaker.MakeThing(AC_DefOf.VFEU_FilledCorticalStack) as CorticalStack;
-                    corticalStack.PersonaData.CopyPawn(corpse.InnerPawn);
+                    var stackDef = hediff.PersonaData.sourceStack ?? AC_DefOf.VFEU_FilledCorticalStack;
+                    var corticalStack = ThingMaker.MakeThing(stackDef) as CorticalStack;
+                    corticalStack.PersonaData.CopyPawn(corpse.InnerPawn, stackDef);
                     GenPlace.TryPlaceThing(corticalStack, corpse.Position, corpse.Map, ThingPlaceMode.Near);
                     corpse.InnerPawn.health.hediffSet.hediffs.RemoveAll(x => x.def == AC_DefOf.VFEU_CorticalStack);
                 }

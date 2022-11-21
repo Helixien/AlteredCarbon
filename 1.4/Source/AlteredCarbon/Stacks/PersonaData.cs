@@ -12,6 +12,7 @@ namespace AlteredCarbon
     [HotSwappable]
     public class PersonaData : IExposable
     {
+        public ThingDef sourceStack;
         public Name name;
         public Pawn origPawn;
         private int hostilityMode;
@@ -178,8 +179,9 @@ namespace AlteredCarbon
             }
         }
 
-        public void CopyPawn(Pawn pawn, bool copyRaceGenderInfo = false)
+        public void CopyPawn(Pawn pawn, ThingDef sourceStack, bool copyRaceGenderInfo = false)
         {
+            this.sourceStack = sourceStack;
             name = pawn.Name;
             origPawn = pawn;
             if (pawn.playerSettings != null)
@@ -387,6 +389,7 @@ namespace AlteredCarbon
         }
         public void CopyDataFrom(PersonaData other, bool isDuplicateOperation = false)
         {
+            sourceStack = other.sourceStack;
             name = other.name;
             origPawn = other.origPawn;
             hostilityMode = other.hostilityMode;
@@ -1124,6 +1127,7 @@ namespace AlteredCarbon
             Scribe_Deep.Look(ref psychologyData, "psychologyData");
             Scribe_Deep.Look(ref rjwData, "rjwData");
             Scribe_Values.Look(ref restoreToEmptyStack, "restoreToEmptyStack", true);
+            Scribe_Defs.Look(ref sourceStack, "sourceStack");
         }
 
         private List<Faction> favorKeys = new List<Faction>();

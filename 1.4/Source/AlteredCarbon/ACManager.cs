@@ -57,6 +57,10 @@ namespace AlteredCarbon
             }
 
             ResetStackLimitIfNeeded(AC_DefOf.VFEU_FilledCorticalStack);
+            if (AC_DefOf.AC_FilledArchoStack != null)
+            {
+                ResetStackLimitIfNeeded(AC_DefOf.AC_FilledArchoStack);
+            }
         }
         public override void StartedNewGame()
         {
