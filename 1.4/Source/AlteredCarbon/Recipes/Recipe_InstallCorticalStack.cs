@@ -108,7 +108,8 @@ namespace AlteredCarbon
                         var copy = new PersonaData();
 
                         corticalStack.PersonaData.ErasePawn(dummyPawn);
-                        copy.CopyPawn(pawn); // we create a copy of original pawn
+                        var sourceStack = hediff.PersonaData.sourceStack ?? AC_DefOf.VFEU_FilledCorticalStack;
+                        copy.CopyPawn(pawn, sourceStack); // we create a copy of original pawn
                         copy.OverwritePawn(pawnToOverwrite: dummyPawn, null, original: pawn);
                         CopyAllPhysicalDataFrom(pawn, dummyPawn);
                         corticalStack.PersonaData.ErasePawn(pawn);

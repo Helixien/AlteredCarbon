@@ -22,6 +22,7 @@ namespace AlteredCarbon
         [MayRequireHelixienMod] public static PawnRelationDef AC_Copy;
         [MayRequireHelixienMod] public static ThingDef AC_FilledArchoStack;
         [MayRequireHelixienMod] public static ThingDef AC_EmptyArchoStack;
+        [MayRequireHelixienMod] public static HediffDef AC_ArchoStack;
 
         public static VEBackstoryDef VFEU_VatGrownChild;
         public static VEBackstoryDef VFEU_VatGrownAdult;

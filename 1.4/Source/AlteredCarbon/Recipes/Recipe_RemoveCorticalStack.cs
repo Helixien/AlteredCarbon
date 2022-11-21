@@ -38,7 +38,7 @@ namespace AlteredCarbon
 				if (pawn.HasCorticalStack(out var hediff))
 				{
 					var corticalStack = ThingMaker.MakeThing(hediff.def.spawnThingOnRemoved) as CorticalStack;
-					hediff.PersonaData.CopyPawn(pawn);
+					hediff.PersonaData.CopyPawn(pawn, corticalStack.def);
 					corticalStack.PersonaData.CopyDataFrom(hediff.PersonaData);
 					corticalStack.PersonaData.gender = hediff.PersonaData.gender;
 					corticalStack.PersonaData.race = hediff.PersonaData.race;

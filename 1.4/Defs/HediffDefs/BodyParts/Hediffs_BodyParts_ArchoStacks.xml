@@ -25,7 +25,7 @@
 		<label>empty archo stack</label>
 		<description>Text.Todo</description>
 		<descriptionHyperlinks>
-			<RecipeDef>VFEU_InstallCorticalStack</RecipeDef>
+			<RecipeDef>AC_InstallEmptyArchoStack</RecipeDef>
 		</descriptionHyperlinks>
 		<drawGUIOverlay>true</drawGUIOverlay>
 		<thingClass>AlteredCarbon.CorticalStack</thingClass>
@@ -46,7 +46,7 @@
 		<label>archo stack</label>
 		<description>Text.Todo</description>
 		<descriptionHyperlinks>
-			<RecipeDef>VFEU_InstallCorticalStack</RecipeDef>
+			<RecipeDef>AC_InstallArchoStack</RecipeDef>
 		</descriptionHyperlinks>
 		<inspectorTabs>
 			<li>ITab_Pawn_Character</li>

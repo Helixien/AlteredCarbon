@@ -181,7 +181,7 @@ namespace AlteredCarbon
 
         public void CopyPawn(Pawn pawn, ThingDef sourceStack, bool copyRaceGenderInfo = false)
         {
-            this.sourceStack = sourceStack;
+            this.sourceStack = sourceStack ?? AC_DefOf.VFEU_FilledCorticalStack;
             name = pawn.Name;
             origPawn = pawn;
             if (pawn.playerSettings != null)

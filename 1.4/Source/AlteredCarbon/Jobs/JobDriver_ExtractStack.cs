@@ -36,7 +36,8 @@ namespace AlteredCarbon
                             }
                             else
                             {
-                                corticalStack.PersonaData.CopyPawn(corpse.InnerPawn);
+                                var sourceStack = hediff.PersonaData.sourceStack ?? AC_DefOf.VFEU_FilledCorticalStack;
+                                corticalStack.PersonaData.CopyPawn(corpse.InnerPawn, sourceStack);
                             }
                             GenPlace.TryPlaceThing(corticalStack, TargetThingA.Position, GetActor().Map, ThingPlaceMode.Near);
                             AlteredCarbonManager.Instance.RegisterStack(corticalStack);

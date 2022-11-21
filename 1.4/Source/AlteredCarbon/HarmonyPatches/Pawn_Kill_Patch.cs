@@ -61,7 +61,7 @@ namespace AlteredCarbon
                     }
                     else
                     {
-                        corticalStackThing.PersonaData.CopyPawn(__instance);
+                        corticalStackThing.PersonaData.CopyPawn(__instance, stackHediff.PersonaData.sourceStack);
                     }
                     AlteredCarbonManager.Instance.RegisterStack(corticalStackThing);
                     AlteredCarbonManager.Instance.RegisterSleeve(__instance, corticalStackThing.PersonaData.stackGroupID);

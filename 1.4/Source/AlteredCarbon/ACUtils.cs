@@ -136,10 +136,18 @@ namespace AlteredCarbon
 
         public static bool HasCorticalStack(this Pawn pawn, out Hediff_CorticalStack hediff_CorticalStack)
         {
-            if (pawn?.health?.hediffSet?.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is Hediff_CorticalStack hediff)
+            if (pawn?.health?.hediffSet != null)
             {
-                hediff_CorticalStack = hediff;
-                return true;
+                if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is Hediff_CorticalStack hediff)
+                {
+                    hediff_CorticalStack = hediff;
+                    return true;
+                }
+                else if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_ArchoStack) is Hediff_CorticalStack hediff2)
+                {
+                    hediff_CorticalStack = hediff2;
+                    return true;
+                }
             }
             hediff_CorticalStack = null;
             return false;

@@ -17,7 +17,7 @@ namespace AlteredCarbon
                 if (personaData is null)
                 {
                     personaData = new PersonaData();
-                    personaData.CopyPawn(pawn, true);
+                    personaData.CopyPawn(pawn, AC_DefOf.VFEU_FilledCorticalStack, true);
                 }
                 return personaData;
             }
@@ -29,12 +29,12 @@ namespace AlteredCarbon
 
         public void TryRecoverOrSpawnOnGround()
         {
-            PersonaData.CopyPawn(this.pawn);
+            PersonaData.CopyPawn(this.pawn, PersonaData.sourceStack);
             if (Rand.Chance(0.25f))
             {
                 StatsRecord_Notify_ColonistKilled_Patch.disableKilledEffect = true;
                 var corticalStack = ThingMaker.MakeThing(this.def.spawnThingOnRemoved) as CorticalStack;
-                corticalStack.PersonaData.CopyPawn(pawn);
+                corticalStack.PersonaData.CopyPawn(pawn, corticalStack.def);
                 GenPlace.TryPlaceThing(corticalStack, pawn.Position, pawn.Map, ThingPlaceMode.Near);
             }
             pawn.health.RemoveHediff(this);
@@ -70,7 +70,7 @@ namespace AlteredCarbon
         {
             if (!PersonaData.ContainsInnerPersona)
             {
-                PersonaData.CopyPawn(this.pawn);
+                PersonaData.CopyPawn(this.pawn, PersonaData.sourceStack);
             }
             base.Notify_PawnDied();
         }
@@ -79,7 +79,7 @@ namespace AlteredCarbon
         {
             if (!PersonaData.ContainsInnerPersona)
             {
-                PersonaData.CopyPawn(this.pawn);
+                PersonaData.CopyPawn(this.pawn, PersonaData.sourceStack);
             }
             base.Notify_PawnKilled();
         }
