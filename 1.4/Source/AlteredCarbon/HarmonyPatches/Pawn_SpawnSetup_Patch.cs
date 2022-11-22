@@ -5,6 +5,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
+
     [HarmonyPatch(typeof(Pawn), "SpawnSetup")]
     public static class Pawn_SpawnSetup_Patch
     {

@@ -23,6 +23,8 @@ namespace AlteredCarbon
         [MayRequireHelixienMod] public static ThingDef AC_FilledArchoStack;
         [MayRequireHelixienMod] public static ThingDef AC_EmptyArchoStack;
         [MayRequireHelixienMod] public static HediffDef AC_ArchoStack;
+        [MayRequireHelixienMod] public static RecipeDef AC_InstallArchoStack;
+        [MayRequireHelixienMod] public static RecipeDef AC_InstallEmptyArchoStack;
 
         public static VEBackstoryDef VFEU_VatGrownChild;
         public static VEBackstoryDef VFEU_VatGrownAdult;

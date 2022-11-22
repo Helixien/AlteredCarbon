@@ -154,7 +154,8 @@ namespace AlteredCarbon
             TargetingParameters targetingParameters = new TargetingParameters
             {
                 canTargetPawns = true,
-                validator = (TargetInfo x) => x.Thing is Pawn pawn && pawn.RaceProps.Humanlike && pawn.DevelopmentalStage == DevelopmentalStage.Adult
+                validator = (TargetInfo x) => x.Thing is Pawn pawn && pawn.RaceProps.Humanlike 
+                && pawn.DevelopmentalStage == DevelopmentalStage.Adult
             };
             return targetingParameters;
         }
@@ -164,19 +165,19 @@ namespace AlteredCarbon
             {
                 yield return g;
             }
-            if (def == AC_DefOf.VFEU_FilledCorticalStack)
+            if (ACUtils.stackRecipesByDef.TryGetValue(this.def, out var installInfo))
             {
                 var installStack = new Command_Action
                 {
-                    defaultLabel = "AC.InstallStack".Translate(),
-                    defaultDesc = "AC.InstallStackDesc".Translate(),
+                    defaultLabel = installInfo.installLabel,
+                    defaultDesc = installInfo.installDesc,
                     activateSound = SoundDefOf.Tick_Tiny,
-                    icon = ContentFinder<Texture2D>.Get("UI/Icons/InstallStack"),
+                    icon = installInfo.installIcon,
                     action = delegate ()
                     {
                         Find.Targeter.BeginTargeting(ForPawn(), delegate (LocalTargetInfo x)
                         {
-                            InstallStackRecipe(x.Pawn);
+                            InstallStackRecipe(x.Pawn, installInfo.recipe);
                         });
                     }
                 };
@@ -184,12 +185,22 @@ namespace AlteredCarbon
             }
         }
 
-        public void InstallStackRecipe(Pawn medPawn)
+        public void InstallStackRecipe(Pawn medPawn, RecipeDef recipe)
         {
-            RecipeDef recipe = AC_DefOf.VFEU_InstallCorticalStack;
-            if (medPawn.HasStack())
+            if (medPawn.HasCorticalStack(out var stackHediff) && (stackHediff.def == recipe.addsHediff || stackHediff.def == AC_DefOf.AC_ArchoStack))
             {
-                Messages.Message("AC.PawnAlreadyHasStack".Translate(medPawn.Named("PAWN")), MessageTypeDefOf.CautionInput);
+                if (stackHediff.def != recipe.addsHediff)
+                {
+                    Messages.Message("AC.PawnStackCannotDowngrade".Translate(medPawn.Named("PAWN")), MessageTypeDefOf.CautionInput);
+                }
+                else if (stackHediff.def == AC_DefOf.VFEU_CorticalStack)
+                {
+                    Messages.Message("AC.PawnAlreadyHasStack".Translate(medPawn.Named("PAWN")), MessageTypeDefOf.CautionInput);
+                }
+                else
+                {
+                    Messages.Message("AC.PawnAlreadyHasArchoStack".Translate(medPawn.Named("PAWN")), MessageTypeDefOf.CautionInput);
+                }
             }
             else if (recipe.Worker.GetPartsToApplyOn(medPawn, recipe).FirstOrDefault() is null)
             {

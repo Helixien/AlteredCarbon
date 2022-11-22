@@ -58,7 +58,6 @@ namespace AlteredCarbon
 					AlteredCarbonManager.Instance.RegisterSleeve(pawn, hediff.PersonaData.stackGroupID);
 					AlteredCarbonManager.Instance.deadPawns.Add(pawn);
 
-
 					if (LookTargets_Patch.targets.TryGetValue(pawn, out var targets))
 					{
 						foreach (var target in targets)

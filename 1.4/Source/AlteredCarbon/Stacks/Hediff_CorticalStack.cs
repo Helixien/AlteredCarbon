@@ -65,7 +65,6 @@ namespace AlteredCarbon
             }
         }
         public override bool ShouldRemove => false;
-
         public override void Notify_PawnDied()
         {
             if (!PersonaData.ContainsInnerPersona)
@@ -84,10 +83,11 @@ namespace AlteredCarbon
             base.Notify_PawnKilled();
         }
 
+        public bool preventKill;
         public override void PostRemoved()
         {
             base.PostRemoved();
-            if (!this.pawn.Dead)
+            if (!preventKill && !this.pawn.Dead)
             {
                 this.pawn.Kill(null);
             }

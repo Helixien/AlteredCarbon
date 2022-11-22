@@ -3,20 +3,67 @@ using RimWorld;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using UnityEngine;
 using Verse;
 
 namespace AlteredCarbon
 {
+    public struct StackInstallInfo
+    {
+        public RecipeDef recipe;
+        public string installLabel;
+        public string installDesc;
+        public Texture2D installIcon;
+    }
     [StaticConstructorOnStartup]
     public static class ACUtils
     {
         public static Harmony harmony;
 
         public static Dictionary<string, List<GeneDef>> genesByCategories = new Dictionary<string, List<GeneDef>>();
+        public static Dictionary<ThingDef, ThingDef> stacksPairs = new Dictionary<ThingDef, ThingDef>
+        {
+            { AC_DefOf.VFEU_FilledCorticalStack, AC_DefOf.VFEU_EmptyCorticalStack },
+        };
+        public static Dictionary<ThingDef, StackInstallInfo> stackRecipesByDef = new Dictionary<ThingDef, StackInstallInfo>
+        {
+            { 
+                AC_DefOf.VFEU_FilledCorticalStack, new StackInstallInfo
+                {
+                    recipe = AC_DefOf.VFEU_InstallCorticalStack, 
+                    installLabel = "AC.InstallStack".Translate(), 
+                    installDesc = "AC.InstallStackDesc".Translate(),
+                    installIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallStack")
+                }
+            },
+        };
+        public static HashSet<RecipeDef> installEmptyStacksRecipes = new HashSet<RecipeDef>
+        {
+            AC_DefOf.VFEU_InstallEmptyCorticalStack
+        };
+        public static HashSet<RecipeDef> installFilledStacksRecipes = new HashSet<RecipeDef>
+        {
+            AC_DefOf.VFEU_InstallCorticalStack
+        };
+
         static ACUtils()
         {
             harmony = new Harmony("Altered.Carbon");
             harmony.PatchAll();
+
+            if (ModCompatibility.HelixienAlteredCarbonIsActive)
+            {
+                stackRecipesByDef[AC_DefOf.AC_FilledArchoStack] = new StackInstallInfo
+                {
+                    recipe = AC_DefOf.AC_InstallArchoStack,
+                    installLabel = "AC.InstallArchoStack".Translate(),
+                    installDesc = "AC.InstallArchoStackDesc".Translate(),
+                    installIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallArchoStack")
+                };
+                stacksPairs[AC_DefOf.AC_FilledArchoStack] = AC_DefOf.AC_EmptyArchoStack;
+                installEmptyStacksRecipes.Add(AC_DefOf.AC_InstallEmptyArchoStack);
+                installFilledStacksRecipes.Add(AC_DefOf.AC_InstallArchoStack);
+            }
 
             foreach (var gene in DefDatabase<GeneDef>.AllDefs)
             {
@@ -38,20 +85,24 @@ namespace AlteredCarbon
                 }
             }
 
-            foreach (IngredientCount li in AC_DefOf.VFEU_InstallCorticalStack.ingredients)
+            foreach (var info in stackRecipesByDef.Values)
             {
-                li.filter.SetAllow(AC_DefOf.VFEU_AllowStacksColonist, true);
-                li.filter.SetAllow(AC_DefOf.VFEU_AllowStacksStranger, true);
-                li.filter.SetAllow(AC_DefOf.VFEU_AllowStacksHostile, true);
+                foreach (IngredientCount li in info.recipe.ingredients)
+                {
+                    li.filter.SetAllow(AC_DefOf.VFEU_AllowStacksColonist, true);
+                    li.filter.SetAllow(AC_DefOf.VFEU_AllowStacksStranger, true);
+                    li.filter.SetAllow(AC_DefOf.VFEU_AllowStacksHostile, true);
+                }
+
+                info.recipe.fixedIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksColonist, true);
+                info.recipe.fixedIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksStranger, true);
+                info.recipe.fixedIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksHostile, true);
+
+                info.recipe.defaultIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksColonist, true);
+                info.recipe.defaultIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksStranger, true);
+                info.recipe.defaultIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksHostile, true);
             }
 
-            AC_DefOf.VFEU_InstallCorticalStack.fixedIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksColonist, true);
-            AC_DefOf.VFEU_InstallCorticalStack.fixedIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksStranger, true);
-            AC_DefOf.VFEU_InstallCorticalStack.fixedIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksHostile, true);
-
-            AC_DefOf.VFEU_InstallCorticalStack.defaultIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksColonist, true);
-            AC_DefOf.VFEU_InstallCorticalStack.defaultIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksStranger, true);
-            AC_DefOf.VFEU_InstallCorticalStack.defaultIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksHostile, true);
         }
         public static ThingDef GetEmptyStackVariant(this CorticalStack corticalStack)
         {
@@ -203,6 +254,7 @@ namespace AlteredCarbon
             Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.disableKilledEffect = true;
             StatsRecord_Notify_ColonistKilled_Patch.disableKilledEffect = true;
             Pawn_RoyaltyTracker_Notify_PawnKilled_Patch.disableKilledEffect = true;
+            Ideo_Notify_MemberDied_Patch.disableKilledEffect = true;
         }
         public static bool HasStack(this Pawn pawn)
         {

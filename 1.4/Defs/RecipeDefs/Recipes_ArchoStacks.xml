@@ -7,7 +7,7 @@
 		<descriptionHyperlinks>
 			<ThingDef>AC_EmptyArchoStack</ThingDef>
 		</descriptionHyperlinks>
-		<workerClass>AlteredCarbon.Recipe_RemoveCorticalStack</workerClass>
+		<workerClass>AlteredCarbon.Recipe_InstallCorticalStack</workerClass>
 		<jobString>Installing archo stack.</jobString>
 		<uiIconThing>AC_EmptyArchoStack</uiIconThing>
 		<ingredients>

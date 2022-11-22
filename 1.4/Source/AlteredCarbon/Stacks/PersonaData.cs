@@ -83,6 +83,14 @@ namespace AlteredCarbon
         private List<Thing> bondedThings = new List<Thing>();
         private List<FactionPermit> factionPermits = new List<FactionPermit>();
         private Dictionary<Faction, int> permitPoints = new Dictionary<Faction, int>();
+        private int? psylinkLevel;
+        private float currentEntropy;
+        public bool limitEntropyAmount = true;
+        private float currentPsyfocus = -1f;
+        private float targetPsyfocus = 0.5f;
+
+        private List<AbilityDef> abilities = new List<AbilityDef>();
+        private List<VFECore.Abilities.AbilityDef> VEAbilities = new List<VFECore.Abilities.AbilityDef>();
 
         // Ideology
         public Ideo ideo;
@@ -125,7 +133,10 @@ namespace AlteredCarbon
         }
         public void RefreshDummyPawn()
         {
-            dummyPawn = PawnGenerator.GeneratePawn(PawnKindDefOf.Colonist, Faction.OfPlayer);
+            if (dummyPawn is null)
+            {
+                dummyPawn = PawnGenerator.GeneratePawn(PawnKindDefOf.Colonist, Faction.OfPlayer);
+            }
             OverwritePawn(dummyPawn, null);
             if (origPawn != null)
             {
@@ -253,6 +264,30 @@ namespace AlteredCarbon
                     priorities[w] = pawn.workSettings.GetPriority(w);
                 }
             }
+            if (this.sourceStack == AC_DefOf.AC_FilledArchoStack)
+            {
+                if (pawn.HasPsylink)
+                {
+                    psylinkLevel = pawn.GetPsylinkLevel();
+                }
+                if (pawn.psychicEntropy != null)
+                {
+                    this.currentEntropy = pawn.psychicEntropy.currentEntropy;
+                    this.currentPsyfocus = pawn.psychicEntropy.currentPsyfocus;
+                    this.limitEntropyAmount = pawn.psychicEntropy.limitEntropyAmount;
+                    this.targetPsyfocus = pawn.psychicEntropy.targetPsyfocus;
+                }
+                if (pawn.abilities?.abilities != null)
+                {
+                    abilities = pawn.abilities.abilities.Select(x => x.def).ToList();
+                }
+
+                var comp = pawn.GetComp<VFECore.Abilities.CompAbilities>();
+                if (comp != null && comp.LearnedAbilities != null)
+                {
+                    VEAbilities = comp.LearnedAbilities.Select(x => x.def).ToList();
+                }
+            }
 
             if (pawn.guest != null)
             {
@@ -277,6 +312,7 @@ namespace AlteredCarbon
                 getRescuedThoughtOnUndownedBecauseOfPlayer = pawn.guest.getRescuedThoughtOnUndownedBecauseOfPlayer;
                 recruitable = pawn.guest.recruitable;
             }
+
             if (pawn.records != null)
             {
                 records = Traverse.Create(pawn.records).Field("records").GetValue<DefMap<RecordDef, float>>();
@@ -421,6 +457,14 @@ namespace AlteredCarbon
             title = other.title;
             priorities = other.priorities;
 
+            psylinkLevel = other.psylinkLevel;
+            abilities = other.abilities;
+            VEAbilities = other.VEAbilities;
+            currentEntropy = other.currentEntropy;
+            currentPsyfocus = other.currentPsyfocus;
+            limitEntropyAmount = other.limitEntropyAmount;
+            targetPsyfocus = other.targetPsyfocus;
+
             guestStatusInt = other.guestStatusInt;
             interactionMode = other.interactionMode;
             slaveInteractionMode = other.slaveInteractionMode;
@@ -502,6 +546,7 @@ namespace AlteredCarbon
         }
         public void OverwritePawn(Pawn pawnToOverwrite, StackSavingOptionsModExtension extension, Pawn original = null)
         {
+            Log.Message("OverwritePawn: " + pawnToOverwrite);
             PawnComponentsUtility.CreateInitialComponents(pawnToOverwrite);
             if (pawnToOverwrite.Faction != faction)
             {
@@ -703,6 +748,55 @@ namespace AlteredCarbon
                                     thought.otherPawn = pawnToOverwrite;
                                 }
                             }
+                        }
+                    }
+                }
+            }
+
+            pawnToOverwrite.abilities = new Pawn_AbilityTracker(pawnToOverwrite);
+            var compAbilities = pawnToOverwrite.GetComp<VFECore.Abilities.CompAbilities>();
+            if (compAbilities != null)
+            {
+                compAbilities.LearnedAbilities.Clear();
+            }
+            pawnToOverwrite.psychicEntropy = new Pawn_PsychicEntropyTracker(pawnToOverwrite);
+            if (this.sourceStack == AC_DefOf.AC_FilledArchoStack)
+            {
+                if (this.psylinkLevel.HasValue)
+                {
+                    var hediff_Level = pawnToOverwrite.GetMainPsylinkSource() as Hediff_Psylink;
+                    if (hediff_Level == null)
+                    {
+                        Hediff_Psylink_TryGiveAbilityOfLevel_Patch.suppress = true;
+                        hediff_Level = HediffMaker.MakeHediff(HediffDefOf.PsychicAmplifier, pawnToOverwrite,
+                            pawnToOverwrite.health.hediffSet.GetBrain()) as Hediff_Psylink;
+                        pawnToOverwrite.health.AddHediff(hediff_Level);
+                        Hediff_Psylink_TryGiveAbilityOfLevel_Patch.suppress = false;
+                    }
+                    var levelOffset = this.psylinkLevel.Value - hediff_Level.level;
+                    hediff_Level.level = (int)Mathf.Clamp(hediff_Level.level + levelOffset, hediff_Level.def.minSeverity, hediff_Level.def.maxSeverity);
+                }
+
+                pawnToOverwrite.psychicEntropy.currentEntropy = currentEntropy;
+                pawnToOverwrite.psychicEntropy.currentPsyfocus = currentPsyfocus;
+                pawnToOverwrite.psychicEntropy.limitEntropyAmount = limitEntropyAmount;
+                pawnToOverwrite.psychicEntropy.targetPsyfocus = targetPsyfocus;
+
+                if (abilities.NullOrEmpty() is false)
+                {
+                    foreach (var def in abilities)
+                    {
+                        pawnToOverwrite.abilities.GainAbility(def);
+                    }
+                }
+
+                if (VEAbilities.NullOrEmpty() is false)
+                {
+                    if (compAbilities != null)
+                    {
+                        foreach (var ability in VEAbilities)
+                        {
+                            compAbilities.GiveAbility(ability);
                         }
                     }
                 }
@@ -1128,6 +1222,14 @@ namespace AlteredCarbon
             Scribe_Deep.Look(ref rjwData, "rjwData");
             Scribe_Values.Look(ref restoreToEmptyStack, "restoreToEmptyStack", true);
             Scribe_Defs.Look(ref sourceStack, "sourceStack");
+            Scribe_Values.Look(ref psylinkLevel, "psylinkLevel");
+            Scribe_Collections.Look(ref abilities, "abilities", LookMode.Def);
+            Scribe_Collections.Look(ref VEAbilities, "VEAbilities", LookMode.Def);
+            Scribe_Values.Look(ref currentEntropy, "currentEntropy");
+            Scribe_Values.Look(ref currentPsyfocus, "currentPsyfocus");
+            Scribe_Values.Look(ref limitEntropyAmount, "limitEntropyAmount");
+            Scribe_Values.Look(ref targetPsyfocus, "targetPsyfocus");
+
         }
 
         private List<Faction> favorKeys = new List<Faction>();

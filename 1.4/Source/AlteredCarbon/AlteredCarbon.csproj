@@ -73,6 +73,8 @@
     <Compile Include="HarmonyPatches\BedPatches\FeedPatientUtility_ShouldBeFed_Patch.cs" />
     <Compile Include="HarmonyPatches\Fire_DoFireDamage_Patch.cs" />
     <Compile Include="HarmonyPatches\Hediff_PostAdd_Patch.cs" />
+    <Compile Include="HarmonyPatches\Hediff_Psylink_TryGiveAbilityOfLevel_Patch.cs" />
+    <Compile Include="HarmonyPatches\Ideo_Notify_MemberDied_Patch.cs" />
     <Compile Include="HarmonyPatches\Ideo_RecacheColonistBelieverCount_Patch.cs" />
     <Compile Include="HarmonyPatches\ITab_Pawn_Character_PawnToShowInfoAbout_Patch.cs" />
     <Compile Include="HarmonyPatches\LetterStack_ReceiveLetter_Patch.cs" />
@@ -94,6 +96,7 @@
     <Compile Include="HarmonyPatches\BedPatches\RestUtility_Reset_Patch.cs" />
     <Compile Include="HarmonyPatches\BestowingPatches\Reward_BestowingCeremony_StackElements_Patch.cs" />
     <Compile Include="HarmonyPatches\PregnancyUtility_ApplyBirthOutcome_Patch.cs" />
+    <Compile Include="HarmonyPatches\RitualObligationTrigger_MemberDied_Notify_MemberDied_Patch.cs" />
     <Compile Include="HarmonyPatches\SocialCardUtility_GetPawnSituationLabel_Patch.cs" />
     <Compile Include="HarmonyPatches\StatsRecord_Notify_ColonistKilled_Patch.cs" />
     <Compile Include="UI\Dialog_PresetList.cs" />

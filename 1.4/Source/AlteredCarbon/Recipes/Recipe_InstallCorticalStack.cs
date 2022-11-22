@@ -20,7 +20,13 @@ namespace AlteredCarbon
     {
         public override bool AvailableOnNow(Thing thing, BodyPartRecord part = null)
         {
-            if (thing is Pawn pawn && pawn.DevelopmentalStage != DevelopmentalStage.Adult)
+            var pawn = thing as Pawn;
+            if (pawn.DevelopmentalStage != DevelopmentalStage.Adult)
+            {
+                return false;
+            }
+            if (pawn.HasCorticalStack(out var stackHediff) 
+                && (stackHediff.def == AC_DefOf.AC_ArchoStack || this.recipe.addsHediff == stackHediff.def))
             {
                 return false;
             }
@@ -76,6 +82,16 @@ namespace AlteredCarbon
                     return;
                 }
                 TaleRecorder.RecordTale(TaleDefOf.DidSurgery, billDoer, pawn);
+            }
+
+            if (pawn.HasCorticalStack(out var stackHediff))
+            {
+                var sourceStack = stackHediff.PersonaData.sourceStack ?? AC_DefOf.VFEU_FilledCorticalStack;
+                var emptyStack = ACUtils.stacksPairs[sourceStack];
+                var stack = ThingMaker.MakeThing(emptyStack);
+                GenPlace.TryPlaceThing(stack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
+                stackHediff.preventKill = true;
+                pawn.health.RemoveHediff(stackHediff);
             }
 
             var thing = ingredients.Where(x => x is CorticalStack).FirstOrDefault();
