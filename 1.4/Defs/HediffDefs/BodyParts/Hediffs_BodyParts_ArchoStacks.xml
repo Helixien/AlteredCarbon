@@ -6,10 +6,11 @@
 			<texPath>Things/Item/Health/HealthItem</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
+		<destroyable>false</destroyable>
+		<useHitPoints>false</useHitPoints>
 		<uiIconForStackCount>1</uiIconForStackCount>
 		<stackLimit>25</stackLimit>
 		<tradeNeverStack>false</tradeNeverStack>
-		<useHitPoints>true</useHitPoints>
 		<techHediffsTags Inherit="False">
 			<li>Archotech</li>
 		</techHediffsTags>

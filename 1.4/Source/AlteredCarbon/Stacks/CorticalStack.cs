@@ -110,7 +110,25 @@ namespace AlteredCarbon
             };
         }
 
+        public override void Tick()
+        {
+            base.Tick();
+            if (this.Spawned && this.ArchoStack)
+            {
+                var edifice = this.Position.GetEdifice(MapHeld);
+                if (edifice != null)
+                {
+                    var map = this.Map;
+                    var pos = this.Position;
+                    this.DeSpawn();
+                    GenPlace.TryPlaceThing(this, pos, map, ThingPlaceMode.Near);
+                    FleckMaker.Static(this.Position, this.Map, AC_DefOf.PsycastAreaEffect, 3f);
+                }
+            }
+        }
         public bool FilledStack => this.def == AC_DefOf.VFEU_FilledCorticalStack || this.def == AC_DefOf.AC_FilledArchoStack;
+
+        public bool ArchoStack => this.def == AC_DefOf.AC_EmptyArchoStack || this.def == AC_DefOf.AC_FilledArchoStack;
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             corticalStacks.Add(this);
@@ -127,8 +145,6 @@ namespace AlteredCarbon
                     PersonaData.race = pawn.kindDef.race;
                     PersonaData.stackGroupID = AlteredCarbonManager.Instance.GetStackGroupID(this);
                     AlteredCarbonManager.Instance.RegisterStack(this);
-                    AlteredCarbonManager.Instance.StacksIndex[pawn.thingIDNumber] = this;
-
                     if (LookTargets_Patch.targets.TryGetValue(pawn, out List<LookTargets> targets))
                     {
                         foreach (LookTargets target in targets)
@@ -154,11 +170,11 @@ namespace AlteredCarbon
             TargetingParameters targetingParameters = new TargetingParameters
             {
                 canTargetPawns = true,
-                validator = (TargetInfo x) => x.Thing is Pawn pawn && pawn.RaceProps.Humanlike 
-                && pawn.DevelopmentalStage == DevelopmentalStage.Adult
+                validator = (TargetInfo x) => x.Thing is Pawn pawn && ACUtils.CanImplantStackTo(ACUtils.stackRecipesByDef[this.def].recipe.addsHediff, pawn)
             };
             return targetingParameters;
         }
+
         public override IEnumerable<Gizmo> GetGizmos()
         {
             foreach (Gizmo g in base.GetGizmos())
@@ -341,6 +357,10 @@ namespace AlteredCarbon
         }
         public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
         {
+            if (this.ArchoStack)
+            {
+                return;
+            }
             corticalStacks.Remove(this);
             base.Destroy(mode);
             if (PersonaData.ContainsInnerPersona && !dontKillThePawn)

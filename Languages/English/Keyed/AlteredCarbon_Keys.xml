@@ -107,6 +107,7 @@
 	<AC.AllowColonistStacks>*Allow colonist cortical stacks</AC.AllowColonistStacks>
 	<AC.AllowStrangerStacks>*Allow stranger cortical stacks</AC.AllowStrangerStacks>
 	<AC.AllowHostileStacks>*Allow hostile cortical stacks</AC.AllowHostileStacks>
+	<AC.AllowArchoStacks>*Allow archo stacks</AC.AllowArchoStacks>
 	<AC.Copy>Copy</AC.Copy>
 	<AC.Original>Original</AC.Original>
 	<AC.SuccessfullyDuplicatedStack>{PAWN_nameDef} successfully duplicated cortical stack.</AC.SuccessfullyDuplicatedStack>

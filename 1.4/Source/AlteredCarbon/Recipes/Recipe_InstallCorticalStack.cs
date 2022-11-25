@@ -21,16 +21,11 @@ namespace AlteredCarbon
         public override bool AvailableOnNow(Thing thing, BodyPartRecord part = null)
         {
             var pawn = thing as Pawn;
-            if (pawn.DevelopmentalStage != DevelopmentalStage.Adult)
+            if (ACUtils.CanImplantStackTo(this.recipe.addsHediff, pawn))
             {
-                return false;
+                return base.AvailableOnNow(thing, part);
             }
-            if (pawn.HasCorticalStack(out var stackHediff) 
-                && (stackHediff.def == AC_DefOf.AC_ArchoStack || this.recipe.addsHediff == stackHediff.def))
-            {
-                return false;
-            }
-            return base.AvailableOnNow(thing, part);
+            return false;
         }
         public override IEnumerable<BodyPartRecord> GetPartsToApplyOn(Pawn pawn, RecipeDef recipe)
         {
@@ -86,8 +81,7 @@ namespace AlteredCarbon
 
             if (pawn.HasCorticalStack(out var stackHediff))
             {
-                var sourceStack = stackHediff.PersonaData.sourceStack ?? AC_DefOf.VFEU_FilledCorticalStack;
-                var emptyStack = ACUtils.stacksPairs[sourceStack];
+                var emptyStack = ACUtils.stacksPairs[stackHediff.SourceStack];
                 var stack = ThingMaker.MakeThing(emptyStack);
                 GenPlace.TryPlaceThing(stack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
                 stackHediff.preventKill = true;
@@ -124,8 +118,7 @@ namespace AlteredCarbon
                         var copy = new PersonaData();
 
                         corticalStack.PersonaData.ErasePawn(dummyPawn);
-                        var sourceStack = hediff.PersonaData.sourceStack ?? AC_DefOf.VFEU_FilledCorticalStack;
-                        copy.CopyPawn(pawn, sourceStack); // we create a copy of original pawn
+                        copy.CopyPawn(pawn, hediff.SourceStack); // we create a copy of original pawn
                         copy.OverwritePawn(pawnToOverwrite: dummyPawn, null, original: pawn);
                         CopyAllPhysicalDataFrom(pawn, dummyPawn);
                         corticalStack.PersonaData.ErasePawn(pawn);

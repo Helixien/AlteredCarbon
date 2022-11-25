@@ -11,21 +11,13 @@ namespace AlteredCarbon
         {
             if (targ is Corpse corpse && targ.HitPoints <= 3 && corpse.InnerPawn.HasCorticalStack(out var hediff))
             {
-                var stackDef = hediff.PersonaData.sourceStack ?? AC_DefOf.VFEU_FilledCorticalStack;
-                var corticalStack = ThingMaker.MakeThing(stackDef) as CorticalStack;
-                corticalStack.PersonaData.CopyPawn(corpse.InnerPawn, stackDef);
-                GenPlace.TryPlaceThing(corticalStack, corpse.Position, corpse.Map, ThingPlaceMode.Direct);
-                corpse.InnerPawn.health.RemoveHediff(hediff);
+                hediff.SpawnStack(placeMode: ThingPlaceMode.Direct);
                 __instance.Destroy(DestroyMode.Vanish);
             }
             else if (targ is Pawn pawn && pawn.health.summaryHealth.SummaryHealthPercent < 0.001f
                 && pawn.HasCorticalStack(out var hediff2))
             {
-                var stackDef = hediff2.PersonaData.sourceStack ?? AC_DefOf.VFEU_FilledCorticalStack;
-                var corticalStack = ThingMaker.MakeThing(stackDef) as CorticalStack;
-                corticalStack.PersonaData.CopyPawn(pawn, stackDef);
-                GenPlace.TryPlaceThing(corticalStack, pawn.Position, pawn.Map, ThingPlaceMode.Direct);
-                pawn.health.RemoveHediff(hediff2);
+                hediff2.SpawnStack(placeMode: ThingPlaceMode.Direct);
                 __instance.Destroy(DestroyMode.Vanish);
             }
         }

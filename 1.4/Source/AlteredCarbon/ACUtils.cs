@@ -45,7 +45,6 @@ namespace AlteredCarbon
         {
             AC_DefOf.VFEU_InstallCorticalStack
         };
-
         static ACUtils()
         {
             harmony = new Harmony("Altered.Carbon");
@@ -103,6 +102,24 @@ namespace AlteredCarbon
                 info.recipe.defaultIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksHostile, true);
             }
 
+        }
+
+        public static bool CanImplantStackTo(HediffDef stackToImplant, Pawn pawn)
+        {
+            if (pawn.RaceProps.Humanlike is false)
+            {
+                return false;
+            }
+            if (pawn.DevelopmentalStage != DevelopmentalStage.Adult)
+            {
+                return false;
+            }
+            if (pawn.HasCorticalStack(out var stackHediff)
+                && (stackHediff.def == AC_DefOf.AC_ArchoStack || stackToImplant == stackHediff.def))
+            {
+                return false;
+            }
+            return true;
         }
         public static ThingDef GetEmptyStackVariant(this CorticalStack corticalStack)
         {

@@ -27,22 +27,7 @@ namespace AlteredCarbon
                     Corpse corpse = (Corpse)TargetThingA;
                     if (corpse.InnerPawn.HasCorticalStack(out var hediff))
                     {
-                        if (hediff.def.spawnThingOnRemoved != null)
-                        {
-                            CorticalStack corticalStack = ThingMaker.MakeThing(hediff.def.spawnThingOnRemoved) as CorticalStack;
-                            if (hediff.PersonaData.ContainsInnerPersona)
-                            {
-                                corticalStack.PersonaData.CopyDataFrom(hediff.PersonaData);
-                            }
-                            else
-                            {
-                                var sourceStack = hediff.PersonaData.sourceStack ?? AC_DefOf.VFEU_FilledCorticalStack;
-                                corticalStack.PersonaData.CopyPawn(corpse.InnerPawn, sourceStack);
-                            }
-                            GenPlace.TryPlaceThing(corticalStack, TargetThingA.Position, GetActor().Map, ThingPlaceMode.Near);
-                            AlteredCarbonManager.Instance.RegisterStack(corticalStack);
-                            AlteredCarbonManager.Instance.RegisterSleeve(corpse.InnerPawn, corticalStack.PersonaData.stackGroupID);
-                        }
+                        hediff.SpawnStack(placeMode: ThingPlaceMode.Direct);
                         BodyPartRecord head = corpse.InnerPawn.health.hediffSet.GetNotMissingParts().FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Head);
                         if (head != null)
                         {
@@ -51,7 +36,6 @@ namespace AlteredCarbon
                             hediff_MissingPart.IsFresh = true;
                             corpse.InnerPawn.health.AddHediff(hediff_MissingPart);
                         }
-                        corpse.InnerPawn.health.RemoveHediff(hediff);
                         if (pawn.Map.designationManager.DesignationOn(corpse)?.def == AC_DefOf.VFEU_ExtractStackDesignation)
                         {
                             pawn.Map.designationManager.TryRemoveDesignationOn(corpse, AC_DefOf.VFEU_ExtractStackDesignation);

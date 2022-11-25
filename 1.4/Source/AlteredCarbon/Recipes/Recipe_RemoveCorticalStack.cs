@@ -38,13 +38,10 @@ namespace AlteredCarbon
 				if (pawn.HasCorticalStack(out var hediff))
 				{
 					var corticalStack = ThingMaker.MakeThing(hediff.def.spawnThingOnRemoved) as CorticalStack;
-					hediff.PersonaData.CopyPawn(pawn, corticalStack.def);
-					corticalStack.PersonaData.CopyDataFrom(hediff.PersonaData);
+					corticalStack.PersonaData.CopyPawn(hediff.pawn, hediff.SourceStack);
 					corticalStack.PersonaData.gender = hediff.PersonaData.gender;
 					corticalStack.PersonaData.race = hediff.PersonaData.race;
 					GenPlace.TryPlaceThing(corticalStack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
-					AlteredCarbonManager.Instance.StacksIndex[pawn.thingIDNumber] = corticalStack;
-
                     Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.disableKilledEffect = true;
 					var head = pawn.health.hediffSet.GetNotMissingParts().FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Head);
 					if (head != null)
@@ -55,7 +52,7 @@ namespace AlteredCarbon
                     Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.disableKilledEffect = false;
 
 					AlteredCarbonManager.Instance.ReplacePawnWithStack(pawn, corticalStack);
-					AlteredCarbonManager.Instance.RegisterSleeve(pawn, hediff.PersonaData.stackGroupID);
+					AlteredCarbonManager.Instance.RegisterSleeve(pawn, corticalStack);
 					AlteredCarbonManager.Instance.deadPawns.Add(pawn);
 
 					if (LookTargets_Patch.targets.TryGetValue(pawn, out var targets))

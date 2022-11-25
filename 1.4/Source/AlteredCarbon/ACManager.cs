@@ -266,10 +266,12 @@ namespace AlteredCarbon
             }
         }
 
-        public void RegisterSleeve(Pawn pawn, int stackGroupID = -1)
+        public void RegisterSleeve(Pawn pawn, CorticalStack stack)
         {
             pawnsWithStacks.Remove(pawn);
             emptySleeves.Add(pawn);
+            StacksIndex[pawn.thingIDNumber] = stack;
+            var stackGroupID = stack.PersonaData.stackGroupID;
             if (stackGroupID != -1 && stacksRelationships.ContainsKey(stackGroupID))
             {
                 if (stacksRelationships[stackGroupID].deadPawns == null)

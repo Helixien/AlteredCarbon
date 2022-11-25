@@ -68,5 +68,6 @@ namespace AlteredCarbon
         public static ThingDef VFEU_Mote_VatGlow;
         public static EffecterDef VFEU_Vat_Bubbles;
         public static LetterDef HumanPregnancy;
+        public static FleckDef PsycastAreaEffect;
     }
 }

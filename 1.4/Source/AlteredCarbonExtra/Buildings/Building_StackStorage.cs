@@ -22,6 +22,7 @@ namespace AlteredCarbon
         public bool allowColonistCorticalStacks = true;
         public bool allowStrangerCorticalStacks;
         public bool allowHostileCorticalStacks;
+        public bool allowArchoStacks;
         public CompPowerTrader compPower;
         public bool backupIsEnabled;
         public bool autoRestoreIsEnabled = true;
@@ -102,12 +103,15 @@ namespace AlteredCarbon
                         action = delegate ()
                         {
                             var floatList = new List<FloatMenuOption>();
-                            foreach (var stack in StoredStacks)
+                            foreach (var stack in StoredStacks.Where(x => x.PersonaData.ContainsInnerPersona))
                             {
-                                floatList.Add(new FloatMenuOption(stack.PersonaData.PawnNameColored, delegate ()
+                                if (stack.ArchoStack is false)
                                 {
-                                    this.stackToDuplicate = stack;
-                                }));
+                                    floatList.Add(new FloatMenuOption(stack.PersonaData.PawnNameColored, delegate ()
+                                    {
+                                        this.stackToDuplicate = stack;
+                                    }));
+                                }
                             }
                             Find.WindowStack.Add(new FloatMenu(floatList));
                         }
@@ -240,6 +244,7 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref this.allowColonistCorticalStacks, "allowColonistCorticalStacks", true);
             Scribe_Values.Look(ref this.allowHostileCorticalStacks, "allowHostileCorticalStacks", false);
             Scribe_Values.Look(ref this.allowStrangerCorticalStacks, "allowStrangerCorticalStacks", false);
+            Scribe_Values.Look(ref this.allowArchoStacks, "allowArchoStacks", false);
             Scribe_Values.Look(ref this.backupIsEnabled, "backupIsEnabled");
             Scribe_Values.Look(ref this.autoRestoreIsEnabled, "autoRestoreIsEnabled", true);
             Scribe_References.Look(ref this.stackToDuplicate, "stackToDuplicate");
@@ -268,7 +273,10 @@ namespace AlteredCarbon
                 {
                     return true;
                 }
-
+                if (this.allowArchoStacks && stack.ArchoStack)
+                {
+                    return true;
+                }
                 if (this.allowStrangerCorticalStacks && (stack.PersonaData.faction is null || stack.PersonaData.faction != Faction.OfPlayer && !stack.PersonaData.faction.HostileTo(Faction.OfPlayer)))
                 {
                     return true;

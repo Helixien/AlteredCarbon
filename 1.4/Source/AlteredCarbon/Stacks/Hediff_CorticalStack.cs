@@ -3,12 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using RimWorld;
+using RimWorld.Planet;
 using Verse;
 
 namespace AlteredCarbon
 {
     public class Hediff_CorticalStack : Hediff_Implant
     {
+        public ThingDef SourceStack
+        {
+            get
+            {
+                if (this.def == AC_DefOf.VFEU_CorticalStack)
+                {
+                    return AC_DefOf.VFEU_FilledCorticalStack;
+                }
+                return AC_DefOf.AC_FilledArchoStack;
+            }
+        }
         private PersonaData personaData;
         public PersonaData PersonaData
         {
@@ -17,7 +29,7 @@ namespace AlteredCarbon
                 if (personaData is null)
                 {
                     personaData = new PersonaData();
-                    personaData.CopyPawn(pawn, AC_DefOf.VFEU_FilledCorticalStack, true);
+                    personaData.CopyPawn(pawn, SourceStack, true);
                 }
                 return personaData;
             }
@@ -27,18 +39,6 @@ namespace AlteredCarbon
             }
         }
 
-        public void TryRecoverOrSpawnOnGround()
-        {
-            PersonaData.CopyPawn(this.pawn, PersonaData.sourceStack);
-            if (Rand.Chance(0.25f))
-            {
-                StatsRecord_Notify_ColonistKilled_Patch.disableKilledEffect = true;
-                var corticalStack = ThingMaker.MakeThing(this.def.spawnThingOnRemoved) as CorticalStack;
-                corticalStack.PersonaData.CopyPawn(pawn, corticalStack.def);
-                GenPlace.TryPlaceThing(corticalStack, pawn.Position, pawn.Map, ThingPlaceMode.Near);
-            }
-            pawn.health.RemoveHediff(this);
-        }
         public override void PostAdd(DamageInfo? dinfo)
         {
             this.Part = pawn.def.race.body.AllParts.FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Neck);
@@ -69,7 +69,7 @@ namespace AlteredCarbon
         {
             if (!PersonaData.ContainsInnerPersona)
             {
-                PersonaData.CopyPawn(this.pawn, PersonaData.sourceStack);
+                PersonaData.CopyPawn(this.pawn, SourceStack);
             }
             base.Notify_PawnDied();
         }
@@ -78,7 +78,7 @@ namespace AlteredCarbon
         {
             if (!PersonaData.ContainsInnerPersona)
             {
-                PersonaData.CopyPawn(this.pawn, PersonaData.sourceStack);
+                PersonaData.CopyPawn(this.pawn, SourceStack);
             }
             base.Notify_PawnKilled();
         }
@@ -91,6 +91,46 @@ namespace AlteredCarbon
             {
                 this.pawn.Kill(null);
             }
+
+            if (this.def == AC_DefOf.AC_ArchoStack && !spawningStack)
+            {
+                SpawnStack(placeMode: ThingPlaceMode.Near);
+            }
+        }
+        public bool spawningStack;
+        public void SpawnStack(bool destroyPawn = false, ThingPlaceMode placeMode = ThingPlaceMode.Near, Caravan caravan = null, bool psycastEffect = false)
+        {
+            spawningStack = true;
+            var stackDef = SourceStack;
+            var corticalStack = ThingMaker.MakeThing(stackDef) as CorticalStack;
+            corticalStack.PersonaData.CopyPawn(this.pawn, stackDef);
+            if (this.pawn.MapHeld != null)
+            {
+                GenPlace.TryPlaceThing(corticalStack, this.pawn.PositionHeld, this.pawn.MapHeld, placeMode);
+                if (psycastEffect)
+                {
+                    FleckMaker.Static(corticalStack.Position, corticalStack.Map, AC_DefOf.PsycastAreaEffect, 3f);
+                }
+            }
+            else if (caravan != null)
+            {
+                CaravanInventoryUtility.GiveThing(caravan, corticalStack);
+            }
+            this.pawn.health.RemoveHediff(this);
+            AlteredCarbonManager.Instance.RegisterStack(corticalStack);
+            AlteredCarbonManager.Instance.RegisterSleeve(this.pawn, corticalStack);
+            if (destroyPawn)
+            {
+                if (this.pawn.Dead)
+                {
+                    this.pawn.Corpse.Destroy();
+                }
+                else
+                {
+                    this.pawn.Destroy();
+                }
+            }
+            spawningStack = false;
         }
         public override void ExposeData()
         {
