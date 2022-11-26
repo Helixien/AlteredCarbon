@@ -6,7 +6,7 @@
 		<degreeDatas>
 			<li>
 				<label>free mind</label>
-				<description>[PAWN_nameDef] always saw their body as nothing more than a vessel for their mind. [PAWN_pronoun] does not care about the gender, age or looks of a body.</description>
+				<description>{PAWN_nameDef} has always seen their body as nothing more than a vessel for the mind. {PAWN_pronoun} does not care about the gender, age or looks of their body.</description>
 			</li>
 		</degreeDatas>
 	</TraitDef>
@@ -16,7 +16,7 @@
 		<degreeDatas>
 			<li>
 				<label>sleever</label>
-				<description>{PAWN_nameDef} is used to changing sleeves like they are clothes. {Pawn_pronoun} doesn’t care how often {Pawn_pronoun} switches his sleeves or what sleeve {Pawn_pronoun} is currently using.</description>
+				<description>{PAWN_nameDef} can change sleeves as easily as changing clothes. {Pawn_pronoun} doesn’t care how often {Pawn_pronoun} switches sleeves or what sleeve {Pawn_pronoun} is currently riding.</description>
 			</li>
 		</degreeDatas>
 	</TraitDef>

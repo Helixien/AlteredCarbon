@@ -23,7 +23,7 @@
 	<ThingDef ParentName="AC_ArchoStackBase">
 		<defName>AC_EmptyArchoStack</defName>
 		<label>empty archo stack</label>
-		<description>Text.Todo</description>
+		<description>An empty, archo tech implant which can store a human consciousness, which are implanted directly into the host's neck. Considerably more robust than its ultra tech derivatives, they are impossible to manufacture and can only be found by chance.</description>
 		<descriptionHyperlinks>
 			<RecipeDef>VFEU_InstallCorticalStack</RecipeDef>
 		</descriptionHyperlinks>
@@ -44,7 +44,7 @@
 	<ThingDef ParentName="AC_ArchoStackBase">
 		<defName>AC_FilledArchoStack</defName>
 		<label>archo stack</label>
-		<description>Text.Todo</description>
+		<description>An archo tech implant with a human consciousness stored on it. Can be implanted into an empty sleeve or random body to bring back the person stored on the cortical stack.</description>
 		<descriptionHyperlinks>
 			<RecipeDef>VFEU_InstallCorticalStack</RecipeDef>
 		</descriptionHyperlinks>

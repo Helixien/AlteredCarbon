@@ -4,7 +4,7 @@
 	<ThingDef ParentName="BuildingBase">
 		<defName>VFEU_SleeveIncubator</defName>
 		<label>sleeve incubator</label>
-		<description>Text.todo</description>
+		<description>An exceedingly complex vat of nutrients that is capable of gestating sleeves, empty shells without a mind of their own. Neutroamine is used in order to grow the body through its different stages and the incubator must remained powered throughout this process. Should it lose power for extended periods, the gestation process will fail./n/nSimple, low grade sleeves can be churned out quite quickly for minimal resources. However, more complex and sophisticated sleeves take longer and require more nutrients to ensure the body is properly formed./n/nOnce the sleeve has finished growing, it should be extracted and cared for as it is incapable of independent movement or thought, including feeding itself.</description>
 		<descriptionHyperlinks>
 			<ThingDef>VFEU_SleeveCasket</ThingDef>
 			<ThingDef>GeneAssembler</ThingDef>
@@ -89,7 +89,7 @@
 	<ThingDef ParentName="FurnitureBase">
 		<defName>VFEU_SleeveCasket</defName>
 		<label>sleeve casket</label>
-		<description>Text.todo</description>
+		<description>An open sarcophagus designed to keep a sleeve in a state of suspended animation while still allowing medical access, such as installing implants or bionics.</description>
 		<descriptionHyperlinks>
 			<ThingDef>VFEU_SleeveIncubator</ThingDef>
 		</descriptionHyperlinks>
@@ -167,7 +167,7 @@
 	<ThingDef ParentName="BenchBase">
 		<defName>VFEU_DecryptionBench</defName>
 		<label>decryption bench</label>
-		<description>Text.todo</description>
+		<description>A sophisticated workbench that allows the user to connect to cortical stacks in order to alter the contained information, such as changing allegiance, or even wipe them clean. Can also strip the biocoding from items./n/nAs the process is quite aggressive, there is a risk of the decryption process destroying the item.</description>
 		<thingClass>AlteredCarbon.Building_DecryptionBench</thingClass>
 		<graphicData>
 			<texPath>Things/Building/Production/HackingWorkbench</texPath>

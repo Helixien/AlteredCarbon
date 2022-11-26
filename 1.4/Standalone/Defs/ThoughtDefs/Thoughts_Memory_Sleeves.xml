@@ -65,7 +65,7 @@
 		<stages>
 			<li>
 				<label>VFEU_WrongGenderPregnant</label>
-				<description>VFEU_WrongGenderPregnant</description>
+				<description>I'm pregnant but my sleeve is the wrong gender.</description>
 				<baseMoodEffect>-5</baseMoodEffect>
 			</li>
 		</stages>
@@ -83,7 +83,7 @@
 		<stages>
 			<li>
 				<label>VFEU_WrongGenderChild</label>
-				<description>VFEU_WrongGenderChild</description>
+				<description>My child's sleeve is the wrong gender, how could this happen?</description>
 				<baseMoodEffect>-5</baseMoodEffect>
 			</li>
 		</stages>

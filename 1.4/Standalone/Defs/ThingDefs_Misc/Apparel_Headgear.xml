@@ -67,7 +67,7 @@
 	<ThingDef ParentName="VFEU_HuntersHelmet">
 		<defName>VFEU_Apparel_ProtectorHelmet</defName>
 		<label>protector helmet</label>
-		<description>text.todo</description>
+		<description>A helmet of protector-issue power armor. Improved protection over standard marine power armor, offered by molecular plasteel integration thoughout the helmet. Complete with tactical telemetry feed and aim assist.</description>
 		<graphicData>
 			<texPath>Things/Pawn/Humanlike/Apparel/ProtectorArmor/AC_ProtectorHelmet</texPath>
 		</graphicData>

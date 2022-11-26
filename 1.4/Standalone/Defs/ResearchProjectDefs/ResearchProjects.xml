@@ -3,7 +3,7 @@
 	<ResearchProjectDef>
 		<defName>VFEU_Hacking</defName>
 		<label>hacking</label>
-		<description>text.todo</description>
+		<description>Build workbenches to decrypt and alter the contents of filled cortical stacks, as well as strip biocoding.</description>
 		<baseCost>1200</baseCost>
   <researchViewX>15.00</researchViewX>
   <researchViewY>1.50</researchViewY>

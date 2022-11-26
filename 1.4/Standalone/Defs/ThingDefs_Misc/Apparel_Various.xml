@@ -68,7 +68,7 @@
 	<ThingDef ParentName="VFEU_HuntersArmourBase">
 		<defName>VFEU_Apparel_ProtectorArmor</defName>
 		<label>protector armor</label>
-		<description>text.todo</description>
+		<description>A suit of protector-issue power armor. Improved protection over standard marine power armor, offered by molecular plasteel integration thoughout the suit as well as on-board processors to assist movement and dampen pain receptors.</description>
 		<graphicData>
 			<texPath>Things/Pawn/Humanlike/Apparel/ProtectorArmor/ProtectorArmor</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
