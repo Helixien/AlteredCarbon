@@ -137,7 +137,7 @@ namespace AlteredCarbon
             {
                 dummyPawn = PawnGenerator.GeneratePawn(PawnKindDefOf.Colonist, Faction.OfPlayer);
             }
-            OverwritePawn(dummyPawn, null);
+            OverwritePawn(dummyPawn, null, origPawn);
             if (origPawn != null)
             {
                 ACUtils.CopyBody(origPawn, dummyPawn);
@@ -190,7 +190,7 @@ namespace AlteredCarbon
             }
         }
 
-        public void CopyPawn(Pawn pawn, ThingDef sourceStack, bool copyRaceGenderInfo = false)
+        public void CopyFromPawn(Pawn pawn, ThingDef sourceStack, bool copyRaceGenderInfo = false)
         {
             this.sourceStack = sourceStack ?? AC_DefOf.VFEU_FilledCorticalStack;
             name = pawn.Name;
@@ -546,7 +546,13 @@ namespace AlteredCarbon
         }
         public void OverwritePawn(Pawn pawnToOverwrite, StackSavingOptionsModExtension extension, Pawn original = null)
         {
-            Log.Message("OverwritePawn: " + pawnToOverwrite);
+            var fromPawn = GetOriginalPawn(original);
+            if (fromPawn != null)
+            {
+                CopyFromPawn(fromPawn, sourceStack);
+            }
+            Log.Message("From pawn: " + fromPawn);
+
             PawnComponentsUtility.CreateInitialComponents(pawnToOverwrite);
             if (pawnToOverwrite.Faction != faction)
             {

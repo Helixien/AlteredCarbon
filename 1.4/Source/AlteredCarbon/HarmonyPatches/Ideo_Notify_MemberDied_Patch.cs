@@ -10,7 +10,6 @@ namespace AlteredCarbon
         public static bool disableKilledEffect = false;
         public static bool Prefix()
         {
-            Log.Message("disableKilledEffect: " + disableKilledEffect);
             if (disableKilledEffect)
             {
                 disableKilledEffect = false;

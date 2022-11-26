@@ -5,11 +5,15 @@ using HarmonyLib;
 using RimWorld;
 using RimWorld.Planet;
 using Verse;
+using VFECore.Abilities;
 
 namespace AlteredCarbon
 {
+
+    [HotSwappable]
     public class Hediff_CorticalStack : Hediff_Implant
     {
+        public Ability_ArchoStackSkip skipAbility;
         public ThingDef SourceStack
         {
             get
@@ -29,7 +33,7 @@ namespace AlteredCarbon
                 if (personaData is null)
                 {
                     personaData = new PersonaData();
-                    personaData.CopyPawn(pawn, SourceStack, true);
+                    personaData.CopyFromPawn(pawn, SourceStack, true);
                 }
                 return personaData;
             }
@@ -37,6 +41,18 @@ namespace AlteredCarbon
             {
                 personaData = value;
             }
+        }
+
+        public override IEnumerable<Gizmo> GetGizmos()
+        {
+            if (this.def == AC_DefOf.AC_ArchoStack)
+            {
+                if (skipAbility.ShowGizmoOnPawn())
+                {
+                    yield return skipAbility.GetGizmo();
+                }
+            }
+            yield break;
         }
 
         public override void PostAdd(DamageInfo? dinfo)
@@ -63,13 +79,27 @@ namespace AlteredCarbon
                 AlteredCarbonManager.Instance.RegisterPawn(pawn);
                 AlteredCarbonManager.Instance.TryAddRelationships(pawn);
             }
+            CreateSkipAbilityIfMissing();
         }
+
+        private void CreateSkipAbilityIfMissing()
+        {
+            if (this.def == AC_DefOf.AC_ArchoStack && skipAbility is null)
+            {
+                skipAbility = (Ability_ArchoStackSkip)Activator.CreateInstance(AC_DefOf.AC_ArchoStackSkip.abilityClass);
+                skipAbility.def = AC_DefOf.AC_ArchoStackSkip;
+                skipAbility.holder = this.pawn;
+                skipAbility.pawn = this.pawn;
+                skipAbility.Init();
+            }
+        }
+
         public override bool ShouldRemove => false;
         public override void Notify_PawnDied()
         {
             if (!PersonaData.ContainsInnerPersona)
             {
-                PersonaData.CopyPawn(this.pawn, SourceStack);
+                PersonaData.CopyFromPawn(this.pawn, SourceStack);
             }
             base.Notify_PawnDied();
         }
@@ -78,7 +108,7 @@ namespace AlteredCarbon
         {
             if (!PersonaData.ContainsInnerPersona)
             {
-                PersonaData.CopyPawn(this.pawn, SourceStack);
+                PersonaData.CopyFromPawn(this.pawn, SourceStack);
             }
             base.Notify_PawnKilled();
         }
@@ -103,7 +133,7 @@ namespace AlteredCarbon
             spawningStack = true;
             var stackDef = SourceStack;
             var corticalStack = ThingMaker.MakeThing(stackDef) as CorticalStack;
-            corticalStack.PersonaData.CopyPawn(this.pawn, stackDef);
+            corticalStack.PersonaData.CopyFromPawn(this.pawn, stackDef);
             if (this.pawn.MapHeld != null)
             {
                 GenPlace.TryPlaceThing(corticalStack, this.pawn.PositionHeld, this.pawn.MapHeld, placeMode);
@@ -132,10 +162,36 @@ namespace AlteredCarbon
             }
             spawningStack = false;
         }
+
+        [HarmonyPatch(typeof(HediffSet), "ExposeData")]
+        public static class HediffSet_ExposeData_Patch
+        {
+            public static Pawn curPawn;
+
+            public static void Prefix(HediffSet __instance)
+            {
+                curPawn = __instance.pawn;
+            }
+            public static void Postfix(HediffSet __instance)
+            {
+                curPawn = null;
+            }
+        }
         public override void ExposeData()
         {
             base.ExposeData();
             Scribe_Deep.Look(ref personaData, "personaData");
+            Scribe_Deep.Look(ref skipAbility, "skipAbility");
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                CreateSkipAbilityIfMissing();
+            }
+            var curPawn = this.pawn ?? HediffSet_ExposeData_Patch.curPawn;
+            if (skipAbility != null)
+            {
+                skipAbility.holder = curPawn;
+                skipAbility.pawn = curPawn;
+            }
         }
     }
 }

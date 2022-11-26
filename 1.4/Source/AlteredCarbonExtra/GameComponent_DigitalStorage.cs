@@ -83,7 +83,7 @@ namespace AlteredCarbon
             if (pawn.HasCorticalStack(out var stackHediff))
             {
                 var copy = new PersonaData();
-                copy.CopyPawn(pawn, stackHediff.SourceStack, copyRaceGenderInfo: true);
+                copy.CopyFromPawn(pawn, stackHediff.SourceStack, copyRaceGenderInfo: true);
                 copy.isCopied = true;
                 copy.lastTimeUpdated = Find.TickManager.TicksAbs;
                 copy.RefreshDummyPawn();

@@ -40,7 +40,7 @@ namespace AlteredCarbon
                     skillRecord.passion = (Passion)Rand.RangeInclusive(1, 2);
                 }
                 var corticalStack = ThingMaker.MakeThing(AC_DefOf.VFEU_FilledCorticalStack) as CorticalStack;
-                corticalStack.PersonaData.CopyPawn(pawn, AC_DefOf.VFEU_FilledCorticalStack);
+                corticalStack.PersonaData.CopyFromPawn(pawn, AC_DefOf.VFEU_FilledCorticalStack);
                 corticalStack.PersonaData.gender = pawn.gender;
                 corticalStack.PersonaData.race = pawn.kindDef.race;
                 corticalStack.PersonaData.stackGroupID = AlteredCarbonManager.Instance.GetStackGroupID(corticalStack);

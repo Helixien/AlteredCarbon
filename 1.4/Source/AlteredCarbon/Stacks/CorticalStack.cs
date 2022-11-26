@@ -140,7 +140,7 @@ namespace AlteredCarbon
                     PawnKindDef pawnKind = DefDatabase<PawnKindDef>.AllDefs.Where(x => x.RaceProps.Humanlike).RandomElement();
                     Faction faction = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction).RandomElement();
                     Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnKind, faction));
-                    PersonaData.CopyPawn(pawn, this.def);
+                    PersonaData.CopyFromPawn(pawn, this.def);
                     PersonaData.gender = pawn.gender;
                     PersonaData.race = pawn.kindDef.race;
                     PersonaData.stackGroupID = AlteredCarbonManager.Instance.GetStackGroupID(this);

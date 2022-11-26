@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+	<VFECore.Abilities.AbilityDef>
+		<defName>AC_ArchoStackSkip</defName>
+		<label>archo stack skip</label>
+		<description>text todo.</description>
+		<cooldownTime>420000</cooldownTime>
+		<iconPath>UI/Icons/StackSkip</iconPath>
+		<castTime>120</castTime>
+		<showUndrafted>true</showUndrafted>
+		<targetMode>Pawn</targetMode>
+		<fleckOnTarget>PsycastPsychicEffect</fleckOnTarget>
+		<abilityClass>AlteredCarbon.Ability_ArchoStackSkip</abilityClass>
+	</VFECore.Abilities.AbilityDef>
+
+</Defs>
