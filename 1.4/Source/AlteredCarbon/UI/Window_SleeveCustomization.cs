@@ -107,7 +107,7 @@ namespace AlteredCarbon
 
         private void Init(PawnKindDef pawnKindDef, Gender? gender = null)
         {
-            currentPawnKindDef = pawnKindDef; ;
+            currentPawnKindDef = pawnKindDef;
             if (!gender.HasValue)
             {
                 gender = Rand.Bool ? Gender.Male : Gender.Female;
@@ -183,9 +183,11 @@ namespace AlteredCarbon
                 DoSelectionButtons(ref firstColumnPos, "AC.SelectRace".Translate(), ref raceTypeIndex,
                     (ThingDef x) => x.LabelCap, permittedRaces, delegate (ThingDef x)
                     {
+                        var oldRace = currentPawnKindDef.race;
                         currentPawnKindDef.race = x;
                         CreateSleeve(curSleeve.gender);
                         raceTypeIndex = permittedRaces.IndexOf(x);
+                        currentPawnKindDef.race = oldRace;
                     });
             }
 
@@ -380,6 +382,11 @@ namespace AlteredCarbon
             if (Widgets.ButtonImage(new Rect(pawnBox.x + pawnBox.width - Widgets.InfoCardButtonSize - 10f, pawnBox.y + 10, 24, 24), RotateSleeve))
             {
                 curSleeve.Rotation = curSleeve.Rotation.Rotated(RotationDirection.Clockwise);
+            }
+
+            if (Widgets.ButtonImage(new Rect(pawnBox.x + 10f, pawnBox.y + 10, 24, 24), RandomizeSleeve))
+            {
+                CreateSleeve(curSleeve.gender);
             }
 
             secondColumnPos.y = pawnBox.yMax + 15;
@@ -745,11 +752,6 @@ namespace AlteredCarbon
             return hairColors.ToList();
         }
 
-        private void CopyBodyFrom(Pawn source)
-        {
-
-        }
-
         public void LoadSleeve(SleevePreset preset)
         {
             curSleeve = preset.sleeve;
@@ -815,10 +817,10 @@ namespace AlteredCarbon
                     gender = Gender.Male;
                 }
             }
-            curSleeve = PawnGenerator.GeneratePawn(new PawnGenerationRequest(currentPawnKindDef, null, PawnGenerationContext.NonPlayer,
+            curSleeve = PawnGenerator.GeneratePawn(new PawnGenerationRequest(currentPawnKindDef, Faction.OfPlayer, PawnGenerationContext.NonPlayer,
                 -1, true, false, false, false, false, 0f, false, true, true, false, false, false, true,
-                fixedGender: gender));
-
+                fixedGender: gender, forcedXenotype: XenotypeDefOf.Baseliner));
+            curSleeve.SetFaction(null);
             var lastAdultAge = curSleeve.RaceProps.lifeStageAges.LastOrDefault((LifeStageAge lifeStageAge) => lifeStageAge.def.developmentalStage.Adult())?.minAge ?? 0f;
             curSleeve.ageTracker.AgeBiologicalTicks = (long)Mathf.FloorToInt(lastAdultAge * 3600000f);
             curSleeve.ageTracker.AgeChronologicalTicks = (long)Mathf.FloorToInt(lastAdultAge * 3600000f);

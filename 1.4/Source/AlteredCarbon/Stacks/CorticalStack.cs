@@ -45,7 +45,8 @@ namespace AlteredCarbon
                         {
                             if (friendlyGraphicData is null)
                             {
-                                friendlyGraphicData = GetGraphicDataWithOtherPath("Things/Item/Stacks/FriendlyStack");
+                                var path = this.ArchoStack ? "Things/Item/ArchoStacks/FriendlyArchoStack" : "Things/Item/Stacks/FriendlyStack";
+                                friendlyGraphicData = GetGraphicDataWithOtherPath(path);
                             }
                             friendlyGraphic = friendlyGraphicData.GraphicColoredFor(this);
                         }
@@ -57,7 +58,8 @@ namespace AlteredCarbon
                         {
                             if (strangerGraphicData is null)
                             {
-                                strangerGraphicData = GetGraphicDataWithOtherPath("Things/Item/Stacks/NeutralStack");
+                                var path = this.ArchoStack ? "Things/Item/ArchoStacks/NeutralArchoStack" : "Things/Item/Stacks/NeutralStack";
+                                strangerGraphicData = GetGraphicDataWithOtherPath(path);
                             }
                             strangerGraphic = strangerGraphicData.GraphicColoredFor(this);
                         }
@@ -69,7 +71,8 @@ namespace AlteredCarbon
                         {
                             if (hostileGraphicData is null)
                             {
-                                hostileGraphicData = GetGraphicDataWithOtherPath("Things/Item/Stacks/HostileStack");
+                                var path = this.ArchoStack ? "Things/Item/ArchoStacks/HostileArchoStack" : "Things/Item/Stacks/HostileStack";
+                                hostileGraphicData = GetGraphicDataWithOtherPath(path);
                             }
                             hostileGraphic = hostileGraphicData.GraphicColoredFor(this);
                         }

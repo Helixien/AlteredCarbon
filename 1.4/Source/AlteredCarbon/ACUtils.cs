@@ -161,18 +161,22 @@ namespace AlteredCarbon
             }
 
             var sourceGenes = source.genes.Endogenes;
-            foreach (var sourceGene in sourceGenes)
+            if (sourceGenes != null)
             {
-                dest.genes.AddGene(sourceGene.def, false);
-            }
-            for (var i = 0; i < sourceGenes.Count; i++)
-            {
-                var gene = dest.genes.Endogenes[i];
-                if (sourceGenes[i].Active)
+                foreach (var sourceGene in sourceGenes)
                 {
-                    GeneUtils.ApplyGene(gene, dest);
+                    dest.genes.AddGene(sourceGene.def, false);
+                }
+                for (var i = 0; i < sourceGenes.Count; i++)
+                {
+                    var gene = dest.genes.Endogenes[i];
+                    if (sourceGenes[i].Active)
+                    {
+                        GeneUtils.ApplyGene(gene, dest);
+                    }
                 }
             }
+
 
             dest.story.skinColorOverride = source.story.skinColorOverride;
             dest.story.skinColorBase = source.story.skinColorBase;
@@ -181,6 +185,9 @@ namespace AlteredCarbon
             dest.story.hairDef = source.story.hairDef;
             dest.style.beardDef = source.style.beardDef;
             dest.story.headType = source.story.headType;
+
+            dest.genes.xenotype = source.genes.xenotype;
+            dest.genes.xenotypeName = source.genes.xenotypeName;
         }
         public static string PawnTemplatesPath => Path.Combine(GenFilePaths.ConfigFolderPath, "AC_PawnTemplates.xml");
 

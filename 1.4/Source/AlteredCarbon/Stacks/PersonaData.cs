@@ -617,24 +617,30 @@ namespace AlteredCarbon
             {
                 this.origPawn = pawnToOverwrite;
                 this.pawnID = this.origPawn.thingIDNumber;
-                for (var i = relations.Count - 1; i >= 0; i--)
+                if (relations != null)
                 {
-                    var rel = relations[i];
-                    if (rel.otherPawn != null)
+                    for (var i = relations.Count - 1; i >= 0; i--)
                     {
-                        ReplaceSocialReferences(rel.otherPawn, pawnToOverwrite);
+                        var rel = relations[i];
+                        if (rel.otherPawn != null)
+                        {
+                            ReplaceSocialReferences(rel.otherPawn, pawnToOverwrite);
+                        }
                     }
                 }
-            
-                for (var i = relatedPawns.Count - 1; i >= 0; i--)
+
+                if (relatedPawns != null)
                 {
-                    var relatedPawn = relatedPawns[i];
-                    if (relatedPawn != null)
+                    for (var i = relatedPawns.Count - 1; i >= 0; i--)
                     {
-                        ReplaceSocialReferences(relatedPawn, pawnToOverwrite);
+                        var relatedPawn = relatedPawns[i];
+                        if (relatedPawn != null)
+                        {
+                            ReplaceSocialReferences(relatedPawn, pawnToOverwrite);
+                        }
                     }
                 }
-            
+         
                 var potentiallyRelatedPawns = pawnToOverwrite.relations.PotentiallyRelatedPawns.ToList();
                 for (var i = potentiallyRelatedPawns.Count - 1; i >= 0; i--)
                 {
@@ -644,8 +650,10 @@ namespace AlteredCarbon
                         ReplaceSocialReferences(relatedPawn, pawnToOverwrite);
                     }
                 }
-
-                pawnToOverwrite.needs.mood.thoughts.situational.Notify_SituationalThoughtsDirty();
+                if (pawnToOverwrite.needs?.mood?.thoughts != null)
+                {
+                    pawnToOverwrite.needs.mood.thoughts.situational.Notify_SituationalThoughtsDirty();
+                }
             }
 
             pawnToOverwrite.abilities = new Pawn_AbilityTracker(pawnToOverwrite);
@@ -996,8 +1004,10 @@ namespace AlteredCarbon
                     }
                 }
             }
-
-            relatedPawn.needs.mood.thoughts.situational.Notify_SituationalThoughtsDirty();
+            if (relatedPawn.needs?.mood?.thoughts != null)
+            {
+                relatedPawn.needs.mood.thoughts.situational.Notify_SituationalThoughtsDirty();
+            }
         }
 
         public bool IsPresetPawn(Pawn pawn)
@@ -1011,49 +1021,49 @@ namespace AlteredCarbon
             {
                 return origPawn;
             }
-            if (relatedPawns != null)
-            {
-                foreach (Pawn otherPawn in relatedPawns)
-                {
-                    if (otherPawn != null && otherPawn.relations?.DirectRelations != null)
-                    {
-                        foreach (DirectPawnRelation rel in otherPawn.relations.DirectRelations)
-                        {
-                            if (rel?.otherPawn?.Name != null && pawn.Name != null)
-                            {
-                                if (rel.otherPawn.Name.ToStringFull == pawn.Name.ToStringFull && rel.otherPawn != pawn)
-                                {
-                                    origPawn = rel.otherPawn;
-                                    return rel.otherPawn;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (pawn != null && pawn.Name != null && AlteredCarbonManager.Instance.PawnsWithStacks != null)
+            if (pawn?.Name != null)
             {
                 foreach (Pawn otherPawn in AlteredCarbonManager.Instance.PawnsWithStacks)
                 {
-                    if (otherPawn?.Name != null && otherPawn.Name.ToStringFull == pawn.Name?.ToStringFull)
+                    if (otherPawn.Name != null && otherPawn.Name.ToStringFull == pawn.Name.ToStringFull)
                     {
                         origPawn = otherPawn;
                         return otherPawn;
                     }
                 }
-            }
 
-            foreach (Pawn otherPawn in PawnsFinder.AllMaps)
-            {
-                if (otherPawn?.Name != null && otherPawn.Name.ToStringFull == pawn.Name?.ToStringFull && otherPawn != pawn)
+                if (relatedPawns != null)
                 {
-                    origPawn = otherPawn;
-                    return otherPawn;
+                    foreach (Pawn otherPawn in relatedPawns)
+                    {
+                        if (otherPawn?.relations?.DirectRelations != null)
+                        {
+                            foreach (DirectPawnRelation rel in otherPawn.relations.DirectRelations)
+                            {
+                                if (rel?.otherPawn?.Name != null)
+                                {
+                                    if (rel.otherPawn.Name.ToStringFull == pawn.Name.ToStringFull && rel.otherPawn != pawn)
+                                    {
+                                        origPawn = rel.otherPawn;
+                                        return rel.otherPawn;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-            }
 
-            return null;
+                foreach (Pawn otherPawn in PawnsFinder.AllMaps)
+                {
+                    if (otherPawn.Name != null && otherPawn.Name.ToStringFull == pawn.Name.ToStringFull && otherPawn != pawn)
+                    {
+                        origPawn = otherPawn;
+                        return otherPawn;
+                    }
+                }
+                origPawn = pawn;
+            }
+            return origPawn;
         }
 
         public void ExposeData()
