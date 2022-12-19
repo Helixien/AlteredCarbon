@@ -27,7 +27,7 @@ namespace AlteredCarbon
                     {
                         foreach (var pawn in pawns)
                         {
-                            if (pawn != null && personaData.IsMatchingPawn(pawn))
+                            if (pawn != null && personaData.IsPresetPawn(pawn))
                             {
                                 if (pawn.Destroyed && pawn.Corpse is null || pawn.Corpse != null
                                     && pawn.Corpse.Destroyed || pawn.ParentHolder is null ||

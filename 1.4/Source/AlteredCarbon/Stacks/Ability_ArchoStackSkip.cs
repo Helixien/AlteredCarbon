@@ -44,7 +44,7 @@ namespace AlteredCarbon
                 copyHediff.PersonaData = sourceHediff.PersonaData;
                 copyHediff.PersonaData.CopyFromPawn(pawn, sourceHediff.SourceStack);
                 pawnTarget.health.AddHediff(copyHediff, neckRecord);
-                copyHediff.PersonaData.OverwritePawn(pawnTarget, null, copyHediff.PersonaData.GetOriginalPawn(pawn));
+                copyHediff.PersonaData.OverwritePawn(pawnTarget, null, copyHediff.PersonaData.FindOrigPawn(pawn));
 
                 sourceHediff.spawningStack = true;
                 pawn.health.RemoveHediff(sourceHediff);

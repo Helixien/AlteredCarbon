@@ -157,7 +157,7 @@ namespace AlteredCarbon
 				psychologyData.sexDrive = sexualityTracker.sexDrive;
 				psychologyData.romanticDrive = sexualityTracker.romanticDrive;
 				psychologyData.kinseyRating = sexualityTracker.kinseyRating;
-				psychologyData.knownSexualities = Traverse.Create(sexualityTracker).Field<Dictionary<Pawn, int>>("knownSexualities").Value;
+                psychologyData.knownSexualities = sexualityTracker.knownSexualities;
 				return psychologyData;
 			}
 			return null;
@@ -174,7 +174,7 @@ namespace AlteredCarbon
 					romanticDrive = psychologyData.romanticDrive,
 					kinseyRating = psychologyData.kinseyRating
 				};
-				Traverse.Create(sexualityTracker).Field<Dictionary<Pawn, int>>("knownSexualities").Value = psychologyData.knownSexualities;
+				sexualityTracker.knownSexualities = psychologyData.knownSexualities;
 				comp.Sexuality = sexualityTracker;
 			}
 		}
