@@ -19,6 +19,8 @@ namespace AlteredCarbon
         public override int OpenTicks => 300;
         public Pawn InnerPawn => innerContainer.OfType<Pawn>().FirstOrDefault();
         protected override bool InnerThingIsDead => innerPawnIsDead;
+
+        public BodyTypeDef targetBodyType;
         public override Thing InnerThing => innerContainer.FirstOrDefault();
 
         [Unsaved(false)]
@@ -133,7 +135,6 @@ namespace AlteredCarbon
             base.DrawAt(drawLoc, flip);
             if (incubatorState != IncubatorState.ToBeActivated && InnerPawn != null)
             {
-                AdjustAge();
                 Vector3 newPos = drawLoc;
                 newPos.z += 0.2f;
                 newPos.y += 1;
@@ -157,8 +158,6 @@ namespace AlteredCarbon
                     InnerPawn.Rotation = Rotation;
                     InnerPawn.DrawAt(newPos + PawnDrawOffset, flip);
                 }
-                var lastAdultAge = InnerPawn.RaceProps.lifeStageAges.LastOrDefault((LifeStageAge lifeStageAge) => lifeStageAge.def.developmentalStage.Adult())?.minAge ?? 0f;
-                InnerPawn.ageTracker.AgeBiologicalTicks = (long)(Mathf.FloorToInt(lastAdultAge * 3600000f));
             }
             base.Comps_PostDraw();
         }
@@ -214,6 +213,7 @@ namespace AlteredCarbon
 
         public void StartGrowth(Pawn newSleeve, Xenogerm xenogerm, int totalTicksToGrow, int totalGrowthCost)
         {
+            targetBodyType = newSleeve.story.bodyType;
             xenogermToConsume = xenogerm;
             Pawn pawn = InnerPawn;
             if (pawn != null)
@@ -385,7 +385,6 @@ namespace AlteredCarbon
             {
                 runningOutPowerInTicks = 0;
             }
-
             float fuelCost = totalGrowthCost / totalTicksToGrow;
             compRefuelable.ConsumeFuel(fuelCost);
             if (curTicksToGrow < totalTicksToGrow)
@@ -412,6 +411,7 @@ namespace AlteredCarbon
                     sustainerWorking.Maintain();
                 }
                 curTicksToGrow++;
+                AdjustAge();
             }
             else
             {
@@ -419,12 +419,35 @@ namespace AlteredCarbon
             }
         }
 
+        private BodyTypeDef GetActualBodyType()
+        {
+            if (InnerPawn.DevelopmentalStage.Juvenile())
+            {
+                if (InnerPawn.DevelopmentalStage == DevelopmentalStage.Baby)
+                {
+                    return BodyTypeDefOf.Baby;
+                }
+                return BodyTypeDefOf.Child;
+            }
+            return targetBodyType;
+        }
+
         private void AdjustAge()
         {
             var growthProgress = GrowthProgress;
             var lastAdultAge = InnerPawn.RaceProps.lifeStageAges.LastOrDefault((LifeStageAge lifeStageAge) => lifeStageAge.def.developmentalStage.Adult())?.minAge ?? 0f;
             InnerPawn.ageTracker.AgeBiologicalTicks = (long)(Mathf.FloorToInt(lastAdultAge * 3600000f) * growthProgress);
-            InnerPawn.ageTracker.AgeChronologicalTicks++;
+            InnerPawn.ageTracker.AgeChronologicalTicks = InnerPawn.ageTracker.AgeBiologicalTicks;
+            var bodyType = GetActualBodyType();
+            if (bodyType != InnerPawn.story.bodyType)
+            {
+                if (targetBodyType is null)
+                {
+                    targetBodyType = InnerPawn.story.bodyType;
+                }
+                InnerPawn.story.bodyType = bodyType;
+                InnerPawn.RefreshGraphic();
+            }
         }
 
         public override string GetInspectString()
@@ -446,6 +469,7 @@ namespace AlteredCarbon
             base.ExposeData();
             Scribe_Values.Look(ref innerPawnIsDead, "innerPawnIsDead", false, true);
             Scribe_References.Look(ref xenogermToConsume, "xenogermToConsume");
+            Scribe_Defs.Look(ref targetBodyType, "targetBodyType");
         }
     }
 }

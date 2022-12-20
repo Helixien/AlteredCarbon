@@ -30,6 +30,9 @@
 	<AC.ExtractStack>Extract stack</AC.ExtractStack>
 	<AC.DuplicateStack>Duplicate Stack</AC.DuplicateStack>
 	<AC.DuplicateStackDesc>Placeholder</AC.DuplicateStackDesc>
+	<AC.AlreadySetToDuplicate>Already set a stack to duplicate</AC.AlreadySetToDuplicate>
+	<AC.NoEnoughSpaceForNewStack>Not enough space for new stack</AC.NoEnoughSpaceForNewStack>
+	
 	<AC.DestroyStack>Destroy stack</AC.DestroyStack>
 	<AC.DestroyedStack>Destroyed stack</AC.DestroyedStack>
 	<AC.DestroyedStackDesc>An empty stack was destroyed by inept actions of {PAWN_labelShort}.</AC.DestroyedStackDesc>
@@ -111,6 +114,7 @@
 	<AC.Copy>Copy</AC.Copy>
 	<AC.Original>Original</AC.Original>
 	<AC.SuccessfullyDuplicatedStack>{PAWN_nameDef} successfully duplicated cortical stack.</AC.SuccessfullyDuplicatedStack>
+	<AC.FailedToDuplicatedStack>{PAWN_nameDef} failed to duplicate cortical stack.</AC.FailedToDuplicatedStack>
 	<AC.OrganIncubatorIsRunningOutFuel>Organ incubator is running out neutroamine</AC.OrganIncubatorIsRunningOutFuel>
 	<AC.OrganIncubatorIsRunningOutPower>Organ incubator is running out power</AC.OrganIncubatorIsRunningOutPower>
 	<AC.OrganSpoiled>Organ in the incubator is spoiled</AC.OrganSpoiled>

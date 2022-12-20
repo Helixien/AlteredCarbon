@@ -201,6 +201,10 @@ namespace AlteredCarbon
                 stackToDuplicate = null;
                 Messages.Message("AC.SuccessfullyDuplicatedStack".Translate(doer.Named("PAWN")), this, MessageTypeDefOf.TaskCompletion);
             }
+            else
+            {
+                Messages.Message("AC.FailedToDuplicatedStack".Translate(doer.Named("PAWN")), this, MessageTypeDefOf.NeutralEvent);
+            }
         }
         public void PerformStackBackup(Hediff_CorticalStack hediff_CorticalStack)
         {

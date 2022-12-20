@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace AlteredCarbon
         {
             { AC_DefOf.VFEU_FilledCorticalStack, AC_DefOf.VFEU_EmptyCorticalStack },
         };
+
         public static Dictionary<ThingDef, StackInstallInfo> stackRecipesByDef = new Dictionary<ThingDef, StackInstallInfo>
         {
             { 
@@ -138,7 +140,7 @@ namespace AlteredCarbon
             }
             return AC_DefOf.VFEU_FilledCorticalStack;
         }
-        public static void UpdateGraphic(this Pawn pawn)
+        public static void RefreshGraphic(this Pawn pawn)
         {
             pawn.Drawer.renderer.graphics.ResolveAllGraphics();
             PortraitsCache.SetDirty(pawn);
@@ -152,6 +154,11 @@ namespace AlteredCarbon
             if (ModCompatibility.AlienRacesIsActive)
             {
                 ModCompatibility.CopyBodyAddons(source, dest);
+
+                ModCompatibility.SetSkinColorFirst(dest, ModCompatibility.GetSkinColorFirst(source));
+                ModCompatibility.SetSkinColorSecond(dest, ModCompatibility.GetSkinColorSecond(source));
+                ModCompatibility.SetHairColorFirst(dest, ModCompatibility.GetHairColorFirst(source));
+                ModCompatibility.SetHairColorSecond(dest, ModCompatibility.GetHairColorSecond(source));
             }
 
             var genes = dest.genes.GenesListForReading;
@@ -185,6 +192,7 @@ namespace AlteredCarbon
             dest.story.hairDef = source.story.hairDef;
             dest.style.beardDef = source.style.beardDef;
             dest.story.headType = source.story.headType;
+
 
             dest.genes.xenotype = source.genes.xenotype;
             dest.genes.xenotypeName = source.genes.xenotypeName;
@@ -291,6 +299,39 @@ namespace AlteredCarbon
             return ModCompatibility.RimJobWorldIsActive
                 ? rjw.SexPartAdder.MakePart(hediffDef, pawn, part)
                 : HediffMaker.MakeHediff(hediffDef, pawn, part);
+        }
+
+        public static void CleanupList<T>(this List<T> list, Predicate<T> predicate = null)
+        {
+            if (list is null) return;
+
+            if (predicate is null)
+            {
+                predicate = (x => x.IsNullValue());
+            }
+
+            for (int i = list.Count - 1; i >= 0; i--)
+            {
+                if (predicate(list[i]))
+                {
+                    list.RemoveAt(i);
+                }
+            }
+        }
+
+        public static void CleanupDict<K, V>(this Dictionary<K, V> dict, Predicate<KeyValuePair<K, V>> predicate = null)
+        {
+            if (dict is null) return;
+            if (predicate is null)
+            {
+                predicate = (x => x.Key.IsNullValue() || x.Value.IsNullValue());
+            }
+            dict.RemoveAll(predicate);
+        }
+
+        public static bool IsNullValue<T>(this T obj)
+        {
+            return obj is null || typeof(T).GetField("def")?.GetValue(obj) is null;
         }
     }
 }

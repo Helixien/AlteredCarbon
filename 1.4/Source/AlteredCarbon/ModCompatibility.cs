@@ -199,8 +199,14 @@ namespace AlteredCarbon
 				return DefDatabase<HairDef>.AllDefs.Where(x => x.styleTags.Intersect(allowedTags).Any()).ToList();
 			}
 		}
-
-		public static List<BodyTypeDef> GetAllowedBodyTypes(ThingDef raceDef)
+        public static List<HeadTypeDef> GetAllowedHeadTypes(ThingDef raceDef)
+        {
+            AlienRace.ThingDef_AlienRace alienRace = raceDef as AlienRace.ThingDef_AlienRace;
+            return alienRace.alienRace?.generalSettings?.alienPartGenerator?.headTypes?.Any() ?? false
+                ? alienRace.alienRace.generalSettings.alienPartGenerator.headTypes
+                : DefDatabase<HeadTypeDef>.AllDefsListForReading;
+        }
+        public static List<BodyTypeDef> GetAllowedBodyTypes(ThingDef raceDef)
 		{
 			AlienRace.ThingDef_AlienRace alienRace = raceDef as AlienRace.ThingDef_AlienRace;
 			return alienRace.alienRace?.generalSettings?.alienPartGenerator?.bodyTypes?.Any() ?? false
@@ -243,7 +249,16 @@ namespace AlteredCarbon
 				need.CurLevel += value;
 			}
 		}
-		private static readonly MethodInfo tryGetRaceGroupDef;
+
+        public static void FillBladderNeed(Pawn pawn, float value)
+        {
+            var need = pawn?.needs?.TryGetNeed<DubsBadHygiene.Need_Bladder>();
+            if (need != null)
+            {
+                need.CurLevel += value;
+            }
+        }
+        private static readonly MethodInfo tryGetRaceGroupDef;
 		private static readonly Type raceGroupDef_HelperType;
 		public static bool RJWAllowsThisFor(this HediffDef hediffDef, Pawn pawn)
 		{

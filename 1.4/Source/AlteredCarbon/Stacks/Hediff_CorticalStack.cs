@@ -59,6 +59,16 @@ namespace AlteredCarbon
         {
             this.Part = pawn.def.race.body.AllParts.FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Neck);
             base.PostAdd(dinfo);
+
+            foreach (var hediff in pawn.health.hediffSet.hediffs)
+            {
+                if (hediff != this && hediff is Hediff_CorticalStack otherStack)
+                {
+                    otherStack.preventKill = otherStack.preventSpawningStack = true;
+                    pawn.health.RemoveHediff(otherStack);
+                    otherStack.preventKill = otherStack.preventSpawningStack = false;
+                }
+            }
             var emptySleeveHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_EmptySleeve);
             if (emptySleeveHediff != null)
             {
@@ -122,15 +132,15 @@ namespace AlteredCarbon
                 this.pawn.Kill(null);
             }
 
-            if (this.def == AC_DefOf.AC_ArchoStack && !spawningStack)
+            if (this.def == AC_DefOf.AC_ArchoStack && !preventSpawningStack)
             {
                 SpawnStack(placeMode: ThingPlaceMode.Near);
             }
         }
-        public bool spawningStack;
+        public bool preventSpawningStack;
         public void SpawnStack(bool destroyPawn = false, ThingPlaceMode placeMode = ThingPlaceMode.Near, Caravan caravan = null, bool psycastEffect = false)
         {
-            spawningStack = true;
+            preventSpawningStack = true;
             var stackDef = SourceStack;
             var corticalStack = ThingMaker.MakeThing(stackDef) as CorticalStack;
             corticalStack.PersonaData.CopyFromPawn(this.pawn, stackDef);
@@ -160,7 +170,7 @@ namespace AlteredCarbon
                     this.pawn.Destroy();
                 }
             }
-            spawningStack = false;
+            preventSpawningStack = false;
         }
 
         [HarmonyPatch(typeof(HediffSet), "ExposeData")]

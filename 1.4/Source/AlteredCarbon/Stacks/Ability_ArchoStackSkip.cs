@@ -46,9 +46,9 @@ namespace AlteredCarbon
                 pawnTarget.health.AddHediff(copyHediff, neckRecord);
                 copyHediff.PersonaData.OverwritePawn(pawnTarget, null, copyHediff.PersonaData.FindOrigPawn(pawn));
 
-                sourceHediff.spawningStack = true;
+                sourceHediff.preventSpawningStack = true;
                 pawn.health.RemoveHediff(sourceHediff);
-                sourceHediff.spawningStack = false;
+                sourceHediff.preventSpawningStack = false;
 
                 copyHediff.skipAbility.cooldown = sourceHediff.skipAbility.cooldown;
                 AlteredCarbonManager.Instance.deadPawns.Add(pawn);

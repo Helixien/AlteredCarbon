@@ -360,7 +360,7 @@ namespace AlteredCarbon
         }
         public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
         {
-            if (this.ArchoStack)
+            if (this.ArchoStack && allowDestroyNonDestroyable is false)
             {
                 return;
             }

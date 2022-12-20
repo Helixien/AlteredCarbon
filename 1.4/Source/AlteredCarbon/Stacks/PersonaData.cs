@@ -3,6 +3,7 @@ using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using Verse;
 using Verse.AI;
@@ -141,7 +142,7 @@ namespace AlteredCarbon
             if (origPawn != null)
             {
                 ACUtils.CopyBody(origPawn, dummyPawn);
-                dummyPawn.UpdateGraphic();
+                dummyPawn.RefreshGraphic();
             }
         }
         public TaggedString PawnNameColored => TitleShort?.CapitalizeFirst().NullOrEmpty() ?? false
@@ -544,7 +545,7 @@ namespace AlteredCarbon
             {
                 pawnToOverwrite.SetFaction(faction);
             }
-            if (isFactionLeader && overwriteOriginalPawn)
+            if (isFactionLeader && overwriteOriginalPawn && pawnToOverwrite.Faction != null)
             {
                 pawnToOverwrite.Faction.leader = pawnToOverwrite;
             }
@@ -660,7 +661,7 @@ namespace AlteredCarbon
             var compAbilities = pawnToOverwrite.GetComp<VFECore.Abilities.CompAbilities>();
             if (compAbilities != null)
             {
-                compAbilities.LearnedAbilities.Clear();
+                compAbilities.LearnedAbilities?.Clear();
             }
             pawnToOverwrite.psychicEntropy = new Pawn_PsychicEntropyTracker(pawnToOverwrite);
             if (this.sourceStack == AC_DefOf.AC_FilledArchoStack)
@@ -744,7 +745,7 @@ namespace AlteredCarbon
             }
             if (pawnToOverwrite.guest is null)
             {
-                pawnToOverwrite.guest = new Pawn_GuestTracker();
+                pawnToOverwrite.guest = new Pawn_GuestTracker(pawnToOverwrite);
             }
             pawnToOverwrite.guest.guestStatusInt = guestStatusInt;
             pawnToOverwrite.guest.interactionMode = interactionMode;
@@ -786,34 +787,19 @@ namespace AlteredCarbon
             pawnToOverwrite.playerSettings.AreaRestriction = areaRestriction;
             pawnToOverwrite.playerSettings.medCare = medicalCareCategory;
             pawnToOverwrite.playerSettings.selfTend = selfTend;
-            if (pawnToOverwrite.foodRestriction == null)
-            {
-                pawnToOverwrite.foodRestriction = new Pawn_FoodRestrictionTracker();
-            }
-            
+            pawnToOverwrite.foodRestriction = new Pawn_FoodRestrictionTracker(pawnToOverwrite);
             pawnToOverwrite.foodRestriction.CurrentFoodRestriction = foodRestriction;
-            if (pawnToOverwrite.outfits == null)
-            {
-                pawnToOverwrite.outfits = new Pawn_OutfitTracker();
-            }
-            
+            pawnToOverwrite.outfits = new Pawn_OutfitTracker(pawnToOverwrite);
             try
             {
                 pawnToOverwrite.outfits.CurrentOutfit = outfit;
             }
             catch { }
-            if (pawnToOverwrite.drugs == null)
-            {
-                pawnToOverwrite.drugs = new Pawn_DrugPolicyTracker();
-            }
-            
+            pawnToOverwrite.drugs = new Pawn_DrugPolicyTracker(pawnToOverwrite);
             pawnToOverwrite.drugs.CurrentPolicy = drugPolicy;
             pawnToOverwrite.ageTracker.AgeChronologicalTicks = ageChronologicalTicks;
-            if (pawnToOverwrite.timetable == null)
-            {
-                pawnToOverwrite.timetable = new Pawn_TimetableTracker(pawnToOverwrite);
-            }
-            
+            pawnToOverwrite.timetable = new Pawn_TimetableTracker(pawnToOverwrite);
+
             if (times != null)
             {
                 pawnToOverwrite.timetable.times = times;
@@ -861,11 +847,7 @@ namespace AlteredCarbon
             
             if (ModsConfig.RoyaltyActive)
             {
-                if (pawnToOverwrite.royalty == null)
-                {
-                    pawnToOverwrite.royalty = new Pawn_RoyaltyTracker(pawnToOverwrite);
-                }
-            
+                pawnToOverwrite.royalty = new Pawn_RoyaltyTracker(pawnToOverwrite);
                 if (royalTitles != null)
                 {
                     foreach (RoyalTitle title in royalTitles)
@@ -1168,6 +1150,24 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref limitEntropyAmount, "limitEntropyAmount");
             Scribe_Values.Look(ref targetPsyfocus, "targetPsyfocus");
 
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                times.CleanupList();
+                thoughts.CleanupList();
+                traits.CleanupList();
+                relations.CleanupList();
+                relatedPawns.CleanupList();
+                skills.CleanupList();
+                royalTitles.CleanupList();
+                bondedThings.CleanupList();
+                factionPermits.CleanupList();
+                abilities.CleanupList();
+                VEAbilities.CleanupList();
+                previousIdeos.CleanupList();
+                priorities.CleanupDict();
+                favor.CleanupDict();
+                heirs.CleanupDict();
+            }
         }
 
         private List<Faction> favorKeys = new List<Faction>();

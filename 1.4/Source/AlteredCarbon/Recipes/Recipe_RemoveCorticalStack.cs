@@ -48,9 +48,9 @@ namespace AlteredCarbon
 					{
 						pawn.TakeDamage(new DamageInfo(DamageDefOf.SurgicalCut, 99999f, 999f, -1f, null, head));
 					}
-					hediff.spawningStack = true;
+					hediff.preventSpawningStack = true;
                     pawn.health.RemoveHediff(hediff);
-                    hediff.spawningStack = false;
+                    hediff.preventSpawningStack = false;
 
                     Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.disableKilledEffect = false;
 

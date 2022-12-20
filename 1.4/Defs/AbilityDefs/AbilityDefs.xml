@@ -12,6 +12,7 @@
 		<targetMode>Pawn</targetMode>
 		<fleckOnTarget>PsycastPsychicEffect</fleckOnTarget>
 		<abilityClass>AlteredCarbon.Ability_ArchoStackSkip</abilityClass>
+		<chance>0</chance>
 	</VFECore.Abilities.AbilityDef>
 
 </Defs>
