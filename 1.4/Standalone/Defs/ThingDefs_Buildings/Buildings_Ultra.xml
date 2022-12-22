@@ -196,7 +196,7 @@
 		<altitudeLayer>Building</altitudeLayer>
 		<passability>PassThroughOnly</passability>
 		<fillPercent>0.5</fillPercent>
-		<designationCategory>Misc</designationCategory>
+		<designationCategory>Biotech</designationCategory>
 		<pathCost>42</pathCost>
 		<castEdgeShadows>true</castEdgeShadows>
 		<staticSunShadowHeight>0.20</staticSunShadowHeight>
