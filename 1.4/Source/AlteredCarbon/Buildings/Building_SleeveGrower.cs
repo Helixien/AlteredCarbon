@@ -95,7 +95,6 @@ namespace AlteredCarbon
                         icon = ContentFinder<Texture2D>.Get("UI/Icons/CreateSleeve", true)
                     };
                     yield return createSleeveBody;
-
                     Command_Action copySleeveBody = new Command_Action
                     {
                         action = CopyPawnBody,
@@ -107,6 +106,11 @@ namespace AlteredCarbon
                     };
                     yield return copySleeveBody;
 
+                    if (powerTrader.PowerOn is false)
+                    {
+                        createSleeveBody.Disable("NoPower".Translate().CapitalizeFirst());
+                        copySleeveBody.Disable("NoPower".Translate().CapitalizeFirst());
+                    }
 
                 }
                 if (Prefs.DevMode && incubatorState == IncubatorState.Growing)
