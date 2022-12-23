@@ -20,6 +20,12 @@ namespace AlteredCarbon
         [MayRequireHelixienMod] public static ThoughtDef AC_LostMyLover;
         [MayRequireHelixienMod] public static PawnRelationDef AC_Original;
         [MayRequireHelixienMod] public static PawnRelationDef AC_Copy;
+        [MayRequireHelixienMod] public static ThingDef AC_FilledArchoStack;
+        [MayRequireHelixienMod] public static ThingDef AC_EmptyArchoStack;
+        [MayRequireHelixienMod] public static HediffDef AC_ArchoStack;
+        [MayRequireHelixienMod] public static RecipeDef AC_InstallArchoStack;
+        [MayRequireHelixienMod] public static RecipeDef AC_InstallEmptyArchoStack;
+        [MayRequireHelixienMod] public static VFECore.Abilities.AbilityDef AC_ArchoStackSkip;
 
         public static VEBackstoryDef VFEU_VatGrownChild;
         public static VEBackstoryDef VFEU_VatGrownAdult;
@@ -63,5 +69,6 @@ namespace AlteredCarbon
         public static ThingDef VFEU_Mote_VatGlow;
         public static EffecterDef VFEU_Vat_Bubbles;
         public static LetterDef HumanPregnancy;
+        public static FleckDef PsycastAreaEffect;
     }
 }

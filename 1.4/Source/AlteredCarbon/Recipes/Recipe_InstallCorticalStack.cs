@@ -20,11 +20,12 @@ namespace AlteredCarbon
     {
         public override bool AvailableOnNow(Thing thing, BodyPartRecord part = null)
         {
-            if (thing is Pawn pawn && pawn.DevelopmentalStage != DevelopmentalStage.Adult)
+            var pawn = thing as Pawn;
+            if (ACUtils.CanImplantStackTo(this.recipe.addsHediff, pawn))
             {
-                return false;
+                return base.AvailableOnNow(thing, part);
             }
-            return base.AvailableOnNow(thing, part);
+            return false;
         }
         public override IEnumerable<BodyPartRecord> GetPartsToApplyOn(Pawn pawn, RecipeDef recipe)
         {
@@ -43,11 +44,13 @@ namespace AlteredCarbon
         }
         public override void ConsumeIngredient(Thing ingredient, RecipeDef recipe, Map map)
         {
+            Thing.allowDestroyNonDestroyable = true;
             if (ingredient is CorticalStack c)
             {
                 c.dontKillThePawn = true;
             }
             base.ConsumeIngredient(ingredient, recipe, map);
+            Thing.allowDestroyNonDestroyable = false;
         }
         private void CopyAllPhysicalDataFrom(Pawn source, Pawn to)
         {
@@ -69,7 +72,7 @@ namespace AlteredCarbon
                         if (i is CorticalStack c)
                         {
                             c.stackCount = 1;
-                            Traverse.Create(c).Field("mapIndexOrState").SetValue((sbyte)-1);
+                            c.mapIndexOrState = (sbyte)-1;
                             GenPlace.TryPlaceThing(c, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
                         }
                     }
@@ -78,105 +81,80 @@ namespace AlteredCarbon
                 TaleRecorder.RecordTale(TaleDefOf.DidSurgery, billDoer, pawn);
             }
 
-            var thing = ingredients.Where(x => x is CorticalStack).FirstOrDefault();
-            if (thing is CorticalStack corticalStack)
+            if (pawn.HasCorticalStack(out var stackHediff))
             {
-                var hediff = HediffMaker.MakeHediff(recipe.addsHediff, pawn) as Hediff_CorticalStack;
-                if (corticalStack.PersonaData.ContainsInnerPersona)
+                var emptyStack = ACUtils.stacksPairs[stackHediff.SourceStack];
+                var stack = ThingMaker.MakeThing(emptyStack);
+                GenPlace.TryPlaceThing(stack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
+                stackHediff.preventKill = true;
+                pawn.health.RemoveHediff(stackHediff);
+            }
+
+            var corticalStack = ingredients.OfType<CorticalStack>().FirstOrDefault();
+            var hediff = HediffMaker.MakeHediff(recipe.addsHediff, pawn) as Hediff_CorticalStack;
+            if (corticalStack.PersonaData.ContainsInnerPersona)
+            {
+                hediff.PersonaData = corticalStack.PersonaData;
+                if (pawn.IsEmptySleeve() is false)
                 {
-                    //foreach (Pawn item in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive)
-                    //{
-                    //    if (item.needs != null && item.RaceProps.IsFlesh && item.needs.mood != null && PawnUtility.ShouldGetThoughtAbout(item, pawn))
-                    //    {
-                    //        Log.Message("pawn: " + OpinionOf("pawn: ", pawn, item));
-                    //        Log.Message("pawn (rev): " + OpinionOf("pawn (rev): ", item, pawn));
-                    //    }
-                    //}
-                    hediff.PersonaData = corticalStack.PersonaData;
-                    
-                    if (pawn.IsEmptySleeve())
-                    {
-                        corticalStack.PersonaData.OverwritePawn(pawn, corticalStack.def.GetModExtension<StackSavingOptionsModExtension>(), null);
-                    }
-                    else
-                    {
-                        var gender = pawn.gender;
-                        var kindDef = pawn.kindDef;
-                        var faction = pawn.Faction;
-                        var dummyPawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(kindDef, faction, fixedGender: gender,
-                            fixedBiologicalAge: pawn.ageTracker.AgeBiologicalYearsFloat, fixedChronologicalAge: pawn.ageTracker.AgeChronologicalYearsFloat));
-                        var copy = new PersonaData();
+                    var gender = pawn.gender;
+                    var kindDef = pawn.kindDef;
+                    var faction = pawn.Faction;
+                    var dummyPawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(kindDef, faction, fixedGender: gender,
+                        fixedBiologicalAge: pawn.ageTracker.AgeBiologicalYearsFloat, fixedChronologicalAge: pawn.ageTracker.AgeChronologicalYearsFloat));
+                    var copy = new PersonaData();
+                    copy.OverwritePawn(pawnToOverwrite: dummyPawn, null, original: pawn, overwriteOriginalPawn: false);
+                    CopyAllPhysicalDataFrom(pawn, dummyPawn);
+                    GenSpawn.Spawn(dummyPawn, pawn.Position, pawn.Map);
+                    Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.pawnToSkip = dummyPawn;
+                    dummyPawn.Kill(null, hediff);
+                    dummyPawn.Corpse.DeSpawn();
+                }
 
-                        corticalStack.PersonaData.ErasePawn(dummyPawn);
-                        copy.CopyPawn(pawn); // we create a copy of original pawn
-                        copy.OverwritePawn(pawnToOverwrite: dummyPawn, null, original: pawn);
-                        CopyAllPhysicalDataFrom(pawn, dummyPawn);
-                        corticalStack.PersonaData.ErasePawn(pawn);
+                corticalStack.PersonaData.OverwritePawn(pawn, corticalStack.def.GetModExtension<StackSavingOptionsModExtension>(), null);
+                pawn.health.AddHediff(hediff, part);
+                AlteredCarbonManager.Instance.StacksIndex.Remove(corticalStack.PersonaData.pawnID);
+                AlteredCarbonManager.Instance.ReplaceStackWithPawn(corticalStack, pawn);
 
-                        GenSpawn.Spawn(dummyPawn, pawn.Position, pawn.Map);
-                        dummyPawn.needs.mood.thoughts.situational.Notify_SituationalThoughtsDirty();
+                var naturalMood = pawn.story.traits.GetTrait(TraitDefOf.NaturalMood);
+                var nerves = pawn.story.traits.GetTrait(TraitDefOf.Nerves);
 
-                        foreach (Pawn item in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive)
-                        {
-                            if (item.needs != null && item.RaceProps.IsFlesh && item.needs.mood != null && PawnUtility.ShouldGetThoughtAbout(item, dummyPawn))
-                            {
-                                item.needs.mood.thoughts.situational.Notify_SituationalThoughtsDirty();
-                                //Log.Message("dummyPawn: " + OpinionOf("dummyPawn: ", dummyPawn, item));
-                                //Log.Message("dummyPawn (rev): " + OpinionOf("dummyPawn (rev): ", item, dummyPawn));
-                            }
-                        }
-
-                        Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.pawnToSkip = dummyPawn;
-                        dummyPawn.Kill(null, hediff);
-                        dummyPawn.Corpse.DeSpawn();
-
-                        corticalStack.PersonaData.OverwritePawn(pawn, corticalStack.def.GetModExtension<StackSavingOptionsModExtension>(), dummyPawn);
-                    }
-
-                    pawn.health.AddHediff(hediff, part);
-                    AlteredCarbonManager.Instance.StacksIndex.Remove(corticalStack.PersonaData.pawnID);
-                    AlteredCarbonManager.Instance.ReplaceStackWithPawn(corticalStack, pawn);
-                    
-                    var naturalMood = pawn.story.traits.GetTrait(TraitDefOf.NaturalMood);
-                    var nerves = pawn.story.traits.GetTrait(TraitDefOf.Nerves);
-                    
-                    if ((naturalMood != null && naturalMood.Degree == -2)
-                            || pawn.story.traits.HasTrait(TraitDefOf.BodyPurist)
-                            || (nerves != null && nerves.Degree == -2))
-                    {
-                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_NewSleeveDouble);
-                    }
-                    else
-                    {
-                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_NewSleeve);
-                    }
-                    
-                    if (corticalStack.PersonaData.diedFromCombat.HasValue && corticalStack.PersonaData.diedFromCombat.Value)
-                    {
-                        pawn.health.AddHediff(HediffMaker.MakeHediff(AC_DefOf.VFEU_SleeveShock, pawn));
-                        corticalStack.PersonaData.diedFromCombat = null;
-                    }
-                    if (corticalStack.PersonaData.hackedWhileOnStack)
-                    {
-                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_SomethingIsWrong);
-                        corticalStack.PersonaData.hackedWhileOnStack = false;
-                    }
+                if ((naturalMood != null && naturalMood.Degree == -2)
+                        || pawn.story.traits.HasTrait(TraitDefOf.BodyPurist)
+                        || (nerves != null && nerves.Degree == -2))
+                {
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_NewSleeveDouble);
                 }
                 else
                 {
-                    pawn.health.AddHediff(hediff, part);
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_NewSleeve);
                 }
 
-                if (AlteredCarbonManager.Instance.emptySleeves != null && AlteredCarbonManager.Instance.emptySleeves.Contains(pawn))
+                if (corticalStack.PersonaData.diedFromCombat.HasValue && corticalStack.PersonaData.diedFromCombat.Value)
                 {
-                    AlteredCarbonManager.Instance.emptySleeves.Remove(pawn);
+                    pawn.health.AddHediff(HediffMaker.MakeHediff(AC_DefOf.VFEU_SleeveShock, pawn));
+                    corticalStack.PersonaData.diedFromCombat = null;
                 }
+                if (corticalStack.PersonaData.hackedWhileOnStack)
+                {
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_SomethingIsWrong);
+                    corticalStack.PersonaData.hackedWhileOnStack = false;
+                }
+            }
+            else
+            {
+                pawn.health.AddHediff(hediff, part);
+            }
 
-                if (ModsConfig.IdeologyActive)
-                {
-                    var eventDef = DefDatabase<HistoryEventDef>.GetNamed("VFEU_InstalledCorticalStack");
-                    Find.HistoryEventsManager.RecordEvent(new HistoryEvent(eventDef, pawn.Named(HistoryEventArgsNames.Doer)));
-                }
+            if (AlteredCarbonManager.Instance.emptySleeves != null && AlteredCarbonManager.Instance.emptySleeves.Contains(pawn))
+            {
+                AlteredCarbonManager.Instance.emptySleeves.Remove(pawn);
+            }
+
+            if (ModsConfig.IdeologyActive)
+            {
+                var eventDef = DefDatabase<HistoryEventDef>.GetNamed("VFEU_InstalledCorticalStack");
+                Find.HistoryEventsManager.RecordEvent(new HistoryEvent(eventDef, pawn.Named(HistoryEventArgsNames.Doer)));
             }
         }
     }

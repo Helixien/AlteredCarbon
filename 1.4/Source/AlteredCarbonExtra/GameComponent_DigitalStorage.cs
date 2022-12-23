@@ -27,7 +27,7 @@ namespace AlteredCarbon
                     {
                         foreach (var pawn in pawns)
                         {
-                            if (pawn != null && personaData.IsMatchingPawn(pawn))
+                            if (pawn != null && personaData.IsPresetPawn(pawn))
                             {
                                 if (pawn.Destroyed && pawn.Corpse is null || pawn.Corpse != null
                                     && pawn.Corpse.Destroyed || pawn.ParentHolder is null ||
@@ -74,17 +74,21 @@ namespace AlteredCarbon
 
         public bool CanBackup(Pawn pawn)
         {
-            return pawn.IsColonist && pawn.HasCorticalStack(out _);
+            return pawn.Dead is false && pawn.IsColonist && pawn.HasCorticalStack(out var hediff_CorticalStack)
+                && hediff_CorticalStack.def != AC_DefOf.AC_ArchoStack;
         }
 
         public void Backup(Pawn pawn)
         {
-            var copy = new PersonaData();
-            copy.CopyPawn(pawn, copyRaceGenderInfo: true);
-            copy.isCopied = true;
-            copy.lastTimeUpdated = Find.TickManager.TicksAbs;
-            copy.RefreshDummyPawn();
-            this.backedUpStacks[copy.pawnID] = copy;
+            if (pawn.HasCorticalStack(out var stackHediff))
+            {
+                var copy = new PersonaData();
+                copy.CopyFromPawn(pawn, stackHediff.SourceStack, copyRaceGenderInfo: true);
+                copy.isCopied = true;
+                copy.lastTimeUpdated = Find.TickManager.TicksAbs;
+                copy.RefreshDummyPawn();
+                this.backedUpStacks[copy.pawnID] = copy;
+            }
         }
 
         public void BackupAllColonistsWithStacks()

@@ -3,7 +3,8 @@
 	<!-- ================================ Stacks ====================== -->
 	<AC.InstallStack>Implant cortical stack</AC.InstallStack>
 	<AC.InstallStackDesc>Select a pawn or empty sleeve to implant the cortical stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallStackDesc>
-
+	<AC.InstallArchoStack>Implant archo stack</AC.InstallArchoStack>
+	<AC.InstallArchoStackDesc>Select a pawn or empty sleeve to implant the archo stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallArchoStackDesc>
 	<!-- ================================ Sleeve Incubator ====================== -->
 	<AC.CreateSleeveBody>Grow sleeve</AC.CreateSleeveBody>
 	<AC.CreateSleeveBodyDesc>Create a new baseliner or xenotype sleeve using available xenogerms.</AC.CreateSleeveBodyDesc>
@@ -29,6 +30,9 @@
 	<AC.ExtractStack>Extract stack</AC.ExtractStack>
 	<AC.DuplicateStack>Duplicate Stack</AC.DuplicateStack>
 	<AC.DuplicateStackDesc>Placeholder</AC.DuplicateStackDesc>
+	<AC.AlreadySetToDuplicate>Already set a stack to duplicate</AC.AlreadySetToDuplicate>
+	<AC.NoEnoughSpaceForNewStack>Not enough space for new stack</AC.NoEnoughSpaceForNewStack>
+	
 	<AC.DestroyStack>Destroy stack</AC.DestroyStack>
 	<AC.DestroyedStack>Destroyed stack</AC.DestroyedStack>
 	<AC.DestroyedStackDesc>An empty stack was destroyed by inept actions of {PAWN_labelShort}.</AC.DestroyedStackDesc>
@@ -106,9 +110,11 @@
 	<AC.AllowColonistStacks>*Allow colonist cortical stacks</AC.AllowColonistStacks>
 	<AC.AllowStrangerStacks>*Allow stranger cortical stacks</AC.AllowStrangerStacks>
 	<AC.AllowHostileStacks>*Allow hostile cortical stacks</AC.AllowHostileStacks>
+	<AC.AllowArchoStacks>*Allow archo stacks</AC.AllowArchoStacks>
 	<AC.Copy>Copy</AC.Copy>
 	<AC.Original>Original</AC.Original>
 	<AC.SuccessfullyDuplicatedStack>{PAWN_nameDef} successfully duplicated cortical stack.</AC.SuccessfullyDuplicatedStack>
+	<AC.FailedToDuplicatedStack>{PAWN_nameDef} failed to duplicate cortical stack.</AC.FailedToDuplicatedStack>
 	<AC.OrganIncubatorIsRunningOutFuel>Organ incubator is running out neutroamine</AC.OrganIncubatorIsRunningOutFuel>
 	<AC.OrganIncubatorIsRunningOutPower>Organ incubator is running out power</AC.OrganIncubatorIsRunningOutPower>
 	<AC.OrganSpoiled>Organ in the incubator is spoiled</AC.OrganSpoiled>
@@ -124,6 +130,9 @@
 	<AC.WipeStack>Wipe stack</AC.WipeStack>
 	<AC.WipeStackDesc>Wipe a stack of the pawn stored on it.</AC.WipeStackDesc>
 	<AC.PawnAlreadyHasStack>{PAWN_nameDef} already has a cortical stack installed!</AC.PawnAlreadyHasStack>
+	<AC.PawnAlreadyHasArchoStack>{PAWN_nameDef} already has an archo stack installed!</AC.PawnAlreadyHasArchoStack>
+	<AC.PawnStackCannotDowngrade>{PAWN_nameDef} already has an archo stack installed, cannot downgrade!</AC.PawnStackCannotDowngrade>
+
 	<AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>Cannot install cortical stack - neck is missing or another implant installed in the neck.</AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>
 	<AC.AlreadyOrderedToHackStack>This stack is set for hacking already on the decryption workbench.</AC.AlreadyOrderedToHackStack>
 	<AC.AlreadyOrderedToConvertStack>This stack is set for ideo converting already on the decryption workbench.</AC.AlreadyOrderedToConvertStack>

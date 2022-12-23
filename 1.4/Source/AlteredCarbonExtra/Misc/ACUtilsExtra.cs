@@ -1,31 +1,14 @@
 ﻿using HarmonyLib;
 using RimWorld;
 using RimWorld.Planet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Verse;
-using Verse.AI;
 
 namespace AlteredCarbon
 {
-    [HarmonyPatch(typeof(JobGiver_AIFightEnemy), "TryGiveJob")]
-    public static class JobGiver_AIFightEnemy_TryGiveJob_Patch
-    {
-        public static void Postfix(ref Job __result, Pawn pawn)
-        {
-            if (__result is null && pawn.Faction != Faction.OfPlayer)
-            {
-                JobGiver_TakeStackWhenClose jbg = new();
-                ThinkResult result = jbg.TryIssueJobPackage(pawn, default);
-                if (result.Job != null)
-                {
-                    __result = result.Job;
-                }
-            }
-        }
-    }
-
     [StaticConstructorOnStartup]
     public static class ACUtilsExtra
     {
@@ -33,23 +16,16 @@ namespace AlteredCarbon
         {
             Harmony harmony = new("AlteredCarbonExtra");
             harmony.PatchAll();
-            List<MethodInfo> hooks = new()
-            {
-                AccessTools.Method(typeof(MapDeiniter), "Deinit"),
-                AccessTools.Method(typeof(Game), "AddMap"),
-                AccessTools.Method(typeof(World), "FillComponents"),
-                AccessTools.Method(typeof(Game), "FillComponents"),
-                AccessTools.Method(typeof(Map), "FillComponents"),
-                AccessTools.Method(typeof(Game), "InitNewGame"),
-                AccessTools.Method(typeof(Game), "LoadGame"),
-                AccessTools.Method(typeof(GameInitData), "ResetWorldRelatedMapInitData"),
-                AccessTools.Method(typeof(SavedGameLoaderNow), "LoadGameFromSaveFileNow")
-            };
 
-            foreach (MethodInfo hook in hooks)
-            {
-                harmony.Patch(hook, new HarmonyMethod(typeof(ACUtilsExtra), nameof(ACUtilsExtra.ResetStaticData)));
-            }
+            AddHook(harmony, typeof(MapDeiniter), "PassPawnsToWorld_NewTemp");
+            AddHook(harmony, typeof(Game), "AddMap");
+            AddHook(harmony, typeof(World), "FillComponents");
+            AddHook(harmony, typeof(Game), "FillComponents");
+            AddHook(harmony, typeof(Map), "FillComponents");
+            AddHook(harmony, typeof(Game), "InitNewGame");
+            AddHook(harmony, typeof(Game), "LoadGame");
+            AddHook(harmony, typeof(GameInitData), "ResetWorldRelatedMapInitData");
+            AddHook(harmony, typeof(SavedGameLoaderNow), "LoadGameFromSaveFileNow");
 
             foreach (IngredientCount li in AC_Extra_DefOf.AC_HackBiocodedThings.ingredients)
             {
@@ -96,6 +72,20 @@ namespace AlteredCarbon
             }
 
         }
+
+        private static void AddHook(Harmony harmony, Type type, string methodName)
+        {
+            var hook = AccessTools.Method(type, methodName);
+            if (hook != null)
+            {
+                harmony.Patch(hook, new HarmonyMethod(typeof(ACUtilsExtra), nameof(ACUtilsExtra.ResetStaticData)));
+            }
+            else
+            {
+                Log.Error("Null method detected: " + type + " - " + methodName);
+            }
+        }
+
         public static bool IsUltraTech(this Thing thing)
         {
             return thing.def == AC_DefOf.VFEU_SleeveIncubator

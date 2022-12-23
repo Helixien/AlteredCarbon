@@ -6,6 +6,7 @@ using Verse.Sound;
 
 namespace AlteredCarbon
 {
+    [HotSwappable]
     public class ITab_StackStorageContents : ITab
     {
         private static readonly Vector2 WinSize = new Vector2(432f, 480f);
@@ -28,13 +29,14 @@ namespace AlteredCarbon
             DoAllowOption(ref num, viewRect, labelWidth, "AC.AllowColonistStacks", ref Building_StackStorage.allowColonistCorticalStacks);
             DoAllowOption(ref num, viewRect, labelWidth, "AC.AllowStrangerStacks", ref Building_StackStorage.allowStrangerCorticalStacks);
             DoAllowOption(ref num, viewRect, labelWidth, "AC.AllowHostileStacks", ref Building_StackStorage.allowHostileCorticalStacks);
+            DoAllowOption(ref num, viewRect, labelWidth, "AC.AllowArchoStacks", ref Building_StackStorage.allowArchoStacks);
 
             System.Collections.Generic.List<CorticalStack> storedStacks = Building_StackStorage.StoredStacks.ToList();
             Widgets.ListSeparator(ref num, viewRect.width, "AC.CorticalStacksInArray".Translate(storedStacks.Count(), Building_StackStorage.MaxFilledStackCapacity));
             Rect scrollRect = new Rect(0, num, viewRect.width - 16, viewRect.height);
             Rect outerRect = scrollRect;
             outerRect.width += 16;
-            outerRect.height -= 100;
+            outerRect.height -= 120;
             scrollRect.height = storedStacks.Count() * 28f;
             Widgets.BeginScrollView(outerRect, ref scrollPosition, scrollRect);
             foreach (CorticalStack corticalStack in storedStacks)
@@ -60,7 +62,6 @@ namespace AlteredCarbon
             Text.Anchor = TextAnchor.UpperLeft;
             Widgets.Checkbox(new Vector2(labelWidth, num), ref option, 24, disabled: false, paintable: true);
             num += 24f;
-            SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
         }
         private void DrawThingRow(ref float y, float width, CorticalStack corticalStack, bool showDuplicateStatus)
         {
@@ -78,14 +79,14 @@ namespace AlteredCarbon
             Rect installStackRect = rect2;
             installStackRect.x -= 28;
 
-            TooltipHandler.TipRegion(installStackRect, "AC.InstallStack".Translate());
+            TooltipHandler.TipRegion(installStackRect, corticalStack.ArchoStack ? "AC.InstallArchoStack".Translate() : "AC.InstallStack".Translate());
             if (Widgets.ButtonImage(installStackRect, ContentFinder<Texture2D>.Get("UI/Icons/Install", true)))
             {
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
                 Find.Targeter.BeginTargeting(corticalStack.ForPawn(), delegate (LocalTargetInfo x)
                 {
                     Building_StackStorage.innerContainer.TryDrop(corticalStack, Building_StackStorage.InteractionCell, Building_StackStorage.Map, ThingPlaceMode.Near, 1, out Thing droppedThing);
-                    corticalStack.InstallStackRecipe(x.Pawn);
+                    corticalStack.InstallStackRecipe(x.Pawn, ACUtils.stackRecipesByDef[corticalStack.def].recipe);
                 });
             }
             rect1.width -= 54f;

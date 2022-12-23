@@ -143,7 +143,7 @@ namespace AlteredCarbon
                 Color.RGBToHSV(color, out var H, out var S, out var _);
                 Color defaultColor = Color.HSVToRGB(H, S, 1f);
                 defaultColor.a = 1f;
-                Dialog_GlowerColorPicker.ColorPalette(ref layout, ref color, defaultColor, out var paletteHeight);
+                Dialog_GlowerColorPicker.ColorPalette(ref layout, ref color, defaultColor, false, out var paletteHeight);
                 ColorTextfields(ref layout, out var size);
                 float height = Mathf.Max(paletteHeight, 128f, size.y);
                 RectDivider rectDivider = layout.NewRow(height);

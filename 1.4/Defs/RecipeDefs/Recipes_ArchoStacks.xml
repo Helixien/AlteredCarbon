@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<RecipeDef ParentName="SurgeryInstallImplantBase">
+		<defName>AC_InstallEmptyArchoStack</defName>
+		<label>install empty archo stack</label>
+		<description>Install an empty archo stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_EmptyArchoStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_InstallCorticalStack</workerClass>
+		<jobString>Installing archo stack.</jobString>
+		<uiIconThing>AC_EmptyArchoStack</uiIconThing>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AC_EmptyArchoStack</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AC_EmptyArchoStack</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Neck</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>AC_ArchoStack</addsHediff>
+	</RecipeDef>
+	<RecipeDef ParentName="SurgeryInstallImplantBase">
+		<defName>AC_InstallArchoStack</defName>
+		<label>install filled archo stack</label>
+		<description>Install an archo stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_FilledArchoStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_InstallFilledCorticalStack</workerClass>
+		<jobString>Installing archo stack.</jobString>
+		<uiIconThing>AC_FilledArchoStack</uiIconThing>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AC_FilledArchoStack</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AC_FilledArchoStack</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Neck</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>AC_ArchoStack</addsHediff>
+	</RecipeDef>
+	<RecipeDef ParentName="SurgeryRemoveImplantBase">
+		<defName>AC_RemoveArchoStack</defName>
+		<label>remove archo stack</label>
+		<description>Remove archo stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_FilledArchoStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_RemoveCorticalStack</workerClass>
+		<jobString>Removing archo stack.</jobString>
+		<uiIconThing>AC_FilledArchoStack</uiIconThing>
+		<removesHediff>AC_ArchoStack</removesHediff>
+	</RecipeDef>
+</Defs>

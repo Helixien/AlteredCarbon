@@ -107,7 +107,7 @@ namespace AlteredCarbon
 
         private void Init(PawnKindDef pawnKindDef, Gender? gender = null)
         {
-            currentPawnKindDef = pawnKindDef; ;
+            currentPawnKindDef = pawnKindDef;
             if (!gender.HasValue)
             {
                 gender = Rand.Bool ? Gender.Male : Gender.Female;
@@ -183,9 +183,11 @@ namespace AlteredCarbon
                 DoSelectionButtons(ref firstColumnPos, "AC.SelectRace".Translate(), ref raceTypeIndex,
                     (ThingDef x) => x.LabelCap, permittedRaces, delegate (ThingDef x)
                     {
+                        var oldRace = currentPawnKindDef.race;
                         currentPawnKindDef.race = x;
                         CreateSleeve(curSleeve.gender);
                         raceTypeIndex = permittedRaces.IndexOf(x);
+                        currentPawnKindDef.race = oldRace;
                     });
             }
 
@@ -251,6 +253,11 @@ namespace AlteredCarbon
             DoColorButtons(ref firstColumnPos, "AC.SkinColour".Translate(), GetPermittedSkinColors(), (KeyValuePair<GeneDef, Color> x) => x.Value,
                 delegate (KeyValuePair<GeneDef, Color> selected)
                 {
+                    if (ModCompatibility.AlienRacesIsActive)
+                    {
+                        ModCompatibility.SetSkinColorFirst(curSleeve, selected.Value);
+                    }
+
                     curSleeve.story.skinColorOverride = curSleeve.story.skinColorBase = null;
                     var gene = GeneUtils.ApplyGene(selected.Key, curSleeve);
                     if (selected.Key.endogeneCategory == EndogeneCategory.Melanin)
@@ -331,6 +338,10 @@ namespace AlteredCarbon
                 DoColorButtons(ref firstColumnPos, "AC.HairColour".Translate(), GetPermittedHairColors(), (KeyValuePair<GeneDef, Color> x) => x.Value,
                     delegate (KeyValuePair<GeneDef, Color> selected)
                     {
+                        if (ModCompatibility.AlienRacesIsActive)
+                        {
+                            ModCompatibility.SetHairColorFirst(curSleeve, selected.Value);
+                        }
                         var gene = GeneUtils.ApplyGene(selected.Key, curSleeve);
                         var hairGene = curSleeve.genes.GenesListForReading
                             .FirstOrDefault(x => selected.Key.endogeneCategory == x.def.endogeneCategory);
@@ -373,7 +384,7 @@ namespace AlteredCarbon
             Widgets.DrawMenuSection(pawnBox);
             Widgets.DrawShadowAround(pawnBox);
             Rect pawnBoxPawn = new Rect(pawnBox.x + pawnSpacingFromEdge, pawnBox.y + pawnSpacingFromEdge, pawnBox.width - (pawnSpacingFromEdge * 2), pawnBox.height - (pawnSpacingFromEdge * 2));
-            curSleeve.UpdateGraphic();
+            curSleeve.RefreshGraphic();
             GUI.DrawTexture(pawnBoxPawn, PortraitsCache.Get(curSleeve, pawnBoxPawn.size, curSleeve.Rotation, default, 1f));
             Widgets.InfoCardButton(pawnBox.x + pawnBox.width - Widgets.InfoCardButtonSize - 10f, pawnBox.y + pawnBox.height - 
                 Widgets.InfoCardButtonSize - 10f, curSleeve);
@@ -382,22 +393,29 @@ namespace AlteredCarbon
                 curSleeve.Rotation = curSleeve.Rotation.Rotated(RotationDirection.Clockwise);
             }
 
+            if (Widgets.ButtonImage(new Rect(pawnBox.x + 10f, pawnBox.y + 10, 24, 24), RandomizeSleeve))
+            {
+                var oldRace = currentPawnKindDef.race;
+                currentPawnKindDef.race = curSleeve.def;
+                CreateSleeve(curSleeve.gender);
+                currentPawnKindDef.race = oldRace;
+            }
+
             secondColumnPos.y = pawnBox.yMax + 15;
-            //Hediff printout
-            var heDiffListing = HealthCardUtility.VisibleHediffGroupsInOrder(curSleeve, false);
-            List<Hediff> diffs = heDiffListing.SelectMany(group => group).ToList();
+
+            List<Hediff> hediffs = HealthCardUtility.VisibleHediffGroupsInOrder(curSleeve, false).SelectMany(group => group).ToList();
             Rect healthBoxLabel = GetLabelRect(ref secondColumnPos, 150, 32);
             Text.Font = GameFont.Medium;
             Widgets.Label(healthBoxLabel, "AC.SleeveHealthPreview".Translate().CapitalizeFirst());
-            Rect healthBox = new Rect(pawnBox.x - 15, healthBoxLabel.yMax, pawnBox.width + 30, (diffs.Count * 25f) + 10);
+            Rect healthBox = new Rect(pawnBox.x - 15, healthBoxLabel.yMax, pawnBox.width + 30, (hediffs.Count * 25f) + 10);
             Widgets.DrawHighlight(healthBox);
             GUI.color = HealthUtility.GoodConditionColor;
             Listing_Standard diffListing = new Listing_Standard();
             diffListing.Begin(healthBox.ContractedBy(5));
             Text.Anchor = TextAnchor.MiddleLeft;
-            for (int ii = 0; ii < diffs.Count; ++ii)
+            for (int ii = 0; ii < hediffs.Count; ++ii)
             {
-                diffListing.Label(diffs[ii].LabelCap);
+                diffListing.Label(hediffs[ii].LabelCap);
             }
             diffListing.End();
 
@@ -405,7 +423,7 @@ namespace AlteredCarbon
             if (Mouse.IsOver(healthBox))
             {
                 Widgets.DrawHighlight(healthBox);
-                TooltipHandler.TipRegion(healthBox, new TipSignal(() => GetHediffToolTip(diffs, curSleeve), 1147682));
+                TooltipHandler.TipRegion(healthBox, new TipSignal(() => GetHediffToolTip(hediffs, curSleeve), 1147682));
             }
 
             secondColumnPos.y = healthBox.yMax + 15;
@@ -542,23 +560,25 @@ namespace AlteredCarbon
             var permittedBodyTypes = GetPermittedBodyTypes(true).Select(x => x.Value).ToList();
             var permittedHairs = GetPermittedHairs();
             var permittedBeards = GetPermittedBeards();
+
             if (permittedHeads.Contains(curSleeve.story.headType) is false)
             {
                 curSleeve.story.headType = permittedHeads.RandomElement();
             }
-
             if (permittedBodyTypes.Contains(curSleeve.story.bodyType) is false)
             {
                 curSleeve.story.bodyType = permittedBodyTypes.RandomElement();
             }
-            if (permittedHairs.Contains(curSleeve.story.hairDef) is false)
+
+            if (curSleeve.story.hairDef != null && permittedHairs.Contains(curSleeve.story.hairDef) is false)
             {
                 curSleeve.story.hairDef = permittedHairs.RandomElement();
             }
-            if (permittedBeards.Contains(curSleeve.style.beardDef) is false)
+            if (curSleeve.style.beardDef != null && permittedBeards.Contains(curSleeve.style.beardDef) is false)
             {
                 curSleeve.style.beardDef = permittedBeards.RandomElement();
             }
+
         }
 
         public void RemoveAllTraits(Pawn pawn)
@@ -623,7 +643,7 @@ namespace AlteredCarbon
 
             var list = (ModCompatibility.AlienRacesIsActive ?
                 ModCompatibility.GetAllowedBodyTypes(curSleeve.def) :
-                DefDatabase<BodyTypeDef>.AllDefsListForReading).Except(invalidBodies).ToList();
+                DefDatabase<BodyTypeDef>.AllDefsListForReading.Where(x => x.modContentPack?.IsOfficialMod ?? false)).Except(invalidBodies).ToList();
             if (curSleeve.gender == Gender.Male)
             {
                 list = list.Where(x => x != BodyTypeDefOf.Female).ToList();
@@ -673,7 +693,9 @@ namespace AlteredCarbon
             {
                 return keyValuePairs;
             }
-            var list = DefDatabase<HeadTypeDef>.AllDefs.Except(invalidHeads).Where(x => CanUseHeadType(x)).ToList();
+            var list = (ModCompatibility.AlienRacesIsActive ?
+                    ModCompatibility.GetAllowedHeadTypes(curSleeve.def) :
+                    DefDatabase<HeadTypeDef>.AllDefs.Where(x => x.modContentPack?.IsOfficialMod ?? false).Except(invalidHeads)).Where(x => CanUseHeadType(x)).ToList();
             foreach (var entry in list)
             {
                 keyValuePairs.Add(new KeyValuePair<GeneDef, HeadTypeDef>(null, entry));
@@ -745,11 +767,6 @@ namespace AlteredCarbon
             return hairColors.ToList();
         }
 
-        private void CopyBodyFrom(Pawn source)
-        {
-
-        }
-
         public void LoadSleeve(SleevePreset preset)
         {
             curSleeve = preset.sleeve;
@@ -815,10 +832,10 @@ namespace AlteredCarbon
                     gender = Gender.Male;
                 }
             }
-            curSleeve = PawnGenerator.GeneratePawn(new PawnGenerationRequest(currentPawnKindDef, null, PawnGenerationContext.NonPlayer,
+            curSleeve = PawnGenerator.GeneratePawn(new PawnGenerationRequest(currentPawnKindDef, Faction.OfPlayer, PawnGenerationContext.NonPlayer,
                 -1, true, false, false, false, false, 0f, false, true, true, false, false, false, true,
-                fixedGender: gender));
-
+                fixedGender: gender, forcedXenotype: XenotypeDefOf.Baseliner));
+            curSleeve.SetFaction(null);
             var lastAdultAge = curSleeve.RaceProps.lifeStageAges.LastOrDefault((LifeStageAge lifeStageAge) => lifeStageAge.def.developmentalStage.Adult())?.minAge ?? 0f;
             curSleeve.ageTracker.AgeBiologicalTicks = (long)Mathf.FloorToInt(lastAdultAge * 3600000f);
             curSleeve.ageTracker.AgeChronologicalTicks = (long)Mathf.FloorToInt(lastAdultAge * 3600000f);
@@ -841,18 +858,12 @@ namespace AlteredCarbon
             curSleeve.skills = new Pawn_SkillTracker(curSleeve);
             curSleeve.needs = new Pawn_NeedsTracker(curSleeve);
             curSleeve.workSettings = new Pawn_WorkSettings(curSleeve);
-            curSleeve.needs.mood.thoughts = new ThoughtHandler(curSleeve);
-            curSleeve.timetable = new Pawn_TimetableTracker(curSleeve);
-
-            if (curSleeve.needs?.mood?.thoughts?.memories?.Memories != null)
+            if (curSleeve.needs.mood != null)
             {
-                for (int num = curSleeve.needs.mood.thoughts.memories.Memories.Count - 1; num >= 0; num--)
-                {
-                    curSleeve.needs.mood.thoughts.memories.RemoveMemory(curSleeve.needs.mood.thoughts.memories.Memories[num]);
-                }
+                curSleeve.needs.mood.thoughts = new ThoughtHandler(curSleeve);
             }
+            curSleeve.timetable = new Pawn_TimetableTracker(curSleeve);
             RemoveAllHediffs(curSleeve);
-
             if (curSleeve.workSettings != null)
             {
                 curSleeve.workSettings.EnableAndInitialize();
@@ -861,10 +872,6 @@ namespace AlteredCarbon
             if (curSleeve.skills != null)
             {
                 curSleeve.skills.Notify_SkillDisablesChanged();
-            }
-            if (!curSleeve.Dead && curSleeve.RaceProps.Humanlike)
-            {
-                curSleeve.needs.mood.thoughts.situational.Notify_SituationalThoughtsDirty();
             }
 
             curSleeve.story.Childhood = AC_DefOf.VFEU_VatGrownChild;
