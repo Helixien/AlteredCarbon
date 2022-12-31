@@ -4,7 +4,7 @@
 	<ThingDef ParentName="BuildingBase">
 		<defName>AC_StackArray</defName>
 		<label>stack array</label>
-		<description>An ultratech quantum computing matrix, designed to store cortical stacks. If in range of auto-linked stacks, the matrix can make emergency backups in case of catastrophic stack faliure. Can be linked to a rVR server.</description>
+		<description>An ultratech quantum computing matrix, designed to store cortical stacks. If in range of auto-linked stacks, the matrix can make emergency backups in case of catastrophic stack faliure.</description>
 		<thingClass>AlteredCarbon.Building_StackStorage</thingClass>
 		<tickerType>Normal</tickerType>
 		<drawerType>RealtimeOnly</drawerType>

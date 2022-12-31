@@ -134,7 +134,7 @@
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
 				<shortCircuitInRain>false</shortCircuitInRain>
-				<basePowerConsumption>60</basePowerConsumption>
+				<basePowerConsumption>75</basePowerConsumption>
 			</li>
 			<li Class="CompProperties_Refuelable">
 				<fuelLabel>Neutroamine</fuelLabel>

@@ -32,9 +32,9 @@
 					</researchPrerequisites>
 					<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
 					<costList>
-						<Steel>180</Steel>
-						<Plasteel>30</Plasteel>
-						<ComponentSpacer>3</ComponentSpacer>
+						<Steel>100</Steel>
+						<Plasteel>25</Plasteel>
+						<ComponentSpacer>2</ComponentSpacer>
 					</costList>
 				</value>
 			</li>
