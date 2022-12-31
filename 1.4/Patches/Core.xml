@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<Operation Class="PatchOperationSequence">
+		<!-- ================================ Patches in new stuff into the base game ====================== -->
+		<operations>
+			<!-- ================================ Patches in stack crafting recipe ====================== -->
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[defName='FabricationBench']/recipes</xpath>
+				<value>
+					<li>VFEU_MakeEmptyCorticalStack</li>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+</Patch>
