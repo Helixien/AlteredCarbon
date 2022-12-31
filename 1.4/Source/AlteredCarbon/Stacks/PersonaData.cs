@@ -971,7 +971,7 @@ namespace AlteredCarbon
                 for (var i = otherPawnRelations.Count - 1; i >= 0; i--)
                 {
                     var rel = otherPawnRelations[i];
-                    if (IsPresetPawn(rel.otherPawn))
+                    if (rel != null && IsPresetPawn(rel.otherPawn))
                     {
                         if (rel.otherPawn != newReference)
                         {
@@ -994,6 +994,7 @@ namespace AlteredCarbon
 
         public bool IsPresetPawn(Pawn pawn)
         {
+            if (pawn == null || pawn.Name == null) return false;
             return pawn != null && (pawn.thingIDNumber == pawnID || origPawn == pawn || name.ToString() == pawn.Name.ToString());
         }
 
