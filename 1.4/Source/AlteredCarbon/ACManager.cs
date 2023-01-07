@@ -142,7 +142,7 @@ namespace AlteredCarbon
                     }
                 }
 
-                if (pawn.IsCopy())
+                if (pawn.IsCopy() && pawn.CanThink())
                 {
                     pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_JustCopy);
                     Pawn otherPawn = pawn.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Spouse);
@@ -297,11 +297,11 @@ namespace AlteredCarbon
         {
             base.ExposeData();
             pawnsWithStacks.RemoveWhere(x => x is null || x.Destroyed);
-            Scribe_Collections.Look<int, CorticalStack>(ref stacksIndex, "stacksIndex", LookMode.Value, LookMode.Reference, ref pawnKeys, ref stacksValues);
-            Scribe_Collections.Look<Pawn>(ref pawnsWithStacks, "pawnsWithStacks", LookMode.Reference);
-            Scribe_Collections.Look<Pawn>(ref emptySleeves, "emptySleeves", LookMode.Reference);
-            Scribe_Collections.Look<Pawn>(ref deadPawns, saveDestroyedThings: true, "deadPawns", LookMode.Reference);
-            Scribe_Collections.Look<int, StacksData>(ref stacksRelationships, "stacksRelationships", LookMode.Value, LookMode.Deep, ref stacksRelationshipsKeys, ref stacksRelationshipsValues);
+            Scribe_Collections.Look(ref stacksIndex, "stacksIndex", LookMode.Value, LookMode.Reference, ref pawnKeys, ref stacksValues);
+            Scribe_Collections.Look(ref pawnsWithStacks, "pawnsWithStacks", LookMode.Reference);
+            Scribe_Collections.Look(ref emptySleeves, "emptySleeves", LookMode.Reference);
+            Scribe_Collections.Look(ref deadPawns, saveDestroyedThings: true, "deadPawns", LookMode.Reference);
+            Scribe_Collections.Look(ref stacksRelationships, "stacksRelationships", LookMode.Value, LookMode.Deep, ref stacksRelationshipsKeys, ref stacksRelationshipsValues);
             pawnsWithStacks.RemoveWhere(x => x is null || x.Destroyed);
             Instance = this;
         }

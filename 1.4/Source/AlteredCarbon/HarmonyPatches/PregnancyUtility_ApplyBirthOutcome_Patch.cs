@@ -11,7 +11,7 @@ namespace AlteredCarbon
         public static void Prefix(OutcomeChance outcome, float quality, Precept_Ritual ritual, List<GeneDef> genes,
             Pawn geneticMother, Thing birtherThing, Pawn father = null, Pawn doctor = null, LordJob_Ritual lordJobRitual = null, RitualRoleAssignments assignments = null)
         {
-            if (birtherThing is Pawn pawn && pawn.HasCorticalStack(out var hediff))
+            if (birtherThing is Pawn pawn && pawn.HasCorticalStack(out var hediff) && pawn.CanThink())
             {
                 var origPawn = hediff.PersonaData.origPawn;
                 if (origPawn != null && origPawn.gender != pawn.gender)

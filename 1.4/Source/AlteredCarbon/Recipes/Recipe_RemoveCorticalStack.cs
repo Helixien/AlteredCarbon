@@ -42,16 +42,16 @@ namespace AlteredCarbon
 					corticalStack.PersonaData.gender = hediff.PersonaData.gender;
 					corticalStack.PersonaData.race = hediff.PersonaData.race;
 					GenPlace.TryPlaceThing(corticalStack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
+
                     Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.disableKilledEffect = true;
-					var head = pawn.health.hediffSet.GetNotMissingParts().FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Head);
-					if (head != null)
-					{
-						pawn.TakeDamage(new DamageInfo(DamageDefOf.SurgicalCut, 99999f, 999f, -1f, null, head));
-					}
 					hediff.preventSpawningStack = true;
                     pawn.health.RemoveHediff(hediff);
                     hediff.preventSpawningStack = false;
-
+                    var head = pawn.health.hediffSet.GetNotMissingParts().FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Head);
+                    if (head != null)
+                    {
+                        pawn.TakeDamage(new DamageInfo(DamageDefOf.SurgicalCut, 99999f, 999f, -1f, null, head));
+                    }
                     Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.disableKilledEffect = false;
 
 					AlteredCarbonManager.Instance.ReplacePawnWithStack(pawn, corticalStack);

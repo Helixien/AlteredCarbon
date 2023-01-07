@@ -105,7 +105,7 @@ namespace AlteredCarbon
                             var floatList = new List<FloatMenuOption>();
                             foreach (var stack in StoredStacks.Where(x => x.PersonaData.ContainsInnerPersona))
                             {
-                                if (stack.ArchoStack is false)
+                                if (stack.IsArchoStack is false)
                                 {
                                     floatList.Add(new FloatMenuOption(stack.PersonaData.PawnNameColored, delegate ()
                                     {
@@ -277,7 +277,7 @@ namespace AlteredCarbon
                 {
                     return true;
                 }
-                if (this.allowArchoStacks && stack.ArchoStack)
+                if (this.allowArchoStacks && stack.IsArchoStack)
                 {
                     return true;
                 }

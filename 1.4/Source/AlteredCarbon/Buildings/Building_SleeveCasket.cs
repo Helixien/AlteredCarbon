@@ -79,7 +79,7 @@ namespace AlteredCarbon
                 {
                     if (occupant.IsEmptySleeve())
                     {
-                        if (occupant.needs.food.CurLevel < 1f)
+                        if (occupant.needs.food.CurLevel < occupant.needs.food.MaxLevel)
                         {
                             occupant.needs.food.CurLevel += 0.001f;
                         }

@@ -116,18 +116,20 @@ namespace AlteredCarbon
                 AlteredCarbonManager.Instance.StacksIndex.Remove(corticalStack.PersonaData.pawnID);
                 AlteredCarbonManager.Instance.ReplaceStackWithPawn(corticalStack, pawn);
 
-                var naturalMood = pawn.story.traits.GetTrait(TraitDefOf.NaturalMood);
-                var nerves = pawn.story.traits.GetTrait(TraitDefOf.Nerves);
-
-                if ((naturalMood != null && naturalMood.Degree == -2)
-                        || pawn.story.traits.HasTrait(TraitDefOf.BodyPurist)
-                        || (nerves != null && nerves.Degree == -2))
+                if (pawn.CanThink())
                 {
-                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_NewSleeveDouble);
-                }
-                else
-                {
-                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_NewSleeve);
+                    var naturalMood = pawn.story.traits.GetTrait(TraitDefOf.NaturalMood);
+                    var nerves = pawn.story.traits.GetTrait(TraitDefOf.Nerves);
+                    if ((naturalMood != null && naturalMood.Degree == -2)
+                            || pawn.story.traits.HasTrait(TraitDefOf.BodyPurist)
+                            || (nerves != null && nerves.Degree == -2))
+                    {
+                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_NewSleeveDouble);
+                    }
+                    else
+                    {
+                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_NewSleeve);
+                    }
                 }
 
                 if (corticalStack.PersonaData.diedFromCombat.HasValue && corticalStack.PersonaData.diedFromCombat.Value)
@@ -137,7 +139,10 @@ namespace AlteredCarbon
                 }
                 if (corticalStack.PersonaData.hackedWhileOnStack)
                 {
-                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_SomethingIsWrong);
+                    if (pawn.CanThink())
+                    {
+                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_SomethingIsWrong);
+                    }
                     corticalStack.PersonaData.hackedWhileOnStack = false;
                 }
             }
@@ -156,6 +161,8 @@ namespace AlteredCarbon
                 var eventDef = DefDatabase<HistoryEventDef>.GetNamed("VFEU_InstalledCorticalStack");
                 Find.HistoryEventsManager.RecordEvent(new HistoryEvent(eventDef, pawn.Named(HistoryEventArgsNames.Doer)));
             }
+
+            pawn.needs.AddOrRemoveNeedsAsAppropriate();
         }
     }
 }

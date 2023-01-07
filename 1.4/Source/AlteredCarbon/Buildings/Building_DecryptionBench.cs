@@ -37,7 +37,7 @@ namespace AlteredCarbon
             {
                 canTargetItems = true,
                 mapObjectTargetsMustBeAutoAttackable = false,
-                validator = (TargetInfo x) => x.Thing is CorticalStack stack && stack.PersonaData.ContainsInnerPersona && stack.ArchoStack is false
+                validator = (TargetInfo x) => x.Thing is CorticalStack stack && stack.PersonaData.ContainsInnerPersona && stack.IsArchoStack is false
             };
             return targetingParameters;
         }

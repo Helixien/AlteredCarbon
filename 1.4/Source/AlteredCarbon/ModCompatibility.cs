@@ -233,29 +233,27 @@ namespace AlteredCarbon
 		}
 
 		public static void FillThirstNeed(Pawn pawn, float value)
-		{
-			DubsBadHygiene.Need_Thirst need = pawn.needs.TryGetNeed<DubsBadHygiene.Need_Thirst>();
-			if (need != null)
-			{
-				need.CurLevel += value;
-			}
-		}
+        {
+            FillNeed(pawn.needs?.TryGetNeed<DubsBadHygiene.Need_Thirst>(), value);
+        }
 
-		public static void FillHygieneNeed(Pawn pawn, float value)
-		{
-			DubsBadHygiene.Need_Hygiene need = pawn.needs.TryGetNeed<DubsBadHygiene.Need_Hygiene>();
-			if (need != null)
-			{
-				need.CurLevel += value;
-			}
+        public static void FillHygieneNeed(Pawn pawn, float value)
+        {
+            FillNeed(pawn.needs?.TryGetNeed<DubsBadHygiene.Need_Hygiene>(), value);
 		}
 
         public static void FillBladderNeed(Pawn pawn, float value)
         {
-            var need = pawn?.needs?.TryGetNeed<DubsBadHygiene.Need_Bladder>();
+            FillNeed(pawn.needs?.TryGetNeed<DubsBadHygiene.Need_Bladder>(), value);
+        }
+        private static void FillNeed(Need need, float value)
+        {
             if (need != null)
             {
-                need.CurLevel += value;
+                if (need.MaxLevel < need.CurLevel)
+                {
+                    need.CurLevel += value;
+                }
             }
         }
         private static readonly MethodInfo tryGetRaceGroupDef;

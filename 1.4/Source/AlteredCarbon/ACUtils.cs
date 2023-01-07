@@ -47,6 +47,11 @@ namespace AlteredCarbon
         {
             AC_DefOf.VFEU_InstallCorticalStack
         };
+
+        public static bool CanThink(this Pawn pawn)
+        {
+            return pawn.needs?.mood?.thoughts?.memories != null;
+        }
         static ACUtils()
         {
             harmony = new Harmony("Altered.Carbon");

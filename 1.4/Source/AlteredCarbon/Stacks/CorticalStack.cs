@@ -8,6 +8,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
+    [HotSwappable]
     public class CorticalStack : ThingWithComps
     {
         public static HashSet<CorticalStack> corticalStacks = new HashSet<CorticalStack>();
@@ -45,7 +46,7 @@ namespace AlteredCarbon
                         {
                             if (friendlyGraphicData is null)
                             {
-                                var path = this.ArchoStack ? "Things/Item/ArchoStacks/FriendlyArchoStack" : "Things/Item/Stacks/FriendlyStack";
+                                var path = this.IsArchoStack ? "Things/Item/ArchoStacks/FriendlyArchoStack" : "Things/Item/Stacks/FriendlyStack";
                                 friendlyGraphicData = GetGraphicDataWithOtherPath(path);
                             }
                             friendlyGraphic = friendlyGraphicData.GraphicColoredFor(this);
@@ -58,7 +59,7 @@ namespace AlteredCarbon
                         {
                             if (strangerGraphicData is null)
                             {
-                                var path = this.ArchoStack ? "Things/Item/ArchoStacks/NeutralArchoStack" : "Things/Item/Stacks/NeutralStack";
+                                var path = this.IsArchoStack ? "Things/Item/ArchoStacks/NeutralArchoStack" : "Things/Item/Stacks/NeutralStack";
                                 strangerGraphicData = GetGraphicDataWithOtherPath(path);
                             }
                             strangerGraphic = strangerGraphicData.GraphicColoredFor(this);
@@ -71,7 +72,7 @@ namespace AlteredCarbon
                         {
                             if (hostileGraphicData is null)
                             {
-                                var path = this.ArchoStack ? "Things/Item/ArchoStacks/HostileArchoStack" : "Things/Item/Stacks/HostileStack";
+                                var path = this.IsArchoStack ? "Things/Item/ArchoStacks/HostileArchoStack" : "Things/Item/Stacks/HostileStack";
                                 hostileGraphicData = GetGraphicDataWithOtherPath(path);
                             }
                             hostileGraphic = hostileGraphicData.GraphicColoredFor(this);
@@ -116,10 +117,10 @@ namespace AlteredCarbon
         public override void Tick()
         {
             base.Tick();
-            if (this.Spawned && this.ArchoStack)
+            if (this.Spawned && this.IsArchoStack)
             {
-                var edifice = this.Position.GetEdifice(MapHeld);
-                if (edifice != null)
+                var edifice = this.Position.GetEdifice(Map);
+                if (edifice != null && this.Position.Walkable(Map) is false)
                 {
                     var map = this.Map;
                     var pos = this.Position;
@@ -129,16 +130,15 @@ namespace AlteredCarbon
                 }
             }
         }
-        public bool FilledStack => this.def == AC_DefOf.VFEU_FilledCorticalStack || this.def == AC_DefOf.AC_FilledArchoStack;
-
-        public bool ArchoStack => this.def == AC_DefOf.AC_EmptyArchoStack || this.def == AC_DefOf.AC_FilledArchoStack;
+        public bool IsFilledStack => this.def == AC_DefOf.VFEU_FilledCorticalStack || this.def == AC_DefOf.AC_FilledArchoStack;
+        public bool IsArchoStack => this.def == AC_DefOf.AC_EmptyArchoStack || this.def == AC_DefOf.AC_FilledArchoStack;
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             corticalStacks.Add(this);
             try
             {
 
-                if (!respawningAfterLoad && !PersonaData.ContainsInnerPersona && FilledStack)
+                if (!respawningAfterLoad && !PersonaData.ContainsInnerPersona && IsFilledStack)
                 {
                     PawnKindDef pawnKind = DefDatabase<PawnKindDef>.AllDefs.Where(x => x.RaceProps.Humanlike).RandomElement();
                     Faction faction = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction).RandomElement();
@@ -360,7 +360,7 @@ namespace AlteredCarbon
         }
         public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
         {
-            if (this.ArchoStack && allowDestroyNonDestroyable is false)
+            if (this.IsArchoStack && allowDestroyNonDestroyable is false)
             {
                 return;
             }

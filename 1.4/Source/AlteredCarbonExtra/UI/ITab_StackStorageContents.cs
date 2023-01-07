@@ -79,7 +79,7 @@ namespace AlteredCarbon
             Rect installStackRect = rect2;
             installStackRect.x -= 28;
 
-            TooltipHandler.TipRegion(installStackRect, corticalStack.ArchoStack ? "AC.InstallArchoStack".Translate() : "AC.InstallStack".Translate());
+            TooltipHandler.TipRegion(installStackRect, corticalStack.IsArchoStack ? "AC.InstallArchoStack".Translate() : "AC.InstallStack".Translate());
             if (Widgets.ButtonImage(installStackRect, ContentFinder<Texture2D>.Get("UI/Icons/Install", true)))
             {
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
