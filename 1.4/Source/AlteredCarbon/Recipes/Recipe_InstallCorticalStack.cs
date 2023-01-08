@@ -16,6 +16,8 @@ namespace AlteredCarbon
             return false;
         }
     }
+
+    [HotSwappable]
     public class Recipe_InstallCorticalStack : Recipe_Surgery
     {
         public override bool AvailableOnNow(Thing thing, BodyPartRecord part = null)
@@ -61,6 +63,8 @@ namespace AlteredCarbon
             }
             to.health.hediffSet.DirtyCache();
         }
+
+        public static Pawn pawnToInstallStack;
         public override void ApplyOnPawn(Pawn pawn, BodyPartRecord part, Pawn billDoer, List<Thing> ingredients, Bill bill)
         {
             if (billDoer != null)
@@ -81,6 +85,8 @@ namespace AlteredCarbon
                 TaleRecorder.RecordTale(TaleDefOf.DidSurgery, billDoer, pawn);
             }
 
+            var corticalStack = ingredients.OfType<CorticalStack>().FirstOrDefault();
+            pawnToInstallStack = pawn;
             if (pawn.HasCorticalStack(out var stackHediff))
             {
                 var emptyStack = ACUtils.stacksPairs[stackHediff.SourceStack];
@@ -89,8 +95,7 @@ namespace AlteredCarbon
                 stackHediff.preventKill = true;
                 pawn.health.RemoveHediff(stackHediff);
             }
-
-            var corticalStack = ingredients.OfType<CorticalStack>().FirstOrDefault();
+            
             var hediff = HediffMaker.MakeHediff(recipe.addsHediff, pawn) as Hediff_CorticalStack;
             if (corticalStack.PersonaData.ContainsInnerPersona)
             {
@@ -110,12 +115,12 @@ namespace AlteredCarbon
                     dummyPawn.Kill(null, hediff);
                     dummyPawn.Corpse.DeSpawn();
                 }
-
+            
                 corticalStack.PersonaData.OverwritePawn(pawn, corticalStack.def.GetModExtension<StackSavingOptionsModExtension>(), null);
                 pawn.health.AddHediff(hediff, part);
                 AlteredCarbonManager.Instance.StacksIndex.Remove(corticalStack.PersonaData.pawnID);
                 AlteredCarbonManager.Instance.ReplaceStackWithPawn(corticalStack, pawn);
-
+            
                 if (pawn.CanThink())
                 {
                     var naturalMood = pawn.story.traits.GetTrait(TraitDefOf.NaturalMood);
@@ -131,7 +136,7 @@ namespace AlteredCarbon
                         pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_NewSleeve);
                     }
                 }
-
+            
                 if (corticalStack.PersonaData.diedFromCombat.HasValue && corticalStack.PersonaData.diedFromCombat.Value)
                 {
                     pawn.health.AddHediff(HediffMaker.MakeHediff(AC_DefOf.VFEU_SleeveShock, pawn));
@@ -150,18 +155,18 @@ namespace AlteredCarbon
             {
                 pawn.health.AddHediff(hediff, part);
             }
-
+            
             if (AlteredCarbonManager.Instance.emptySleeves != null && AlteredCarbonManager.Instance.emptySleeves.Contains(pawn))
             {
                 AlteredCarbonManager.Instance.emptySleeves.Remove(pawn);
             }
-
+            
             if (ModsConfig.IdeologyActive)
             {
                 var eventDef = DefDatabase<HistoryEventDef>.GetNamed("VFEU_InstalledCorticalStack");
                 Find.HistoryEventsManager.RecordEvent(new HistoryEvent(eventDef, pawn.Named(HistoryEventArgsNames.Doer)));
             }
-
+            
             pawn.needs.AddOrRemoveNeedsAsAppropriate();
         }
     }

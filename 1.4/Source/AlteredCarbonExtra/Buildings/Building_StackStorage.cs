@@ -20,9 +20,9 @@ namespace AlteredCarbon
         }
 
         public bool allowColonistCorticalStacks = true;
-        public bool allowStrangerCorticalStacks;
-        public bool allowHostileCorticalStacks;
-        public bool allowArchoStacks;
+        public bool allowStrangerCorticalStacks = true;
+        public bool allowHostileCorticalStacks = true;
+        public bool allowArchoStacks = true;
         public CompPowerTrader compPower;
         public bool backupIsEnabled;
         public bool autoRestoreIsEnabled = true;
@@ -246,9 +246,9 @@ namespace AlteredCarbon
             });
             Scribe_Values.Look(ref this.contentsKnown, "contentsKnown", false);
             Scribe_Values.Look(ref this.allowColonistCorticalStacks, "allowColonistCorticalStacks", true);
-            Scribe_Values.Look(ref this.allowHostileCorticalStacks, "allowHostileCorticalStacks", false);
-            Scribe_Values.Look(ref this.allowStrangerCorticalStacks, "allowStrangerCorticalStacks", false);
-            Scribe_Values.Look(ref this.allowArchoStacks, "allowArchoStacks", false);
+            Scribe_Values.Look(ref this.allowHostileCorticalStacks, "allowHostileCorticalStacks", true);
+            Scribe_Values.Look(ref this.allowStrangerCorticalStacks, "allowStrangerCorticalStacks", true);
+            Scribe_Values.Look(ref this.allowArchoStacks, "allowArchoStacks", true);
             Scribe_Values.Look(ref this.backupIsEnabled, "backupIsEnabled");
             Scribe_Values.Look(ref this.autoRestoreIsEnabled, "autoRestoreIsEnabled", true);
             Scribe_References.Look(ref this.stackToDuplicate, "stackToDuplicate");

@@ -102,7 +102,7 @@ namespace AlteredCarbon
         private void InitUI()
         {
             forcePause = true;
-            absorbInputAroundWindow = false;
+            absorbInputAroundWindow = true;
         }
 
         private void Init(PawnKindDef pawnKindDef, Gender? gender = null)
@@ -391,6 +391,7 @@ namespace AlteredCarbon
             if (Widgets.ButtonImage(new Rect(pawnBox.x + pawnBox.width - Widgets.InfoCardButtonSize - 10f, pawnBox.y + 10, 24, 24), RotateSleeve))
             {
                 curSleeve.Rotation = curSleeve.Rotation.Rotated(RotationDirection.Clockwise);
+                SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
             }
 
             if (Widgets.ButtonImage(new Rect(pawnBox.x + 10f, pawnBox.y + 10, 24, 24), RandomizeSleeve))
@@ -399,6 +400,7 @@ namespace AlteredCarbon
                 currentPawnKindDef.race = curSleeve.def;
                 CreateSleeve(curSleeve.gender);
                 currentPawnKindDef.race = oldRace;
+                SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
             }
 
             secondColumnPos.y = pawnBox.yMax + 15;
