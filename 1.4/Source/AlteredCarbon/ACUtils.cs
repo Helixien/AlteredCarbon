@@ -159,7 +159,6 @@ namespace AlteredCarbon
             if (ModCompatibility.AlienRacesIsActive)
             {
                 ModCompatibility.CopyBodyAddons(source, dest);
-
                 ModCompatibility.SetSkinColorFirst(dest, ModCompatibility.GetSkinColorFirst(source));
                 ModCompatibility.SetSkinColorSecond(dest, ModCompatibility.GetSkinColorSecond(source));
                 ModCompatibility.SetHairColorFirst(dest, ModCompatibility.GetHairColorFirst(source));
@@ -201,6 +200,11 @@ namespace AlteredCarbon
 
             dest.genes.xenotype = source.genes.xenotype;
             dest.genes.xenotypeName = source.genes.xenotypeName;
+
+            if (ModCompatibility.FacialAnimationsIsActive)
+            {
+                ModCompatibility.CopyFacialFeatures(source, dest);
+            }
         }
         public static string PawnTemplatesPath => Path.Combine(GenFilePaths.ConfigFolderPath, "AC_PawnTemplates.xml");
 

@@ -29,7 +29,7 @@ namespace AlteredCarbon
         public bool isFactionLeader;
         private List<Thought_Memory> thoughts;
         private List<Trait> traits;
-        public List<DirectPawnRelation> relations;
+        private List<DirectPawnRelation> relations;
         private List<Pawn> relatedPawns;
         private List<SkillRecord> skills;
         public string childhood;
@@ -713,6 +713,7 @@ namespace AlteredCarbon
                             ReplaceSocialReferences(relatedPawn, pawnToOverwrite);
                         }
                     }
+
                     for (var i = oldOrigPawn.relations.DirectRelations.Count - 1; i >= 0; i--)
                     {
                         var oldDirectRelation = oldOrigPawn.relations.DirectRelations[i];
@@ -731,6 +732,7 @@ namespace AlteredCarbon
                             oldDirectRelation.otherPawn.relations.pawnsWithDirectRelationsWithMe.Add(pawnToOverwrite);
                         }
                     }
+                    oldOrigPawn.relations = new Pawn_RelationsTracker(oldOrigPawn);
                 }
 
                 if (pawnToOverwrite.needs?.mood?.thoughts != null)
@@ -1035,6 +1037,7 @@ namespace AlteredCarbon
                     }
                 }
             }
+
             if (relatedPawn.relations != null)
             {
                 var pawnsWithDirectRelations = relatedPawn.relations.pawnsWithDirectRelationsWithMe.ToList();
@@ -1047,6 +1050,7 @@ namespace AlteredCarbon
                         relatedPawn.relations.pawnsWithDirectRelationsWithMe.Add(newReference);
                     }
                 }
+
                 var otherPawnRelations = relatedPawn.relations.DirectRelations;
                 for (var i = otherPawnRelations.Count - 1; i >= 0; i--)
                 {
@@ -1057,13 +1061,7 @@ namespace AlteredCarbon
                         {
                             if (rel.otherPawn != newReference)
                             {
-                                rel.otherPawn.relations = new Pawn_RelationsTracker(rel.otherPawn);
                                 rel.otherPawn = newReference;
-                            }
-                            if (newReference.relations.directRelations.Exists(x => x.def == rel.def && x.otherPawn == relatedPawn) is false)
-                            {
-                                newReference.relations.pawnsWithDirectRelationsWithMe.Add(relatedPawn);
-                                newReference.relations.directRelations.Add(new DirectPawnRelation(rel.def, relatedPawn, rel.startTicks));
                             }
                         }
                     }

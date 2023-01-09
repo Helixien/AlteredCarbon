@@ -130,6 +130,33 @@ namespace AlteredCarbon
 			return comp != null ? comp.RomanceFactor : -1f;
 		}
 
+		public static void CopyFacialFeatures(Pawn source, Pawn dest)
+		{
+			foreach (var comp in source.AllComps)
+			{
+				var type = comp.GetType();
+				if (type.Namespace == "FacialAnimation")
+				{
+                    var faceTypeField = Traverse.Create(comp).Field("faceType");
+                    if (faceTypeField != null && faceTypeField.FieldExists())
+					{
+						var colorTypeField = Traverse.Create(comp).Field("color");
+						foreach (var compDest in dest.AllComps)
+						{
+							if (compDest.GetType() == type)
+							{
+								var faceType = faceTypeField.GetValue();
+                                Traverse.Create(compDest).Field("faceType").SetValue(faceType);
+                                Traverse.Create(compDest).Field("color").SetValue(colorTypeField.GetValue());
+                                Traverse.Create(compDest).Field("pawn").SetValue(dest);
+                                Traverse.Create(compDest).Field("prevGender").SetValue(dest.gender);
+                                Traverse.Create(compDest).Field("prevFaceType").SetValue(faceType);
+                            }
+                        }
+					}
+				}
+			}
+		}
 		public static void SetSyrTraitsSexuality(Pawn pawn, int sexuality)
 		{
 			SyrTraits.CompIndividuality comp = ThingCompUtility.TryGetComp<SyrTraits.CompIndividuality>(pawn);
@@ -221,6 +248,7 @@ namespace AlteredCarbon
 		{
 			HelixienAlteredCarbonIsActive = ModsConfig.IsActive("Hlx.UltratechAlteredCarbon");
 			AlienRacesIsActive = ModsConfig.IsActive("erdelf.HumanoidAlienRaces");
+			FacialAnimationsIsActive = ModsConfig.IsActive("Nals.FacialAnimation");
 			IndividualityIsActive = ModLister.HasActiveModWithName("[SYR] Individuality");
 			PsychologyIsActive = ModsConfig.IsActive("Community.Psychology.UnofficialUpdate");
 			RimJobWorldIsActive = ModsConfig.IsActive("rim.job.world");
@@ -444,8 +472,9 @@ namespace AlteredCarbon
 			}
 		}
 
-		public static bool AlienRacesIsActive;
-		public static bool IndividualityIsActive;
+        public static bool FacialAnimationsIsActive;
+        public static bool AlienRacesIsActive;
+        public static bool IndividualityIsActive;
 		public static bool PsychologyIsActive;
 		public static bool RimJobWorldIsActive;
 		public static bool DubsBadHygieneActive;
