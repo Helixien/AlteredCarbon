@@ -32,6 +32,15 @@
 						<effectWorking>Hacking</effectWorking>
 					</value>
 				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs</xpath>
+					<value>
+						<HistoryEventDef>
+							<defName>VFEU_InstalledCorticalStack</defName>
+							<label>installed cortical stack</label>
+						</HistoryEventDef>
+					</value>
+				</li>
 			</operations>
 		</match>
 	</Operation>

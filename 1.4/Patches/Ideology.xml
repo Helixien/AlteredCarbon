@@ -6,15 +6,7 @@
 		</mods>
 		<match Class="PatchOperationSequence">
 			<operations>
-				<li Class="PatchOperationAdd">
-					<xpath>Defs</xpath>
-					<value>
-						<HistoryEventDef>
-							<defName>VFEU_InstalledCorticalStack</defName>
-							<label>installed cortical stack</label>
-						</HistoryEventDef>
-					</value>
-				</li>
+				<!-- ================================ Add ancient stacks to ancient structures ====================== -->
 				<li Class="PatchOperationAdd">
 					<xpath>/Defs/ThingSetMakerDef[defName="MapGen_AncientComplexRoomLoot_Default" or defName="MapGen_AncientComplexRoomLoot_Better" or defName="MapGen_AncientComplex_SecurityCrate"]/root/options</xpath>
 					<value>
