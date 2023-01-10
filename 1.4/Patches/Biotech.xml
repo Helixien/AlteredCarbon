@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Biotech</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+				<!-- ================================ Spawn Pawns with Stacks ====================== -->
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/PawnKindDef[@Name="MechanitorBase"]</xpath>
+					<value>
+						<li Class="AlteredCarbon.StackSpawnModExtension">
+							<SpawnsWithStack>true</SpawnsWithStack>
+							<ChanceToSpawnWithStack>25</ChanceToSpawnWithStack>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/PawnKindDef[defName="SanguophageThrall"]</xpath>
+					<value>
+						<li Class="AlteredCarbon.StackSpawnModExtension">
+							<SpawnsWithStack>true</SpawnsWithStack>
+							<ChanceToSpawnWithStack>15</ChanceToSpawnWithStack>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/PawnKindDef[defName="Pirate_Yttakin"]</xpath>
+					<value>
+						<li Class="AlteredCarbon.StackSpawnModExtension">
+							<SpawnsWithStack>true</SpawnsWithStack>
+							<ChanceToSpawnWithStack>5</ChanceToSpawnWithStack>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/PawnKindDef[defName="Mercenary_SlasherTox" or defName="Mercenary_Gunner_Yttakin" or defName="Mercenary_Gunner_Pig" or defName="Mercenary_GunnerTox" or defName="Mercenary_Sniper_Yttakin" or defName="Mercenary_Sniper_Yttakin" or defName="Mercenary_Heavy_Yttakin" or defName="Mercenary_HeavyTox"]</xpath>
+					<value>
+						<li Class="AlteredCarbon.StackSpawnModExtension">
+							<SpawnsWithStack>true</SpawnsWithStack>
+							<ChanceToSpawnWithStack>10</ChanceToSpawnWithStack>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/PawnKindDef[defName="Mercenary_Elite_Yttakin" or defName="Mercenary_Elite_Pig" or defName="Mercenary_EliteTox"]</xpath>
+					<value>
+						<li Class="AlteredCarbon.StackSpawnModExtension">
+							<SpawnsWithStack>true</SpawnsWithStack>
+							<ChanceToSpawnWithStack>45</ChanceToSpawnWithStack>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/PawnKindDef[defName="PirateBossTox"]</xpath>
+					<value>
+						<li Class="AlteredCarbon.StackSpawnModExtension">
+							<SpawnsWithStack>true</SpawnsWithStack>
+							<ChanceToSpawnWithStack>75</ChanceToSpawnWithStack>
+						</li>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+</Patch>

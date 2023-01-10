@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Patch>
-
 	<Operation Class="PatchOperationFindMod">
 		<mods>
 			<li>Ideology</li>
 		</mods>
 		<match Class="PatchOperationSequence">
-			<success>Always</success>
 			<operations>
+				<!-- ================================ Add ancient stacks to ancient structures ====================== -->
 				<li Class="PatchOperationAdd">
 					<xpath>/Defs/ThingSetMakerDef[defName="MapGen_AncientComplexRoomLoot_Default" or defName="MapGen_AncientComplexRoomLoot_Better" or defName="MapGen_AncientComplex_SecurityCrate"]/root/options</xpath>
 					<value>
@@ -26,8 +25,14 @@
 						</li>
 					</value>
 				</li>
+				<!-- ================================ Replace effect with DLCs ====================== -->
+				<li Class="PatchOperationReplace">
+					<xpath>/Defs/RecipeDef[@Name="VFEU_RecipeHacking"]/effectWorking</xpath>
+					<value>
+						<effectWorking>Hacking</effectWorking>
+					</value>
+				</li>
 			</operations>
 		</match>
 	</Operation>
-
 </Patch>
