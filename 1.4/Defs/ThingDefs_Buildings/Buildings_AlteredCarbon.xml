@@ -34,7 +34,7 @@
 		<costList>
 			<Steel>250</Steel>
 			<Plasteel>150</Plasteel>
-			<ComponentSpacer>12</ComponentSpacer>
+			<ComponentSpacer>6</ComponentSpacer>
 		</costList>
 		<altitudeLayer>BuildingOnTop</altitudeLayer>
 		<neverMultiSelect>true</neverMultiSelect>

@@ -105,9 +105,9 @@
 	<AC.BackupAllStacks>Emergency Backup</AC.BackupAllStacks>
 	<AC.BackupAllStacksDesc>Force backup all installed cortical stacks belonging to the player now.</AC.BackupAllStacksDesc>
 	<AC.TimeSinceLastBackup>({0} since last backup)</AC.TimeSinceLastBackup>
-	<AC.CannotRestoreBackupNoOtherEmptyStacks>Restore stack from backup (no available empty stacks on the map)</AC.CannotRestoreBackupNoOtherEmptyStacks>
+	<AC.CannotRestoreBackupNoOtherEmptyStacks>Restore stack from backup (no empty stacks in stockpile.)</AC.CannotRestoreBackupNoOtherEmptyStacks>
 	<AC.SuccessfullyRestoredStackFromBackup>{PAWN_nameDef} successfully restored cortical stack from backup.</AC.SuccessfullyRestoredStackFromBackup>
-	<AC.BackupsCompleted>Quantum Storage array: Backups Completed! {0} colonists were backed up!</AC.BackupsCompleted>
+	<AC.BackupsCompleted>Stack array: Backups Completed! {0} colonists were backed up!</AC.BackupsCompleted>
 	<AC.RestoreToStackAutomatically>Toggle if this person should be restored to a new stack automatically when the current stack is destroyed.</AC.RestoreToStackAutomatically>
 	<AC.EnableAutoRestore>Toggle automatic restoring</AC.EnableAutoRestore>
 	<AC.EnableAutoRestoreDesc>Allow the array to automatically restore backups if a pawn with an installed cortical stacks dies.</AC.EnableAutoRestoreDesc>
