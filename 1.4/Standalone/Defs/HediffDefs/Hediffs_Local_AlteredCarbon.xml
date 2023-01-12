@@ -16,7 +16,6 @@
 			<partEfficiency>1.25</partEfficiency>
 			<betterThanNatural>true</betterThanNatural>
 		</addedPartProps>
-		<scenarioCanAdd>true</scenarioCanAdd>
 	</HediffDef>
 	<HediffDef Name="VFEU_SleeveQualityBase" Abstract="True">
 		<hediffClass>HediffWithComps</hediffClass>
