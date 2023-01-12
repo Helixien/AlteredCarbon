@@ -8,12 +8,12 @@ namespace AlteredCarbon;
 [HotSwappable]
 public class ScenPart_CorticalStack : ScenPart_PawnModifier
 {
-    private HediffDef stackHediff;
+    private HediffDef stackHediff = AC_DefOf.VFEU_CorticalStack;
 
 
     public override string Summary(Scenario scen)
     {
-        return "ScenPart_PawnsHaveCorticalStack".Translate(this.context.ToStringHuman(), this.chance.ToStringPercent()).CapitalizeFirst();
+        return "AC.ScenPart_PawnsHaveCorticalStack".Translate(this.context.ToStringHuman(), this.chance.ToStringPercent(),this.stackHediff.label).CapitalizeFirst();
     }
 
     public override void ModifyPawnPostGenerate(Pawn pawn, bool redressed)
