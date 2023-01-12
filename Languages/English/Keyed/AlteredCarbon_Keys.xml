@@ -30,6 +30,7 @@
 	<AC.GoodwillChangedReason_ErasedPawn>erased {PAWN_labelShort}</AC.GoodwillChangedReason_ErasedPawn>
 	<AC.CantWipeStackTooDumb>Wipe Stack (requires intellectual skill of 5 or higher)</AC.CantWipeStackTooDumb>
 	<AC.FailedCorticalStackDestroyed>Decrypt Ancient Stacks: Failed, cortical stack destroyed!</AC.FailedCorticalStackDestroyed>
+	<AC.ScenPart_PawnsHaveCorticalStack>{0} have a {1} chance of starting with a {2}.</AC.ScenPart_PawnsHaveCorticalStack>
 	<!-- ================================ Sleeves ====================== -->
 	<AC.EmptySleeve>Empty sleeve</AC.EmptySleeve>
 	<AC.SleeveDeath>Sleeve Death</AC.SleeveDeath>

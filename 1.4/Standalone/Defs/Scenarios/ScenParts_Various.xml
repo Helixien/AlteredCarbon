@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <ScenPartDef>
+        <defName>AC_StarterCorticalStacks</defName>
+        <label>starter cortical stack</label>
+        <scenPartClass>AlteredCarbon.ScenPart_CorticalStack</scenPartClass>
+        <category>PlayerPawnModifier</category>
+        <selectionWeight>1.0</selectionWeight>
+        <summaryPriority>459</summaryPriority>
+        <maxUses>1</maxUses>
+    </ScenPartDef>
+</Defs>
