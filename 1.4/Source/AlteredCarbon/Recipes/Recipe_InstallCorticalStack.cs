@@ -163,8 +163,7 @@ namespace AlteredCarbon
             
             if (ModsConfig.IdeologyActive)
             {
-                var eventDef = DefDatabase<HistoryEventDef>.GetNamed("VFEU_InstalledCorticalStack");
-                Find.HistoryEventsManager.RecordEvent(new HistoryEvent(eventDef, pawn.Named(HistoryEventArgsNames.Doer)));
+                Find.HistoryEventsManager.RecordEvent(new HistoryEvent(AC_DefOf.VFEU_InstalledCorticalStack, pawn.Named(HistoryEventArgsNames.Doer)));
             }
             
             pawn.needs.AddOrRemoveNeedsAsAppropriate();
