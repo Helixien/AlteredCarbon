@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-	<ThingDef ParentName="BuildingBase">
+<!--	<ThingDef ParentName="BuildingBase">
 		<defName>AC_GeneCentrifuge</defName>
 		<label>gene centrifuge</label>
 		<description>text.todo</description>
@@ -64,5 +64,5 @@
 				<maxDistance>12.9</maxDistance>
 			</li>
 		</comps>
-	</ThingDef>
+	</ThingDef>-->
 </Defs>
