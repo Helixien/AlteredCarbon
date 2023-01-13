@@ -34,6 +34,11 @@ namespace AlteredCarbon
                 var sourceHediff = Hediff_CorticalStack;
                 BodyPartRecord neckRecord = pawnTarget.def.race.body.AllParts.FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Neck);
 
+                if (pawnTarget.Faction != null && CasterPawn.Faction != null && pawnTarget.Faction != CasterPawn.Faction)
+                {
+                    pawnTarget.Faction.TryAffectGoodwillWith(CasterPawn.Faction, -80, reason: AC_DefOf.AC_UsedArchoStack, lookTarget: pawnTarget);
+                }
+
                 if (pawnTarget.HasCorticalStack(out var stackHediff))
                 {
                     stackHediff.preventKill = true;

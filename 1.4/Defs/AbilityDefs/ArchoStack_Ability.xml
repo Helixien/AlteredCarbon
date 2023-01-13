@@ -8,7 +8,13 @@
 		<iconPath>UI/Icons/StackSkip</iconPath>
 		<castTime>120</castTime>
 		<showUndrafted>true</showUndrafted>
-		<targetMode>Pawn</targetMode>
+		<targetingParameters>
+			<canTargetLocations>False</canTargetLocations>
+			<canTargetBuildings>False</canTargetBuildings>
+			<canTargetHumans>True</canTargetHumans>
+			<canTargetMechs>False</canTargetMechs>
+			<canTargetAnimals>False</canTargetAnimals>
+		</targetingParameters>
 		<fleckOnTarget>PsycastPsychicEffect</fleckOnTarget>
 		<abilityClass>AlteredCarbon.Ability_ArchoStackSkip</abilityClass>
 		<chance>0</chance>

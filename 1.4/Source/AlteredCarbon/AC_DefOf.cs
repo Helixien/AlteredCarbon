@@ -71,5 +71,6 @@ namespace AlteredCarbon
         public static EffecterDef VFEU_Vat_Bubbles;
         public static LetterDef HumanPregnancy;
         public static FleckDef PsycastAreaEffect;
+        public static HistoryEventDef AC_UsedArchoStack;
     }
 }
