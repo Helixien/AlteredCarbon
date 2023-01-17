@@ -54,10 +54,7 @@ namespace AlteredCarbon
             Scribe_Collections.Look(ref this.backedUpStacks, "backedUpStacks", LookMode.Value, LookMode.Deep, ref intKeys, ref personaDataValues);
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
-                if (this.backedUpStacks is null)
-                {
-                    this.backedUpStacks = new Dictionary<int, PersonaData>();
-                }
+                this.backedUpStacks ??= new Dictionary<int, PersonaData>();
             }
         }
 
