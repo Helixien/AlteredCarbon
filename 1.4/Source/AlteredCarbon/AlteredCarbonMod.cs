@@ -15,7 +15,7 @@ namespace AlteredCarbon
         public AlteredCarbonMod(ModContentPack pack) : base(pack)
         {
             settings = GetSettings<AlteredCarbonSettings>();
-            Log.Message("Altered Carbon 2.0 is active");
+            Log.Message("Altered Carbon " + this.Content.ModMetaData.ModVersion + " is active");
         }
         public override void DoSettingsWindowContents(Rect inRect)
         {
