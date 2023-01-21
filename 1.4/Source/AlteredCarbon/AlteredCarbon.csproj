@@ -179,6 +179,7 @@
     </PackageReference>
     <PackageReference Include="Lib.Harmony">
       <Version>2.2.2</Version>
+      <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <Publicize Include="Assembly-CSharp" />
   </ItemGroup>
