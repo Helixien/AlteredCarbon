@@ -23,7 +23,7 @@
 		<size>(3,3)</size>
 		<statBases>
 			<MaxHitPoints>800</MaxHitPoints>
-			<WorkToBuild>8000</WorkToBuild>
+			<WorkToBuild>18000</WorkToBuild>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>1</Cleanliness>
 		</statBases>

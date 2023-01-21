@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<StyleCategoryDef>
+		<defName>AC_Ultrist</defName>
+		<label>ultrist</label>
+		<iconPath>UI/StyleCategories/Ultrist</iconPath>
+		<soundOngoingRitual>RitualSustainer_Techist</soundOngoingRitual>
+		<ritualVisualEffectDef>Techist</ritualVisualEffectDef>
+		<thingDefStyles>
+			<li>
+				<thingDef>Gun_AssaultRifle</thingDef>
+				<styleDef>AC_Ultraist_AssaultRifle</styleDef>
+			</li>
+			<li>
+				<thingDef>Gun_Autopistol</thingDef>
+				<styleDef>AC_Ultraist_AutoPistol</styleDef>
+			</li>
+			<li>
+				<thingDef>Gun_ChargeRifle</thingDef>
+				<styleDef>AC_Ultraist_ChargeRifle</styleDef>
+			</li>
+			<li MayRequire="VanillaExpanded.VWEL">
+				<thingDef>VWEL_Gun_LaserRifle</thingDef>
+				<styleDef>VWEL_Ultraist_LaserRifle</styleDef>
+			</li>
+			<li MayRequire="VanillaExpanded.VWEC">
+				<thingDef>VWE_Gun_GaussRifle</thingDef>
+				<styleDef>VWEC_Ultraist_GaussRifle</styleDef>
+			</li>
+		</thingDefStyles>
+	</StyleCategoryDef>
+</Defs>

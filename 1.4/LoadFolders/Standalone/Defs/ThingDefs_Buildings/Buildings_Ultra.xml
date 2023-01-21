@@ -37,6 +37,7 @@
 		<blockWind>true</blockWind>
 		<statBases>
 			<MarketValue>3580</MarketValue>
+			<WorkToBuild>16000</WorkToBuild>
 			<MaxHitPoints>400</MaxHitPoints>
 			<Flammability>0.5</Flammability>
 			<Mass>60</Mass>
@@ -106,6 +107,7 @@
 		<size>(1,2)</size>
 		<statBases>
 			<MaxHitPoints>250</MaxHitPoints>
+			<WorkToBuild>6000</WorkToBuild>
 			<Mass>40</Mass>
 			<Flammability>0.5</Flammability>
 		</statBases>

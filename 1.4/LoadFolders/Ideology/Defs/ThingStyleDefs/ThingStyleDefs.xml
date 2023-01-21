@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<ThingStyleDef Name="AC_WeaponStyle" Abstract="True">
+		<graphicData>
+			<onGroundRandomRotateAngle>35</onGroundRandomRotateAngle>
+		</graphicData>
+	</ThingStyleDef>
+	<ThingStyleDef ParentName="AC_WeaponStyle">
+		<defName>AC_Ultraist_AssaultRifle</defName>
+		<graphicData>
+			<texPath>Things/Weapons/Styles/Ultrist/AssaultRifle</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+	<ThingStyleDef ParentName="AC_WeaponStyle">
+		<defName>AC_Ultraist_AutoPistol</defName>
+		<graphicData>
+			<texPath>Things/Weapons/Styles/Ultrist/AutoPistol</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+	<ThingStyleDef ParentName="AC_WeaponStyle">
+		<defName>AC_Ultraist_ChargeRifle</defName>
+		<graphicData>
+			<texPath>Things/Weapons/Styles/Ultrist/ChargeRifle</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+	<ThingStyleDef ParentName="AC_WeaponStyle">
+		<defName>VWEL_Ultraist_LaserRifle</defName>
+		<graphicData>
+			<texPath>Things/Weapons/Styles/Ultrist/LaserRifle</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+	<ThingStyleDef ParentName="AC_WeaponStyle">
+		<defName>VWEC_Ultraist_GaussRifle</defName>
+		<graphicData>
+			<texPath>Things/Weapons/Styles/Ultrist/GaussRifle</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+</Defs>
