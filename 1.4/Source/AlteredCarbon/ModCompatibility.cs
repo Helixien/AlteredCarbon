@@ -257,10 +257,10 @@ namespace AlteredCarbon
 				raceGroupDef_HelperType = AccessTools.TypeByName("RaceGroupDef_Helper");
 				tryGetRaceGroupDef = raceGroupDef_HelperType.GetMethods().FirstOrDefault(x => x.Name == "TryGetRaceGroupDef");
 			}
-			DubsBadHygieneActive = ModsConfig.IsActive("Dubwise.DubsBadHygiene");
-		}
+            DubsBadHygieneActive = ModsConfig.IsActive("Dubwise.DubsBadHygiene") || ModsConfig.IsActive("Dubwise.DubsBadHygiene.Lite");
+        }
 
-		public static void FillThirstNeed(Pawn pawn, float value)
+        public static void FillThirstNeed(Pawn pawn, float value)
         {
             FillNeed(pawn.needs?.TryGetNeed<DubsBadHygiene.Need_Thirst>(), value);
         }
