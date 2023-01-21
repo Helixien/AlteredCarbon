@@ -1,40 +1,50 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
+	<!-- ================================ Base ====================== -->
 	<ThingStyleDef Name="AC_WeaponStyle" Abstract="True">
 		<graphicData>
 			<onGroundRandomRotateAngle>35</onGroundRandomRotateAngle>
 		</graphicData>
 	</ThingStyleDef>
+	<!-- ================================ Vanilla Weapons ====================== -->
 	<ThingStyleDef ParentName="AC_WeaponStyle">
-		<defName>AC_Ultraist_AssaultRifle</defName>
+		<defName>AC_Ultrist_AssaultRifle</defName>
 		<graphicData>
 			<texPath>Things/Weapons/Styles/Ultrist/AssaultRifle</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 	</ThingStyleDef>
 	<ThingStyleDef ParentName="AC_WeaponStyle">
-		<defName>AC_Ultraist_AutoPistol</defName>
+		<defName>AC_Ultrist_AutoPistol</defName>
 		<graphicData>
 			<texPath>Things/Weapons/Styles/Ultrist/AutoPistol</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 	</ThingStyleDef>
 	<ThingStyleDef ParentName="AC_WeaponStyle">
-		<defName>AC_Ultraist_ChargeRifle</defName>
+		<defName>AC_Ultrist_ChargeRifle</defName>
 		<graphicData>
 			<texPath>Things/Weapons/Styles/Ultrist/ChargeRifle</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 	</ThingStyleDef>
 	<ThingStyleDef ParentName="AC_WeaponStyle">
-		<defName>VWEL_Ultraist_LaserRifle</defName>
+		<defName>AC_Ultrist_HeavySMG</defName>
+		<graphicData>
+			<texPath>Things/Weapons/Styles/Ultrist/GaussRifle</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+	<!-- ================================ Modded weapons ====================== -->
+	<ThingStyleDef ParentName="AC_WeaponStyle" MayRequire="VanillaExpanded.VWEL">
+		<defName>VWEL_Ultrist_LaserRifle</defName>
 		<graphicData>
 			<texPath>Things/Weapons/Styles/Ultrist/LaserRifle</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 	</ThingStyleDef>
-	<ThingStyleDef ParentName="AC_WeaponStyle">
-		<defName>VWEC_Ultraist_GaussRifle</defName>
+	<ThingStyleDef ParentName="AC_WeaponStyle" MayRequire="VanillaExpanded.VWEC">
+		<defName>VWEC_Ultrist_GaussRifle</defName>
 		<graphicData>
 			<texPath>Things/Weapons/Styles/Ultrist/GaussRifle</texPath>
 			<graphicClass>Graphic_Single</graphicClass>

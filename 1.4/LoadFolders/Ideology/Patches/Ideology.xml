@@ -21,6 +21,18 @@
 					</li>
 				</value>
 			</li>
+			<!-- ================================ Add style to culture ====================== -->
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/CultureDef[defName="Astropolitan"]</xpath>
+				<value>
+					<thingStyleCategories>
+						<li MayRequire="Ludeon.RimWorld.Ideology">
+							<category>AC_Ultrist</category>
+							<priority>2</priority>
+						</li>
+					</thingStyleCategories>
+				</value>
+			</li>
 		</operations>
 	</Operation>
 </Patch>
