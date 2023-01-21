@@ -6,10 +6,18 @@ using Verse;
 
 namespace LogModVersion
 {
-    [StaticConstructorOnStartup]
-    public static class LogModVersion
+    public class LogModVersion : Mod
     {
-        static LogModVersion()
+        public LogModVersion(ModContentPack content) : base(content)
+        {
+            new Harmony("LogModVersion").PatchAll();
+        }
+    }
+
+    [HarmonyPatch(typeof(LoadedModManager), nameof(LoadedModManager.LoadModXML))]
+    public static class LoadedModManager_LoadModXML_Patch
+    {
+        public static void Prefix()
         {
             foreach (var mod in LoadedModManager.RunningMods)
             {
