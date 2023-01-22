@@ -23,7 +23,7 @@ namespace LogModVersion
             {
                 if (mod.assemblies.loadedAssemblies.Contains(typeof(LogModVersion).Assembly))
                 {
-                    Log.Message(mod.Name + " " + mod.ModMetaData.ModVersion);
+                    Log.Message("[" + mod.Name + "] version " + mod.ModMetaData.ModVersion);
                 }
             }
         }

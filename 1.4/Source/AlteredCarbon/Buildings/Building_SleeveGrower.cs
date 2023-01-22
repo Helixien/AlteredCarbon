@@ -111,7 +111,6 @@ namespace AlteredCarbon
                         createSleeveBody.Disable("NoPower".Translate().CapitalizeFirst());
                         copySleeveBody.Disable("NoPower".Translate().CapitalizeFirst());
                     }
-
                 }
                 if (Prefs.DevMode && incubatorState == IncubatorState.Growing)
                 {

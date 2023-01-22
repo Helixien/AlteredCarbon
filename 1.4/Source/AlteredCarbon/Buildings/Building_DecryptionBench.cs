@@ -48,7 +48,7 @@ namespace AlteredCarbon
                 yield return g;
             }
 
-            yield return new Command_WipeStacks
+            var wipeStacks = new Command_WipeStacks
             {
                 defaultLabel = "AC.WipeStack".Translate(),
                 defaultDesc = "AC.WipeStackDesc".Translate(),
@@ -64,6 +64,11 @@ namespace AlteredCarbon
                 decryptionBench = this
             };
 
+            if (powerComp.PowerOn is false)
+            {
+                wipeStacks.Disable("NoPower".Translate().CapitalizeFirst());
+            }
+            yield return wipeStacks;
         }
 
         public void InstallWipeStackRecipe(CorticalStack corticalStack)
