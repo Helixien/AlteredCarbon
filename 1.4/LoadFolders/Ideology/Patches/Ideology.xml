@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<Operation Class="PatchOperationSequence">
+		<operations>
+			<!-- ================================ Add ancient stacks to ancient structures ====================== -->
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingSetMakerDef[defName="MapGen_AncientComplexRoomLoot_Default" or defName="MapGen_AncientComplexRoomLoot_Better" or defName="MapGen_AncientComplex_SecurityCrate"]/root/options</xpath>
+				<value>
+					<li>
+						<weight>0.05</weight>
+						<thingSetMaker Class="ThingSetMaker_StackCount">
+							<fixedParams>
+								<filter>
+									<thingDefs>
+										<li>VFEU_AncientStack</li>
+									</thingDefs>
+								</filter>
+								<countRange>1</countRange>
+							</fixedParams>
+						</thingSetMaker>
+					</li>
+				</value>
+			</li>
+			<!-- ================================ Add style to culture ====================== -->
+			<li Class="PatchOperationConditional">
+				<xpath>/Defs/CultureDef[defName="Astropolitan"]/thingStyleCategories</xpath>
+				<nomatch Class="PatchOperationAdd">
+					<xpath>/Defs/CultureDef[defName="Astropolitan"]</xpath>
+					<value>
+						<thingStyleCategories>
+							<li MayRequire="Ludeon.RimWorld.Ideology">
+								<category>AC_Ultrist</category>
+								<priority>3</priority>
+							</li>
+						</thingStyleCategories>
+					</value>
+				</nomatch>
+				<match Class="PatchOperationAdd">
+					<xpath>/Defs/CultureDef[defName="Astropolitan"]/thingStyleCategories</xpath>
+					<value>
+						<li MayRequire="Ludeon.RimWorld.Ideology">
+							<category>AC_Ultrist</category>
+							<priority>3</priority>
+						</li>
+					</value>
+				</match>
+			</li>
+		</operations>
+	</Operation>
+</Patch>
