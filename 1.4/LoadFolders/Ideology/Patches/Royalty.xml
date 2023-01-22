@@ -7,16 +7,28 @@
 		<match Class="PatchOperationSequence">
 			<operations>
 				<!-- ================================ Add style to culture ====================== -->
-				<li Class="PatchOperationAdd">
-					<xpath>/Defs/CultureDef[defName="Sophian"]</xpath>
-					<value>
-						<thingStyleCategories>
+				<li Class="PatchOperationConditional">
+					<xpath>/Defs/CultureDef[defName="Sophian"]/thingStyleCategories</xpath>
+					<nomatch Class="PatchOperationAdd">
+						<xpath>/Defs/CultureDef[defName="Sophian"]</xpath>
+						<value>
+							<thingStyleCategories>
+								<li MayRequire="Ludeon.RimWorld.Ideology">
+									<category>AC_Ultrist</category>
+									<priority>3</priority>
+								</li>
+							</thingStyleCategories>
+						</value>
+					</nomatch>
+					<match Class="PatchOperationAdd">
+						<xpath>/Defs/CultureDef[defName="Sophian"]/thingStyleCategories</xpath>
+						<value>
 							<li MayRequire="Ludeon.RimWorld.Ideology">
 								<category>AC_Ultrist</category>
 								<priority>3</priority>
 							</li>
-						</thingStyleCategories>
-					</value>
+						</value>
+					</match>
 				</li>
 			</operations>
 		</match>
