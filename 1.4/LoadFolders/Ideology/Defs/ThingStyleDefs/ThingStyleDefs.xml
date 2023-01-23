@@ -10,28 +10,28 @@
 	<ThingStyleDef ParentName="AC_WeaponStyle">
 		<defName>AC_Ultrist_AssaultRifle</defName>
 		<graphicData>
-			<texPath>Things/Weapons/Styles/Ultrist/AssaultRifle</texPath>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/AssaultRifle</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 	</ThingStyleDef>
 	<ThingStyleDef ParentName="AC_WeaponStyle">
 		<defName>AC_Ultrist_AutoPistol</defName>
 		<graphicData>
-			<texPath>Things/Weapons/Styles/Ultrist/AutoPistol</texPath>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/AutoPistol</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 	</ThingStyleDef>
 	<ThingStyleDef ParentName="AC_WeaponStyle">
 		<defName>AC_Ultrist_ChargeRifle</defName>
 		<graphicData>
-			<texPath>Things/Weapons/Styles/Ultrist/ChargeRifle</texPath>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/ChargeRifle</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 	</ThingStyleDef>
 	<ThingStyleDef ParentName="AC_WeaponStyle">
 		<defName>AC_Ultrist_HeavySMG</defName>
 		<graphicData>
-			<texPath>Things/Weapons/Styles/Ultrist/HeavySMG</texPath>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/HeavySMG</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 	</ThingStyleDef>
@@ -39,14 +39,14 @@
 	<ThingStyleDef ParentName="AC_WeaponStyle" MayRequire="VanillaExpanded.VWEL">
 		<defName>VWEL_Ultrist_LaserRifle</defName>
 		<graphicData>
-			<texPath>Things/Weapons/Styles/Ultrist/LaserRifle</texPath>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/LaserRifle</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 	</ThingStyleDef>
 	<ThingStyleDef ParentName="AC_WeaponStyle" MayRequire="VanillaExpanded.VWEC">
 		<defName>VWEC_Ultrist_GaussRifle</defName>
 		<graphicData>
-			<texPath>Things/Weapons/Styles/Ultrist/GaussRifle</texPath>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/GaussRifle</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 	</ThingStyleDef>

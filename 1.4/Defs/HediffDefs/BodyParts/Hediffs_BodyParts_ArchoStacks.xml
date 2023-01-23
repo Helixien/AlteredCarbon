@@ -10,7 +10,7 @@
 		<useHitPoints>false</useHitPoints>
 		<uiIconForStackCount>1</uiIconForStackCount>
 		<stackLimit>25</stackLimit>
-		<tradeNeverStack>false</tradeNeverStack>
+		<tradeNeverStack>true</tradeNeverStack>
 		<techHediffsTags Inherit="False">
 			<li>Archotech</li>
 		</techHediffsTags>
@@ -18,7 +18,7 @@
 			<Mass>0.3</Mass>
 			<DeteriorationRate>0</DeteriorationRate>
 			<MaxHitPoints>250</MaxHitPoints>
-			<MarketValue>3000</MarketValue>
+			<MarketValue>8500</MarketValue>
 		</statBases>
 	</ThingDef>
 	<ThingDef ParentName="AC_ArchoStackBase">
@@ -39,7 +39,7 @@
 			<li>ExoticMisc</li>
 		</tradeTags>
 		<thingSetMakerTags>
-			<li>RewardStandardMidFreq</li>
+			<li>RewardStandardLowFreq</li>
 		</thingSetMakerTags>
 	</ThingDef>
 	<ThingDef ParentName="AC_ArchoStackBase">
