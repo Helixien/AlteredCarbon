@@ -11,6 +11,12 @@
 				</value>
 			</li>
 			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[defName="VFEU_DecryptionBench"]</xpath>
+				<value>
+					<designationCategory>Production</designationCategory>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
 				<xpath>/Defs/ThingDef[defName="VFEU_SleeveIncubator"]</xpath>
 				<value>
 					<researchPrerequisites>
@@ -34,6 +40,20 @@
 					<costList>
 						<Steel>100</Steel>
 						<Plasteel>25</Plasteel>
+						<ComponentSpacer>2</ComponentSpacer>
+					</costList>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[defName="VFEU_DecryptionBench"]</xpath>
+				<value>
+					<researchPrerequisites>
+						<li>MicroelectronicsBasics</li>
+					</researchPrerequisites>
+					<constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+					<costList>
+						<Steel>80</Steel>
+						<Plasteel>10</Plasteel>
 						<ComponentSpacer>2</ComponentSpacer>
 					</costList>
 				</value>

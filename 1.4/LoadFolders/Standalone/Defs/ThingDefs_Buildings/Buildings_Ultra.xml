@@ -183,24 +183,21 @@
 			</damageData>
 		</graphicData>
 		<size>(3,1)</size>
+		<castEdgeShadows>true</castEdgeShadows>
+		<staticSunShadowHeight>0.20</staticSunShadowHeight>
+		<thingCategories>
+			<li>BuildingsMisc</li>
+		</thingCategories>
 		<statBases>
 			<Mass>20</Mass>
 			<MaxHitPoints>180</MaxHitPoints>
 			<WorkToBuild>5000</WorkToBuild>
 			<Flammability>0.5</Flammability>
 		</statBases>
-		<costList>
-			<Steel>80</Steel>
-			<Plasteel>70</Plasteel>
-			<ComponentSpacer>6</ComponentSpacer>
-		</costList>
 		<altitudeLayer>Building</altitudeLayer>
 		<passability>PassThroughOnly</passability>
 		<fillPercent>0.5</fillPercent>
-		<designationCategory>Production</designationCategory>
 		<pathCost>42</pathCost>
-		<castEdgeShadows>true</castEdgeShadows>
-		<staticSunShadowHeight>0.20</staticSunShadowHeight>
 		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
 		<hasInteractionCell>true</hasInteractionCell>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
@@ -220,6 +217,10 @@
 		<inspectorTabs>
 			<li>ITab_Bills</li>
 		</inspectorTabs>
+		<placeWorkers>
+			<li>PlaceWorker_PreventInteractionSpotOverlap</li>
+		</placeWorkers>
+		<minifiedDef>MinifiedThing</minifiedDef>
 		<comps>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
@@ -229,12 +230,5 @@
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Breakdownable"/>
 		</comps>
-		<placeWorkers>
-			<li>PlaceWorker_PreventInteractionSpotOverlap</li>
-		</placeWorkers>
-		<minifiedDef>MinifiedThing</minifiedDef>
-		<thingCategories>
-			<li>BuildingsMisc</li>
-		</thingCategories>
 	</ThingDef>
 </Defs>
