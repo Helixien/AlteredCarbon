@@ -38,6 +38,18 @@
 					</costList>
 				</value>
 			</li>
+			<li Class="PatchOperationReplace">
+				<xpath>/Defs/ThingDef[defName="VFEU_DecryptionBench"]/size</xpath>
+				<value>
+					<size>(5,2)</size>
+				</value>
+			</li>
+			<li Class="PatchOperationReplace">
+				<xpath>/Defs/ThingDef[defName="VFEU_DecryptionBench"]/graphicData/drawSize</xpath>
+				<value>
+					<drawSize>(7,4)</drawSize>
+				</value>
+			</li>
 			<!-- ================================ Protector Power Armor ====================== -->
 			<li Class="PatchOperationAdd">
 				<xpath>/Defs/ThingDef[defName="VFEU_Apparel_ProtectorArmor" or defName="VFEU_Apparel_ProtectorHelmet"]</xpath>

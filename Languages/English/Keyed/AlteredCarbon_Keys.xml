@@ -28,7 +28,7 @@
 	<AC.CannotCopyNoIntellectual>(requires intellectual skill of 10 or higher)</AC.CannotCopyNoIntellectual>
 	<AC.CannotCopyNoOtherEmptyStacks>(no empty stacks on the map)</AC.CannotCopyNoOtherEmptyStacks>
 	<AC.GoodwillChangedReason_ErasedPawn>erased {PAWN_labelShort}</AC.GoodwillChangedReason_ErasedPawn>
-	<AC.CantWipeStackTooDumb>Wipe Stack (requires intellectual skill of 5 or higher)</AC.CantWipeStackTooDumb>
+	<AC.CantWipeStackTooDumb>Rest Stack (requires intellectual skill of 5 or higher)</AC.CantWipeStackTooDumb>
 	<AC.FailedCorticalStackDestroyed>Decrypt Ancient Stacks: Failed, cortical stack destroyed!</AC.FailedCorticalStackDestroyed>
 	<AC.ScenPart_PawnsHaveCorticalStack>{0} have a {1} chance of starting with a {2}.</AC.ScenPart_PawnsHaveCorticalStack>
 	<!-- ================================ Sleeves ====================== -->
@@ -143,15 +143,15 @@
 	<AC.HackStackDesc>Convert a stack to the players faction.</AC.HackStackDesc>
 	<AC.ConvertStack>Convert stack ideo</AC.ConvertStack>
 	<AC.ConvertStackDesc>Convert a stack to the players ideology.</AC.ConvertStackDesc>
-	<AC.WipeStack>Wipe stack</AC.WipeStack>
-	<AC.WipeStackDesc>Wipe a stack of the pawn stored on it.</AC.WipeStackDesc>
+	<AC.WipeStack>Reset stack</AC.WipeStack>
+	<AC.WipeStackDesc>Factory reset a filled cortical to be used on a new host. This process will deleted the pawn stored on it, effectively killing them.</AC.WipeStackDesc>
 	<AC.PawnAlreadyHasStack>{PAWN_nameDef} already has a cortical stack installed!</AC.PawnAlreadyHasStack>
 	<AC.PawnAlreadyHasArchoStack>{PAWN_nameDef} already has an archo stack installed!</AC.PawnAlreadyHasArchoStack>
 	<AC.PawnStackCannotDowngrade>{PAWN_nameDef} already has an archo stack installed, cannot downgrade!</AC.PawnStackCannotDowngrade>
 	<AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>Cannot install cortical stack - neck is missing or another implant installed in the neck.</AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>
 	<AC.AlreadyOrderedToHackStack>This stack is set for hacking already on the decryption workbench.</AC.AlreadyOrderedToHackStack>
 	<AC.AlreadyOrderedToConvertStack>This stack is set for ideo converting already on the decryption workbench.</AC.AlreadyOrderedToConvertStack>
-	<AC.AlreadyOrderedToWipeStack>This stack is set for wiping already on the decryption workbench.</AC.AlreadyOrderedToWipeStack>
+	<AC.AlreadyOrderedToWipeStack>This stack is set for reseting already on a decryption workbench.</AC.AlreadyOrderedToWipeStack>
 	<AC.FixedAncientStack>Decrypt Ancient Stacks: Fixed the ancient cortical stack!</AC.FixedAncientStack>
 	<AC.UnlockedNewTechnology>Decrypt Ancient Stacks: Unlocked new technology - {0}!</AC.UnlockedNewTechnology>
 	<AC.GainedProgressToTechnology>Decrypt Ancient Stacks: Gained progress to technology - {0}!</AC.GainedProgressToTechnology>
