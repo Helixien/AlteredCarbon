@@ -5,7 +5,7 @@
 		<label>make empty cortical stack</label>
 		<description>Make empty cortical stack.</description>
 		<jobString>Making empty cortical stack.</jobString>
-		<workAmount>18000</workAmount>
+		<workAmount>18500</workAmount>
 		<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
 		<effectWorking>Cook</effectWorking>
 		<soundWorking>Recipe_Machining</soundWorking>
@@ -17,7 +17,7 @@
 						<li>ComponentSpacer</li>
 					</thingDefs>
 				</filter>
-				<count>2</count>
+				<count>6</count>
 			</li>
 			<li>
 				<filter>
@@ -25,7 +25,7 @@
 						<li>Plasteel</li>
 					</thingDefs>
 				</filter>
-				<count>8</count>
+				<count>15</count>
 			</li>
 		</ingredients>
 		<fixedIngredientFilter>
@@ -40,7 +40,7 @@
 		<researchPrerequisite>AC_CorticalCrafting</researchPrerequisite>
 		<workSkill>Crafting</workSkill>
 		<skillRequirements>
-			<Crafting>12</Crafting>
+			<Crafting>15</Crafting>
 		</skillRequirements>
 		<displayPriority>15</displayPriority>
 	</RecipeDef>
