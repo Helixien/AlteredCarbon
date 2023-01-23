@@ -5,7 +5,7 @@
 		<operations>
 			<!-- ================================ Patches in stack crafting recipe ====================== -->
 			<li Class="PatchOperationAdd">
-				<xpath>/Defs/ThingDef[defName='FabricationBench']/recipes</xpath>
+				<xpath>/Defs/ThingDef[defName="FabricationBench"]/recipes</xpath>
 				<value>
 					<li>VFEU_MakeEmptyCorticalStack</li>
 				</value>
