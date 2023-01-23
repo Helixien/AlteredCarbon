@@ -55,24 +55,43 @@
 					</recipeMaker>
 				</value>
 			</li>
-			<li Class="PatchOperationAdd">
-				<xpath>/Defs/ThingDef[defName="VFEU_Apparel_ProtectorArmor" or defName="VFEU_Apparel_ProtectorHelmet"]/tradeTags</xpath>
-				<value>
-					<li>HiTechArmor</li>
-				</value>
+			<li Class="PatchOperationConditional">
+				<xpath>/Defs/ThingDef[defName="VFEU_Apparel_ProtectorArmor" or defName="VFEU_Apparel_ProtectorHelmet"]/apparel</xpath>
+				<nomatch Class="PatchOperationAdd">
+					<xpath>/Defs/ThingDef[defName="VFEU_Apparel_ProtectorArmor" or defName="VFEU_Apparel_ProtectorHelmet"]</xpath>
+					<value>
+						<apparel>
+							<tags>
+								<li>SpacerMilitary</li>
+								<li>UltraMilitary</li>
+							</tags>
+						</apparel>
+					</value>
+				</nomatch>
+				<match Class="PatchOperationAdd">
+					<xpath>/Defs/ThingDef[defName="VFEU_Apparel_ProtectorArmor" or defName="VFEU_Apparel_ProtectorHelmet"]/apparel/tags</xpath>
+					<value>
+						<li>SpacerMilitary</li>
+						<li>UltraMilitary</li>
+					</value>
+				</match>
 			</li>
-			<li Class="PatchOperationAdd">
-				<xpath>/Defs/ThingDef[defName="VFEU_Apparel_ProtectorArmor" or defName="VFEU_Apparel_ProtectorHelmet"]/apparel/tags</xpath>
-				<value>
-					<li>SpacerMilitary</li>
-					<li>UltraMilitary</li>
-				</value>
-			</li>
-			<li Class="PatchOperationAdd">
+			<li Class="PatchOperationConditional">
 				<xpath>/Defs/ThingDef[defName="VFEU_Apparel_ProtectorArmor" or defName="VFEU_Apparel_ProtectorHelmet"]/thingSetMakerTags</xpath>
-				<value>
-					<li>RewardStandardHighFreq</li>
-				</value>
+				<nomatch Class="PatchOperationAdd">
+					<xpath>/Defs/ThingDef[defName="VFEU_Apparel_ProtectorArmor" or defName="VFEU_Apparel_ProtectorHelmet"]</xpath>
+					<value>
+						<thingSetMakerTags>
+							<li>RewardStandardHighFreq</li>
+						</thingSetMakerTags>
+					</value>
+				</nomatch>
+				<match Class="PatchOperationAdd">
+					<xpath>/Defs/ThingDef[defName="VFEU_Apparel_ProtectorArmor" or defName="VFEU_Apparel_ProtectorHelmet"]/thingSetMakerTags</xpath>
+					<value>
+						<li>RewardStandardHighFreq</li>
+					</value>
+				</match>
 			</li>
 			<li Class="PatchOperationAdd">
 				<xpath>/Defs/ThingDef[defName='VFEU_Apparel_ProtectorArmor']/statBases</xpath>

@@ -31,7 +31,7 @@
 	<ThingStyleDef ParentName="AC_WeaponStyle">
 		<defName>AC_Ultrist_HeavySMG</defName>
 		<graphicData>
-			<texPath>Things/Weapons/Styles/Ultrist/GaussRifle</texPath>
+			<texPath>Things/Weapons/Styles/Ultrist/HeavySMG</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 	</ThingStyleDef>
