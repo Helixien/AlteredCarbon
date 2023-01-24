@@ -12,7 +12,7 @@
 		<issue>AC_Stacking</issue>
 		<label>central</label>
 		<description>Without a cortical stack we put ourselves at the risk of death. To live without one is unthinkable.</description>
-		<impact>Medium</impact>
+		<impact>High</impact>
 		<displayOrderInImpact>1000</displayOrderInImpact>
 		<requiredMemes>
 			<li>AC_Ouroboros</li>
@@ -62,7 +62,7 @@
 		<issue>AC_Sleeving</issue>
 		<label>demanded</label>
 		<description>Why settle for what nature gave us? One must use a sleeve of their own design and choosing to be their true selves!</description>
-		<impact>Medium</impact>
+		<impact>High</impact>
 		<displayOrderInImpact>1000</displayOrderInImpact>
 		<requiredMemes>
 			<li>AC_Ouroboros</li>
@@ -148,6 +148,7 @@
 		<issue>AC_StackDuplicating</issue>
 		<label>enlightened</label>
 		<description>To make more versions of oneself means to allow for more of one's goals to be achieved. It is a noble thing to do.</description>
+		<impact>High</impact>
 		<requiredMemes>
 			<li>AC_Ouroboros</li>
 		</requiredMemes>
