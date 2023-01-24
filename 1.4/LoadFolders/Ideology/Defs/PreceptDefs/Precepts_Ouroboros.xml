@@ -9,7 +9,7 @@
 	<!-- ================================ Precepts - Stacking ====================== -->
 	<PreceptDef>
 		<defName>AC_Stacking_Central</defName>
-		<issue>AC_Sleeving</issue>
+		<issue>AC_Stacking</issue>
 		<label>central</label>
 		<description>text.todo</description>
 		<impact>Medium</impact>
@@ -23,7 +23,7 @@
 	</PreceptDef>
 	<PreceptDef>
 		<defName>AC_Stacking_Preferred</defName>
-		<issue>AC_Sleeving</issue>
+		<issue>AC_Stacking</issue>
 		<label>preferred</label>
 		<description>text.todo</description>
 		<impact>Low</impact>
@@ -39,7 +39,7 @@
 	</PreceptDef>
 	<PreceptDef>
 		<defName>AC_Stacking_Despised</defName>
-		<issue>AC_Sleeving</issue>
+		<issue>AC_Stacking</issue>
 		<label>despised</label>
 		<description>text.todo</description>
 		<impact>Low</impact>
