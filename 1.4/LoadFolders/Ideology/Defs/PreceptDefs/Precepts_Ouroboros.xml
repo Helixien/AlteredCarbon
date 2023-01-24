@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<!-- ================================ Issue - Stacking ====================== -->
+	<IssueDef>
+		<defName>AC_StackUsage</defName>
+		<label>stacking</label>
+		<iconPath>placeholder</iconPath>
+	</IssueDef>
+	<!-- ================================ Precepts - Stacking ====================== -->
+	<PreceptDef>
+		<defName>AC_StackUsage_Central</defName>
+		<issue>AC_StackUsage</issue>
+		<label>central</label>
+		<description>text.todo</description>
+		<impact>Medium</impact>
+		<displayOrderInImpact>1000</displayOrderInImpact>
+		<requiredMemes>
+			<li>AC_Ouroboros</li>
+		</requiredMemes>
+		<conflictingMemes>
+			<li>FleshPurity</li>
+		</conflictingMemes>
+	</PreceptDef>
+	<PreceptDef>
+		<defName>AC_StackUsage_Preferred</defName>
+		<issue>AC_StackUsage</issue>
+		<label>preferred</label>
+		<description>text.todo</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>0</displayOrderInIssue>
+		<displayOrderInImpact>-100</displayOrderInImpact>
+		<associatedMemes>
+			<li>AC_Ouroboros</li>
+			<li>Transhumanist</li>
+		</associatedMemes>
+		<conflictingMemes>
+			<li>FleshPurity</li>
+		</conflictingMemes>
+	</PreceptDef>
+	<PreceptDef>
+		<defName>AC_StackUsage_Despised</defName>
+		<issue>AC_StackUsage</issue>
+		<label>despised</label>
+		<description>text.todo</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>20</displayOrderInIssue>
+		<displayOrderInImpact>200</displayOrderInImpact>
+		<associatedMemes>
+			<li>FleshPurity</li>
+		</associatedMemes>
+	</PreceptDef>
+	<!-- ================================ Thoughts - Stacking ====================== -->
+
+	<!-- ================================ Issue - Sleeving ====================== -->
+	<IssueDef>
+		<defName>AC_SleevingUsage</defName>
+		<label>sleeving</label>
+		<iconPath>placeholder</iconPath>
+	</IssueDef>
+	<!-- ================================ Precepts - Sleeving ====================== -->
+	<PreceptDef>
+		<defName>AC_SleevingUsage_Demanded</defName>
+		<issue>AC_SleevingUsage</issue>
+		<label>central</label>
+		<description>text.todo</description>
+		<impact>Medium</impact>
+		<displayOrderInImpact>1000</displayOrderInImpact>
+		<requiredMemes>
+			<li>AC_Ouroboros</li>
+		</requiredMemes>
+		<conflictingMemes>
+			<li>FleshPurity</li>
+		</conflictingMemes>
+	</PreceptDef>
+	<PreceptDef>
+		<defName>AC_SleevingUsage_Preferred</defName>
+		<issue>AC_SleevingUsage</issue>
+		<label>preferred</label>
+		<description>text.todo</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>0</displayOrderInIssue>
+		<displayOrderInImpact>-100</displayOrderInImpact>
+		<associatedMemes>
+			<li>AC_Ouroboros</li>
+			<li>Transhumanist</li>
+		</associatedMemes>
+		<conflictingMemes>
+			<li>FleshPurity</li>
+		</conflictingMemes>
+	</PreceptDef>
+	<PreceptDef>
+		<defName>AC_SleevingUsage_Despised</defName>
+		<issue>AC_SleevingUsage</issue>
+		<label>despised</label>
+		<description>text.todo</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>20</displayOrderInIssue>
+		<displayOrderInImpact>200</displayOrderInImpact>
+		<associatedMemes>
+			<li>FleshPurity</li>
+		</associatedMemes>
+	</PreceptDef>
+	<!-- ================================ Thoughts - Sleeving ====================== -->
+
+</Defs>
