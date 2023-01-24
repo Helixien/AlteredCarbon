@@ -10,7 +10,21 @@
 		<requireOne>
 			<li>
 				<li MayRequire="VanillaExpanded.VMemesE">VME_Death_Troubling</li>
-				<li>AC_StackUsage_Central</li>
+			</li>
+			<li>
+				<li>AC_Stacking_Central</li>
+				<li>AC_Stacking_Preferred</li>
+			</li>
+			<li>
+				<li>AC_Sleeving_Demanded</li>
+				<li>AC_Sleeving_Preferred</li>
+			</li>
+			<li>
+				<li>AC_CrossSleeving_DontCare</li>
+			</li>
+			<li>
+				<li>AC_StackDuplicating_Enlightened</li>
+				<li>AC_StackDuplicating_DontCare</li>
 			</li>
 		</requireOne>
 		<generalRules>
