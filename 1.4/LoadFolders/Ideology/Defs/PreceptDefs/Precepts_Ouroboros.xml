@@ -4,7 +4,7 @@
 	<IssueDef>
 		<defName>AC_Stacking</defName>
 		<label>stacking</label>
-		<iconPath>placeholder</iconPath>
+		<iconPath>UI/Issues/Stacking</iconPath>
 	</IssueDef>
 	<!-- ================================ Precepts - Stacking ====================== -->
 	<PreceptDef>
@@ -54,7 +54,7 @@
 	<IssueDef>
 		<defName>AC_Sleeving</defName>
 		<label>sleeving</label>
-		<iconPath>placeholder</iconPath>
+		<iconPath>UI/Issues/Sleeving</iconPath>
 	</IssueDef>
 	<!-- ================================ Precepts - Sleeving ====================== -->
 	<PreceptDef>
@@ -104,7 +104,7 @@
 	<IssueDef>
 		<defName>AC_CrossSleeving</defName>
 		<label>cross-sleeving</label>
-		<iconPath>placeholder</iconPath>
+		<iconPath>UI/Issues/CrossSleeving</iconPath>
 	</IssueDef>
 	<!-- ================================ Precept - Cross Sleeving ====================== -->
 	<PreceptDef>
@@ -140,7 +140,7 @@
 	<IssueDef>
 		<defName>AC_StackDuplicating</defName>
 		<label>duplicating</label>
-		<iconPath>placeholder</iconPath>
+		<iconPath>UI/Issues/Duplicating</iconPath>
 	</IssueDef>
 	<!-- ================================ Precepts - Duplicating ====================== -->
 	<PreceptDef>
