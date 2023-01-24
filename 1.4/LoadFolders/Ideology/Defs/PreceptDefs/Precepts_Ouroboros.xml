@@ -2,14 +2,14 @@
 <Defs>
 	<!-- ================================ Issue - Stacking ====================== -->
 	<IssueDef>
-		<defName>AC_StackUsage</defName>
+		<defName>AC_Stacking</defName>
 		<label>stacking</label>
 		<iconPath>placeholder</iconPath>
 	</IssueDef>
 	<!-- ================================ Precepts - Stacking ====================== -->
 	<PreceptDef>
-		<defName>AC_StackUsage_Central</defName>
-		<issue>AC_StackUsage</issue>
+		<defName>AC_Stacking_Central</defName>
+		<issue>AC_Sleeving</issue>
 		<label>central</label>
 		<description>text.todo</description>
 		<impact>Medium</impact>
@@ -22,8 +22,8 @@
 		</conflictingMemes>
 	</PreceptDef>
 	<PreceptDef>
-		<defName>AC_StackUsage_Preferred</defName>
-		<issue>AC_StackUsage</issue>
+		<defName>AC_Stacking_Preferred</defName>
+		<issue>AC_Sleeving</issue>
 		<label>preferred</label>
 		<description>text.todo</description>
 		<impact>Low</impact>
@@ -38,8 +38,8 @@
 		</conflictingMemes>
 	</PreceptDef>
 	<PreceptDef>
-		<defName>AC_StackUsage_Despised</defName>
-		<issue>AC_StackUsage</issue>
+		<defName>AC_Stacking_Despised</defName>
+		<issue>AC_Sleeving</issue>
 		<label>despised</label>
 		<description>text.todo</description>
 		<impact>Low</impact>
@@ -50,17 +50,16 @@
 		</associatedMemes>
 	</PreceptDef>
 	<!-- ================================ Thoughts - Stacking ====================== -->
-
 	<!-- ================================ Issue - Sleeving ====================== -->
 	<IssueDef>
-		<defName>AC_SleevingUsage</defName>
+		<defName>AC_Sleeving</defName>
 		<label>sleeving</label>
 		<iconPath>placeholder</iconPath>
 	</IssueDef>
 	<!-- ================================ Precepts - Sleeving ====================== -->
 	<PreceptDef>
-		<defName>AC_SleevingUsage_Demanded</defName>
-		<issue>AC_SleevingUsage</issue>
+		<defName>AC_Sleeving_Demanded</defName>
+		<issue>AC_Sleeving</issue>
 		<label>central</label>
 		<description>text.todo</description>
 		<impact>Medium</impact>
@@ -73,8 +72,8 @@
 		</conflictingMemes>
 	</PreceptDef>
 	<PreceptDef>
-		<defName>AC_SleevingUsage_Preferred</defName>
-		<issue>AC_SleevingUsage</issue>
+		<defName>AC_Sleeving_Preferred</defName>
+		<issue>AC_Sleeving</issue>
 		<label>preferred</label>
 		<description>text.todo</description>
 		<impact>Low</impact>
@@ -89,8 +88,8 @@
 		</conflictingMemes>
 	</PreceptDef>
 	<PreceptDef>
-		<defName>AC_SleevingUsage_Despised</defName>
-		<issue>AC_SleevingUsage</issue>
+		<defName>AC_Sleeving_Despised</defName>
+		<issue>AC_Sleeving</issue>
 		<label>despised</label>
 		<description>text.todo</description>
 		<impact>Low</impact>
@@ -101,5 +100,82 @@
 		</associatedMemes>
 	</PreceptDef>
 	<!-- ================================ Thoughts - Sleeving ====================== -->
-
+	<!-- ================================ Issue - Cross Sleeving ====================== -->
+	<IssueDef>
+		<defName>AC_CrossSleeving</defName>
+		<label>cross-sleeving</label>
+		<iconPath>placeholder</iconPath>
+	</IssueDef>
+	<!-- ================================ Precept - Cross Sleeving ====================== -->
+	<PreceptDef>
+		<defName>AC_CrossSleeving_DontCare</defName>
+		<issue>AC_CrossSleeving</issue>
+		<label>don't care</label>
+		<description>text.todo</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>10</displayOrderInIssue>
+		<associatedMemes>
+			<li>Transhumanist</li>
+			<li>AC_Ouroboros</li>
+		</associatedMemes>
+	</PreceptDef>
+	<PreceptDef>
+		<defName>AC_CrossSleeving_Despised</defName>
+		<issue>AC_CrossSleeving</issue>
+		<label>despised</label>
+		<description>text.todo</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>20</displayOrderInIssue>
+		<displayOrderInImpact>200</displayOrderInImpact>
+		<associatedMemes>
+			<li>FleshPurity</li>
+		</associatedMemes>
+		<conflictingMemes>
+			<li>AC_Ouroboros</li>
+			<li>Transhumanist</li>
+		</conflictingMemes>
+	</PreceptDef>
+	<!-- ================================ Thoughts - Cross Sleeving ====================== -->
+	<!-- ================================ Issue - Duplicating ====================== -->
+	<IssueDef>
+		<defName>AC_StackDuplicating</defName>
+		<label>duplicating</label>
+		<iconPath>placeholder</iconPath>
+	</IssueDef>
+	<!-- ================================ Precepts - Duplicating ====================== -->
+	<PreceptDef>
+		<defName>AC_StackDuplicating_Enlightened</defName>
+		<issue>AC_StackDuplicating</issue>
+		<label>enlightened</label>
+		<description>text.todo</description>
+		<requiredMemes>
+			<li>AC_Ouroboros</li>
+		</requiredMemes>
+		<conflictingMemes>
+			<li>FleshPurity</li>
+		</conflictingMemes>
+	</PreceptDef>
+	<PreceptDef>
+		<defName>AC_StackDuplicating_DontCare</defName>
+		<issue>AC_StackDuplicating</issue>
+		<label>don't care</label>
+		<description>text.todo</description>
+		<associatedMemes>
+			<li>AC_Ouroboros</li>
+			<li>Transhumanist</li>
+		</associatedMemes>
+		<conflictingMemes>
+			<li>FleshPurity</li>
+		</conflictingMemes>
+	</PreceptDef>
+	<PreceptDef>
+		<defName>AC_StackDuplicating_Horrible</defName>
+		<issue>AC_StackDuplicating</issue>
+		<label>horrible</label>
+		<description>text.todo</description>
+		<associatedMemes>
+			<li>FleshPurity</li>
+		</associatedMemes>
+	</PreceptDef>
+	<!-- ================================ Thoughts - Duplicating ====================== -->
 </Defs>
