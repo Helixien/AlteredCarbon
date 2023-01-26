@@ -27,6 +27,7 @@ namespace AlteredCarbon
         [MayRequireHelixienMod] public static RecipeDef AC_InstallEmptyArchoStack;
         [MayRequireHelixienMod] public static VFECore.Abilities.AbilityDef AC_ArchoStackSkip;
         [MayRequireIdeology] public static HistoryEventDef VFEU_InstalledCorticalStack;
+        [MayRequireIdeology] public static PreceptDef AC_Stacking_Despised;
 
         public static VEBackstoryDef VFEU_VatGrownChild;
         public static VEBackstoryDef VFEU_VatGrownAdult;

@@ -89,6 +89,7 @@
     <Compile Include="HarmonyPatches\PawnNameColorUtility_PawnNameColorOf_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnsFinder_AllMapsCaravansAndTravelingTransportPods_Alive_FreeColonists_NoCryptosleep_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_Destroy_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_GuiltTracker_IsGuilty_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_Kill_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_NeedsTracker_ShouldHaveNeed_Patch.cs" />
