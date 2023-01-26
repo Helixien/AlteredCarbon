@@ -104,6 +104,11 @@
     <Compile Include="HarmonyPatches\StatsRecord_Notify_ColonistKilled_Patch.cs" />
     <Compile Include="Stacks\Ability_ArchoStackSkip.cs" />
     <Compile Include="Stacks\ScenPart_CorticalStack.cs" />
+    <Compile Include="Thoughts\ThoughtWorker_Precept_ArchoStack.cs" />
+    <Compile Include="Thoughts\ThoughtWorker_Precept_NoStack.cs" />
+    <Compile Include="Thoughts\ThoughtWorker_Precept_NoStack_Social.cs" />
+    <Compile Include="Thoughts\ThoughtWorker_Precept_Stack.cs" />
+    <Compile Include="Thoughts\ThoughtWorker_Precept_Stack_Social.cs" />
     <Compile Include="UI\Dialog_PresetList.cs" />
     <Compile Include="UI\Dialog_SelectXenogermForSleeve.cs" />
     <Compile Include="UI\GeneUtility.cs" />
