@@ -64,6 +64,14 @@
 		<conflictingMemes>
 			<li>FleshPurity</li>
 		</conflictingMemes>
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Preferred_Stack</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Preferred_ArchoStack</thought>
+			</li>
+		</comps>
 	</PreceptDef>
 	<PreceptDef>
 		<defName>AC_Stacking_Despised</defName>
@@ -76,6 +84,21 @@
 		<associatedMemes>
 			<li>FleshPurity</li>
 		</associatedMemes>
+<!--		TODO: determine how to add customEffectDescriptions similar to GeneDefs-->
+<!--		<customEffectDescriptions>
+			<li>All those who have an installed stack are deemed guilty</li>
+		</customEffectDescriptions>-->
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Despised_Stack</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Despised_ArchoStack</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Despised_Stack_Social</thought>
+			</li>
+		</comps>
 	</PreceptDef>
 	<!-- ================================ Thoughts - Stacking ====================== -->
 	<ThoughtDef>
@@ -138,6 +161,71 @@
 				<!--				TODO: rename-->
 				<label>no stack installed</label>
 				<baseOpinionOffset>-10</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Preferred_Stack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Stack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>cortical stack installed</label>
+				<description>Todo.</description>
+				<baseMoodEffect>2</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Preferred_ArchoStack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_ArchoStack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>archo stack installed</label>
+				<description>Todo.</description>
+				<baseMoodEffect>4</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>AC_Stacking_Despised_Stack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Stack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>cortical stack installed</label>
+				<description>Todo.</description>
+				<baseMoodEffect>-15</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Despised_ArchoStack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_ArchoStack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>archo stack installed</label>
+				<description>Todo.</description>
+				<baseMoodEffect>-30</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Despised_Stack_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Stack_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename-->
+				<label>stack installed</label>
+				<baseOpinionOffset>-20</baseOpinionOffset>
 			</li>
 		</stages>
 	</ThoughtDef>
