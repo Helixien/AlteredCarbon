@@ -20,6 +20,34 @@
 		<conflictingMemes>
 			<li>FleshPurity</li>
 		</conflictingMemes>
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Central_Stack</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Central_ArchoStack</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Central_NoStack</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Central_Stack_Social</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Central_NoStack_Social</thought>
+			</li>
+			<!--TODO: Do you want recently got stack event?-->
+			<!--<li Class="PreceptComp_SelfTookMemoryThought">
+				<eventDef>GotBlinded</eventDef>
+				<thought>BlindingCeremony_Self_Sublime</thought>
+			</li> -->
+			<!--TODO: you want to support fluid ideology? -->
+			<!--<li Class="PreceptComp_DevelopmentPoints">
+				<eventDef>GotBlinded</eventDef>
+				<eventLabel>blinded someone</eventLabel>
+				<points>1</points>
+			</li>-->
+		</comps>
 	</PreceptDef>
 	<PreceptDef>
 		<defName>AC_Stacking_Preferred</defName>
@@ -50,6 +78,69 @@
 		</associatedMemes>
 	</PreceptDef>
 	<!-- ================================ Thoughts - Stacking ====================== -->
+	<ThoughtDef>
+		<defName>AC_Stacking_Central_Stack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Stack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>cortical stack installed</label>
+				<description>Todo.</description>
+				<baseMoodEffect>4</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Central_ArchoStack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_ArchoStack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>archo stack installed</label>
+				<description>Todo.</description>
+				<baseMoodEffect>8</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Central_NoStack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_NoStack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>no stack installed</label>
+				<description>Todo.</description>
+				<baseMoodEffect>-15</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Central_Stack_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Stack_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename-->
+				<label>stack installed</label>
+				<baseOpinionOffset>5</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Central_NoStack_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_NoStack_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename-->
+				<label>no stack installed</label>
+				<baseOpinionOffset>-10</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
 	<!-- ================================ Issue - Sleeving ====================== -->
 	<IssueDef>
 		<defName>AC_Sleeving</defName>
