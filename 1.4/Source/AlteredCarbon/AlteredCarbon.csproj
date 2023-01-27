@@ -168,6 +168,7 @@
     <Compile Include="ACUtils.cs" />
     <Compile Include="UI\UIHelpers.cs" />
     <Compile Include="UI\Window_ColorPicker.cs" />
+    <Compile Include="UI\Window_StackEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Krafs.Publicizer">
