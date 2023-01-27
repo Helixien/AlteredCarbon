@@ -69,32 +69,33 @@ namespace AlteredCarbon
             }
             yield return wipeStacks;
 
-            //TODO: move this to AC_E as a harmony patch
-            yield return new Command_Action
+            if (ModCompatibility.HelixienAlteredCarbonIsActive)
             {
-                defaultLabel = "hack",
-                defaultDesc = "hack",
-                icon = ContentFinder<Texture2D>.Get("UI/Icons/EditStack"),
-                action = delegate()
+                yield return new Command_Action
                 {
-                    Find.Targeter.BeginTargeting(ForFilledStack(), delegate(LocalTargetInfo x)
+                    defaultLabel = "AC.EditStack".Translate(),
+                    defaultDesc = "AC.EdicStackDesc".Translate(),
+                    icon = ContentFinder<Texture2D>.Get("UI/Icons/EditStack"),
+                    action = delegate ()
                     {
-                        if (x.Thing is CorticalStack corticalStack)
+                        Find.Targeter.BeginTargeting(ForFilledStack(), delegate (LocalTargetInfo x)
                         {
-                            //TODO: change this for edit stack
-                            if (this.billStack.Bills.Any(y => y is Bill_HackStack bill && bill.corticalStack == corticalStack && bill.recipe == AC_DefOf.VFEU_HackFilledCorticalStack))
+                            if (x.Thing is CorticalStack corticalStack)
                             {
-                                Messages.Message("AC.AlreadyOrderedToWipeStack".Translate(), MessageTypeDefOf.CautionInput);
+                                if (this.billStack.Bills.Any(y => y is Bill_HackStack bill && bill.corticalStack == corticalStack
+                                    && bill.recipe == AC_DefOf.VFEU_HackFilledCorticalStack))
+                                {
+                                    Messages.Message("AC.AlreadyOrderedToHackStack".Translate(), MessageTypeDefOf.CautionInput);
+                                }
+                                else
+                                {
+                                    Find.WindowStack.Add(new Window_StackEditor(this, corticalStack));
+                                }
                             }
-                            else
-                            {
-                                // this.billStack.AddBill(new Bill_HackStack(corticalStack, AC_DefOf.VFEU_HackFilledCorticalStack, null));
-                                Find.WindowStack.Add(new Window_StackEditor(this, corticalStack));
-                            }
-                        }
-                    });
-                }
-            };
+                        });
+                    }
+                };
+            }
         }
 
         private TargetingParameters ForFilledStack()

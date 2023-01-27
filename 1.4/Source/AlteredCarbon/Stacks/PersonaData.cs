@@ -31,7 +31,7 @@ namespace AlteredCarbon
         public List<Trait> traits;
         private List<DirectPawnRelation> relations;
 
-        private HashSet<Pawn> relatedPawns;
+        private List<Pawn> relatedPawns;
         public List<SkillRecord> skills;
 
         public string childhood;
