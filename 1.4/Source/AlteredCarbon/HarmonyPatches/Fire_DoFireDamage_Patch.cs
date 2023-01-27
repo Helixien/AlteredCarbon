@@ -9,21 +9,15 @@ namespace AlteredCarbon
     {
         public static void Prefix(Fire __instance, Thing targ)
         {
-            if (targ is Corpse corpse && targ.HitPoints <= 3 && (corpse.InnerPawn?.health?.hediffSet?.HasHediff(AC_DefOf.VFEU_CorticalStack) ?? true))
+            if (targ is Corpse corpse && targ.HitPoints <= 3 && corpse.InnerPawn.HasCorticalStack(out var hediff))
             {
-                var corticalStack = ThingMaker.MakeThing(AC_DefOf.VFEU_FilledCorticalStack) as CorticalStack;
-                corticalStack.PersonaData.CopyPawn(corpse.InnerPawn);
-                GenPlace.TryPlaceThing(corticalStack, corpse.Position, corpse.Map, ThingPlaceMode.Direct);
-                corpse.InnerPawn.health.hediffSet.hediffs.RemoveAll(x => x.def == AC_DefOf.VFEU_CorticalStack);
+                hediff.SpawnStack(placeMode: ThingPlaceMode.Direct);
                 __instance.Destroy(DestroyMode.Vanish);
             }
             else if (targ is Pawn pawn && pawn.health.summaryHealth.SummaryHealthPercent < 0.001f
-                && (pawn.health?.hediffSet?.HasHediff(AC_DefOf.VFEU_CorticalStack) ?? true))
+                && pawn.HasCorticalStack(out var hediff2))
             {
-                var corticalStack = ThingMaker.MakeThing(AC_DefOf.VFEU_FilledCorticalStack) as CorticalStack;
-                corticalStack.PersonaData.CopyPawn(pawn);
-                GenPlace.TryPlaceThing(corticalStack, pawn.Position, pawn.Map, ThingPlaceMode.Direct);
-                pawn.health.hediffSet.hediffs.RemoveAll(x => x.def == AC_DefOf.VFEU_CorticalStack);
+                hediff2.SpawnStack(placeMode: ThingPlaceMode.Direct);
                 __instance.Destroy(DestroyMode.Vanish);
             }
         }

@@ -4,7 +4,7 @@
 	<ResearchProjectDef>
 		<defName>AC_Sleeving</defName>
 		<label>sleeving</label>
-		<description>text.todo</description>
+		<description>Build facilities that gestate empty sleeves, ready for cortical stack implantation.</description>
 		<baseCost>3000</baseCost>
 		<researchViewX>8.00</researchViewX>
 		<researchViewY>5.40</researchViewY>
@@ -20,12 +20,29 @@
 			<li>MultiAnalyzer</li>
 		</requiredResearchFacilities>
 	</ResearchProjectDef>
+	<!-- ================================ Cortical Stack crafting ====================== -->
+	<ResearchProjectDef>
+		<defName>AC_CorticalCrafting</defName>
+		<label>cortical stacks</label>
+		<description>Fabricate advanced ultratech cortical stacks from advanced components and other materials.</description>
+		<baseCost>4000</baseCost>
+		<researchViewX>17.00</researchViewX>
+		<researchViewY>2.70</researchViewY>
+		<techLevel>Ultra</techLevel>
+		<prerequisites>
+			<li>AdvancedFabrication</li>
+		</prerequisites>
+		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
+		<requiredResearchFacilities>
+			<li>MultiAnalyzer</li>
+		</requiredResearchFacilities>
+	</ResearchProjectDef>
 	<!-- ================================ Cortical Stack storage ====================== -->
 	<ResearchProjectDef>
 		<defName>AC_CorticalStorage</defName>
 		<label>cortical storage</label>
-		<description>text.todo</description>
-		<baseCost>4000</baseCost>
+		<description>Build arrays for long-term storage of cortical stacks.</description>
+		<baseCost>5000</baseCost>
 		<researchViewX>12.00</researchViewX>
 		<researchViewY>2.90</researchViewY>
 		<techLevel>Ultra</techLevel>

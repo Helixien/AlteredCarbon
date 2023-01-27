@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<!-- ================================ Base ====================== -->
+	<ThingDef Name="VFEU_HuntersHelmet" ParentName="ApparelBase" Abstract="True">
+		<graphicData>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
+		</graphicData>
+		<techLevel>Ultra</techLevel>
+		<thingCategories>
+			<li>ArmorHeadgear</li>
+		</thingCategories>
+		<uiIconScale>1.25</uiIconScale>
+		<tradeTags>
+			<li>BuyableFromHunterCorpGoodQuality</li>
+		</tradeTags>
+		<generateCommonality>2</generateCommonality>
+		<equippedStatOffsets>
+			<SlaveSuppressionOffset MayRequire="Ludeon.RimWorld.Ideology">-0.1</SlaveSuppressionOffset>
+		</equippedStatOffsets>
+		<costList>
+			<ComponentSpacer>3</ComponentSpacer>
+			<Plasteel>80</Plasteel>
+		</costList>
+		<apparel>
+			<bodyPartGroups>
+				<li>FullHead</li>
+			</bodyPartGroups>
+			<layers>
+				<li>Overhead</li>
+			</layers>
+			<defaultOutfitTags>
+				<li>Soldier</li>
+			</defaultOutfitTags>
+			<useDeflectMetalEffect>true</useDeflectMetalEffect>
+			<useWornGraphicMask>true</useWornGraphicMask>
+		</apparel>
+		<colorGenerator Class="ColorGenerator_Options">
+			<options>
+				<li>
+					<weight>10</weight>
+					<only>(0.9,0.9,0.9,1)</only>
+				</li>
+				<li>
+					<weight>10</weight>
+					<only>(0.33,0.33,0.33,1)</only>
+				</li>
+				<li>
+					<weight>10</weight>
+					<only>(0.65,0.65,0.65,1)</only>
+				</li>
+				<li>
+					<weight>6</weight>
+					<min>(0.3,0.3,0.3,1)</min>
+					<max>(0.5,0.5,0.5,1)</max>
+				</li>
+			</options>
+		</colorGenerator>
+		<comps>
+			<li Class="CompProperties_Biocodable"/>
+		</comps>
+		<thingSetMakerTags>
+			<li>HunterCorpReward</li>
+		</thingSetMakerTags>
+	</ThingDef>
+	<!-- ================================ Protector Armour - Helmet ====================== -->
+	<ThingDef ParentName="VFEU_HuntersHelmet">
+		<defName>VFEU_Apparel_ProtectorHelmet</defName>
+		<label>protector helmet</label>
+		<description>A helmet of protector-issue power armor. Improved protection over standard marine power armor, offered by molecular plasteel integration thoughout the helmet. Complete with tactical telemetry feed and aim assist.</description>
+		<graphicData>
+			<texPath>Things/Pawn/Humanlike/Apparel/ProtectorArmor/AC_ProtectorHelmet</texPath>
+		</graphicData>
+		<statBases>
+			<MaxHitPoints>150</MaxHitPoints>
+			<Mass>3.5</Mass>
+			<Flammability>0.4</Flammability>
+			<ArmorRating_Sharp>1.24</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.64</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.66</ArmorRating_Heat>
+			<Insulation_Cold>8</Insulation_Cold>
+			<Insulation_Heat>4</Insulation_Heat>
+			<EquipDelay>4</EquipDelay>
+			<VEF_RangedCooldownFactor>0.9</VEF_RangedCooldownFactor>
+		</statBases>
+		<apparel>
+			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/ProtectorArmor/AC_ProtectorHelmet</wornGraphicPath>
+			<tags>
+				<li>VFEU_HuntersBasic</li>
+			</tags>
+		</apparel>
+		<equippedStatOffsets>
+			<AimingDelayFactor>-0.1</AimingDelayFactor>
+			<ShootingAccuracyPawn>10</ShootingAccuracyPawn>
+		</equippedStatOffsets>
+	</ThingDef>
+</Defs>

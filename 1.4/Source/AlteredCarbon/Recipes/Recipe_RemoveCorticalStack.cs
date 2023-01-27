@@ -35,30 +35,28 @@ namespace AlteredCarbon
 					return;
 				}
 
-				var hediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) as Hediff_CorticalStack;
-				if (hediff != null)
+				if (pawn.HasCorticalStack(out var hediff))
 				{
 					var corticalStack = ThingMaker.MakeThing(hediff.def.spawnThingOnRemoved) as CorticalStack;
-					hediff.PersonaData.CopyPawn(pawn);
-					corticalStack.PersonaData.CopyDataFrom(hediff.PersonaData);
+					corticalStack.PersonaData.CopyFromPawn(hediff.pawn, hediff.SourceStack);
 					corticalStack.PersonaData.gender = hediff.PersonaData.gender;
 					corticalStack.PersonaData.race = hediff.PersonaData.race;
 					GenPlace.TryPlaceThing(corticalStack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
-					AlteredCarbonManager.Instance.StacksIndex[pawn.thingIDNumber] = corticalStack;
 
                     Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.disableKilledEffect = true;
-					var head = pawn.health.hediffSet.GetNotMissingParts().FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Head);
-					if (head != null)
-					{
-						pawn.TakeDamage(new DamageInfo(DamageDefOf.SurgicalCut, 99999f, 999f, -1f, null, head));
-					}
-					pawn.health.RemoveHediff(hediff);
+					hediff.preventSpawningStack = true;
+                    pawn.health.RemoveHediff(hediff);
+                    hediff.preventSpawningStack = false;
+                    var head = pawn.health.hediffSet.GetNotMissingParts().FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Head);
+                    if (head != null)
+                    {
+                        pawn.TakeDamage(new DamageInfo(DamageDefOf.SurgicalCut, 99999f, 999f, -1f, null, head));
+                    }
                     Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.disableKilledEffect = false;
 
 					AlteredCarbonManager.Instance.ReplacePawnWithStack(pawn, corticalStack);
-					AlteredCarbonManager.Instance.RegisterSleeve(pawn, hediff.PersonaData.stackGroupID);
+					AlteredCarbonManager.Instance.RegisterSleeve(pawn, corticalStack);
 					AlteredCarbonManager.Instance.deadPawns.Add(pawn);
-
 
 					if (LookTargets_Patch.targets.TryGetValue(pawn, out var targets))
 					{

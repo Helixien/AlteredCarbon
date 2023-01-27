@@ -37,7 +37,7 @@ namespace AlteredCarbon
             {
                 canTargetItems = true,
                 mapObjectTargetsMustBeAutoAttackable = false,
-                validator = (TargetInfo x) => x.Thing is CorticalStack stack && stack.PersonaData.ContainsInnerPersona
+                validator = (TargetInfo x) => x.Thing is CorticalStack stack && stack.PersonaData.ContainsInnerPersona && stack.IsArchoStack is false
             };
             return targetingParameters;
         }
@@ -48,11 +48,12 @@ namespace AlteredCarbon
                 yield return g;
             }
 
-            yield return new Command_WipeStacks
+            var wipeStacks = new Command_WipeStacks
             {
                 defaultLabel = "AC.WipeStack".Translate(),
                 defaultDesc = "AC.WipeStackDesc".Translate(),
                 icon = ContentFinder<Texture2D>.Get("UI/Icons/WipeStack"),
+                activateSound = SoundDefOf.Tick_Tiny,
                 action = delegate ()
                 {
                     Find.Targeter.BeginTargeting(ForWipableStack(), delegate (LocalTargetInfo x)
@@ -62,6 +63,11 @@ namespace AlteredCarbon
                 },
                 decryptionBench = this
             };
+            if (powerComp.PowerOn is false)
+            {
+                wipeStacks.Disable("NoPower".Translate().CapitalizeFirst());
+            }
+            yield return wipeStacks;
 
             //TODO: move this to AC_E as a harmony patch
             yield return new Command_Action
@@ -89,7 +95,6 @@ namespace AlteredCarbon
                     });
                 }
             };
-
         }
 
         private TargetingParameters ForFilledStack()

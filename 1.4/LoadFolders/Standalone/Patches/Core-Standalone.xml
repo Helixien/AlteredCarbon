@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<Operation Class="PatchOperationSequence">
+		<!-- ================================ Patches in new stuff into the base game ====================== -->
+		<operations>
+			<!-- ================================ Add extract designator ====================== -->
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/DesignationCategoryDef[defName="Orders"]/specialDesignatorClasses</xpath>
+				<value>
+					<li>AlteredCarbon.Designator_ExtractStack</li>
+				</value>
+			</li>
+			<!-- ================================ Add ancient stacks to ancient structures ====================== -->
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingSetMakerDef[defName="MapGen_AncientTempleContents"]/root/options/li/thingSetMaker/fixedParams/qualityGenerator[text()="Reward"]/../filter/thingDefs</xpath>
+				<value>
+					<li>VFEU_AncientStack</li>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+</Patch>

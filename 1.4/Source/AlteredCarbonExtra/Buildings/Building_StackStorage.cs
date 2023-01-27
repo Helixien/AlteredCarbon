@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -16,21 +17,21 @@ namespace AlteredCarbon
         public Building_StackStorage()
         {
             this.innerContainer = new ThingOwner<Thing>(this, false, LookMode.Deep);
-            this.backedUpStacks = new Dictionary<int, PersonaData>();
         }
 
         public bool allowColonistCorticalStacks = true;
-        public bool allowStrangerCorticalStacks;
-        public bool allowHostileCorticalStacks;
+        public bool allowStrangerCorticalStacks = true;
+        public bool allowHostileCorticalStacks = true;
+        public bool allowArchoStacks = true;
         public CompPowerTrader compPower;
-        private bool backupIsEnabled;
-        public Dictionary<int, PersonaData> backedUpStacks;
+        public bool backupIsEnabled;
+        public bool autoRestoreIsEnabled = true;
         public CorticalStack stackToDuplicate;
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             building_StackStorages.Add(this);
             base.SpawnSetup(map, respawningAfterLoad);
-            if (base.Faction != null && base.Faction.IsPlayer)
+            if (Faction != null && Faction.IsPlayer)
             {
                 this.contentsKnown = true;
             }
@@ -52,6 +53,10 @@ namespace AlteredCarbon
             }
             this.innerContainer.ClearAndDestroyContents(DestroyMode.Vanish);
             base.Destroy(mode);
+            if (building_StackStorages.Any() is false)
+            {
+                GameComponent_DigitalStorage.Instance.backedUpStacks.Clear();
+            }
         }
         public bool CanDuplicateStack
         {
@@ -69,39 +74,6 @@ namespace AlteredCarbon
             }
         }
 
-        public PersonaData FirstPersonaStackToRestore
-        {
-            get
-            {
-                var pawns = AlteredCarbonManager.Instance.PawnsWithStacks.Concat(AlteredCarbonManager.Instance.deadPawns ?? Enumerable.Empty<Pawn>()).ToList();
-                foreach (var personaData in StoredBackedUpStacks)
-                {
-                    foreach (var pawn in pawns)
-                    {
-                        if (pawn != null && personaData.IsMatchingPawn(pawn))
-                        {
-                            if (pawn.Destroyed && pawn.Corpse is null || pawn.Corpse != null && pawn.Corpse.Destroyed || pawn.ParentHolder is null || 
-                                pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is null)
-                            {
-                                //Log.Message(pawn + " - pawn.thingIDNumber: " + pawn.thingIDNumber);
-                                //Log.Message(pawn + " - pawn.Destroyed: " + pawn.Destroyed);
-                                //Log.Message(pawn + " - pawn.Position: " + pawn.Position);
-                                //Log.Message(pawn + " - pawn.Map: " + pawn.Map);
-                                //Log.Message(pawn + " - pawn.Corpse: " + pawn.Corpse);
-                                //Log.Message(pawn + " - pawn.Corpse.Destroyed: " + pawn.Corpse?.Destroyed);
-                                //Log.Message(pawn + " - pawn.ParentHolder: " + pawn.ParentHolder);
-                                //Log.Message(pawn + " - pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is null): " + (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is null));
-                                if (!CorticalStack.corticalStacks.Any(x => x.PersonaData.pawnID == personaData.pawnID && x.Spawned && !x.Destroyed))
-                                {
-                                    return personaData;
-                                }
-                            }
-                        }
-                    }
-                }
-                return null;
-            }
-        }
         public bool Powered => this.compPower.PowerOn;
         public bool HasAnyContents
         {
@@ -110,7 +82,6 @@ namespace AlteredCarbon
                 return this.innerContainer.Any();
             }
         }
-        public IEnumerable<PersonaData> StoredBackedUpStacks => this.backedUpStacks.Values;
         public IEnumerable<CorticalStack> StoredStacks => this.innerContainer.OfType<CorticalStack>();
         public override IEnumerable<Gizmo> GetGizmos()
         {
@@ -118,7 +89,7 @@ namespace AlteredCarbon
             {
                 yield return g;
             }
-            if (base.Faction == Faction.OfPlayer)
+            if (Faction == Faction.OfPlayer)
             {
                 var stacks = StoredStacks.ToList();
                 if (stacks.Any())
@@ -128,15 +99,19 @@ namespace AlteredCarbon
                         defaultLabel = "AC.DuplicateStack".Translate(),
                         defaultDesc = "AC.DuplicateStackDesc".Translate(),
                         icon = ContentFinder<Texture2D>.Get("UI/Icons/DuplicateStack"),
+                        activateSound = SoundDefOf.Tick_Tiny,
                         action = delegate ()
                         {
                             var floatList = new List<FloatMenuOption>();
-                            foreach (var stack in StoredStacks)
+                            foreach (var stack in StoredStacks.Where(x => x.PersonaData.ContainsInnerPersona))
                             {
-                                floatList.Add(new FloatMenuOption(stack.PersonaData.PawnNameColored, delegate ()
+                                if (stack.IsArchoStack is false)
                                 {
-                                    this.stackToDuplicate = stack;
-                                }));
+                                    floatList.Add(new FloatMenuOption(stack.PersonaData.PawnNameColored, delegate ()
+                                    {
+                                        this.stackToDuplicate = stack;
+                                    }));
+                                }
                             }
                             Find.WindowStack.Add(new FloatMenu(floatList));
                         }
@@ -158,6 +133,7 @@ namespace AlteredCarbon
                     defaultLabel = "AC.EnableBackup".Translate(),
                     defaultDesc = "AC.EnableBackupDesc".Translate(),
                     icon = ContentFinder<Texture2D>.Get("UI/Icons/EnableBackup"),
+                    activateSound = SoundDefOf.Tick_Tiny,
                     toggleAction = delegate ()
                     {
                         backupIsEnabled = !backupIsEnabled;
@@ -172,9 +148,10 @@ namespace AlteredCarbon
                         defaultLabel = "AC.BackupAllStacks".Translate(),
                         defaultDesc = "AC.BackupAllStacksDesc".Translate(),
                         icon = ContentFinder<Texture2D>.Get("UI/Icons/BackupAllStacks"),
+                        activateSound = SoundDefOf.Tick_Tiny,
                         action = delegate
                         {
-                            BackupAllColonistsWithStacks();
+                            GameComponent_DigitalStorage.Instance.BackupAllColonistsWithStacks();
                         },
                     };
                     if (!this.compPower.PowerOn)
@@ -183,8 +160,33 @@ namespace AlteredCarbon
                     }
                     yield return backupAll;
                 }
-
+                yield return new Command_Toggle()
+                {
+                    defaultLabel = "AC.EnableAutoRestore".Translate(),
+                    defaultDesc = "AC.EnableAutoRestoreDesc".Translate(),
+                    icon = ContentFinder<Texture2D>.Get("UI/Icons/EnableAutoRestore"),
+                    activateSound = SoundDefOf.Tick_Tiny,
+                    toggleAction = delegate ()
+                    {
+                        autoRestoreIsEnabled = !autoRestoreIsEnabled;
+                    },
+                    isActive = () => autoRestoreIsEnabled
+                };
             }
+        }
+
+        public override string GetInspectString()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine("AC.CorticalStacksStored".Translate(StoredStacks.Count()));
+            if (GameComponent_DigitalStorage.Instance.backedUpStacks.Values.Any())
+            {
+                var lastTimeUpdated = GameComponent_DigitalStorage.Instance.backedUpStacks.Select(x => x.Value.lastTimeUpdated).Max();
+                Vector2 vector = Find.WorldGrid.LongLatOf(this.Map.Tile);
+                sb.AppendLine("AC.LastBackup".Translate(GenDate.DateReadoutStringAt(lastTimeUpdated, vector)));
+            }
+            sb.Append(base.GetInspectString());
+            return sb.ToString();
         }
 
         public void PerformStackDuplication(Pawn doer)
@@ -199,6 +201,10 @@ namespace AlteredCarbon
                 stackToDuplicate = null;
                 Messages.Message("AC.SuccessfullyDuplicatedStack".Translate(doer.Named("PAWN")), this, MessageTypeDefOf.TaskCompletion);
             }
+            else
+            {
+                Messages.Message("AC.FailedToDuplicatedStack".Translate(doer.Named("PAWN")), this, MessageTypeDefOf.NeutralEvent);
+            }
         }
         public void PerformStackBackup(Hediff_CorticalStack hediff_CorticalStack)
         {
@@ -207,16 +213,7 @@ namespace AlteredCarbon
             stackCopyTo.PersonaData.CopyDataFrom(hediff_CorticalStack.PersonaData);
             AlteredCarbonManager.Instance.RegisterStack(stackCopyTo);
         }
-        public void PerformStackRestoration(Pawn doer)
-        {
-            var stackRestoreTo = (CorticalStack)ThingMaker.MakeThing(AC_DefOf.VFEU_FilledCorticalStack);
-            var personaDataToRestore = FirstPersonaStackToRestore;
-            stackRestoreTo.PersonaData.CopyDataFrom(personaDataToRestore, true);
-            AlteredCarbonManager.Instance.RegisterStack(stackRestoreTo);
-            backedUpStacks.Remove(personaDataToRestore.pawnID);
-            Messages.Message("AC.SuccessfullyRestoredStackFromBackup".Translate(doer.Named("PAWN")), stackRestoreTo, MessageTypeDefOf.TaskCompletion);
-            GenPlace.TryPlaceThing(stackRestoreTo, doer.Position, doer.Map, ThingPlaceMode.Near);
-        }
+
         public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Pawn myPawn)
         {
             foreach (FloatMenuOption opt in base.GetFloatMenuOptions(myPawn))
@@ -237,41 +234,8 @@ namespace AlteredCarbon
         {
             base.Tick();
             this.innerContainer.ThingOwnerTick(true);
-            if (this.backupIsEnabled && compPower.PowerOn)
-            {
-                if (Find.TickManager.TicksGame % GenDate.TicksPerDay == 0)
-                {
-                    BackupAllColonistsWithStacks();
-                }
-            }
         }
 
-        public void BackupAllColonistsWithStacks()
-        {
-            int num = 0;
-            foreach (var pawn in AlteredCarbonManager.Instance.PawnsWithStacks)
-            {
-                if (CanBackup(pawn))
-                {
-                    num++;
-                    Backup(pawn);
-                }
-            }
-
-            Messages.Message("AC.BackupsCompleted".Translate(num), this, MessageTypeDefOf.NeutralEvent);
-        }
-        public bool CanBackup(Pawn pawn)
-        {
-            return pawn.Faction == this.Faction && pawn.MapHeld == this.Map && pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is Hediff_CorticalStack;
-        }
-        public void Backup(Pawn pawn)
-        {
-            var copy = new PersonaData();
-            copy.CopyPawn(pawn, copyRaceGenderInfo: true);
-            copy.isCopied = true;
-            copy.lastTimeUpdated = Find.TickManager.TicksGame;
-            this.backedUpStacks[copy.pawnID] = copy;
-        }
         public bool HasFreeSpace => this.innerContainer.Count < MaxFilledStackCapacity;
         public override void ExposeData()
         {
@@ -282,22 +246,14 @@ namespace AlteredCarbon
             });
             Scribe_Values.Look(ref this.contentsKnown, "contentsKnown", false);
             Scribe_Values.Look(ref this.allowColonistCorticalStacks, "allowColonistCorticalStacks", true);
-            Scribe_Values.Look(ref this.allowHostileCorticalStacks, "allowHostileCorticalStacks", false);
-            Scribe_Values.Look(ref this.allowStrangerCorticalStacks, "allowStrangerCorticalStacks", false);
+            Scribe_Values.Look(ref this.allowHostileCorticalStacks, "allowHostileCorticalStacks", true);
+            Scribe_Values.Look(ref this.allowStrangerCorticalStacks, "allowStrangerCorticalStacks", true);
+            Scribe_Values.Look(ref this.allowArchoStacks, "allowArchoStacks", true);
             Scribe_Values.Look(ref this.backupIsEnabled, "backupIsEnabled");
+            Scribe_Values.Look(ref this.autoRestoreIsEnabled, "autoRestoreIsEnabled", true);
             Scribe_References.Look(ref this.stackToDuplicate, "stackToDuplicate");
-            Scribe_Collections.Look(ref this.backedUpStacks, "backedUpStacks", LookMode.Value, LookMode.Deep, ref intKeys, ref personaDataValues);
-            if (Scribe.mode == LoadSaveMode.PostLoadInit)
-            {
-                if (this.backedUpStacks is null)
-                {
-                    this.backedUpStacks = new Dictionary<int, PersonaData>();
-                }
-            }
         }
 
-        private List<int> intKeys;
-        private List<PersonaData> personaDataValues;
         public bool Accepts(Thing thing)
         {
             Predicate<Thing> validator = delegate (Thing x)
@@ -321,7 +277,10 @@ namespace AlteredCarbon
                 {
                     return true;
                 }
-
+                if (this.allowArchoStacks && stack.IsArchoStack)
+                {
+                    return true;
+                }
                 if (this.allowStrangerCorticalStacks && (stack.PersonaData.faction is null || stack.PersonaData.faction != Faction.OfPlayer && !stack.PersonaData.faction.HostileTo(Faction.OfPlayer)))
                 {
                     return true;
@@ -354,7 +313,7 @@ namespace AlteredCarbon
         }
         public void EjectContents()
         {
-            this.innerContainer.TryDropAll(this.InteractionCell, base.Map, ThingPlaceMode.Direct, null, null);
+            this.innerContainer.TryDropAll(this.InteractionCell, Map, ThingPlaceMode.Direct, null, null);
             this.contentsKnown = true;
         }
 

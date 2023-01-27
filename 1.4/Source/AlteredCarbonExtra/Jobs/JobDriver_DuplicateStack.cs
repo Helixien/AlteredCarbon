@@ -30,6 +30,7 @@ namespace AlteredCarbon
                 initAction = delegate ()
                 {
                     Building_StackStorage.PerformStackDuplication(pawn);
+                    TargetB.Thing.Destroy();
                 }
             };
         }

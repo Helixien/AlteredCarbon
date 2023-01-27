@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace AlteredCarbon
@@ -12,6 +13,10 @@ namespace AlteredCarbon
             if (Find.Selector.SingleSelectedThing is CorticalStack stack && stack.PersonaData.ContainsInnerPersona)
             {
                 __result = stack.PersonaData.GetDummyPawn;
+                if (Time.frameCount % 60 == 0)
+                {
+                    stack.PersonaData.RefreshDummyPawn();
+                }
                 return false;
             }
             return true;

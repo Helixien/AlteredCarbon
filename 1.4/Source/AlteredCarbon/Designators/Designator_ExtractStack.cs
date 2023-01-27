@@ -16,6 +16,7 @@ namespace AlteredCarbon
 		{
 			defaultLabel = "AC.DesignatorExtractStack".Translate();
 			defaultDesc = "AC.DesignatorExtractStackDesc".Translate();
+			activateSound = SoundDefOf.Tick_Tiny;
 			icon = ContentFinder<Texture2D>.Get("UI/Icons/ExtractStacks");
 			soundDragSustain = SoundDefOf.Designate_DragStandard;
 			soundDragChanged = SoundDefOf.Designate_DragStandard_Changed;
@@ -47,7 +48,7 @@ namespace AlteredCarbon
 			{
 				return false;
 			}
-			return t is Corpse corpse && corpse.InnerPawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) != null
+			return t is Corpse corpse && corpse.InnerPawn.HasCorticalStack(out _)
 				? (AcceptanceReport)true
 				: (AcceptanceReport)false;
 		}

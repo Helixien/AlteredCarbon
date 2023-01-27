@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<!--	<ThingDef ParentName="BuildingBase">
+		<defName>AC_GeneCentrifuge</defName>
+		<label>gene centrifuge</label>
+		<description>text.todo</description>
+		<passability>PassThroughOnly</passability>
+		<fillPercent>0.4</fillPercent>
+		<pathCost>14</pathCost>
+		<rotatable>false</rotatable>
+		<graphicData>
+			<texPath>Things/Building/Misc/GeneCentrifuge</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(5, 5)</drawSize>
+			<shadowData>
+				<volume>(1.5, 0.4, 1.5)</volume>
+			</shadowData>
+		</graphicData>
+		<size>(3, 3)</size>
+		<canOverlapZones>false</canOverlapZones>
+		<defaultPlacingRot>North</defaultPlacingRot>
+		<designationCategory>Biotech</designationCategory>
+		<uiOrder>2100</uiOrder>
+		<researchPrerequisites>
+			<li>GeneProcessor</li>
+		</researchPrerequisites>
+		<descriptionHyperlinks>
+			<ThingDef>GeneAssembler</ThingDef>
+			<ThingDef>GeneProcessor</ThingDef>
+			<ThingDef>GeneBank</ThingDef>
+			<ThingDef>Genepack</ThingDef>
+			<ThingDef>Xenogerm</ThingDef>
+		</descriptionHyperlinks>
+		<statBases>
+			<MaxHitPoints>350</MaxHitPoints>
+			<WorkToBuild>9000</WorkToBuild>
+			<Mass>85</Mass>
+			<Flammability>0.5</Flammability>
+			<GeneticComplexityIncrease>2</GeneticComplexityIncrease>
+		</statBases>
+		<costList>
+			<Steel>100</Steel>
+			<Plasteel>25</Plasteel>
+			<ComponentIndustrial>2</ComponentIndustrial>
+		</costList>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+		<building>
+			<buildingTags>
+				<li>Biotech</li>
+			</buildingTags>
+		</building>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>50</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Facility">
+				<maxSimultaneous>100</maxSimultaneous>
+				<maxDistance>12.9</maxDistance>
+			</li>
+		</comps>
+	</ThingDef>-->
+</Defs>

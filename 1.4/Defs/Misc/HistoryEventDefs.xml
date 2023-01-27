@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<HistoryEventDef>
+		<defName>AC_UsedArchoStack</defName>
+		<label>killed faction member with archo stack</label>
+	</HistoryEventDef>
+</Defs>

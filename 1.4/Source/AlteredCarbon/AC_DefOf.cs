@@ -14,12 +14,19 @@ namespace AlteredCarbon
     [DefOf]
     public static class AC_DefOf
     {
-        [MayRequireHelixienMod] public static ThoughtDef VFEU_JustCopy;
-        [MayRequireHelixienMod] public static ThoughtDef VFEU_LostMySpouse;
-        [MayRequireHelixienMod] public static ThoughtDef VFEU_LostMyFiance;
-        [MayRequireHelixienMod] public static ThoughtDef VFEU_LostMyLover;
-        [MayRequireHelixienMod] public static PawnRelationDef VFEU_Original;
-        [MayRequireHelixienMod] public static PawnRelationDef VFEU_Copy;
+        [MayRequireHelixienMod] public static ThoughtDef AC_JustCopy;
+        [MayRequireHelixienMod] public static ThoughtDef AC_LostMySpouse;
+        [MayRequireHelixienMod] public static ThoughtDef AC_LostMyFiance;
+        [MayRequireHelixienMod] public static ThoughtDef AC_LostMyLover;
+        [MayRequireHelixienMod] public static PawnRelationDef AC_Original;
+        [MayRequireHelixienMod] public static PawnRelationDef AC_Copy;
+        [MayRequireHelixienMod] public static ThingDef AC_FilledArchoStack;
+        [MayRequireHelixienMod] public static ThingDef AC_EmptyArchoStack;
+        [MayRequireHelixienMod] public static HediffDef AC_ArchoStack;
+        [MayRequireHelixienMod] public static RecipeDef AC_InstallArchoStack;
+        [MayRequireHelixienMod] public static RecipeDef AC_InstallEmptyArchoStack;
+        [MayRequireHelixienMod] public static VFECore.Abilities.AbilityDef AC_ArchoStackSkip;
+        [MayRequireIdeology] public static HistoryEventDef VFEU_InstalledCorticalStack;
 
         public static VEBackstoryDef VFEU_VatGrownChild;
         public static VEBackstoryDef VFEU_VatGrownAdult;
@@ -51,6 +58,8 @@ namespace AlteredCarbon
         public static SpecialThingFilterDef VFEU_AllowStacksHostile;
         public static ThoughtDef VFEU_WrongGender;
         public static ThoughtDef VFEU_WrongGenderDouble;
+        public static ThoughtDef VFEU_WrongGenderPregnant;
+        public static ThoughtDef VFEU_WrongGenderChild;
         public static ThoughtDef VFEU_WrongRace;
         public static ThoughtDef VFEU_NewSleeve;
         public static ThoughtDef VFEU_NewSleeveDouble;
@@ -59,12 +68,10 @@ namespace AlteredCarbon
         public static ThoughtDef VFEU_SomethingIsWrong;
         public static DesignationDef VFEU_ExtractStackDesignation;
         public static DamageDef VFEU_Deterioration;
-        public static ThingDef VFEU_Mote_VatGlowHorizontal;
-        public static ThingDef VFEU_Mote_VatGlowVertical;
-
-        public static EffecterDef VFEU_Vat_Bubbles_South;
-        public static EffecterDef VFEU_Vat_Bubbles_North;
-        public static EffecterDef VFEU_Vat_Bubbles_West;
-        public static EffecterDef VFEU_Vat_Bubbles_East;
+        public static ThingDef VFEU_Mote_VatGlow;
+        public static EffecterDef VFEU_Vat_Bubbles;
+        public static LetterDef HumanPregnancy;
+        public static FleckDef PsycastAreaEffect;
+        public static HistoryEventDef AC_UsedArchoStack;
     }
 }

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<!-- ================================ Issue - Stacking ====================== -->
+	<IssueDef>
+		<defName>AC_Stacking</defName>
+		<label>stacking</label>
+		<iconPath>UI/Issues/Stacking</iconPath>
+	</IssueDef>
+	<!-- ================================ Precepts - Stacking ====================== -->
+	<PreceptDef>
+		<defName>AC_Stacking_Central</defName>
+		<issue>AC_Stacking</issue>
+		<label>central</label>
+		<description>Without a cortical stack we put ourselves at the risk of death. To live without one is unthinkable.</description>
+		<impact>High</impact>
+		<displayOrderInImpact>1000</displayOrderInImpact>
+		<requiredMemes>
+			<li>AC_Ouroboros</li>
+		</requiredMemes>
+		<conflictingMemes>
+			<li>FleshPurity</li>
+		</conflictingMemes>
+	</PreceptDef>
+	<PreceptDef>
+		<defName>AC_Stacking_Preferred</defName>
+		<issue>AC_Stacking</issue>
+		<label>preferred</label>
+		<description>Having a cortical stack is the new standard. Without it, one may die at any moment.</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>0</displayOrderInIssue>
+		<displayOrderInImpact>-100</displayOrderInImpact>
+		<associatedMemes>
+			<li>AC_Ouroboros</li>
+			<li>Transhumanist</li>
+		</associatedMemes>
+		<conflictingMemes>
+			<li>FleshPurity</li>
+		</conflictingMemes>
+	</PreceptDef>
+	<PreceptDef>
+		<defName>AC_Stacking_Despised</defName>
+		<issue>AC_Stacking</issue>
+		<label>despised</label>
+		<description>A cortical stacks violate the purity of the human consciousness and should never be used.</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>20</displayOrderInIssue>
+		<displayOrderInImpact>200</displayOrderInImpact>
+		<associatedMemes>
+			<li>FleshPurity</li>
+		</associatedMemes>
+	</PreceptDef>
+	<!-- ================================ Thoughts - Stacking ====================== -->
+	<!-- ================================ Issue - Sleeving ====================== -->
+	<IssueDef>
+		<defName>AC_Sleeving</defName>
+		<label>sleeving</label>
+		<iconPath>UI/Issues/Sleeving</iconPath>
+	</IssueDef>
+	<!-- ================================ Precepts - Sleeving ====================== -->
+	<PreceptDef>
+		<defName>AC_Sleeving_Demanded</defName>
+		<issue>AC_Sleeving</issue>
+		<label>demanded</label>
+		<description>Why settle for what nature gave us? One must use a sleeve of their own design and choosing to be their true selves!</description>
+		<impact>High</impact>
+		<displayOrderInImpact>1000</displayOrderInImpact>
+		<requiredMemes>
+			<li>AC_Ouroboros</li>
+		</requiredMemes>
+		<conflictingMemes>
+			<li>FleshPurity</li>
+		</conflictingMemes>
+	</PreceptDef>
+	<PreceptDef>
+		<defName>AC_Sleeving_Preferred</defName>
+		<issue>AC_Sleeving</issue>
+		<label>preferred</label>
+		<description>Our birth bodies are flawed and obsolete. Using a sleeve is therefore understandable.</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>0</displayOrderInIssue>
+		<displayOrderInImpact>-100</displayOrderInImpact>
+		<associatedMemes>
+			<li>AC_Ouroboros</li>
+			<li>Transhumanist</li>
+		</associatedMemes>
+		<conflictingMemes>
+			<li>FleshPurity</li>
+		</conflictingMemes>
+	</PreceptDef>
+	<PreceptDef>
+		<defName>AC_Sleeving_Despised</defName>
+		<issue>AC_Sleeving</issue>
+		<label>despised</label>
+		<description>To use a sleeve violates nature and the miracle of life itself. They should never be used.</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>20</displayOrderInIssue>
+		<displayOrderInImpact>200</displayOrderInImpact>
+		<associatedMemes>
+			<li>FleshPurity</li>
+		</associatedMemes>
+	</PreceptDef>
+	<!-- ================================ Thoughts - Sleeving ====================== -->
+	<!-- ================================ Issue - Cross Sleeving ====================== -->
+	<IssueDef>
+		<defName>AC_CrossSleeving</defName>
+		<label>cross-sleeving</label>
+		<iconPath>UI/Issues/CrossSleeving</iconPath>
+	</IssueDef>
+	<!-- ================================ Precept - Cross Sleeving ====================== -->
+	<PreceptDef>
+		<defName>AC_CrossSleeving_DontCare</defName>
+		<issue>AC_CrossSleeving</issue>
+		<label>don't care</label>
+		<description>Male and female are just two sides of the same coin, switching between them is nothing bothersome.</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>10</displayOrderInIssue>
+		<associatedMemes>
+			<li>Transhumanist</li>
+			<li>AC_Ouroboros</li>
+		</associatedMemes>
+	</PreceptDef>
+	<PreceptDef>
+		<defName>AC_CrossSleeving_Despised</defName>
+		<issue>AC_CrossSleeving</issue>
+		<label>despised</label>
+		<description>One's gender at birth is sacred and should not be switched between.</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>20</displayOrderInIssue>
+		<displayOrderInImpact>200</displayOrderInImpact>
+		<associatedMemes>
+			<li>FleshPurity</li>
+		</associatedMemes>
+		<conflictingMemes>
+			<li>AC_Ouroboros</li>
+			<li>Transhumanist</li>
+		</conflictingMemes>
+	</PreceptDef>
+	<!-- ================================ Thoughts - Cross Sleeving ====================== -->
+	<!-- ================================ Issue - Duplicating ====================== -->
+	<IssueDef>
+		<defName>AC_StackDuplicating</defName>
+		<label>duplicating</label>
+		<iconPath>UI/Issues/Duplicating</iconPath>
+	</IssueDef>
+	<!-- ================================ Precepts - Duplicating ====================== -->
+	<PreceptDef>
+		<defName>AC_StackDuplicating_Enlightened</defName>
+		<issue>AC_StackDuplicating</issue>
+		<label>enlightened</label>
+		<description>To make more versions of oneself means to allow for more of one's goals to be achieved. It is a noble thing to do.</description>
+		<impact>High</impact>
+		<requiredMemes>
+			<li>AC_Ouroboros</li>
+		</requiredMemes>
+		<conflictingMemes>
+			<li>FleshPurity</li>
+		</conflictingMemes>
+	</PreceptDef>
+	<PreceptDef>
+		<defName>AC_StackDuplicating_DontCare</defName>
+		<issue>AC_StackDuplicating</issue>
+		<label>don't care</label>
+		<description>We are all just collections of memories and experiences. Making a copy of that is nothing bothersome.</description>
+		<associatedMemes>
+			<li>AC_Ouroboros</li>
+			<li>Transhumanist</li>
+		</associatedMemes>
+		<conflictingMemes>
+			<li>FleshPurity</li>
+		</conflictingMemes>
+	</PreceptDef>
+	<PreceptDef>
+		<defName>AC_StackDuplicating_Horrible</defName>
+		<issue>AC_StackDuplicating</issue>
+		<label>horrible</label>
+		<description>To make a copy of oneself is a horrendous crime against not only nature, but the copy that is created.</description>
+		<associatedMemes>
+			<li>FleshPurity</li>
+		</associatedMemes>
+	</PreceptDef>
+	<!-- ================================ Thoughts - Duplicating ====================== -->
+</Defs>

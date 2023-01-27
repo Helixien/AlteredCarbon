@@ -46,6 +46,7 @@ namespace AlteredCarbon
             this.def.building.bed_humanlike = true;
             return sb.ToString().TrimEndNewlines();
         }
+
         public override void Tick()
         {
             base.Tick();
@@ -76,13 +77,17 @@ namespace AlteredCarbon
 			{
                 foreach (var occupant in this.CurOccupants)
                 {
-                    if (occupant.IsEmptySleeve() && occupant.needs.food.CurLevel < 1f)
+                    if (occupant.IsEmptySleeve())
                     {
-                        occupant.needs.food.CurLevel += 0.001f;
+                        if (occupant.needs.food.CurLevel < occupant.needs.food.MaxLevel)
+                        {
+                            occupant.needs.food.CurLevel += 0.001f;
+                        }
                         if (ModCompatibility.DubsBadHygieneActive)
                         {
                             ModCompatibility.FillThirstNeed(occupant, 0.001f);
                             ModCompatibility.FillHygieneNeed(occupant, 0.001f);
+                            ModCompatibility.FillBladderNeed(occupant, 0.001f);
                         }
                         var malnutrition = occupant.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.Malnutrition);
                         if (malnutrition != null)

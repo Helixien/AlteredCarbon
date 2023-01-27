@@ -1,43 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-
+	<AC.None>None</AC.None>
+	<AC.Copy>Copy</AC.Copy>
+	<AC.Original>Original</AC.Original>
 	<AC.Name>Name</AC.Name>
+	<!-- ================================ Stacks ====================== -->
+	<AC.InstallStack>Implant cortical stack</AC.InstallStack>
+	<AC.InstallStackDesc>Select a pawn or empty sleeve to implant the cortical stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallStackDesc>
+	<AC.InstallArchoStack>Implant archo stack</AC.InstallArchoStack>
+	<AC.InstallArchoStackDesc>Select a pawn or empty sleeve to implant the archo stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallArchoStackDesc>
+	<AC.DesignatorExtractStack>Extract stack</AC.DesignatorExtractStack>
+	<AC.DesignatorExtractStackDesc>Extract cortical stacks from dead bodies</AC.DesignatorExtractStackDesc>
+	<AC.MessageMustDesignateHasStack>The body should have a cortical stack</AC.MessageMustDesignateHasStack>
+	<AC.ExtractStack>Extract stack</AC.ExtractStack>
 	<AC.Faction>Faction</AC.Faction>
 	<AC.Childhood>Childhood</AC.Childhood>
 	<AC.Adulthood>Adulthood</AC.Adulthood>
 	<AC.AgeChronologicalTicks>Chronological age</AC.AgeChronologicalTicks>
-	<AC.ExtractStack>Extract stack</AC.ExtractStack>
-	<AC.DuplicateStack>Duplicate Stack</AC.DuplicateStack>
-	<AC.DuplicateStackDesc>Placeholder</AC.DuplicateStackDesc>
 	<AC.DestroyStack>Destroy stack</AC.DestroyStack>
 	<AC.DestroyedStack>Destroyed stack</AC.DestroyedStack>
 	<AC.DestroyedStackDesc>An empty stack was destroyed by inept actions of {PAWN_labelShort}.</AC.DestroyedStackDesc>
 	<AC.DestroyedWipingStackDesc>A stack was destroyed by inept actions of {PAWN_labelShort}.</AC.DestroyedWipingStackDesc>
-	<AC.EmptySleeve>Empty sleeve</AC.EmptySleeve>
 	<AC.EmptyStack>Empty stack</AC.EmptyStack>
 	<AC.EmptyStackDesc>An empty stack.</AC.EmptyStackDesc>
+	<AC.EmptyStackConfirmation>Deleting Stack:\nWARNING! You are about to wipe this stack, killing the person saved on it. Are you sure you want to continue?</AC.EmptyStackConfirmation>
+	<AC.DestroyStackConfirmation>Destroying Stack:\nWARNING! You are about to destroy this stack. Are you sure you want to continue?</AC.DestroyStackConfirmation>
+	<AC.CannotCopyNoIntellectual>(requires intellectual skill of 10 or higher)</AC.CannotCopyNoIntellectual>
+	<AC.CannotCopyNoOtherEmptyStacks>(no empty stacks on the map)</AC.CannotCopyNoOtherEmptyStacks>
+	<AC.GoodwillChangedReason_ErasedPawn>erased {PAWN_labelShort}</AC.GoodwillChangedReason_ErasedPawn>
+	<AC.CantWipeStackTooDumb>Rest Stack (requires intellectual skill of 5 or higher)</AC.CantWipeStackTooDumb>
+	<AC.FailedCorticalStackDestroyed>Decrypt Ancient Stacks: Failed, cortical stack destroyed!</AC.FailedCorticalStackDestroyed>
+	<AC.ScenPart_PawnsHaveCorticalStack>{0} have a {1} chance of starting with a {2}.</AC.ScenPart_PawnsHaveCorticalStack>
+	<!-- ================================ Sleeves ====================== -->
+	<AC.EmptySleeve>Empty sleeve</AC.EmptySleeve>
 	<AC.SleeveDeath>Sleeve Death</AC.SleeveDeath>
 	<AC.SleeveDeathDesc>Sleeve Death.</AC.SleeveDeathDesc>
 	<AC.PawnDiedBecauseOf>Sleeve of {PAWN_labelShort} has died. Cause: {1}.</AC.PawnDiedBecauseOf>
 	<AC.PawnDied>Sleeve of {1_labelShort} has died.</AC.PawnDied>
 	<AC.SleveOf>Sleeve of </AC.SleveOf>
-	<AC.EmptyStackConfirmation>Deleting Stack:\nWARNING! You are about to wipe this stack, killing the person saved on it. Are you sure you want to continue?</AC.EmptyStackConfirmation>
-	<AC.DestroyStackConfirmation>Destroying Stack:\nWARNING! You are about to destroy this stack. Are you sure you want to continue?</AC.DestroyStackConfirmation>
-
+	<!-- ================================ Sleeve Incubator ====================== -->
+	<AC.CreateSleeveBody>Grow sleeve</AC.CreateSleeveBody>
 	<AC.SleeveCustomization>Sleeve Customization</AC.SleeveCustomization>
 	<AC.NoSleeve>No Sleeve</AC.NoSleeve>
 	<AC.Sleeve>Sleeve</AC.Sleeve>
-	<AC.CannotCopyNoIntellectual>(requires intellectual skill of 10 or higher)</AC.CannotCopyNoIntellectual>
-	<AC.CannotCopyNoOtherEmptyStacks>(no empty stacks on the map)</AC.CannotCopyNoOtherEmptyStacks>
-	<AC.GoodwillChangedReason_ErasedPawn>erased {PAWN_labelShort}</AC.GoodwillChangedReason_ErasedPawn>
-	<AC.CantWipeStackTooDumb>Wipe Stack (requires intellectual skill of 5 or higher)</AC.CantWipeStackTooDumb>
+	<AC.CreateSleeveBodyDesc>Create a new baseliner or xenotype sleeve using available xenogerms.</AC.CreateSleeveBodyDesc>
+	<AC.GeneOptions>Gene options</AC.GeneOptions>
+	<AC.BodyOptions>Body options</AC.BodyOptions>
+	<AC.XenogermExplanation>Selected xenogerm will be consumed in the process. If no xenogerm is selected, the sleeve will be grown as a "Baseliner".</AC.XenogermExplanation>
+	<AC.GeneOptionsExplanation>Available options depend on the genes of the selected xenogerm. Chosen options will be used as active genes, while conflicting ones will be dormant.</AC.GeneOptionsExplanation>
+	<AC.BodyOptionsExplanation>Baseliner skins and hair colour options are always available. Chosen options will be used as active genes, while conflicting ones will be dormant.</AC.BodyOptionsExplanation>
+	<AC.ConvertGenesToGermline>Grow non-archotech genes in xenogerm as germline genes: </AC.ConvertGenesToGermline>
+	<AC.PowerSleeveWillBeLostIn>Due to lack of power, the sleeve will be lost in {0}.</AC.PowerSleeveWillBeLostIn>
+	<AC.FuelSleeveWillBeLostIn>Due to lack of neutroamine, the sleeve will be lost in {0}.</AC.FuelSleeveWillBeLostIn>
+	<AC.FuelSleeveWillBeDeteriorated>Due to lack of neutroamine, the sleeve will begin to deteriorate in {0}</AC.FuelSleeveWillBeDeteriorated>
+	<AC.FuelSleeveIsDeteriorating>Due to lack of neutroamine, the sleeve is deteriorating.</AC.FuelSleeveIsDeteriorating>
+	<AC.Race>Race</AC.Race>
+	<AC.ActiveBrainTemplateDesc>Active brain template: </AC.ActiveBrainTemplateDesc>
+	<AC.AwaitingBrainTemplateDesc>Awaiting brain template: </AC.AwaitingBrainTemplateDesc>
+	<AC.BrainTemplateIsUsedCurrently>Brain template is active and cannot be removed or changed during sleeve growth process. Abort sleeve growth in order to remove/change brain template.</AC.BrainTemplateIsUsedCurrently>
+	<AC.SleeveQuality>Sleeve quality</AC.SleeveQuality>
+	<AC.SleeveBeauty>Sleeve beauty</AC.SleeveBeauty>
+	<AC.PsychicSensitivity>Psychic sensitivity</AC.PsychicSensitivity>
+	<AC.SleeveCustomizationExplanation>When you press Accept, a sleeve will begin growing in this Sleeve incubator. During growth, it will require a constant power connection as well as neutroamine connection via neutro pipes. When the timer finishes, a Sleeve can be extracted and either used straight-away, or inserted into a Sleeve casket.</AC.SleeveCustomizationExplanation>
+	<AC.SaveTemplate>Save template</AC.SaveTemplate>
+	<AC.LoadTemplate>Load template</AC.LoadTemplate>
 	<AC.CancelSleeveBodyGrowing>Cancel the sleeve growing process.</AC.CancelSleeveBodyGrowing>
 	<AC.CancelSleeveBodyGrowingDesc>Cancel sleeve growing.</AC.CancelSleeveBodyGrowingDesc>
-	<AC.CreateSleeveBody>Create sleeve</AC.CreateSleeveBody>
-	<AC.CreateSleeveBodyDesc>Create a new sleeve.</AC.CreateSleeveBodyDesc>
 	<AC.ReleaseSleeve>Release sleeve</AC.ReleaseSleeve>
 	<AC.NoHairAllowed>This race does not support hair!</AC.NoHairAllowed>
-
 	<AC.BodyShape>Body shape</AC.BodyShape>
 	<AC.BodyTypeReplace>Body type</AC.BodyTypeReplace>
 	<AC.Cancel>Cancel</AC.Cancel>
@@ -62,97 +92,71 @@
 	<AC.IsRunningOutFuel>Sleeve incubator is running out neutroamine</AC.IsRunningOutFuel>
 	<AC.IsRunningOutPower>Sleeve incubator is running out power</AC.IsRunningOutPower>
 	<AC.SleeveInIncubatorIsDead>Sleeve body in the incubator is dead</AC.SleeveInIncubatorIsDead>
-
-	<AC.NoBrainTemplatesFound>No brain templates found</AC.NoBrainTemplatesFound>
-	<AC.InsertBrainTemplate>Insert brain template</AC.InsertBrainTemplate>
-	<AC.InsertBrainTemplateDesc>Insert a brain template into the incubator.</AC.InsertBrainTemplateDesc>
-	<AC.RemoveCurrentBrainTemplate>Remove current brain template</AC.RemoveCurrentBrainTemplate>
-	<AC.CommandCallsNeuroformers>Call psylink neuroformers</AC.CommandCallsNeuroformers>
-	<AC.SleeveHealthPreview>Health</AC.SleeveHealthPreview>
-
-	<AC.DesignatorExtractStack>Extract stack</AC.DesignatorExtractStack>
-	<AC.DesignatorExtractStackDesc>Extract cortical stacks from dead bodies</AC.DesignatorExtractStackDesc>
-	<AC.MessageMustDesignateHasStack>The body should have a cortical stack</AC.MessageMustDesignateHasStack>
-
-	<AC.FactionDemandsStacks>{FACTION_name} demands stacks of their members back.\n\n{0}</AC.FactionDemandsStacks>
-	<AC.AppeptFactionDemand>Accept: (+{0} goodwill)</AC.AppeptFactionDemand>
-	<AC.RejectFactionDemand>Reject: ({0} goodwill)</AC.RejectFactionDemand>
-	<AC.CorticalStacksInMatrix>Cortical Stacks in Matrix: ({0}/{1})</AC.CorticalStacksInMatrix>
-	<AC.StackStorage>Contents</AC.StackStorage>
-	
-	<AC.AllowColonistStacks>*Allow colonist cortical stacks</AC.AllowColonistStacks>
-	<AC.AllowStrangerStacks>*Allow stranger cortical stacks</AC.AllowStrangerStacks>
-	<AC.AllowHostileStacks>*Allow hostile cortical stacks</AC.AllowHostileStacks>
-	<AC.Copy>Copy</AC.Copy>
-	<AC.Original>Original</AC.Original>
-	<AC.SuccessfullyDuplicatedStack>{PAWN_nameDef} successfully duplicated cortical stack.</AC.SuccessfullyDuplicatedStack>
-	<AC.OrganIncubatorIsRunningOutFuel>Organ incubator is running out neutroamine</AC.OrganIncubatorIsRunningOutFuel>
-	<AC.OrganIncubatorIsRunningOutPower>Organ incubator is running out power</AC.OrganIncubatorIsRunningOutPower>
-	<AC.OrganSpoiled>Organ in the incubator is spoiled</AC.OrganSpoiled>
-	<AC.CancelOrganGrowing>Cancel organ growing</AC.CancelOrganGrowing>
-	<AC.CancelOrganGrowingDesc>Cancel sleeve growing</AC.CancelOrganGrowingDesc>
-	<AC.CreateOrgan>Grow organ</AC.CreateOrgan>
-	<AC.CreateOrganDesc>Grow an organ.</AC.CreateOrganDesc>
-	<AC.FinishedGrowingSleeve>Sleeve Incubator: Finished growing sleeve!</AC.FinishedGrowingSleeve>
-	<AC.InstallStack>Install stack</AC.InstallStack>
-	<AC.InstallStackDesc>Install a stack.</AC.InstallStackDesc>
-	<AC.MustPlaceDistantToOtherCorticalMatrixes>Cannot be placed too close to existing Quantum Storage Matrix!</AC.MustPlaceDistantToOtherCorticalMatrixes>
-	<AC.HackStack>Hack stack</AC.HackStack>
-	<AC.HackStackDesc>Convert a stack to the players faction.</AC.HackStackDesc>
-	<AC.ConvertStack>Convert stack ideo</AC.ConvertStack>
-	<AC.ConvertStackDesc>Convert a stack to the players ideology.</AC.ConvertStackDesc>
-	<AC.WipeStack>Wipe stack</AC.WipeStack>
-	<AC.WipeStackDesc>Wipe a stack of the pawn stored on it.</AC.WipeStackDesc>
-	<AC.PawnAlreadyHasStack>{PAWN_nameDef} already has a cortical stack installed!</AC.PawnAlreadyHasStack>
-	<AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>Cannot install cortical stack - neck is missing or another implant installed in the neck.</AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>
-	<AC.AlreadyOrderedToHackStack>This stack is set for hacking already on the decryption workbench.</AC.AlreadyOrderedToHackStack>
-	<AC.AlreadyOrderedToConvertStack>This stack is set for ideo converting already on the decryption workbench.</AC.AlreadyOrderedToConvertStack>
-	<AC.AlreadyOrderedToWipeStack>This stack is set for wiping already on the decryption workbench.</AC.AlreadyOrderedToWipeStack>
-	<AC.FixedAncientStack>Decrypt Ancient Stacks: Fixed the ancient cortical stack!</AC.FixedAncientStack>
-	<AC.UnlockedNewTechnology>Decrypt Ancient Stacks: Unlocked new technology - {0}!</AC.UnlockedNewTechnology>
-	<AC.GainedProgressToTechnology>Decrypt Ancient Stacks: Gained progress to technology - {0}!</AC.GainedProgressToTechnology>
-	<AC.GainedEmptyCorticalStack>Decrypt Ancient Stacks: Gained empty cortical stack!</AC.GainedEmptyCorticalStack>
-	<AC.FailedCorticalStackDestroyed>Decrypt Ancient Stacks: Failed, cortical stack destroyed!</AC.FailedCorticalStackDestroyed>
-	<AC.HackingBiocodedFailed>Hacking biocoded equipment: Failed, {0} destroyed!</AC.HackingBiocodedFailed>
-	<AC.HackingBiocodedSuccess>Hacking biocoded equipment: Successful! {0} is unlocked.</AC.HackingBiocodedSuccess>
-	<AC.SetBodyParts>Install body parts</AC.SetBodyParts>
-	<AC.None>None</AC.None>
+	<!-- ================================ Stack Array ====================== -->
 	<AC.Backup>Backup</AC.Backup>
-	<AC.BackedUpStacksInMatrix>Backed up stacks in Matrix: {0}</AC.BackedUpStacksInMatrix>
+	<AC.BackedUpStacksInArray>Cortical Stack backups in saved in arrays: {0}</AC.BackedUpStacksInArray>
 	<AC.Erase>Erase</AC.Erase>
-	<AC.Backup>Backup</AC.Backup>
+	<AC.Backups>Backups</AC.Backups>
 	<AC.BackupNow>Backup now</AC.BackupNow>
 	<AC.CannotBackupNoSuchPawn>Cannot backup {0}: there's no such pawn!</AC.CannotBackupNoSuchPawn>
 	<AC.CannotBackupPawnOnAnotherLocation>Cannot backup, {0} is on different location.</AC.CannotBackupPawnOnAnotherLocation>
 	<AC.CannotBackupNoPower>Cannot backup {0}, the building is not powered.</AC.CannotBackupNoPower>
 	<AC.EnableBackup>Enable automatic backup</AC.EnableBackup>
-	<AC.EnableBackupDesc>Allow the matrix to make backups of all installed cortical stacks belonging to the player who are on the local map.</AC.EnableBackupDesc>
+	<AC.EnableBackupDesc>Allow the array to automatically make backups of all installed cortical stacks belonging to the player who are on the local map.</AC.EnableBackupDesc>
 	<AC.BackupAllStacks>Emergency Backup</AC.BackupAllStacks>
 	<AC.BackupAllStacksDesc>Force backup all installed cortical stacks belonging to the player now.</AC.BackupAllStacksDesc>
 	<AC.TimeSinceLastBackup>({0} since last backup)</AC.TimeSinceLastBackup>
-	<AC.CannotRestoreBackupNoOtherEmptyStacks>Restore stack from backup (no available empty stacks on the map)</AC.CannotRestoreBackupNoOtherEmptyStacks>
+	<AC.CannotRestoreBackupNoOtherEmptyStacks>Restore stack from backup (no empty stacks in stockpile.)</AC.CannotRestoreBackupNoOtherEmptyStacks>
 	<AC.SuccessfullyRestoredStackFromBackup>{PAWN_nameDef} successfully restored cortical stack from backup.</AC.SuccessfullyRestoredStackFromBackup>
-	<AC.OneMatrixStorageCanBeBuild>Only one Quantum Storage Matrix can be build per colony!</AC.OneMatrixStorageCanBeBuild>
+	<AC.BackupsCompleted>Stack array: Backups Completed! {0} colonists were backed up!</AC.BackupsCompleted>
+	<AC.RestoreToStackAutomatically>Toggle if this person should be restored to a new stack automatically when the current stack is destroyed.</AC.RestoreToStackAutomatically>
+	<AC.EnableAutoRestore>Toggle automatic restoring</AC.EnableAutoRestore>
+	<AC.EnableAutoRestoreDesc>Allow the array to automatically restore backups if a pawn with an installed cortical stacks dies.</AC.EnableAutoRestoreDesc>
+	<AC.DuplicateStack>Duplicate Stack</AC.DuplicateStack>
+	<AC.DuplicateStackDesc>Make a exact copy of an existing filled cortical stack.</AC.DuplicateStackDesc>
+	<AC.AlreadySetToDuplicate>Already set a stack to duplicate</AC.AlreadySetToDuplicate>
+	<AC.NoEnoughSpaceForNewStack>Not enough space for new stack</AC.NoEnoughSpaceForNewStack>
+	<!-- ================================ Other ====================== -->
+	<AC.CommandCallsNeuroformers>Call psylink neuroformers</AC.CommandCallsNeuroformers>
+	<AC.SleeveHealthPreview>Health</AC.SleeveHealthPreview>
+	<AC.SetBodyParts>Install body parts</AC.SetBodyParts>
 	<AC.OrganGrowingRecipesRequiresResearch>You need to research at least one organ growing recipe.</AC.OrganGrowingRecipesRequiresResearch>
-	<AC.BackupsCompleted>Quantum Storage Matrix: Backups Completed! {0} colonists were backed up!</AC.BackupsCompleted>
-	<AC.Race>Race</AC.Race>
-	<AC.ActiveBrainTemplateDesc>Active brain template: </AC.ActiveBrainTemplateDesc>
-	<AC.AwaitingBrainTemplateDesc>Awaiting brain template: </AC.AwaitingBrainTemplateDesc>
-	<AC.BrainTemplateIsUsedCurrently>Brain template is active and cannot be removed or changed during sleeve growth process. Abort sleeve growth in order to remove/change brain template.</AC.BrainTemplateIsUsedCurrently>
-	<AC.SleeveQuality>Sleeve quality</AC.SleeveQuality>
-	<AC.SleeveBeauty>Sleeve beauty</AC.SleeveBeauty>
-	<AC.PsychicSensitivity>Psychic sensitivity</AC.PsychicSensitivity>
-	<AC.SleeveCustomizationExplanation>When you press Accept, a sleeve will begin growing in this Sleeve incubator. During growth, it will require a constant power connection as well as neutroamine connection via neutro pipes. When the timer finishes, a Sleeve can be extracted and either used straight-away, or inserted into a Sleeve casket.</AC.SleeveCustomizationExplanation>
-	<AC.SaveTemplate>Save template</AC.SaveTemplate>
-	<AC.LoadTemplate>Load template</AC.LoadTemplate>
-	<AC.PowerSleeveWillBeLostIn>Due to lack of power, the sleeve will be lost in {0}.</AC.PowerSleeveWillBeLostIn>
-	<AC.FuelSleeveWillBeLostIn>Due to lack of neutroamine, the sleeve will be lost in {0}.</AC.FuelSleeveWillBeLostIn>
-	<AC.FuelSleeveWillBeDeteriorated>Due to lack of neutroamine, the sleeve will begin to deteriorate in {0}</AC.FuelSleeveWillBeDeteriorated>
-	<AC.FuelSleeveIsDeteriorating>Due to lack of neutroamine, the sleeve is deteriorating.</AC.FuelSleeveIsDeteriorating>
-	<AC.GeneOptions>Gene options</AC.GeneOptions>
-	<AC.BodyOptions>Body options</AC.BodyOptions>
-	<AC.XenogermExplanation>Selected xenogerm will be consumed in the process. If no xenogerm is selected, the sleeve will be grown as a "Baseliner".</AC.XenogermExplanation>
-	<AC.GeneOptionsExplanation>Available options depend on the genes of the selected xenogerm. Chosen options will be used as active genes, while conflicting ones will be dormant.</AC.GeneOptionsExplanation>
-	<AC.BodyOptionsExplanation>Baseliner skins and hair colour options are always available. Chosen options will be used as active genes, while conflicting ones will be dormant.</AC.BodyOptionsExplanation>
-	<AC.ConvertGenesToGermline>Grow non-archotech genes in xenogerm as germline genes: </AC.ConvertGenesToGermline>
+	<AC.NoBrainTemplatesFound>No brain templates found</AC.NoBrainTemplatesFound>
+	<AC.InsertBrainTemplate>Insert brain template</AC.InsertBrainTemplate>
+	<AC.InsertBrainTemplateDesc>Insert a brain template into the incubator.</AC.InsertBrainTemplateDesc>
+	<AC.RemoveCurrentBrainTemplate>Remove current brain template</AC.RemoveCurrentBrainTemplate>
+	<AC.FactionDemandsStacks>{FACTION_name} demands stacks of their members back.\n\n{0}</AC.FactionDemandsStacks>
+	<AC.AppeptFactionDemand>Accept: (+{0} goodwill)</AC.AppeptFactionDemand>
+	<AC.RejectFactionDemand>Reject: ({0} goodwill)</AC.RejectFactionDemand>
+	<AC.CorticalStacksInArray>Cortical Stacks in array: ({0}/{1})</AC.CorticalStacksInArray>
+	<AC.CorticalStacksStored>Cortical Stacks stored: {0}</AC.CorticalStacksStored>
+	<AC.LastBackup>Last Backup: {0}</AC.LastBackup>
+	<AC.StackStorage>Contents</AC.StackStorage>
+	<AC.AllowColonistStacks>*Allow colonist cortical stacks</AC.AllowColonistStacks>
+	<AC.AllowStrangerStacks>*Allow stranger cortical stacks</AC.AllowStrangerStacks>
+	<AC.AllowHostileStacks>*Allow hostile cortical stacks</AC.AllowHostileStacks>
+	<AC.AllowArchoStacks>*Allow archo stacks</AC.AllowArchoStacks>
+	<AC.SuccessfullyDuplicatedStack>{PAWN_nameDef} successfully duplicated cortical stack.</AC.SuccessfullyDuplicatedStack>
+	<AC.FailedToDuplicatedStack>{PAWN_nameDef} failed to duplicate cortical stack.</AC.FailedToDuplicatedStack>
+	<AC.FinishedGrowingSleeve>Sleeve Incubator: Finished growing sleeve!</AC.FinishedGrowingSleeve>
+	<AC.HackStack>Hack stack</AC.HackStack>
+	<AC.HackStackDesc>Convert a stack to the players faction.</AC.HackStackDesc>
+	<AC.ConvertStack>Convert stack ideo</AC.ConvertStack>
+	<AC.ConvertStackDesc>Convert a stack to the players ideology.</AC.ConvertStackDesc>
+	<AC.WipeStack>Reset stack</AC.WipeStack>
+	<AC.WipeStackDesc>Factory reset a filled cortical to be used on a new host. This process will deleted the pawn stored on it, effectively killing them.</AC.WipeStackDesc>
+	<AC.PawnAlreadyHasStack>{PAWN_nameDef} already has a cortical stack installed!</AC.PawnAlreadyHasStack>
+	<AC.PawnAlreadyHasArchoStack>{PAWN_nameDef} already has an archo stack installed!</AC.PawnAlreadyHasArchoStack>
+	<AC.PawnStackCannotDowngrade>{PAWN_nameDef} already has an archo stack installed, cannot downgrade!</AC.PawnStackCannotDowngrade>
+	<AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>Cannot install cortical stack - neck is missing or another implant installed in the neck.</AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>
+	<AC.AlreadyOrderedToHackStack>This stack is set for hacking already on the decryption workbench.</AC.AlreadyOrderedToHackStack>
+	<AC.AlreadyOrderedToConvertStack>This stack is set for ideo converting already on the decryption workbench.</AC.AlreadyOrderedToConvertStack>
+	<AC.AlreadyOrderedToWipeStack>This stack is set for reseting already on a decryption workbench.</AC.AlreadyOrderedToWipeStack>
+	<AC.FixedAncientStack>Decrypt Ancient Stacks: Fixed the ancient cortical stack!</AC.FixedAncientStack>
+	<AC.UnlockedNewTechnology>Decrypt Ancient Stacks: Unlocked new technology - {0}!</AC.UnlockedNewTechnology>
+	<AC.GainedProgressToTechnology>Decrypt Ancient Stacks: Gained progress to technology - {0}!</AC.GainedProgressToTechnology>
+	<AC.GainedEmptyCorticalStack>Decrypt Ancient Stacks: Gained empty cortical stack!</AC.GainedEmptyCorticalStack>
+	<AC.HackingBiocodedFailed>Hacking biocoded equipment: Failed, {0} destroyed!</AC.HackingBiocodedFailed>
+	<AC.HackingBiocodedSuccess>Hacking biocoded equipment: Successful! {0} is unlocked.</AC.HackingBiocodedSuccess>
+	<AC.IsEmptySleeve>Is empty sleeve</AC.IsEmptySleeve>
 </LanguageData>

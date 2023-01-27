@@ -8,6 +8,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
+    [HotSwappable]
     public class CorticalStack : ThingWithComps
     {
         public static HashSet<CorticalStack> corticalStacks = new HashSet<CorticalStack>();
@@ -45,7 +46,8 @@ namespace AlteredCarbon
                         {
                             if (friendlyGraphicData is null)
                             {
-                                friendlyGraphicData = GetGraphicDataWithOtherPath("Things/Item/Stacks/FriendlyStack");
+                                var path = this.IsArchoStack ? "Things/Item/ArchoStacks/FriendlyArchoStack" : "Things/Item/Stacks/FriendlyStack";
+                                friendlyGraphicData = GetGraphicDataWithOtherPath(path);
                             }
                             friendlyGraphic = friendlyGraphicData.GraphicColoredFor(this);
                         }
@@ -57,7 +59,8 @@ namespace AlteredCarbon
                         {
                             if (strangerGraphicData is null)
                             {
-                                strangerGraphicData = GetGraphicDataWithOtherPath("Things/Item/Stacks/NeutralStack");
+                                var path = this.IsArchoStack ? "Things/Item/ArchoStacks/NeutralArchoStack" : "Things/Item/Stacks/NeutralStack";
+                                strangerGraphicData = GetGraphicDataWithOtherPath(path);
                             }
                             strangerGraphic = strangerGraphicData.GraphicColoredFor(this);
                         }
@@ -69,7 +72,8 @@ namespace AlteredCarbon
                         {
                             if (hostileGraphicData is null)
                             {
-                                hostileGraphicData = GetGraphicDataWithOtherPath("Things/Item/Stacks/HostileStack");
+                                var path = this.IsArchoStack ? "Things/Item/ArchoStacks/HostileArchoStack" : "Things/Item/Stacks/HostileStack";
+                                hostileGraphicData = GetGraphicDataWithOtherPath(path);
                             }
                             hostileGraphic = hostileGraphicData.GraphicColoredFor(this);
                         }
@@ -109,24 +113,41 @@ namespace AlteredCarbon
                 allowFlip = def.graphicData.allowFlip
             };
         }
+
+        public override void Tick()
+        {
+            base.Tick();
+            if (this.Spawned && this.IsArchoStack)
+            {
+                var edifice = this.Position.GetEdifice(Map);
+                if (edifice != null && this.Position.Walkable(Map) is false)
+                {
+                    var map = this.Map;
+                    var pos = this.Position;
+                    this.DeSpawn();
+                    GenPlace.TryPlaceThing(this, pos, map, ThingPlaceMode.Near);
+                    FleckMaker.Static(this.Position, this.Map, AC_DefOf.PsycastAreaEffect, 3f);
+                }
+            }
+        }
+        public bool IsFilledStack => this.def == AC_DefOf.VFEU_FilledCorticalStack || this.def == AC_DefOf.AC_FilledArchoStack;
+        public bool IsArchoStack => this.def == AC_DefOf.AC_EmptyArchoStack || this.def == AC_DefOf.AC_FilledArchoStack;
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             corticalStacks.Add(this);
             try
             {
 
-                if (!respawningAfterLoad && !PersonaData.ContainsInnerPersona && def == AC_DefOf.VFEU_FilledCorticalStack)
+                if (!respawningAfterLoad && !PersonaData.ContainsInnerPersona && IsFilledStack)
                 {
                     PawnKindDef pawnKind = DefDatabase<PawnKindDef>.AllDefs.Where(x => x.RaceProps.Humanlike).RandomElement();
                     Faction faction = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction).RandomElement();
                     Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnKind, faction));
-                    PersonaData.CopyPawn(pawn);
+                    PersonaData.CopyFromPawn(pawn, this.def);
                     PersonaData.gender = pawn.gender;
                     PersonaData.race = pawn.kindDef.race;
                     PersonaData.stackGroupID = AlteredCarbonManager.Instance.GetStackGroupID(this);
                     AlteredCarbonManager.Instance.RegisterStack(this);
-                    AlteredCarbonManager.Instance.StacksIndex[pawn.thingIDNumber] = this;
-
                     if (LookTargets_Patch.targets.TryGetValue(pawn, out List<LookTargets> targets))
                     {
                         foreach (LookTargets target in targets)
@@ -152,40 +173,53 @@ namespace AlteredCarbon
             TargetingParameters targetingParameters = new TargetingParameters
             {
                 canTargetPawns = true,
-                validator = (TargetInfo x) => x.Thing is Pawn pawn && pawn.RaceProps.Humanlike
+                validator = (TargetInfo x) => x.Thing is Pawn pawn && ACUtils.CanImplantStackTo(ACUtils.stackRecipesByDef[this.def].recipe.addsHediff, pawn)
             };
             return targetingParameters;
         }
+
         public override IEnumerable<Gizmo> GetGizmos()
         {
             foreach (Gizmo g in base.GetGizmos())
             {
                 yield return g;
             }
-            if (def == AC_DefOf.VFEU_FilledCorticalStack)
+            if (ACUtils.stackRecipesByDef.TryGetValue(this.def, out var installInfo))
             {
-                yield return new Command_Action
+                var installStack = new Command_Action
                 {
-                    defaultLabel = "AC.InstallStack".Translate(),
-                    defaultDesc = "AC.InstallStack".Translate(),
-                    icon = ContentFinder<Texture2D>.Get("UI/Icons/InstallStack"),
+                    defaultLabel = installInfo.installLabel,
+                    defaultDesc = installInfo.installDesc,
+                    activateSound = SoundDefOf.Tick_Tiny,
+                    icon = installInfo.installIcon,
                     action = delegate ()
                     {
                         Find.Targeter.BeginTargeting(ForPawn(), delegate (LocalTargetInfo x)
                         {
-                            InstallStackRecipe(x.Pawn);
+                            InstallStackRecipe(x.Pawn, installInfo.recipe);
                         });
                     }
                 };
+                yield return installStack;
             }
         }
 
-        public void InstallStackRecipe(Pawn medPawn)
+        public void InstallStackRecipe(Pawn medPawn, RecipeDef recipe)
         {
-            RecipeDef recipe = AC_DefOf.VFEU_InstallCorticalStack;
-            if (medPawn.HasStack())
+            if (medPawn.HasCorticalStack(out var stackHediff) && (stackHediff.def == recipe.addsHediff || stackHediff.def == AC_DefOf.AC_ArchoStack))
             {
-                Messages.Message("AC.PawnAlreadyHasStack".Translate(medPawn.Named("PAWN")), MessageTypeDefOf.CautionInput);
+                if (stackHediff.def != recipe.addsHediff)
+                {
+                    Messages.Message("AC.PawnStackCannotDowngrade".Translate(medPawn.Named("PAWN")), MessageTypeDefOf.CautionInput);
+                }
+                else if (stackHediff.def == AC_DefOf.VFEU_CorticalStack)
+                {
+                    Messages.Message("AC.PawnAlreadyHasStack".Translate(medPawn.Named("PAWN")), MessageTypeDefOf.CautionInput);
+                }
+                else
+                {
+                    Messages.Message("AC.PawnAlreadyHasArchoStack".Translate(medPawn.Named("PAWN")), MessageTypeDefOf.CautionInput);
+                }
             }
             else if (recipe.Worker.GetPartsToApplyOn(medPawn, recipe).FirstOrDefault() is null)
             {
@@ -272,8 +306,11 @@ namespace AlteredCarbon
             StringBuilder stringBuilder = new StringBuilder();
             if (PersonaData.ContainsInnerPersona)
             {
-                stringBuilder.AppendLineTagged("AC.Name".Translate() + ": " + personaData.PawnNameColored);
-                stringBuilder.AppendLineTagged("AC.Faction".Translate() + ": " + PersonaData.faction.NameColored);
+                stringBuilder.AppendLineTagged("AC.Name".Translate() + ": " + PersonaData.PawnNameColored);
+                if (PersonaData.faction != null)
+                {
+                    stringBuilder.AppendLineTagged("AC.Faction".Translate() + ": " + PersonaData.faction.NameColored);
+                }
                 if (ModCompatibility.AlienRacesIsActive && PersonaData.race != null)
                 {
                     stringBuilder.AppendLineTagged("AC.Race".Translate() + ": " + PersonaData.race.LabelCap);
@@ -323,6 +360,10 @@ namespace AlteredCarbon
         }
         public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
         {
+            if (this.IsArchoStack && allowDestroyNonDestroyable is false)
+            {
+                return;
+            }
             corticalStacks.Remove(this);
             base.Destroy(mode);
             if (PersonaData.ContainsInnerPersona && !dontKillThePawn)
@@ -357,12 +398,14 @@ namespace AlteredCarbon
         }
         public void EmptyStack(Pawn affecter, bool affectFactionRelationship = false)
         {
-            Thing newStack = ThingMaker.MakeThing(AC_DefOf.VFEU_EmptyCorticalStack);
+            Thing newStack = ThingMaker.MakeThing(this.GetEmptyStackVariant());
             GenPlace.TryPlaceThing(newStack, affecter.Position, affecter.Map, ThingPlaceMode.Near);
             AlteredCarbonManager.Instance.StacksIndex.Remove(PersonaData.pawnID);
             KillInnerPawn(affectFactionRelationship, affecter);
             Destroy();
         }
+
+
         public override void ExposeData()
         {
             base.ExposeData();

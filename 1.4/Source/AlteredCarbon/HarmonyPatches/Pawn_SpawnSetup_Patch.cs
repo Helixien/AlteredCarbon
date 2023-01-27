@@ -5,6 +5,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
+
     [HarmonyPatch(typeof(Pawn), "SpawnSetup")]
     public static class Pawn_SpawnSetup_Patch
     {
@@ -13,7 +14,8 @@ namespace AlteredCarbon
             if (!respawningAfterLoad && __instance.RaceProps.Humanlike && __instance.kindDef.HasModExtension<StackSpawnModExtension>())
             {
                 var extension = __instance.kindDef.GetModExtension<StackSpawnModExtension>();
-                if (extension.SpawnsWithStack && __instance.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is null && Rand.Chance((float)extension.ChanceToSpawnWithStack / 100f))
+                if (extension.SpawnsWithStack && __instance.HasCorticalStack(out _) is false
+                    && Rand.Chance((float)extension.ChanceToSpawnWithStack / 100f))
                 {
                     BodyPartRecord neckRecord = __instance.def.race.body.AllParts.FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Neck);
                     var hediff = HediffMaker.MakeHediff(AC_DefOf.VFEU_CorticalStack, __instance, neckRecord) as Hediff_CorticalStack;

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Sleeve Incubator ====================== -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>VFEU_SleeveIncubator</defName>
+		<label>sleeve incubator</label>
+		<description>An exceedingly complex vat of nutrients that is capable of gestating sleeves, empty shells without a mind of their own. Neutroamine is used in order to grow the body through its different stages and the incubator must remained powered throughout this process. Should it lose power for extended periods, the gestation process will fail./n/nSimple, low grade sleeves can be churned out quite quickly for minimal resources. However, more complex and sophisticated sleeves take longer and require more nutrients to ensure the body is properly formed./n/nOnce the sleeve has finished growing, it should be extracted and cared for as it is incapable of independent movement or thought, including feeding itself.</description>
+		<descriptionHyperlinks>
+			<ThingDef>VFEU_SleeveCasket</ThingDef>
+			<ThingDef>GeneAssembler</ThingDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorBottom</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(7,7)</drawSize>
+			<shadowData>
+				<volume>(2.55, 0.75, 1.7)</volume>
+			</shadowData>
+		</graphicData>
+		<thingClass>AlteredCarbon.Building_SleeveGrower</thingClass>
+		<tickerType>Normal</tickerType>
+		<drawerType>RealtimeOnly</drawerType>
+		<passability>PassThroughOnly</passability>
+		<containedPawnsSelectable>true</containedPawnsSelectable>
+		<castEdgeShadows>true</castEdgeShadows>
+		<uiIconPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorUI_Icon</uiIconPath>
+		<uiIconScale>1.1</uiIconScale>
+		<size>(3,3)</size>
+		<hasInteractionCell>true</hasInteractionCell>
+		<interactionCellOffset>(0,0,2)</interactionCellOffset>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<neverMultiSelect>true</neverMultiSelect>
+		<fillPercent>0.6</fillPercent>
+		<pathCost>70</pathCost>
+		<canOverlapZones>false</canOverlapZones>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<blockWind>true</blockWind>
+		<statBases>
+			<MarketValue>3580</MarketValue>
+			<WorkToBuild>16000</WorkToBuild>
+			<MaxHitPoints>400</MaxHitPoints>
+			<Flammability>0.5</Flammability>
+			<Mass>60</Mass>
+		</statBases>
+		<building>
+			<destroySound>BuildingDestroyed_Metal_Big</destroySound>
+			<ai_chillDestination>false</ai_chillDestination>
+			<buildingTags>
+				<li>Biotech</li>
+			</buildingTags>
+		</building>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<placeWorkers>
+			<li>PlaceWorker_FuelingPort</li>
+		</placeWorkers>
+		<comps>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Forbiddable"/>
+			<li Class="AlteredCarbon.CompProperties_SleeveGrowerPostDraw">
+				<overlayTexPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorTop</overlayTexPath>
+			</li>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<shortCircuitInRain>true</shortCircuitInRain>
+				<basePowerConsumption>350</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Refuelable">
+				<fuelLabel>Neutroamine</fuelLabel>
+				<fuelGizmoLabel>Neutroamine</fuelGizmoLabel>
+				<outOfFuelMessage>Cannot grow: Needs neutroamine</outOfFuelMessage>
+				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+				<targetFuelLevelConfigurable>false</targetFuelLevelConfigurable>
+				<fuelCapacity>300</fuelCapacity>
+				<fuelFilter>
+					<thingDefs>
+						<li>Neutroamine</li>
+					</thingDefs>
+				</fuelFilter>
+				<initialFuelPercent>1</initialFuelPercent>
+				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+				<showFuelGizmo>true</showFuelGizmo>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>5</glowRadius>
+				<glowColor>(96,161,153,0)</glowColor>
+			</li>
+		</comps>
+	</ThingDef>
+	<!-- ================================ Sleeve Casket	====================== -->
+	<ThingDef ParentName="FurnitureBase">
+		<defName>VFEU_SleeveCasket</defName>
+		<label>sleeve casket</label>
+		<description>An open sarcophagus designed to keep a sleeve in a state of suspended animation while still allowing medical access, such as installing implants or bionics.</description>
+		<descriptionHyperlinks>
+			<ThingDef>VFEU_SleeveIncubator</ThingDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Building/Furniture/Bed/SleeveCasket</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
+			<drawSize>(2,2)</drawSize>
+		</graphicData>
+		<thingClass>AlteredCarbon.Building_SleeveCasket</thingClass>
+		<tickerType>Normal</tickerType>
+		<drawerType>RealtimeOnly</drawerType>
+		<passability>PassThroughOnly</passability>
+		<size>(1,2)</size>
+		<statBases>
+			<MaxHitPoints>250</MaxHitPoints>
+			<WorkToBuild>6000</WorkToBuild>
+			<Mass>40</Mass>
+			<Flammability>0.5</Flammability>
+		</statBases>
+		<altitudeLayer>Building</altitudeLayer>
+		<castEdgeShadows>True</castEdgeShadows>
+		<staticSunShadowHeight>0.17</staticSunShadowHeight>
+		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+		<drawGUIOverlay>true</drawGUIOverlay>
+		<canOverlapZones>false</canOverlapZones>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<building>
+			<bed_showSleeperBody>True</bed_showSleeperBody>
+			<buildingSizeCategory>Small</buildingSizeCategory>
+			<bed_humanlike>true</bed_humanlike>
+			<bed_healPerDay>0</bed_healPerDay>
+			<bed_defaultMedical>true</bed_defaultMedical>
+			<ai_chillDestination>false</ai_chillDestination>
+			<buildingTags>
+				<li>Biotech</li>
+			</buildingTags>
+		</building>
+		<fillPercent>0.5</fillPercent>
+		<pathCost>42</pathCost>
+		<uiIconScale>1.0</uiIconScale>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<shortCircuitInRain>false</shortCircuitInRain>
+				<basePowerConsumption>75</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Refuelable">
+				<fuelLabel>Neutroamine</fuelLabel>
+				<fuelGizmoLabel>Neutroamine</fuelGizmoLabel>
+				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+				<targetFuelLevelConfigurable>false</targetFuelLevelConfigurable>
+				<fuelCapacity>100.0</fuelCapacity>
+				<fuelFilter>
+					<thingDefs>
+						<li>Neutroamine</li>
+					</thingDefs>
+				</fuelFilter>
+				<initialFuelPercent>1</initialFuelPercent>
+				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+				<showFuelGizmo>true</showFuelGizmo>
+			</li>
+			<li Class="CompProperties_AssignableToPawn">
+				<drawAssignmentOverlay>false</drawAssignmentOverlay>
+				<compClass>CompAssignableToPawn_Bed</compClass>
+			</li>
+			<li Class="AlteredCarbon.CompProperties_SleeveCasketPostDraw"/>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsMisc</li>
+		</thingCategories>
+	</ThingDef>
+	<!-- ================================ Decryption Bench ====================== -->
+	<ThingDef ParentName="BenchBase">
+		<defName>VFEU_DecryptionBench</defName>
+		<label>decryption bench</label>
+		<description>A sophisticated workbench that allows the user to connect to cortical stacks in order to alter the contained information, such as changing allegiance, or even wipe them clean. Can also strip the biocoding from items./n/nAs the process is quite aggressive, there is a risk of the decryption process destroying the item.</description>
+		<thingClass>AlteredCarbon.Building_DecryptionBench</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Misc/HackingWorkbench</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(3.5,1.5)</drawSize>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<size>(3,1)</size>
+		<castEdgeShadows>true</castEdgeShadows>
+		<staticSunShadowHeight>0.20</staticSunShadowHeight>
+		<thingCategories>
+			<li>BuildingsMisc</li>
+		</thingCategories>
+		<statBases>
+			<Mass>20</Mass>
+			<MaxHitPoints>180</MaxHitPoints>
+			<WorkToBuild>5000</WorkToBuild>
+			<Flammability>0.5</Flammability>
+		</statBases>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<fillPercent>0.5</fillPercent>
+		<pathCost>42</pathCost>
+		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+		<hasInteractionCell>true</hasInteractionCell>
+		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+		<surfaceType>Item</surfaceType>
+		<building>
+			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+			<ai_chillDestination>false</ai_chillDestination>
+			<buildingTags>
+				<li>Biotech</li>
+			</buildingTags>
+		</building>
+		<recipes>
+			<li>VFEU_DecryptAncientStack</li>
+			<li>VFEU_WipeFilledCorticalStack</li>
+			<li>VFEU_HackBiocodedThings</li>
+			<li>VFEU_HackFilledCorticalStack</li>
+		</recipes>
+		<inspectorTabs>
+			<li>ITab_Bills</li>
+		</inspectorTabs>
+		<placeWorkers>
+			<li>PlaceWorker_PreventInteractionSpotOverlap</li>
+		</placeWorkers>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>350</basePowerConsumption>
+				<shortCircuitInRain>true</shortCircuitInRain>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+	</ThingDef>
+</Defs>

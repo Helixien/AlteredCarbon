@@ -89,10 +89,10 @@ namespace AlteredCarbon
 
         public void ExposeData()
         {
-            Scribe_Values.Look<int>(ref this.kinseyRating, "kinseyRating", 0, false);
-            Scribe_Values.Look<float>(ref this.sexDrive, "sexDrive", 1f, false);
-            Scribe_Values.Look<float>(ref this.romanticDrive, "romanticDrive", 1f, false);
-            Scribe_Collections.Look<Pawn, int>(ref this.knownSexualities, "knownSexualities", LookMode.Reference, LookMode.Value, ref this.knownSexualitiesWorkingKeys, ref this.knownSexualitiesWorkingValues);
+            Scribe_Values.Look(ref this.kinseyRating, "kinseyRating", 0, false);
+            Scribe_Values.Look(ref this.sexDrive, "sexDrive", 1f, false);
+            Scribe_Values.Look(ref this.romanticDrive, "romanticDrive", 1f, false);
+            Scribe_Collections.Look(ref this.knownSexualities, "knownSexualities", LookMode.Reference, LookMode.Value, ref this.knownSexualitiesWorkingKeys, ref this.knownSexualitiesWorkingValues);
         }
 
         private List<Pawn> knownSexualitiesWorkingKeys;

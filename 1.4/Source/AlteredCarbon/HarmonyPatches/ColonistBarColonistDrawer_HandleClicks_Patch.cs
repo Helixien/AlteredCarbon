@@ -6,7 +6,7 @@ using Verse;
 namespace AlteredCarbon
 {
     [HarmonyPatch(typeof(ColonistBarColonistDrawer), "HandleClicks")]
-    public static class ColonistBarColonistDrawer_HandleClicks_Patch
+    public static class HandleClicks_Patch
     {
         public static bool Prefix(Rect rect, Pawn colonist, int reorderableGroup, out bool reordering)
         {

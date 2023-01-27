@@ -57,6 +57,10 @@ namespace AlteredCarbon
             }
 
             ResetStackLimitIfNeeded(AC_DefOf.VFEU_FilledCorticalStack);
+            if (AC_DefOf.AC_FilledArchoStack != null)
+            {
+                ResetStackLimitIfNeeded(AC_DefOf.AC_FilledArchoStack);
+            }
         }
         public override void StartedNewGame()
         {
@@ -73,14 +77,14 @@ namespace AlteredCarbon
         {
             if (ModCompatibility.HelixienAlteredCarbonIsActive)
             {
-                if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is Hediff_CorticalStack hediff && stacksRelationships.TryGetValue(hediff.PersonaData.stackGroupID, out StacksData stackData))
+                if (pawn.HasCorticalStack(out Hediff_CorticalStack hediff) && stacksRelationships.TryGetValue(hediff.PersonaData.stackGroupID, out StacksData stackData))
                 {
                     if (stackData.originalPawn != null)
                     {
                         if (pawn != stackData.originalPawn)
                         {
-                            pawn.relations.AddDirectRelation(AC_DefOf.VFEU_Original, stackData.originalPawn);
-                            stackData.originalPawn.relations.AddDirectRelation(AC_DefOf.VFEU_Copy, pawn);
+                            pawn.relations.AddDirectRelation(AC_DefOf.AC_Original, stackData.originalPawn);
+                            stackData.originalPawn.relations.AddDirectRelation(AC_DefOf.AC_Copy, pawn);
                         }
                         else if (stackData.copiedPawns != null)
                         {
@@ -88,8 +92,8 @@ namespace AlteredCarbon
                             {
                                 if (pawn != copiedPawn)
                                 {
-                                    pawn.relations.AddDirectRelation(AC_DefOf.VFEU_Original, copiedPawn);
-                                    copiedPawn.relations.AddDirectRelation(AC_DefOf.VFEU_Copy, pawn);
+                                    pawn.relations.AddDirectRelation(AC_DefOf.AC_Original, copiedPawn);
+                                    copiedPawn.relations.AddDirectRelation(AC_DefOf.AC_Copy, pawn);
                                 }
                             }
                         }
@@ -100,8 +104,8 @@ namespace AlteredCarbon
                         {
                             if (pawn != copiedPawn)
                             {
-                                pawn.relations.AddDirectRelation(AC_DefOf.VFEU_Copy, copiedPawn);
-                                copiedPawn.relations.AddDirectRelation(AC_DefOf.VFEU_Copy, pawn);
+                                pawn.relations.AddDirectRelation(AC_DefOf.AC_Copy, copiedPawn);
+                                copiedPawn.relations.AddDirectRelation(AC_DefOf.AC_Copy, pawn);
                             }
                         }
                     }
@@ -118,8 +122,8 @@ namespace AlteredCarbon
                                 {
                                     if (pawn != copiedPawn)
                                     {
-                                        pawn.relations.AddDirectRelation(AC_DefOf.VFEU_Original, copiedPawn);
-                                        copiedPawn.relations.AddDirectRelation(AC_DefOf.VFEU_Copy, pawn);
+                                        pawn.relations.AddDirectRelation(AC_DefOf.AC_Original, copiedPawn);
+                                        copiedPawn.relations.AddDirectRelation(AC_DefOf.AC_Copy, pawn);
                                     }
                                 }
                             }
@@ -129,8 +133,8 @@ namespace AlteredCarbon
                                 {
                                     if (pawn == copiedPawn && stackGroup.Value.originalPawn != null)
                                     {
-                                        pawn.relations.AddDirectRelation(AC_DefOf.VFEU_Original, stackGroup.Value.originalPawn);
-                                        stackGroup.Value.originalPawn.relations.AddDirectRelation(AC_DefOf.VFEU_Copy, pawn);
+                                        pawn.relations.AddDirectRelation(AC_DefOf.AC_Original, stackGroup.Value.originalPawn);
+                                        stackGroup.Value.originalPawn.relations.AddDirectRelation(AC_DefOf.AC_Copy, pawn);
                                     }
                                 }
                             }
@@ -138,25 +142,25 @@ namespace AlteredCarbon
                     }
                 }
 
-                if (pawn.IsCopy())
+                if (pawn.IsCopy() && pawn.CanThink())
                 {
-                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_JustCopy);
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_JustCopy);
                     Pawn otherPawn = pawn.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Spouse);
                     if (pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Spouse, otherPawn))
                     {
-                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_LostMySpouse, otherPawn);
+                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_LostMySpouse, otherPawn);
                     }
 
                     otherPawn = pawn.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Fiance);
                     if (pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Fiance, otherPawn))
                     {
-                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_LostMyFiance, otherPawn);
+                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_LostMyFiance, otherPawn);
                     }
 
                     otherPawn = pawn.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Lover);
                     if (pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Lover, otherPawn))
                     {
-                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_LostMyLover, otherPawn);
+                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_LostMyLover, otherPawn);
                     }
                 }
             }
@@ -164,7 +168,7 @@ namespace AlteredCarbon
 
         public void ReplacePawnWithStack(Pawn pawn, CorticalStack stack)
         {
-            if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is Hediff_CorticalStack hediff)
+            if (pawn.HasCorticalStack(out Hediff_CorticalStack hediff))
             {
                 stack.PersonaData.stackGroupID = hediff.PersonaData.stackGroupID;
                 if (stacksRelationships.TryGetValue(hediff.PersonaData.stackGroupID, out StacksData stackData))
@@ -190,7 +194,7 @@ namespace AlteredCarbon
 
         public void ReplaceStackWithPawn(CorticalStack stack, Pawn pawn)
         {
-            if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is Hediff_CorticalStack hediff)
+            if (pawn.HasCorticalStack(out Hediff_CorticalStack hediff))
             {
                 hediff.PersonaData.stackGroupID = stack.PersonaData.stackGroupID;
                 if (stacksRelationships.TryGetValue(hediff.PersonaData.stackGroupID, out StacksData stackData))
@@ -238,7 +242,7 @@ namespace AlteredCarbon
 
         public void RegisterPawn(Pawn pawn)
         {
-            if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is Hediff_CorticalStack hediff)
+            if (pawn.HasCorticalStack(out Hediff_CorticalStack hediff))
             {
                 if (!stacksRelationships.ContainsKey(hediff.PersonaData.stackGroupID))
                 {
@@ -262,10 +266,12 @@ namespace AlteredCarbon
             }
         }
 
-        public void RegisterSleeve(Pawn pawn, int stackGroupID = -1)
+        public void RegisterSleeve(Pawn pawn, CorticalStack stack)
         {
             pawnsWithStacks.Remove(pawn);
             emptySleeves.Add(pawn);
+            StacksIndex[pawn.thingIDNumber] = stack;
+            var stackGroupID = stack.PersonaData.stackGroupID;
             if (stackGroupID != -1 && stacksRelationships.ContainsKey(stackGroupID))
             {
                 if (stacksRelationships[stackGroupID].deadPawns == null)
@@ -291,11 +297,11 @@ namespace AlteredCarbon
         {
             base.ExposeData();
             pawnsWithStacks.RemoveWhere(x => x is null || x.Destroyed);
-            Scribe_Collections.Look<int, CorticalStack>(ref stacksIndex, "stacksIndex", LookMode.Value, LookMode.Reference, ref pawnKeys, ref stacksValues);
-            Scribe_Collections.Look<Pawn>(ref pawnsWithStacks, "pawnsWithStacks", LookMode.Reference);
-            Scribe_Collections.Look<Pawn>(ref emptySleeves, "emptySleeves", LookMode.Reference);
-            Scribe_Collections.Look<Pawn>(ref deadPawns, saveDestroyedThings: true, "deadPawns", LookMode.Reference);
-            Scribe_Collections.Look<int, StacksData>(ref stacksRelationships, "stacksRelationships", LookMode.Value, LookMode.Deep, ref stacksRelationshipsKeys, ref stacksRelationshipsValues);
+            Scribe_Collections.Look(ref stacksIndex, "stacksIndex", LookMode.Value, LookMode.Reference, ref pawnKeys, ref stacksValues);
+            Scribe_Collections.Look(ref pawnsWithStacks, "pawnsWithStacks", LookMode.Reference);
+            Scribe_Collections.Look(ref emptySleeves, "emptySleeves", LookMode.Reference);
+            Scribe_Collections.Look(ref deadPawns, saveDestroyedThings: true, "deadPawns", LookMode.Reference);
+            Scribe_Collections.Look(ref stacksRelationships, "stacksRelationships", LookMode.Value, LookMode.Deep, ref stacksRelationshipsKeys, ref stacksRelationshipsValues);
             pawnsWithStacks.RemoveWhere(x => x is null || x.Destroyed);
             Instance = this;
         }

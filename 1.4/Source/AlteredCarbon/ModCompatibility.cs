@@ -130,6 +130,33 @@ namespace AlteredCarbon
 			return comp != null ? comp.RomanceFactor : -1f;
 		}
 
+		public static void CopyFacialFeatures(Pawn source, Pawn dest)
+		{
+			foreach (var comp in source.AllComps)
+			{
+				var type = comp.GetType();
+				if (type.Namespace == "FacialAnimation")
+				{
+                    var faceTypeField = Traverse.Create(comp).Field("faceType");
+                    if (faceTypeField != null && faceTypeField.FieldExists())
+					{
+						var colorTypeField = Traverse.Create(comp).Field("color");
+						foreach (var compDest in dest.AllComps)
+						{
+							if (compDest.GetType() == type)
+							{
+								var faceType = faceTypeField.GetValue();
+                                Traverse.Create(compDest).Field("faceType").SetValue(faceType);
+                                Traverse.Create(compDest).Field("color").SetValue(colorTypeField.GetValue());
+                                Traverse.Create(compDest).Field("pawn").SetValue(dest);
+                                Traverse.Create(compDest).Field("prevGender").SetValue(dest.gender);
+                                Traverse.Create(compDest).Field("prevFaceType").SetValue(faceType);
+                            }
+                        }
+					}
+				}
+			}
+		}
 		public static void SetSyrTraitsSexuality(Pawn pawn, int sexuality)
 		{
 			SyrTraits.CompIndividuality comp = ThingCompUtility.TryGetComp<SyrTraits.CompIndividuality>(pawn);
@@ -157,7 +184,7 @@ namespace AlteredCarbon
 				psychologyData.sexDrive = sexualityTracker.sexDrive;
 				psychologyData.romanticDrive = sexualityTracker.romanticDrive;
 				psychologyData.kinseyRating = sexualityTracker.kinseyRating;
-				psychologyData.knownSexualities = Traverse.Create(sexualityTracker).Field<Dictionary<Pawn, int>>("knownSexualities").Value;
+                psychologyData.knownSexualities = sexualityTracker.knownSexualities;
 				return psychologyData;
 			}
 			return null;
@@ -174,7 +201,7 @@ namespace AlteredCarbon
 					romanticDrive = psychologyData.romanticDrive,
 					kinseyRating = psychologyData.kinseyRating
 				};
-				Traverse.Create(sexualityTracker).Field<Dictionary<Pawn, int>>("knownSexualities").Value = psychologyData.knownSexualities;
+				sexualityTracker.knownSexualities = psychologyData.knownSexualities;
 				comp.Sexuality = sexualityTracker;
 			}
 		}
@@ -199,8 +226,14 @@ namespace AlteredCarbon
 				return DefDatabase<HairDef>.AllDefs.Where(x => x.styleTags.Intersect(allowedTags).Any()).ToList();
 			}
 		}
-
-		public static List<BodyTypeDef> GetAllowedBodyTypes(ThingDef raceDef)
+        public static List<HeadTypeDef> GetAllowedHeadTypes(ThingDef raceDef)
+        {
+            AlienRace.ThingDef_AlienRace alienRace = raceDef as AlienRace.ThingDef_AlienRace;
+            return alienRace.alienRace?.generalSettings?.alienPartGenerator?.headTypes?.Any() ?? false
+                ? alienRace.alienRace.generalSettings.alienPartGenerator.headTypes
+                : DefDatabase<HeadTypeDef>.AllDefsListForReading;
+        }
+        public static List<BodyTypeDef> GetAllowedBodyTypes(ThingDef raceDef)
 		{
 			AlienRace.ThingDef_AlienRace alienRace = raceDef as AlienRace.ThingDef_AlienRace;
 			return alienRace.alienRace?.generalSettings?.alienPartGenerator?.bodyTypes?.Any() ?? false
@@ -215,6 +248,7 @@ namespace AlteredCarbon
 		{
 			HelixienAlteredCarbonIsActive = ModsConfig.IsActive("Hlx.UltratechAlteredCarbon");
 			AlienRacesIsActive = ModsConfig.IsActive("erdelf.HumanoidAlienRaces");
+			FacialAnimationsIsActive = ModsConfig.IsActive("Nals.FacialAnimation");
 			IndividualityIsActive = ModLister.HasActiveModWithName("[SYR] Individuality");
 			PsychologyIsActive = ModsConfig.IsActive("Community.Psychology.UnofficialUpdate");
 			RimJobWorldIsActive = ModsConfig.IsActive("rim.job.world");
@@ -223,27 +257,34 @@ namespace AlteredCarbon
 				raceGroupDef_HelperType = AccessTools.TypeByName("RaceGroupDef_Helper");
 				tryGetRaceGroupDef = raceGroupDef_HelperType.GetMethods().FirstOrDefault(x => x.Name == "TryGetRaceGroupDef");
 			}
-			DubsBadHygieneActive = ModsConfig.IsActive("Dubwise.DubsBadHygiene");
+            DubsBadHygieneActive = ModsConfig.IsActive("Dubwise.DubsBadHygiene") || ModsConfig.IsActive("Dubwise.DubsBadHygiene.Lite");
+        }
+
+        public static void FillThirstNeed(Pawn pawn, float value)
+        {
+            FillNeed(pawn.needs?.TryGetNeed<DubsBadHygiene.Need_Thirst>(), value);
+        }
+
+        public static void FillHygieneNeed(Pawn pawn, float value)
+        {
+            FillNeed(pawn.needs?.TryGetNeed<DubsBadHygiene.Need_Hygiene>(), value);
 		}
 
-		public static void FillThirstNeed(Pawn pawn, float value)
-		{
-			DubsBadHygiene.Need_Thirst need = pawn.needs.TryGetNeed<DubsBadHygiene.Need_Thirst>();
-			if (need != null)
-			{
-				need.CurLevel += value;
-			}
-		}
-
-		public static void FillHygieneNeed(Pawn pawn, float value)
-		{
-			DubsBadHygiene.Need_Hygiene need = pawn.needs.TryGetNeed<DubsBadHygiene.Need_Hygiene>();
-			if (need != null)
-			{
-				need.CurLevel += value;
-			}
-		}
-		private static readonly MethodInfo tryGetRaceGroupDef;
+        public static void FillBladderNeed(Pawn pawn, float value)
+        {
+            FillNeed(pawn.needs?.TryGetNeed<DubsBadHygiene.Need_Bladder>(), value);
+        }
+        private static void FillNeed(Need need, float value)
+        {
+            if (need != null)
+            {
+                if (need.MaxLevel < need.CurLevel)
+                {
+                    need.CurLevel += value;
+                }
+            }
+        }
+        private static readonly MethodInfo tryGetRaceGroupDef;
 		private static readonly Type raceGroupDef_HelperType;
 		public static bool RJWAllowsThisFor(this HediffDef hediffDef, Pawn pawn)
 		{
@@ -431,8 +472,9 @@ namespace AlteredCarbon
 			}
 		}
 
-		public static bool AlienRacesIsActive;
-		public static bool IndividualityIsActive;
+        public static bool FacialAnimationsIsActive;
+        public static bool AlienRacesIsActive;
+        public static bool IndividualityIsActive;
 		public static bool PsychologyIsActive;
 		public static bool RimJobWorldIsActive;
 		public static bool DubsBadHygieneActive;

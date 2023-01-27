@@ -13,7 +13,7 @@ namespace AlteredCarbon
         }
         public override IEnumerable<Toil> MakeNewToils()
         {
-            this.FailOn(() => !Building_StackStorage.Powered);
+            this.FailOn(() => !Building_StackStorage.Powered || GameComponent_DigitalStorage.Instance.FirstPersonaStackToRestore is null);
             yield return Toils_Goto.GotoThing(TargetIndex.B, PathEndMode.ClosestTouch).FailOnDespawnedNullOrForbidden(TargetIndex.B)
                 .FailOnSomeonePhysicallyInteracting(TargetIndex.B);
             yield return Toils_Haul.StartCarryThing(TargetIndex.B);
@@ -30,7 +30,7 @@ namespace AlteredCarbon
             {
                 initAction = delegate ()
                 {
-                    Building_StackStorage.PerformStackRestoration(pawn);
+                    GameComponent_DigitalStorage.Instance.PerformStackRestoration(pawn);
                     job.targetB.Thing.Destroy();
                 }
             };

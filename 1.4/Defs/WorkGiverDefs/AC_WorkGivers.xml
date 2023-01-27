@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<WorkGiverDef>
+		<defName>VFEU_DoBillsDecryptionBench</defName>
+		<label>hack stacks</label>
+		<giverClass>WorkGiver_DoBill</giverClass>
+		<workType>Research</workType>
+		<priorityInType>50</priorityInType>
+		<fixedBillGiverDefs>
+			<li>VFEU_DecryptionBench</li>
+		</fixedBillGiverDefs>
+		<verb>hacking stacks</verb>
+		<gerund>hacking stacks at</gerund>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+		<prioritizeSustains>true</prioritizeSustains>
+	</WorkGiverDef>
+
+	<WorkGiverDef>
+		<defName>VFEU_DuplicateStacks</defName>
+		<label>duplicate stacks</label>
+		<giverClass>AlteredCarbon.WorkGiver_DuplicateStacks</giverClass>
+		<workType>Research</workType>
+		<verb>duplicate</verb>
+		<gerund>duplicating</gerund>
+		<priorityInType>999</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+
+	<WorkGiverDef>
+		<defName>VFEU_HaulStacksToStorage</defName>
+		<label>haul stacks</label>
+		<giverClass>AlteredCarbon.WorkGiver_HaulStacks</giverClass>
+		<workType>Hauling</workType>
+		<verb>bank</verb>
+		<gerund>banking</gerund>
+		<priorityInType>1000</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+	
+	<WorkGiverDef>
+		<defName>VFEU_CreateStackFromBackup</defName>
+		<label>restore stack from backup</label>
+		<giverClass>AlteredCarbon.WorkGiver_CreateStackFromBackup</giverClass>
+		<workType>Research</workType>
+		<verb>restore stack from backup</verb>
+		<gerund>restoring stack from backup</gerund>
+		<priorityInType>999</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+</Defs>

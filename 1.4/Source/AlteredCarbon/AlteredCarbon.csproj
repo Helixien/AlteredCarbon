@@ -19,7 +19,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Standalone\Assemblies\</OutputPath>
+    <OutputPath>..\..\LoadFolders\Standalone\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -42,15 +42,15 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Psychology">
-      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\2016263135\1.3\Assemblies\Psychology.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\2016263135\1.4\Assemblies\Psychology.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="RJW">
-      <HintPath>..\..\..\..\rjw-master\1.3\Assemblies\RJW.dll</HintPath>
+      <HintPath>..\..\..\..\rjw-master\1.4\Assemblies\RJW.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SyrTraits">
-      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\1497105115\1.2\Assemblies\SyrTraits.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\1497105115\1.4\Assemblies\SyrTraits.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Core" />
@@ -66,36 +66,48 @@
   <ItemGroup>
     <Compile Include="Buildings\Building_DecryptionBench.cs" />
     <Compile Include="Buildings\Building_Incubator.cs" />
+    <Compile Include="HarmonyPatches\Building_GeneExtractor_CanAcceptPawn_Patch.cs" />
     <Compile Include="HarmonyPatches\ChildcareUtility_SwaddleBaby_Patch.cs" />
     <Compile Include="HarmonyPatches\ColonistBarColonistDrawer_HandleClicks_Patch.cs" />
     <Compile Include="HarmonyPatches\BedPatches\CompAssignableToPawn_PlayerCanSeeAssignments_Patch.cs" />
+    <Compile Include="HarmonyPatches\Corpse_Destroy_Patch.cs" />
     <Compile Include="HarmonyPatches\Faction_Notify_LeaderDied_Patch.cs" />
     <Compile Include="HarmonyPatches\BedPatches\FeedPatientUtility_ShouldBeFed_Patch.cs" />
     <Compile Include="HarmonyPatches\Fire_DoFireDamage_Patch.cs" />
+    <Compile Include="HarmonyPatches\HediffComp_DissolveGearOnDeath_Notify_PawnDied_Patch.cs" />
     <Compile Include="HarmonyPatches\Hediff_PostAdd_Patch.cs" />
+    <Compile Include="HarmonyPatches\Hediff_Psylink_TryGiveAbilityOfLevel_Patch.cs" />
+    <Compile Include="HarmonyPatches\Ideo_Notify_MemberDied_Patch.cs" />
     <Compile Include="HarmonyPatches\Ideo_RecacheColonistBelieverCount_Patch.cs" />
     <Compile Include="HarmonyPatches\ITab_Pawn_Character_PawnToShowInfoAbout_Patch.cs" />
+    <Compile Include="HarmonyPatches\LetterStack_ReceiveLetter_Patch.cs" />
     <Compile Include="HarmonyPatches\LookTargets_Patch.cs" />
     <Compile Include="HarmonyPatches\BestowingPatches\LordJob_BestowingCeremony_FinishCeremony_Patch.cs" />
-    <Compile Include="HarmonyPatches\MapDeiniter_PassPawnsToWorld_Patch.cs" />
     <Compile Include="HarmonyPatches\Messages_Message_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnDiedOrDownedThoughtsUtility_AppendThoughts_ForHumanlike_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnDiedOrDownedThoughtsUtility_AppendThoughts_Relations_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnDiedOrDownedThoughtsUtility_TryGiveThoughts_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnNameColorUtility_PawnNameColorOf_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnsFinder_AllMapsCaravansAndTravelingTransportPods_Alive_FreeColonists_NoCryptosleep_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_Destroy_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_Kill_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_NeedsTracker_ShouldHaveNeed_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_RoyaltyTracker_Notify_PawnKilled_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_SpawnSetup_Patch.cs" />
     <Compile Include="HarmonyPatches\BillPatches\RecipeDef_AvailableOnNow_Patch.cs" />
     <Compile Include="HarmonyPatches\BedPatches\RestUtility_IsValidBedFor_Patch.cs" />
-    <Compile Include="HarmonyPatches\BedPatches\RestUtility_Reset_Patch.cs" />
+    <Compile Include="HarmonyPatches\BedPatches\RestUtility_FindBedFor_Patch.cs" />
     <Compile Include="HarmonyPatches\BestowingPatches\Reward_BestowingCeremony_StackElements_Patch.cs" />
+    <Compile Include="HarmonyPatches\PregnancyUtility_ApplyBirthOutcome_Patch.cs" />
+    <Compile Include="HarmonyPatches\RitualObligationTrigger_MemberDied_Notify_MemberDied_Patch.cs" />
     <Compile Include="HarmonyPatches\SocialCardUtility_GetPawnSituationLabel_Patch.cs" />
     <Compile Include="HarmonyPatches\StatsRecord_Notify_ColonistKilled_Patch.cs" />
+    <Compile Include="Stacks\Ability_ArchoStackSkip.cs" />
+    <Compile Include="Stacks\ScenPart_CorticalStack.cs" />
     <Compile Include="UI\Dialog_PresetList.cs" />
     <Compile Include="UI\Dialog_SelectXenogermForSleeve.cs" />
+    <Compile Include="UI\GeneUtility.cs" />
     <Compile Include="UI\HotSwappableAttribute.cs" />
     <Compile Include="UI\Window_BodyPartPicker.cs" />
     <Compile Include="Designators\Designator_ExtractStack.cs" />
@@ -160,15 +172,16 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Krafs.Publicizer">
-      <Version>2.0.1</Version>
+      <Version>2.1.0</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Krafs.Rimworld.Ref">
-      <Version>1.4.3525</Version>
+      <Version>1.4.3580</Version>
     </PackageReference>
     <PackageReference Include="Lib.Harmony">
       <Version>2.2.2</Version>
+      <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <Publicize Include="Assembly-CSharp" />
   </ItemGroup>

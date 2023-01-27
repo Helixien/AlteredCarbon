@@ -77,7 +77,7 @@ namespace AlteredCarbon
                     IntVec3 loc = CellFinder.RandomClosewalkCellNear(parms.spawnCenter, map, 8);
                     GenSpawn.Spawn(item, loc, map, parms.spawnRotation);
 
-                    item.mindState.duty = new PawnDuty(AC_Extra_DefOf.VFEU_TakeStacks, stacks.RandomElement().Position);
+                    item.mindState.duty = new PawnDuty(AC_Extra_DefOf.AC_TakeStacks, stacks.RandomElement().Position);
                 }
                 list.AddRange(temp);
             }

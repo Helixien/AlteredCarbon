@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<Operation Class="PatchOperationSequence">
+		<operations>
+			<!-- ================================ Spawn Pawns with Stacks ====================== -->
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="Empire_Common_Trader" or defName="Empire_Fighter_Trooper" or defName="Empire_Fighter_Janissary"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<SpawnsWithStack>true</SpawnsWithStack>
+						<ChanceToSpawnWithStack>20</ChanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="Empire_Fighter_Champion"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<SpawnsWithStack>true</SpawnsWithStack>
+						<ChanceToSpawnWithStack>25</ChanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="Empire_Fighter_Cataphract"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<SpawnsWithStack>true</SpawnsWithStack>
+						<ChanceToSpawnWithStack>40</ChanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="Empire_Fighter_StellicGuardRanged" or defName="Empire_Fighter_StellicGuardMelee"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<SpawnsWithStack>true</SpawnsWithStack>
+						<ChanceToSpawnWithStack>50</ChanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="Empire_Royal_Yeoman" or defName="Empire_Royal_Esquire"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<SpawnsWithStack>true</SpawnsWithStack>
+						<ChanceToSpawnWithStack>25</ChanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="Empire_Royal_Knight" or defName="Empire_Royal_Praetor"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<SpawnsWithStack>true</SpawnsWithStack>
+						<ChanceToSpawnWithStack>40</ChanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="Empire_Royal_Baron" or defName="Empire_Royal_Count"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<SpawnsWithStack>true</SpawnsWithStack>
+						<ChanceToSpawnWithStack>70</ChanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="Empire_Royal_Duke"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<SpawnsWithStack>true</SpawnsWithStack>
+						<ChanceToSpawnWithStack>85</ChanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="Empire_Royal_Consul" or defName="Empire_Royal_Stellarch"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<SpawnsWithStack>true</SpawnsWithStack>
+						<ChanceToSpawnWithStack>100</ChanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<!-- ================================ Add Stacks to Deserter Quest ====================== -->
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/QuestScriptDef[defName="Intro_Deserter"]/root[@Class="QuestNode_Sequence"]/nodes/li[@Class="QuestNode_SetItemStashContents"]/items</xpath>
+				<value>
+					<li>VFEU_EmptyCorticalStack</li>
+					<li>VFEU_EmptyCorticalStack</li>
+				</value>
+			</li>
+			<!-- ================================ Add Stacks to traders ====================== -->
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Empire_Caravan_TributeCollector"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_BuySingleDef">
+						<thingDef>VFEU_EmptyCorticalStack</thingDef>
+					</li>
+					<li Class="StockGenerator_BuySingleDef">
+						<thingDef>AC_EmptyArchoStack</thingDef>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Empire_Caravan_TraderGeneral"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_BuySingleDef">
+						<thingDef>VFEU_EmptyCorticalStack</thingDef>
+					</li>
+					<li Class="StockGenerator_BuySingleDef">
+						<thingDef>AC_EmptyArchoStack</thingDef>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Orbital_Empire"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_BuySingleDef">
+						<thingDef>VFEU_EmptyCorticalStack</thingDef>
+					</li>
+					<li Class="StockGenerator_BuySingleDef">
+						<thingDef>AC_EmptyArchoStack</thingDef>
+					</li>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+</Patch>

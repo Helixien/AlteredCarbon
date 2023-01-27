@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<JobDef>
+		<defName>VFEU_ExtractStack</defName>
+		<driverClass>AlteredCarbon.JobDriver_ExtractStack</driverClass>
+		<reportString>extracts cortical stack from target</reportString>
+	</JobDef>
+	<JobDef>
+		<defName>VFEU_ReleaseSleeve</defName>
+		<driverClass>AlteredCarbon.JobDriver_ReleaseSleeve</driverClass>
+		<reportString>releasing sleeve</reportString>
+	</JobDef>
+	<JobDef>
+		<defName>VFEU_StartIncubatingProcess</defName>
+		<driverClass>AlteredCarbon.JobDriver_StartIncubatingProcess</driverClass>
+		<reportString>starting growth process on incubator</reportString>
+	</JobDef>
+	<JobDef>
+		<defName>VFEU_CancelIncubatingProcess</defName>
+		<driverClass>AlteredCarbon.JobDriver_CancelIncubatingProcess</driverClass>
+		<reportString>canceling growth process on incubator</reportString>
+	</JobDef>
+</Defs>

@@ -16,11 +16,11 @@ namespace AlteredCarbon
         public List<Pawn> deadPawns;
         public void ExposeData()
         {
-            Scribe_References.Look<Pawn>(ref originalPawn, "originalPawn", true);
-            Scribe_References.Look<CorticalStack>(ref originalStack, "originalStack", true);
-            Scribe_Collections.Look<Pawn>(ref copiedPawns, saveDestroyedThings: true, "copiedPawns", LookMode.Reference);
-            Scribe_Collections.Look<CorticalStack>(ref copiedStacks, "copiedStacks", LookMode.Reference);
-            Scribe_Collections.Look<Pawn>(ref deadPawns, saveDestroyedThings: true, "deadPawns", LookMode.Reference);
+            Scribe_References.Look(ref originalPawn, "originalPawn", true);
+            Scribe_References.Look(ref originalStack, "originalStack", true);
+            Scribe_Collections.Look(ref copiedPawns, saveDestroyedThings: true, "copiedPawns", LookMode.Reference);
+            Scribe_Collections.Look(ref copiedStacks, "copiedStacks", LookMode.Reference);
+            Scribe_Collections.Look(ref deadPawns, saveDestroyedThings: true, "deadPawns", LookMode.Reference);
 
         }
     }

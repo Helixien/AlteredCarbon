@@ -13,16 +13,16 @@ namespace AlteredCarbon
     {
         private static void Postfix(Pawn_HealthTracker __instance, Pawn ___pawn, DamageInfo? dinfo, Hediff hediff)
         {
-            if (!___pawn.health.hediffSet.GetNotMissingParts().Any(x => x.def == BodyPartDefOf.Neck))
+            if (!___pawn.health.hediffSet.GetNotMissingParts().Any(x => x.def == BodyPartDefOf.Neck) && ___pawn.HasCorticalStack(out var stackHediff))
             {
-                var stackHediff = ___pawn.health.hediffSet.hediffs.FirstOrDefault((Hediff x) => x.def == AC_DefOf.VFEU_CorticalStack) as Hediff_CorticalStack;
-                if (stackHediff != null)
+                if (Rand.Chance(0.25f))
                 {
-                    stackHediff.TryRecoverOrSpawnOnGround();
-                    if (!___pawn.Dead)
-                    {
-                        ___pawn.Kill(null);
-                    }
+                    StatsRecord_Notify_ColonistKilled_Patch.disableKilledEffect = true;
+                    stackHediff.SpawnStack();
+                }
+                if (!___pawn.Dead)
+                {
+                    ___pawn.Kill(null);
                 }
             }
         }

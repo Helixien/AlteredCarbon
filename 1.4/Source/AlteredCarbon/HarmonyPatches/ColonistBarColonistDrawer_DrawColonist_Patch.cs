@@ -10,13 +10,12 @@ namespace AlteredCarbon
 
     [HarmonyPatch(typeof(ColonistBarColonistDrawer), "DrawColonist")]
     [StaticConstructorOnStartup]
-    public static class ColonistBarColonistDrawer_DrawColonist_Patch
+    public static class DrawColonist_Patch
     {
         private static readonly Texture2D Icon_StackDead = ContentFinder<Texture2D>.Get("UI/Icons/StackDead");
 
         public static bool Prefix(ColonistBarColonistDrawer __instance, Rect rect, Pawn colonist, Map pawnMap, bool highlight, bool reordering,
-            Dictionary<string, string> ___pawnLabelsCache, Vector2 ___PawnTextureSize,
-            Texture2D ___MoodBGTex)
+            Dictionary<string, string> ___pawnLabelsCache, Vector2 ___PawnTextureSize, Texture2D ___MoodBGTex)
         {
             if (colonist.Dead && colonist.HasStack())
             {

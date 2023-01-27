@@ -40,7 +40,7 @@ namespace AlteredCarbon
                     skillRecord.passion = (Passion)Rand.RangeInclusive(1, 2);
                 }
                 var corticalStack = ThingMaker.MakeThing(AC_DefOf.VFEU_FilledCorticalStack) as CorticalStack;
-                corticalStack.PersonaData.CopyPawn(pawn);
+                corticalStack.PersonaData.CopyFromPawn(pawn, AC_DefOf.VFEU_FilledCorticalStack);
                 corticalStack.PersonaData.gender = pawn.gender;
                 corticalStack.PersonaData.race = pawn.kindDef.race;
                 corticalStack.PersonaData.stackGroupID = AlteredCarbonManager.Instance.GetStackGroupID(corticalStack);
@@ -107,8 +107,14 @@ namespace AlteredCarbon
         {
             if (proj != null)
             {
-                FieldInfo fieldInfo = AccessTools.Field(typeof(ResearchManager), "progress");
-                Dictionary<ResearchProjectDef, float> dictionary = fieldInfo.GetValue(Find.ResearchManager) as Dictionary<ResearchProjectDef, float>;
+                var prevProj = Find.ResearchManager.currentProj;
+                var prerequisites = GetNonFinishedPrerequisites(proj).ToList();
+                foreach (var prerequisite in prerequisites)
+                {
+                    Find.ResearchManager.currentProj = prerequisite;
+                    Find.ResearchManager.FinishProject(prerequisite, doCompletionDialog: false);
+                }
+                Dictionary<ResearchProjectDef, float> dictionary = Find.ResearchManager.progress;
                 if (dictionary.ContainsKey(proj))
                 {
                     dictionary[proj] += (proj.baseCost - Find.ResearchManager.GetProgress(proj)) * researchProgressMultiplier;
@@ -119,10 +125,33 @@ namespace AlteredCarbon
                 }
                 if (proj.IsFinished)
                 {
-                    var prevProj = Find.ResearchManager.currentProj;
                     Find.ResearchManager.currentProj = proj;
                     Find.ResearchManager.FinishProject(proj, doCompletionDialog: true);
-                    Find.ResearchManager.currentProj =  prevProj;
+                }
+                Find.ResearchManager.currentProj = prevProj;
+            }
+        }
+
+        private IEnumerable<ResearchProjectDef> GetNonFinishedPrerequisites(ResearchProjectDef proj)
+        {
+            if (proj.prerequisites != null)
+            {
+                for (int i = 0; i < proj.prerequisites.Count; i++)
+                {
+                    if (!proj.prerequisites[i].IsFinished)
+                    {
+                        yield return proj.prerequisites[i];
+                    }
+                }
+            }
+            if (proj.hiddenPrerequisites != null)
+            {
+                for (int j = 0; j < proj.hiddenPrerequisites.Count; j++)
+                {
+                    if (!proj.hiddenPrerequisites[j].IsFinished)
+                    {
+                        yield return proj.hiddenPrerequisites[j];
+                    }
                 }
             }
         }

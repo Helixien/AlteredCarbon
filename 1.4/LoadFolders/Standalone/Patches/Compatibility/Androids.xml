@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Androids</li>
+		</mods>
+		<success>Always</success>
+		<match Class="PatchOperationSequence">
+			<success>Always</success>
+			<operations>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName='ChjAndroid']/modExtensions</xpath>
+					<order>Append</order>
+					<value>
+						<li Class="AlteredCarbon.ExcludeRacesModExtension">
+							<canBeGrown>false</canBeGrown>
+							<acceptsStacks>false</acceptsStacks>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName='ChjDroid']/modExtensions</xpath>
+					<order>Append</order>
+					<value>
+						<li Class="AlteredCarbon.ExcludeRacesModExtension">
+							<canBeGrown>false</canBeGrown>
+							<acceptsStacks>false</acceptsStacks>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName='ChjBattleDroid']/modExtensions</xpath>
+					<order>Append</order>
+					<value>
+						<li Class="AlteredCarbon.ExcludeRacesModExtension">
+							<canBeGrown>false</canBeGrown>
+							<acceptsStacks>false</acceptsStacks>
+						</li>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Androids Expanded</li>
+		</mods>
+		<success>Always</success>
+		<match Class="PatchOperationSequence">
+			<success>Always</success>
+			<operations>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName='NMedicDrone']/modExtensions</xpath>
+					<order>Append</order>
+					<value>
+						<li Class="AlteredCarbon.ExcludeRacesModExtension">
+							<canBeGrown>false</canBeGrown>
+							<acceptsStacks>false</acceptsStacks>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName='NEngiDrone']/modExtensions</xpath>
+					<order>Append</order>
+					<value>
+						<li Class="AlteredCarbon.ExcludeRacesModExtension">
+							<canBeGrown>false</canBeGrown>
+							<acceptsStacks>false</acceptsStacks>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName='NChefDrone']/modExtensions</xpath>
+					<order>Append</order>
+					<value>
+						<li Class="AlteredCarbon.ExcludeRacesModExtension">
+							<canBeGrown>false</canBeGrown>
+							<acceptsStacks>false</acceptsStacks>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName='ChjSpacerDroid']/modExtensions</xpath>
+					<order>Append</order>
+					<value>
+						<li Class="AlteredCarbon.ExcludeRacesModExtension">
+							<canBeGrown>false</canBeGrown>
+							<acceptsStacks>false</acceptsStacks>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName='ChjSpacerBattleDroid']/modExtensions</xpath>
+					<order>Append</order>
+					<value>
+						<li Class="AlteredCarbon.ExcludeRacesModExtension">
+							<canBeGrown>false</canBeGrown>
+							<acceptsStacks>false</acceptsStacks>
+						</li>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+</Patch>
