@@ -73,8 +73,8 @@ namespace AlteredCarbon
             {
                 yield return new Command_Action
                 {
-                    defaultLabel = "AC.EditStack".Translate(),
-                    defaultDesc = "AC.EdicStackDesc".Translate(),
+                    defaultLabel = "AC.RewriteStack".Translate(),
+                    defaultDesc = "AC.RewriteStackDesc".Translate(),
                     icon = ContentFinder<Texture2D>.Get("UI/Icons/EditStack"),
                     action = delegate ()
                     {

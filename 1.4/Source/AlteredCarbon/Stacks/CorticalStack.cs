@@ -13,6 +13,8 @@ namespace AlteredCarbon
     {
         public static HashSet<CorticalStack> corticalStacks = new HashSet<CorticalStack>();
 
+        public PersonaData personaDataRewritten;
+
         private PersonaData personaData;
         public PersonaData PersonaData
         {
@@ -315,15 +317,14 @@ namespace AlteredCarbon
                 {
                     stringBuilder.AppendLineTagged("AC.Race".Translate() + ": " + PersonaData.race.LabelCap);
                 }
-                if (PersonaData.childhood?.Length > 0
-                    && DefDatabase<BackstoryDef>.GetNamedSilentFail(PersonaData.childhood) is BackstoryDef childhood)
+                if (PersonaData.childhood != null)
                 {
-                    stringBuilder.Append("AC.Childhood".Translate() + ": " + childhood.title.CapitalizeFirst() + "\n");
+                    stringBuilder.Append("AC.Childhood".Translate() + ": " + PersonaData.childhood.title.CapitalizeFirst() + "\n");
                 }
 
-                if (PersonaData.adulthood?.Length > 0 && DefDatabase<BackstoryDef>.GetNamedSilentFail(PersonaData.adulthood) is BackstoryDef adulthood)
+                if (PersonaData.adulthood != null)
                 {
-                    stringBuilder.Append("AC.Adulthood".Translate() + ": " + adulthood.title.CapitalizeFirst() + "\n");
+                    stringBuilder.Append("AC.Adulthood".Translate() + ": " + PersonaData.adulthood.title.CapitalizeFirst() + "\n");
                 }
                 stringBuilder.Append("AC.AgeChronologicalTicks".Translate() + ": " + (int)(PersonaData.ageChronologicalTicks / 3600000) + "\n");
                 stringBuilder.Append("Gender".Translate() + ": " + PersonaData.gender.GetLabel().CapitalizeFirst() + "\n");
@@ -410,8 +411,7 @@ namespace AlteredCarbon
         {
             base.ExposeData();
             Scribe_Deep.Look(ref personaData, "personaData");
+            Scribe_Deep.Look(ref personaDataRewritten, "personaDataRewritten");
         }
-
-
     }
 }

@@ -23,6 +23,10 @@ namespace AlteredCarbon
         public static Texture2D ChangeColor = ContentFinder<Texture2D>.Get("UI/Commands/ChangeColor");
         public static Texture2D RotateSleeve = ContentFinder<Texture2D>.Get("UI/Icons/RotateSleeve");
         public static Texture2D RandomizeSleeve = ContentFinder<Texture2D>.Get("UI/Icons/RandomizeSleeve");
+        public static Texture2D FilterAtlas = ContentFinder<Texture2D>.Get("UI/Icons/FilterAtlas");
+        public static Texture2D DropdownIndicator = ContentFinder<Texture2D>.Get("UI/Icons/DropdownIndicator");
+        public static Color ColorText = new Color(0.80f, 0.80f, 0.80f);
+        public static Color ColorButtonHighlight = new Color(0.97647f, 0.97647f, 0.97647f);
         public static void DoColorButtons<T>(ref Vector2 pos, string label, List<T> colors, 
             Func<T, Color> colorGetter, Action<T> selectAction)
         {
@@ -50,7 +54,9 @@ namespace AlteredCarbon
             }
         }
 
-        public static void DoSelectionButtons<T>(ref Vector2 pos, string label, ref int index, Func<T, string> labelGetter, List<T> list, Action<T> selectAction)
+        public static void DoSelectionButtons<T>(ref Vector2 pos, string label, ref int index, Func<T, string> labelGetter, List<T> list,
+            Action<T> selectAction, float? buttonOffsetFromTextOverride = null, float? labelWidthOverride = null,
+            Func<T, bool> filter = null, bool includeInfoCard = true, Func<T, string> tooltipGetter = null, List<Func<T, (string, bool)>> filters = null)
         {
             if (list.Any())
             {
@@ -59,9 +65,10 @@ namespace AlteredCarbon
                     index = 0;
                 }
                 Text.Anchor = TextAnchor.MiddleLeft;
-                Rect labelRect = GetLabelRect(label + ":", ref pos);
+                Rect labelRect = GetLabelRect(label + ":", ref pos, labelWidthOverride);
                 Widgets.Label(labelRect, label + ":");
-                Rect highlightRect = new Rect(labelRect.xMax + buttonOffsetFromText, labelRect.y, (buttonWidth * 2) + buttonOffsetFromButton, buttonHeight);
+                var buttonOffset = buttonOffsetFromTextOverride.HasValue ? buttonOffsetFromTextOverride.Value : buttonOffsetFromText;
+                Rect highlightRect = new Rect(labelRect.xMax + buttonOffset, labelRect.y, (buttonWidth * 2) + buttonOffsetFromButton, buttonHeight);
                 Widgets.DrawHighlight(highlightRect);
                 Rect leftSelectRect = new Rect(highlightRect.x + 2, highlightRect.y, highlightRect.height, highlightRect.height);
                 if (ButtonTextSubtleCentered(leftSelectRect, "<"))
@@ -81,10 +88,8 @@ namespace AlteredCarbon
                 if (ButtonTextSubtleCentered(centerButtonRect, labelGetter(list[index])))
                 {
                     SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
-                    FloatMenuUtility.MakeMenu<T>(list, x => labelGetter(x), (T x) => delegate
-                    {
-                        selectAction(x);
-                    });
+                    Find.WindowStack.Add(new Window_SelectItem<T>(list[index], list, selectAction, labelGetter: labelGetter, 
+                        tooltipGetter: tooltipGetter, filters: filters, includeInfoCard: includeInfoCard));
                 }
                 Rect rightButtonRect = new Rect(centerButtonRect.xMax + 2, leftSelectRect.y, leftSelectRect.width, leftSelectRect.height);
                 if (ButtonTextSubtleCentered(rightButtonRect, ">"))

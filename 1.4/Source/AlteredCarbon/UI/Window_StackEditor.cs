@@ -5,115 +5,142 @@ using RimWorld;
 using UnityEngine;
 using Verse;
 using Verse.Sound;
+using static AlteredCarbon.UIHelper;
 
 namespace AlteredCarbon
 {
-    //TODO: clean up code
-    //TODO: add translations
-    //TODO: move this to AC_E
     [StaticConstructorOnStartup]
     [HotSwappable]
     public class Window_StackEditor : Window
     {
         private Building_DecryptionBench decryptionBench;
         private CorticalStack corticalStack;
+        private PersonaData personaData;
+        private int backstoryChildIndex;
+        private int backstoryAdultIndex;
+        private float LeftPanelWidth => 450;
+        private List<BackstoryDef> allChildhoodBackstories;
+        public override Vector2 InitialSize => new Vector2(900, 1000);
 
         public Window_StackEditor(Building_DecryptionBench decryptionBench, CorticalStack corticalStack)
         {
             this.decryptionBench = decryptionBench;
             this.corticalStack = corticalStack;
-            this.backstoryChildIndex = DefDatabase<BackstoryDef>.AllDefsListForReading
-                .Where(x => x.slot == BackstorySlot.Childhood).ToList()
-                .FindIndex(x => x.defName == this.corticalStack.PersonaData.childhood);
+            corticalStack.personaDataRewritten = new PersonaData();
+            corticalStack.personaDataRewritten.CopyDataFrom(corticalStack.PersonaData);
+            personaData = corticalStack.personaDataRewritten;
+            this.allChildhoodBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading
+                .Where(x => x.slot == BackstorySlot.Childhood).ToList();
+            this.backstoryChildIndex = allChildhoodBackstories
+                .FindIndex(x => x == personaData.childhood);
 
-            if (!corticalStack.PersonaData.adulthood.NullOrEmpty())
+            if (personaData.adulthood != null)
             {
                 this.backstoryAdultIndex = DefDatabase<BackstoryDef>.AllDefsListForReading
                     .Where(x => x.slot == BackstorySlot.Adulthood).ToList()
-                    .FindIndex(x => x.defName == this.corticalStack.PersonaData.adulthood);
-            }
-            
-            this.traitsList = new List<Trait>();
-            foreach (Trait trait in corticalStack.PersonaData.traits)
-            {
-                Trait x = new Trait(trait.def, trait.degree)
-                {
-                    pawn = corticalStack.PersonaData.GetDummyPawn
-                };
-                this.traitsList.Add(x);
-            }
-            
-            
-            this.ideo = corticalStack.PersonaData.ideo;
-            this.faction = corticalStack.PersonaData.faction;
-            
-            this.skills = new List<SkillRecord>();
-            foreach (SkillRecord skill in corticalStack.PersonaData.skills)
-            {
-                SkillRecord newSkill = new SkillRecord(corticalStack.PersonaData.GetDummyPawn, skill.def)
-                {
-                    passion = skill.passion,
-                    levelInt = skill.levelInt,
-                    xpSinceLastLevel = skill.xpSinceLastLevel,
-                    xpSinceMidnight = skill.xpSinceMidnight
-                };
-                this.skills.Add(newSkill);
+                    .FindIndex(x => x == personaData.adulthood);
             }
         }
 
-        public override Vector2 InitialSize
-        {
-            get { return new Vector2(768f, 768f); }
-        }
 
-        private int backstoryChildIndex;
-        private int? backstoryAdultIndex = null;
-        private List<Trait> traitsList;
-        private Ideo ideo;
-        private Faction faction;
-        private List<SkillRecord> skills;
-
-        // public Vector2 Margin = new Vector2(10f, 3f);
-        // public float custMargin = 20f;
-        
         private Vector2 scrollPos;
         public override void DoWindowContents(Rect inRect)
         {
-            Text.Font = GameFont.Medium;
-            Rect rect3 = new Rect(inRect.x, inRect.y, inRect.width, Text.LineHeight);
-            Text.Anchor = TextAnchor.MiddleCenter;
-            // Widgets.Label(rect3, "ACE.EditStack".Translate());
-            Widgets.Label(rect3, "Edit Cortical Stack");
-
+            Vector2 pos = new Vector2(inRect.x + Margin, inRect.y);
+            DrawTitle(ref pos, inRect);
+            DrawBackstoryPanel(ref pos, inRect);
+            //DrawSkillsPanel(ref inRect);
+            //DrawTraitsPanel(ref inRect);
+            ////TODO: ideo panel
+            //DrawIdeoPanel(ref inRect);
+            ////TODO: faction panel
+            //DrawFactionPanel(ref inRect);
+            ////TODO: shadow tutorial panel
+            //DrawTutorialPanel(ref inRect);
+            ////TODO: editing time panel
+            //DrawTimePanel(ref inRect);
+            ////TODO: accept/cancel buttons
+            //DrawAcceptCancelButtons(ref inRect);
             Text.Anchor = TextAnchor.UpperLeft;
-            inRect.y += Text.LineHeight * 1.2f;
             Text.Font = GameFont.Small;
-            // Widgets.DrawBoxSolidWithOutline(inRect, Color.black, Color.blue, 1);
-
-            DrawSkillsPanel(ref inRect);
-
-            DrawBackstoryPanel(ref inRect);
-            
-            
-            
-            DrawTraitsPanel(ref inRect);
-            //TODO: ideo panel
-            DrawIdeoPanel(ref inRect);
-            //TODO: faction panel
-            DrawFactionPanel(ref inRect);
-            
-            
-            //TODO: shadow tutorial panel
-            DrawTutorialPanel(ref inRect);
-            
-            //TODO: editing time panel
-            DrawTimePanel(ref inRect);
-            
-            
-            
-            //TODO: accept/cancel buttons
-            DrawAcceptCancelButtons(ref inRect);
         }
+
+        protected void DrawTitle(ref Vector2 pos, Rect inRect)
+        {
+            Text.Font = GameFont.Medium;
+            Text.Anchor = TextAnchor.MiddleCenter;
+            var title = "AC.RewriteCorticalStack".Translate();
+            Widgets.Label(GetLabelRect(title, ref pos, labelWidthOverride: inRect.width - (Margin * 2f)), title);
+            Text.Anchor = TextAnchor.UpperLeft;
+            pos.y += 15;
+            var explanation = "AC.CorticalStackEditExplanation".Translate();
+            Text.Font = GameFont.Tiny;
+            GUI.color = Color.grey;
+            Widgets.Label(GetLabelRect(explanation, ref pos, labelWidthOverride: inRect.width - (Margin * 2f)), explanation);
+            Text.Font = GameFont.Small;
+            GUI.color = Color.white;
+            pos.y += 15;
+        }
+        protected void DrawBackstoryPanel(ref Vector2 pos, Rect inRect)
+        {
+            Text.Font = GameFont.Medium;
+            Text.Anchor = TextAnchor.MiddleCenter;
+            var title = "AC.Backstories".Translate();
+            Rect backstoryHeader = GetLabelRect(title, ref pos, labelWidthOverride: LeftPanelWidth);
+            Widgets.Label(backstoryHeader, title);
+            Widgets.DrawLine(new Vector2(backstoryHeader.x, backstoryHeader.yMax + 5f), new Vector2(backstoryHeader.xMax, backstoryHeader.yMax + 5),
+                GUI.color * new Color(1f, 1f, 1f, 0.4f), 1f);
+            Text.Anchor = TextAnchor.UpperLeft;
+            pos.y += 15f;
+            Text.Font = GameFont.Small;
+            var allChildhoodBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading.Where(x => x.slot == BackstorySlot.Childhood).ToList();
+            var filters = new List<Func<BackstoryDef, (string, bool)>>();
+            (string, bool) NoFilters(BackstoryDef backstoryDef)
+            {
+                return ("AC.NoFilters".Translate(), true);
+            }
+            filters.Add(NoFilters);
+            (string, bool) NoDisabledWorkTypes(BackstoryDef backstoryDef)
+            {
+                return ("AC.NoDisabledWorkTypes".Translate(), backstoryDef.workDisables == WorkTags.None);
+            }
+            filters.Add(NoDisabledWorkTypes);
+            (string, bool) NoSkillPenalties(BackstoryDef backstoryDef)
+            {
+                return ("AC.NoSkillPenalties".Translate(), backstoryDef.skillGains is null || backstoryDef.skillGains.Any(x => x.Value < 0) is false);
+            }
+            filters.Add(NoSkillPenalties);
+
+            DoSelectionButtons(ref pos, "Childhood".Translate(), ref backstoryChildIndex,
+                (BackstoryDef x) => x.TitleCapFor(personaData.gender), allChildhoodBackstories, delegate (BackstoryDef x)
+                {
+                    SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
+                    personaData.childhood = x;
+                    this.backstoryChildIndex = allChildhoodBackstories
+                        .FindIndex(x => x == personaData.childhood);
+                }, buttonOffsetFromTextOverride: 5f, labelWidthOverride: 80f, filter: null, includeInfoCard: false,
+                tooltipGetter: (BackstoryDef x) => x.FullDescriptionFor(personaData.GetDummyPawn),
+                filters: filters);
+            if (personaData.adulthood != null)
+            {
+                var allAdultBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading.Where(x => x.slot == BackstorySlot.Adulthood).ToList();
+                DoSelectionButtons(ref pos, "Adulthood".Translate(), ref backstoryAdultIndex,
+                (BackstoryDef x) => x.TitleCapFor(personaData.gender), allAdultBackstories, delegate (BackstoryDef x)
+                {
+                    SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
+                    personaData.adulthood = x;
+                    this.backstoryAdultIndex = allChildhoodBackstories
+                        .FindIndex(x => x == personaData.adulthood);
+                }, buttonOffsetFromTextOverride: 5f, labelWidthOverride: 80f, filter: null, includeInfoCard: false,
+                tooltipGetter: (BackstoryDef x) => x.FullDescriptionFor(personaData.GetDummyPawn),
+                filters: filters);
+            }
+            else
+            {
+                pos.y += buttonHeight + 5;
+            }
+        }
+
 
         private void DrawAcceptCancelButtons(ref Rect inRect)
         {
@@ -137,15 +164,15 @@ namespace AlteredCarbon
             Widgets.DrawRectFast(traitsFill, Widgets.MenuSectionBGFillColor, null);
             Text.Font = GameFont.Small;
 
-            if (this.skills != null)
+            if (personaData.skills != null)
             {
-                Rect skillsContainer = new Rect(traitsFill.x, traitsFill.y, traitsFill.width - this.Margin, this.skills.Count() * (Text.LineHeight + 5f));
+                Rect skillsContainer = new Rect(traitsFill.x, traitsFill.y, traitsFill.width - this.Margin, personaData.skills.Count() * (Text.LineHeight + 5f));
                 Widgets.BeginScrollView(traitsFill, ref scrollPos, skillsContainer);
 
                 skillsContainer.x += this.Margin / 2;
                 skillsContainer.y += 5f;
 
-                GenUI.DrawElementStackVertical(skillsContainer, Text.LineHeight, this.skills, delegate(Rect rect, SkillRecord skill)
+                GenUI.DrawElementStackVertical(skillsContainer, Text.LineHeight, personaData.skills, delegate(Rect rect, SkillRecord skill)
                     {
                         //Reimplmented from Rimworld.SkillsUI
                         Rect labelRect = new Rect(rect.x, rect.y, rect.width / 2.5f, rect.height);
@@ -283,136 +310,31 @@ namespace AlteredCarbon
             Text.Font = GameFont.Small;
 
             GUI.BeginGroup(traitsContainer);
-            if (this.traitsList != null)
+
+            GenUI.DrawElementStack(traitsContainer, Text.LineHeight, personaData.traits, delegate (Rect rect, Trait element)
             {
-                GenUI.DrawElementStack(traitsContainer, Text.LineHeight, this.traitsList, delegate(Rect rect, Trait element)
+                //TODO: hover event for trait desc
+                Widgets.DrawRectFast(rect, Color.black, null);
+                rect.x += 5f;
+                Widgets.Label(rect, element.LabelCap);
+                var buttonRect = new Rect(
+                    rect.x + Text.CalcSize(element.LabelCap).x + Text.LineHeight * 0.25f,
+                    rect.y + rect.height / 2 - Text.LineHeight * 0.3f,
+                    Text.LineHeight * 0.7f,
+                    Text.LineHeight * 0.7f
+                );
+
+                GUI.DrawTexture(buttonRect, TexButton.Minus);
+                if (Widgets.ButtonInvisible(buttonRect, true))
                 {
-                    //TODO: hover event for trait desc
-                    Widgets.DrawRectFast(rect, Color.black,null);
-                    rect.x += 5f;
-                    Widgets.Label(rect, element.LabelCap);
-                    var buttonRect = new Rect(
-                        rect.x + Text.CalcSize(element.LabelCap).x + Text.LineHeight *0.25f, 
-                        rect.y + rect.height/2 - Text.LineHeight * 0.3f,
-                        Text.LineHeight * 0.7f, 
-                        Text.LineHeight * 0.7f
-                    );
-                    
-                    GUI.DrawTexture(buttonRect,TexButton.Minus);
-                    if (Widgets.ButtonInvisible(buttonRect, true))
-                    {
-                        SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
-                        traitsList.Remove(element);
-                    }
-                },  trait => Text.CalcSize(trait.LabelCap).x + Text.LineHeight + 10f);
-            }
+                    SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
+                    personaData.traits.Remove(element);
+                }
+            }, trait => Text.CalcSize(trait.LabelCap).x + Text.LineHeight + 10f);
 
             GUI.EndGroup();
             GUI.EndGroup();
             inRect.y += traitsFill.height + this.Margin;
-        }
-
-        protected void DrawBackstoryPanel(ref Rect inRect)
-        {
-            Text.Font = GameFont.Medium;
-            Rect backstoryHeader = new Rect(inRect.x + this.Margin * 2f, inRect.y, inRect.width / 2f - this.Margin, inRect.height);
-            Widgets.Label(backstoryHeader, "Backstory");
-
-            Rect backstoryHighlightRect = new Rect(inRect.x + this.Margin, inRect.y + Text.LineHeight, inRect.width / 2f, inRect.height);
-            GUI.BeginGroup(backstoryHighlightRect);
-            
-            Rect rect2 = new Rect(0f, 0f, backstoryHighlightRect.width, Text.LineHeight * (1.25f + (this.backstoryAdultIndex != null ? 1f : -0.2f)) + (this.Margin));
-            // Rect rect2 = new Rect(0f, 0f, backstoryHighlightRect.width, (Text.LineHeight * (2.25f) + (this.Margin)));
-            Widgets.DrawRectFast(rect2, Widgets.MenuSectionBGFillColor, null);
-
-            rect2.y += this.Margin * 0.75f;
-
-            Text.Font = GameFont.Small;
-            Rect childhoodLabel = new Rect(rect2.x + (this.Margin / 2), rect2.y, rect2.width, rect2.height);
-            Widgets.Label(childhoodLabel, "Childhood");
-
-            Rect lftButton = new Rect(rect2.x + 100f, rect2.y + 2, Text.LineHeight / 2, Text.LineHeight - 4f);
-            if (Widgets.ButtonInvisible(lftButton, true))
-            {
-                SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
-                if (backstoryChildIndex == 0)
-                {
-                    backstoryChildIndex = DefDatabase<BackstoryDef>.AllDefsListForReading.Where(x => x.slot == BackstorySlot.Childhood).Count() - 1;
-                }
-                else backstoryChildIndex--;
-            }
-            GUI.DrawTexture(lftButton, TexUI.ArrowTexLeft);
-        
-            Rect rghtButton = new Rect(rect2.width - (this.Margin * 4f), rect2.y + 2, Text.LineHeight / 2, Text.LineHeight - 4f);
-            //TODO: move this to generic, or refactor the method in Window_SleeveCustomization
-            if (Widgets.ButtonInvisible(rghtButton, true))
-            {
-                SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
-                if (backstoryChildIndex == DefDatabase<BackstoryDef>.AllDefsListForReading.Where(x => x.slot == BackstorySlot.Childhood).Count() - 1)
-                {
-                    backstoryChildIndex = 0;
-                }
-                else backstoryChildIndex++;
-            }
-            GUI.DrawTexture(rghtButton, TexUI.ArrowTexRight);
-
-            Rect background = new Rect(
-                lftButton.x + lftButton.width + 2f,
-                childhoodLabel.y,
-                rghtButton.x - lftButton.xMax - 4f,
-                Text.LineHeight
-            );
-            Widgets.DrawRectFast(background, new Color(19f / 255f, 22f / 255f, 22f / 255f), null);
-
-            Text.Anchor = TextAnchor.MiddleCenter;
-            Widgets.Label(background, DefDatabase<BackstoryDef>.AllDefsListForReading.Where(x => x.slot == BackstorySlot.Childhood).ToList()[backstoryChildIndex].title);
-            Text.Anchor = TextAnchor.UpperLeft;
-
-            rect2.y += Text.LineHeight * 1.5f;
-
-            if (backstoryAdultIndex != null && backstoryAdultIndex is int backstoryAdultIndexInternal)
-            {
-                Rect rect4 = new Rect(rect2.x + (this.Margin / 2), rect2.y, rect2.width, rect2.height);
-                Widgets.Label(rect4, "Adulthood");
-
-                Rect lftButtonAdult = new Rect(rect2.x + 100f, rect2.y + 2, Text.LineHeight / 2, Text.LineHeight - 4f);
-                if (Widgets.ButtonInvisible(lftButtonAdult, true))
-                {
-                    SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
-                    if (backstoryAdultIndexInternal == 0)
-                    {
-                        backstoryAdultIndex = DefDatabase<BackstoryDef>.AllDefsListForReading.Where(x => x.slot == BackstorySlot.Adulthood).Count() - 1;
-                    }
-                    else backstoryAdultIndex--;
-                }
-                GUI.DrawTexture(lftButtonAdult, TexUI.ArrowTexLeft);
-                Rect rghtButtonAdult = new Rect(rect2.width - (this.Margin * 4f), rect2.y + 2, Text.LineHeight / 2, Text.LineHeight - 4f);
-                if (Widgets.ButtonInvisible(rghtButtonAdult, true))
-                {
-                    SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
-                    if (backstoryAdultIndexInternal == DefDatabase<BackstoryDef>.AllDefsListForReading.Where(x => x.slot == BackstorySlot.Adulthood).Count() - 1)
-                    {
-                        backstoryAdultIndex = 0;
-                    }
-                    else backstoryAdultIndex++;
-                }
-                GUI.DrawTexture(rghtButtonAdult, TexUI.ArrowTexRight);
-
-                Rect backgroundAdult = new Rect(
-                    lftButtonAdult.x + lftButtonAdult.width + 2f,
-                    rect4.y,
-                    rghtButtonAdult.x - lftButtonAdult.xMax - 4f,
-                    Text.LineHeight
-                );
-                Widgets.DrawRectFast(backgroundAdult, new Color(19f / 255f, 22f / 255f, 22f / 255f), null);
-
-                Text.Anchor = TextAnchor.MiddleCenter;
-                Widgets.Label(backgroundAdult, DefDatabase<BackstoryDef>.AllDefsListForReading.Where(x => x.slot == BackstorySlot.Adulthood).ToList()[backstoryAdultIndexInternal].title);
-                Text.Anchor = TextAnchor.UpperLeft;
-            }
-
-            inRect.y += rect2.yMax;
-            GUI.EndGroup();
         }
 
         private Color col =  new Color(19f / 255f, 22f / 255f, 22f / 255f);
