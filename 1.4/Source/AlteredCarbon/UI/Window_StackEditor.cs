@@ -13,11 +13,14 @@ namespace AlteredCarbon
     [HotSwappable]
     public class Window_StackEditor : Window
     {
+        public static Texture2D StackAddTrait = ContentFinder<Texture2D>.Get("UI/Icons/StackAddTrait");
+        public static Texture2D StackRemoveTrait = ContentFinder<Texture2D>.Get("UI/Icons/StackRemoveTrait");
         private Building_DecryptionBench decryptionBench;
         private CorticalStack corticalStack;
         private PersonaData personaData;
         private int backstoryChildIndex;
         private int backstoryAdultIndex;
+        private int factionIndex;
         private float LeftPanelWidth => 450;
         private List<BackstoryDef> allChildhoodBackstories;
         public override Vector2 InitialSize => new Vector2(900, 1000);
@@ -48,13 +51,13 @@ namespace AlteredCarbon
         {
             Vector2 pos = new Vector2(inRect.x + Margin, inRect.y);
             DrawTitle(ref pos, inRect);
-            DrawBackstoryPanel(ref pos, inRect);
+            DrawBackstoryPanel(ref pos);
+            DrawTraitsPanel(ref pos);
+            DrawFactionPanel(ref pos);
+
             //DrawSkillsPanel(ref inRect);
-            //DrawTraitsPanel(ref inRect);
             ////TODO: ideo panel
             //DrawIdeoPanel(ref inRect);
-            ////TODO: faction panel
-            //DrawFactionPanel(ref inRect);
             ////TODO: shadow tutorial panel
             //DrawTutorialPanel(ref inRect);
             ////TODO: editing time panel
@@ -81,36 +84,40 @@ namespace AlteredCarbon
             GUI.color = Color.white;
             pos.y += 15;
         }
-        protected void DrawBackstoryPanel(ref Vector2 pos, Rect inRect)
+        private void DrawSectionTitle(ref Vector2 pos, string title)
         {
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
-            var title = "AC.Backstories".Translate();
-            Rect backstoryHeader = GetLabelRect(title, ref pos, labelWidthOverride: LeftPanelWidth);
-            Widgets.Label(backstoryHeader, title);
-            Widgets.DrawLine(new Vector2(backstoryHeader.x, backstoryHeader.yMax + 5f), new Vector2(backstoryHeader.xMax, backstoryHeader.yMax + 5),
+            Rect header = GetLabelRect(title, ref pos, labelWidthOverride: LeftPanelWidth);
+            Widgets.Label(header, title);
+            Widgets.DrawLine(new Vector2(header.x, header.yMax + 5f), new Vector2(header.xMax, header.yMax + 5),
                 GUI.color * new Color(1f, 1f, 1f, 0.4f), 1f);
             Text.Anchor = TextAnchor.UpperLeft;
             pos.y += 15f;
             Text.Font = GameFont.Small;
-            var allChildhoodBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading.Where(x => x.slot == BackstorySlot.Childhood).ToList();
-            var filters = new List<Func<BackstoryDef, (string, bool)>>();
+        }
+        protected void DrawBackstoryPanel(ref Vector2 pos)
+        {
+            DrawSectionTitle(ref pos, "AC.Backstories".Translate());
+            var backstoryFilters = new List<Func<BackstoryDef, (string, bool)>>();
             (string, bool) NoFilters(BackstoryDef backstoryDef)
             {
                 return ("AC.NoFilters".Translate(), true);
             }
-            filters.Add(NoFilters);
+            backstoryFilters.Add(NoFilters);
             (string, bool) NoDisabledWorkTypes(BackstoryDef backstoryDef)
             {
                 return ("AC.NoDisabledWorkTypes".Translate(), backstoryDef.workDisables == WorkTags.None);
             }
-            filters.Add(NoDisabledWorkTypes);
+            backstoryFilters.Add(NoDisabledWorkTypes);
             (string, bool) NoSkillPenalties(BackstoryDef backstoryDef)
             {
                 return ("AC.NoSkillPenalties".Translate(), backstoryDef.skillGains is null || backstoryDef.skillGains.Any(x => x.Value < 0) is false);
             }
-            filters.Add(NoSkillPenalties);
+            backstoryFilters.Add(NoSkillPenalties);
 
+            var allChildhoodBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading.Where(x => x.slot == BackstorySlot.Childhood)
+                .OrderBy(x => x.TitleCapFor(personaData.gender)).ToList();
             DoSelectionButtons(ref pos, "Childhood".Translate(), ref backstoryChildIndex,
                 (BackstoryDef x) => x.TitleCapFor(personaData.gender), allChildhoodBackstories, delegate (BackstoryDef x)
                 {
@@ -118,12 +125,13 @@ namespace AlteredCarbon
                     personaData.childhood = x;
                     this.backstoryChildIndex = allChildhoodBackstories
                         .FindIndex(x => x == personaData.childhood);
-                }, buttonOffsetFromTextOverride: 5f, labelWidthOverride: 80f, filter: null, includeInfoCard: false,
-                tooltipGetter: (BackstoryDef x) => x.FullDescriptionFor(personaData.GetDummyPawn),
-                filters: filters);
+                }, floatMenu: false, buttonOffsetFromTextOverride: 5f, labelWidthOverride: 80f, filter: null, includeInfoCard: false,
+                tooltipGetter: (BackstoryDef x) => x.FullDescriptionFor(personaData.GetDummyPawn).Resolve(),
+                filters: backstoryFilters);
             if (personaData.adulthood != null)
             {
-                var allAdultBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading.Where(x => x.slot == BackstorySlot.Adulthood).ToList();
+                var allAdultBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading.Where(x => x.slot == BackstorySlot.Adulthood)
+                    .OrderBy(x => x.TitleCapFor(personaData.gender)).ToList();
                 DoSelectionButtons(ref pos, "Adulthood".Translate(), ref backstoryAdultIndex,
                 (BackstoryDef x) => x.TitleCapFor(personaData.gender), allAdultBackstories, delegate (BackstoryDef x)
                 {
@@ -131,9 +139,9 @@ namespace AlteredCarbon
                     personaData.adulthood = x;
                     this.backstoryAdultIndex = allChildhoodBackstories
                         .FindIndex(x => x == personaData.adulthood);
-                }, buttonOffsetFromTextOverride: 5f, labelWidthOverride: 80f, filter: null, includeInfoCard: false,
-                tooltipGetter: (BackstoryDef x) => x.FullDescriptionFor(personaData.GetDummyPawn),
-                filters: filters);
+                }, floatMenu: false, buttonOffsetFromTextOverride: 5f, labelWidthOverride: 80f, filter: null, includeInfoCard: false,
+                tooltipGetter: (BackstoryDef x) => x.FullDescriptionFor(personaData.GetDummyPawn).Resolve(),
+                filters: backstoryFilters);
             }
             else
             {
@@ -141,6 +149,135 @@ namespace AlteredCarbon
             }
         }
 
+        private void DrawTraitsPanel(ref Vector2 pos)
+        {
+            pos.y += 15;
+            Rect addTraitRect = new Rect(pos.x + LeftPanelWidth - 24, pos.y + 5, 24f, 24f);
+            DrawSectionTitle(ref pos, "Traits".Translate());
+            Text.Font = GameFont.Small;
+            if (Widgets.ButtonImage(addTraitRect, StackAddTrait))
+            {
+                var pawn = personaData.GetDummyPawn;
+                var allTraits = DefDatabase<TraitDef>.AllDefsListForReading
+                    .Where(x => x.GetGenderSpecificCommonality(pawn.gender) > 0);
+                var traitCandidates = new List<Trait>();
+                foreach (var newTraitDef in allTraits)
+                {
+                    if (pawn.story.traits.HasTrait(newTraitDef) || (newTraitDef == TraitDefOf.Gay 
+                        && (LovePartnerRelationUtility.HasAnyLovePartnerOfTheOppositeGender(pawn) 
+                        || LovePartnerRelationUtility.HasAnyExLovePartnerOfTheOppositeGender(pawn))))
+                    {
+                        continue;
+                    }
+                    if (personaData.traits.Any((Trait tr) => newTraitDef.ConflictsWith(tr)) 
+                        || (newTraitDef.requiredWorkTypes != null && pawn.OneOfWorkTypesIsDisabled(newTraitDef.requiredWorkTypes)) 
+                        || pawn.WorkTagIsDisabled(newTraitDef.requiredWorkTags) || (newTraitDef.forcedPassions != null 
+                        && pawn.workSettings != null && newTraitDef.forcedPassions.Any((SkillDef p) 
+                        => p.IsDisabled(pawn.story.DisabledWorkTagsBackstoryTraitsAndGenes, pawn.GetDisabledWorkTypes(permanentOnly: true)))))
+                    {
+                        continue;
+                    }
+                    for (int i = 0; i < newTraitDef.degreeDatas.Count; i++)
+                    {
+                        int degree = newTraitDef.degreeDatas[i].degree;
+                        if ((pawn.story.Childhood == null || !pawn.story.Childhood.DisallowsTrait(newTraitDef, degree)) 
+                            && (pawn.story.Adulthood == null || !pawn.story.Adulthood.DisallowsTrait(newTraitDef, degree)))
+                        {
+                            Trait trait = new Trait(newTraitDef, degree);
+                            if (personaData.traits.Any((Trait tr) => newTraitDef == tr.def && degree == tr.degree) is false
+                                && (pawn.kindDef.disallowedTraitsWithDegree.NullOrEmpty() 
+                                || !pawn.kindDef.disallowedTraitsWithDegree.Any((TraitRequirement t) => t.Matches(trait))) 
+                                && (pawn.mindState == null || pawn.mindState.mentalBreaker == null 
+                                || !((pawn.mindState.mentalBreaker.BreakThresholdMinor + trait.OffsetOfStat(StatDefOf.MentalBreakThreshold))
+                                * trait.MultiplierOfStat(StatDefOf.MentalBreakThreshold) > 0.5f)))
+                            {
+                                traitCandidates.Add(trait);
+                            }
+                        }
+                    }
+                }
+                var traitFilters = new List<Func<Trait, (string, bool)>>();
+                (string, bool) NoFilters(Trait trait)
+                {
+                    return ("AC.NoFilters".Translate(), true);
+                }
+                traitFilters.Add(NoFilters);
+                (string, bool) NoDisabledWorkTypes(Trait trait)
+                {
+                    return ("AC.NoDisabledWorkTypes".Translate(), trait.def.disabledWorkTags == WorkTags.None && trait.def.disabledWorkTypes.NullOrEmpty());
+                }
+                traitFilters.Add(NoDisabledWorkTypes);
+                (string, bool) NoSkillPenalties(Trait trait)
+                {
+                    return ("AC.NoSkillPenalties".Translate(), trait.def.DataAtDegree(trait.degree).skillGains is null 
+                        || trait.def.DataAtDegree(trait.degree).skillGains.Any(x => x.Value < 0) is false);
+                }
+                traitFilters.Add(NoSkillPenalties);
+
+                Find.WindowStack.Add(new Window_SelectItem<Trait>(traitCandidates.First(), traitCandidates, delegate (Trait trait)
+                {
+                    personaData.traits.Add(trait);
+                }, labelGetter: (Trait t) => t.LabelCap,
+                    tooltipGetter: (Trait t) => t.TipString(pawn), filters: traitFilters, includeInfoCard: false));
+            }
+            Rect traitsContainer = new Rect(pos.x, pos.y, LeftPanelWidth, 600);
+            var rect = GenUI.DrawElementStack(traitsContainer, Text.LineHeight, personaData.traits, delegate (Rect r, Trait trait)
+            {
+                Color color3 = GUI.color;
+                GUI.color = StackElementBackground;
+                GUI.DrawTexture(r, BaseContent.WhiteTex);
+                GUI.color = color3;
+                if (Mouse.IsOver(r))
+                {
+                    Widgets.DrawHighlight(r);
+                }
+                if (trait.Suppressed)
+                {
+                    GUI.color = ColoredText.SubtleGrayColor;
+                }
+                else if (trait.sourceGene != null)
+                {
+                    GUI.color = ColoredText.GeneColor;
+                }
+                Widgets.Label(new Rect(r.x + 5f, r.y, r.width - 10f, r.height), trait.LabelCap);
+                GUI.color = Color.white;
+                if (Mouse.IsOver(r))
+                {
+                    Trait trLocal = trait;
+                    TooltipHandler.TipRegion(tip: new TipSignal(trLocal.TipString(personaData.GetDummyPawn)), rect: r);
+                }
+
+                var buttonRect = new Rect(r.xMax - r.height, r.y, r.height, r.height);
+                GUI.DrawTexture(buttonRect, StackRemoveTrait);
+                if (Widgets.ButtonInvisible(buttonRect, true))
+                {
+                    SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
+                    personaData.traits.Remove(trait);
+                }
+            }, trait => Text.CalcSize(trait.LabelCap).x + Text.LineHeight + 10f);
+            pos.y += Mathf.Max(200, rect.height + 15);
+        }
+
+        private void DrawFactionPanel(ref Vector2 pos)
+        {
+            pos.y += 15;
+            DrawSectionTitle(ref pos, "AC.FactionAllegiance".Translate());
+            Text.Font = GameFont.Small;
+            var allFactions = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction).ToList();
+            DoSelectionButtons(ref pos, "Faction".Translate(), ref factionIndex, (Faction x) => x.Name, allFactions,
+                delegate (Faction faction)
+            {
+                if (personaData.faction != faction)
+                {
+                    personaData.isFactionLeader = false;
+                }
+                personaData.faction = faction;
+                factionIndex = allFactions.IndexOf(faction);
+            }, false, buttonOffsetFromTextOverride: 5f, labelWidthOverride: 80f, includeInfoCard: false, 
+                tooltipGetter: (Faction t) => t.def.Description, icon: (Faction t) => t.def.FactionIcon, 
+                iconColor: (Faction t) => t.def.DefaultColor, labelGetterPostfix: (Faction t) => t != Faction.OfPlayer ? (", " + 
+                t.GoodwillWith(Faction.OfPlayer).ToString().Colorize(ColoredText.GetFactionRelationColor(t))) : "");
+        }
 
         private void DrawAcceptCancelButtons(ref Rect inRect)
         {
@@ -250,24 +387,6 @@ namespace AlteredCarbon
             Widgets.Label(editTime, "Total stack degeneration:");
         }
 
-        private void DrawFactionPanel(ref Rect inRect)
-        {
-            Text.Font = GameFont.Medium;
-            Rect factionHeader = new Rect(inRect.x + this.Margin * 2f, inRect.y, inRect.width / 2f - this.Margin, inRect.height);
-            Widgets.Label(factionHeader, "Faction");
-            
-            
-
-            Rect backstoryHighlightRect = new Rect(inRect.x + this.Margin, inRect.y + Text.LineHeight, inRect.width / 2f, inRect.height);
-            GUI.BeginGroup(backstoryHighlightRect);
-            Rect rect2 = new Rect(0f, 0f, backstoryHighlightRect.width, (Text.LineHeight * 1.5f) + (this.Margin));
-            Widgets.DrawRectFast(rect2, Widgets.MenuSectionBGFillColor, null);
-            
-            GUI.EndGroup();
-            
-            inRect.y += rect2.yMax + Text.lineHeights[2];
-        }
-
         private void DrawIdeoPanel(ref Rect inRect)
         {
             Text.Font = GameFont.Medium;
@@ -286,55 +405,6 @@ namespace AlteredCarbon
 
 
             // Widgets.DrawBoxSolidWithOutline(inRect, Color.black, Color.blue, 1);
-        }
-
-        private void DrawTraitsPanel(ref Rect inRect)
-        {
-            Text.Font = GameFont.Medium;
-            Rect traitHeader = new Rect(inRect.x + this.Margin * 2f, inRect.y, inRect.width / 2f - this.Margin, inRect.height);
-            Widgets.Label(traitHeader, "Traits");
-            inRect.y += Text.LineHeight;
-
-            Rect addTraitRect = new Rect(inRect.x + (traitHeader.width), traitHeader.y + (Text.LineHeight / 2 - 13f), 26f, 26f);
-            //TODO: add Traits float menu
-            GUI.DrawTexture(addTraitRect, TexButton.Add);
-
-            Rect traitsFill = new Rect(inRect.x + this.Margin, inRect.y, inRect.width / 2f, inRect.height/ 5f);
-            Widgets.DrawRectFast(traitsFill, Widgets.MenuSectionBGFillColor, null);
-
-            GUI.BeginGroup(traitsFill);
-            Rect traitsContainer = new Rect(0f, 0f, traitsFill.width - this.Margin, traitsFill.height);
-
-            traitsContainer.y += this.Margin / 4f;
-            traitsContainer.x += this.Margin / 4f;
-            Text.Font = GameFont.Small;
-
-            GUI.BeginGroup(traitsContainer);
-
-            GenUI.DrawElementStack(traitsContainer, Text.LineHeight, personaData.traits, delegate (Rect rect, Trait element)
-            {
-                //TODO: hover event for trait desc
-                Widgets.DrawRectFast(rect, Color.black, null);
-                rect.x += 5f;
-                Widgets.Label(rect, element.LabelCap);
-                var buttonRect = new Rect(
-                    rect.x + Text.CalcSize(element.LabelCap).x + Text.LineHeight * 0.25f,
-                    rect.y + rect.height / 2 - Text.LineHeight * 0.3f,
-                    Text.LineHeight * 0.7f,
-                    Text.LineHeight * 0.7f
-                );
-
-                GUI.DrawTexture(buttonRect, TexButton.Minus);
-                if (Widgets.ButtonInvisible(buttonRect, true))
-                {
-                    SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
-                    personaData.traits.Remove(element);
-                }
-            }, trait => Text.CalcSize(trait.LabelCap).x + Text.LineHeight + 10f);
-
-            GUI.EndGroup();
-            GUI.EndGroup();
-            inRect.y += traitsFill.height + this.Margin;
         }
 
         private Color col =  new Color(19f / 255f, 22f / 255f, 22f / 255f);

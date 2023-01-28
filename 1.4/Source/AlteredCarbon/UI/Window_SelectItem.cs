@@ -22,13 +22,16 @@ namespace AlteredCarbon
         public bool includeInfoCard;
         public List<Func<T, (string, bool)>> filters;
         public Func<T, (string, bool)> currentFilter;
+        public Func<T, Texture2D> icon;
+        public Func<T, Color?> iconColor;
+        public Func<T, string> labelGetterPostfix;
         public Window_SelectItem(T currentItem, List<T> items, Action<T> actionOnSelect, Func<T, int> ordering = null, 
-            List<Func<T, (string, bool)>> filters = null, Func<T, string> labelGetter = null, Func<T, string> tooltipGetter = null, bool includeInfoCard = true)
+            List<Func<T, (string, bool)>> filters = null, Func<T, string> labelGetter = null, Func<T, string> tooltipGetter = null, 
+            bool includeInfoCard = true, Func<T, Texture2D> icon = null, Func<T, Color?> iconColor = null, Func<T, string> labelGetterPostfix = null)
         {
-            doCloseButton = true;
             doCloseX = true;
-            closeOnClickedOutside = true;
-            absorbInputAroundWindow = false;
+            doCloseButton = false;
+            absorbInputAroundWindow = true;
             this.allItems = items;
             this.actionOnSelect = actionOnSelect;
             this.ordering = ordering;
@@ -36,6 +39,9 @@ namespace AlteredCarbon
             this.tooltipGetter = tooltipGetter;
             this.includeInfoCard = includeInfoCard;
             this.filters = filters;
+            this.icon = icon;
+            this.iconColor = iconColor;
+            this.labelGetterPostfix = labelGetterPostfix;
             chosen = currentItem;
             currentItems = GetItems();
         }
@@ -100,9 +106,7 @@ namespace AlteredCarbon
             }
 
 
-            Rect outRect = new Rect(inRect);
-            outRect.y = searchRect.yMax + 5;
-            outRect.yMax -= 70f;
+            Rect outRect = new Rect(inRect.x, searchRect.yMax + 15, inRect.width, inRect.height - (32 + 15 + 24 + 15));
             Rect viewRect = new Rect(0f, 0f, outRect.width - 16f, (float)currentItems.Count * 35f);
             Widgets.BeginScrollView(outRect, ref scrollPosition, viewRect);
             float yPos = 0f;
@@ -111,19 +115,39 @@ namespace AlteredCarbon
                 if (yPos + 35 >= scrollPosition.y && yPos <= scrollPosition.y + outRect.height)
                 {
                     Rect iconRect = new Rect(0f, yPos, 0, 32);
-                    if (item is Def def && includeInfoCard)
-                    {
-                        iconRect.width = 24;
-                        Widgets.InfoCardButton(iconRect, def);
-                    }
-                    if (item is ThingDef thingDef2)
-                    {
-                        iconRect.x += 24;
-                        Widgets.ThingIcon(iconRect, thingDef2);
-                    }
-                    Rect rect = new Rect(iconRect.xMax + 5, yPos, viewRect.width * 0.7f, 32f);
+                    //if (item is Def def && includeInfoCard)
+                    //{
+                    //    iconRect.width = 24;
+                    //    Widgets.InfoCardButton(iconRect, def);
+                    //}
+                    //if (item is ThingDef thingDef2)
+                    //{
+                    //    iconRect.x += 24;
+                    //    Widgets.ThingIcon(iconRect, thingDef2);
+                    //}
+
+                    var label = GetLabel(item);
+                    var size = Text.CalcSize(label);
+                    Rect rect = new Rect(5, yPos, size.x + 35, size.y);
+
                     Text.Anchor = TextAnchor.MiddleLeft;
-                    Widgets.Label(rect, GetLabel(item));
+                    if (icon != null)
+                    {
+                        UIHelper.LabelWithIcon(rect, label, icon(item), iconColor != null ? iconColor(item) : null, labelIconScale: 1f,
+                            labelRectShift: 35);
+                    }
+                    else
+                    {
+                        Widgets.Label(rect, label);
+                    }
+
+                    if (labelGetterPostfix != null)
+                    {
+                        label = labelGetterPostfix(item);
+                        size = Text.CalcSize(label);
+                        var postfixRect = new Rect(rect.xMax, yPos, size.x, size.y);
+                        Widgets.Label(postfixRect, label);
+                    }
                     if (tooltipGetter != null)
                     {
                         TooltipHandler.TipRegion(rect, tooltipGetter(item));
@@ -138,7 +162,22 @@ namespace AlteredCarbon
                 }
                 yPos += 35f;
             }
+
             Widgets.EndScrollView();
+            var acceptButtonRect = new Rect(inRect.x + 35, inRect.yMax - 32, 200, 32);
+            if (Widgets.ButtonText(acceptButtonRect, "Accept".Translate()))
+            {
+                actionOnSelect(chosen);
+                SoundDefOf.Click.PlayOneShotOnCamera();
+                this.Close();
+            }
+
+            var cancelButtonRect = new Rect(inRect.xMax - 200 - 35, acceptButtonRect.y, 200, 32);
+            if (Widgets.ButtonText(cancelButtonRect, "Cancel".Translate()))
+            {
+                SoundDefOf.Click.PlayOneShotOnCamera();
+                this.Close();
+            }
         }
     }
 }

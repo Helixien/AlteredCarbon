@@ -169,4 +169,6 @@
 	<AC.NoFilters>No filters</AC.NoFilters>
 	<AC.NoDisabledWorkTypes>No disabled work types</AC.NoDisabledWorkTypes>
 	<AC.NoSkillPenalties>No skill penalties</AC.NoSkillPenalties>
+	<AC.FactionAllegiance>Faction allegiance</AC.FactionAllegiance>
+	<AC.RemoveUnwaveringLoyalTrait>Remove unwavering loyal trait</AC.RemoveUnwaveringLoyalTrait>
 </LanguageData>
