@@ -34,8 +34,9 @@ namespace AlteredCarbon
         private List<Pawn> relatedPawns;
         public List<SkillRecord> skills;
 
-        public string childhood;
-        public string adulthood;
+        public BackstoryDef childhood;
+        public BackstoryDef adulthood;
+
         public string title;
         public XenotypeDef xenotypeDef;
         public string xenotypeName;
@@ -159,13 +160,11 @@ namespace AlteredCarbon
                 {
                     return title;
                 }
-                return !adulthood.NullOrEmpty() && DefDatabase<BackstoryDef>.GetNamedSilentFail(adulthood) is BackstoryDef newAdulthood
-                    ? newAdulthood.TitleShortFor(gender)
-                    : !childhood.NullOrEmpty() && DefDatabase<BackstoryDef>.GetNamedSilentFail(childhood) is BackstoryDef newChildhood
-                    ? newChildhood.TitleShortFor(gender)
-                    : "";
+                return adulthood != null ? adulthood.TitleShortFor(gender)
+                    : childhood != null ? childhood.TitleShortFor(gender) : "";
             }
         }
+
         private Color GetFactionRelationColor(Faction faction)
         {
             if (faction == null)
@@ -246,10 +245,10 @@ namespace AlteredCarbon
             }
 
             skills = pawn.skills?.skills;
-            childhood = pawn.story?.Childhood?.defName;
+            childhood = pawn.story?.Childhood;
             if (pawn.story?.Adulthood != null)
             {
-                adulthood = pawn.story.Adulthood.defName;
+                adulthood = pawn.story.Adulthood;
             }
             title = pawn.story?.title;
             if (ModsConfig.BiotechActive && pawn.genes != null)
@@ -431,6 +430,7 @@ namespace AlteredCarbon
             {
                 rjwData = ModCompatibility.GetRjwData(pawn);
             }
+            AssignDummyPawnReferences();
         }
 
         private static Type VEPsycastModExtensionType = AccessTools.TypeByName("VanillaPsycastsExpanded.AbilityExtension_Psycast");
@@ -505,6 +505,10 @@ namespace AlteredCarbon
 
             relatedPawns = other.relatedPawns;
             skills = other.skills;
+            if (skills != null)
+            {
+
+            }
             xenotypeDef = other.xenotypeDef;
             xenotypeName = other.xenotypeName;
             childhood = other.childhood;
@@ -593,6 +597,7 @@ namespace AlteredCarbon
             romanceFactor = other.romanceFactor;
             psychologyData = other.psychologyData;
             rjwData = other.rjwData;
+            AssignDummyPawnReferences();
         }
 
 
@@ -791,7 +796,7 @@ namespace AlteredCarbon
                     }
                 }
 
-                if (VPE_PsycastAbilityImplant != null)
+                if (VPE_PsycastAbilityImplant?.def != null)
                 {
                     pawnToOverwrite.health.hediffSet.hediffs.RemoveAll(x => x.def.defName == "VPE_PsycastAbilityImplant");
                     pawnToOverwrite.health.AddHediff(VPE_PsycastAbilityImplant);
@@ -825,12 +830,8 @@ namespace AlteredCarbon
                 }
             }
             
-            if (!childhood.NullOrEmpty())
-            {
-                pawnToOverwrite.story.Childhood = DefDatabase<BackstoryDef>.GetNamedSilentFail(childhood);
-            }
-            
-            pawnToOverwrite.story.Adulthood = !adulthood.NullOrEmpty() ? DefDatabase<BackstoryDef>.GetNamedSilentFail(adulthood) : null;
+            pawnToOverwrite.story.Childhood = childhood;
+            pawnToOverwrite.story.Adulthood = adulthood;
             pawnToOverwrite.story.title = title;
             
             if (pawnToOverwrite.workSettings == null)
@@ -1156,8 +1157,8 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref isFactionLeader, "isFactionLeader", false, false);
 
             Scribe_Collections.Look(ref skills, "skills",LookMode.Deep);
-            Scribe_Values.Look(ref childhood, "childhood", null, false);
-            Scribe_Values.Look(ref adulthood, "adulthood", null, false);
+            Scribe_Defs.Look(ref childhood, "childhood");
+            Scribe_Defs.Look(ref adulthood, "adulthood");
             Scribe_Values.Look(ref title, "title", null, false);
             Scribe_Defs.Look(ref xenotypeDef, "xenotypeDef");
             Scribe_Values.Look(ref xenotypeName, "xenotypeName");
@@ -1260,7 +1261,24 @@ namespace AlteredCarbon
                 priorities.CleanupDict();
                 favor.CleanupDict();
                 heirs.CleanupDict();
+
+                AssignDummyPawnReferences();
             }
+        }
+
+        private void AssignDummyPawnReferences()
+        {
+            LongEventHandler.ExecuteWhenFinished(delegate
+            {
+                if (skills != null)
+                {
+                    var dummyPawn = GetDummyPawn;
+                    foreach (var skill in skills)
+                    {
+                        skill.pawn = dummyPawn;
+                    }
+                }
+            });
         }
 
         private List<Faction> favorKeys = new List<Faction>();

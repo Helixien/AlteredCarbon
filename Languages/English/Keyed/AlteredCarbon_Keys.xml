@@ -159,4 +159,14 @@
 	<AC.HackingBiocodedFailed>Hacking biocoded equipment: Failed, {0} destroyed!</AC.HackingBiocodedFailed>
 	<AC.HackingBiocodedSuccess>Hacking biocoded equipment: Successful! {0} is unlocked.</AC.HackingBiocodedSuccess>
 	<AC.IsEmptySleeve>Is empty sleeve</AC.IsEmptySleeve>
+	<AC.RewriteStack>Rewrite stack</AC.RewriteStack>
+	<AC.RewriteStackDesc>todo</AC.RewriteStackDesc>
+	<AC.RewriteCorticalStack>Rewrite Cortical Stack</AC.RewriteCorticalStack>
+	<AC.CorticalStackEditExplanation>Cortical Stacks feature advanced encryption to prevent outside forces from messing with the stored consciousness. Known exploits allow for some data to be edited and rewritten at the cost of stack degradation.</AC.CorticalStackEditExplanation>
+	<AC.Backstories>Backstories</AC.Backstories>
+	<AC.Search>Search</AC.Search>
+	<AC.AddFilter>Add filter</AC.AddFilter>
+	<AC.NoFilters>No filters</AC.NoFilters>
+	<AC.NoDisabledWorkTypes>No disabled work types</AC.NoDisabledWorkTypes>
+	<AC.NoSkillPenalties>No skill penalties</AC.NoSkillPenalties>
 </LanguageData>

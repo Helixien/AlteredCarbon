@@ -145,6 +145,7 @@
     <Compile Include="Jobs\JobDriver_ReleaseSleeve.cs" />
     <Compile Include="HarmonyPatches\Pawn_HealthTracker_CheckForStateChange_Patch.cs" />
     <Compile Include="Buildings\Building_SleeveGrower.cs" />
+    <Compile Include="UI\Window_SelectItem.cs" />
     <Compile Include="UI\Window_SleeveCustomization.cs" />
     <Compile Include="ExcludeRacesModExtension.cs" />
     <Compile Include="Stacks\PsychologyData.cs" />
