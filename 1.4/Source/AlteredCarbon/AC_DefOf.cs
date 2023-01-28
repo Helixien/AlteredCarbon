@@ -49,6 +49,7 @@ namespace AlteredCarbon
         public static ThingDef VFEU_SleeveIncubator;
         public static ThingDef VFEU_SleeveCasket;
         public static ThingDef VFEU_DecryptionBench;
+        public static RecipeDef VFEU_HackFilledCorticalStack;
         public static RecipeDef VFEU_WipeFilledCorticalStack;
         public static RecipeDef VFEU_InstallCorticalStack;
         public static RecipeDef VFEU_InstallEmptyCorticalStack;

@@ -158,4 +158,5 @@
 	<AC.GainedEmptyCorticalStack>Decrypt Ancient Stacks: Gained empty cortical stack!</AC.GainedEmptyCorticalStack>
 	<AC.HackingBiocodedFailed>Hacking biocoded equipment: Failed, {0} destroyed!</AC.HackingBiocodedFailed>
 	<AC.HackingBiocodedSuccess>Hacking biocoded equipment: Successful! {0} is unlocked.</AC.HackingBiocodedSuccess>
+	<AC.IsEmptySleeve>Is empty sleeve</AC.IsEmptySleeve>
 </LanguageData>

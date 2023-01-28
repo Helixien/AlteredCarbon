@@ -28,10 +28,12 @@ namespace AlteredCarbon
         public Faction faction;
         public bool isFactionLeader;
         private List<Thought_Memory> thoughts;
-        private List<Trait> traits;
+        public List<Trait> traits;
         private List<DirectPawnRelation> relations;
+
         private List<Pawn> relatedPawns;
-        private List<SkillRecord> skills;
+        public List<SkillRecord> skills;
+
         public string childhood;
         public string adulthood;
         public string title;
@@ -1153,6 +1155,7 @@ namespace AlteredCarbon
             Scribe_References.Look(ref faction, "faction", true);
             Scribe_Values.Look(ref isFactionLeader, "isFactionLeader", false, false);
 
+            Scribe_Collections.Look(ref skills, "skills",LookMode.Deep);
             Scribe_Values.Look(ref childhood, "childhood", null, false);
             Scribe_Values.Look(ref adulthood, "adulthood", null, false);
             Scribe_Values.Look(ref title, "title", null, false);
@@ -1162,6 +1165,7 @@ namespace AlteredCarbon
             Scribe_Collections.Look(ref traits, "traits", LookMode.Deep);
             Scribe_Collections.Look(ref skills, "skills", LookMode.Deep);
             Scribe_Collections.Look(ref relations, "otherPawnRelations", LookMode.Deep);
+
             Scribe_Values.Look(ref everSeenByPlayer, "everSeenByPlayer");
             Scribe_Values.Look(ref canGetRescuedThought, "canGetRescuedThought", true);
             Scribe_References.Look(ref relativeInvolvedInRescueQuest, "relativeInvolvedInRescueQuest");
