@@ -36,14 +36,20 @@ namespace AlteredCarbon
             DubsBadHygieneActive = ModsConfig.IsActive("Dubwise.DubsBadHygiene") || ModsConfig.IsActive("Dubwise.DubsBadHygiene.Lite");
             VanillaSkillsExpandedIsActive = ModsConfig.IsActive("vanillaexpanded.skills");
 			if (VanillaSkillsExpandedIsActive)
-			{
-				Window_StackEditor.AllPassions.Clear();
-				foreach (var def in DefDatabase<VSE.Passions.PassionDef>.AllDefs)
-				{
-					Window_StackEditor.AllPassions[def.index] = def.Icon;
-                }
-			}
+            {
+                AddVSEPassions();
+            }
         }
+
+        private static void AddVSEPassions()
+        {
+            Window_StackEditor.AllPassions.Clear();
+            foreach (var def in DefDatabase<VSE.Passions.PassionDef>.AllDefs)
+            {
+                Window_StackEditor.AllPassions[def.index] = def.Icon;
+            }
+        }
+
         public static Color GetSkinColorFirst(Pawn pawn)
 		{
 			AlienRace.AlienPartGenerator.AlienComp alienComp = ThingCompUtility.TryGetComp<AlienRace.AlienPartGenerator.AlienComp>(pawn);

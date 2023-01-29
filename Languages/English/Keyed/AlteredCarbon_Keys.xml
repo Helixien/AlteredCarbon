@@ -175,4 +175,9 @@
 	<AC.Belief>Belief</AC.Belief>
 	<AC.Certainty>Certainty</AC.Certainty>
 	<AC.ChangingPawnIdeologyWarning>Changing a pawn ideology will also remove any roles assosiated from them.</AC.ChangingPawnIdeologyWarning>
+	<AC.OriginalGender>Original gender</AC.OriginalGender>
+	<AC.TotalTimeToRewrite>Total time to rewrite: {0}</AC.TotalTimeToRewrite>
+	<AC.TotalStackDegradation>Expected stack degradation: {0}</AC.TotalStackDegradation>
+	<AC.Tutorial>WARNING: The more you edit,the higher the stack degradation will be, causing the stored pawns personality to become more and more unstable. Stack degradation will go away over time after being installed in a body, but can take years.</AC.Tutorial>
+	<AC.ResetAll>Reset all</AC.ResetAll>
 </LanguageData>
