@@ -44,9 +44,8 @@ namespace AlteredCarbon
         {
             this.decryptionBench = decryptionBench;
             this.corticalStack = corticalStack;
-            corticalStack.personaDataRewritten = new PersonaData();
-            corticalStack.personaDataRewritten.CopyDataFrom(corticalStack.PersonaData);
-            personaData = corticalStack.personaDataRewritten;
+            personaData = new PersonaData();
+            personaData.CopyDataFrom(corticalStack.PersonaData);
             this.allChildhoodBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading
                 .Where(x => x.slot == BackstorySlot.Childhood).ToList();
             if (personaData.adulthood != null)
@@ -655,6 +654,7 @@ namespace AlteredCarbon
             var acceptButtonRect = new Rect(buttonWidth / 2f, inRect.height - 32, buttonWidth, 32);
             if (Widgets.ButtonText(acceptButtonRect, "Accept".Translate()))
             {
+                corticalStack.personaDataRewritten = personaData;
                 this.Close();
             }
             var cancelButtonRect = new Rect((inRect.width / 2f) - (buttonWidth / 2f), acceptButtonRect.y, buttonWidth, 32);
