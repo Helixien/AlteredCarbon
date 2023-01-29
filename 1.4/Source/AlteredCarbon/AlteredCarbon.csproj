@@ -116,10 +116,6 @@
     <Compile Include="UI\Window_BodyPartPicker.cs" />
     <Compile Include="Designators\Designator_ExtractStack.cs" />
     <Compile Include="HarmonyPatches\ReverseDesignatorDatabase_InitDesignators_Patch.cs" />
-    <Compile Include="Ideology\ThoughtWorker_Precept_HasCorticalStack_Social.cs" />
-    <Compile Include="Ideology\ThoughtWorker_Precept_HasNoCorticalStack_Social.cs" />
-    <Compile Include="Ideology\ThoughtWorker_Precept_HasNoCorticalStack.cs" />
-    <Compile Include="Ideology\ThoughtWorker_Precept_HasCorticalStack.cs" />
     <Compile Include="Jobs\JobDriver_CancelIncubatingProcess.cs" />
     <Compile Include="Jobs\JobDriver_StartIncubatingProcess.cs" />
     <Compile Include="Jobs\WorkGiver_ExtractStack.cs" />
