@@ -15,12 +15,23 @@ namespace AlteredCarbon
     {
         public static Texture2D StackAddTrait = ContentFinder<Texture2D>.Get("UI/Icons/StackAddTrait");
         public static Texture2D StackRemoveTrait = ContentFinder<Texture2D>.Get("UI/Icons/StackRemoveTrait");
+        public static Texture2D SkillBarFill = SolidColorMaterials.NewSolidColorTexture(new Color(1f, 1f, 1f, 0.1f));
+        public static Texture2D ButtonPrevious = ContentFinder<Texture2D>.Get("UI/Icons/ButtonPrevious", true);
+        public static Texture2D ButtonNext = ContentFinder<Texture2D>.Get("UI/Icons/ButtonNext", true);
+        public static Dictionary<int, Texture2D> AllPassions = new Dictionary<int, Texture2D>
+        {
+            {1,  SkillUI.PassionMinorIcon },
+            {2,  SkillUI.PassionMajorIcon }
+        };
+
         private Building_DecryptionBench decryptionBench;
         private CorticalStack corticalStack;
         private PersonaData personaData;
         private int backstoryChildIndex;
         private int backstoryAdultIndex;
         private int factionIndex;
+        private int ideoIndex;
+        private List<SkillRecord> initialSkills;
         private float LeftPanelWidth => 450;
         private List<BackstoryDef> allChildhoodBackstories;
         public override Vector2 InitialSize => new Vector2(900, 1000);
@@ -43,6 +54,23 @@ namespace AlteredCarbon
                     .Where(x => x.slot == BackstorySlot.Adulthood).ToList()
                     .FindIndex(x => x == personaData.adulthood);
             }
+            if (personaData.skills != null)
+            {
+                initialSkills = new List<SkillRecord>();
+                foreach (var skill in personaData.skills)
+                {
+                    initialSkills.Add(new SkillRecord
+                    {
+                        def = skill.def,
+                        levelInt = skill.levelInt,
+                        xpSinceLastLevel = skill.xpSinceLastLevel,
+                        xpSinceMidnight = skill.xpSinceMidnight,
+                        passion = skill.passion,
+                        pawn = skill.pawn
+                    });
+                }
+            }
+
         }
 
 
@@ -54,10 +82,14 @@ namespace AlteredCarbon
             DrawBackstoryPanel(ref pos);
             DrawTraitsPanel(ref pos);
             DrawFactionPanel(ref pos);
-
-            //DrawSkillsPanel(ref inRect);
+            if (ModsConfig.IdeologyActive)
+            {
+                DrawIdeoPanel(ref pos);
+            }
+            pos.x += (inRect.width - LeftPanelWidth) + 100;
+            pos.y = inRect.y + 100;
+            DrawSkillsPanel(ref pos, inRect);
             ////TODO: ideo panel
-            //DrawIdeoPanel(ref inRect);
             ////TODO: shadow tutorial panel
             //DrawTutorialPanel(ref inRect);
             ////TODO: editing time panel
@@ -148,13 +180,11 @@ namespace AlteredCarbon
                 pos.y += buttonHeight + 5;
             }
         }
-
         private void DrawTraitsPanel(ref Vector2 pos)
         {
             pos.y += 15;
             Rect addTraitRect = new Rect(pos.x + LeftPanelWidth - 24, pos.y + 5, 24f, 24f);
             DrawSectionTitle(ref pos, "Traits".Translate());
-            Text.Font = GameFont.Small;
             if (Widgets.ButtonImage(addTraitRect, StackAddTrait))
             {
                 var pawn = personaData.GetDummyPawn;
@@ -220,7 +250,7 @@ namespace AlteredCarbon
                 }, labelGetter: (Trait t) => t.LabelCap,
                     tooltipGetter: (Trait t) => t.TipString(pawn), filters: traitFilters, includeInfoCard: false));
             }
-            Rect traitsContainer = new Rect(pos.x, pos.y, LeftPanelWidth, 600);
+            Rect traitsContainer = new Rect(pos.x, pos.y, LeftPanelWidth, 100);
             var rect = GenUI.DrawElementStack(traitsContainer, Text.LineHeight, personaData.traits, delegate (Rect r, Trait trait)
             {
                 Color color3 = GUI.color;
@@ -255,14 +285,13 @@ namespace AlteredCarbon
                     personaData.traits.Remove(trait);
                 }
             }, trait => Text.CalcSize(trait.LabelCap).x + Text.LineHeight + 10f);
-            pos.y += Mathf.Max(200, rect.height + 15);
+            pos.y += Mathf.Max(100, rect.height);
         }
 
         private void DrawFactionPanel(ref Vector2 pos)
         {
             pos.y += 15;
             DrawSectionTitle(ref pos, "AC.FactionAllegiance".Translate());
-            Text.Font = GameFont.Small;
             var allFactions = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction).ToList();
             DoSelectionButtons(ref pos, "Faction".Translate(), ref factionIndex, (Faction x) => x.Name, allFactions,
                 delegate (Faction faction)
@@ -277,74 +306,154 @@ namespace AlteredCarbon
                 tooltipGetter: (Faction t) => t.def.Description, icon: (Faction t) => t.def.FactionIcon, 
                 iconColor: (Faction t) => t.def.DefaultColor, labelGetterPostfix: (Faction t) => t != Faction.OfPlayer ? (", " + 
                 t.GoodwillWith(Faction.OfPlayer).ToString().Colorize(ColoredText.GetFactionRelationColor(t))) : "");
+
+            var removeUnwaveringLoyalTrait = "AC.RemoveUnwaveringLoyalTrait".Translate();
+            var removeRect = GetLabelRect(removeUnwaveringLoyalTrait, ref pos, Text.CalcSize(removeUnwaveringLoyalTrait).x + 50);
+            var unwaveringLoyal = personaData.recruitable is false;
+            Widgets.CheckboxLabeled(removeRect, removeUnwaveringLoyalTrait, ref unwaveringLoyal);
+            personaData.recruitable = !unwaveringLoyal;
         }
 
-        private void DrawAcceptCancelButtons(ref Rect inRect)
+        private void DrawIdeoPanel(ref Vector2 pos)
         {
-            //throw new System.NotImplementedException();
-        }
+            pos.y += 15;
+            DrawSectionTitle(ref pos, "AC.Ideology".Translate());
+            var allIdeos = Find.IdeoManager.IdeosListForReading;
+            DoSelectionButtons(ref pos, "AC.Belief".Translate(), ref ideoIndex, (Ideo x) => x.name, allIdeos,
+                delegate (Ideo ideo)
+                {
+                    personaData.ChangeIdeo(ideo, personaData.certainty);
+                    ideoIndex = allIdeos.IndexOf(ideo);
+                }, false, buttonOffsetFromTextOverride: 5f, labelWidthOverride: 80f, includeInfoCard: false,
+                tooltipGetter: (Ideo t) => t.description, icon: (Ideo t) => t.Icon,
+                iconColor: (Ideo t) => t.Color);
 
-        private void DrawTutorialPanel(ref Rect inRect)
-        {
-            //throw new System.NotImplementedException();
-        }
-
-        private void DrawSkillsPanel(ref Rect inRect)
-        {
-            Text.Font = GameFont.Medium;
-            Rect backstoryHeader = new Rect(inRect.x+inRect.width / 2f + this.Margin*3f, inRect.y, inRect.width / 2f - this.Margin * 4f, inRect.height);
-            Widgets.Label(backstoryHeader, "Skills");
-
-
-            GUI.BeginGroup(backstoryHeader);
-            Rect traitsFill = new Rect(0f, Text.LineHeight, backstoryHeader.width, inRect.height * 0.55f);
-            Widgets.DrawRectFast(traitsFill, Widgets.MenuSectionBGFillColor, null);
+            Text.Anchor = TextAnchor.MiddleLeft;
+            var certaintyLabel = "AC.Certainty".Translate() + ":";
+            Rect labelRect = GetLabelRect(certaintyLabel, ref pos, 80f);
+            Widgets.Label(labelRect, certaintyLabel);
+            Text.Anchor = TextAnchor.UpperLeft;
+            var buttonOffset = 5f;
+            Rect centaintySliderRect = new Rect(labelRect.xMax + buttonOffset, labelRect.y, (buttonWidth * 2) + buttonOffsetFromButton, buttonHeight);
+            personaData.certainty = Widgets.HorizontalSlider_NewTemp(centaintySliderRect, personaData.certainty, 0, 1f, true, personaData.certainty.ToStringPercent());
+            var explanation = "AC.ChangingPawnIdeologyWarning".Translate();
+            Text.Font = GameFont.Tiny;
+            GUI.color = Color.grey;
+            Widgets.Label(GetLabelRect(explanation, ref pos, labelWidthOverride: LeftPanelWidth), explanation);
             Text.Font = GameFont.Small;
+            GUI.color = Color.white;
+        }
 
+        private void DrawSkillsPanel(ref Vector2 pos, Rect inRect)
+        {
             if (personaData.skills != null)
             {
-                Rect skillsContainer = new Rect(traitsFill.x, traitsFill.y, traitsFill.width - this.Margin, personaData.skills.Count() * (Text.LineHeight + 5f));
-                Widgets.BeginScrollView(traitsFill, ref scrollPos, skillsContainer);
+                var skillsLabel = "Skills".Translate();
+                var resetButton = new Rect(inRect.width - 75 - Margin, pos.y, 75, 24);
+                var labelRect = GetLabelRect(skillsLabel, ref pos, inRect.width - pos.x);
+                Text.Font = GameFont.Medium;
+                Text.Anchor = TextAnchor.MiddleCenter;
+                Widgets.Label(labelRect, skillsLabel);
+                Text.Font = GameFont.Small;
+                Text.Anchor = TextAnchor.UpperLeft;
+                if (Widgets.ButtonText(resetButton, "Reset".Translate()))
+                {
+                    personaData.skills = new List<SkillRecord>();
+                    foreach (var skill in initialSkills)
+                    {
+                        personaData.skills.Add(new SkillRecord
+                        {
+                            def = skill.def,
+                            levelInt = skill.levelInt,
+                            xpSinceLastLevel = skill.xpSinceLastLevel,
+                            xpSinceMidnight = skill.xpSinceMidnight,
+                            passion = skill.passion,
+                            pawn = skill.pawn,
+                        });
+                    }
+                }
 
-                skillsContainer.x += this.Margin / 2;
-                skillsContainer.y += 5f;
+                var skillBoxHeight = personaData.skills.Count() * (Text.LineHeight + 5) + (this.Margin * 2) - 5;
+                Rect traitsFill = new Rect(pos.x, pos.y, inRect.width - pos.x - Margin, skillBoxHeight);
+                Rect skillsContainer = new Rect(traitsFill.x, traitsFill.y, traitsFill.width, skillBoxHeight);
+                Widgets.DrawRectFast(traitsFill, Widgets.MenuSectionBGFillColor, null);
+
+
+                Widgets.BeginScrollView(traitsFill, ref scrollPos, skillsContainer);
+                skillsContainer.x += this.Margin;
+                skillsContainer.y += this.Margin;
 
                 GenUI.DrawElementStackVertical(skillsContainer, Text.LineHeight, personaData.skills, delegate(Rect rect, SkillRecord skill)
                     {
-                        //Reimplmented from Rimworld.SkillsUI
-                        Rect labelRect = new Rect(rect.x, rect.y, rect.width / 2.5f, rect.height);
+                        Rect labelRect = new Rect(rect.x, rect.y, 110, rect.height);
                         Widgets.Label(labelRect, skill.def.skillLabel.CapitalizeFirst());
 
-                        Rect position = new Rect(labelRect.xMax, labelRect.y, labelRect.height, labelRect.height);
-                        //TODO: keep in mind vanilla skills expanded
-                        if (Mouse.IsOver(position))
+                        Rect passionRect = new Rect(labelRect.xMax + (labelRect.height * 2) + 100 + 15, labelRect.y, labelRect.height, labelRect.height);
+                        
+                        if (Mouse.IsOver(passionRect))
                         {
-                            RenderRect(position);
+                            Widgets.DrawHighlight(passionRect);
                         }
 
-                        if (Widgets.ButtonInvisible(position))
+                        if (Widgets.ButtonInvisible(passionRect))
                         {
                             SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
-                            skill.passion = Enums.Next(skill.passion);
+                            var ind = (int)skill.passion;
+                            if (ind == AllPassions.Select(x => x.Key).Max())
+                            {
+                                ind = 0;
+                            }
+                            else
+                            {
+                                ind++;
+                            }
+                            skill.passion = (Passion)ind;
                         }
 
                         if (!skill.TotallyDisabled)
                         {
-                            if (skill.passion > Passion.None)
+                            var decrementSkillRect = new Rect(labelRect.xMax, labelRect.y, labelRect.height, labelRect.height);
+                            if (Widgets.ButtonImage(decrementSkillRect, ButtonPrevious))
                             {
-                                Texture2D image = (skill.passion == Passion.Major) ? SkillUI.PassionMajorIcon : SkillUI.PassionMinorIcon;
-                                GUI.DrawTexture(position, image);
+                                var minLevel = MinLevelOfSkill(personaData.GetDummyPawn, skill.def);
+                                if (skill.Level > minLevel)
+                                {
+                                    skill.Level -= 1;
+                                }
                             }
 
-                            Rect rect2 = new Rect(position.xMax, position.y, rect.width - position.width - 45f, rect.height);
+                            Rect skillBar = new Rect(decrementSkillRect.xMax + 5, decrementSkillRect.y, 100, rect.height);
                             float fillPercent = Mathf.Max(0.01f, skill.Level / 20f);
                             Texture2D fillTex = SkillUI.SkillBarFillTex;
-                            Widgets.FillableBar(rect2, fillPercent, fillTex, null, false);
+
+                            var initialSkill = initialSkills.First(x => x.def == skill.def);
+
+                            float barSize = (skill.Level > 0 ? (float)skill.Level : 0) / 20f;
+                            FillableBar(skillBar, barSize, SkillBarFill);
+
+                            int baseLevel = initialSkill.Level;
+                            float baseBarSize = (baseLevel > 0 ? (float)baseLevel : 0) / 20f;
+                            FillableBar(skillBar, baseBarSize, SkillBarFill);
+
+                            GUI.color = Color.grey;
+                            Widgets.DrawBox(skillBar);
+                            GUI.color = Color.white;
+
+                            var incrementLevelRect = new Rect(skillBar.xMax + 5, labelRect.y, labelRect.height, labelRect.height);
+                            if (Widgets.ButtonImage(incrementLevelRect, ButtonNext))
+                            {
+                                skill.Level += 1;
+                            }
+                            
+                            if (skill.passion > Passion.None)
+                            {
+                                Texture2D image = AllPassions[(int)skill.passion];
+                                GUI.DrawTexture(passionRect, image);
+                            }
                         }
 
-
-                        Rect rect3 = new Rect(position.xMax + 4f, position.y, 999f, rect.height);
-                        rect3.yMin += 3f;
+                        Rect skillLevelLabel = new Rect(labelRect.xMax + labelRect.height + 10, passionRect.y, 999f, rect.height);
+                        skillLevelLabel.yMin += 3f;
                         string label;
                         if (skill.TotallyDisabled)
                         {
@@ -357,21 +466,50 @@ namespace AlteredCarbon
                             {
                                 GUI.color = ((skill.Aptitude > 0) ? ColorLibrary.BrightGreen : ColorLibrary.RedReadable);
                             }
-
+                        
                             label = skill.Level.ToStringCached();
                         }
-
+                        
                         GenUI.SetLabelAlign(TextAnchor.MiddleLeft);
-                        Widgets.Label(rect3, label);
+                        Widgets.Label(skillLevelLabel, label);
                         GenUI.ResetLabelAlign();
                         GUI.color = Color.white;
                     }, element => skillsContainer.width
                 );
             }
-
             Widgets.EndScrollView();
-            GUI.EndGroup();
         }
+
+        private static int MinLevelOfSkill(Pawn pawn, SkillDef sk)
+        {
+            float num = 0;
+            foreach (BackstoryDef item in pawn.story.AllBackstories.Where((BackstoryDef bs) => bs != null))
+            {
+                foreach (KeyValuePair<SkillDef, int> skillGain in item.skillGains)
+                {
+                    if (skillGain.Key == sk)
+                    {
+                        num += (float)skillGain.Value * Rand.Range(1f, 1.4f);
+                    }
+                }
+            }
+            for (int i = 0; i < pawn.story.traits.allTraits.Count; i++)
+            {
+                int value = 0;
+                if (!pawn.story.traits.allTraits[i].Suppressed && pawn.story.traits.allTraits[i].CurrentData.skillGains.TryGetValue(sk, out value))
+                {
+                    num += (float)value;
+                }
+            }
+            return Mathf.Clamp(Mathf.RoundToInt(num), 0, 20);
+        }
+
+        public static void FillableBar(Rect rect, float fillPercent, Texture2D fillTex)
+        {
+            rect.width *= fillPercent;
+            GUI.DrawTexture(rect, fillTex);
+        }
+
 
         private void DrawTimePanel(ref Rect inRect)
         {
@@ -387,45 +525,15 @@ namespace AlteredCarbon
             Widgets.Label(editTime, "Total stack degeneration:");
         }
 
-        private void DrawIdeoPanel(ref Rect inRect)
-        {
-            Text.Font = GameFont.Medium;
-            Rect ideoHeader = new Rect(inRect.x + this.Margin * 2f, inRect.y, inRect.width / 2f - this.Margin, inRect.height);
-            Widgets.Label(ideoHeader, "Ideology");
-            inRect.y += Text.LineHeight;
-            
-
-            Rect ideoBody = new Rect(inRect.x + this.Margin, inRect.y, inRect.width / 2f, inRect.height);
-            GUI.BeginGroup(ideoBody);
-            Rect ideoBodyFill = new Rect(0f, 0f, ideoBody.width, (Text.LineHeight * 1.5f) + (this.Margin));
-            Widgets.DrawRectFast(ideoBodyFill, Widgets.MenuSectionBGFillColor, null);
-
-            GUI.EndGroup();
-            inRect.y += ideoBodyFill.height + this.Margin;
-
-
-            // Widgets.DrawBoxSolidWithOutline(inRect, Color.black, Color.blue, 1);
-        }
-
         private Color col =  new Color(19f / 255f, 22f / 255f, 22f / 255f);
-        private void RenderRect(Rect debugRect)
+        private void DrawAcceptCancelButtons(ref Rect inRect)
         {
-            
-            Widgets.DrawRectFast(debugRect,col, null);
+            //throw new System.NotImplementedException();
         }
-    }
-}
 
-
-public static class Enums
-{
-    public static T Next<T>(this T v) where T : struct
-    {
-        return Enum.GetValues(v.GetType()).Cast<T>().Concat(new[] { default(T) }).SkipWhile(e => !v.Equals(e)).Skip(1).First();
-    }
-
-    public static T Previous<T>(this T v) where T : struct
-    {
-        return Enum.GetValues(v.GetType()).Cast<T>().Concat(new[] { default(T) }).Reverse().SkipWhile(e => !v.Equals(e)).Skip(1).First();
+        private void DrawTutorialPanel(ref Rect inRect)
+        {
+            //throw new System.NotImplementedException();
+        }
     }
 }

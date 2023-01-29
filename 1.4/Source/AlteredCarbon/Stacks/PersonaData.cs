@@ -1076,6 +1076,26 @@ namespace AlteredCarbon
             }
         }
 
+        public void ChangeIdeo(Ideo newIdeo, float certainty)
+        {
+            if (ideo != null)
+            {
+                if (previousIdeos is null)
+                {
+                    previousIdeos = new List<Ideo>();
+                }
+                if (!previousIdeos.Contains(ideo))
+                {
+                    previousIdeos.Add(ideo);
+                }
+            }
+            ideo = newIdeo;
+            joinTick = Find.TickManager.TicksGame;
+            this.certainty = certainty;
+            precept_RoleSingle = null;
+            precept_RoleMulti = null;
+        }
+
         public bool IsPresetPawn(Pawn pawn)
         {
             if (pawn == null || pawn.Name == null) return false;

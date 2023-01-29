@@ -62,6 +62,10 @@
       <HintPath>..\..\..\..\VanillaExpandedFramework\1.4\Assemblies\VFECore.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="VSE">
+      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\2854967442\1.4\Assemblies\VSE.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buildings\Building_DecryptionBench.cs" />

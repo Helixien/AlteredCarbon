@@ -30,9 +30,7 @@ namespace AlteredCarbon
             }
             if (!Rand.Chance(baseFailChance))
             {
-                corticalStack.PersonaData.ideo = Faction.OfPlayer.ideos.PrimaryIdeo;
-                corticalStack.PersonaData.certainty = 1f;
-                corticalStack.PersonaData.RefreshDummyPawn();
+                corticalStack.PersonaData.ChangeIdeo(Faction.OfPlayer.ideos.PrimaryIdeo, 1f);
             }
             else
             {

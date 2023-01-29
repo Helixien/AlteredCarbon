@@ -71,7 +71,7 @@ namespace AlteredCarbon
 
             if (ModCompatibility.HelixienAlteredCarbonIsActive)
             {
-                yield return new Command_Action
+                var rewriteStack =  new Command_Action
                 {
                     defaultLabel = "AC.RewriteStack".Translate(),
                     defaultDesc = "AC.RewriteStackDesc".Translate(),
@@ -95,6 +95,11 @@ namespace AlteredCarbon
                         });
                     }
                 };
+                if (powerComp.PowerOn is false)
+                {
+                    rewriteStack.Disable("NoPower".Translate().CapitalizeFirst());
+                }
+                yield return rewriteStack;
             }
         }
 

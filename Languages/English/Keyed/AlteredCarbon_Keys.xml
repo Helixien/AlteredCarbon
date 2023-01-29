@@ -170,5 +170,9 @@
 	<AC.NoDisabledWorkTypes>No disabled work types</AC.NoDisabledWorkTypes>
 	<AC.NoSkillPenalties>No skill penalties</AC.NoSkillPenalties>
 	<AC.FactionAllegiance>Faction allegiance</AC.FactionAllegiance>
-	<AC.RemoveUnwaveringLoyalTrait>Remove unwavering loyal trait</AC.RemoveUnwaveringLoyalTrait>
+	<AC.RemoveUnwaveringLoyalTrait>Remove unwavering loyal trait:</AC.RemoveUnwaveringLoyalTrait>
+	<AC.Ideology>Ideology</AC.Ideology>
+	<AC.Belief>Belief</AC.Belief>
+	<AC.Certainty>Certainty</AC.Certainty>
+	<AC.ChangingPawnIdeologyWarning>Changing a pawn ideology will also remove any roles assosiated from them.</AC.ChangingPawnIdeologyWarning>
 </LanguageData>
