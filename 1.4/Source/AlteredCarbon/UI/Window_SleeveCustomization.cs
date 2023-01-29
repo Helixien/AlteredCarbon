@@ -45,17 +45,6 @@ namespace AlteredCarbon
         private int growCost = 250;
         private HediffDef qualityDiff;
 
-        private static readonly List<HediffDef> sleeveQualities = new List<HediffDef>
-        {
-            AC_DefOf.VFEU_Sleeve_Quality_Awful,
-            AC_DefOf.VFEU_Sleeve_Quality_Poor,
-            AC_DefOf.VFEU_Sleeve_Quality_Normal,
-            AC_DefOf.VFEU_Sleeve_Quality_Good,
-            AC_DefOf.VFEU_Sleeve_Quality_Excellent,
-            AC_DefOf.VFEU_Sleeve_Quality_Masterwork,
-            AC_DefOf.VFEU_Sleeve_Quality_Legendary
-        };
-
         public static Dictionary<HediffDef, int> sleeveQualitiesTimeCost = new Dictionary<HediffDef, int>
         {
             {AC_DefOf.VFEU_Sleeve_Quality_Awful, 0 },
@@ -370,9 +359,9 @@ namespace AlteredCarbon
                 }, floatMenu: false);
 
             DoSelectionButtons(ref firstColumnPos, "AC.SleeveQuality".Translate(), ref sleeveQualityIndex,
-                (HediffDef x) => GetQualityLabel(sleeveQualities.IndexOf(x)), sleeveQualities, delegate (HediffDef x)
+                (HediffDef x) => GetQualityLabel(ACUtils.sleeveQualities.IndexOf(x)), ACUtils.sleeveQualities, delegate (HediffDef x)
                 {
-                    sleeveQualityIndex = sleeveQualities.IndexOf(x);
+                    sleeveQualityIndex = ACUtils.sleeveQualities.IndexOf(x);
                     ApplyHediffs();
                     UpdateGrowCost();
                 }, floatMenu: true);
@@ -516,7 +505,7 @@ namespace AlteredCarbon
         public void UpdateGrowCost()
         {
             ticksToGrow = AlteredCarbonMod.settings.baseGrowingTimeDuration;
-            ticksToGrow += sleeveQualitiesTimeCost[sleeveQualities[sleeveQualityIndex]];
+            ticksToGrow += sleeveQualitiesTimeCost[ACUtils.sleeveQualities[sleeveQualityIndex]];
             ticksToGrow = Mathf.Max(AlteredCarbonMod.settings.baseGrowingTimeDuration, ticksToGrow);
             if (convertXenogenesToEndegones)
             {
@@ -535,7 +524,7 @@ namespace AlteredCarbon
                     curSleeve.health.RemoveHediff(hediff);
                 }
             }
-            qualityDiff = sleeveQualities[sleeveQualityIndex];
+            qualityDiff = ACUtils.sleeveQualities[sleeveQualityIndex];
             curSleeve.health.AddHediff(qualityDiff, null);
         }
 
@@ -811,11 +800,11 @@ namespace AlteredCarbon
                 femaleBodyTypeIndex = GetPermittedBodyTypes().Select(x => x.Value).ToList().IndexOf(curSleeve.story.bodyType);
             }
 
-            foreach (HediffDef hediff in sleeveQualities)
+            foreach (HediffDef hediff in ACUtils.sleeveQualities)
             {
                 if (curSleeve.health.hediffSet.HasHediff(hediff))
                 {
-                    sleeveQualityIndex = sleeveQualities.IndexOf(hediff);
+                    sleeveQualityIndex = ACUtils.sleeveQualities.IndexOf(hediff);
                 }
             }
         }

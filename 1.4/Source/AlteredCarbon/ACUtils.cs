@@ -26,6 +26,17 @@ namespace AlteredCarbon
         {
             { AC_DefOf.VFEU_FilledCorticalStack, AC_DefOf.VFEU_EmptyCorticalStack },
         };
+        
+        public static readonly List<HediffDef> sleeveQualities = new List<HediffDef>
+        {
+            AC_DefOf.VFEU_Sleeve_Quality_Awful,
+            AC_DefOf.VFEU_Sleeve_Quality_Poor,
+            AC_DefOf.VFEU_Sleeve_Quality_Normal,
+            AC_DefOf.VFEU_Sleeve_Quality_Good,
+            AC_DefOf.VFEU_Sleeve_Quality_Excellent,
+            AC_DefOf.VFEU_Sleeve_Quality_Masterwork,
+            AC_DefOf.VFEU_Sleeve_Quality_Legendary
+        };
 
         public static Dictionary<ThingDef, StackInstallInfo> stackRecipesByDef = new Dictionary<ThingDef, StackInstallInfo>
         {
@@ -301,6 +312,16 @@ namespace AlteredCarbon
         {
             return AlteredCarbonManager.Instance.StacksIndex.ContainsKey(pawn.thingIDNumber) 
                 || AlteredCarbonManager.Instance.PawnsWithStacks.Contains(pawn);
+        }
+
+        public static bool UsesSleeve(this Pawn pawn)
+        {
+            return sleeveQualities.Exists(def => pawn.health.hediffSet.GetFirstHediffOfDef(def) != null);
+        }
+
+        public static HediffDef GetSleeveQuality(this Pawn pawn)
+        {
+            return sleeveQualities.First(def => pawn.health.hediffSet.HasHediff(def));
         }
 
         public static Hediff MakeHediff(HediffDef hediffDef, Pawn pawn, BodyPartRecord part)

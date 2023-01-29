@@ -249,6 +249,17 @@
 		<conflictingMemes>
 			<li>FleshPurity</li>
 		</conflictingMemes>
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Sleeving_Demanded_Sleeved</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Sleeving_Demanded_Sleeved_Social</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Sleeving_Demanded_Sleeveless_Social</thought>
+			</li>
+		</comps>
 	</PreceptDef>
 	<PreceptDef>
 		<defName>AC_Sleeving_Preferred</defName>
@@ -265,6 +276,11 @@
 		<conflictingMemes>
 			<li>FleshPurity</li>
 		</conflictingMemes>
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Sleeving_Preferred_Sleeved</thought>
+			</li>
+		</comps>
 	</PreceptDef>
 	<PreceptDef>
 		<defName>AC_Sleeving_Despised</defName>
@@ -277,8 +293,201 @@
 		<associatedMemes>
 			<li>FleshPurity</li>
 		</associatedMemes>
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Sleeving_Despised_Sleeved</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Sleeving_Despised_Sleeved_Social</thought>
+			</li>
+		</comps>
 	</PreceptDef>
 	<!-- ================================ Thoughts - Sleeving ====================== -->
+	<ThoughtDef>
+		<defName>AC_Sleeving_Demanded_Sleeved</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Sleeved</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>awful quality sleeve</label>
+				<description>Todo.</description>
+				<baseMoodEffect>-10</baseMoodEffect>
+			</li>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>poor quality sleeve</label>
+				<description>Todo.</description>
+				<baseMoodEffect>-5</baseMoodEffect>
+			</li>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>normal quality sleeve</label>
+				<visible>false</visible>
+			</li>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>good quality sleeve</label>
+				<description>Todo.</description>
+				<baseMoodEffect>3</baseMoodEffect>
+			</li>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>excellent quality sleeve</label>
+				<description>Todo.</description>
+				<baseMoodEffect>5</baseMoodEffect>
+			</li>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>masterwork quality sleeve</label>
+				<description>Todo.</description>
+				<baseMoodEffect>7</baseMoodEffect>
+			</li>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>legendary quality sleeve</label>
+				<description>Todo.</description>
+				<baseMoodEffect>10</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Sleeving_Demanded_Sleeved_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Sleeved_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>awful quality sleeve</label>
+				<description>Todo.</description>
+				<baseOpinionOffset>-25</baseOpinionOffset>
+			</li>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>poor quality sleeve</label>
+				<description>Todo.</description>
+				<baseOpinionOffset>-15</baseOpinionOffset>
+			</li>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>normal quality sleeve</label>
+				<description>Todo.</description>
+				<visible>false</visible>
+				<baseOpinionOffset>0</baseOpinionOffset>
+			</li>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>good quality sleeve</label>
+				<description>Todo.</description>
+				<baseOpinionOffset>6</baseOpinionOffset>
+			</li>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>excellent quality sleeve</label>
+				<description>Todo.</description>
+				<baseOpinionOffset>12</baseOpinionOffset>
+			</li>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>masterwork quality sleeve</label>
+				<description>Todo.</description>
+				<baseOpinionOffset>18</baseOpinionOffset>
+			</li>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>legendary quality sleeve</label>
+				<description>Todo.</description>
+				<baseOpinionOffset>25</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Sleeving_Demanded_Sleeveless_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Sleeveless_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename-->
+				<label>sleeveless</label>
+				<description>Todo.</description>
+				<baseOpinionOffset>-20</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	
+	<ThoughtDef>
+		<defName>AC_Sleeving_Preferred_Sleeved</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Sleeved</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>awful quality sleeve</label>
+				<description>Todo.</description>
+				<baseMoodEffect>-5</baseMoodEffect>
+			</li>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>poor quality sleeve</label>
+				<description>Todo.</description>
+				<baseMoodEffect>-3</baseMoodEffect>
+			</li>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>normal quality sleeve</label>
+				<visible>false</visible>
+			</li>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>good quality sleeve</label>
+				<description>Todo.</description>
+				<baseMoodEffect>1</baseMoodEffect>
+			</li>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>excellent quality sleeve</label>
+				<description>Todo.</description>
+				<baseMoodEffect>2</baseMoodEffect>
+			</li>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>masterwork quality sleeve</label>
+				<description>Todo.</description>
+				<baseMoodEffect>3</baseMoodEffect>
+			</li>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>legendary quality sleeve</label>
+				<description>Todo.</description>
+				<baseMoodEffect>5</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Sleeving_Despised_Sleeved</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Sleeved</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>sleeved</label>
+				<description>Todo.</description>
+				<baseMoodEffect>-20</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Sleeving_Despised_Sleeved_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Sleeved_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename-->
+				<label>uses sleeve</label>
+				<baseOpinionOffset>-25</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
 	<!-- ================================ Issue - Cross Sleeving ====================== -->
 	<IssueDef>
 		<defName>AC_CrossSleeving</defName>
