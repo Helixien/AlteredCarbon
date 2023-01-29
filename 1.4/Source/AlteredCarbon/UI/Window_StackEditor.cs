@@ -27,15 +27,19 @@ namespace AlteredCarbon
         private Building_DecryptionBench decryptionBench;
         private CorticalStack corticalStack;
         private PersonaData personaData;
+        private PersonaData personaDataCopy;
+
         private int backstoryChildIndex;
         private int backstoryAdultIndex;
+        private List<BackstoryDef> allChildhoodBackstories;
+        private List<BackstoryDef> allAdulthoodBackstories;
         private int factionIndex;
         private int ideoIndex;
         private List<SkillRecord> initialSkills;
+        private Gender originalGender;
+        private Faction originalFaction;
         private float LeftPanelWidth => 450;
-        private List<BackstoryDef> allChildhoodBackstories;
         public override Vector2 InitialSize => new Vector2(900, 975);
-
         public Window_StackEditor(Building_DecryptionBench decryptionBench, CorticalStack corticalStack)
         {
             this.decryptionBench = decryptionBench;
@@ -45,14 +49,10 @@ namespace AlteredCarbon
             personaData = corticalStack.personaDataRewritten;
             this.allChildhoodBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading
                 .Where(x => x.slot == BackstorySlot.Childhood).ToList();
-            this.backstoryChildIndex = allChildhoodBackstories
-                .FindIndex(x => x == personaData.childhood);
-
             if (personaData.adulthood != null)
             {
-                this.backstoryAdultIndex = DefDatabase<BackstoryDef>.AllDefsListForReading
-                    .Where(x => x.slot == BackstorySlot.Adulthood).ToList()
-                    .FindIndex(x => x == personaData.adulthood);
+                this.allAdulthoodBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading
+                .Where(x => x.slot == BackstorySlot.Adulthood).ToList();
             }
             if (personaData.skills != null)
             {
@@ -69,6 +69,29 @@ namespace AlteredCarbon
                         pawn = skill.pawn
                     });
                 }
+            }
+            personaDataCopy = new PersonaData();
+            personaDataCopy.CopyDataFrom(personaData);
+            originalGender = personaData.gender;
+            originalFaction = personaData.faction;
+            ResetIndices();
+        }
+
+        private void ResetIndices()
+        {
+            this.backstoryChildIndex = allChildhoodBackstories.FindIndex(x => x == personaData.childhood);
+            if (personaData.adulthood != null)
+            {
+                this.backstoryAdultIndex = allAdulthoodBackstories.FindIndex(x => x == personaData.adulthood);
+            }
+            if (personaData.ideo != null)
+            {
+                ideoIndex = Find.IdeoManager.IdeosListForReading.IndexOf(personaData.ideo);
+            }
+            if (personaData.faction != null)
+            {
+                var allFactions = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction).ToList();
+                factionIndex = allFactions.IndexOf(personaData.faction);
             }
         }
 
@@ -240,29 +263,23 @@ namespace AlteredCarbon
             }
             backstoryFilters.Add(NoSkillPenalties);
 
-            var allChildhoodBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading.Where(x => x.slot == BackstorySlot.Childhood)
-                .OrderBy(x => x.TitleCapFor(personaData.gender)).ToList();
             DoSelectionButtons(ref pos, "Childhood".Translate(), ref backstoryChildIndex,
                 (BackstoryDef x) => x.TitleCapFor(personaData.gender), allChildhoodBackstories, delegate (BackstoryDef x)
                 {
                     SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                     personaData.childhood = x;
-                    this.backstoryChildIndex = allChildhoodBackstories
-                        .FindIndex(x => x == personaData.childhood);
+                    this.backstoryChildIndex = allChildhoodBackstories.FindIndex(x => x == personaData.childhood);
                 }, floatMenu: false, buttonOffsetFromTextOverride: 5f, labelWidthOverride: 80f, filter: null, includeInfoCard: false,
                 tooltipGetter: (BackstoryDef x) => x.FullDescriptionFor(personaData.GetDummyPawn).Resolve(),
                 filters: backstoryFilters);
             if (personaData.adulthood != null)
             {
-                var allAdultBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading.Where(x => x.slot == BackstorySlot.Adulthood)
-                    .OrderBy(x => x.TitleCapFor(personaData.gender)).ToList();
                 DoSelectionButtons(ref pos, "Adulthood".Translate(), ref backstoryAdultIndex,
-                (BackstoryDef x) => x.TitleCapFor(personaData.gender), allAdultBackstories, delegate (BackstoryDef x)
+                (BackstoryDef x) => x.TitleCapFor(personaData.gender), allAdulthoodBackstories, delegate (BackstoryDef x)
                 {
                     SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                     personaData.adulthood = x;
-                    this.backstoryAdultIndex = allChildhoodBackstories
-                        .FindIndex(x => x == personaData.adulthood);
+                    this.backstoryAdultIndex = allAdulthoodBackstories.FindIndex(x => x == personaData.adulthood);
                 }, floatMenu: false, buttonOffsetFromTextOverride: 5f, labelWidthOverride: 80f, filter: null, includeInfoCard: false,
                 tooltipGetter: (BackstoryDef x) => x.FullDescriptionFor(personaData.GetDummyPawn).Resolve(),
                 filters: backstoryFilters);
@@ -638,19 +655,28 @@ namespace AlteredCarbon
             var acceptButtonRect = new Rect(buttonWidth / 2f, inRect.height - 32, buttonWidth, 32);
             if (Widgets.ButtonText(acceptButtonRect, "Accept".Translate()))
             {
-
+                this.Close();
             }
             var cancelButtonRect = new Rect((inRect.width / 2f) - (buttonWidth / 2f), acceptButtonRect.y, buttonWidth, 32);
             if (Widgets.ButtonText(cancelButtonRect, "Cancel".Translate()))
             {
-
+                ResetAll();
+                this.Close();
             }
 
             var resetAllButtonRect = new Rect(inRect.width - (buttonWidth + (buttonWidth / 2f)), acceptButtonRect.y, buttonWidth, 32);
             if (Widgets.ButtonText(resetAllButtonRect, "AC.ResetAll".Translate()))
             {
-
+                ResetAll();
             }
+        }
+
+        private void ResetAll()
+        {
+            personaData.CopyDataFrom(personaDataCopy);
+            ResetIndices();
+            personaData.gender = originalGender;
+            personaData.faction = originalFaction;
         }
     }
 }

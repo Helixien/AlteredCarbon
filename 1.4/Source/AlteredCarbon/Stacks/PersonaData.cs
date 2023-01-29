@@ -481,7 +481,19 @@ namespace AlteredCarbon
         public void CopyDataFrom(PersonaData other, bool isDuplicateOperation = false)
         {
             sourceStack = other.sourceStack;
-            name = other.name;
+            if (other.name is NameTriple nameTriple)
+            {
+                name = new NameTriple(nameTriple.firstInt, nameTriple.nickInt, nameTriple.lastInt);
+            }
+            else if (other.name is NameSingle nameSingle)
+            {
+                name = new NameSingle(nameSingle.nameInt);
+            }
+            else
+            {
+                name = other.name;
+            }
+
             origPawn = other.origPawn;
             hostilityMode = other.hostilityMode;
             areaRestriction = other.areaRestriction;
@@ -495,19 +507,35 @@ namespace AlteredCarbon
             thoughts = other.thoughts;
             faction = other.faction;
             isFactionLeader = other.isFactionLeader;
-            traits = other.traits;
+            if (other.traits != null)
+            {
+                traits = new List<Trait>();
+                foreach (var trait in other.traits)
+                {
+                    traits.Add(new Trait(trait.def, trait.degree));
+                }
+            }
             relations = other.relations;
             everSeenByPlayer = other.everSeenByPlayer;
             canGetRescuedThought = other.canGetRescuedThought;
             relativeInvolvedInRescueQuest = other.relativeInvolvedInRescueQuest;
             nextMarriageNameChange = other.nextMarriageNameChange;
             hidePawnRelations = other.hidePawnRelations;
-
             relatedPawns = other.relatedPawns;
-            skills = other.skills;
-            if (skills != null)
+            if (other.skills != null)
             {
-
+                skills = new List<SkillRecord>();
+                foreach (var skill in other.skills)
+                {
+                    skills.Add(new SkillRecord
+                    {
+                        def = skill.def,
+                        levelInt = skill.levelInt,
+                        xpSinceLastLevel = skill.xpSinceLastLevel,
+                        xpSinceMidnight = skill.xpSinceMidnight,
+                        passion = skill.passion,
+                    });
+                }
             }
             xenotypeDef = other.xenotypeDef;
             xenotypeName = other.xenotypeName;
@@ -830,23 +858,10 @@ namespace AlteredCarbon
                 }
             }
             
-            pawnToOverwrite.story.Childhood = childhood;
-            pawnToOverwrite.story.Adulthood = adulthood;
+            pawnToOverwrite.story.childhood = childhood;
+            pawnToOverwrite.story.adulthood = adulthood;
             pawnToOverwrite.story.title = title;
-            
-            if (pawnToOverwrite.workSettings == null)
-            {
-                pawnToOverwrite.workSettings = new Pawn_WorkSettings(pawnToOverwrite);
-            }
-            pawnToOverwrite.workSettings.priorities = new DefMap<WorkTypeDef, int>();
-            pawnToOverwrite.Notify_DisabledWorkTypesChanged();
-            if (priorities != null)
-            {
-                foreach (KeyValuePair<WorkTypeDef, int> priority in priorities)
-                {
-                    pawnToOverwrite.workSettings.SetPriority(priority.Key, priority.Value);
-                }
-            }
+          
             if (pawnToOverwrite.guest is null)
             {
                 pawnToOverwrite.guest = new Pawn_GuestTracker(pawnToOverwrite);
@@ -1009,9 +1024,25 @@ namespace AlteredCarbon
                 {
                     pawnToOverwrite.story.favoriteColor = favoriteColor.Value;
                 }
-            
             }
-            
+
+            if (pawnToOverwrite.workSettings == null)
+            {
+                pawnToOverwrite.workSettings = new Pawn_WorkSettings(pawnToOverwrite);
+            }
+            pawnToOverwrite.workSettings.priorities = new DefMap<WorkTypeDef, int>();
+            pawnToOverwrite.Notify_DisabledWorkTypesChanged();
+            if (priorities != null)
+            {
+                foreach (KeyValuePair<WorkTypeDef, int> priority in priorities)
+                {
+                    if (pawnToOverwrite.WorkTypeIsDisabled(priority.Key) is false)
+                    {
+                        pawnToOverwrite.workSettings.SetPriority(priority.Key, priority.Value);
+                    }
+                }
+            }
+
             if (ModCompatibility.IndividualityIsActive)
             {
                 ModCompatibility.SetSyrTraitsSexuality(pawnToOverwrite, sexuality);
@@ -1290,14 +1321,22 @@ namespace AlteredCarbon
         {
             LongEventHandler.ExecuteWhenFinished(delegate
             {
+                var dummyPawn = GetDummyPawn;
                 if (skills != null)
                 {
-                    var dummyPawn = GetDummyPawn;
                     foreach (var skill in skills)
                     {
                         skill.pawn = dummyPawn;
                     }
                 }
+                if (traits != null)
+                {
+                    foreach (var trait in traits)
+                    {
+                        trait.pawn = dummyPawn;
+                    }
+                }
+                dummyPawn.Notify_DisabledWorkTypesChanged();
             });
         }
 
