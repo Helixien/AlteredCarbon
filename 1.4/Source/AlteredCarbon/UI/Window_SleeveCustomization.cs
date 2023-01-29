@@ -188,7 +188,7 @@ namespace AlteredCarbon
                         CreateSleeve(curSleeve.gender);
                         raceTypeIndex = permittedRaces.IndexOf(x);
                         currentPawnKindDef.race = oldRace;
-                    });
+                    }, floatMenu: false);
             }
 
             var genes = curSleeve.genes?.GenesListForReading;
@@ -214,7 +214,7 @@ namespace AlteredCarbon
                                 GeneUtils.ApplyGene(x, curSleeve);
                                 RecheckEverything();
                                 indexesPerCategory[category.Key] = xenogermGenes.IndexOf(x);
-                            });
+                            }, floatMenu: false);
                     }
                 }
                 if (ModCompatibility.HelixienAlteredCarbonIsActive)
@@ -294,7 +294,7 @@ namespace AlteredCarbon
                     }
                     RecheckEverything();
                     headTypeIndex = permittedHeads.IndexOf(selected);
-                });
+                }, floatMenu: true);
 
             if (curSleeve.gender == Gender.Male)
             {
@@ -312,7 +312,7 @@ namespace AlteredCarbon
                         }
                         RecheckEverything();
                         maleBodyTypeIndex = permittedBodyTypes.IndexOf(x);
-                    });
+                    }, floatMenu: true);
             }
             else if (curSleeve.gender == Gender.Female)
             {
@@ -330,7 +330,7 @@ namespace AlteredCarbon
                         }
                         RecheckEverything();
                         femaleBodyTypeIndex = permittedBodyTypes.IndexOf(x);
-                    });
+                    }, floatMenu: true);
             }
             var permittedHairs = GetPermittedHairs();
             if (!permittedHairs.NullOrEmpty())
@@ -358,7 +358,7 @@ namespace AlteredCarbon
                     curSleeve.story.hairDef = x;
                     RecheckEverything();
                     hairTypeIndex = permittedHairs.IndexOf(x);
-                });
+                }, floatMenu: false);
             }
             var permittedBeards = GetPermittedBeards();
             DoSelectionButtons(ref firstColumnPos, "AC.BeardType".Translate(), ref beardTypeIndex,
@@ -367,7 +367,7 @@ namespace AlteredCarbon
                     curSleeve.style.beardDef = x;
                     RecheckEverything();
                     beardTypeIndex = permittedBeards.IndexOf(x);
-                });
+                }, floatMenu: false);
 
             DoSelectionButtons(ref firstColumnPos, "AC.SleeveQuality".Translate(), ref sleeveQualityIndex,
                 (HediffDef x) => GetQualityLabel(sleeveQualities.IndexOf(x)), sleeveQualities, delegate (HediffDef x)
@@ -375,7 +375,7 @@ namespace AlteredCarbon
                     sleeveQualityIndex = sleeveQualities.IndexOf(x);
                     ApplyHediffs();
                     UpdateGrowCost();
-                });
+                }, floatMenu: true);
 
             DrawExplanation(ref firstColumnPos, highlightRect.width + labelWidth + 15, 32, "AC.BodyOptionsExplanation".Translate());
 

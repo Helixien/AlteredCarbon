@@ -172,7 +172,7 @@
 		<description>A sophisticated workbench that allows the user to connect to cortical stacks in order to alter the contained information, such as changing allegiance, or even wipe them clean. Can also strip the biocoding from items./n/nAs the process is quite aggressive, there is a risk of the decryption process destroying the item.</description>
 		<thingClass>AlteredCarbon.Building_DecryptionBench</thingClass>
 		<graphicData>
-			<texPath>Things/Building/Misc/HackingWorkbench</texPath>
+			<texPath>Things/Building/Misc/HackingWorkbench/HackingWorkbench</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<drawSize>(3.5,1.5)</drawSize>
 			<damageData>
@@ -213,6 +213,7 @@
 			<li>VFEU_DecryptAncientStack</li>
 			<li>VFEU_WipeFilledCorticalStack</li>
 			<li>AC_HackBiocodedThings</li>
+			<li>VFEU_HackFilledCorticalStack</li>
 		</recipes>
 		<inspectorTabs>
 			<li>ITab_Bills</li>

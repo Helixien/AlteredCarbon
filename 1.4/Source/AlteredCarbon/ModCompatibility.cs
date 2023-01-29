@@ -11,8 +11,46 @@ namespace AlteredCarbon
 {
 	[StaticConstructorOnStartup]
 	public static class ModCompatibility
-	{
-		public static Color GetSkinColorFirst(Pawn pawn)
+    {
+        public static bool FacialAnimationsIsActive;
+        public static bool AlienRacesIsActive;
+        public static bool IndividualityIsActive;
+        public static bool PsychologyIsActive;
+        public static bool RimJobWorldIsActive;
+        public static bool DubsBadHygieneActive;
+        public static bool HelixienAlteredCarbonIsActive;
+        public static bool VanillaSkillsExpandedIsActive;
+        static ModCompatibility()
+        {
+            HelixienAlteredCarbonIsActive = ModsConfig.IsActive("Hlx.UltratechAlteredCarbon");
+            AlienRacesIsActive = ModsConfig.IsActive("erdelf.HumanoidAlienRaces");
+            FacialAnimationsIsActive = ModsConfig.IsActive("Nals.FacialAnimation");
+            IndividualityIsActive = ModLister.HasActiveModWithName("[SYR] Individuality");
+            PsychologyIsActive = ModsConfig.IsActive("Community.Psychology.UnofficialUpdate");
+            RimJobWorldIsActive = ModsConfig.IsActive("rim.job.world");
+            if (RimJobWorldIsActive)
+            {
+                raceGroupDef_HelperType = AccessTools.TypeByName("RaceGroupDef_Helper");
+                tryGetRaceGroupDef = raceGroupDef_HelperType.GetMethods().FirstOrDefault(x => x.Name == "TryGetRaceGroupDef");
+            }
+            DubsBadHygieneActive = ModsConfig.IsActive("Dubwise.DubsBadHygiene") || ModsConfig.IsActive("Dubwise.DubsBadHygiene.Lite");
+            VanillaSkillsExpandedIsActive = ModsConfig.IsActive("vanillaexpanded.skills");
+			if (VanillaSkillsExpandedIsActive)
+            {
+                AddVSEPassions();
+            }
+        }
+
+        private static void AddVSEPassions()
+        {
+            Window_StackEditor.AllPassions.Clear();
+            foreach (var def in DefDatabase<VSE.Passions.PassionDef>.AllDefs)
+            {
+                Window_StackEditor.AllPassions[def.index] = def.Icon;
+            }
+        }
+
+        public static Color GetSkinColorFirst(Pawn pawn)
 		{
 			AlienRace.AlienPartGenerator.AlienComp alienComp = ThingCompUtility.TryGetComp<AlienRace.AlienPartGenerator.AlienComp>(pawn);
 			return alienComp != null ? alienComp.GetChannel("skin").first : Color.white;
@@ -244,21 +282,6 @@ namespace AlteredCarbon
 		{
 			return DefDatabase<AlienRace.ThingDef_AlienRace>.AllDefs.Where(x => !excluded.Contains(x)).Cast<ThingDef>().ToList();
 		}
-		static ModCompatibility()
-		{
-			HelixienAlteredCarbonIsActive = ModsConfig.IsActive("Hlx.UltratechAlteredCarbon");
-			AlienRacesIsActive = ModsConfig.IsActive("erdelf.HumanoidAlienRaces");
-			FacialAnimationsIsActive = ModsConfig.IsActive("Nals.FacialAnimation");
-			IndividualityIsActive = ModLister.HasActiveModWithName("[SYR] Individuality");
-			PsychologyIsActive = ModsConfig.IsActive("Community.Psychology.UnofficialUpdate");
-			RimJobWorldIsActive = ModsConfig.IsActive("rim.job.world");
-			if (RimJobWorldIsActive)
-			{
-				raceGroupDef_HelperType = AccessTools.TypeByName("RaceGroupDef_Helper");
-				tryGetRaceGroupDef = raceGroupDef_HelperType.GetMethods().FirstOrDefault(x => x.Name == "TryGetRaceGroupDef");
-			}
-            DubsBadHygieneActive = ModsConfig.IsActive("Dubwise.DubsBadHygiene") || ModsConfig.IsActive("Dubwise.DubsBadHygiene.Lite");
-        }
 
         public static void FillThirstNeed(Pawn pawn, float value)
         {
@@ -278,7 +301,7 @@ namespace AlteredCarbon
         {
             if (need != null)
             {
-                if (need.MaxLevel < need.CurLevel)
+                if (need.MaxLevel > need.CurLevel)
                 {
                     need.CurLevel += value;
                 }
@@ -471,14 +494,6 @@ namespace AlteredCarbon
 				comp.NextHookupTick = rjwData.NextHookupTick;
 			}
 		}
-
-        public static bool FacialAnimationsIsActive;
-        public static bool AlienRacesIsActive;
-        public static bool IndividualityIsActive;
-		public static bool PsychologyIsActive;
-		public static bool RimJobWorldIsActive;
-		public static bool DubsBadHygieneActive;
-		public static bool HelixienAlteredCarbonIsActive;
 	}
 
 }

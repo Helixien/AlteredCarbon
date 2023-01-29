@@ -158,4 +158,26 @@
 	<AC.GainedEmptyCorticalStack>Decrypt Ancient Stacks: Gained empty cortical stack!</AC.GainedEmptyCorticalStack>
 	<AC.HackingBiocodedFailed>Hacking biocoded equipment: Failed, {0} destroyed!</AC.HackingBiocodedFailed>
 	<AC.HackingBiocodedSuccess>Hacking biocoded equipment: Successful! {0} is unlocked.</AC.HackingBiocodedSuccess>
+	<AC.IsEmptySleeve>Is empty sleeve</AC.IsEmptySleeve>
+	<AC.RewriteStack>Rewrite stack</AC.RewriteStack>
+	<AC.RewriteStackDesc>todo</AC.RewriteStackDesc>
+	<AC.RewriteCorticalStack>Rewrite Cortical Stack</AC.RewriteCorticalStack>
+	<AC.CorticalStackEditExplanation>Cortical Stacks feature advanced encryption to prevent outside forces from messing with the stored consciousness. Known exploits allow for some data to be edited and rewritten at the cost of stack degradation.</AC.CorticalStackEditExplanation>
+	<AC.Backstories>Backstories</AC.Backstories>
+	<AC.Search>Search</AC.Search>
+	<AC.AddFilter>Add filter</AC.AddFilter>
+	<AC.NoFilters>No filters</AC.NoFilters>
+	<AC.NoDisabledWorkTypes>No disabled work types</AC.NoDisabledWorkTypes>
+	<AC.NoSkillPenalties>No skill penalties</AC.NoSkillPenalties>
+	<AC.FactionAllegiance>Faction allegiance</AC.FactionAllegiance>
+	<AC.RemoveUnwaveringLoyalTrait>Remove unwavering loyal trait:</AC.RemoveUnwaveringLoyalTrait>
+	<AC.Ideology>Ideology</AC.Ideology>
+	<AC.Belief>Belief</AC.Belief>
+	<AC.Certainty>Certainty</AC.Certainty>
+	<AC.ChangingPawnIdeologyWarning>Changing a pawn ideology will also remove any roles assosiated from them.</AC.ChangingPawnIdeologyWarning>
+	<AC.OriginalGender>Original gender</AC.OriginalGender>
+	<AC.TotalTimeToRewrite>Total time to rewrite: {0}</AC.TotalTimeToRewrite>
+	<AC.TotalStackDegradation>Expected stack degradation: {0}</AC.TotalStackDegradation>
+	<AC.Tutorial>WARNING: The more you edit,the higher the stack degradation will be, causing the stored pawns personality to become more and more unstable. Stack degradation will go away over time after being installed in a body, but can take years.</AC.Tutorial>
+	<AC.ResetAll>Reset all</AC.ResetAll>
 </LanguageData>

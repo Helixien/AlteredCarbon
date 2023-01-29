@@ -4,84 +4,51 @@
 		<operations>
 			<!-- ================================ Spawn Pawns with Stacks ====================== -->
 			<li Class="PatchOperationAddModExtension">
-				<xpath>/Defs/PawnKindDef[defName="Empire_Common_Trader" or defName="Empire_Fighter_Trooper" or defName="Empire_Fighter_Janissary"]</xpath>
+				<xpath>/Defs/PawnKindDef[@Name="EmpireCommonerBase"]</xpath>
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
 						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>20</ChanceToSpawnWithStack>
+						<ChanceToSpawnWithStack>15</ChanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>
 			<li Class="PatchOperationAddModExtension">
-				<xpath>/Defs/PawnKindDef[defName="Empire_Fighter_Champion"]</xpath>
+				<xpath>/Defs/PawnKindDef[@Name="ImperialFighterBase"]</xpath>
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
 						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>25</ChanceToSpawnWithStack>
+						<ChanceToSpawnWithStack>45</ChanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>
 			<li Class="PatchOperationAddModExtension">
-				<xpath>/Defs/PawnKindDef[defName="Empire_Fighter_Cataphract"]</xpath>
+				<xpath>/Defs/PawnKindDef[@Name="RoyalBase"]</xpath>
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
 						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>40</ChanceToSpawnWithStack>
+						<ChanceToSpawnWithStack>45</ChanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>
 			<li Class="PatchOperationAddModExtension">
-				<xpath>/Defs/PawnKindDef[defName="Empire_Fighter_StellicGuardRanged" or defName="Empire_Fighter_StellicGuardMelee"]</xpath>
+				<xpath>/Defs/PawnKindDef[@Name="RoyalUpperBase"]</xpath>
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
 						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>50</ChanceToSpawnWithStack>
+						<ChanceToSpawnWithStack>75</ChanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>
-			<li Class="PatchOperationAddModExtension">
-				<xpath>/Defs/PawnKindDef[defName="Empire_Royal_Yeoman" or defName="Empire_Royal_Esquire"]</xpath>
+			<li Class="PatchOperationReplace">
+				<xpath>/Defs/PawnKindDef[deName="Empire_Royal_Consul"]/modExtensions/li[@Class="AlteredCarbon.StackSpawnModExtension"/ChanceToSpawnWithStack</xpath>
 				<value>
-					<li Class="AlteredCarbon.StackSpawnModExtension">
-						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>25</ChanceToSpawnWithStack>
-					</li>
+					<ChanceToSpawnWithStack>75</ChanceToSpawnWithStack>
 				</value>
 			</li>
-			<li Class="PatchOperationAddModExtension">
-				<xpath>/Defs/PawnKindDef[defName="Empire_Royal_Knight" or defName="Empire_Royal_Praetor"]</xpath>
+			<li Class="PatchOperationReplace">
+				<xpath>/Defs/PawnKindDef[deName="Empire_Royal_Stellarch" or defName="Empire_Royal_Bestower"]/modExtensions/li[@Class="AlteredCarbon.StackSpawnModExtension"/ChanceToSpawnWithStack</xpath>
 				<value>
-					<li Class="AlteredCarbon.StackSpawnModExtension">
-						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>40</ChanceToSpawnWithStack>
-					</li>
-				</value>
-			</li>
-			<li Class="PatchOperationAddModExtension">
-				<xpath>/Defs/PawnKindDef[defName="Empire_Royal_Baron" or defName="Empire_Royal_Count"]</xpath>
-				<value>
-					<li Class="AlteredCarbon.StackSpawnModExtension">
-						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>70</ChanceToSpawnWithStack>
-					</li>
-				</value>
-			</li>
-			<li Class="PatchOperationAddModExtension">
-				<xpath>/Defs/PawnKindDef[defName="Empire_Royal_Duke"]</xpath>
-				<value>
-					<li Class="AlteredCarbon.StackSpawnModExtension">
-						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>85</ChanceToSpawnWithStack>
-					</li>
-				</value>
-			</li>
-			<li Class="PatchOperationAddModExtension">
-				<xpath>/Defs/PawnKindDef[defName="Empire_Royal_Consul" or defName="Empire_Royal_Stellarch"]</xpath>
-				<value>
-					<li Class="AlteredCarbon.StackSpawnModExtension">
-						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>100</ChanceToSpawnWithStack>
-					</li>
+					<ChanceToSpawnWithStack>100</ChanceToSpawnWithStack>
 				</value>
 			</li>
 			<!-- ================================ Add Stacks to Deserter Quest ====================== -->

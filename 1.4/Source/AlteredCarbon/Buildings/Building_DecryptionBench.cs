@@ -63,12 +63,54 @@ namespace AlteredCarbon
                 },
                 decryptionBench = this
             };
-
             if (powerComp.PowerOn is false)
             {
                 wipeStacks.Disable("NoPower".Translate().CapitalizeFirst());
             }
             yield return wipeStacks;
+
+            if (ModCompatibility.HelixienAlteredCarbonIsActive)
+            {
+                var rewriteStack =  new Command_Action
+                {
+                    defaultLabel = "AC.RewriteStack".Translate(),
+                    defaultDesc = "AC.RewriteStackDesc".Translate(),
+                    icon = ContentFinder<Texture2D>.Get("UI/Icons/EditStack"),
+                    action = delegate ()
+                    {
+                        Find.Targeter.BeginTargeting(ForFilledStack(), delegate (LocalTargetInfo x)
+                        {
+                            if (x.Thing is CorticalStack corticalStack)
+                            {
+                                if (this.billStack.Bills.Any(y => y is Bill_HackStack bill && bill.corticalStack == corticalStack
+                                    && bill.recipe == AC_DefOf.VFEU_HackFilledCorticalStack))
+                                {
+                                    Messages.Message("AC.AlreadyOrderedToHackStack".Translate(), MessageTypeDefOf.CautionInput);
+                                }
+                                else
+                                {
+                                    Find.WindowStack.Add(new Window_StackEditor(this, corticalStack));
+                                }
+                            }
+                        });
+                    }
+                };
+                if (powerComp.PowerOn is false)
+                {
+                    rewriteStack.Disable("NoPower".Translate().CapitalizeFirst());
+                }
+                yield return rewriteStack;
+            }
+        }
+
+        private TargetingParameters ForFilledStack()
+        {
+            return new TargetingParameters
+            {
+                canTargetItems = true,
+                mapObjectTargetsMustBeAutoAttackable = false,
+                validator = (TargetInfo x) => x.Thing is CorticalStack stack && stack.PersonaData.ContainsInnerPersona
+            };
         }
 
         public void InstallWipeStackRecipe(CorticalStack corticalStack)

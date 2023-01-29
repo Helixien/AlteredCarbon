@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-<!--	<ThingDef ParentName="BuildingBase">
+	<!-- ================================ Gene Centrifuge ====================== -->
+		<ThingDef ParentName="GeneBuildingBase">
 		<defName>AC_GeneCentrifuge</defName>
 		<label>gene centrifuge</label>
 		<description>text.todo</description>
@@ -11,32 +12,16 @@
 		<graphicData>
 			<texPath>Things/Building/Misc/GeneCentrifuge</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
-			<drawSize>(5, 5)</drawSize>
-			<shadowData>
-				<volume>(1.5, 0.4, 1.5)</volume>
-			</shadowData>
+			<drawSize>(3, 3)</drawSize>
 		</graphicData>
 		<size>(3, 3)</size>
 		<canOverlapZones>false</canOverlapZones>
 		<defaultPlacingRot>North</defaultPlacingRot>
-		<designationCategory>Biotech</designationCategory>
-		<uiOrder>2100</uiOrder>
-		<researchPrerequisites>
-			<li>GeneProcessor</li>
-		</researchPrerequisites>
-		<descriptionHyperlinks>
-			<ThingDef>GeneAssembler</ThingDef>
-			<ThingDef>GeneProcessor</ThingDef>
-			<ThingDef>GeneBank</ThingDef>
-			<ThingDef>Genepack</ThingDef>
-			<ThingDef>Xenogerm</ThingDef>
-		</descriptionHyperlinks>
 		<statBases>
 			<MaxHitPoints>350</MaxHitPoints>
 			<WorkToBuild>9000</WorkToBuild>
 			<Mass>85</Mass>
 			<Flammability>0.5</Flammability>
-			<GeneticComplexityIncrease>2</GeneticComplexityIncrease>
 		</statBases>
 		<costList>
 			<Steel>100</Steel>
@@ -49,6 +34,57 @@
 				<li>Biotech</li>
 			</buildingTags>
 		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>200</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+		</comps>
+	</ThingDef>
+	<!-- ================================ Gene Vault ====================== -->
+	<ThingDef ParentName="GeneBuildingBase">
+		<defName>AC_GeneVault</defName>
+		<label>gene vault</label>
+		<description>text.todo</description>
+		<graphicData>
+			<texPath>Things/Building/Misc/GeneVault/GeneVault</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(5, 3)</drawSize>
+		</graphicData>
+		<size>(5, 3)</size>
+		<descriptionHyperlinks>
+			<ThingDef>Genepack</ThingDef>
+			<ThingDef>GeneBank</ThingDef>
+			<ThingDef>GeneAssembler</ThingDef>
+		</descriptionHyperlinks>
+		<passability>PassThroughOnly</passability>
+		<castEdgeShadows>true</castEdgeShadows>
+		<fillPercent>0.4</fillPercent>
+		<pathCost>14</pathCost>
+		<tickerType>Rare</tickerType>
+		<canOverlapZones>false</canOverlapZones>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<designationCategory>Biotech</designationCategory>
+		<researchPrerequisites>
+			<li>GeneProcessor</li>
+		</researchPrerequisites>
+		<statBases>
+			<MaxHitPoints>800</MaxHitPoints>
+			<WorkToBuild>15000</WorkToBuild>
+			<Mass>85</Mass>
+			<Flammability>0.5</Flammability>
+			<GeneticComplexityIncrease>2</GeneticComplexityIncrease>
+		</statBases>
+		<costList>
+			<Steel>200</Steel>
+			<Plasteel>50</Plasteel>
+			<ComponentIndustrial>4</ComponentIndustrial>
+		</costList>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+		<inspectorTabs>
+			<li>ITab_ContentsGenepackHolder</li>
+		</inspectorTabs>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
 		</placeWorkers>
@@ -56,13 +92,17 @@
 		<comps>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
-				<basePowerConsumption>50</basePowerConsumption>
+				<basePowerConsumption>150</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_GenepackContainer">
+				<maxCapacity>16</maxCapacity>
 			</li>
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Facility">
 				<maxSimultaneous>100</maxSimultaneous>
 				<maxDistance>12.9</maxDistance>
 			</li>
+			<li Class="CompProperties_Flickable"/>
 		</comps>
-	</ThingDef>-->
+	</ThingDef>
 </Defs>

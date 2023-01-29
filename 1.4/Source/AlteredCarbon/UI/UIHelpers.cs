@@ -23,6 +23,10 @@ namespace AlteredCarbon
         public static Texture2D ChangeColor = ContentFinder<Texture2D>.Get("UI/Commands/ChangeColor");
         public static Texture2D RotateSleeve = ContentFinder<Texture2D>.Get("UI/Icons/RotateSleeve");
         public static Texture2D RandomizeSleeve = ContentFinder<Texture2D>.Get("UI/Icons/RandomizeSleeve");
+        public static Texture2D FilterAtlas = ContentFinder<Texture2D>.Get("UI/Icons/FilterAtlas");
+        public static Texture2D DropdownIndicator = ContentFinder<Texture2D>.Get("UI/Icons/DropdownIndicator");
+        public static Color ColorText = new Color(0.80f, 0.80f, 0.80f);
+        public static Color ColorButtonHighlight = new Color(0.97647f, 0.97647f, 0.97647f);
         public static void DoColorButtons<T>(ref Vector2 pos, string label, List<T> colors, 
             Func<T, Color> colorGetter, Action<T> selectAction)
         {
@@ -50,7 +54,11 @@ namespace AlteredCarbon
             }
         }
 
-        public static void DoSelectionButtons<T>(ref Vector2 pos, string label, ref int index, Func<T, string> labelGetter, List<T> list, Action<T> selectAction)
+        public static void DoSelectionButtons<T>(ref Vector2 pos, string label, ref int index, Func<T, string> labelGetter, List<T> list,
+            Action<T> selectAction, bool floatMenu, float? buttonOffsetFromTextOverride = null, float? labelWidthOverride = null,
+            Func<T, bool> filter = null, bool includeInfoCard = true, Func<T, string> tooltipGetter = null, 
+            List<Func<T, (string, bool)>> filters = null, Func<T, Texture2D> icon = null, Func<T, Color?> iconColor = null, 
+            Func<T, string> labelGetterPostfix = null)
         {
             if (list.Any())
             {
@@ -59,9 +67,10 @@ namespace AlteredCarbon
                     index = 0;
                 }
                 Text.Anchor = TextAnchor.MiddleLeft;
-                Rect labelRect = GetLabelRect(label + ":", ref pos);
+                Rect labelRect = GetLabelRect(label + ":", ref pos, labelWidthOverride);
                 Widgets.Label(labelRect, label + ":");
-                Rect highlightRect = new Rect(labelRect.xMax + buttonOffsetFromText, labelRect.y, (buttonWidth * 2) + buttonOffsetFromButton, buttonHeight);
+                var buttonOffset = buttonOffsetFromTextOverride.HasValue ? buttonOffsetFromTextOverride.Value : buttonOffsetFromText;
+                Rect highlightRect = new Rect(labelRect.xMax + buttonOffset, labelRect.y, (buttonWidth * 2) + buttonOffsetFromButton, buttonHeight);
                 Widgets.DrawHighlight(highlightRect);
                 Rect leftSelectRect = new Rect(highlightRect.x + 2, highlightRect.y, highlightRect.height, highlightRect.height);
                 if (ButtonTextSubtleCentered(leftSelectRect, "<"))
@@ -78,13 +87,24 @@ namespace AlteredCarbon
                     selectAction(list.ElementAt(index));
                 }
                 Rect centerButtonRect = new Rect(leftSelectRect.xMax + 2, leftSelectRect.y, highlightRect.width - (2 * leftSelectRect.width), buttonHeight);
-                if (ButtonTextSubtleCentered(centerButtonRect, labelGetter(list[index])))
+                if (ButtonTextSubtleCentered(centerButtonRect, labelGetter(list[index]), icon: icon != null ? icon(list[index]) : null, 
+                    iconColor: iconColor != null ? iconColor(list[index]) : null))
                 {
                     SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
-                    FloatMenuUtility.MakeMenu<T>(list, x => labelGetter(x), (T x) => delegate
+                    if (floatMenu)
                     {
-                        selectAction(x);
-                    });
+                        FloatMenuUtility.MakeMenu<T>(list, x => labelGetter(x), (T x) => delegate
+                        {
+                            selectAction(x);
+                        });
+                    }
+                    else
+                    {
+                        Find.WindowStack.Add(new Window_SelectItem<T>(list[index], list, selectAction, labelGetter: labelGetter,
+                            tooltipGetter: tooltipGetter, filters: filters, includeInfoCard: includeInfoCard, icon: icon, 
+                            iconColor: iconColor, labelGetterPostfix: labelGetterPostfix));
+                    }
+
                 }
                 Rect rightButtonRect = new Rect(centerButtonRect.xMax + 2, leftSelectRect.y, leftSelectRect.width, leftSelectRect.height);
                 if (ButtonTextSubtleCentered(rightButtonRect, ">"))
@@ -134,8 +154,8 @@ namespace AlteredCarbon
             Text.Anchor = TextAnchor.UpperLeft;
         }
 
-        //button text subtle copied from Rimworld basecode but with minor changes to fit this UI
-        public static bool ButtonTextSubtleCentered(Rect rect, string label, Vector2 functionalSizeOffset = default)
+        public static bool ButtonTextSubtleCentered(Rect rect, string label, Vector2 functionalSizeOffset = default, 
+            Texture2D icon = null, Color? iconColor = null)
         {
             Rect rect2 = rect;
             rect2.width += functionalSizeOffset.x;
@@ -157,11 +177,33 @@ namespace AlteredCarbon
             Text.Anchor = TextAnchor.MiddleCenter;
             Text.WordWrap = false;
             Text.Font = GameFont.Small;
-            Widgets.Label(rect3, label);
+            if (icon != null)
+            {
+                LabelWithIcon(rect3, label, icon, iconColor, 0.75f, iconRectShift: 15f);
+            }
+            else
+            {
+                Widgets.Label(rect3, label);
+            }
             Text.Anchor = TextAnchor.MiddleLeft;
             Text.WordWrap = true;
             return Widgets.ButtonInvisible(rect2, false);
         }
+
+        public static void LabelWithIcon(Rect rect, string label, Texture2D labelIcon, Color? iconColor,
+            float labelIconScale = 1f, float labelRectShift = 0f, float iconRectShift = 0)
+        {
+            Rect outerRect = new Rect(rect.x + iconRectShift, rect.y - 1, rect.height, rect.height);
+            rect.xMin += labelRectShift;
+            if (iconColor != null)
+            {
+                GUI.color = iconColor.Value;
+            }
+            Widgets.DrawTextureFitted(outerRect, labelIcon, labelIconScale);
+            GUI.color = Color.white;
+            Widgets.Label(rect, label);
+        }
+
 
         public static float ReturnYfromPrevious(Rect rect)
         {

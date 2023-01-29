@@ -28,12 +28,15 @@ namespace AlteredCarbon
         public Faction faction;
         public bool isFactionLeader;
         private List<Thought_Memory> thoughts;
-        private List<Trait> traits;
+        public List<Trait> traits;
         private List<DirectPawnRelation> relations;
+
         private List<Pawn> relatedPawns;
-        private List<SkillRecord> skills;
-        public string childhood;
-        public string adulthood;
+        public List<SkillRecord> skills;
+
+        public BackstoryDef childhood;
+        public BackstoryDef adulthood;
+
         public string title;
         public XenotypeDef xenotypeDef;
         public string xenotypeName;
@@ -157,13 +160,11 @@ namespace AlteredCarbon
                 {
                     return title;
                 }
-                return !adulthood.NullOrEmpty() && DefDatabase<BackstoryDef>.GetNamedSilentFail(adulthood) is BackstoryDef newAdulthood
-                    ? newAdulthood.TitleShortFor(gender)
-                    : !childhood.NullOrEmpty() && DefDatabase<BackstoryDef>.GetNamedSilentFail(childhood) is BackstoryDef newChildhood
-                    ? newChildhood.TitleShortFor(gender)
-                    : "";
+                return adulthood != null ? adulthood.TitleShortFor(gender)
+                    : childhood != null ? childhood.TitleShortFor(gender) : "";
             }
         }
+
         private Color GetFactionRelationColor(Faction faction)
         {
             if (faction == null)
@@ -244,10 +245,10 @@ namespace AlteredCarbon
             }
 
             skills = pawn.skills?.skills;
-            childhood = pawn.story?.Childhood?.defName;
+            childhood = pawn.story?.Childhood;
             if (pawn.story?.Adulthood != null)
             {
-                adulthood = pawn.story.Adulthood.defName;
+                adulthood = pawn.story.Adulthood;
             }
             title = pawn.story?.title;
             if (ModsConfig.BiotechActive && pawn.genes != null)
@@ -429,6 +430,7 @@ namespace AlteredCarbon
             {
                 rjwData = ModCompatibility.GetRjwData(pawn);
             }
+            AssignDummyPawnReferences();
         }
 
         private static Type VEPsycastModExtensionType = AccessTools.TypeByName("VanillaPsycastsExpanded.AbilityExtension_Psycast");
@@ -479,7 +481,19 @@ namespace AlteredCarbon
         public void CopyDataFrom(PersonaData other, bool isDuplicateOperation = false)
         {
             sourceStack = other.sourceStack;
-            name = other.name;
+            if (other.name is NameTriple nameTriple)
+            {
+                name = new NameTriple(nameTriple.firstInt, nameTriple.nickInt, nameTriple.lastInt);
+            }
+            else if (other.name is NameSingle nameSingle)
+            {
+                name = new NameSingle(nameSingle.nameInt);
+            }
+            else
+            {
+                name = other.name;
+            }
+
             origPawn = other.origPawn;
             hostilityMode = other.hostilityMode;
             areaRestriction = other.areaRestriction;
@@ -493,16 +507,36 @@ namespace AlteredCarbon
             thoughts = other.thoughts;
             faction = other.faction;
             isFactionLeader = other.isFactionLeader;
-            traits = other.traits;
+            if (other.traits != null)
+            {
+                traits = new List<Trait>();
+                foreach (var trait in other.traits)
+                {
+                    traits.Add(new Trait(trait.def, trait.degree));
+                }
+            }
             relations = other.relations;
             everSeenByPlayer = other.everSeenByPlayer;
             canGetRescuedThought = other.canGetRescuedThought;
             relativeInvolvedInRescueQuest = other.relativeInvolvedInRescueQuest;
             nextMarriageNameChange = other.nextMarriageNameChange;
             hidePawnRelations = other.hidePawnRelations;
-
             relatedPawns = other.relatedPawns;
-            skills = other.skills;
+            if (other.skills != null)
+            {
+                skills = new List<SkillRecord>();
+                foreach (var skill in other.skills)
+                {
+                    skills.Add(new SkillRecord
+                    {
+                        def = skill.def,
+                        levelInt = skill.levelInt,
+                        xpSinceLastLevel = skill.xpSinceLastLevel,
+                        xpSinceMidnight = skill.xpSinceMidnight,
+                        passion = skill.passion,
+                    });
+                }
+            }
             xenotypeDef = other.xenotypeDef;
             xenotypeName = other.xenotypeName;
             childhood = other.childhood;
@@ -591,6 +625,7 @@ namespace AlteredCarbon
             romanceFactor = other.romanceFactor;
             psychologyData = other.psychologyData;
             rjwData = other.rjwData;
+            AssignDummyPawnReferences();
         }
 
 
@@ -789,7 +824,7 @@ namespace AlteredCarbon
                     }
                 }
 
-                if (VPE_PsycastAbilityImplant != null)
+                if (VPE_PsycastAbilityImplant?.def != null)
                 {
                     pawnToOverwrite.health.hediffSet.hediffs.RemoveAll(x => x.def.defName == "VPE_PsycastAbilityImplant");
                     pawnToOverwrite.health.AddHediff(VPE_PsycastAbilityImplant);
@@ -823,27 +858,10 @@ namespace AlteredCarbon
                 }
             }
             
-            if (!childhood.NullOrEmpty())
-            {
-                pawnToOverwrite.story.Childhood = DefDatabase<BackstoryDef>.GetNamedSilentFail(childhood);
-            }
-            
-            pawnToOverwrite.story.Adulthood = !adulthood.NullOrEmpty() ? DefDatabase<BackstoryDef>.GetNamedSilentFail(adulthood) : null;
+            pawnToOverwrite.story.childhood = childhood;
+            pawnToOverwrite.story.adulthood = adulthood;
             pawnToOverwrite.story.title = title;
-            
-            if (pawnToOverwrite.workSettings == null)
-            {
-                pawnToOverwrite.workSettings = new Pawn_WorkSettings(pawnToOverwrite);
-            }
-            pawnToOverwrite.workSettings.priorities = new DefMap<WorkTypeDef, int>();
-            pawnToOverwrite.Notify_DisabledWorkTypesChanged();
-            if (priorities != null)
-            {
-                foreach (KeyValuePair<WorkTypeDef, int> priority in priorities)
-                {
-                    pawnToOverwrite.workSettings.SetPriority(priority.Key, priority.Value);
-                }
-            }
+          
             if (pawnToOverwrite.guest is null)
             {
                 pawnToOverwrite.guest = new Pawn_GuestTracker(pawnToOverwrite);
@@ -1006,9 +1024,25 @@ namespace AlteredCarbon
                 {
                     pawnToOverwrite.story.favoriteColor = favoriteColor.Value;
                 }
-            
             }
-            
+
+            if (pawnToOverwrite.workSettings == null)
+            {
+                pawnToOverwrite.workSettings = new Pawn_WorkSettings(pawnToOverwrite);
+            }
+            pawnToOverwrite.workSettings.priorities = new DefMap<WorkTypeDef, int>();
+            pawnToOverwrite.Notify_DisabledWorkTypesChanged();
+            if (priorities != null)
+            {
+                foreach (KeyValuePair<WorkTypeDef, int> priority in priorities)
+                {
+                    if (pawnToOverwrite.WorkTypeIsDisabled(priority.Key) is false)
+                    {
+                        pawnToOverwrite.workSettings.SetPriority(priority.Key, priority.Value);
+                    }
+                }
+            }
+
             if (ModCompatibility.IndividualityIsActive)
             {
                 ModCompatibility.SetSyrTraitsSexuality(pawnToOverwrite, sexuality);
@@ -1071,6 +1105,26 @@ namespace AlteredCarbon
             {
                 relatedPawn.needs.mood.thoughts.situational.Notify_SituationalThoughtsDirty();
             }
+        }
+
+        public void ChangeIdeo(Ideo newIdeo, float certainty)
+        {
+            if (ideo != null)
+            {
+                if (previousIdeos is null)
+                {
+                    previousIdeos = new List<Ideo>();
+                }
+                if (!previousIdeos.Contains(ideo))
+                {
+                    previousIdeos.Add(ideo);
+                }
+            }
+            ideo = newIdeo;
+            joinTick = Find.TickManager.TicksGame;
+            this.certainty = certainty;
+            precept_RoleSingle = null;
+            precept_RoleMulti = null;
         }
 
         public bool IsPresetPawn(Pawn pawn)
@@ -1153,8 +1207,9 @@ namespace AlteredCarbon
             Scribe_References.Look(ref faction, "faction", true);
             Scribe_Values.Look(ref isFactionLeader, "isFactionLeader", false, false);
 
-            Scribe_Values.Look(ref childhood, "childhood", null, false);
-            Scribe_Values.Look(ref adulthood, "adulthood", null, false);
+            Scribe_Collections.Look(ref skills, "skills",LookMode.Deep);
+            Scribe_Defs.Look(ref childhood, "childhood");
+            Scribe_Defs.Look(ref adulthood, "adulthood");
             Scribe_Values.Look(ref title, "title", null, false);
             Scribe_Defs.Look(ref xenotypeDef, "xenotypeDef");
             Scribe_Values.Look(ref xenotypeName, "xenotypeName");
@@ -1162,6 +1217,7 @@ namespace AlteredCarbon
             Scribe_Collections.Look(ref traits, "traits", LookMode.Deep);
             Scribe_Collections.Look(ref skills, "skills", LookMode.Deep);
             Scribe_Collections.Look(ref relations, "otherPawnRelations", LookMode.Deep);
+
             Scribe_Values.Look(ref everSeenByPlayer, "everSeenByPlayer");
             Scribe_Values.Look(ref canGetRescuedThought, "canGetRescuedThought", true);
             Scribe_References.Look(ref relativeInvolvedInRescueQuest, "relativeInvolvedInRescueQuest");
@@ -1256,7 +1312,32 @@ namespace AlteredCarbon
                 priorities.CleanupDict();
                 favor.CleanupDict();
                 heirs.CleanupDict();
+
+                AssignDummyPawnReferences();
             }
+        }
+
+        private void AssignDummyPawnReferences()
+        {
+            LongEventHandler.ExecuteWhenFinished(delegate
+            {
+                var dummyPawn = GetDummyPawn;
+                if (skills != null)
+                {
+                    foreach (var skill in skills)
+                    {
+                        skill.pawn = dummyPawn;
+                    }
+                }
+                if (traits != null)
+                {
+                    foreach (var trait in traits)
+                    {
+                        trait.pawn = dummyPawn;
+                    }
+                }
+                dummyPawn.Notify_DisabledWorkTypesChanged();
+            });
         }
 
         private List<Faction> favorKeys = new List<Faction>();

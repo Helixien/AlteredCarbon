@@ -62,10 +62,15 @@
       <HintPath>..\..\..\..\VanillaExpandedFramework\1.4\Assemblies\VFECore.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="VSE">
+      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\2854967442\1.4\Assemblies\VSE.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buildings\Building_DecryptionBench.cs" />
     <Compile Include="Buildings\Building_Incubator.cs" />
+    <Compile Include="HarmonyPatches\Building_GeneExtractor_CanAcceptPawn_Patch.cs" />
     <Compile Include="HarmonyPatches\ChildcareUtility_SwaddleBaby_Patch.cs" />
     <Compile Include="HarmonyPatches\ColonistBarColonistDrawer_HandleClicks_Patch.cs" />
     <Compile Include="HarmonyPatches\BedPatches\CompAssignableToPawn_PlayerCanSeeAssignments_Patch.cs" />
@@ -150,6 +155,7 @@
     <Compile Include="Jobs\JobDriver_ReleaseSleeve.cs" />
     <Compile Include="HarmonyPatches\Pawn_HealthTracker_CheckForStateChange_Patch.cs" />
     <Compile Include="Buildings\Building_SleeveGrower.cs" />
+    <Compile Include="UI\Window_SelectItem.cs" />
     <Compile Include="UI\Window_SleeveCustomization.cs" />
     <Compile Include="ExcludeRacesModExtension.cs" />
     <Compile Include="Stacks\PsychologyData.cs" />
@@ -173,6 +179,7 @@
     <Compile Include="ACUtils.cs" />
     <Compile Include="UI\UIHelpers.cs" />
     <Compile Include="UI\Window_ColorPicker.cs" />
+    <Compile Include="UI\Window_StackEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Krafs.Publicizer">
