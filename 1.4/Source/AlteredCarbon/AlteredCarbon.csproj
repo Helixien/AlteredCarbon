@@ -94,7 +94,6 @@
     <Compile Include="HarmonyPatches\PawnNameColorUtility_PawnNameColorOf_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnsFinder_AllMapsCaravansAndTravelingTransportPods_Alive_FreeColonists_NoCryptosleep_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_Destroy_Patch.cs" />
-    <Compile Include="HarmonyPatches\Pawn_GuiltTracker_IsGuilty_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_Kill_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_NeedsTracker_ShouldHaveNeed_Patch.cs" />
@@ -110,11 +109,6 @@
     <Compile Include="HarmonyPatches\StatsRecord_Notify_ColonistKilled_Patch.cs" />
     <Compile Include="Stacks\Ability_ArchoStackSkip.cs" />
     <Compile Include="Stacks\ScenPart_CorticalStack.cs" />
-    <Compile Include="Thoughts\ThoughtWorker_Precept_ArchoStack.cs" />
-    <Compile Include="Thoughts\ThoughtWorker_Precept_NoStack.cs" />
-    <Compile Include="Thoughts\ThoughtWorker_Precept_NoStack_Social.cs" />
-    <Compile Include="Thoughts\ThoughtWorker_Precept_Stack.cs" />
-    <Compile Include="Thoughts\ThoughtWorker_Precept_Stack_Social.cs" />
     <Compile Include="UI\Dialog_PresetList.cs" />
     <Compile Include="UI\Dialog_SelectXenogermForSleeve.cs" />
     <Compile Include="UI\GeneUtility.cs" />
