@@ -108,6 +108,7 @@
     <Compile Include="HarmonyPatches\SocialCardUtility_GetPawnSituationLabel_Patch.cs" />
     <Compile Include="HarmonyPatches\StatsRecord_Notify_ColonistKilled_Patch.cs" />
     <Compile Include="Stacks\Ability_ArchoStackSkip.cs" />
+    <Compile Include="Stacks\Hediff_StackDegradation.cs" />
     <Compile Include="Stacks\ScenPart_CorticalStack.cs" />
     <Compile Include="UI\Dialog_PresetList.cs" />
     <Compile Include="UI\Dialog_SelectXenogermForSleeve.cs" />

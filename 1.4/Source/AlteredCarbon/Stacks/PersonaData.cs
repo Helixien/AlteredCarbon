@@ -121,9 +121,13 @@ namespace AlteredCarbon
         public int stackGroupID = -1;
         public int lastTimeUpdated;
 
+        public int editTime;
+        public float stackDegradation;
+        public float stackDegradationToAdd;
+
         public bool restoreToEmptyStack = true;
 
-        private Pawn dummyPawn;
+        public Pawn dummyPawn;
         public Pawn GetDummyPawn
         {
             get
@@ -147,6 +151,10 @@ namespace AlteredCarbon
             {
                 ACUtils.CopyBody(origPawn, dummyPawn);
                 dummyPawn.RefreshGraphic();
+            }
+            else if (dummyPawn.genes != null)
+            {
+                dummyPawn.genes.ClearXenogenes();
             }
         }
         public TaggedString PawnNameColored => TitleShort?.CapitalizeFirst().NullOrEmpty() ?? false
@@ -217,7 +225,18 @@ namespace AlteredCarbon
             {
                 isFactionLeader = true;
             }
-            traits = pawn.story?.traits?.allTraits.Where(x => x.sourceGene is null && x.suppressedByGene is null).ToList();
+            traits = new List<Trait>();
+            if (pawn.story?.traits != null)
+            {
+                foreach (var trait in pawn.story.traits.allTraits)
+                {
+                    if (trait.sourceGene is null && trait.suppressedByGene is null)
+                    {
+                        traits.Add(new Trait(trait.def, trait.degree));
+                    }
+                }
+            }
+
             if (pawn.relations != null)
             {
                 everSeenByPlayer = pawn.relations.everSeenByPlayer;
@@ -244,7 +263,21 @@ namespace AlteredCarbon
                 }
             }
 
-            skills = pawn.skills?.skills;
+            skills = new List<SkillRecord>();
+            if (pawn.skills?.skills != null)
+            {
+                foreach (var skill in pawn.skills.skills)
+                {
+                    skills.Add(new SkillRecord
+                    {
+                        def = skill.def,
+                        levelInt = skill.levelInt,
+                        xpSinceLastLevel = skill.xpSinceLastLevel,
+                        xpSinceMidnight = skill.xpSinceMidnight,
+                        passion = skill.passion,
+                    });
+                }
+            }
             childhood = pawn.story?.Childhood;
             if (pawn.story?.Adulthood != null)
             {
@@ -430,54 +463,17 @@ namespace AlteredCarbon
             {
                 rjwData = ModCompatibility.GetRjwData(pawn);
             }
+
+            if (ModCompatibility.HelixienAlteredCarbonIsActive)
+            {
+                var stackDegradationHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_StackDegradation) as Hediff_StackDegradation;
+                if (stackDegradationHediff != null)
+                {
+                    this.stackDegradation = stackDegradationHediff.stackDegradation;
+                }
+            }
             AssignDummyPawnReferences();
         }
-
-        private static Type VEPsycastModExtensionType = AccessTools.TypeByName("VanillaPsycastsExpanded.AbilityExtension_Psycast");
-        private bool CanStoreAbility(Pawn pawn, Def def)
-        {
-            if (def is AbilityDef abilityDef)
-            {
-                if (IsNaturalAbilityFor(pawn, abilityDef))
-                {
-                    return false;
-                }
-                if (typeof(Psycast).IsAssignableFrom(abilityDef.abilityClass))
-                {
-                    return true;
-                }
-            }
-            else if (def is VFECore.Abilities.AbilityDef && VEPsycastModExtensionType != null)
-            {
-                if (def.modExtensions != null)
-                {
-                    foreach (var modExtension in def.modExtensions)
-                    {
-                        if (VEPsycastModExtensionType.IsAssignableFrom(modExtension.GetType()))
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
-        }
-
-        private static bool IsNaturalAbilityFor(Pawn pawn, AbilityDef ability)
-        {
-            if (ModsConfig.BiotechActive && pawn.genes != null)
-            {
-                foreach (var gene in pawn.genes.GenesListForReading)
-                {
-                    if (gene.Active && gene.def.abilities.NullOrEmpty() is false && gene.def.abilities.Contains(ability))
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
         public void CopyDataFrom(PersonaData other, bool isDuplicateOperation = false)
         {
             sourceStack = other.sourceStack;
@@ -507,9 +503,9 @@ namespace AlteredCarbon
             thoughts = other.thoughts;
             faction = other.faction;
             isFactionLeader = other.isFactionLeader;
+            traits = new List<Trait>();
             if (other.traits != null)
             {
-                traits = new List<Trait>();
                 foreach (var trait in other.traits)
                 {
                     traits.Add(new Trait(trait.def, trait.degree));
@@ -522,9 +518,9 @@ namespace AlteredCarbon
             nextMarriageNameChange = other.nextMarriageNameChange;
             hidePawnRelations = other.hidePawnRelations;
             relatedPawns = other.relatedPawns;
+            skills = new List<SkillRecord>();
             if (other.skills != null)
             {
-                skills = new List<SkillRecord>();
                 foreach (var skill in other.skills)
                 {
                     skills.Add(new SkillRecord
@@ -625,49 +621,48 @@ namespace AlteredCarbon
             romanceFactor = other.romanceFactor;
             psychologyData = other.psychologyData;
             rjwData = other.rjwData;
+            stackDegradation = other.stackDegradation;
             AssignDummyPawnReferences();
         }
-
-
-        public void OverwritePawn(Pawn pawnToOverwrite, StackSavingOptionsModExtension extension, Pawn original = null, bool overwriteOriginalPawn = true)
+        public void OverwritePawn(Pawn pawn, StackSavingOptionsModExtension extension, Pawn original = null, bool overwriteOriginalPawn = true)
         {
             this.origPawn = FindOrigPawn(original);
             if (origPawn != null)
             {
                 CopyFromPawn(origPawn, sourceStack);
             }
-            pawnToOverwrite.Name = name;
-            PawnComponentsUtility.CreateInitialComponents(pawnToOverwrite);
-            if (pawnToOverwrite.Faction != faction)
+            pawn.Name = name;
+            PawnComponentsUtility.CreateInitialComponents(pawn);
+            if (pawn.Faction != faction)
             {
-                pawnToOverwrite.SetFaction(faction);
+                pawn.SetFaction(faction);
             }
-            if (isFactionLeader && overwriteOriginalPawn && pawnToOverwrite.Faction != null)
+            if (isFactionLeader && overwriteOriginalPawn && pawn.Faction != null)
             {
-                pawnToOverwrite.Faction.leader = pawnToOverwrite;
+                pawn.Faction.leader = pawn;
             }
-            if (pawnToOverwrite.CanThink())
+            if (pawn.CanThink())
             {
-                for (int num = pawnToOverwrite.needs.mood.thoughts.memories.Memories.Count - 1; num >= 0; num--)
+                for (int num = pawn.needs.mood.thoughts.memories.Memories.Count - 1; num >= 0; num--)
                 {
-                    pawnToOverwrite.needs.mood.thoughts.memories.RemoveMemory(pawnToOverwrite.needs.mood.thoughts.memories.Memories[num]);
+                    pawn.needs.mood.thoughts.memories.RemoveMemory(pawn.needs.mood.thoughts.memories.Memories[num]);
                 }
             }
             
             if (thoughts != null)
             {
-                if (gender == pawnToOverwrite.gender)
+                if (gender == pawn.gender)
                 {
                     thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGender);
                     thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGenderDouble);
                     thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGenderPregnant);
                     thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGenderChild);
                 }
-                if (race == pawnToOverwrite.kindDef.race)
+                if (race == pawn.kindDef.race)
                 {
                     thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongRace);
                 }
-                if (pawnToOverwrite.CanThink())
+                if (pawn.CanThink())
                 {
                     foreach (Thought_Memory thought in thoughts)
                     {
@@ -675,17 +670,17 @@ namespace AlteredCarbon
                         {
                             continue;
                         }
-                        pawnToOverwrite.needs.mood.thoughts.memories.TryGainMemory(thought, thought.otherPawn);
+                        pawn.needs.mood.thoughts.memories.TryGainMemory(thought, thought.otherPawn);
                     }
                 }
             }
             if (extension != null)
             {
-                pawnToOverwrite.story.traits.allTraits.RemoveAll(x => !extension.ignoresTraits.Contains(x.def.defName));
+                pawn.story.traits.allTraits.RemoveAll(x => !extension.ignoresTraits.Contains(x.def.defName));
             }
             else
             {
-                pawnToOverwrite.story.traits.allTraits.Clear();
+                pawn.story.traits.allTraits.Clear();
             }
             if (traits != null)
             {
@@ -695,12 +690,12 @@ namespace AlteredCarbon
                     {
                         continue;
                     }
-                    pawnToOverwrite.story.traits.GainTrait(trait);
+                    pawn.story.traits.GainTrait(trait);
                 }
             }
             
-            pawnToOverwrite.mindState = new Pawn_MindState(pawnToOverwrite);
-            pawnToOverwrite.relations = new Pawn_RelationsTracker(pawnToOverwrite)
+            pawn.mindState = new Pawn_MindState(pawn);
+            pawn.relations = new Pawn_RelationsTracker(pawn)
             {
                 everSeenByPlayer = everSeenByPlayer,
                 canGetRescuedThought = canGetRescuedThought,
@@ -712,7 +707,7 @@ namespace AlteredCarbon
             if (overwriteOriginalPawn)
             {
                 var oldOrigPawn = this.origPawn;
-                this.origPawn = pawnToOverwrite;
+                this.origPawn = pawn;
                 this.pawnID = this.origPawn.thingIDNumber;
                 if (relations != null)
                 {
@@ -721,7 +716,7 @@ namespace AlteredCarbon
                         var rel = relations[i];
                         if (rel.otherPawn != null)
                         {
-                            ReplaceSocialReferences(rel.otherPawn, pawnToOverwrite);
+                            ReplaceSocialReferences(rel.otherPawn, pawn);
                         }
                     }
                 }
@@ -733,7 +728,7 @@ namespace AlteredCarbon
                         var relatedPawn = relatedPawns[i];
                         if (relatedPawn != null)
                         {
-                            ReplaceSocialReferences(relatedPawn, pawnToOverwrite);
+                            ReplaceSocialReferences(relatedPawn, pawn);
                         }
                     }
                 }
@@ -745,7 +740,7 @@ namespace AlteredCarbon
                         var relatedPawn = potentiallyRelatedPawns[i];
                         if (relatedPawn != null)
                         {
-                            ReplaceSocialReferences(relatedPawn, pawnToOverwrite);
+                            ReplaceSocialReferences(relatedPawn, pawn);
                         }
                     }
 
@@ -753,81 +748,81 @@ namespace AlteredCarbon
                     {
                         var oldDirectRelation = oldOrigPawn.relations.DirectRelations[i];
                         oldOrigPawn.relations.directRelations.Remove(oldDirectRelation);
-                        if (pawnToOverwrite.relations.directRelations.Any(x => x.def == oldDirectRelation.def && x.otherPawn == oldDirectRelation.otherPawn) is false)
+                        if (pawn.relations.directRelations.Any(x => x.def == oldDirectRelation.def && x.otherPawn == oldDirectRelation.otherPawn) is false)
                         {
-                            pawnToOverwrite.relations.directRelations.Add(new DirectPawnRelation(oldDirectRelation.def,
+                            pawn.relations.directRelations.Add(new DirectPawnRelation(oldDirectRelation.def,
                             oldDirectRelation.otherPawn, oldDirectRelation.startTicks));
                         }
                         if (oldDirectRelation.otherPawn.relations.pawnsWithDirectRelationsWithMe.Contains(oldOrigPawn))
                         {
                             oldDirectRelation.otherPawn.relations.pawnsWithDirectRelationsWithMe.Remove(oldOrigPawn);
                         }
-                        if (oldDirectRelation.otherPawn.relations.pawnsWithDirectRelationsWithMe.Contains(pawnToOverwrite) is false)
+                        if (oldDirectRelation.otherPawn.relations.pawnsWithDirectRelationsWithMe.Contains(pawn) is false)
                         {
-                            oldDirectRelation.otherPawn.relations.pawnsWithDirectRelationsWithMe.Add(pawnToOverwrite);
+                            oldDirectRelation.otherPawn.relations.pawnsWithDirectRelationsWithMe.Add(pawn);
                         }
                     }
                     oldOrigPawn.relations = new Pawn_RelationsTracker(oldOrigPawn);
                 }
 
-                if (pawnToOverwrite.needs?.mood?.thoughts != null)
+                if (pawn.needs?.mood?.thoughts != null)
                 {
-                    pawnToOverwrite.needs.mood.thoughts.situational.Notify_SituationalThoughtsDirty();
+                    pawn.needs.mood.thoughts.situational.Notify_SituationalThoughtsDirty();
                 }
             }
 
-            var oldAbilities = pawnToOverwrite.abilities?.abilities.Select(x => x.def);
-            pawnToOverwrite.abilities = new Pawn_AbilityTracker(pawnToOverwrite);
+            var oldAbilities = pawn.abilities?.abilities.Select(x => x.def);
+            pawn.abilities = new Pawn_AbilityTracker(pawn);
             if (oldAbilities != null)
             {
                 foreach (var ability in oldAbilities)
                 {
-                    if (IsNaturalAbilityFor(pawnToOverwrite, ability))
+                    if (IsNaturalAbilityFor(pawn, ability))
                     {
-                        pawnToOverwrite.abilities.GainAbility(ability);
+                        pawn.abilities.GainAbility(ability);
                     }
                 }
             }
-            var compAbilities = pawnToOverwrite.GetComp<VFECore.Abilities.CompAbilities>();
+            var compAbilities = pawn.GetComp<VFECore.Abilities.CompAbilities>();
             if (compAbilities != null)
             {
                 compAbilities.LearnedAbilities?.Clear();
             }
-            pawnToOverwrite.psychicEntropy = new Pawn_PsychicEntropyTracker(pawnToOverwrite);
+            pawn.psychicEntropy = new Pawn_PsychicEntropyTracker(pawn);
             if (this.sourceStack == AC_DefOf.AC_FilledArchoStack)
             {
-                var hediff_Psylink = pawnToOverwrite.GetMainPsylinkSource() as Hediff_Psylink;
+                var hediff_Psylink = pawn.GetMainPsylinkSource() as Hediff_Psylink;
                 if (this.psylinkLevel.HasValue)
                 {
                     if (hediff_Psylink == null)
                     {
                         Hediff_Psylink_TryGiveAbilityOfLevel_Patch.suppress = true;
-                        hediff_Psylink = HediffMaker.MakeHediff(HediffDefOf.PsychicAmplifier, pawnToOverwrite,
-                            pawnToOverwrite.health.hediffSet.GetBrain()) as Hediff_Psylink;
-                        pawnToOverwrite.health.AddHediff(hediff_Psylink);
+                        hediff_Psylink = HediffMaker.MakeHediff(HediffDefOf.PsychicAmplifier, pawn,
+                            pawn.health.hediffSet.GetBrain()) as Hediff_Psylink;
+                        pawn.health.AddHediff(hediff_Psylink);
                         Hediff_Psylink_TryGiveAbilityOfLevel_Patch.suppress = false;
                     }
                     var levelOffset = this.psylinkLevel.Value - hediff_Psylink.level;
                     hediff_Psylink.level = (int)Mathf.Clamp(hediff_Psylink.level + levelOffset, hediff_Psylink.def.minSeverity, hediff_Psylink.def.maxSeverity);
                 }
             
-                pawnToOverwrite.psychicEntropy.currentEntropy = currentEntropy;
-                pawnToOverwrite.psychicEntropy.currentPsyfocus = currentPsyfocus;
-                pawnToOverwrite.psychicEntropy.limitEntropyAmount = limitEntropyAmount;
-                pawnToOverwrite.psychicEntropy.targetPsyfocus = targetPsyfocus;
+                pawn.psychicEntropy.currentEntropy = currentEntropy;
+                pawn.psychicEntropy.currentPsyfocus = currentPsyfocus;
+                pawn.psychicEntropy.limitEntropyAmount = limitEntropyAmount;
+                pawn.psychicEntropy.targetPsyfocus = targetPsyfocus;
             
                 if (abilities.NullOrEmpty() is false)
                 {
                     foreach (var def in abilities)
                     {
-                        pawnToOverwrite.abilities.GainAbility(def);
+                        pawn.abilities.GainAbility(def);
                     }
                 }
 
                 if (VPE_PsycastAbilityImplant?.def != null)
                 {
-                    pawnToOverwrite.health.hediffSet.hediffs.RemoveAll(x => x.def.defName == "VPE_PsycastAbilityImplant");
-                    pawnToOverwrite.health.AddHediff(VPE_PsycastAbilityImplant);
+                    pawn.health.hediffSet.hediffs.RemoveAll(x => x.def.defName == "VPE_PsycastAbilityImplant");
+                    pawn.health.AddHediff(VPE_PsycastAbilityImplant);
                     Traverse.Create(VPE_PsycastAbilityImplant).Field("psylink").SetValue(hediff_Psylink);
                 }
                 if (VEAbilities.NullOrEmpty() is false)
@@ -842,125 +837,125 @@ namespace AlteredCarbon
                 }
             }
             
-            pawnToOverwrite.skills.skills.Clear();
+            pawn.skills.skills.Clear();
             if (skills != null)
             {
                 foreach (SkillRecord skill in skills)
                 {
-                    SkillRecord newSkill = new SkillRecord(pawnToOverwrite, skill.def)
+                    SkillRecord newSkill = new SkillRecord(pawn, skill.def)
                     {
                         passion = skill.passion,
                         levelInt = skill.levelInt,
                         xpSinceLastLevel = skill.xpSinceLastLevel,
                         xpSinceMidnight = skill.xpSinceMidnight
                     };
-                    pawnToOverwrite.skills.skills.Add(newSkill);
+                    pawn.skills.skills.Add(newSkill);
                 }
             }
-            
-            pawnToOverwrite.story.childhood = childhood;
-            pawnToOverwrite.story.adulthood = adulthood;
-            pawnToOverwrite.story.title = title;
+            pawn.story.backstoriesCache = null;
+            pawn.story.childhood = childhood;
+            pawn.story.adulthood = adulthood;
+            pawn.story.title = title;
           
-            if (pawnToOverwrite.guest is null)
+            if (pawn.guest is null)
             {
-                pawnToOverwrite.guest = new Pawn_GuestTracker(pawnToOverwrite);
+                pawn.guest = new Pawn_GuestTracker(pawn);
             }
-            pawnToOverwrite.guest.guestStatusInt = guestStatusInt;
-            pawnToOverwrite.guest.interactionMode = interactionMode;
-            pawnToOverwrite.guest.slaveInteractionMode = slaveInteractionMode;
-            pawnToOverwrite.guest.hostFactionInt = hostFactionInt;
-            pawnToOverwrite.guest.joinStatus = joinStatus;
-            pawnToOverwrite.guest.slaveFactionInt = slaveFactionInt;
-            pawnToOverwrite.guest.lastRecruiterName = lastRecruiterName;
-            pawnToOverwrite.guest.lastRecruiterOpinion = lastRecruiterOpinion;
-            pawnToOverwrite.guest.hasOpinionOfLastRecruiter = hasOpinionOfLastRecruiter;
-            pawnToOverwrite.guest.Released = releasedInt;
-            pawnToOverwrite.guest.ticksWhenAllowedToEscapeAgain = ticksWhenAllowedToEscapeAgain;
-            pawnToOverwrite.guest.spotToWaitInsteadOfEscaping = spotToWaitInsteadOfEscaping;
-            pawnToOverwrite.guest.lastPrisonBreakTicks = lastPrisonBreakTicks;
-            pawnToOverwrite.guest.everParticipatedInPrisonBreak = everParticipatedInPrisonBreak;
-            pawnToOverwrite.guest.resistance = resistance;
-            pawnToOverwrite.guest.will = will;
-            pawnToOverwrite.guest.ideoForConversion = ideoForConversion;
-            pawnToOverwrite.guest.everEnslaved = everEnslaved;
-            pawnToOverwrite.guest.recruitable = recruitable;
-            pawnToOverwrite.guest.getRescuedThoughtOnUndownedBecauseOfPlayer = getRescuedThoughtOnUndownedBecauseOfPlayer;
+            pawn.guest.guestStatusInt = guestStatusInt;
+            pawn.guest.interactionMode = interactionMode;
+            pawn.guest.slaveInteractionMode = slaveInteractionMode;
+            pawn.guest.hostFactionInt = hostFactionInt;
+            pawn.guest.joinStatus = joinStatus;
+            pawn.guest.slaveFactionInt = slaveFactionInt;
+            pawn.guest.lastRecruiterName = lastRecruiterName;
+            pawn.guest.lastRecruiterOpinion = lastRecruiterOpinion;
+            pawn.guest.hasOpinionOfLastRecruiter = hasOpinionOfLastRecruiter;
+            pawn.guest.Released = releasedInt;
+            pawn.guest.ticksWhenAllowedToEscapeAgain = ticksWhenAllowedToEscapeAgain;
+            pawn.guest.spotToWaitInsteadOfEscaping = spotToWaitInsteadOfEscaping;
+            pawn.guest.lastPrisonBreakTicks = lastPrisonBreakTicks;
+            pawn.guest.everParticipatedInPrisonBreak = everParticipatedInPrisonBreak;
+            pawn.guest.resistance = resistance;
+            pawn.guest.will = will;
+            pawn.guest.ideoForConversion = ideoForConversion;
+            pawn.guest.everEnslaved = everEnslaved;
+            pawn.guest.recruitable = recruitable;
+            pawn.guest.getRescuedThoughtOnUndownedBecauseOfPlayer = getRescuedThoughtOnUndownedBecauseOfPlayer;
             
-            if (pawnToOverwrite.records is null)
+            if (pawn.records is null)
             {
-                pawnToOverwrite.records = new Pawn_RecordsTracker(pawnToOverwrite);
+                pawn.records = new Pawn_RecordsTracker(pawn);
             }
             if (records != null)
             {
-                pawnToOverwrite.records.records = records;
-                pawnToOverwrite.records.battleActive = battleActive;
-                pawnToOverwrite.records.battleExitTick = battleExitTick;
+                pawn.records.records = records;
+                pawn.records.battleActive = battleActive;
+                pawn.records.battleExitTick = battleExitTick;
             }
             
-            if (pawnToOverwrite.playerSettings is null)
+            if (pawn.playerSettings is null)
             {
-                pawnToOverwrite.playerSettings = new Pawn_PlayerSettings(pawnToOverwrite);
+                pawn.playerSettings = new Pawn_PlayerSettings(pawn);
             }
-            pawnToOverwrite.playerSettings.hostilityResponse = (HostilityResponseMode)hostilityMode;
-            pawnToOverwrite.playerSettings.AreaRestriction = areaRestriction;
-            pawnToOverwrite.playerSettings.medCare = medicalCareCategory;
-            pawnToOverwrite.playerSettings.selfTend = selfTend;
-            pawnToOverwrite.foodRestriction = new Pawn_FoodRestrictionTracker(pawnToOverwrite);
-            pawnToOverwrite.foodRestriction.CurrentFoodRestriction = foodRestriction;
-            pawnToOverwrite.outfits = new Pawn_OutfitTracker(pawnToOverwrite);
+            pawn.playerSettings.hostilityResponse = (HostilityResponseMode)hostilityMode;
+            pawn.playerSettings.AreaRestriction = areaRestriction;
+            pawn.playerSettings.medCare = medicalCareCategory;
+            pawn.playerSettings.selfTend = selfTend;
+            pawn.foodRestriction = new Pawn_FoodRestrictionTracker(pawn);
+            pawn.foodRestriction.CurrentFoodRestriction = foodRestriction;
+            pawn.outfits = new Pawn_OutfitTracker(pawn);
             try
             {
-                pawnToOverwrite.outfits.CurrentOutfit = outfit;
+                pawn.outfits.CurrentOutfit = outfit;
             }
             catch { }
-            pawnToOverwrite.drugs = new Pawn_DrugPolicyTracker(pawnToOverwrite);
-            pawnToOverwrite.drugs.CurrentPolicy = drugPolicy;
-            pawnToOverwrite.ageTracker.AgeChronologicalTicks = ageChronologicalTicks;
-            pawnToOverwrite.timetable = new Pawn_TimetableTracker(pawnToOverwrite);
+            pawn.drugs = new Pawn_DrugPolicyTracker(pawn);
+            pawn.drugs.CurrentPolicy = drugPolicy;
+            pawn.ageTracker.AgeChronologicalTicks = ageChronologicalTicks;
+            pawn.timetable = new Pawn_TimetableTracker(pawn);
 
             if (times != null && times.Count == 24)
             {
-                pawnToOverwrite.timetable.times = times;
+                pawn.timetable.times = times;
             }
 
-            if (pawnToOverwrite.CanThink())
+            if (pawn.CanThink())
             {
-                if (pawnToOverwrite.gender != gender)
+                if (pawn.gender != gender)
                 {
-                    if (pawnToOverwrite.story.traits.HasTrait(TraitDefOf.BodyPurist))
+                    if (pawn.story.traits.HasTrait(TraitDefOf.BodyPurist))
                     {
-                        pawnToOverwrite.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongGenderDouble);
+                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongGenderDouble);
                     }
                     else
                     {
-                        pawnToOverwrite.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongGender);
+                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongGender);
                     }
                 }
 
 
-                if (pawnToOverwrite.kindDef.race != race)
+                if (pawn.kindDef.race != race)
                 {
-                    pawnToOverwrite.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongRace);
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongRace);
                 }
             }
 
 
             if (ModsConfig.RoyaltyActive)
             {
-                pawnToOverwrite.royalty = new Pawn_RoyaltyTracker(pawnToOverwrite);
+                pawn.royalty = new Pawn_RoyaltyTracker(pawn);
                 if (royalTitles != null)
                 {
                     foreach (RoyalTitle title in royalTitles)
                     {
-                        pawnToOverwrite.royalty.SetTitle(title.faction, title.def, false, false, false);
+                        pawn.royalty.SetTitle(title.faction, title.def, false, false, false);
                     }
                 }
                 if (heirs != null)
                 {
                     foreach (KeyValuePair<Faction, Pawn> heir in heirs)
                     {
-                        pawnToOverwrite.royalty.SetHeir(heir.Value, heir.Key);
+                        pawn.royalty.SetHeir(heir.Value, heir.Key);
                     }
                 }
             
@@ -968,7 +963,7 @@ namespace AlteredCarbon
                 {
                     foreach (KeyValuePair<Faction, int> fav in favor)
                     {
-                        pawnToOverwrite.royalty.SetFavor(fav.Key, fav.Value);
+                        pawn.royalty.SetFavor(fav.Key, fav.Value);
                     }
                 }
             
@@ -979,13 +974,13 @@ namespace AlteredCarbon
                         CompBladelinkWeapon comp = bonded.TryGetComp<CompBladelinkWeapon>();
                         if (comp != null)
                         {
-                            comp.CodeFor(pawnToOverwrite);
+                            comp.CodeFor(pawn);
                         }
                     }
                 }
                 if (factionPermits != null)
                 {
-                    pawnToOverwrite.royalty.factionPermits = factionPermits;
+                    pawn.royalty.factionPermits = factionPermits;
                 }
             }
             
@@ -1000,7 +995,7 @@ namespace AlteredCarbon
             
                     precept_RoleMulti.chosenPawns.Add(new IdeoRoleInstance(precept_RoleMulti)
                     {
-                        pawn = pawnToOverwrite
+                        pawn = pawn
                     });
                     precept_RoleMulti.FillOrUpdateAbilities();
                 }
@@ -1008,57 +1003,112 @@ namespace AlteredCarbon
                 {
                     precept_RoleSingle.chosenPawn = new IdeoRoleInstance(precept_RoleMulti)
                     {
-                        pawn = pawnToOverwrite
+                        pawn = pawn
                     };
                     precept_RoleSingle.FillOrUpdateAbilities();
                 }
             
                 if (ideo != null)
                 {
-                    pawnToOverwrite.ideo.SetIdeo(ideo);
-                    pawnToOverwrite.ideo.certaintyInt = certainty;
-                    pawnToOverwrite.ideo.previousIdeos = previousIdeos;
-                    pawnToOverwrite.ideo.joinTick = joinTick;
+                    pawn.ideo.SetIdeo(ideo);
+                    pawn.ideo.certaintyInt = certainty;
+                    pawn.ideo.previousIdeos = previousIdeos;
+                    pawn.ideo.joinTick = joinTick;
                 }
                 if (favoriteColor.HasValue)
                 {
-                    pawnToOverwrite.story.favoriteColor = favoriteColor.Value;
+                    pawn.story.favoriteColor = favoriteColor.Value;
                 }
             }
 
-            if (pawnToOverwrite.workSettings == null)
+            if (pawn.workSettings == null)
             {
-                pawnToOverwrite.workSettings = new Pawn_WorkSettings(pawnToOverwrite);
+                pawn.workSettings = new Pawn_WorkSettings(pawn);
             }
-            pawnToOverwrite.workSettings.priorities = new DefMap<WorkTypeDef, int>();
-            pawnToOverwrite.Notify_DisabledWorkTypesChanged();
+            pawn.workSettings.priorities = new DefMap<WorkTypeDef, int>();
+            pawn.Notify_DisabledWorkTypesChanged();
             if (priorities != null)
             {
                 foreach (KeyValuePair<WorkTypeDef, int> priority in priorities)
                 {
-                    if (pawnToOverwrite.WorkTypeIsDisabled(priority.Key) is false)
+                    if (pawn.WorkTypeIsDisabled(priority.Key) is false)
                     {
-                        pawnToOverwrite.workSettings.SetPriority(priority.Key, priority.Value);
+                        pawn.workSettings.SetPriority(priority.Key, priority.Value);
                     }
                 }
             }
 
             if (ModCompatibility.IndividualityIsActive)
             {
-                ModCompatibility.SetSyrTraitsSexuality(pawnToOverwrite, sexuality);
-                ModCompatibility.SetSyrTraitsRomanceFactor(pawnToOverwrite, romanceFactor);
+                ModCompatibility.SetSyrTraitsSexuality(pawn, sexuality);
+                ModCompatibility.SetSyrTraitsRomanceFactor(pawn, romanceFactor);
             }
             
             if (ModCompatibility.PsychologyIsActive && psychologyData != null)
             {
-                ModCompatibility.SetPsychologyData(pawnToOverwrite, psychologyData);
+                ModCompatibility.SetPsychologyData(pawn, psychologyData);
             }
             if (ModCompatibility.RimJobWorldIsActive && rjwData != null)
             {
-                ModCompatibility.SetRjwData(pawnToOverwrite, rjwData);
+                ModCompatibility.SetRjwData(pawn, rjwData);
+            }
+
+            if (ModCompatibility.HelixienAlteredCarbonIsActive && this.stackDegradation > 0)
+            {
+                var stackDegradationHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_StackDegradation) as Hediff_StackDegradation;
+                if (stackDegradationHediff is null)
+                {
+                    stackDegradationHediff = HediffMaker.MakeHediff(AC_DefOf.AC_StackDegradation, pawn) as Hediff_StackDegradation;
+                    pawn.health.AddHediff(stackDegradationHediff);
+                }
+                stackDegradationHediff.stackDegradation = this.stackDegradation;
             }
         }
 
+        private static Type VEPsycastModExtensionType = AccessTools.TypeByName("VanillaPsycastsExpanded.AbilityExtension_Psycast");
+        private bool CanStoreAbility(Pawn pawn, Def def)
+        {
+            if (def is AbilityDef abilityDef)
+            {
+                if (IsNaturalAbilityFor(pawn, abilityDef))
+                {
+                    return false;
+                }
+                if (typeof(Psycast).IsAssignableFrom(abilityDef.abilityClass))
+                {
+                    return true;
+                }
+            }
+            else if (def is VFECore.Abilities.AbilityDef && VEPsycastModExtensionType != null)
+            {
+                if (def.modExtensions != null)
+                {
+                    foreach (var modExtension in def.modExtensions)
+                    {
+                        if (VEPsycastModExtensionType.IsAssignableFrom(modExtension.GetType()))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        private static bool IsNaturalAbilityFor(Pawn pawn, AbilityDef ability)
+        {
+            if (ModsConfig.BiotechActive && pawn.genes != null)
+            {
+                foreach (var gene in pawn.genes.GenesListForReading)
+                {
+                    if (gene.Active && gene.def.abilities.NullOrEmpty() is false && gene.def.abilities.Contains(ability))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
         private void ReplaceSocialReferences(Pawn relatedPawn, Pawn newReference)
         {
             if (relatedPawn.CanThink())
@@ -1139,11 +1189,12 @@ namespace AlteredCarbon
             {
                 return origPawn;
             }
-            if (pawn?.Name != null)
+            var nameToCheck = pawn?.Name?.ToStringFull ?? name?.ToStringFull;
+            if (nameToCheck != null)
             {
                 foreach (Pawn otherPawn in AlteredCarbonManager.Instance.PawnsWithStacks)
                 {
-                    if (otherPawn.Name != null && otherPawn.Name.ToStringFull == pawn.Name.ToStringFull)
+                    if (otherPawn.Name != null && otherPawn.Name.ToStringFull == nameToCheck)
                     {
                         origPawn = otherPawn;
                         return otherPawn;
@@ -1160,7 +1211,7 @@ namespace AlteredCarbon
                             {
                                 if (rel?.otherPawn?.Name != null)
                                 {
-                                    if (rel.otherPawn.Name.ToStringFull == pawn.Name.ToStringFull && rel.otherPawn != pawn)
+                                    if (rel.otherPawn.Name.ToStringFull == nameToCheck && rel.otherPawn != pawn)
                                     {
                                         origPawn = rel.otherPawn;
                                         return rel.otherPawn;
@@ -1173,15 +1224,14 @@ namespace AlteredCarbon
 
                 foreach (Pawn otherPawn in PawnsFinder.AllMaps)
                 {
-                    if (otherPawn.Name != null && otherPawn.Name.ToStringFull == pawn.Name.ToStringFull && otherPawn != pawn)
+                    if (otherPawn.Name != null && otherPawn.Name.ToStringFull == nameToCheck && otherPawn != pawn)
                     {
                         origPawn = otherPawn;
                         return otherPawn;
                     }
                 }
-                origPawn = pawn;
             }
-            return origPawn;
+            return null;
         }
 
         public void ExposeData()
@@ -1295,6 +1345,10 @@ namespace AlteredCarbon
                 VPE_PsycastAbilityImplant.loadID = Find.UniqueIDsManager.GetNextHediffID();
             }
 
+            Scribe_Values.Look(ref editTime, "editTime");
+            Scribe_Values.Look(ref stackDegradation, "stackDegradation");
+            Scribe_Values.Look(ref stackDegradationToAdd, "stackDegradationToAdd");
+
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 times.CleanupList();
@@ -1312,7 +1366,6 @@ namespace AlteredCarbon
                 priorities.CleanupDict();
                 favor.CleanupDict();
                 heirs.CleanupDict();
-
                 AssignDummyPawnReferences();
             }
         }

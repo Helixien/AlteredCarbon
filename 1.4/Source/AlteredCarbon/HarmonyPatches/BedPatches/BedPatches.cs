@@ -16,14 +16,14 @@ namespace AlteredCarbon
 		static BedPatches()
         {
 			MethodInfo method = typeof(BedPatches).GetMethod("Prefix");
-			foreach (Type type in GenTypes.AllSubclassesNonAbstract(typeof(Need)))
+			foreach (Type type in GenTypes.AllSubclasses(typeof(Need)))
 			{
 				MethodInfo method2 = type.GetMethod("NeedInterval");
 				try
                 {
 					ACUtils.harmony.Patch(method2, new HarmonyMethod(method), null, null);
 				}
-				catch (Exception ex)
+				catch
 				{
 				};
 			}

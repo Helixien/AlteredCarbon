@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<HediffDef>
+		<defName>AC_StackDegradation</defName>
+		<label>stack degradation</label>
+		<labelNoun>a stack degradation</labelNoun>
+		<hediffClass>AlteredCarbon.Hediff_StackDegradation</hediffClass>
+		<description>text todo.</description>
+		<isBad>false</isBad>
+	</HediffDef>
+</Defs>

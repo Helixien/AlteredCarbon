@@ -108,7 +108,7 @@ namespace AlteredCarbon
                     var dummyPawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(kindDef, faction, fixedGender: gender,
                         fixedBiologicalAge: pawn.ageTracker.AgeBiologicalYearsFloat, fixedChronologicalAge: pawn.ageTracker.AgeChronologicalYearsFloat));
                     var copy = new PersonaData();
-                    copy.OverwritePawn(pawnToOverwrite: dummyPawn, null, original: pawn, overwriteOriginalPawn: false);
+                    copy.OverwritePawn(pawn: dummyPawn, null, original: pawn, overwriteOriginalPawn: false);
                     CopyAllPhysicalDataFrom(pawn, dummyPawn);
                     GenSpawn.Spawn(dummyPawn, pawn.Position, pawn.Map);
                     Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.pawnToSkip = dummyPawn;
