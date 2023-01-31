@@ -8,12 +8,26 @@ namespace AlteredCarbon
     public class GameComponent_DigitalStorage : GameComponent
     {
         public static GameComponent_DigitalStorage Instance;
+
+        public GameComponent_DigitalStorage()
+        {
+            Init();
+        }
+
         public GameComponent_DigitalStorage(Game game)
+        {
+            Init();
+        }
+        private void Init()
         {
             Instance = this;
             backedUpStacks ??= new Dictionary<int, PersonaData>();
+            ResetStaticData();
         }
-
+        public static void ResetStaticData()
+        {
+            Building_StackStorage.building_StackStorages?.Clear();
+        }
         public Dictionary<int, PersonaData> backedUpStacks;
         public IEnumerable<PersonaData> StoredBackedUpStacks => this.backedUpStacks.Values;
         public PersonaData FirstPersonaStackToRestore
@@ -105,11 +119,11 @@ namespace AlteredCarbon
         public override void GameComponentTick()
         {
             base.GameComponentTick();
-            foreach (var storage in Building_StackStorage.building_StackStorages)
+            if (Find.TickManager.TicksGame % GenDate.TicksPerDay == 0)
             {
-                if (storage.backupIsEnabled && storage.compPower.PowerOn)
+                foreach (var storage in Building_StackStorage.building_StackStorages)
                 {
-                    if (Find.TickManager.TicksGame % GenDate.TicksPerDay == 0)
+                    if (storage.backupIsEnabled && storage.compPower.PowerOn)
                     {
                         BackupAllColonistsWithStacks();
                     }

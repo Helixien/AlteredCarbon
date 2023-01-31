@@ -36,8 +36,9 @@ namespace AlteredCarbon
 
         private static IEnumerable<Building_StackStorage> GetStackArrays(Pawn hauler, Thing stack)
         {
-            return Building_StackStorage.building_StackStorages.Where(x => x.HasFreeSpace
+            var storages = Building_StackStorage.building_StackStorages.Where(x => x.HasFreeSpace
                             && x.Accepts(stack) && hauler.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
+            return storages;
         }
     }
 }
