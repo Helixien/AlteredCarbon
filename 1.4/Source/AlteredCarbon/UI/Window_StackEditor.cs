@@ -351,9 +351,9 @@ namespace AlteredCarbon
                             xpSinceLastLevel = skill.xpSinceLastLevel,
                             xpSinceMidnight = skill.xpSinceMidnight,
                             passion = skill.passion,
-                            pawn = personaData.GetDummyPawn,
                         });
                     }
+                    personaData.RefreshDummyPawn();
                 }
 
                 var skillBoxHeight = personaData.skills.Count() * (Text.LineHeight + 5) + (this.Margin * 2) - 5;
