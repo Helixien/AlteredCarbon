@@ -5,6 +5,5 @@
 		<li IfModNotActive="OskarPotocki.VFE.Ultratech">1.4/LoadFolders/Standalone</li>
 		<li IfModActive="Ludeon.RimWorld.Royalty">1.4/LoadFolders/Royalty</li>
 		<li IfModActive="Ludeon.RimWorld.Ideology">1.4/LoadFolders/Ideology</li>
-		<li IfModNotActive="Arquebus.ModIcons">1.4/LoadFolders/ModIcons</li>
 	</v1.4>
 </loadFolders>
