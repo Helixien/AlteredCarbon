@@ -30,6 +30,7 @@
 		</costList>
 		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 		<building>
+			<soundAmbient>AC_GeneCentrifuge_Ambience</soundAmbient>
 			<buildingTags>
 				<li>Biotech</li>
 			</buildingTags>
