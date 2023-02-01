@@ -57,6 +57,7 @@
 			<destroySound>BuildingDestroyed_Metal_Big</destroySound>
 			<preventDeteriorationOnTop>true</preventDeteriorationOnTop>
 			<ignoreStoredThingsBeauty>true</ignoreStoredThingsBeauty>
+			<soundAmbient>AC_StackArray_Ambience</soundAmbient>
 			<fixedStorageSettings>
 				<filter>
 					<thingDefs>
@@ -84,7 +85,7 @@
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
 				<shortCircuitInRain>true</shortCircuitInRain>
-				<basePowerConsumption>5000</basePowerConsumption>
+				<basePowerConsumption>4500</basePowerConsumption>
 			</li>
 			<li Class="CompProperties_Glower">
 				<glowRadius>5</glowRadius>
