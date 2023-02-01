@@ -57,6 +57,8 @@ namespace AlteredCarbon
             personaDataCopy.CopyDataFrom(personaData);
             originalGender = personaData.gender;
             ResetIndices();
+            this.forcePause = true;
+            this.absorbInputAroundWindow = true;
         }
 
         private void ResetIndices()
