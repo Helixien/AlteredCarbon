@@ -18,12 +18,12 @@ namespace AlteredCarbon
 				__result = thing == installStack.stackToInstall;
 				return false;
 			}
-			else if (__instance is Bill_HackStack hackStack && thing is CorticalStack stack)
+			else if (__instance is Bill_OperateOnStack operateOnStack && thing is CorticalStack stack)
             {
-				__result = stack == hackStack.corticalStack;
+				__result = stack == operateOnStack.corticalStack;
 				return false;
 			}
-			return true;
+            return true;
 		}
 	}
 }

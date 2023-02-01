@@ -149,9 +149,9 @@
 	<AC.PawnAlreadyHasArchoStack>{PAWN_nameDef} already has an archo stack installed!</AC.PawnAlreadyHasArchoStack>
 	<AC.PawnStackCannotDowngrade>{PAWN_nameDef} already has an archo stack installed, cannot downgrade!</AC.PawnStackCannotDowngrade>
 	<AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>Cannot install cortical stack - neck is missing or another implant installed in the neck.</AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>
-	<AC.AlreadyOrderedToHackStack>This stack is set for hacking already on the decryption workbench.</AC.AlreadyOrderedToHackStack>
-	<AC.AlreadyOrderedToConvertStack>This stack is set for ideo converting already on the decryption workbench.</AC.AlreadyOrderedToConvertStack>
-	<AC.AlreadyOrderedToWipeStack>This stack is set for reseting already on a decryption workbench.</AC.AlreadyOrderedToWipeStack>
+	<AC.AlreadyOrderedToHackStack>This stack is set for hacking already on the decryption workbench. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToHackStack>
+	<AC.AlreadyOrderedToWipeStack>This stack is set for reseting already on a decryption workbench. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToWipeStack>
+	<AC.AlreadyOrderedToRewriteStack>This stack is set for rewriting already on a decryption workbench. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToRewriteStack>
 	<AC.FixedAncientStack>Decrypt Ancient Stacks: Fixed the ancient cortical stack!</AC.FixedAncientStack>
 	<AC.UnlockedNewTechnology>Decrypt Ancient Stacks: Unlocked new technology - {0}!</AC.UnlockedNewTechnology>
 	<AC.GainedProgressToTechnology>Decrypt Ancient Stacks: Gained progress to technology - {0}!</AC.GainedProgressToTechnology>
@@ -180,4 +180,5 @@
 	<AC.TotalStackDegradation>Expected stack degradation: {0}</AC.TotalStackDegradation>
 	<AC.Tutorial>WARNING: The more you edit,the higher the stack degradation will be, causing the stored pawns personality to become more and more unstable. Stack degradation will go away over time after being installed in a body, but can take years.</AC.Tutorial>
 	<AC.ResetAll>Reset all</AC.ResetAll>
+	<AC.StackDegradation>Stack degradation: {0}</AC.StackDegradation>
 </LanguageData>

@@ -94,7 +94,6 @@ namespace AlteredCarbon
             pos.y = inRect.y + 100;
             DrawSkillsPanel(ref pos, inRect);
             DrawTraitsPanel(ref pos, inRect);
-
             pos.x = inRect.x + Margin;
             pos.y = inRect.height - 175;
             DrawTimePanel(ref pos, inRect);
@@ -102,6 +101,7 @@ namespace AlteredCarbon
             DrawAcceptCancelButtons(inRect);
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
+            personaData.RefreshDummyPawn();
         }
 
         protected void DrawTitle(ref Vector2 pos, Rect inRect)
@@ -640,6 +640,7 @@ namespace AlteredCarbon
                 personaData.editTime = GetEditTime();
                 personaData.stackDegradationToAdd = GetDegradation();
                 corticalStack.personaDataRewritten = personaData;
+                decryptionBench.billStack.AddBill(new Bill_RewriteStack(corticalStack, AC_DefOf.AC_RewriteFilledCorticalStack, null));
                 this.Close();
             }
             var cancelButtonRect = new Rect((inRect.width / 2f) - (buttonWidth / 2f), acceptButtonRect.y, buttonWidth, 32);

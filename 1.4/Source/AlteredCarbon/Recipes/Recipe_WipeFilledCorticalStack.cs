@@ -9,16 +9,9 @@ using Verse;
 
 namespace AlteredCarbon
 {
-    public class Recipe_WipeFilledCorticalStack : RecipeWorker
+    public class Recipe_WipeFilledCorticalStack : Recipe_OperateOnCorticalStack
     {
-        public override bool AvailableOnNow(Thing thing, BodyPartRecord part = null)
-        {
-            return false;
-        }
-        public override void ConsumeIngredient(Thing ingredient, RecipeDef recipe, Map map)
-        {
 
-        }
         public override void Notify_IterationCompleted(Pawn billDoer, List<Thing> ingredients)
         {
             base.Notify_IterationCompleted(billDoer, ingredients);

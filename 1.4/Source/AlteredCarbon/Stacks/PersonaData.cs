@@ -156,6 +156,8 @@ namespace AlteredCarbon
             {
                 dummyPawn.genes.ClearXenogenes();
             }
+            dummyPawn.story.backstoriesCache = null;
+            dummyPawn.Notify_DisabledWorkTypesChanged();
         }
         public TaggedString PawnNameColored => TitleShort?.CapitalizeFirst().NullOrEmpty() ?? false
                     ? (TaggedString)(name?.ToStringShort.Colorize(GetFactionRelationColor(faction)))
@@ -1051,17 +1053,6 @@ namespace AlteredCarbon
             if (ModCompatibility.RimJobWorldIsActive && rjwData != null)
             {
                 ModCompatibility.SetRjwData(pawn, rjwData);
-            }
-
-            if (ModCompatibility.HelixienAlteredCarbonIsActive && this.stackDegradation > 0)
-            {
-                var stackDegradationHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_StackDegradation) as Hediff_StackDegradation;
-                if (stackDegradationHediff is null)
-                {
-                    stackDegradationHediff = HediffMaker.MakeHediff(AC_DefOf.AC_StackDegradation, pawn) as Hediff_StackDegradation;
-                    pawn.health.AddHediff(stackDegradationHediff);
-                }
-                stackDegradationHediff.stackDegradation = this.stackDegradation;
             }
         }
 

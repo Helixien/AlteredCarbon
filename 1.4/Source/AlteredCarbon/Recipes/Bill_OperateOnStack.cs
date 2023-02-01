@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using HarmonyLib;
+﻿using System.Collections.Generic;
 using RimWorld;
-using UnityEngine;
 using Verse;
 
 namespace AlteredCarbon
 {
-    public class Bill_HackStack : Bill_Production
+    public class Bill_OperateOnStack : Bill_Production
     {
         public CorticalStack corticalStack;
-        public Bill_HackStack()
+        public Bill_OperateOnStack()
         {
 
         }
-        public Bill_HackStack(CorticalStack corticalStack, RecipeDef recipe, Precept_ThingStyle precept = null)
+        public Bill_OperateOnStack(CorticalStack corticalStack, RecipeDef recipe, Precept_ThingStyle precept = null)
             : base(recipe, precept)
         {
             this.corticalStack = corticalStack;
@@ -34,11 +29,11 @@ namespace AlteredCarbon
             this.billStack.Bills.Remove(this);
         }
         public override Bill Clone()
-		{
-            var obj = base.Clone() as Bill_HackStack;
+        {
+            var obj = base.Clone() as Bill_OperateOnStack;
             obj.corticalStack = corticalStack;
-			return obj;
-		}
-	}
+            return obj;
+        }
+    }
 }
 

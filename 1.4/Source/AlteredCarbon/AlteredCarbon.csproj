@@ -70,6 +70,12 @@
   <ItemGroup>
     <Compile Include="Buildings\Building_DecryptionBench.cs" />
     <Compile Include="Buildings\Building_Incubator.cs" />
+    <Compile Include="HarmonyPatches\Dialog_BillConfig_DoWindowContents_Patch.cs" />
+    <Compile Include="Recipes\Bill_RewriteStack.cs" />
+    <Compile Include="Recipes\Recipe_OperateOnCorticalStack.cs" />
+    <Compile Include="Recipes\Recipe_RewriteFilledCorticalStack.cs" />
+    <Compile Include="Stacks\ThoughtWorker_StackDegradation.cs" />
+    <Compile Include="UI\Command_WipeStacks.cs" />
     <Compile Include="HarmonyPatches\Building_GeneExtractor_CanAcceptPawn_Patch.cs" />
     <Compile Include="HarmonyPatches\ChildcareUtility_SwaddleBaby_Patch.cs" />
     <Compile Include="HarmonyPatches\ColonistBarColonistDrawer_HandleClicks_Patch.cs" />
@@ -107,6 +113,7 @@
     <Compile Include="HarmonyPatches\RitualObligationTrigger_MemberDied_Notify_MemberDied_Patch.cs" />
     <Compile Include="HarmonyPatches\SocialCardUtility_GetPawnSituationLabel_Patch.cs" />
     <Compile Include="HarmonyPatches\StatsRecord_Notify_ColonistKilled_Patch.cs" />
+    <Compile Include="Recipes\Bill_OperateOnStack.cs" />
     <Compile Include="Stacks\Ability_ArchoStackSkip.cs" />
     <Compile Include="Stacks\Hediff_StackDegradation.cs" />
     <Compile Include="Stacks\ScenPart_CorticalStack.cs" />
@@ -135,7 +142,6 @@
     <Compile Include="HarmonyPatches\BedPatches\BedPatches.cs" />
     <Compile Include="HarmonyPatches\BillPatches\Bill_IsFixedOrAllowedIngredient_Patch.cs" />
     <Compile Include="HarmonyPatches\SituationalThoughtHandler_CheckRecalculateMoodThoughts_Patch.cs" />
-    <Compile Include="Recipes\Bill_HackStack.cs" />
     <Compile Include="Recipes\Recipe_WipeFilledCorticalStack.cs" />
     <Compile Include="Recipes\Recipe_DecryptAncientCorticalStack.cs" />
     <Compile Include="Recipes\SpecialThingFilterWorker_StacksHostile.cs" />

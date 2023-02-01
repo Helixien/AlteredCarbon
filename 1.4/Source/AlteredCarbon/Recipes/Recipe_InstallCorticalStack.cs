@@ -120,7 +120,23 @@ namespace AlteredCarbon
                 pawn.health.AddHediff(hediff, part);
                 AlteredCarbonManager.Instance.StacksIndex.Remove(corticalStack.PersonaData.pawnID);
                 AlteredCarbonManager.Instance.ReplaceStackWithPawn(corticalStack, pawn);
-            
+
+                if (ModCompatibility.HelixienAlteredCarbonIsActive && corticalStack.PersonaData.stackDegradation > 0)
+                {
+                    var stackDegradationHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_StackDegradation) as Hediff_StackDegradation;
+                    if (stackDegradationHediff is null)
+                    {
+                        stackDegradationHediff = HediffMaker.MakeHediff(AC_DefOf.AC_StackDegradation, pawn) as Hediff_StackDegradation;
+                        pawn.health.AddHediff(stackDegradationHediff);
+                    }
+                    stackDegradationHediff.stackDegradation = corticalStack.PersonaData.stackDegradation;
+
+                    var brainTraumaChance = (corticalStack.PersonaData.stackDegradation - 0.8f) * 5f;
+                    if (brainTraumaChance > 0 && Rand.Chance(brainTraumaChance))
+                    {
+                        pawn.health.AddHediff(AC_DefOf.AC_BrainTrauma, pawn.health.hediffSet.GetBrain());
+                    }
+                }
                 if (pawn.CanThink())
                 {
                     var naturalMood = pawn.story.traits.GetTrait(TraitDefOf.NaturalMood);

@@ -1,14 +1,22 @@
-﻿using Verse;
+﻿using RimWorld;
+using Verse;
 
 namespace AlteredCarbon
 {
     public class Hediff_StackDegradation : HediffWithComps
     {
         public float stackDegradation;
+        public override string Label => base.Label + " (" + stackDegradation.ToStringPercent() + ")";
+        public override bool ShouldRemove => stackDegradation <= 0;
+        public override void Tick()
+        {
+            base.Tick();
+            stackDegradation -= 0.01f / (GenDate.TicksPerDay * 7f);
+        }
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref stackDegradation, "stackDegradation");
+            Scribe_Values.Look(ref stackDegradation, "hediff");
         }
     }
 }
