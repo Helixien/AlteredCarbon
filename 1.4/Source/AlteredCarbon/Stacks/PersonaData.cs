@@ -158,6 +158,14 @@ namespace AlteredCarbon
             }
             dummyPawn.story.backstoriesCache = null;
             dummyPawn.Notify_DisabledWorkTypesChanged();
+            if (this.skills != null)
+            {
+                foreach (var skill in this.skills)
+                {
+                    skill.cachedPermanentlyDisabled = BoolUnknown.Unknown;
+                    skill.cachedTotallyDisabled = BoolUnknown.Unknown;
+                }
+            }
             AssignDummyPawnReferences();
         }
         public TaggedString PawnNameColored => TitleShort?.CapitalizeFirst().NullOrEmpty() ?? false
