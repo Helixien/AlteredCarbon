@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Defs>
+	<!-- ================================ Hacking Motes ====================== -->
 	<ThingDef ParentName="MoteBase">
 		<defName>VFEU_Mote_Hacking</defName>
 		<altitudeLayer>MoteOverhead</altitudeLayer>
@@ -13,6 +14,7 @@
 			<shaderType>MoteGlow</shaderType>
 		</graphicData>
 	</ThingDef>
+	<!-- ================================ Sleeve Incubator Glow ====================== -->
 	<ThingDef ParentName="MoteBase">
 		<defName>VFEU_Mote_VatGlow</defName>
 		<altitudeLayer>MoteOverhead</altitudeLayer>

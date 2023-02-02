@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
+	<!-- ================================ Cortical Stacks - Install Empty ====================== -->
 	<RecipeDef ParentName="SurgeryInstallImplantBase">
 		<defName>VFEU_InstallEmptyCorticalStack</defName>
 		<label>install empty cortical stack</label>
@@ -30,6 +31,7 @@
 		</appliedOnFixedBodyParts>
 		<addsHediff>VFEU_CorticalStack</addsHediff>
 	</RecipeDef>
+	<!-- ================================ Cortical Stacks - Filled Empty ====================== -->
 	<RecipeDef ParentName="SurgeryInstallImplantBase">
 		<defName>VFEU_InstallCorticalStack</defName>
 		<label>install filled cortical stack</label>
@@ -60,6 +62,7 @@
 		</appliedOnFixedBodyParts>
 		<addsHediff>VFEU_CorticalStack</addsHediff>
 	</RecipeDef>
+	<!-- ================================ Cortical Stacks - Remove ====================== -->
 	<RecipeDef ParentName="SurgeryRemoveImplantBase">
 		<defName>VFEU_RemoveCorticalStack</defName>
 		<label>remove cortical stack</label>

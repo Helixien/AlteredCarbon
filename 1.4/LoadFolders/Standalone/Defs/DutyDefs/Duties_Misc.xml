@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
+	<!-- ================================ Duty - Take Stacks ====================== -->
 	<DutyDef>
-		<defName>AC_TakeStacks</defName>
+		<defName>VFEU_TakeStacks</defName>
 		<thinkNode Class="ThinkNode_Priority">
 			<subNodes>
 				<li Class="AlteredCarbon.JobGiver_TakeStackWideMap"/>

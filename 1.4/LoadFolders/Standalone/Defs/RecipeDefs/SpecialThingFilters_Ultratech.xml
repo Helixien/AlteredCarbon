@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
+	<!-- ================================ Special Filters for Stacks ====================== -->
 	<SpecialThingFilterDef>
 		<defName>VFEU_AllowStacksColonist</defName>
 		<label>allow colonist stacks</label>
