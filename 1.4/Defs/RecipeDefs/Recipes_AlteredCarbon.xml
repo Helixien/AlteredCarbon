@@ -45,7 +45,7 @@
 		</skillRequirements>
 		<displayPriority>15</displayPriority>
 	</RecipeDef>
-	<!-- ================================ Archostacks====================== -->
+	<!-- ================================ Archostacks - Install Empty ====================== -->
 	<RecipeDef ParentName="SurgeryInstallImplantBase">
 		<defName>AC_InstallEmptyArchoStack</defName>
 		<label>install empty archo stack</label>
@@ -76,6 +76,7 @@
 		</appliedOnFixedBodyParts>
 		<addsHediff>AC_ArchoStack</addsHediff>
 	</RecipeDef>
+	<!-- ================================ Archostacks - Install Filled ====================== -->
 	<RecipeDef ParentName="SurgeryInstallImplantBase">
 		<defName>AC_InstallArchoStack</defName>
 		<label>install filled archo stack</label>
@@ -106,6 +107,7 @@
 		</appliedOnFixedBodyParts>
 		<addsHediff>AC_ArchoStack</addsHediff>
 	</RecipeDef>
+	<!-- ================================ Archostacks - Remove ====================== -->
 	<RecipeDef ParentName="SurgeryRemoveImplantBase">
 		<defName>AC_RemoveArchoStack</defName>
 		<label>remove archo stack</label>
@@ -117,5 +119,55 @@
 		<jobString>Removing archo stack.</jobString>
 		<uiIconThing>AC_FilledArchoStack</uiIconThing>
 		<removesHediff>AC_ArchoStack</removesHediff>
+	</RecipeDef>
+	<!-- ================================ Rewrite filled cortical stacks ====================== -->
+	<RecipeDef ParentName="VFEU_RecipeHacking">
+		<defName>AC_RewriteFilledCorticalStack</defName>
+		<label>Rewrite cortical stack</label>
+		<description>Rewrite a cortical stack.</description>
+		<jobString>rewriting cortical stack.</jobString>
+		<workerClass>AlteredCarbon.Recipe_RewriteFilledCorticalStack</workerClass>
+		<workAmount>10000</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>VFEU_FilledCorticalStack</li>
+					</thingDefs>
+					<specialFiltersToAllow>
+						<li>VFEU_AllowStacksColonist</li>
+						<li>VFEU_AllowStacksStranger</li>
+						<li>VFEU_AllowStacksHostile</li>
+					</specialFiltersToAllow>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>VFEU_FilledCorticalStack</li>
+			</thingDefs>
+			<specialFiltersToAllow>
+				<li>VFEU_AllowStacksColonist</li>
+				<li>VFEU_AllowStacksStranger</li>
+				<li>VFEU_AllowStacksHostile</li>
+			</specialFiltersToAllow>
+		</fixedIngredientFilter>
+		<defaultIngredientFilter>
+			<thingDefs>
+				<li>VFEU_FilledCorticalStack</li>
+			</thingDefs>
+			<specialFiltersToAllow>
+				<li>VFEU_AllowStacksColonist</li>
+				<li>VFEU_AllowStacksStranger</li>
+				<li>VFEU_AllowStacksHostile</li>
+			</specialFiltersToAllow>
+		</defaultIngredientFilter>
+		<skillRequirements>
+			<Intellectual>10</Intellectual>
+		</skillRequirements>
+		<researchPrerequisites>
+			<li>AC_RewriteCorticalStack</li>
+		</researchPrerequisites>
 	</RecipeDef>
 </Defs>

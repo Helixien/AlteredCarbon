@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
+	<!-- ================================ Archostack ====================== -->
 	<HediffDef ParentName="ImplantHediffBase">
 		<defName>AC_ArchoStack</defName>
 		<label>archo stack</label>

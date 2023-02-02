@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
+	<!-- ================================ Archostack Base ====================== -->
 	<ThingDef Name="AC_ArchoStackBase" ParentName="VFEU_StackBase" Abstract="True">
 		<techLevel>Archotech</techLevel>
 		<graphicData>
@@ -21,6 +22,7 @@
 			<MarketValue>8500</MarketValue>
 		</statBases>
 	</ThingDef>
+	<!-- ================================ Archostack - Empty ====================== -->
 	<ThingDef ParentName="AC_ArchoStackBase">
 		<defName>AC_EmptyArchoStack</defName>
 		<label>empty archo stack</label>
@@ -42,6 +44,7 @@
 			<li>RewardStandardLowFreq</li>
 		</thingSetMakerTags>
 	</ThingDef>
+	<!-- ================================ Archostack - Filled ====================== -->
 	<ThingDef ParentName="AC_ArchoStackBase">
 		<defName>AC_FilledArchoStack</defName>
 		<label>archo stack</label>

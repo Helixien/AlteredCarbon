@@ -1,18 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-
-  <ThoughtDef>
-    <defName>AC_StackDegradation</defName>
-    <workerClass>AlteredCarbon.ThoughtWorker_StackDegradation</workerClass>
-    <hediff>AC_StackDegradation</hediff>
-    <validWhileDespawned>true</validWhileDespawned>
-    <stages>
-      <li>
-        <label>stack degradation</label>
-        <description>todo.</description>
-        <baseMoodEffect>-30</baseMoodEffect>
-      </li>
-    </stages>
-  </ThoughtDef>
-
+	<!-- ================================ Degradation Thoughts ====================== -->
+	<ThoughtDef>
+		<defName>AC_StackDegradation</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_StackDegradation</workerClass>
+		<hediff>AC_StackDegradation</hediff>
+		<validWhileDespawned>true</validWhileDespawned>
+		<stages>
+			<li>
+				<label>stack degradation</label>
+				<description>todo.</description>
+				<baseMoodEffect>-30</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
 </Defs>

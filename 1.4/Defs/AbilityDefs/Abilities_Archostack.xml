@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Defs>
+	<!-- ================================ Archostack Skip ====================== -->
 	<VFECore.Abilities.AbilityDef>
 		<defName>AC_ArchoStackSkip</defName>
 		<label>archo stack skip</label>
 		<description>Skip the archo stack into the targets body, taking control over it. Kills the target and the sleeve the archostack is currently in. This is useful if the current sleeve is near death.</description>
-		<cooldownTime>420000</cooldownTime>
 		<iconPath>UI/Icons/StackSkip</iconPath>
-		<castTime>120</castTime>
+		<abilityClass>AlteredCarbon.Ability_ArchoStackSkip</abilityClass>
+		<cooldownTime>420000</cooldownTime>
+		<chance>0</chance>
+		<castTime>100</castTime>
 		<showUndrafted>true</showUndrafted>
 		<targetingParameters>
 			<canTargetLocations>False</canTargetLocations>
@@ -16,7 +19,5 @@
 			<canTargetAnimals>False</canTargetAnimals>
 		</targetingParameters>
 		<fleckOnTarget>PsycastPsychicEffect</fleckOnTarget>
-		<abilityClass>AlteredCarbon.Ability_ArchoStackSkip</abilityClass>
-		<chance>0</chance>
 	</VFECore.Abilities.AbilityDef>
 </Defs>

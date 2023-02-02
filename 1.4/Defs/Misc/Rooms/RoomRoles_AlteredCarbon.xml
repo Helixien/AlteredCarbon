@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
+	<!-- ================================ Laboratory Room Type ====================== -->
 	<RoomRoleDef>
 		<defName>AC_Laboratory</defName>
-		<label>Ultra Laboratory Room</label>
+		<label>laboratory Room</label>
 		<workerClass>AlteredCarbon.RoomRoleWorker_UltraTech</workerClass>
 		<relatedStats>
 			<li>Cleanliness</li>
