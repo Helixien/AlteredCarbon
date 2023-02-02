@@ -65,7 +65,7 @@
 		<description>Wipe a cortical stack and remove the pawn stored on it.</description>
 		<jobString>wiping cortical stack.</jobString>
 		<workerClass>AlteredCarbon.Recipe_WipeFilledCorticalStack</workerClass>
-		<workAmount>180</workAmount>
+		<workAmount>12500</workAmount>
 		<ingredients>
 			<li>
 				<filter>
