@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Hacking ====================== -->
+	<SoundDef>
+		<defName>AC_Interact_Hacking</defName>
+		<sustain>True</sustain>
+		<context>MapOnly</context>
+		<maxSimultaneous>1</maxSimultaneous>
+		<priorityMode>PrioritizeNearest</priorityMode>
+		<subSounds>
+			<li>
+				<muteWhenPaused>True</muteWhenPaused>
+				<grains>
+					<li Class="AudioGrain_Folder">
+						<clipFolderPath>Interact/Work/Hacking_AC</clipFolderPath>
+					</li>
+				</grains>
+				<volumeRange>8~19.10</volumeRange>
+			</li>
+		</subSounds>
+	</SoundDef>
+</Defs>

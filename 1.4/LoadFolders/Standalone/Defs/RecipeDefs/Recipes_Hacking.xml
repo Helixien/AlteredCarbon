@@ -3,7 +3,7 @@
 	<RecipeDef Name="VFEU_RecipeHacking" Abstract="True">
 		<workSpeedStat>ResearchSpeed</workSpeedStat>
 		<effectWorking>VFEU_Hacking</effectWorking>
-		<soundWorking>Recipe_Machining</soundWorking>
+		<soundWorking>AC_Interact_Hacking</soundWorking>
 	</RecipeDef>
 	<RecipeDef ParentName="VFEU_RecipeHacking">
 		<defName>VFEU_DecryptAncientStack</defName>
