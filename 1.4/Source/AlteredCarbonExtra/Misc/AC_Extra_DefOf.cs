@@ -18,6 +18,7 @@ namespace AlteredCarbon
         public static PawnRelationDef AC_Copy;
         public static DutyDef AC_TakeStacks;
         public static RecipeDef AC_HackBiocodedThings;
+        public static JobDef AC_HaulingSTacks;
     }
 }
 
