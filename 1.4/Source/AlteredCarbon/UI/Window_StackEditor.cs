@@ -110,7 +110,7 @@ namespace AlteredCarbon
         {
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
-            var title = "AC.RewriteCorticalStack".Translate();
+            var title = "AC.RewriteCorticalStack".Translate() + ": DEV VERSION";
             Widgets.Label(GetLabelRect(title, ref pos, labelWidthOverride: inRect.width - (Margin * 2f)), title);
             Text.Anchor = TextAnchor.UpperLeft;
             pos.y += 15;
