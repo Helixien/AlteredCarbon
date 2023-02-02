@@ -2,7 +2,7 @@
 <Defs>
 	<!-- ================================ Hacking ====================== -->
 	<SoundDef>
-		<defName>AC_Interact_Hacking</defName>
+		<defName>VFEU_Interact_Hacking</defName>
 		<sustain>True</sustain>
 		<context>MapOnly</context>
 		<maxSimultaneous>1</maxSimultaneous>
