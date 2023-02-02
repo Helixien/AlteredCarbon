@@ -94,7 +94,7 @@ namespace AlteredCarbon
                 var stacks = StoredStacks.ToList();
                 if (stacks.Any())
                 {
-                    var command = new Command_Action
+                    var duplicateStacks = new Command_Action
                     {
                         defaultLabel = "AC.DuplicateStack".Translate(),
                         defaultDesc = "AC.DuplicateStackDesc".Translate(),
@@ -119,13 +119,28 @@ namespace AlteredCarbon
 
                     if (this.stackToDuplicate != null)
                     {
-                        command.Disable("AC.AlreadySetToDuplicate".Translate());
+                        duplicateStacks.Disable("AC.AlreadySetToDuplicate".Translate());
                     }
                     else if (stacks.Count() >= MaxFilledStackCapacity)
                     {
-                        command.Disable("AC.NoEnoughSpaceForNewStack".Translate());
+                        duplicateStacks.Disable("AC.NoEnoughSpaceForNewStack".Translate());
                     }
-                    yield return command;
+                    if (this.Powered is false)
+                    {
+                        duplicateStacks.Disable("NoPower".Translate());
+                    }
+                    yield return duplicateStacks;
+
+                    var ejectAll = new Command_Action();
+                    ejectAll.defaultLabel = "AC.EjectAll".Translate();
+                    ejectAll.defaultDesc = "AC.EjectAllDesc".Translate();
+                    ejectAll.icon = ContentFinder<Texture2D>.Get("UI/Icons/EjectAllStacks");
+                    ejectAll.action = delegate
+                    {
+                        EjectContents();
+                    };
+                    yield return ejectAll;
+
                 }
 
                 var enableBackup = new Command_Toggle()

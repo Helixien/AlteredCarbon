@@ -181,4 +181,7 @@
 	<AC.Tutorial>WARNING: The more you edit,the higher the stack degradation will be, causing the stored pawns personality to become more and more unstable. Stack degradation will go away over time after being installed in a body, but can take years.</AC.Tutorial>
 	<AC.ResetAll>Reset all</AC.ResetAll>
 	<AC.StackDegradation>Stack degradation: {0}</AC.StackDegradation>
+
+	<AC.EjectAll>Eject all</AC.EjectAll>
+	<AC.EjectAllDesc>Drop all contained stacks onto the ground.</AC.EjectAllDesc>
 </LanguageData>

@@ -10,4 +10,11 @@
 		<driverClass>AlteredCarbon.JobDriver_CreateStackFromBackup</driverClass>
 		<reportString>restoring cortical stack from backup</reportString>
 	</JobDef>
+	
+	<JobDef>
+		<defName>AC_HaulingSTacks</defName>
+		<driverClass>AlteredCarbon.JobDriver_HaulStackToStackArray</driverClass>
+		<reportString>hauling TargetA to TargetB.</reportString>
+		<allowOpportunisticPrefix>true</allowOpportunisticPrefix>
+	</JobDef>
 </Defs>
