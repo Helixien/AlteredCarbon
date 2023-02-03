@@ -33,6 +33,8 @@ namespace AlteredCarbon
         [MayRequireIdeology] public static HistoryEventDef VFEU_InstalledCorticalStack;
         [MayRequireIdeology] public static PreceptDef AC_Stacking_Despised;
         [MayRequireIdeology] public static PreceptDef AC_Sleeving_Despised;
+        [MayRequireIdeology] public static PreceptDef AC_CrossSleeving_DontCare;
+        [MayRequireIdeology] public static PreceptDef AC_CrossSleeving_Despised;
 
         public static VEBackstoryDef VFEU_VatGrownChild;
         public static VEBackstoryDef VFEU_VatGrownAdult;

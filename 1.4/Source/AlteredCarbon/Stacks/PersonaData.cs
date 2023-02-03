@@ -932,7 +932,7 @@ namespace AlteredCarbon
 
             if (pawn.CanThink())
             {
-                if (pawn.gender != gender)
+                if (pawn.gender != gender && (!ideo.HasPrecept(AC_DefOf.AC_CrossSleeving_DontCare)))
                 {
                     if (pawn.story.traits.HasTrait(TraitDefOf.BodyPurist))
                     {

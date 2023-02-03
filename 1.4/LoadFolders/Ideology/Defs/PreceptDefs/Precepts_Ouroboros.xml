@@ -252,9 +252,11 @@
 		<comps>
 			<li Class="PreceptComp_SituationalThought">
 				<thought>AC_Sleeving_Demanded_Sleeved</thought>
+				<tooltipShowMoodRange>true</tooltipShowMoodRange>
 			</li>
 			<li Class="PreceptComp_SituationalThought">
 				<thought>AC_Sleeving_Demanded_Sleeved_Social</thought>
+				<tooltipShowMoodRange>true</tooltipShowMoodRange>
 			</li>
 			<li Class="PreceptComp_SituationalThought">
 				<thought>AC_Sleeving_Demanded_Sleeveless_Social</thought>
@@ -279,6 +281,7 @@
 		<comps>
 			<li Class="PreceptComp_SituationalThought">
 				<thought>AC_Sleeving_Preferred_Sleeved</thought>
+				<tooltipShowMoodRange>true</tooltipShowMoodRange>
 			</li>
 		</comps>
 	</PreceptDef>
@@ -522,8 +525,41 @@
 			<li>AC_Ouroboros</li>
 			<li>Transhumanist</li>
 		</conflictingMemes>
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Sleeving_Despised_CrossSleeving</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Sleeving_Despised_CrossSleeving_Social</thought>
+			</li>
+		</comps>
 	</PreceptDef>
 	<!-- ================================ Thoughts - Cross Sleeving ====================== -->
+	<ThoughtDef>
+		<defName>AC_Sleeving_Despised_CrossSleeving</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_CrossSleeving</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>cross sleeved</label>
+				<description>Todo.</description>
+				<baseMoodEffect>-20</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Sleeving_Despised_CrossSleeving_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_CrossSleeving_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename-->
+				<label>uses sleeve of wrong gender</label>
+				<baseOpinionOffset>-25</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
 	<!-- ================================ Issue - Duplicating ====================== -->
 	<IssueDef>
 		<defName>AC_StackDuplicating</defName>
