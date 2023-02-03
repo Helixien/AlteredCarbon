@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Cortical Stack Degradation ====================== -->
+	<HediffDef>
+		<defName>AC_StackDegradation</defName>
+		<label>stack degradation</label>
+		<labelNoun>a stack degradation</labelNoun>
+		<hediffClass>AlteredCarbon.Hediff_StackDegradation</hediffClass>
+		<description>text todo.</description>
+		<isBad>false</isBad>
+	</HediffDef>
+	<!-- ================================ Degradation - Brain Trauma ====================== -->
+	<HediffDef>
+		<defName>AC_BrainTrauma</defName>
+		<label>brain trauma</label>
+		<labelNoun>a brain trauma</labelNoun>
+		<hediffClass>HediffWithComps</hediffClass>
+		<description>text todo.</description>
+	</HediffDef>
+</Defs>

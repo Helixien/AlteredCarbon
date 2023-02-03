@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Defs>
+	<!-- ================================ Sleeve Backstory Child ====================== -->
 	<VFECore.VEBackstoryDef>
 		<defName>VFEU_VatGrownChild</defName>
 		<title>Vat-Grown Sleeve</title>
@@ -27,6 +28,7 @@
 		</spawnCategories>
 		<shuffleable>false</shuffleable>
 	</VFECore.VEBackstoryDef>
+	<!-- ================================ Sleeve Backstory Adult ====================== -->
 	<VFECore.VEBackstoryDef>
 		<defName>VFEU_VatGrownAdult</defName>
 		<title>Vat-Grown Sleeve</title>

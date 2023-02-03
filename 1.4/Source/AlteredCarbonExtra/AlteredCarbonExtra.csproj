@@ -71,6 +71,7 @@
     <Compile Include="Incidents\IncidentWorker_StackRequest.cs" />
     <Compile Include="Jobs\JobDriver_CreateStackFromBackup.cs" />
     <Compile Include="Jobs\JobDriver_DuplicateStack.cs" />
+    <Compile Include="Jobs\JobDriver_HaulStackToStackArray.cs" />
     <Compile Include="Jobs\JobGiver_TakeStackWhenClose.cs" />
     <Compile Include="Jobs\JobGiver_TakeStackWideMap.cs" />
     <Compile Include="Jobs\WorkGiver_CreateStackFromBackup.cs" />

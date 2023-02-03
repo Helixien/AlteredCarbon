@@ -3,7 +3,7 @@
 	<Operation Class="PatchOperationSequence">
 		<!-- ================================ Patches in new stuff into the base game ====================== -->
 		<operations>
-			<!-- ================================ Patches in new mechanoids into the default faction pawnGroupMakers ====================== -->
+			<!-- ================================ Changes to the Ultratech buildings ====================== -->
 			<li Class="PatchOperationAdd">
 				<xpath>/Defs/ThingDef[defName="VFEU_SleeveIncubator" or defName="VFEU_SleeveCasket" or defName="AC_StackArray"]</xpath>
 				<value>
@@ -135,6 +135,13 @@
 				<xpath>/Defs/ThingDef[defName='VFEU_Apparel_ProtectorHelmet']/statBases</xpath>
 				<value>
 					<WorkToMake>21000</WorkToMake>
+				</value>
+			</li>
+			<!-- ================================ Destroy Cortical Stack Recipe ====================== -->
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/RecipeDef[@Name="VFEU_DestroyCorticalStacksBase"]</xpath>
+				<value>
+					<researchPrerequisite>AC_CorticalCrafting</researchPrerequisite>
 				</value>
 			</li>
 		</operations>

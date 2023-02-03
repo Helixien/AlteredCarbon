@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Sleeve Incubator ====================== -->
+	<SoundDef>
+		<defName>VFEU_SleeveIncubator_Ambience_Start</defName>
+		<context>MapOnly</context>
+		<subSounds>
+			<li>
+				<grains>
+					<li Class="AudioGrain_Clip">
+						<clipPath>Electricity/SleeveVat/Start/SleeveVatStart_1a</clipPath>
+					</li>
+				</grains>
+				<volumeRange>16~16</volumeRange>
+				<distRange>0~50.27907</distRange>
+				<sustainLoop>False</sustainLoop>
+			</li>
+		</subSounds>
+	</SoundDef>
+	<SoundDef>
+		<defName>VFEU_SleeveIncubator_Ambience_Stop</defName>
+		<context>MapOnly</context>
+		<subSounds>
+			<li>
+				<grains>
+					<li Class="AudioGrain_Clip">
+						<clipPath>Electricity/SleeveVat/Stop/SleeveVatStop_1a</clipPath>
+					</li>
+				</grains>
+				<volumeRange>16~16</volumeRange>
+				<distRange>0~50.27907</distRange>
+				<sustainLoop>False</sustainLoop>
+			</li>
+		</subSounds>
+	</SoundDef>
+	<SoundDef>
+		<defName>VFEU_SleeveIncubator_Ambience</defName>
+		<sustain>True</sustain>
+		<context>MapOnly</context>
+		<priorityMode>PrioritizeNearest</priorityMode>
+		<sustainStartSound>VFEU_SleeveIncubator_Ambience_Start</sustainStartSound>
+		<sustainStopSound>VFEU_SleeveIncubator_Ambience_Stop</sustainStopSound>
+		<subSounds>
+			<li>
+				<muteWhenPaused>True</muteWhenPaused>
+				<grains>
+					<li Class="AudioGrain_Clip">
+						<clipPath>Electricity/SleeveVat/Run/SleeveVatRun_Loop1a</clipPath>
+					</li>
+				</grains>
+				<volumeRange>15~15</volumeRange>
+				<distRange>0~30</distRange>
+			</li>
+		</subSounds>
+	</SoundDef>
+</Defs>

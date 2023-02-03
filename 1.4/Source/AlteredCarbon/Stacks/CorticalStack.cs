@@ -26,6 +26,10 @@ namespace AlteredCarbon
                 }
                 return personaData;
             }
+            set
+            {
+                personaData = value;
+            }
         }
 
         private GraphicData hostileGraphicData;
@@ -327,8 +331,10 @@ namespace AlteredCarbon
                     stringBuilder.Append("AC.Adulthood".Translate() + ": " + PersonaData.adulthood.title.CapitalizeFirst() + "\n");
                 }
                 stringBuilder.Append("AC.AgeChronologicalTicks".Translate() + ": " + (int)(PersonaData.ageChronologicalTicks / 3600000) + "\n");
-                stringBuilder.Append("Gender".Translate() + ": " + PersonaData.gender.GetLabel().CapitalizeFirst() + "\n");
-
+                if (PersonaData.stackDegradation > 0)
+                {
+                    stringBuilder.Append("AC.StackDegradation".Translate(PersonaData.stackDegradation.ToStringPercent().Colorize(Color.red)));
+                }
             }
             stringBuilder.Append(base.GetInspectString());
             return stringBuilder.ToString().TrimEndNewlines();

@@ -9,7 +9,6 @@ using VFECore.Abilities;
 
 namespace AlteredCarbon
 {
-
     [HotSwappable]
     public class Hediff_CorticalStack : Hediff_Implant
     {

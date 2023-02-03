@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Stack category ====================== -->
+	<ThingCategoryDef>
+		<defName>VFEU_BodyPartsUltra</defName>
+		<label>cortical stack</label>
+		<parent>Items</parent>
+	</ThingCategoryDef>
+</Defs>

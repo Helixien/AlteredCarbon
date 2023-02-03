@@ -54,4 +54,21 @@
 			<li>MultiAnalyzer</li>
 		</requiredResearchFacilities>
 	</ResearchProjectDef>
+	<!-- ================================ Rewrite Cortical Stack ====================== -->
+	<ResearchProjectDef>
+		<defName>AC_RewriteCorticalStack</defName>
+		<label>rewrite cortical stack</label>
+		<description>todo.</description>
+		<baseCost>5000</baseCost>
+		<researchViewX>12.00</researchViewX>
+		<researchViewY>2.90</researchViewY>
+		<techLevel>Ultra</techLevel>
+		<prerequisites>
+			<li>AC_CorticalCrafting</li>
+		</prerequisites>
+		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
+		<requiredResearchFacilities>
+			<li>MultiAnalyzer</li>
+		</requiredResearchFacilities>
+	</ResearchProjectDef>
 </Defs>

@@ -7,7 +7,7 @@
 			<li Class="PatchOperationAdd">
 				<xpath>/Defs/ThingDef[defName="FabricationBench"]/recipes</xpath>
 				<value>
-					<li>VFEU_MakeEmptyCorticalStack</li>
+					<li>AC_MakeEmptyCorticalStack</li>
 				</value>
 			</li>
 			<!-- ================================ Change Neutroamine draw size ====================== -->
@@ -23,7 +23,7 @@
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
 						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>5</ChanceToSpawnWithStack>
+						<ChanceToSpawnWithStack>3</ChanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>
@@ -32,7 +32,7 @@
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
 						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>10</ChanceToSpawnWithStack>
+						<ChanceToSpawnWithStack>7</ChanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>
@@ -41,7 +41,7 @@
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
 						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>45</ChanceToSpawnWithStack>
+						<ChanceToSpawnWithStack>20</ChanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>
@@ -50,7 +50,7 @@
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
 						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>75</ChanceToSpawnWithStack>
+						<ChanceToSpawnWithStack>40</ChanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>
@@ -59,7 +59,7 @@
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
 						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>5</ChanceToSpawnWithStack>
+						<ChanceToSpawnWithStack>2</ChanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>
@@ -68,7 +68,7 @@
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
 						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>10</ChanceToSpawnWithStack>
+						<ChanceToSpawnWithStack>5</ChanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>
@@ -77,7 +77,7 @@
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
 						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>50</ChanceToSpawnWithStack>
+						<ChanceToSpawnWithStack>25</ChanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -31,22 +32,20 @@ namespace AlteredCarbon
 
         private int backstoryChildIndex;
         private int backstoryAdultIndex;
-        private List<BackstoryDef> allChildhoodBackstories;
-        private List<BackstoryDef> allAdulthoodBackstories;
         private int factionIndex;
         private int ideoIndex;
-        private List<SkillRecord> initialSkills;
+        private List<BackstoryDef> allChildhoodBackstories;
+        private List<BackstoryDef> allAdulthoodBackstories;
         private Gender originalGender;
-        private Faction originalFaction;
         private float LeftPanelWidth => 450;
         public override Vector2 InitialSize => new Vector2(900, 975);
         public Window_StackEditor(Building_DecryptionBench decryptionBench, CorticalStack corticalStack)
         {
             this.decryptionBench = decryptionBench;
             this.corticalStack = corticalStack;
-            corticalStack.personaDataRewritten = new PersonaData();
-            corticalStack.personaDataRewritten.CopyDataFrom(corticalStack.PersonaData);
-            personaData = corticalStack.personaDataRewritten;
+            personaData = new PersonaData();
+            personaData.CopyDataFrom(corticalStack.PersonaData);
+
             this.allChildhoodBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading
                 .Where(x => x.slot == BackstorySlot.Childhood).ToList();
             if (personaData.adulthood != null)
@@ -54,27 +53,12 @@ namespace AlteredCarbon
                 this.allAdulthoodBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading
                 .Where(x => x.slot == BackstorySlot.Adulthood).ToList();
             }
-            if (personaData.skills != null)
-            {
-                initialSkills = new List<SkillRecord>();
-                foreach (var skill in personaData.skills)
-                {
-                    initialSkills.Add(new SkillRecord
-                    {
-                        def = skill.def,
-                        levelInt = skill.levelInt,
-                        xpSinceLastLevel = skill.xpSinceLastLevel,
-                        xpSinceMidnight = skill.xpSinceMidnight,
-                        passion = skill.passion,
-                        pawn = skill.pawn
-                    });
-                }
-            }
             personaDataCopy = new PersonaData();
             personaDataCopy.CopyDataFrom(personaData);
             originalGender = personaData.gender;
-            originalFaction = personaData.faction;
             ResetIndices();
+            this.forcePause = true;
+            this.absorbInputAroundWindow = true;
         }
 
         private void ResetIndices()
@@ -112,7 +96,6 @@ namespace AlteredCarbon
             pos.y = inRect.y + 100;
             DrawSkillsPanel(ref pos, inRect);
             DrawTraitsPanel(ref pos, inRect);
-
             pos.x = inRect.x + Margin;
             pos.y = inRect.height - 175;
             DrawTimePanel(ref pos, inRect);
@@ -120,13 +103,14 @@ namespace AlteredCarbon
             DrawAcceptCancelButtons(inRect);
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
+            personaData.RefreshDummyPawn();
         }
 
         protected void DrawTitle(ref Vector2 pos, Rect inRect)
         {
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
-            var title = "AC.RewriteCorticalStack".Translate();
+            var title = "AC.RewriteCorticalStack".Translate() + ": DEV VERSION";
             Widgets.Label(GetLabelRect(title, ref pos, labelWidthOverride: inRect.width - (Margin * 2f)), title);
             Text.Anchor = TextAnchor.UpperLeft;
             pos.y += 15;
@@ -360,7 +344,7 @@ namespace AlteredCarbon
                 if (Widgets.ButtonText(resetButton, "Reset".Translate()))
                 {
                     personaData.skills = new List<SkillRecord>();
-                    foreach (var skill in initialSkills)
+                    foreach (var skill in personaDataCopy.skills)
                     {
                         personaData.skills.Add(new SkillRecord
                         {
@@ -369,9 +353,9 @@ namespace AlteredCarbon
                             xpSinceLastLevel = skill.xpSinceLastLevel,
                             xpSinceMidnight = skill.xpSinceMidnight,
                             passion = skill.passion,
-                            pawn = skill.pawn,
                         });
                     }
+                    personaData.RefreshDummyPawn();
                 }
 
                 var skillBoxHeight = personaData.skills.Count() * (Text.LineHeight + 5) + (this.Margin * 2) - 5;
@@ -427,7 +411,7 @@ namespace AlteredCarbon
                             float fillPercent = Mathf.Max(0.01f, skill.Level / 20f);
                             Texture2D fillTex = SkillUI.SkillBarFillTex;
 
-                            var initialSkill = initialSkills.First(x => x.def == skill.def);
+                            var initialSkill = personaDataCopy.skills.First(x => x.def == skill.def);
 
                             float barSize = (skill.Level > 0 ? (float)skill.Level : 0) / 20f;
                             FillableBar(skillBar, barSize, SkillBarFill);
@@ -626,10 +610,10 @@ namespace AlteredCarbon
         {
             Text.Font = GameFont.Medium;
             Rect editTime = new Rect(pos.x, pos.y, inRect.width - (this.Margin * 2), 32);
-            string hoursTime = "10 hours";
-            Widgets.Label(editTime, "AC.TotalTimeToRewrite".Translate(hoursTime));
+            string time = GetEditTime().ToStringTicksToPeriod();
+            Widgets.Label(editTime, "AC.TotalTimeToRewrite".Translate(time));
             editTime.y += Text.LineHeight + 5;
-            string stackDegradation = "50%";
+            string stackDegradation = Mathf.Min(1f, this.personaData.stackDegradation + GetDegradation()).ToStringPercent();
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.MiddleLeft;
             Widgets.DrawHighlight(editTime);
@@ -655,6 +639,10 @@ namespace AlteredCarbon
             var acceptButtonRect = new Rect(buttonWidth / 2f, inRect.height - 32, buttonWidth, 32);
             if (Widgets.ButtonText(acceptButtonRect, "Accept".Translate()))
             {
+                personaData.editTime = GetEditTime();
+                personaData.stackDegradationToAdd = GetDegradation();
+                corticalStack.personaDataRewritten = personaData;
+                decryptionBench.billStack.AddBill(new Bill_RewriteStack(corticalStack, AC_DefOf.AC_RewriteFilledCorticalStack, null));
                 this.Close();
             }
             var cancelButtonRect = new Rect((inRect.width / 2f) - (buttonWidth / 2f), acceptButtonRect.y, buttonWidth, 32);
@@ -671,12 +659,148 @@ namespace AlteredCarbon
             }
         }
 
+        private int GetEditTime()
+        {
+            var time = 0;
+            if (personaDataCopy.name.ToStringFull != personaData.name.ToStringFull)
+            {
+                time += AlteredCarbonSettings.editTimeOffsetPerNameChange;
+            }
+            if (personaDataCopy.gender != personaData.gender)
+            {
+                time += AlteredCarbonSettings.editTimeOffsetPerGenderChange;
+            }
+            if (personaDataCopy.skills != null)
+            {
+                foreach (var origSkill in personaDataCopy.skills)
+                {
+                    var curSkill = personaData.skills.FirstOrDefault(x => x.def == origSkill.def);
+                    var skillLevelDiff = Mathf.Abs(curSkill.Level - origSkill.Level);
+                    if (skillLevelDiff > 0)
+                    {
+                        time += skillLevelDiff * AlteredCarbonSettings.editTimeOffsetPerSkillLevelChange;
+                    }
+                    var skillPassionsDiff = Mathf.Abs(curSkill.passion - origSkill.passion);
+                    if (skillPassionsDiff > 0)
+                    {
+                        time += skillPassionsDiff * AlteredCarbonSettings.editTimeOffsetPerSkillPassionChange;
+                    }
+                }
+            }
+            if (personaDataCopy.traits != null)
+            {
+                var origTraits = personaDataCopy.traits;
+                var curTraits = personaData.traits;
+                foreach (var trait in curTraits)
+                {
+                    if (origTraits.Any(x => trait.def == x.def && trait.degree == x.degree) is false)
+                    {
+                        time += AlteredCarbonSettings.editTimeOffsetPerTraitChange;
+                    }
+                }
+                var missingTraits = origTraits.Where(x => curTraits.Any(y => y.degree == x.degree && y.def == x.def) is false);
+                var missingTraitsCount = missingTraits.Count();
+                time += missingTraitsCount * AlteredCarbonSettings.editTimeOffsetPerTraitChange;
+            }
+
+            if (personaDataCopy.childhood != personaData.childhood)
+            {
+                time += AlteredCarbonSettings.editTimeOffsetPerChildhoodChange;
+            }
+            if (personaDataCopy.adulthood != personaData.adulthood)
+            {
+                time += AlteredCarbonSettings.editTimeOffsetPerAdulthoodChange;
+            }
+            if (personaDataCopy.ideo != personaData.ideo)
+            {
+                time += AlteredCarbonSettings.editTimeOffsetPerIdeologyChange;
+            }
+            var certaintyDiff = Mathf.Abs(personaDataCopy.certainty - personaData.certainty) * 100f;
+            if (certaintyDiff > 0)
+            {
+                time += (int)(certaintyDiff * AlteredCarbonSettings.editTimeOffsetPerCertaintyChange);
+            }
+            if (personaDataCopy.faction != personaData.faction)
+            {
+                time += AlteredCarbonSettings.editTimeOffsetPerFactionChange;
+            }
+            return time;
+        }
+
+        private float GetDegradation()
+        {
+            var degradation = 0f;
+            if (personaDataCopy.name.ToStringFull != personaData.name.ToStringFull)
+            {
+                degradation += AlteredCarbonSettings.stackDegradationOffsetPerNameChange;
+            }
+            if (personaDataCopy.gender != personaData.gender)
+            {
+                degradation += AlteredCarbonSettings.stackDegradationOffsetPerGenderChange;
+            }
+            if (personaDataCopy.skills != null)
+            {
+                foreach (var origSkill in personaDataCopy.skills)
+                {
+                    var curSkill = personaData.skills.FirstOrDefault(x => x.def == origSkill.def);
+                    var skillLevelDiff = Mathf.Abs(curSkill.Level - origSkill.Level);
+                    if (skillLevelDiff > 0)
+                    {
+                        degradation += skillLevelDiff * AlteredCarbonSettings.stackDegradationOffsetPerSkillLevelChange;
+                    }
+                    var skillPassionsDiff = Mathf.Abs(curSkill.passion - origSkill.passion);
+                    if (skillPassionsDiff > 0)
+                    {
+                        degradation += skillPassionsDiff * AlteredCarbonSettings.stackDegradationOffsetPerSkillPassionChange;
+                    }
+                }
+            }
+
+            if (personaDataCopy.traits != null)
+            {
+                var origTraits = personaDataCopy.traits;
+                var curTraits = personaData.traits;
+                foreach (var trait in curTraits)
+                {
+                    if (origTraits.Any(x => trait.def == x.def && trait.degree == x.degree) is false)
+                    {
+                        degradation += AlteredCarbonSettings.stackDegradationOffsetPerTraitChange;
+                    }
+                }
+                var missingTraits = origTraits.Where(x => curTraits.Any(y => y.degree == x.degree && y.def == x.def) is false);
+                var missingTraitsCount = missingTraits.Count();
+                degradation += missingTraitsCount * AlteredCarbonSettings.stackDegradationOffsetPerTraitChange;
+            }
+
+            if (personaDataCopy.childhood != personaData.childhood)
+            {
+                degradation += AlteredCarbonSettings.stackDegradationOffsetPerChildhoodChange;
+            }
+            if (personaDataCopy.adulthood != personaData.adulthood)
+            {
+                degradation += AlteredCarbonSettings.stackDegradationOffsetPerChildhoodChange;
+            }
+            if (personaDataCopy.ideo != personaData.ideo)
+            {
+                degradation += AlteredCarbonSettings.stackDegradationOffsetPerIdeologyChange;
+            }
+            var certaintyDiff = Mathf.Abs(personaDataCopy.certainty - personaData.certainty) * 100f;
+            if (certaintyDiff > 0)
+            {
+                degradation += (int)(certaintyDiff * AlteredCarbonSettings.stackDegradationOffsetPerCertaintyChange);
+            }
+            if (personaDataCopy.faction != personaData.faction)
+            {
+                degradation += AlteredCarbonSettings.stackDegradationOffsetPerFactionChange;
+            }
+            return degradation;
+        }
+
         private void ResetAll()
         {
             personaData.CopyDataFrom(personaDataCopy);
             ResetIndices();
             personaData.gender = originalGender;
-            personaData.faction = originalFaction;
         }
     }
 }

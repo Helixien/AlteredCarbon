@@ -108,7 +108,7 @@ namespace AlteredCarbon
                     var dummyPawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(kindDef, faction, fixedGender: gender,
                         fixedBiologicalAge: pawn.ageTracker.AgeBiologicalYearsFloat, fixedChronologicalAge: pawn.ageTracker.AgeChronologicalYearsFloat));
                     var copy = new PersonaData();
-                    copy.OverwritePawn(pawnToOverwrite: dummyPawn, null, original: pawn, overwriteOriginalPawn: false);
+                    copy.OverwritePawn(pawn: dummyPawn, null, original: pawn, overwriteOriginalPawn: false);
                     CopyAllPhysicalDataFrom(pawn, dummyPawn);
                     GenSpawn.Spawn(dummyPawn, pawn.Position, pawn.Map);
                     Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.pawnToSkip = dummyPawn;
@@ -120,7 +120,23 @@ namespace AlteredCarbon
                 pawn.health.AddHediff(hediff, part);
                 AlteredCarbonManager.Instance.StacksIndex.Remove(corticalStack.PersonaData.pawnID);
                 AlteredCarbonManager.Instance.ReplaceStackWithPawn(corticalStack, pawn);
-            
+
+                if (ModCompatibility.HelixienAlteredCarbonIsActive && corticalStack.PersonaData.stackDegradation > 0)
+                {
+                    var stackDegradationHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_StackDegradation) as Hediff_StackDegradation;
+                    if (stackDegradationHediff is null)
+                    {
+                        stackDegradationHediff = HediffMaker.MakeHediff(AC_DefOf.AC_StackDegradation, pawn) as Hediff_StackDegradation;
+                        pawn.health.AddHediff(stackDegradationHediff);
+                    }
+                    stackDegradationHediff.stackDegradation = corticalStack.PersonaData.stackDegradation;
+
+                    var brainTraumaChance = (corticalStack.PersonaData.stackDegradation - 0.8f) * 5f;
+                    if (brainTraumaChance > 0 && Rand.Chance(brainTraumaChance))
+                    {
+                        pawn.health.AddHediff(AC_DefOf.AC_BrainTrauma, pawn.health.hediffSet.GetBrain());
+                    }
+                }
                 if (pawn.CanThink())
                 {
                     var naturalMood = pawn.story.traits.GetTrait(TraitDefOf.NaturalMood);

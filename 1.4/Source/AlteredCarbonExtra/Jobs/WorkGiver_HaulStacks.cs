@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace AlteredCarbon
 {
+    [HotSwappable]
     public class WorkGiver_HaulStacks : WorkGiver_Scanner
     {
         public override Danger MaxPathDanger(Pawn pawn)
@@ -15,10 +16,11 @@ namespace AlteredCarbon
         }
         public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)
         {
-            return CorticalStack.corticalStacks.Where(x => x.Spawned && pawn.Map == x.Map && x.PersonaData.ContainsInnerPersona 
+            var stacks = CorticalStack.corticalStacks.Where(x => x.Spawned && pawn.Map == x.Map && x.PersonaData.ContainsInnerPersona
             && !pawn.Map.mapPawns.AllPawnsSpawned.Any(y => y.BillStack.Bills.Any(c => c is Bill_InstallStack installStack
                 && installStack.stackToInstall == x))
             && pawn.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
+            return stacks;
         }
 
         public override bool HasJobOnThing(Pawn pawn, Thing t, bool forced = false)
@@ -29,15 +31,16 @@ namespace AlteredCarbon
         {
             var stackArrays = GetStackArrays(pawn, t).ToList();
             var stackArray = GenClosest.ClosestThing_Global_Reachable(pawn.Position, pawn.Map, stackArrays, PathEndMode.Touch, TraverseParms.For(pawn));
-            var job = JobMaker.MakeJob(JobDefOf.HaulToContainer, t, stackArray);
+            var job = JobMaker.MakeJob(AC_Extra_DefOf.AC_HaulingSTacks, t, stackArray);
             job.count = 1;
             return job;
         }
 
         private static IEnumerable<Building_StackStorage> GetStackArrays(Pawn hauler, Thing stack)
         {
-            return Building_StackStorage.building_StackStorages.Where(x => x.HasFreeSpace
+            var storages = Building_StackStorage.building_StackStorages.Where(x => x.HasFreeSpace
                             && x.Accepts(stack) && hauler.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
+            return storages;
         }
     }
 }

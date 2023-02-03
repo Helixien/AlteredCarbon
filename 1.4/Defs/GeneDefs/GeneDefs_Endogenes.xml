@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
+	<!-- ================================ Gene - Classic Orange Hair ====================== -->
 	<GeneDef ParentName="GeneHairColorBase">
 		<defName>AC_Hair_OrangeReddish</defName>
 		<label>bright-red hair</label>

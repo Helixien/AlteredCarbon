@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Extract Stacks ====================== -->
+	<WorkGiverDef>
+		<defName>VFEU_ExtractStack</defName>
+		<label>extracting cortical stack</label>
+		<giverClass>AlteredCarbon.WorkGiver_ExtractStack</giverClass>
+		<workType>Hauling</workType>
+		<verb>extract cortical stack</verb>
+		<gerund>extracting cortical stack</gerund>
+		<priorityInType>20</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+	<!-- ================================ Start Sleeve growing ====================== -->
+	<WorkGiverDef>
+		<defName>VFEU_StartIncubatingProcess</defName>
+		<label>start growing process</label>
+		<giverClass>AlteredCarbon.WorkGiver_StartIncubatingProcess</giverClass>
+		<workType>BasicWorker</workType>
+		<priorityInType>50</priorityInType>
+		<verb>starting growing process</verb>
+		<gerund>starting growth process at</gerund>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+		<prioritizeSustains>true</prioritizeSustains>
+	</WorkGiverDef>
+	<!-- ================================ Stop Sleeve growing ====================== -->
+	<WorkGiverDef>
+		<defName>VFEU_CancelIncubatingProcess</defName>
+		<label>cancel growing process</label>
+		<giverClass>AlteredCarbon.WorkGiver_CancelIncubatingProcess</giverClass>
+		<workType>BasicWorker</workType>
+		<priorityInType>50</priorityInType>
+		<verb>canceling growing process</verb>
+		<gerund>canceling growth process at</gerund>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+		<prioritizeSustains>true</prioritizeSustains>
+	</WorkGiverDef>
+</Defs>
