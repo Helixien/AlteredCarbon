@@ -76,7 +76,7 @@ namespace AlteredCarbon
 
         public bool ContainsInnerPersona => origPawn != null || name != null;
 
-        public Gender gender;
+        public Gender originalGender;
         public ThingDef race;
         public int pawnID;
 
@@ -179,8 +179,8 @@ namespace AlteredCarbon
                 {
                     return title;
                 }
-                return adulthood != null ? adulthood.TitleShortFor(gender)
-                    : childhood != null ? childhood.TitleShortFor(gender) : "";
+                return adulthood != null ? adulthood.TitleShortFor(originalGender)
+                    : childhood != null ? childhood.TitleShortFor(originalGender) : "";
             }
         }
 
@@ -380,12 +380,12 @@ namespace AlteredCarbon
                 if (pawn.HasCorticalStack(out var hediff))
                 {
                     race = hediff.PersonaData.race;
-                    gender = hediff.PersonaData.gender;
+                    originalGender = hediff.PersonaData.originalGender;
                 }
                 else
                 {
                     race = pawn.def;
-                    gender = pawn.gender;
+                    originalGender = pawn.gender;
                 }
             }
             if (ModsConfig.RoyaltyActive && pawn.royalty != null)
@@ -586,9 +586,9 @@ namespace AlteredCarbon
             battleActive = other.battleActive;
             battleExitTick = other.battleExitTick;
 
-            if (gender == Gender.None)
+            if (originalGender == Gender.None)
             {
-                gender = other.gender;
+                originalGender = other.originalGender;
             }
             if (race == null)
             {
@@ -662,7 +662,7 @@ namespace AlteredCarbon
             
             if (thoughts != null)
             {
-                if (gender == pawn.gender)
+                if (originalGender == pawn.gender)
                 {
                     thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGender);
                     thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGenderDouble);
@@ -932,7 +932,7 @@ namespace AlteredCarbon
 
             if (pawn.CanThink())
             {
-                if (pawn.gender != gender && (!ideo.HasPrecept(AC_DefOf.AC_CrossSleeving_DontCare)))
+                if (pawn.gender != originalGender && ideo != null && !ideo.HasPrecept(AC_DefOf.AC_CrossSleeving_DontCare))
                 {
                     if (pawn.story.traits.HasTrait(TraitDefOf.BodyPurist))
                     {
@@ -1300,7 +1300,7 @@ namespace AlteredCarbon
             Scribe_Deep.Look(ref records, "records");
             Scribe_References.Look(ref battleActive, "battleActive");
             Scribe_Values.Look(ref battleExitTick, "battleExitTick", 0);
-            Scribe_Values.Look(ref gender, "gender");
+            Scribe_Values.Look(ref originalGender, "gender");
             Scribe_Values.Look(ref lastTimeUpdated, "lastTimeUpdated");
             if (ModsConfig.RoyaltyActive)
             {

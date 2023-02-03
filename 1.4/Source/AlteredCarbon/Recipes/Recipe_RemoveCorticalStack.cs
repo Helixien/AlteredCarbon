@@ -39,7 +39,7 @@ namespace AlteredCarbon
 				{
 					var corticalStack = ThingMaker.MakeThing(hediff.def.spawnThingOnRemoved) as CorticalStack;
 					corticalStack.PersonaData.CopyFromPawn(hediff.pawn, hediff.SourceStack);
-					corticalStack.PersonaData.gender = hediff.PersonaData.gender;
+					corticalStack.PersonaData.originalGender = hediff.PersonaData.originalGender;
 					corticalStack.PersonaData.race = hediff.PersonaData.race;
 					GenPlace.TryPlaceThing(corticalStack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
 

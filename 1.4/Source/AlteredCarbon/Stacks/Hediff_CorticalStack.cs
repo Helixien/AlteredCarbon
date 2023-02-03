@@ -75,7 +75,7 @@ namespace AlteredCarbon
             }
             if (!this.pawn.HasStack() && this.PersonaData.stackGroupID == -1)
             {
-                this.PersonaData.gender = pawn.gender;
+                this.PersonaData.originalGender = pawn.gender;
                 this.PersonaData.race = pawn.kindDef.race;
                 if (AlteredCarbonManager.Instance.stacksRelationships != null)
                 {

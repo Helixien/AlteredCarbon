@@ -55,7 +55,7 @@ namespace AlteredCarbon
             }
             personaDataCopy = new PersonaData();
             personaDataCopy.CopyDataFrom(personaData);
-            originalGender = personaData.gender;
+            originalGender = personaData.originalGender;
             ResetIndices();
             this.forcePause = true;
             this.absorbInputAroundWindow = true;
@@ -215,16 +215,16 @@ namespace AlteredCarbon
             var maleLabel = "Male".Translate().CapitalizeFirst();
             var maleRect = new Rect(originalGenderRect.xMax + 15, originalGenderRect.y, Text.CalcSize(maleLabel).x + 15, originalGenderRect.height);
             Widgets.Label(maleRect, maleLabel);
-            if (Widgets.RadioButton(new Vector2(maleRect.xMax, maleRect.y), personaData.gender == Gender.Male))
+            if (Widgets.RadioButton(new Vector2(maleRect.xMax, maleRect.y), personaData.originalGender == Gender.Male))
             {
-                personaData.gender = Gender.Male;
+                personaData.originalGender = Gender.Male;
             }
             var femaleLabel = "Female".Translate().CapitalizeFirst();
             var femaleRect = new Rect(maleRect.xMax + 50, maleRect.y, Text.CalcSize(femaleLabel).x + 15, maleRect.height);
             Widgets.Label(femaleRect, femaleLabel);
-            if (Widgets.RadioButton(new Vector2(femaleRect.xMax, femaleRect.y), personaData.gender == Gender.Female))
+            if (Widgets.RadioButton(new Vector2(femaleRect.xMax, femaleRect.y), personaData.originalGender == Gender.Female))
             {
-                personaData.gender = Gender.Female;
+                personaData.originalGender = Gender.Female;
             }
         }
         protected void DrawBackstoryPanel(ref Vector2 pos)
@@ -248,7 +248,7 @@ namespace AlteredCarbon
             backstoryFilters.Add(NoSkillPenalties);
 
             DoSelectionButtons(ref pos, "Childhood".Translate(), ref backstoryChildIndex,
-                (BackstoryDef x) => x.TitleCapFor(personaData.gender), allChildhoodBackstories, delegate (BackstoryDef x)
+                (BackstoryDef x) => x.TitleCapFor(personaData.originalGender), allChildhoodBackstories, delegate (BackstoryDef x)
                 {
                     SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                     personaData.childhood = x;
@@ -259,7 +259,7 @@ namespace AlteredCarbon
             if (personaData.adulthood != null)
             {
                 DoSelectionButtons(ref pos, "Adulthood".Translate(), ref backstoryAdultIndex,
-                (BackstoryDef x) => x.TitleCapFor(personaData.gender), allAdulthoodBackstories, delegate (BackstoryDef x)
+                (BackstoryDef x) => x.TitleCapFor(personaData.originalGender), allAdulthoodBackstories, delegate (BackstoryDef x)
                 {
                     SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                     personaData.adulthood = x;
@@ -666,7 +666,7 @@ namespace AlteredCarbon
             {
                 time += AlteredCarbonSettings.editTimeOffsetPerNameChange;
             }
-            if (personaDataCopy.gender != personaData.gender)
+            if (personaDataCopy.originalGender != personaData.originalGender)
             {
                 time += AlteredCarbonSettings.editTimeOffsetPerGenderChange;
             }
@@ -734,7 +734,7 @@ namespace AlteredCarbon
             {
                 degradation += AlteredCarbonSettings.stackDegradationOffsetPerNameChange;
             }
-            if (personaDataCopy.gender != personaData.gender)
+            if (personaDataCopy.originalGender != personaData.originalGender)
             {
                 degradation += AlteredCarbonSettings.stackDegradationOffsetPerGenderChange;
             }
@@ -800,7 +800,7 @@ namespace AlteredCarbon
         {
             personaData.CopyDataFrom(personaDataCopy);
             ResetIndices();
-            personaData.gender = originalGender;
+            personaData.originalGender = originalGender;
         }
     }
 }

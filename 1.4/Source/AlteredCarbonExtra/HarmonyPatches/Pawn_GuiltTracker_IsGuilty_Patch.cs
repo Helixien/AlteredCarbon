@@ -35,6 +35,6 @@ internal static class Pawn_GuiltTracker_IsGuilty_Patch
     private static bool IdeoGuiltyOfCrossSleeving(Pawn ___pawn)
     {
         return ___pawn.Ideo.HasPrecept(AC_DefOf.AC_CrossSleeving_Despised) && ___pawn.HasCorticalStack(out var stackData) &&
-               (stackData.PersonaData.gender != ___pawn.gender);
+               (stackData.PersonaData.originalGender != ___pawn.gender);
     }
 }
