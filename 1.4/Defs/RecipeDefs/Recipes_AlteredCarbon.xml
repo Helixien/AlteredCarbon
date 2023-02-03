@@ -2,7 +2,7 @@
 <Defs>
 	<!-- ================================ Craft cortical stacks ====================== -->
 	<RecipeDef>
-		<defName>VFEU_MakeEmptyCorticalStack</defName>
+		<defName>AC_MakeEmptyCorticalStack</defName>
 		<label>make empty cortical stack</label>
 		<description>Make empty cortical stack.</description>
 		<jobString>Making empty cortical stack.</jobString>
