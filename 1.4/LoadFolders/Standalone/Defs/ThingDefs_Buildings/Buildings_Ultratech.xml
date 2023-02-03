@@ -107,8 +107,13 @@
 		<statBases>
 			<MaxHitPoints>250</MaxHitPoints>
 			<WorkToBuild>6000</WorkToBuild>
-			<Mass>40</Mass>
+			<Mass>60</Mass>
 			<Flammability>0.5</Flammability>
+			<BedRestEffectiveness>1.2</BedRestEffectiveness>
+			<Comfort>0.4</Comfort>
+			<ImmunityGainSpeedFactor>1.22</ImmunityGainSpeedFactor>
+			<MedicalTendQualityOffset>0.10</MedicalTendQualityOffset>
+			<SurgerySuccessChanceFactor>1.5</SurgerySuccessChanceFactor>
 		</statBases>
 		<altitudeLayer>Building</altitudeLayer>
 		<castEdgeShadows>True</castEdgeShadows>
@@ -155,6 +160,14 @@
 			<li Class="CompProperties_AssignableToPawn">
 				<drawAssignmentOverlay>false</drawAssignmentOverlay>
 				<compClass>CompAssignableToPawn_Bed</compClass>
+			</li>
+			<li Class="CompProperties_AffectedByFacilities">
+				<linkableFacilities>
+					<li>VitalsMonitor</li>
+					<li MayRequire="Ludeon.RimWorld.Ideology">SleepAccelerator</li>
+					<li MayRequire="VanillaExpanded.VFEMedical">Facility_VitalsCentre</li>
+					<li MayRequire="VanillaExpanded.VFEMedical">Facility_IVDrip</li>
+				</linkableFacilities>
 			</li>
 			<li Class="AlteredCarbon.CompProperties_SleeveCasketPostDraw"/>
 			<li Class="CompProperties_Breakdownable"/>
