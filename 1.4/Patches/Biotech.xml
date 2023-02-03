@@ -28,6 +28,12 @@
 					<ThingDef>AC_GeneVault</ThingDef>
 				</value>
 			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[defName="GeneAssembler"]/comps/li[@Class="CompProperties_AffectedByFacilities"]/linkableFacilities</xpath>
+				<value>
+					<li>AC_GeneVault</li>
+				</value>
+			</li>
 		</operations>
 	</Operation>
 </Patch>

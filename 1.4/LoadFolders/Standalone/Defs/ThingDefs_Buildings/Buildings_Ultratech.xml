@@ -8,6 +8,7 @@
 		<descriptionHyperlinks>
 			<ThingDef>VFEU_SleeveCasket</ThingDef>
 			<ThingDef>GeneAssembler</ThingDef>
+			<ThingDef>Xenogerm</ThingDef>
 		</descriptionHyperlinks>
 		<graphicData>
 			<texPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorBottom</texPath>
