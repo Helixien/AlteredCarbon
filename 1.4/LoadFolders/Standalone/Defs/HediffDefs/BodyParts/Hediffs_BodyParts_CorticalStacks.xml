@@ -10,7 +10,6 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<uiIconForStackCount>1</uiIconForStackCount>
-		<stackLimit>25</stackLimit>
 		<tradeNeverStack>false</tradeNeverStack>
 		<useHitPoints>true</useHitPoints>
 		<techHediffsTags>
@@ -64,6 +63,7 @@
 		</graphicData>
 		<thingClass>AlteredCarbon.CorticalStack</thingClass>
 		<drawGUIOverlay>true</drawGUIOverlay>
+		<stackLimit>25</stackLimit>
 		<costList>
 			<Plasteel>15</Plasteel>
 			<ComponentSpacer>4</ComponentSpacer>

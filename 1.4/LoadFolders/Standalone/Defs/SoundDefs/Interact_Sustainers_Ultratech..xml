@@ -12,10 +12,12 @@
 				<muteWhenPaused>True</muteWhenPaused>
 				<grains>
 					<li Class="AudioGrain_Folder">
-						<clipFolderPath>Interact/Work/Hacking_AC</clipFolderPath>
+						<clipFolderPath>Interact/Work/AC_Hacking</clipFolderPath>
 					</li>
 				</grains>
+				<repeatMode>NeverTwice</repeatMode>    
 				<volumeRange>8~19.10</volumeRange>
+				<sustainLoop>False</sustainLoop>
 			</li>
 		</subSounds>
 	</SoundDef>
