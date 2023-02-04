@@ -10,7 +10,6 @@
 		<destroyable>false</destroyable>
 		<useHitPoints>false</useHitPoints>
 		<uiIconForStackCount>1</uiIconForStackCount>
-		<stackLimit>25</stackLimit>
 		<tradeNeverStack>true</tradeNeverStack>
 		<techHediffsTags Inherit="False">
 			<li>Archotech</li>
@@ -32,6 +31,7 @@
 		</descriptionHyperlinks>
 		<drawGUIOverlay>true</drawGUIOverlay>
 		<thingClass>AlteredCarbon.CorticalStack</thingClass>
+		<stackLimit>25</stackLimit>
 		<graphicData>
 			<texPath>Things/Item/ArchoStacks/ArchopStackEmpty</texPath>
 			<graphicClass>Graphic_StackCount</graphicClass>
