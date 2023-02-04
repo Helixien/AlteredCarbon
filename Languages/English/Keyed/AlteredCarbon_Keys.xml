@@ -113,7 +113,7 @@
 	<AC.EnableAutoRestore>Toggle automatic restoring</AC.EnableAutoRestore>
 	<AC.EnableAutoRestoreDesc>Allow the array to automatically restore backups if a pawn with an installed cortical stacks dies.</AC.EnableAutoRestoreDesc>
 	<AC.DuplicateStack>Duplicate Stack</AC.DuplicateStack>
-	<AC.DuplicateStackDesc>Make a exact copy of an existing filled cortical stack.</AC.DuplicateStackDesc>
+	<AC.DuplicateStackDesc>Make a exact copy of an existing filled cortical stack that is currently stored in the stack array.</AC.DuplicateStackDesc>
 	<AC.AlreadySetToDuplicate>Already set a stack to duplicate</AC.AlreadySetToDuplicate>
 	<AC.NoEnoughSpaceForNewStack>Not enough space for new stack</AC.NoEnoughSpaceForNewStack>
 	<!-- ================================ Other ====================== -->
