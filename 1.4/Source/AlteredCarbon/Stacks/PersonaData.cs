@@ -2,6 +2,7 @@
 using RimWorld;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
@@ -213,7 +214,7 @@ namespace AlteredCarbon
                 this.origPawn = pawn;
             }
             this.sourceStack = sourceStack ?? AC_DefOf.VFEU_FilledCorticalStack;
-            name = pawn.Name;
+            name = GetNameCopy(pawn.Name);
             if (pawn.playerSettings != null)
             {
                 hostilityMode = (int)pawn.playerSettings.hostilityResponse;
@@ -487,19 +488,7 @@ namespace AlteredCarbon
         public void CopyDataFrom(PersonaData other, bool isDuplicateOperation = false)
         {
             sourceStack = other.sourceStack;
-            if (other.name is NameTriple nameTriple)
-            {
-                name = new NameTriple(nameTriple.firstInt, nameTriple.nickInt, nameTriple.lastInt);
-            }
-            else if (other.name is NameSingle nameSingle)
-            {
-                name = new NameSingle(nameSingle.nameInt);
-            }
-            else
-            {
-                name = other.name;
-            }
-
+            name = GetNameCopy(other.name);
             origPawn = other.origPawn;
             hostilityMode = other.hostilityMode;
             areaRestriction = other.areaRestriction;
@@ -625,14 +614,34 @@ namespace AlteredCarbon
             stackDegradation = other.stackDegradation;
             AssignDummyPawnReferences();
         }
+
+        private Name GetNameCopy(Name other)
+        {
+            if (other is NameTriple nameTriple)
+            {
+                return new NameTriple(nameTriple.firstInt, nameTriple.nickInt, nameTriple.lastInt);
+            }
+            else if (other is NameSingle nameSingle)
+            {
+                return new NameSingle(nameSingle.nameInt);
+            }
+            return Clone(other);
+        }
+
+        public T Clone<T>(T obj)
+        {
+            var inst = obj.GetType().GetMethod("MemberwiseClone", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+            return (T)inst?.Invoke(obj, null);
+        }
+
         public void OverwritePawn(Pawn pawn, StackSavingOptionsModExtension extension, Pawn original = null, bool overwriteOriginalPawn = true)
         {
             this.origPawn = FindOrigPawn(original);
-            if (origPawn != null)
+            if (overwriteOriginalPawn && origPawn != null)
             {
                 CopyFromPawn(origPawn, sourceStack);
             }
-            pawn.Name = name;
+            pawn.Name = GetNameCopy(name);
             PawnComponentsUtility.CreateInitialComponents(pawn);
             if (pawn.Faction != faction)
             {

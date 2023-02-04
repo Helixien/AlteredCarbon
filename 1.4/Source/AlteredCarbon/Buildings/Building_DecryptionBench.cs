@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Verse;
+using Verse.Sound;
 
 namespace AlteredCarbon
 {
@@ -43,6 +44,7 @@ namespace AlteredCarbon
                     defaultLabel = "AC.RewriteStack".Translate(),
                     defaultDesc = "AC.RewriteStackDesc".Translate(),
                     icon = ContentFinder<Texture2D>.Get("UI/Icons/EditStack"),
+                    activateSound = SoundDefOf.Tick_Tiny,
                     action = delegate ()
                     {
                         Find.Targeter.BeginTargeting(ForFilledStack(includeArchoStack: false), delegate (LocalTargetInfo x)

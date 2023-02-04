@@ -36,7 +36,6 @@ namespace AlteredCarbon
         private int ideoIndex;
         private List<BackstoryDef> allChildhoodBackstories;
         private List<BackstoryDef> allAdulthoodBackstories;
-        private Gender originalGender;
         private float LeftPanelWidth => 450;
         public override Vector2 InitialSize => new Vector2(900, 975);
         public Window_StackEditor(Building_DecryptionBench decryptionBench, CorticalStack corticalStack)
@@ -55,10 +54,9 @@ namespace AlteredCarbon
             }
             personaDataCopy = new PersonaData();
             personaDataCopy.CopyDataFrom(personaData);
-            originalGender = personaData.originalGender;
             ResetIndices();
-            this.forcePause = true;
-            this.absorbInputAroundWindow = true;
+            //this.forcePause = true;
+            //this.absorbInputAroundWindow = true;
         }
 
         private void ResetIndices()
@@ -134,7 +132,6 @@ namespace AlteredCarbon
             pos.y += 15f;
             Text.Font = GameFont.Small;
         }
-
         protected void DrawNamePanel(ref Vector2 pos)
         {
             DrawSectionTitle(ref pos, "Name".Translate(), LeftPanelWidth);
@@ -201,6 +198,7 @@ namespace AlteredCarbon
             var randomizeButton = new Rect(inputRect.xMax + 5, inputRect.y, 24, 24);
             if (Widgets.ButtonImage(randomizeButton, UIHelper.RandomizeSleeve))
             {
+                SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                 randomizeAction();
             }
         }
@@ -343,6 +341,7 @@ namespace AlteredCarbon
                 Text.Anchor = TextAnchor.UpperLeft;
                 if (Widgets.ButtonText(resetButton, "Reset".Translate()))
                 {
+                    SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                     personaData.skills = new List<SkillRecord>();
                     foreach (var skill in personaDataCopy.skills)
                     {
@@ -400,6 +399,7 @@ namespace AlteredCarbon
                             var decrementSkillRect = new Rect(labelRect.xMax, labelRect.y, labelRect.height, labelRect.height);
                             if (Widgets.ButtonImage(decrementSkillRect, ButtonPrevious))
                             {
+                                SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                                 var minLevel = MinLevelOfSkill(personaData.GetDummyPawn, skill.def);
                                 if (skill.Level > minLevel)
                                 {
@@ -427,6 +427,7 @@ namespace AlteredCarbon
                             var incrementLevelRect = new Rect(skillBar.xMax + 5, labelRect.y, labelRect.height, labelRect.height);
                             if (Widgets.ButtonImage(incrementLevelRect, ButtonNext))
                             {
+                                SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                                 skill.Level += 1;
                             }
                             
@@ -610,7 +611,7 @@ namespace AlteredCarbon
         {
             Text.Font = GameFont.Medium;
             Rect editTime = new Rect(pos.x, pos.y, inRect.width - (this.Margin * 2), 32);
-            string time = GetEditTime().ToStringTicksToPeriod();
+            string time = ToStringTicksToHours(GetEditTime());
             Widgets.Label(editTime, "AC.TotalTimeToRewrite".Translate(time));
             editTime.y += Text.LineHeight + 5;
             string stackDegradation = Mathf.Min(1f, this.personaData.stackDegradation + GetDegradation()).ToStringPercent();
@@ -622,6 +623,16 @@ namespace AlteredCarbon
             Widgets.Label(editTime, "AC.TotalStackDegradation".Translate(stackDegradation.Colorize(Color.red)));
             Text.Anchor = TextAnchor.UpperLeft;
             pos.y += (editTime.yMax - pos.y) + 15;
+        }
+
+        public static string ToStringTicksToHours(int numTicks)
+        {
+            string text = ((float)numTicks / 2500f).ToString("0.#");
+            if (text == "1")
+            {
+                return "Period1Hour".Translate();
+            }
+            return "PeriodHours".Translate(text);
         }
 
         private void DrawTutorialPanel(ref Vector2 pos, Rect inRect)
@@ -680,7 +691,7 @@ namespace AlteredCarbon
                     {
                         time += skillLevelDiff * AlteredCarbonSettings.editTimeOffsetPerSkillLevelChange;
                     }
-                    var skillPassionsDiff = Mathf.Abs(curSkill.passion - origSkill.passion);
+                    var skillPassionsDiff = Mathf.Abs((int)curSkill.passion - (int)origSkill.passion);
                     if (skillPassionsDiff > 0)
                     {
                         time += skillPassionsDiff * AlteredCarbonSettings.editTimeOffsetPerSkillPassionChange;
@@ -748,7 +759,7 @@ namespace AlteredCarbon
                     {
                         degradation += skillLevelDiff * AlteredCarbonSettings.stackDegradationOffsetPerSkillLevelChange;
                     }
-                    var skillPassionsDiff = Mathf.Abs(curSkill.passion - origSkill.passion);
+                    var skillPassionsDiff = Mathf.Abs((int)curSkill.passion - (int)origSkill.passion);
                     if (skillPassionsDiff > 0)
                     {
                         degradation += skillPassionsDiff * AlteredCarbonSettings.stackDegradationOffsetPerSkillPassionChange;
@@ -798,9 +809,9 @@ namespace AlteredCarbon
 
         private void ResetAll()
         {
+            SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
             personaData.CopyDataFrom(personaDataCopy);
             ResetIndices();
-            personaData.originalGender = originalGender;
         }
     }
 }

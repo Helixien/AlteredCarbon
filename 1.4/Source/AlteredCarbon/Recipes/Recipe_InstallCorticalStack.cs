@@ -150,12 +150,10 @@ namespace AlteredCarbon
                     if (pawn.story.traits.HasTrait(TraitDefOf.BodyPurist))
                     {
                         pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongGenderDouble);
-                        Log.Message(pawn + " - Should gain wrong double gender");
                     }
                     else
                     {
                         pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongGender);
-                        Log.Message(pawn + " - Should gain wrong gender");
                     }
                 }
 

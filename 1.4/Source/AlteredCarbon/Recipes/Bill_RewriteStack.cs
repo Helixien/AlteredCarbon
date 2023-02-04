@@ -20,7 +20,6 @@ namespace AlteredCarbon
         {
             base.Notify_DoBillStarted(billDoer);
             this.curBillDoer = billDoer;
-            Log.Message("this.curBillDoer: " + this.curBillDoer + " - " + this.recipe.effectWorking);
         }
 
         public override float GetWorkAmount(UnfinishedThing uft = null)
