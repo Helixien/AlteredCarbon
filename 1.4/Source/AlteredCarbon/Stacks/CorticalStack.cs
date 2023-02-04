@@ -149,9 +149,7 @@ namespace AlteredCarbon
                     PawnKindDef pawnKind = DefDatabase<PawnKindDef>.AllDefs.Where(x => x.RaceProps.Humanlike).RandomElement();
                     Faction faction = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction).RandomElement();
                     Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnKind, faction));
-                    PersonaData.CopyFromPawn(pawn, this.def);
-                    PersonaData.originalGender = pawn.gender;
-                    PersonaData.race = pawn.kindDef.race;
+                    PersonaData.CopyFromPawn(pawn, this.def, copyRaceGenderInfo: true);
                     PersonaData.stackGroupID = AlteredCarbonManager.Instance.GetStackGroupID(this);
                     AlteredCarbonManager.Instance.RegisterStack(this);
                     if (LookTargets_Patch.targets.TryGetValue(pawn, out List<LookTargets> targets))
@@ -317,9 +315,9 @@ namespace AlteredCarbon
                 {
                     stringBuilder.AppendLineTagged("AC.Faction".Translate() + ": " + PersonaData.faction.NameColored);
                 }
-                if (ModCompatibility.AlienRacesIsActive && PersonaData.race != null)
+                if (ModCompatibility.AlienRacesIsActive && PersonaData.originalRace != null)
                 {
-                    stringBuilder.AppendLineTagged("AC.Race".Translate() + ": " + PersonaData.race.LabelCap);
+                    stringBuilder.AppendLineTagged("AC.Race".Translate() + ": " + PersonaData.originalRace.LabelCap);
                 }
                 if (PersonaData.childhood != null)
                 {

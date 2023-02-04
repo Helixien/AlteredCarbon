@@ -30,7 +30,8 @@ namespace AlteredCarbon
         [MayRequireHelixienMod] public static HediffDef AC_BrainTrauma;
         [MayRequireHelixienMod] public static RecipeDef AC_RewriteFilledCorticalStack;
         [MayRequireHelixienMod] public static HistoryEventDef AC_UsedArchoStack;
-
+        [MayRequireHelixienMod] public static ThoughtDef AC_StackDegradationThought;
+        
         [MayRequireIdeology] public static HistoryEventDef VFEU_InstalledCorticalStack;
         [MayRequireIdeology] public static PreceptDef AC_Stacking_Despised;
         [MayRequireIdeology] public static PreceptDef AC_Sleeving_Despised;
@@ -73,7 +74,6 @@ namespace AlteredCarbon
         public static ThoughtDef VFEU_NewSleeveDouble;
         public static ThoughtDef VFEU_MansBody;
         public static ThoughtDef VFEU_WomansBody;
-        public static ThoughtDef VFEU_SomethingIsWrong;
         public static DesignationDef VFEU_ExtractStackDesignation;
         public static DamageDef VFEU_Deterioration;
         public static ThingDef VFEU_Mote_VatGlow;

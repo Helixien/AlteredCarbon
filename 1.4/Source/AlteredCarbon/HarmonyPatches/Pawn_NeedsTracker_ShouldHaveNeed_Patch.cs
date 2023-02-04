@@ -19,6 +19,7 @@ namespace AlteredCarbon
         {
             if (___pawn.IsEmptySleeve() && bodyNeeds.Contains(nd.defName) is false)
             {
+                Log.Message(___pawn + " - Prevent from gaining " + nd);
                 return false;
             }
             return true;

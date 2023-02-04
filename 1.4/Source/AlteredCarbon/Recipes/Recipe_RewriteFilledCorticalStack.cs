@@ -13,6 +13,7 @@ namespace AlteredCarbon
             var stack = ingredients.OfType<CorticalStack>().FirstOrDefault();
             stack.PersonaData = stack.personaDataRewritten;
             stack.PersonaData.stackDegradation += stack.personaDataRewritten.stackDegradationToAdd;
+            stack.personaDataRewritten.stackDegradationToAdd = 0;
             stack.PersonaData.stackDegradation = Mathf.Clamp01(stack.PersonaData.stackDegradation);
             stack.personaDataRewritten = null;
             stack.Map.mapDrawer.MapMeshDirty(stack.Position, MapMeshFlag.Things);

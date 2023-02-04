@@ -146,16 +146,4 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-	<ThoughtDef>
-		<defName>VFEU_SomethingIsWrong</defName>
-		<durationDays>120</durationDays>
-		<stackLimit>1</stackLimit>
-		<stages>
-			<li>
-				<label>Something is wrong</label>
-				<description>Something feels wrong, as if I am not really myself. Am I imagining it?</description>
-				<baseMoodEffect>-15</baseMoodEffect>
-			</li>
-		</stages>
-	</ThoughtDef>
 </Defs>

@@ -76,7 +76,7 @@
     <Compile Include="Recipes\Recipe_OperateOnCorticalStack.cs" />
     <Compile Include="Recipes\Recipe_RewriteFilledCorticalStack.cs" />
     <Compile Include="Recipes\ThingFilterBiocodable.cs" />
-    <Compile Include="Stacks\ThoughtWorker_StackDegradation.cs" />
+    <Compile Include="Stacks\Thought_StackDegradation.cs" />
     <Compile Include="UI\Command_WipeStacks.cs" />
     <Compile Include="HarmonyPatches\Building_GeneExtractor_CanAcceptPawn_Patch.cs" />
     <Compile Include="HarmonyPatches\ChildcareUtility_SwaddleBaby_Patch.cs" />

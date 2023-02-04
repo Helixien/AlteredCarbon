@@ -2,8 +2,8 @@
 <Defs>
 	<!-- ================================ Degradation Thoughts ====================== -->
 	<ThoughtDef>
-		<defName>AC_StackDegradation</defName>
-		<workerClass>AlteredCarbon.ThoughtWorker_StackDegradation</workerClass>
+		<defName>AC_StackDegradationThought</defName>
+		<thoughtClass>AlteredCarbon.Thought_StackDegradation</thoughtClass>
 		<hediff>AC_StackDegradation</hediff>
 		<stackLimit>1</stackLimit>
 		<durationDays>12</durationDays>

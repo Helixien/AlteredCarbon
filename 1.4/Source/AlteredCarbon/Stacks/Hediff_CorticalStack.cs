@@ -32,7 +32,7 @@ namespace AlteredCarbon
                 if (personaData is null)
                 {
                     personaData = new PersonaData();
-                    personaData.CopyFromPawn(pawn, SourceStack, true);
+                    personaData.CopyFromPawn(pawn, SourceStack, copyRaceGenderInfo: true);
                 }
                 return personaData;
             }

@@ -77,7 +77,7 @@ namespace AlteredCarbon
         public bool ContainsInnerPersona => origPawn != null || name != null;
 
         public Gender originalGender;
-        public ThingDef race;
+        public ThingDef originalRace;
         public int pawnID;
 
         // Royalty
@@ -116,7 +116,6 @@ namespace AlteredCarbon
         private RJWData rjwData;
         // misc
         public bool? diedFromCombat;
-        public bool hackedWhileOnStack;
         public bool isCopied = false;
         public int stackGroupID = -1;
         public int lastTimeUpdated;
@@ -379,12 +378,12 @@ namespace AlteredCarbon
             {
                 if (pawn.HasCorticalStack(out var hediff))
                 {
-                    race = hediff.PersonaData.race;
-                    originalGender = hediff.PersonaData.originalGender;
+                    originalRace = hediff.PersonaData.originalRace ?? pawn.def;
+                    originalGender = hediff.PersonaData.originalGender != Gender.None ? hediff.PersonaData.originalGender : pawn.gender;
                 }
                 else
                 {
-                    race = pawn.def;
+                    originalRace = pawn.def;
                     originalGender = pawn.gender;
                 }
             }
@@ -586,16 +585,8 @@ namespace AlteredCarbon
             battleActive = other.battleActive;
             battleExitTick = other.battleExitTick;
 
-            if (originalGender == Gender.None)
-            {
-                originalGender = other.originalGender;
-            }
-            if (race == null)
-            {
-                race = other.race;
-            }
-
-
+            originalGender = other.originalGender;
+            originalRace = other.originalRace;
             pawnID = other.pawnID;
 
             if (ModsConfig.RoyaltyActive)
@@ -625,7 +616,6 @@ namespace AlteredCarbon
 
             isCopied = isDuplicateOperation || other.isCopied;
             diedFromCombat = other.diedFromCombat;
-            hackedWhileOnStack = other.hackedWhileOnStack;
             stackGroupID = other.stackGroupID;
 
             sexuality = other.sexuality;
@@ -669,7 +659,7 @@ namespace AlteredCarbon
                     thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGenderPregnant);
                     thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGenderChild);
                 }
-                if (race == pawn.kindDef.race)
+                if (originalRace == pawn.kindDef.race)
                 {
                     thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongRace);
                 }
@@ -930,106 +920,14 @@ namespace AlteredCarbon
                 pawn.timetable.times = times;
             }
 
-            if (pawn.CanThink())
-            {
-                if (pawn.gender != originalGender && ideo != null && !ideo.HasPrecept(AC_DefOf.AC_CrossSleeving_DontCare))
-                {
-                    if (pawn.story.traits.HasTrait(TraitDefOf.BodyPurist))
-                    {
-                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongGenderDouble);
-                    }
-                    else
-                    {
-                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongGender);
-                    }
-                }
-
-
-                if (pawn.kindDef.race != race)
-                {
-                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongRace);
-                }
-            }
-
-
             if (ModsConfig.RoyaltyActive)
             {
-                pawn.royalty = new Pawn_RoyaltyTracker(pawn);
-                if (royalTitles != null)
-                {
-                    foreach (RoyalTitle title in royalTitles)
-                    {
-                        pawn.royalty.SetTitle(title.faction, title.def, false, false, false);
-                    }
-                }
-                if (heirs != null)
-                {
-                    foreach (KeyValuePair<Faction, Pawn> heir in heirs)
-                    {
-                        pawn.royalty.SetHeir(heir.Value, heir.Key);
-                    }
-                }
-            
-                if (favor != null)
-                {
-                    foreach (KeyValuePair<Faction, int> fav in favor)
-                    {
-                        pawn.royalty.SetFavor(fav.Key, fav.Value);
-                    }
-                }
-            
-                if (bondedThings != null)
-                {
-                    foreach (Thing bonded in bondedThings)
-                    {
-                        CompBladelinkWeapon comp = bonded.TryGetComp<CompBladelinkWeapon>();
-                        if (comp != null)
-                        {
-                            comp.CodeFor(pawn);
-                        }
-                    }
-                }
-                if (factionPermits != null)
-                {
-                    pawn.royalty.factionPermits = factionPermits;
-                }
+                AssignRoyaltyData(pawn);
             }
-            
+
             if (ModsConfig.IdeologyActive)
             {
-                if (precept_RoleMulti != null)
-                {
-                    if (precept_RoleMulti.chosenPawns is null)
-                    {
-                        precept_RoleMulti.chosenPawns = new List<IdeoRoleInstance>();
-                    }
-            
-                    precept_RoleMulti.chosenPawns.Add(new IdeoRoleInstance(precept_RoleMulti)
-                    {
-                        pawn = pawn
-                    });
-                    precept_RoleMulti.FillOrUpdateAbilities();
-                }
-                if (precept_RoleSingle != null)
-                {
-                    precept_RoleSingle.chosenPawn = new IdeoRoleInstance(precept_RoleMulti)
-                    {
-                        pawn = pawn
-                    };
-                    precept_RoleSingle.FillOrUpdateAbilities();
-                }
-            
-                if (ideo != null)
-                {
-                    pawn.ideo.SetIdeo(ideo);
-                    pawn.ideo.certaintyInt = certainty;
-                    pawn.ideo.previousIdeos = previousIdeos;
-                    pawn.ideo.joinTick = joinTick;
-                }
-                if (favoriteColor.HasValue)
-                {
-                    pawn.story.favoriteColor = favoriteColor.Value;
-                }
+                AssignIdeologyData(pawn);
             }
 
             if (pawn.workSettings == null)
@@ -1062,6 +960,86 @@ namespace AlteredCarbon
             if (ModCompatibility.RimJobWorldIsActive && rjwData != null)
             {
                 ModCompatibility.SetRjwData(pawn, rjwData);
+            }
+        }
+
+        private void AssignIdeologyData(Pawn pawn)
+        {
+            if (precept_RoleMulti != null)
+            {
+                if (precept_RoleMulti.chosenPawns is null)
+                {
+                    precept_RoleMulti.chosenPawns = new List<IdeoRoleInstance>();
+                }
+
+                precept_RoleMulti.chosenPawns.Add(new IdeoRoleInstance(precept_RoleMulti)
+                {
+                    pawn = pawn
+                });
+                precept_RoleMulti.FillOrUpdateAbilities();
+            }
+            if (precept_RoleSingle != null)
+            {
+                precept_RoleSingle.chosenPawn = new IdeoRoleInstance(precept_RoleMulti)
+                {
+                    pawn = pawn
+                };
+                precept_RoleSingle.FillOrUpdateAbilities();
+            }
+
+            if (ideo != null)
+            {
+                pawn.ideo.SetIdeo(ideo);
+                pawn.ideo.certaintyInt = certainty;
+                pawn.ideo.previousIdeos = previousIdeos;
+                pawn.ideo.joinTick = joinTick;
+            }
+            if (favoriteColor.HasValue)
+            {
+                pawn.story.favoriteColor = favoriteColor.Value;
+            }
+        }
+
+        private void AssignRoyaltyData(Pawn pawn)
+        {
+            pawn.royalty = new Pawn_RoyaltyTracker(pawn);
+            if (royalTitles != null)
+            {
+                foreach (RoyalTitle title in royalTitles)
+                {
+                    pawn.royalty.SetTitle(title.faction, title.def, false, false, false);
+                }
+            }
+            if (heirs != null)
+            {
+                foreach (KeyValuePair<Faction, Pawn> heir in heirs)
+                {
+                    pawn.royalty.SetHeir(heir.Value, heir.Key);
+                }
+            }
+
+            if (favor != null)
+            {
+                foreach (KeyValuePair<Faction, int> fav in favor)
+                {
+                    pawn.royalty.SetFavor(fav.Key, fav.Value);
+                }
+            }
+
+            if (bondedThings != null)
+            {
+                foreach (Thing bonded in bondedThings)
+                {
+                    CompBladelinkWeapon comp = bonded.TryGetComp<CompBladelinkWeapon>();
+                    if (comp != null)
+                    {
+                        comp.CodeFor(pawn);
+                    }
+                }
+            }
+            if (factionPermits != null)
+            {
+                pawn.royalty.factionPermits = factionPermits;
             }
         }
 
@@ -1239,7 +1217,6 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref stackGroupID, "stackGroupID", 0);
             Scribe_Values.Look(ref isCopied, "isCopied", false, false);
             Scribe_Values.Look(ref diedFromCombat, "diedFromCombat");
-            Scribe_Values.Look(ref hackedWhileOnStack, "hackedWhileOnStack");
             Scribe_Deep.Look(ref name, "name", new object[0]);
             Scribe_References.Look(ref origPawn, "origPawn", true);
             Scribe_Values.Look(ref hostilityMode, "hostilityMode");
@@ -1247,7 +1224,7 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref medicalCareCategory, "medicalCareCategory", MedicalCareCategory.NoCare, false);
             Scribe_Values.Look(ref selfTend, "selfTend", false, false);
             Scribe_Values.Look(ref ageChronologicalTicks, "ageChronologicalTicks", 0, false);
-            Scribe_Defs.Look(ref race, "race");
+            Scribe_Defs.Look(ref originalRace, "race");
             Scribe_References.Look(ref outfit, "outfit", false);
             Scribe_References.Look(ref foodRestriction, "foodPolicy", false);
             Scribe_References.Look(ref drugPolicy, "drugPolicy", false);
@@ -1366,7 +1343,6 @@ namespace AlteredCarbon
                 priorities.CleanupDict();
                 favor.CleanupDict();
                 heirs.CleanupDict();
-                AssignDummyPawnReferences();
             }
         }
 

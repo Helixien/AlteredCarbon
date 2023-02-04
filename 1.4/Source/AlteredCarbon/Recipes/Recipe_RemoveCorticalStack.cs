@@ -39,9 +39,10 @@ namespace AlteredCarbon
 				{
 					var corticalStack = ThingMaker.MakeThing(hediff.def.spawnThingOnRemoved) as CorticalStack;
 					corticalStack.PersonaData.CopyFromPawn(hediff.pawn, hediff.SourceStack);
-					corticalStack.PersonaData.originalGender = hediff.PersonaData.originalGender;
-					corticalStack.PersonaData.race = hediff.PersonaData.race;
-					GenPlace.TryPlaceThing(corticalStack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
+                    corticalStack.PersonaData.originalGender = hediff.PersonaData.originalGender;
+                    corticalStack.PersonaData.originalRace = hediff.PersonaData.originalRace;
+
+                    GenPlace.TryPlaceThing(corticalStack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
 
                     Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.disableKilledEffect = true;
 					hediff.preventSpawningStack = true;
