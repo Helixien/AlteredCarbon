@@ -68,24 +68,16 @@
   <ItemGroup>
     <Compile Include="Buildings\Building_StackStorage.cs" />
     <Compile Include="GameComponent_DigitalStorage.cs" />
-    <Compile Include="Incidents\IncidentWorker_StackRequest.cs" />
     <Compile Include="Jobs\JobDriver_CreateStackFromBackup.cs" />
     <Compile Include="Jobs\JobDriver_DuplicateStack.cs" />
     <Compile Include="Jobs\JobDriver_HaulStackToStackArray.cs" />
-    <Compile Include="Jobs\JobGiver_TakeStackWhenClose.cs" />
-    <Compile Include="Jobs\JobGiver_TakeStackWideMap.cs" />
     <Compile Include="Jobs\WorkGiver_CreateStackFromBackup.cs" />
     <Compile Include="Jobs\WorkGiver_DuplicateStacks.cs" />
     <Compile Include="Jobs\WorkGiver_HaulStacks.cs" />
-    <Compile Include="Lords\LordJob_TakeStacks.cs" />
     <Compile Include="Misc\ACUtilsExtra.cs" />
     <Compile Include="Misc\AC_Extra_DefOf.cs" />
-    <Compile Include="Misc\JobGiver_AIFightEnemy_TryGiveJob_Patch.cs" />
     <Compile Include="Misc\RoomRoleWorker_UltraTech.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Recipes\Recipe_ConvertFilledCorticalStack.cs" />
-    <Compile Include="Recipes\Recipe_HackBiocodedThings.cs" />
-    <Compile Include="Recipes\Recipe_HackFilledCorticalStack.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_CrossSleeving.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_CrossSleeving_Social.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_Sleeved.cs" />

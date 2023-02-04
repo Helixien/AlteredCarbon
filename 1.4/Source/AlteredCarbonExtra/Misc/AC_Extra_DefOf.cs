@@ -16,9 +16,7 @@ namespace AlteredCarbon
         public static ThoughtDef AC_LostMyLover;
         public static PawnRelationDef AC_Original;
         public static PawnRelationDef AC_Copy;
-        public static DutyDef AC_TakeStacks;
-        public static RecipeDef AC_HackBiocodedThings;
-        public static JobDef AC_HaulingSTacks;
+        public static JobDef AC_HaulingStacks;
     }
 }
 

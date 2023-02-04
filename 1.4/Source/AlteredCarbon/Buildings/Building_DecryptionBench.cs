@@ -90,11 +90,7 @@ namespace AlteredCarbon
             var bill = this.billStack.Bills.OfType<Bill_OperateOnStack>().Where(x => x.corticalStack == corticalStack).FirstOrDefault();
             if (bill != null)
             {
-                if (bill.recipe == AC_DefOf.VFEU_HackFilledCorticalStack)
-                {
-                    Messages.Message("AC.AlreadyOrderedToHackStack".Translate(), MessageTypeDefOf.CautionInput);
-                }
-                else if (bill.recipe == AC_DefOf.VFEU_WipeFilledCorticalStack)
+                if (bill.recipe == AC_DefOf.VFEU_WipeFilledCorticalStack)
                 {
                     Messages.Message("AC.AlreadyOrderedToWipeStack".Translate(), MessageTypeDefOf.CautionInput);
                 }

@@ -16,49 +16,6 @@ namespace AlteredCarbon
         {
             Harmony harmony = new("AlteredCarbonExtra");
             harmony.PatchAll();
-            foreach (IngredientCount li in AC_Extra_DefOf.AC_HackBiocodedThings.ingredients)
-            {
-                li.filter = new ThingFilterBiocodable();
-                List<ThingDef> list = Traverse.Create(li.filter).Field("thingDefs").GetValue<List<ThingDef>>();
-                if (list is null)
-                {
-                    list = new List<ThingDef>();
-                    Traverse.Create(li.filter).Field("thingDefs").SetValue(list);
-                }
-                foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs.Where(x => x.comps != null && x.HasAssignableCompFrom(typeof(CompBiocodable))))
-                {
-                    li.filter.SetAllow(thingDef, true);
-                    list.Add(thingDef);
-                }
-            }
-            AC_Extra_DefOf.AC_HackBiocodedThings.fixedIngredientFilter = new ThingFilterBiocodable();
-            List<ThingDef> list2 = Traverse.Create(AC_Extra_DefOf.AC_HackBiocodedThings.fixedIngredientFilter).Field("thingDefs").GetValue<List<ThingDef>>();
-            if (list2 is null)
-            {
-                list2 = new List<ThingDef>();
-                Traverse.Create(AC_Extra_DefOf.AC_HackBiocodedThings.fixedIngredientFilter).Field("thingDefs").SetValue(list2);
-            }
-
-            foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs.Where(x => x.comps != null && x.HasAssignableCompFrom(typeof(CompBiocodable))))
-            {
-                list2.Add(thingDef);
-                AC_Extra_DefOf.AC_HackBiocodedThings.fixedIngredientFilter.SetAllow(thingDef, true);
-            }
-
-
-            AC_Extra_DefOf.AC_HackBiocodedThings.defaultIngredientFilter = new ThingFilterBiocodable();
-            List<ThingDef> list3 = Traverse.Create(AC_Extra_DefOf.AC_HackBiocodedThings.defaultIngredientFilter).Field("thingDefs").GetValue<List<ThingDef>>();
-            if (list3 is null)
-            {
-                list3 = new List<ThingDef>();
-                Traverse.Create(AC_Extra_DefOf.AC_HackBiocodedThings.defaultIngredientFilter).Field("thingDefs").SetValue(list2);
-            }
-
-            foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs.Where(x => x.comps != null && x.HasAssignableCompFrom(typeof(CompBiocodable))))
-            {
-                list3.Add(thingDef);
-                AC_Extra_DefOf.AC_HackBiocodedThings.defaultIngredientFilter.SetAllow(thingDef, true);
-            }
         }
 
         public static bool IsUltraTech(this Thing thing)

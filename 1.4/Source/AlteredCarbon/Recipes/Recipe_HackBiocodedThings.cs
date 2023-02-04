@@ -1,26 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using HarmonyLib;
 using RimWorld;
-using UnityEngine;
 using Verse;
 
 namespace AlteredCarbon
 {
-    public class ThingFilterBiocodable : ThingFilter
-    {
-        public override bool Allows(Thing t)
-        {
-            var comp = t.TryGetComp<CompBiocodable>();
-            if (comp != null && comp.Biocoded)
-            {
-                return true;
-            }
-            return false;
-        }
-    }
     public class Recipe_HackBiocodedThings : RecipeWorker
     {
         public override void ConsumeIngredient(Thing ingredient, RecipeDef recipe, Map map)

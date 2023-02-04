@@ -29,6 +29,7 @@ namespace AlteredCarbon
         [MayRequireHelixienMod] public static HediffDef AC_StackDegradation;
         [MayRequireHelixienMod] public static HediffDef AC_BrainTrauma;
         [MayRequireHelixienMod] public static RecipeDef AC_RewriteFilledCorticalStack;
+        [MayRequireHelixienMod] public static HistoryEventDef AC_UsedArchoStack;
 
         [MayRequireIdeology] public static HistoryEventDef VFEU_InstalledCorticalStack;
         [MayRequireIdeology] public static PreceptDef AC_Stacking_Despised;
@@ -57,7 +58,6 @@ namespace AlteredCarbon
         public static ThingDef VFEU_SleeveIncubator;
         public static ThingDef VFEU_SleeveCasket;
         public static ThingDef VFEU_DecryptionBench;
-        public static RecipeDef VFEU_HackFilledCorticalStack;
         public static RecipeDef VFEU_WipeFilledCorticalStack;
         public static RecipeDef VFEU_InstallCorticalStack;
         public static RecipeDef VFEU_InstallEmptyCorticalStack;
@@ -80,6 +80,6 @@ namespace AlteredCarbon
         public static EffecterDef VFEU_Vat_Bubbles;
         public static LetterDef HumanPregnancy;
         public static FleckDef PsycastAreaEffect;
-        public static HistoryEventDef AC_UsedArchoStack;
+        public static RecipeDef VFEU_HackBiocodedThings;
     }
 }

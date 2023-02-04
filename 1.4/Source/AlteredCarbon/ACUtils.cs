@@ -120,6 +120,33 @@ namespace AlteredCarbon
                 info.recipe.defaultIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksHostile, true);
             }
 
+            foreach (IngredientCount li in AC_DefOf.VFEU_HackBiocodedThings.ingredients)
+            {
+                li.filter = new ThingFilterBiocodable();
+                li.filter.thingDefs ??= new List<ThingDef>();
+                foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs.Where(x => x.comps != null 
+                    && x.HasAssignableCompFrom(typeof(CompBiocodable))))
+                {
+                    li.filter.SetAllow(thingDef, true);
+                    li.filter.thingDefs.Add(thingDef);
+                }
+            }
+            AC_DefOf.VFEU_HackBiocodedThings.fixedIngredientFilter = new ThingFilterBiocodable();
+            AC_DefOf.VFEU_HackBiocodedThings.fixedIngredientFilter.thingDefs ??= new List<ThingDef>();
+            foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs.Where(x => x.comps != null && x.HasAssignableCompFrom(typeof(CompBiocodable))))
+            {
+                AC_DefOf.VFEU_HackBiocodedThings.fixedIngredientFilter.thingDefs.Add(thingDef);
+                AC_DefOf.VFEU_HackBiocodedThings.fixedIngredientFilter.SetAllow(thingDef, true);
+            }
+
+
+            AC_DefOf.VFEU_HackBiocodedThings.defaultIngredientFilter = new ThingFilterBiocodable();
+            AC_DefOf.VFEU_HackBiocodedThings.defaultIngredientFilter.thingDefs ??= new List<ThingDef>();
+            foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs.Where(x => x.comps != null && x.HasAssignableCompFrom(typeof(CompBiocodable))))
+            {
+                AC_DefOf.VFEU_HackBiocodedThings.defaultIngredientFilter.thingDefs.Add(thingDef);
+                AC_DefOf.VFEU_HackBiocodedThings.defaultIngredientFilter.SetAllow(thingDef, true);
+            }
         }
 
         public static bool CanImplantStackTo(HediffDef stackToImplant, Pawn pawn)

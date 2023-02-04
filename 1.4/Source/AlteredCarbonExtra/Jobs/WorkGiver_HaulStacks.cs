@@ -31,7 +31,7 @@ namespace AlteredCarbon
         {
             var stackArrays = GetStackArrays(pawn, t).ToList();
             var stackArray = GenClosest.ClosestThing_Global_Reachable(pawn.Position, pawn.Map, stackArrays, PathEndMode.Touch, TraverseParms.For(pawn));
-            var job = JobMaker.MakeJob(AC_Extra_DefOf.AC_HaulingSTacks, t, stackArray);
+            var job = JobMaker.MakeJob(AC_Extra_DefOf.AC_HaulingStacks, t, stackArray);
             job.count = 1;
             return job;
         }

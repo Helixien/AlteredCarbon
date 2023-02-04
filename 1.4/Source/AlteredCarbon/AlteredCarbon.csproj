@@ -72,8 +72,10 @@
     <Compile Include="Buildings\Building_Incubator.cs" />
     <Compile Include="HarmonyPatches\Dialog_BillConfig_DoWindowContents_Patch.cs" />
     <Compile Include="Recipes\Bill_RewriteStack.cs" />
+    <Compile Include="Recipes\Recipe_HackBiocodedThings.cs" />
     <Compile Include="Recipes\Recipe_OperateOnCorticalStack.cs" />
     <Compile Include="Recipes\Recipe_RewriteFilledCorticalStack.cs" />
+    <Compile Include="Recipes\ThingFilterBiocodable.cs" />
     <Compile Include="Stacks\ThoughtWorker_StackDegradation.cs" />
     <Compile Include="UI\Command_WipeStacks.cs" />
     <Compile Include="HarmonyPatches\Building_GeneExtractor_CanAcceptPawn_Patch.cs" />
