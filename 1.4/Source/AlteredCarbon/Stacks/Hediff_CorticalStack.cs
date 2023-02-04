@@ -75,8 +75,6 @@ namespace AlteredCarbon
             }
             if (!this.pawn.HasStack() && this.PersonaData.stackGroupID == -1)
             {
-                this.PersonaData.originalGender = pawn.gender;
-                this.PersonaData.race = pawn.kindDef.race;
                 if (AlteredCarbonManager.Instance.stacksRelationships != null)
                 {
                     this.PersonaData.stackGroupID = AlteredCarbonManager.Instance.stacksRelationships.Count + 1;
