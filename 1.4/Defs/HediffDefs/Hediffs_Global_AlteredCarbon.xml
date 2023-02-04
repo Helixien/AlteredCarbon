@@ -8,6 +8,7 @@
 		<hediffClass>AlteredCarbon.Hediff_StackDegradation</hediffClass>
 		<description>text todo.</description>
 		<isBad>false</isBad>
+		<defaultLabelColor>(1, 0, 0)</defaultLabelColor>
 	</HediffDef>
 	<!-- ================================ Degradation - Brain Trauma ====================== -->
 	<HediffDef>
