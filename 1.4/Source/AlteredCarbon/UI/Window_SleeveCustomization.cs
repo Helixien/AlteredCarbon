@@ -481,16 +481,16 @@ namespace AlteredCarbon
                 Find.WindowStack.Add(new Dialog_PresetList_Load(this));
             }
 
-            Rect acceptRect = new Rect(inRect.xMax - (loadTemplateRect.width * 2f) - 15, loadTemplateRect.y, loadTemplateRect.width, loadTemplateRect.height);
-            if (Widgets.ButtonText(acceptRect, "Accept".Translate().CapitalizeFirst()))
+            Rect cancelRect = new Rect(inRect.xMax - (loadTemplateRect.width * 2f) - 15, loadTemplateRect.y, loadTemplateRect.width, loadTemplateRect.height);
+            if (Widgets.ButtonText(cancelRect, "AC.Cancel".Translate().CapitalizeFirst()))
             {
-                sleeveGrower.StartGrowth(curSleeve, curXenogerm, ticksToGrow, growCost);
                 Close();
             }
 
-            Rect cancelRect = new Rect(acceptRect.xMax + 15, acceptRect.y, acceptRect.width, acceptRect.height);
-            if (Widgets.ButtonText(cancelRect, "AC.Cancel".Translate().CapitalizeFirst()))
+            Rect acceptRect = new Rect(cancelRect.xMax + 15, cancelRect.y, cancelRect.width, cancelRect.height);
+            if (Widgets.ButtonText(acceptRect, "AC.StartGrowing".Translate().CapitalizeFirst()))
             {
+                sleeveGrower.StartGrowth(curSleeve, curXenogerm, ticksToGrow, growCost);
                 Close();
             }
 

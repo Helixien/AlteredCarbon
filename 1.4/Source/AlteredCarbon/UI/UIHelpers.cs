@@ -25,6 +25,7 @@ namespace AlteredCarbon
         public static Texture2D RandomizeSleeve = ContentFinder<Texture2D>.Get("UI/Icons/RandomizeSleeve");
         public static Texture2D FilterAtlas = ContentFinder<Texture2D>.Get("UI/Icons/FilterAtlas");
         public static Texture2D DropdownIndicator = ContentFinder<Texture2D>.Get("UI/Icons/DropdownIndicator");
+        public static Texture2D ButtonCloseSmall = ContentFinder<Texture2D>.Get("UI/Icons/ButtonCloseSmall");
         public static Color ColorText = new Color(0.80f, 0.80f, 0.80f);
         public static Color ColorButtonHighlight = new Color(0.97647f, 0.97647f, 0.97647f);
         public static void DoColorButtons<T>(ref Vector2 pos, string label, List<T> colors, 
@@ -88,7 +89,7 @@ namespace AlteredCarbon
                 }
                 Rect centerButtonRect = new Rect(leftSelectRect.xMax + 2, leftSelectRect.y, highlightRect.width - (2 * leftSelectRect.width), buttonHeight);
                 if (ButtonTextSubtleCentered(centerButtonRect, labelGetter(list[index]), icon: icon != null ? icon(list[index]) : null, 
-                    iconColor: iconColor != null ? iconColor(list[index]) : null))
+                    iconColor: iconColor != null ? iconColor(list[index]) : null, tooltip: tooltipGetter != null ? tooltipGetter(list[index]) : null))
                 {
                     SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                     if (floatMenu)
@@ -155,7 +156,7 @@ namespace AlteredCarbon
         }
 
         public static bool ButtonTextSubtleCentered(Rect rect, string label, Vector2 functionalSizeOffset = default, 
-            Texture2D icon = null, Color? iconColor = null)
+            Texture2D icon = null, Color? iconColor = null, string tooltip = null)
         {
             Rect rect2 = rect;
             rect2.width += functionalSizeOffset.x;
@@ -187,6 +188,10 @@ namespace AlteredCarbon
             }
             Text.Anchor = TextAnchor.MiddleLeft;
             Text.WordWrap = true;
+            if (tooltip != null)
+            {
+                TooltipHandler.TipRegion(rect, tooltip);
+            }
             return Widgets.ButtonInvisible(rect2, false);
         }
 

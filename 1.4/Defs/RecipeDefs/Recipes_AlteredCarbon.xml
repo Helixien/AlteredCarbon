@@ -127,7 +127,7 @@
 		<description>Rewrite a cortical stack.</description>
 		<jobString>rewriting cortical stack.</jobString>
 		<workerClass>AlteredCarbon.Recipe_RewriteFilledCorticalStack</workerClass>
-		<workAmount>10000</workAmount>
+		<workAmount>10000000000</workAmount>
 		<ingredients>
 			<li>
 				<filter>

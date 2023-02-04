@@ -66,9 +66,8 @@ namespace AlteredCarbon
         private void DrawThingRow(ref float y, float width, CorticalStack corticalStack, bool showDuplicateStatus)
         {
             Rect rect1 = new Rect(0.0f, y, width, 28f);
-            Widgets.InfoCardButton(rect1.width - 24f, y, corticalStack);
-            rect1.width -= 24f;
-            Rect rect2 = new Rect(rect1.width - 28f, y, 24f, 24f);
+            Widgets.InfoCardButton(0, y, corticalStack);
+            Rect rect2 = new Rect(rect1.width - 8, y, 24f, 24f);
             TooltipHandler.TipRegion(rect2, "DropThing".Translate());
             if (Widgets.ButtonImage(rect2, ContentFinder<Texture2D>.Get("UI/Buttons/Drop", true)))
             {
@@ -99,7 +98,7 @@ namespace AlteredCarbon
                 GUI.color = ITab_Pawn_Gear.HighlightColor;
                 GUI.DrawTexture(rect1, TexUI.HighlightTex);
             }
-            Rect thingIconRect = new Rect(0f, y, 28f, 28f);
+            Rect thingIconRect = new Rect(24, y, 28f, 28f);
             Widgets.ThingIcon(thingIconRect, corticalStack, 1f);
             Text.Anchor = TextAnchor.MiddleLeft;
             GUI.color = ITab_Pawn_Gear.ThingLabelColor;
@@ -113,6 +112,16 @@ namespace AlteredCarbon
             string str2 = corticalStack.DescriptionDetailed;
             TooltipHandler.TipRegion(rect1, str2);
             y += 28f;
+        }
+
+        public static bool InfoCardButton(float x, float y, Thing thing)
+        {
+            if (Widgets.InfoCardButtonWorker(x, y))
+            {
+                Find.WindowStack.Add(new Dialog_InfoCardStack(thing));
+                return true;
+            }
+            return false;
         }
     }
 }

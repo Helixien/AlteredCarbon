@@ -78,7 +78,7 @@ namespace AlteredCarbon
             Text.Anchor = TextAnchor.UpperLeft;
             if (filters != null)
             {
-                var addFilterRect = new Rect(inRect.xMax - 120, inRect.y, 100, 24);
+                var addFilterRect = new Rect(inRect.xMax - 300, inRect.y, 100, 24);
                 Widgets.DrawAtlas(addFilterRect, UIHelper.FilterAtlas);
                 Text.Font = GameFont.Tiny;
                 if (addFilterRect.Contains(Event.current.mousePosition))
@@ -92,6 +92,7 @@ namespace AlteredCarbon
                 Text.Anchor = TextAnchor.MiddleLeft;
                 Widgets.Label(new Rect(addFilterRect.x + 10, addFilterRect.y, addFilterRect.width + 20, addFilterRect.height), "AC.AddFilter".Translate());
                 GUI.DrawTexture(new Rect(addFilterRect.xMax - 20, addFilterRect.y + 6, 11, 8), UIHelper.DropdownIndicator);
+                GUI.color = Color.white;
                 if (Widgets.ButtonInvisible(addFilterRect))
                 {
                     FloatMenuUtility.MakeMenu(filters, x => x(chosen).Item1, x => delegate 
@@ -100,8 +101,22 @@ namespace AlteredCarbon
                         currentItems = GetItems();
                     });
                 }
+                if (currentFilter != null)
+                {
+                    var currentFilterRect = new Rect(addFilterRect.xMax + 15, addFilterRect.y, 180, addFilterRect.height);
+                    Widgets.DrawAtlas(currentFilterRect, UIHelper.FilterAtlas);
+                    var filterLabel = currentFilter(chosen).Item1;
+                    var filterLabelRect = new Rect(currentFilterRect.x + 10, currentFilterRect.y, currentFilterRect.width - 30,
+                        currentFilterRect.height);
+                    Widgets.Label(filterLabelRect, filterLabel);
+                    var removeX = new Rect(filterLabelRect.xMax, filterLabelRect.y + 8, 9f, 9f);
+                    GUI.DrawTexture(removeX, UIHelper.ButtonCloseSmall);
+                    if (Widgets.ButtonInvisible(currentFilterRect))
+                    {
+                        currentFilter = null;
+                    }
+                }
                 Text.Font = GameFont.Small;
-                GUI.color = Color.white;
                 Text.Anchor = TextAnchor.UpperLeft;
             }
 
@@ -164,17 +179,19 @@ namespace AlteredCarbon
             }
 
             Widgets.EndScrollView();
-            var acceptButtonRect = new Rect(inRect.x + 35, inRect.yMax - 32, 200, 32);
-            if (Widgets.ButtonText(acceptButtonRect, "Accept".Translate()))
+
+
+            var cancelButtonRect = new Rect(inRect.xMax - 200 - 35, inRect.yMax - 32, 200, 32);
+            if (Widgets.ButtonText(cancelButtonRect, "Cancel".Translate()))
             {
-                actionOnSelect(chosen);
                 SoundDefOf.Click.PlayOneShotOnCamera();
                 this.Close();
             }
 
-            var cancelButtonRect = new Rect(inRect.xMax - 200 - 35, acceptButtonRect.y, 200, 32);
-            if (Widgets.ButtonText(cancelButtonRect, "Cancel".Translate()))
+            var acceptButtonRect = new Rect(inRect.x + 35, cancelButtonRect.y, 200, 32);
+            if (Widgets.ButtonText(acceptButtonRect, "Accept".Translate()))
             {
+                actionOnSelect(chosen);
                 SoundDefOf.Click.PlayOneShotOnCamera();
                 this.Close();
             }

@@ -331,7 +331,7 @@ namespace AlteredCarbon
                 stringBuilder.Append("AC.AgeChronologicalTicks".Translate() + ": " + (int)(PersonaData.ageChronologicalTicks / 3600000) + "\n");
                 if (PersonaData.stackDegradation > 0)
                 {
-                    stringBuilder.Append("AC.StackDegradation".Translate(PersonaData.stackDegradation.ToStringPercent().Colorize(Color.red)));
+                    stringBuilder.AppendLineTagged("AC.StackDegradation".Translate((TaggedString)(PersonaData.stackDegradation.ToStringPercent().Colorize(Color.red))));
                 }
             }
             stringBuilder.Append(base.GetInspectString());

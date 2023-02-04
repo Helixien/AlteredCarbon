@@ -36,6 +36,9 @@ namespace AlteredCarbon
         private int ideoIndex;
         private List<BackstoryDef> allChildhoodBackstories;
         private List<BackstoryDef> allAdulthoodBackstories;
+        private List<Faction> allFactions;
+        private List<Ideo> allIdeos;
+        private List<TraitDef> allTraits;
         private float LeftPanelWidth => 450;
         public override Vector2 InitialSize => new Vector2(900, 975);
         public Window_StackEditor(Building_DecryptionBench decryptionBench, CorticalStack corticalStack)
@@ -51,6 +54,14 @@ namespace AlteredCarbon
             {
                 this.allAdulthoodBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading
                 .Where(x => x.slot == BackstorySlot.Adulthood).ToList();
+            }
+            allFactions = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction && x.Hidden is false).ToList();
+            allIdeos = Find.IdeoManager.IdeosListForReading;
+            allTraits = DefDatabase<TraitDef>.AllDefsListForReading;
+            var modExtension = corticalStack.def.GetModExtension<StackSavingOptionsModExtension>();
+            if (modExtension != null)
+            {
+                allTraits.RemoveAll(x => modExtension.ignoresTraits.Contains(x.defName));
             }
             personaDataCopy = new PersonaData();
             personaDataCopy.CopyDataFrom(personaData);
@@ -72,7 +83,6 @@ namespace AlteredCarbon
             }
             if (personaData.faction != null)
             {
-                var allFactions = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction).ToList();
                 factionIndex = allFactions.IndexOf(personaData.faction);
             }
         }
@@ -229,11 +239,6 @@ namespace AlteredCarbon
         {
             DrawSectionTitle(ref pos, "AC.Backstories".Translate(), LeftPanelWidth);
             var backstoryFilters = new List<Func<BackstoryDef, (string, bool)>>();
-            (string, bool) NoFilters(BackstoryDef backstoryDef)
-            {
-                return ("AC.NoFilters".Translate(), true);
-            }
-            backstoryFilters.Add(NoFilters);
             (string, bool) NoDisabledWorkTypes(BackstoryDef backstoryDef)
             {
                 return ("AC.NoDisabledWorkTypes".Translate(), backstoryDef.workDisables == WorkTags.None);
@@ -275,7 +280,6 @@ namespace AlteredCarbon
         {
             pos.y += 15;
             DrawSectionTitle(ref pos, "AC.FactionAllegiance".Translate(), LeftPanelWidth);
-            var allFactions = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction).ToList();
             DoSelectionButtons(ref pos, "Faction".Translate(), ref factionIndex, (Faction x) => x.Name, allFactions,
                 delegate (Faction faction)
             {
@@ -289,19 +293,21 @@ namespace AlteredCarbon
                 tooltipGetter: (Faction t) => t.def.Description, icon: (Faction t) => t.def.FactionIcon, 
                 iconColor: (Faction t) => t.def.DefaultColor, labelGetterPostfix: (Faction t) => t != Faction.OfPlayer ? (", " + 
                 t.GoodwillWith(Faction.OfPlayer).ToString().Colorize(ColoredText.GetFactionRelationColor(t))) : "");
-
-            var removeUnwaveringLoyalTrait = "AC.RemoveUnwaveringLoyalTrait".Translate();
-            var removeRect = GetLabelRect(removeUnwaveringLoyalTrait, ref pos, Text.CalcSize(removeUnwaveringLoyalTrait).x + 50);
-            var unwaveringLoyal = personaData.recruitable is false;
-            Widgets.CheckboxLabeled(removeRect, removeUnwaveringLoyalTrait, ref unwaveringLoyal);
-            personaData.recruitable = !unwaveringLoyal;
+            
+            if (personaDataCopy.recruitable is false)
+            {
+                var unwaveringLoyal = personaData.recruitable;
+                var removeUnwaveringLoyalTrait = "AC.RemoveUnwaveringLoyalTrait".Translate();
+                var removeRect = GetLabelRect(removeUnwaveringLoyalTrait, ref pos, Text.CalcSize(removeUnwaveringLoyalTrait).x + 50);
+                Widgets.CheckboxLabeled(removeRect, removeUnwaveringLoyalTrait, ref unwaveringLoyal);
+                personaData.recruitable = unwaveringLoyal;
+            }
         }
 
         private void DrawIdeoPanel(ref Vector2 pos)
         {
             pos.y += 15;
             DrawSectionTitle(ref pos, "AC.Ideology".Translate(), LeftPanelWidth);
-            var allIdeos = Find.IdeoManager.IdeosListForReading;
             DoSelectionButtons(ref pos, "AC.Belief".Translate(), ref ideoIndex, (Ideo x) => x.name, allIdeos,
                 delegate (Ideo ideo)
                 {
@@ -507,8 +513,6 @@ namespace AlteredCarbon
             if (Widgets.ButtonImage(addTraitRect, StackAddTrait))
             {
                 var pawn = personaData.GetDummyPawn;
-                var allTraits = DefDatabase<TraitDef>.AllDefsListForReading
-                    .Where(x => x.GetGenderSpecificCommonality(pawn.gender) > 0);
                 var traitCandidates = new List<Trait>();
                 foreach (var newTraitDef in allTraits)
                 {
@@ -546,11 +550,6 @@ namespace AlteredCarbon
                     }
                 }
                 var traitFilters = new List<Func<Trait, (string, bool)>>();
-                (string, bool) NoFilters(Trait trait)
-                {
-                    return ("AC.NoFilters".Translate(), true);
-                }
-                traitFilters.Add(NoFilters);
                 (string, bool) NoDisabledWorkTypes(Trait trait)
                 {
                     return ("AC.NoDisabledWorkTypes".Translate(), trait.def.disabledWorkTags == WorkTags.None && trait.def.disabledWorkTypes.NullOrEmpty());
@@ -647,26 +646,25 @@ namespace AlteredCarbon
         private void DrawAcceptCancelButtons(Rect inRect)
         {
             var buttonWidth = 200;
-            var acceptButtonRect = new Rect(buttonWidth / 2f, inRect.height - 32, buttonWidth, 32);
-            if (Widgets.ButtonText(acceptButtonRect, "Accept".Translate()))
+            var resetAllButtonRect = new Rect(buttonWidth / 2f, inRect.height - 32, buttonWidth, 32); 
+            if (Widgets.ButtonText(resetAllButtonRect, "AC.ResetAll".Translate()))
+            {
+                ResetAll();
+            }
+            var cancelButtonRect = new Rect((inRect.width / 2f) - (buttonWidth / 2f), resetAllButtonRect.y, buttonWidth, 32);
+            if (Widgets.ButtonText(cancelButtonRect, "Cancel".Translate()))
+            {
+                ResetAll();
+                this.Close();
+            }
+            var acceptButtonRect = new Rect(inRect.width - (buttonWidth + (buttonWidth / 2f)), resetAllButtonRect.y, buttonWidth, 32);
+            if (Widgets.ButtonText(acceptButtonRect, "AC.StartRewriting".Translate()))
             {
                 personaData.editTime = GetEditTime();
                 personaData.stackDegradationToAdd = GetDegradation();
                 corticalStack.personaDataRewritten = personaData;
                 decryptionBench.billStack.AddBill(new Bill_RewriteStack(corticalStack, AC_DefOf.AC_RewriteFilledCorticalStack, null));
                 this.Close();
-            }
-            var cancelButtonRect = new Rect((inRect.width / 2f) - (buttonWidth / 2f), acceptButtonRect.y, buttonWidth, 32);
-            if (Widgets.ButtonText(cancelButtonRect, "Cancel".Translate()))
-            {
-                ResetAll();
-                this.Close();
-            }
-
-            var resetAllButtonRect = new Rect(inRect.width - (buttonWidth + (buttonWidth / 2f)), acceptButtonRect.y, buttonWidth, 32);
-            if (Widgets.ButtonText(resetAllButtonRect, "AC.ResetAll".Translate()))
-            {
-                ResetAll();
             }
         }
 
@@ -734,6 +732,10 @@ namespace AlteredCarbon
             if (personaDataCopy.faction != personaData.faction)
             {
                 time += AlteredCarbonSettings.editTimeOffsetPerFactionChange;
+            }
+            if (personaDataCopy.recruitable != personaData.recruitable)
+            {
+                time += AlteredCarbonSettings.editTimeOffsetPerUnwaveringLoyalChange;
             }
             return time;
         }
@@ -803,6 +805,10 @@ namespace AlteredCarbon
             if (personaDataCopy.faction != personaData.faction)
             {
                 degradation += AlteredCarbonSettings.stackDegradationOffsetPerFactionChange;
+            }
+            if (personaDataCopy.recruitable != personaData.recruitable)
+            {
+                degradation += AlteredCarbonSettings.stackDegradationOffsetPerUnwaveringLoyalChange;
             }
             return degradation;
         }

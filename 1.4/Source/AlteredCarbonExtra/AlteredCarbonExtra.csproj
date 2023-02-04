@@ -83,6 +83,7 @@
     <Compile Include="Thoughts\ThoughtWorker_Precept_Sleeved.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_Sleeved_Social.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_Sleeveless_Social.cs" />
+    <Compile Include="UI\Dialog_InfoCardStack.cs" />
     <Compile Include="UI\ITab_StackBackupContents.cs" />
     <Compile Include="UI\ITab_StackStorageContents.cs" />
     <Compile Include="HarmonyPatches\Pawn_GuiltTracker_IsGuilty_Patch.cs" />

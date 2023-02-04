@@ -33,6 +33,7 @@ namespace AlteredCarbon
         public static int editTimeOffsetPerIdeologyChange = 2500;
         public static int editTimeOffsetPerCertaintyChange = 50;
         public static int editTimeOffsetPerFactionChange = 2500;
+        public static int editTimeOffsetPerUnwaveringLoyalChange = 1200;
 
         public static float stackDegradationOffsetPerNameChange = 0.25f;
         public static float stackDegradationOffsetPerGenderChange = 0.5f;
@@ -44,6 +45,7 @@ namespace AlteredCarbon
         public static float stackDegradationOffsetPerIdeologyChange = 0.25f;
         public static float stackDegradationOffsetPerCertaintyChange = 0.01f;
         public static float stackDegradationOffsetPerFactionChange = 0.25f;
+        public static float stackDegradationOffsetPerUnwaveringLoyalChange = 0.25f;
 
 
         public Dictionary<string, SleevePreset> presets = new Dictionary<string, SleevePreset>();
@@ -62,6 +64,7 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref editTimeOffsetPerIdeologyChange, "editTimeOffsetPerIdeologyChange", 2500);
             Scribe_Values.Look(ref editTimeOffsetPerCertaintyChange, "editTimeOffsetPerCertaintyChange", 50);
             Scribe_Values.Look(ref editTimeOffsetPerFactionChange, "editTimeOffsetPerFactionChange", 2500);
+            Scribe_Values.Look(ref editTimeOffsetPerUnwaveringLoyalChange, "editTimeOffsetPerUnwaveringLoyalChange", 1200);
 
             Scribe_Values.Look(ref stackDegradationOffsetPerNameChange, "stackDegradationOffsetPerNameChange", 0.25f);
             Scribe_Values.Look(ref stackDegradationOffsetPerGenderChange, "stackDegradationOffsetPerGenderChange", 0.5f);
@@ -73,6 +76,7 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref stackDegradationOffsetPerIdeologyChange, "stackDegradationOffsetPerIdeologyChange", 0.25f);
             Scribe_Values.Look(ref stackDegradationOffsetPerCertaintyChange, "stackDegradationOffsetPerCertaintyChange", 0.01f);
             Scribe_Values.Look(ref stackDegradationOffsetPerFactionChange, "stackDegradationOffsetPerFactionChange", 0.25f);
+            Scribe_Values.Look(ref stackDegradationOffsetPerUnwaveringLoyalChange, "stackDegradationOffsetPerUnwaveringLoyalChange", 0.25f);
 
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
@@ -95,6 +99,8 @@ namespace AlteredCarbon
             DoSlider(listingStandard, "AC.editTimeOffsetPerIdeologyChange".Translate(), ref editTimeOffsetPerIdeologyChange, editTimeOffsetPerIdeologyChange.ToStringTicksToPeriod(), 0, 60000);
             DoSlider(listingStandard, "AC.editTimeOffsetPerCertaintyChange".Translate(), ref editTimeOffsetPerCertaintyChange, editTimeOffsetPerCertaintyChange.ToStringTicksToPeriod(), 0, 60000);
             DoSlider(listingStandard, "AC.editTimeOffsetPerFactionChange".Translate(), ref editTimeOffsetPerFactionChange, editTimeOffsetPerFactionChange.ToStringTicksToPeriod(), 0, 60000);
+            DoSlider(listingStandard, "AC.editTimeOffsetPerUnwaveringLoyalChange".Translate(), ref editTimeOffsetPerUnwaveringLoyalChange, editTimeOffsetPerUnwaveringLoyalChange.ToStringTicksToPeriod(), 0, 60000);
+            
             DoSlider(listingStandard, "AC.stackDegradationOffsetPerNameChange".Translate(), ref stackDegradationOffsetPerNameChange, stackDegradationOffsetPerNameChange.ToStringPercent(), 0f, 1f);
             DoSlider(listingStandard, "AC.stackDegradationOffsetPerGenderChange".Translate(), ref stackDegradationOffsetPerGenderChange, stackDegradationOffsetPerGenderChange.ToStringPercent(), 0f, 1f);
             DoSlider(listingStandard, "AC.stackDegradationOffsetPerSkillLevelChange".Translate(), ref stackDegradationOffsetPerSkillLevelChange, stackDegradationOffsetPerSkillLevelChange.ToStringPercent(), 0f, 1f);
@@ -105,6 +111,7 @@ namespace AlteredCarbon
             DoSlider(listingStandard, "AC.stackDegradationOffsetPerIdeologyChange".Translate(), ref stackDegradationOffsetPerIdeologyChange, stackDegradationOffsetPerIdeologyChange.ToStringPercent(), 0f, 1f);
             DoSlider(listingStandard, "AC.stackDegradationOffsetPerCertaintyChange".Translate(), ref stackDegradationOffsetPerCertaintyChange, stackDegradationOffsetPerCertaintyChange.ToStringPercent(), 0f, 1f);
             DoSlider(listingStandard, "AC.stackDegradationOffsetPerFactionChange".Translate(), ref stackDegradationOffsetPerFactionChange, stackDegradationOffsetPerFactionChange.ToStringPercent(), 0f, 1f);
+            DoSlider(listingStandard, "AC.stackDegradationOffsetPerUnwaveringLoyalChange".Translate(), ref stackDegradationOffsetPerUnwaveringLoyalChange, stackDegradationOffsetPerFactionChange.ToStringPercent(), 0f, 1f);
             listingStandard.Gap(10);
             if (listingStandard.ButtonText("Reset".Translate()))
             {

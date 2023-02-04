@@ -184,4 +184,11 @@
 
 	<AC.EjectAll>Eject all</AC.EjectAll>
 	<AC.EjectAllDesc>Drop all contained stacks onto the ground.</AC.EjectAllDesc>
+	
+	<AC.StartRewriting>Start rewriting</AC.StartRewriting>
+	<AC.StartGrowing>Start growing</AC.StartGrowing>
+	
+	<AC.CancelStackReset>Cancel stack reset</AC.CancelStackReset>
+	<AC.CancelStackRewrite>Cancel stack rewrite</AC.CancelStackRewrite>
+
 </LanguageData>

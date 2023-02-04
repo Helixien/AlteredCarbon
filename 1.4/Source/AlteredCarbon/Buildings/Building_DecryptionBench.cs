@@ -7,8 +7,10 @@ using Verse.Sound;
 
 namespace AlteredCarbon
 {
+    [StaticConstructorOnStartup]
     public class Building_DecryptionBench : Building_WorkTable
     {
+        private static readonly Texture2D CancelIcon = ContentFinder<Texture2D>.Get("UI/Designators/Cancel");
         public override IEnumerable<Gizmo> GetGizmos()
         {
             foreach (Gizmo g in base.GetGizmos())
@@ -36,10 +38,25 @@ namespace AlteredCarbon
                 wipeStacks.Disable("NoPower".Translate().CapitalizeFirst());
             }
             yield return wipeStacks;
-
+            var wipeStacksBills = this.billStack.Bills.Where(x => x.recipe == AC_DefOf.VFEU_WipeFilledCorticalStack).ToList();
+            if (wipeStacksBills.Any())
+            {
+                yield return new Command_Action
+                {
+                    defaultLabel = "AC.CancelStackReset".Translate(),
+                    icon = CancelIcon,
+                    action = delegate ()
+                    {
+                        foreach (var bill in wipeStacksBills)
+                        {
+                            this.billStack.Delete(bill);
+                        }
+                    }
+                };
+            }
             if (ModCompatibility.HelixienAlteredCarbonIsActive)
             {
-                var rewriteStack =  new Command_Action
+                var rewriteStack = new Command_Action
                 {
                     defaultLabel = "AC.RewriteStack".Translate(),
                     defaultDesc = "AC.RewriteStackDesc".Translate(),
@@ -56,36 +73,51 @@ namespace AlteredCarbon
                         });
                     }
                 };
-                if (IsStackRewriteResearchFinished is false)
-                {
-                    rewriteStack.Disable("MissingRequiredResearch".Translate() + ": " 
-                        + (from x in AC_DefOf.AC_RewriteFilledCorticalStack.researchPrerequisites where !x.IsFinished select x.label)
-                        .ToCommaList(useAnd: true).CapitalizeFirst());
-                }
+                LockBehindReseach(rewriteStack, AC_DefOf.AC_RewriteFilledCorticalStack.researchPrerequisites);
                 if (powerComp.PowerOn is false)
                 {
                     rewriteStack.Disable("NoPower".Translate().CapitalizeFirst());
                 }
                 yield return rewriteStack;
+
+                var rewriteStacksBills = this.billStack.Bills.Where(x => x.recipe == AC_DefOf.AC_RewriteFilledCorticalStack).ToList();
+                if (rewriteStacksBills.Any())
+                {
+                    yield return new Command_Action
+                    {
+                        defaultLabel = "AC.CancelStackRewrite".Translate(),
+                        icon = CancelIcon,
+                        action = delegate ()
+                        {
+                            foreach (var bill in rewriteStacksBills)
+                            {
+                                this.billStack.Delete(bill);
+                            }
+                        }
+                    };
+                }
             }
         }
 
-        public bool IsStackRewriteResearchFinished
+        private void LockBehindReseach(Command_Action command, List<ResearchProjectDef> researchProjects)
         {
-            get
+            if (IsResearchFinished(researchProjects) is false)
             {
-                if (AC_DefOf.AC_RewriteFilledCorticalStack.researchPrerequisites != null)
-                {
-                    for (int i = 0; i < AC_DefOf.AC_RewriteFilledCorticalStack.researchPrerequisites.Count; i++)
-                    {
-                        if (!AC_DefOf.AC_RewriteFilledCorticalStack.researchPrerequisites[i].IsFinished)
-                        {
-                            return false;
-                        }
-                    }
-                }
-                return true;
+                command.Disable("MissingRequiredResearch".Translate() + ": " + (from x in researchProjects where !x.IsFinished select x.label)
+                    .ToCommaList(useAnd: true).CapitalizeFirst());
             }
+        }
+
+        public bool IsResearchFinished(List<ResearchProjectDef> research)
+        {
+            for (int i = 0; i < research.Count; i++)
+            {
+                if (!research[i].IsFinished)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
         private bool CanAddOperationOn(CorticalStack corticalStack)
         {

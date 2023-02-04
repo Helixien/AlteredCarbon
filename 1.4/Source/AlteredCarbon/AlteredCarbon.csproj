@@ -71,7 +71,9 @@
     <Compile Include="Buildings\Building_DecryptionBench.cs" />
     <Compile Include="Buildings\Building_Incubator.cs" />
     <Compile Include="HarmonyPatches\Dialog_BillConfig_DoWindowContents_Patch.cs" />
+    <Compile Include="HarmonyPatches\Dialog_InfoCard_DoWindowContents_Patch.cs" />
     <Compile Include="Recipes\Bill_RewriteStack.cs" />
+    <Compile Include="HarmonyPatches\JobDriver_DoBill_MakeNewToils_Patch.cs" />
     <Compile Include="Recipes\Recipe_HackBiocodedThings.cs" />
     <Compile Include="Recipes\Recipe_OperateOnCorticalStack.cs" />
     <Compile Include="Recipes\Recipe_RewriteFilledCorticalStack.cs" />
