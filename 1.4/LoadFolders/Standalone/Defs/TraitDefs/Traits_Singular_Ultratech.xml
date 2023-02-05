@@ -3,7 +3,7 @@
 	<!-- ================================ Sleeve related traits ====================== -->
 	<TraitDef>
 		<defName>VFEU_FreeMind</defName>
-		<commonality>0.3</commonality>
+		<commonality>0.1</commonality>
 		<degreeDatas>
 			<li>
 				<label>free mind</label>
@@ -13,7 +13,7 @@
 	</TraitDef>
 	<TraitDef>
 		<defName>VFEU_Sleever</defName>
-		<commonality>0.3</commonality>
+		<commonality>0.1</commonality>
 		<degreeDatas>
 			<li>
 				<label>sleever</label>
