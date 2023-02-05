@@ -31,6 +31,7 @@
 					<li>CreepyBreathing</li>
 					<li>Tough</li>
 					<li>PsychicSensitivity</li>
+					<li>Delicate</li>
 					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_IronStomach</li>
 					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_BigBoned</li>
 					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_Dunce</li>
