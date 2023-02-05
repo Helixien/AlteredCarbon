@@ -29,15 +29,18 @@
 					<li>Immunity</li>
 					<li>AnnoyingVoice</li>
 					<li>CreepyBreathing</li>
-					<li MayRequire="syrchalis.individuality">SYR_Agile</li>
-					<li MayRequire="syrchalis.individuality">SYR_KeenEye</li>
-					<li MayRequire="syrchalis.individuality">SYR_StrongBack</li>
+					<li>Tough</li>
+					<li>PsychicSensitivity</li>
 					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_IronStomach</li>
 					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_BigBoned</li>
 					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_Dunce</li>
 					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_Squeamish</li>
 					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_ThickSkinned</li>
 					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_ThinSkinned</li>
+					<li MayRequire="sarg.alphagenes">AG_Beauty</li>
+					<li MayRequire="syrchalis.individuality">SYR_Agile</li>
+					<li MayRequire="syrchalis.individuality">SYR_KeenEye</li>
+					<li MayRequire="syrchalis.individuality">SYR_StrongBack</li>
 					<li MayRequire="Sierra.RTGT">RT_Nearsighted</li>
 					<li MayRequire="Sierra.RTGT">RT_Farsighted</li>
 					<li MayRequire="Sierra.RTGT">RT_Muscular</li>
