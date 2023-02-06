@@ -14,7 +14,8 @@ namespace AlteredCarbon
         }
         public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)
         {
-            return Building_StackStorage.building_StackStorages.Where(x => x.stackToDuplicate != null && x.CanDuplicateStack && pawn.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
+            return pawn.Map.listerThings.ThingsOfDef(AC_Extra_DefOf.AC_StackArray).Cast<Building_StackStorage>()
+                .Where(x => x.stackToDuplicate != null && x.CanDuplicateStack && pawn.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
         }
         public override bool HasJobOnThing(Pawn pawn, Thing t, bool forced = false)
         {

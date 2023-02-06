@@ -22,11 +22,17 @@ namespace AlteredCarbon
         {
             Instance = this;
             backedUpStacks ??= new Dictionary<int, PersonaData>();
-            ResetStaticData();
         }
-        public static void ResetStaticData()
+        public void ClearBackedUpStacksIfNoStackStorages()
         {
-            Building_StackStorage.building_StackStorages?.Clear();
+            foreach (var map in Find.Maps)
+            {
+                if (map.listerThings.ThingsOfDef(AC_Extra_DefOf.AC_StackArray).Any(x => x.Faction == Faction.OfPlayer))
+                {
+                    return;
+                }
+            }
+            backedUpStacks.Clear();
         }
         public Dictionary<int, PersonaData> backedUpStacks;
         public IEnumerable<PersonaData> StoredBackedUpStacks => this.backedUpStacks.Values;
@@ -47,8 +53,7 @@ namespace AlteredCarbon
                                     && pawn.Corpse.Destroyed || pawn.ParentHolder is null ||
                                     pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is null)
                                 {
-                                    if (!CorticalStack.corticalStacks.Any(x => x.PersonaData.pawnID == personaData.pawnID
-                                     && x.Spawned && !x.Destroyed))
+                                    if (!AnyCorticalStackExist(personaData))
                                     {
                                         return personaData;
                                     }
@@ -59,6 +64,19 @@ namespace AlteredCarbon
                 }
                 return null;
             }
+        }
+
+        private static bool AnyCorticalStackExist(PersonaData personaData)
+        {
+            foreach (var map in Find.Maps)
+            {
+                if (map.listerThings.ThingsOfDef(AC_DefOf.VFEU_FilledCorticalStack).Cast<CorticalStack>()
+                    .Any(x => x.PersonaData.pawnID == personaData.pawnID && x.Spawned && !x.Destroyed))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public override void ExposeData()
@@ -121,11 +139,16 @@ namespace AlteredCarbon
             base.GameComponentTick();
             if (Find.TickManager.TicksGame % GenDate.TicksPerDay == 0)
             {
-                foreach (var storage in Building_StackStorage.building_StackStorages)
+                foreach (var map in Find.Maps)
                 {
-                    if (storage.backupIsEnabled && storage.compPower.PowerOn)
+                    foreach (var storage in map.listerThings.ThingsOfDef(AC_Extra_DefOf.AC_StackArray)
+                        .Where(x => x.Faction == Faction.OfPlayer).OfType<Building_StackStorage>())
                     {
-                        BackupAllColonistsWithStacks();
+                        if (storage.backupIsEnabled && storage.compPower.PowerOn)
+                        {
+                            BackupAllColonistsWithStacks();
+                            break;
+                        }
                     }
                 }
             }

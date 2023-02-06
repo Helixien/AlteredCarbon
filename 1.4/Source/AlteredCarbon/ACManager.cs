@@ -11,19 +11,12 @@ namespace AlteredCarbon
         public AlteredCarbonManager()
         {
             Instance = this;
-            ResetStaticData();
         }
-
         public AlteredCarbonManager(Game game)
         {
             Instance = this;
-            ResetStaticData();
         }
 
-        public void ResetStaticData()
-        {
-            CorticalStack.corticalStacks?.Clear();
-        }
 
         public void ResetStackLimitIfNeeded(ThingDef def)
         {

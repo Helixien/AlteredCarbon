@@ -13,7 +13,6 @@ namespace AlteredCarbon
     public class Building_StackStorage : Building, IThingHolder
     {
         public const int MaxFilledStackCapacity = 25;
-        public static HashSet<Building_StackStorage> building_StackStorages = new HashSet<Building_StackStorage>();
         public Building_StackStorage()
         {
             this.innerContainer = new ThingOwner<Thing>(this, false, LookMode.Deep);
@@ -29,7 +28,6 @@ namespace AlteredCarbon
         public CorticalStack stackToDuplicate;
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
-            building_StackStorages.Add(this);
             base.SpawnSetup(map, respawningAfterLoad);
             if (Faction != null && Faction.IsPlayer)
             {
@@ -38,26 +36,19 @@ namespace AlteredCarbon
             compPower = this.TryGetComp<CompPowerTrader>();
         }
 
-        public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
-        {
-            base.DeSpawn(mode);
-            building_StackStorages.Remove(this);
-        }
 
         public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
         {
-            building_StackStorages.Remove(this);
             if (this.innerContainer.Count > 0 && (mode == DestroyMode.Deconstruct || mode == DestroyMode.KillFinalize))
             {
                 this.EjectContents();
             }
             this.innerContainer.ClearAndDestroyContents(DestroyMode.Vanish);
             base.Destroy(mode);
-            if (building_StackStorages.Any() is false)
-            {
-                GameComponent_DigitalStorage.Instance.backedUpStacks.Clear();
-            }
+            GameComponent_DigitalStorage.Instance.ClearBackedUpStacksIfNoStackStorages();
         }
+
+
         public bool CanDuplicateStack
         {
             get

@@ -181,14 +181,14 @@ namespace AlteredCarbon
             Widgets.EndScrollView();
 
 
-            var cancelButtonRect = new Rect(inRect.xMax - 200 - 35, inRect.yMax - 32, 200, 32);
+            var cancelButtonRect = new Rect(inRect.x + 35, inRect.yMax - 32, 200, 32);
             if (Widgets.ButtonText(cancelButtonRect, "Cancel".Translate()))
             {
                 SoundDefOf.Click.PlayOneShotOnCamera();
                 this.Close();
             }
 
-            var acceptButtonRect = new Rect(inRect.x + 35, cancelButtonRect.y, 200, 32);
+            var acceptButtonRect = new Rect(inRect.xMax - 200 - 35, cancelButtonRect.y, 200, 32);
             if (Widgets.ButtonText(acceptButtonRect, "Accept".Translate()))
             {
                 actionOnSelect(chosen);

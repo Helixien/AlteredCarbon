@@ -190,5 +190,7 @@
 	
 	<AC.CancelStackReset>Cancel stack reset</AC.CancelStackReset>
 	<AC.CancelStackRewrite>Cancel stack rewrite</AC.CancelStackRewrite>
-
+	
+	<AC.AutoLoad>Auto-load</AC.AutoLoad>
+	<AC.AutoLoadDesc>If active, haulers will automatically store this stack in a stack array.</AC.AutoLoadDesc>
 </LanguageData>

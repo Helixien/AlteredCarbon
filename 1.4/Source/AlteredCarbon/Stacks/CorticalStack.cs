@@ -11,7 +11,7 @@ namespace AlteredCarbon
     [HotSwappable]
     public class CorticalStack : ThingWithComps
     {
-        public static HashSet<CorticalStack> corticalStacks = new HashSet<CorticalStack>();
+        public bool autoLoad = true;
 
         public PersonaData personaDataRewritten;
 
@@ -140,10 +140,8 @@ namespace AlteredCarbon
         public bool IsArchoStack => this.def == AC_DefOf.AC_EmptyArchoStack || this.def == AC_DefOf.AC_FilledArchoStack;
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
-            corticalStacks.Add(this);
             try
             {
-
                 if (!respawningAfterLoad && !PersonaData.ContainsInnerPersona && IsFilledStack)
                 {
                     PawnKindDef pawnKind = DefDatabase<PawnKindDef>.AllDefs.Where(x => x.RaceProps.Humanlike).RandomElement();
@@ -205,6 +203,20 @@ namespace AlteredCarbon
                     }
                 };
                 yield return installStack;
+            }
+            if (ModCompatibility.HelixienAlteredCarbonIsActive)
+            {
+                yield return new Command_Toggle
+                {
+                    defaultLabel = "AC.AutoLoad".Translate(),
+                    defaultDesc = "AC.AutoLoadDesc".Translate(),
+                    icon = ContentFinder<Texture2D>.Get("UI/Icons/AutoLoadStack"),
+                    isActive = () => autoLoad,
+                    toggleAction = delegate
+                    {
+                        autoLoad = !autoLoad;
+                    }
+                };
             }
         }
 
@@ -357,19 +369,12 @@ namespace AlteredCarbon
         }
 
         public bool dontKillThePawn = false;
-
-        public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
-        {
-            base.DeSpawn(mode);
-            corticalStacks.Remove(this);
-        }
         public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
         {
             if (this.IsArchoStack && allowDestroyNonDestroyable is false)
             {
                 return;
             }
-            corticalStacks.Remove(this);
             base.Destroy(mode);
             if (PersonaData.ContainsInnerPersona && !dontKillThePawn)
             {
@@ -416,6 +421,7 @@ namespace AlteredCarbon
             base.ExposeData();
             Scribe_Deep.Look(ref personaData, "personaData");
             Scribe_Deep.Look(ref personaDataRewritten, "personaDataRewritten");
+            Scribe_Values.Look(ref autoLoad, "autoLoad", true);
         }
     }
 }

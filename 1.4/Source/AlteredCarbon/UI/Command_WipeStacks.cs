@@ -11,7 +11,8 @@ namespace AlteredCarbon
         {
             get
             {
-                foreach (CorticalStack corticalStack in CorticalStack.corticalStacks)
+                foreach (CorticalStack corticalStack in decryptionBench.Map.listerThings
+                    .ThingsOfDef(AC_DefOf.VFEU_FilledCorticalStack).OfType<CorticalStack>())
                 {
                     if (corticalStack.PersonaData.ContainsInnerPersona && !decryptionBench.billStack.Bills
                         .Any(x => x is Bill_OperateOnStack hackStack
