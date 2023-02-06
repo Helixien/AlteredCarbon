@@ -18,7 +18,7 @@ namespace AlteredCarbon
 			for (int i = 0; i < allContainedThings.Count; i++)
 			{
 				Thing th = allContainedThings[i];
-				if (th.IsUltraTech())
+				if (th.def.IsUltraTechBuilding())
 				{
 					count++;
 				}

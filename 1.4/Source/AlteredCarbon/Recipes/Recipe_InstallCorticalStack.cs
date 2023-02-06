@@ -132,8 +132,9 @@ namespace AlteredCarbon
                     var stackDegradationHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_StackDegradation) as Hediff_StackDegradation;
                     if (stackDegradationHediff is null)
                     {
-                        stackDegradationHediff = HediffMaker.MakeHediff(AC_DefOf.AC_StackDegradation, pawn) as Hediff_StackDegradation;
-                        pawn.health.AddHediff(stackDegradationHediff);
+                        BodyPartRecord neckRecord = pawn.GetNeck();
+                        stackDegradationHediff = HediffMaker.MakeHediff(AC_DefOf.AC_StackDegradation, pawn, neckRecord) as Hediff_StackDegradation;
+                        pawn.health.AddHediff(stackDegradationHediff, neckRecord);
                     }
                     stackDegradationHediff.stackDegradation = hediff.PersonaData.stackDegradation;
 

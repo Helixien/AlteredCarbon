@@ -49,16 +49,9 @@ namespace AlteredCarbon
                         stackHediff.PersonaData.diedFromCombat = true;
                     }
 
-                    if (isArchoStack && caravan is null)
+                    if (isArchoStack && caravan is null && __instance.GetNeck() is null)
                     {
-                        var head = __instance.health.hediffSet.GetNotMissingParts()
-                            .FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Head);
-                        var neck = __instance.health.hediffSet.GetNotMissingParts()
-                            .FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Neck);
-                        if (head is null || neck is null)
-                        {
-                            stackHediff.SpawnStack();
-                        }
+                        stackHediff.SpawnStack();
                     }
                 }
 

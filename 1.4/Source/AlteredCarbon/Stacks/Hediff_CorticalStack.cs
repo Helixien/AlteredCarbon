@@ -56,7 +56,7 @@ namespace AlteredCarbon
 
         public override void PostAdd(DamageInfo? dinfo)
         {
-            this.Part = pawn.def.race.body.AllParts.FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Neck);
+            this.Part = pawn.GetNeck();
             base.PostAdd(dinfo);
 
             foreach (var hediff in pawn.health.hediffSet.hediffs)

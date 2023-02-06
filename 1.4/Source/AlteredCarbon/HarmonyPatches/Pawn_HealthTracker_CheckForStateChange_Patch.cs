@@ -13,7 +13,7 @@ namespace AlteredCarbon
     {
         private static void Postfix(Pawn_HealthTracker __instance, Pawn ___pawn, DamageInfo? dinfo, Hediff hediff)
         {
-            if (!___pawn.health.hediffSet.GetNotMissingParts().Any(x => x.def == BodyPartDefOf.Neck) && ___pawn.HasCorticalStack(out var stackHediff))
+            if (___pawn.GetNeck() is null && ___pawn.HasCorticalStack(out var stackHediff))
             {
                 if (Rand.Chance(0.25f))
                 {

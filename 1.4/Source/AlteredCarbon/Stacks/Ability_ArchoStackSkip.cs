@@ -32,7 +32,6 @@ namespace AlteredCarbon
             if (pawnTarget != null)
             {
                 var sourceHediff = Hediff_CorticalStack;
-                BodyPartRecord neckRecord = pawnTarget.def.race.body.AllParts.FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Neck);
 
                 if (pawnTarget.Faction != null && CasterPawn.Faction != null && pawnTarget.Faction != CasterPawn.Faction)
                 {
@@ -45,6 +44,7 @@ namespace AlteredCarbon
                     pawnTarget.health.RemoveHediff(stackHediff);
                 }
 
+                BodyPartRecord neckRecord = pawnTarget.GetNeck();
                 var copyHediff = HediffMaker.MakeHediff(sourceHediff.def, pawnTarget, neckRecord) as Hediff_CorticalStack;
                 copyHediff.PersonaData = sourceHediff.PersonaData;
                 copyHediff.PersonaData.CopyFromPawn(pawn, sourceHediff.SourceStack);

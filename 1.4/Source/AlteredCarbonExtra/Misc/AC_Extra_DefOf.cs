@@ -17,6 +17,7 @@ namespace AlteredCarbon
         public static PawnRelationDef AC_Original;
         public static PawnRelationDef AC_Copy;
         public static JobDef AC_HaulingStacks;
+        public static ResearchProjectDef Xenogermination;
     }
 }
 

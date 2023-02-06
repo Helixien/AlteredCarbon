@@ -17,7 +17,7 @@ namespace AlteredCarbon
                 if (extension.SpawnsWithStack && __instance.HasCorticalStack(out _) is false
                     && Rand.Chance((float)extension.ChanceToSpawnWithStack / 100f))
                 {
-                    BodyPartRecord neckRecord = __instance.def.race.body.AllParts.FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Neck);
+                    BodyPartRecord neckRecord = __instance.GetNeck();
                     var hediff = HediffMaker.MakeHediff(AC_DefOf.VFEU_CorticalStack, __instance, neckRecord) as Hediff_CorticalStack;
                     __instance.health.AddHediff(hediff, neckRecord);
                     AlteredCarbonManager.Instance.RegisterPawn(__instance);

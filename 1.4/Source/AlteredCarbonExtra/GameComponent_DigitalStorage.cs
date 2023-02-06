@@ -55,6 +55,7 @@ namespace AlteredCarbon
                                 {
                                     if (!AnyCorticalStackExist(personaData))
                                     {
+                                        Log.Message("Restoring " + personaData.name);
                                         return personaData;
                                     }
                                 }

@@ -18,12 +18,39 @@ namespace AlteredCarbon
             harmony.PatchAll();
         }
 
-        public static bool IsUltraTech(this Thing thing)
+        public static bool IsUltraTechBuilding(this ThingDef def)
         {
-            return thing.def == AC_DefOf.VFEU_SleeveIncubator
-                || thing.def == AC_DefOf.VFEU_SleeveCasket || thing.def == AC_DefOf.VFEU_SleeveCasket
-                || thing.def == AC_Extra_DefOf.AC_StackArray
-                || thing.def == AC_DefOf.VFEU_DecryptionBench;
+            if (typeof(Building).IsAssignableFrom(def.thingClass))
+            {
+                if (def.researchPrerequisites != null && def.researchPrerequisites.Any(x => HasRequisite(x, AC_Extra_DefOf.Xenogermination)))
+                {
+                    return true;
+                }
+                return def == AC_DefOf.VFEU_SleeveIncubator
+                    || def == AC_DefOf.VFEU_SleeveCasket || def == AC_DefOf.VFEU_SleeveCasket
+                    || def == AC_Extra_DefOf.AC_StackArray
+                    || def == AC_DefOf.VFEU_DecryptionBench;
+            }
+            return false;
+        }
+
+        public static bool HasRequisite(ResearchProjectDef proj, ResearchProjectDef requirement)
+        {
+            if (proj == requirement)
+            {
+                return true;
+            }
+            else if (proj.prerequisites != null)
+            {
+                foreach (var research in proj.prerequisites)
+                {
+                    if (HasRequisite(research, requirement)) 
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

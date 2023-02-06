@@ -63,6 +63,11 @@ namespace AlteredCarbon
         {
             return pawn.needs?.mood?.thoughts?.memories != null;
         }
+
+        public static BodyPartRecord GetNeck(this Pawn pawn)
+        {
+            return pawn.health.hediffSet.GetNotMissingParts().FirstOrDefault(x => x.def == BodyPartDefOf.Neck);
+        }
         static ACUtils()
         {
             harmony = new Harmony("Altered.Carbon");
