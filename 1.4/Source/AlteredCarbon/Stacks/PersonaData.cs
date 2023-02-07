@@ -28,7 +28,7 @@ namespace AlteredCarbon
         private DrugPolicy drugPolicy;
         public Faction faction;
         public bool isFactionLeader;
-        private List<Thought_Memory> thoughts;
+        public List<Thought_Memory> thoughts;
         public List<Trait> traits;
         private List<DirectPawnRelation> relations;
 

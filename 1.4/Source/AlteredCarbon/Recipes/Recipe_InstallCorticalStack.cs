@@ -146,7 +146,7 @@ namespace AlteredCarbon
                     pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_StackDegradationThought);
                 }
                 
-                if (pawn.gender != hediff.PersonaData.originalGender && (hediff.PersonaData.ideo is null || !hediff.PersonaData.ideo.HasPrecept(AC_DefOf.AC_CrossSleeving_DontCare)))
+                if (pawn.gender != hediff.PersonaData.originalGender)
                 {
                     if (pawn.story.traits.HasTrait(TraitDefOf.BodyPurist))
                     {
