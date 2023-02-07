@@ -71,6 +71,15 @@
 			<li Class="PreceptComp_SituationalThought">
 				<thought>AC_Stacking_Preferred_ArchoStack</thought>
 			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Preferred_NoStack</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Preferred_Stack_Social</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Preferred_NoStack_Social</thought>
+			</li>
 		</comps>
 	</PreceptDef>
 	<PreceptDef>
@@ -187,6 +196,43 @@
 				<label>archo stack installed</label>
 				<description>Todo.</description>
 				<baseMoodEffect>4</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Preferred_NoStack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_NoStack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename/change desc-->
+				<label>no stack installed</label>
+				<description>Todo.</description>
+				<baseMoodEffect>-5</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Preferred_Stack_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Stack_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename-->
+				<label>stack installed</label>
+				<baseOpinionOffset>2</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Preferred_NoStack_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_NoStack_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename-->
+				<label>no stack installed</label>
+				<baseOpinionOffset>-5</baseOpinionOffset>
 			</li>
 		</stages>
 	</ThoughtDef>
