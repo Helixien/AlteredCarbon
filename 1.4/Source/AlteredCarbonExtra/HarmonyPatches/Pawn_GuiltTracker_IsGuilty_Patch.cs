@@ -24,17 +24,17 @@ internal static class Pawn_GuiltTracker_IsGuilty_Patch
 
     private static bool IdeoGuiltyOfSleeving(Pawn ___pawn)
     {
-        return ___pawn.Ideo.HasPrecept(AC_DefOf.AC_Sleeving_Despised) && ___pawn.UsesSleeve();
+        return ___pawn.Ideo.HasPrecept(AC_Extra_DefOf.AC_Sleeving_Despised) && ___pawn.UsesSleeve();
     }
 
     private static bool IdeoGuiltyOfStacking(Pawn ___pawn)
     {
-        return ___pawn.Ideo.HasPrecept(AC_DefOf.AC_Stacking_Despised) && ___pawn.HasStack();
+        return ___pawn.Ideo.HasPrecept(AC_Extra_DefOf.AC_Stacking_Despised) && ___pawn.HasStack();
     }
     
     private static bool IdeoGuiltyOfCrossSleeving(Pawn ___pawn)
     {
-        return ___pawn.Ideo.HasPrecept(AC_DefOf.AC_CrossSleeving_Despised) && ___pawn.HasCorticalStack(out var stackData) &&
+        return ___pawn.Ideo.HasPrecept(AC_Extra_DefOf.AC_CrossSleeving_Despised) && ___pawn.HasCorticalStack(out var stackData) &&
                (stackData.PersonaData.originalGender != ___pawn.gender);
     }
 }

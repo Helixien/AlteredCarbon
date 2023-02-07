@@ -18,6 +18,12 @@ namespace AlteredCarbon
         public static PawnRelationDef AC_Copy;
         public static JobDef AC_HaulingStacks;
         public static ResearchProjectDef Xenogermination;
+        
+        
+        [MayRequireIdeology] public static PreceptDef AC_Stacking_Despised;
+        [MayRequireIdeology] public static PreceptDef AC_Sleeving_Despised;
+        [MayRequireIdeology] public static PreceptDef AC_CrossSleeving_DontCare;
+        [MayRequireIdeology] public static PreceptDef AC_CrossSleeving_Despised;
     }
 }
 
