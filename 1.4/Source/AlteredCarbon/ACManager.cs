@@ -74,6 +74,8 @@ namespace AlteredCarbon
                 if (pawn.HasCorticalStack(out Hediff_CorticalStack hediff) 
                     && stacksRelationships.TryGetValue(hediff.PersonaData.stackGroupID, out StacksData stackData))
                 {
+                    pawn.relations.hidePawnRelations = false;
+                    pawn.relations.everSeenByPlayer = true;
                     if (stackData.originalPawn != null)
                     {
                         if (pawn != stackData.originalPawn)

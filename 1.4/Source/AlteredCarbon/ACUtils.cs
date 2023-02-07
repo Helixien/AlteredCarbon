@@ -2,8 +2,10 @@
 using RimWorld;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using Verse;
 
@@ -68,11 +70,39 @@ namespace AlteredCarbon
         {
             return pawn.health.hediffSet.GetNotMissingParts().FirstOrDefault(x => x.def == BodyPartDefOf.Neck);
         }
+
+        private static void PostfixLogMethod(MethodBase __originalMethod)
+        {
+            Log.Message("Running " + __originalMethod.FullDescription() + " - " + new StackTrace());
+            Log.ResetMessageCount();
+        }
+
+        private static void AddHarmonyLogging()
+        {
+            //var postfixLogMethod = AccessTools.Method(typeof(ACUtils), "PostfixLogMethod");
+            //foreach (var method in typeof(Pawn_RelationsTracker).GetMethods())
+            //{
+            //    try
+            //    {
+            //        var toIgnore = new List<string>
+            //        {
+            //            "get_", "RelationsTrackerTick", "Notify_", "GetDirectRelationsCount", "GetFirstDirectRelationPawn"
+            //        };
+            //        if (toIgnore.Any(x => method.Name.Contains(x)) is false)
+            //        {
+            //            Log.Message("Patching " + method.FullDescription());
+            //            harmony.Patch(method, postfix: new HarmonyMethod(postfixLogMethod));
+            //        }
+            //
+            //    }
+            //    catch { }
+            //}
+        }
         static ACUtils()
         {
             harmony = new Harmony("Altered.Carbon");
             harmony.PatchAll();
-
+            AddHarmonyLogging();
             if (ModCompatibility.HelixienAlteredCarbonIsActive)
             {
                 stackRecipesByDef[AC_DefOf.AC_FilledArchoStack] = new StackInstallInfo
