@@ -67,7 +67,7 @@ namespace AlteredCarbon
         {
             Rect rect1 = new Rect(0.0f, y, width, 28f);
             Widgets.InfoCardButton(0, y, corticalStack);
-            Rect rect2 = new Rect(rect1.width - 8, y, 24f, 24f);
+            Rect rect2 = new Rect(rect1.width - 24, y, 24f, 24f);
             TooltipHandler.TipRegion(rect2, "DropThing".Translate());
             if (Widgets.ButtonImage(rect2, ContentFinder<Texture2D>.Get("UI/Buttons/Drop", true)))
             {

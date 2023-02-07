@@ -5,6 +5,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
+    [HotSwappable]
     public class AlteredCarbonManager : GameComponent
     {
         public static AlteredCarbonManager Instance;
@@ -70,7 +71,8 @@ namespace AlteredCarbon
         {
             if (ModCompatibility.HelixienAlteredCarbonIsActive)
             {
-                if (pawn.HasCorticalStack(out Hediff_CorticalStack hediff) && stacksRelationships.TryGetValue(hediff.PersonaData.stackGroupID, out StacksData stackData))
+                if (pawn.HasCorticalStack(out Hediff_CorticalStack hediff) 
+                    && stacksRelationships.TryGetValue(hediff.PersonaData.stackGroupID, out StacksData stackData))
                 {
                     if (stackData.originalPawn != null)
                     {
@@ -78,6 +80,10 @@ namespace AlteredCarbon
                         {
                             pawn.relations.AddDirectRelation(AC_DefOf.AC_Original, stackData.originalPawn);
                             stackData.originalPawn.relations.AddDirectRelation(AC_DefOf.AC_Copy, pawn);
+
+                            Find.LetterStack.ReceiveLetter("Copy", "test", LetterDefOf.NeutralEvent, pawn);
+                            Find.LetterStack.ReceiveLetter("Original", "test", LetterDefOf.NeutralEvent, stackData.originalPawn);
+                            Log.Message("1: " + hediff.PersonaData.stackGroupID + " - stackData.originalPawn: " + stackData.originalPawn + " - stackData.copiedPawns: " + stackData.copiedPawns + " - " + string.Join(", ", stackData.copiedPawns ?? new List<Pawn>()) + " - " + pawn + " - is copy: " + pawn.IsCopy());
                         }
                         else if (stackData.copiedPawns != null)
                         {
@@ -87,52 +93,28 @@ namespace AlteredCarbon
                                 {
                                     pawn.relations.AddDirectRelation(AC_DefOf.AC_Original, copiedPawn);
                                     copiedPawn.relations.AddDirectRelation(AC_DefOf.AC_Copy, pawn);
+                                    Log.Message("1.5: " + hediff.PersonaData.stackGroupID + " - stackData.originalPawn: " + stackData.originalPawn + " - stackData.copiedPawns: " + stackData.copiedPawns + " - " + string.Join(", ", stackData.copiedPawns ?? new List<Pawn>()) + " - " + pawn + " - is copy: " + pawn.IsCopy());
                                 }
                             }
                         }
                     }
-                    else if (stackData.copiedPawns != null)
+
+                    if (stackData.copiedPawns != null)
                     {
                         foreach (Pawn copiedPawn in stackData.copiedPawns)
                         {
-                            if (pawn != copiedPawn)
+                            if (pawn != copiedPawn && pawn != stackData.originalPawn)
                             {
                                 pawn.relations.AddDirectRelation(AC_DefOf.AC_Copy, copiedPawn);
                                 copiedPawn.relations.AddDirectRelation(AC_DefOf.AC_Copy, pawn);
+                                Log.Message("2: " + hediff.PersonaData.stackGroupID + " - stackData.originalPawn: " + stackData.originalPawn + " - stackData.copiedPawns: " + stackData.copiedPawns + " - " + string.Join(", ", stackData.copiedPawns ?? new List<Pawn>()) + " - " + pawn + " - is copy: " + pawn.IsCopy());
                             }
                         }
                     }
                 }
                 else
                 {
-                    foreach (KeyValuePair<int, StacksData> stackGroup in stacksRelationships)
-                    {
-                        if (stackGroup.Value.copiedPawns != null)
-                        {
-                            if (pawn == stackGroup.Value.originalPawn && stackGroup.Value.copiedPawns != null)
-                            {
-                                foreach (Pawn copiedPawn in stackGroup.Value.copiedPawns)
-                                {
-                                    if (pawn != copiedPawn)
-                                    {
-                                        pawn.relations.AddDirectRelation(AC_DefOf.AC_Original, copiedPawn);
-                                        copiedPawn.relations.AddDirectRelation(AC_DefOf.AC_Copy, pawn);
-                                    }
-                                }
-                            }
-                            else if (stackGroup.Value.copiedPawns != null)
-                            {
-                                foreach (Pawn copiedPawn in stackGroup.Value.copiedPawns)
-                                {
-                                    if (pawn == copiedPawn && stackGroup.Value.originalPawn != null)
-                                    {
-                                        pawn.relations.AddDirectRelation(AC_DefOf.AC_Original, stackGroup.Value.originalPawn);
-                                        stackGroup.Value.originalPawn.relations.AddDirectRelation(AC_DefOf.AC_Copy, pawn);
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    Log.Error("Failed to get stack group for " + pawn);
                 }
 
                 if (pawn.IsCopy() && pawn.CanThink())
@@ -163,7 +145,6 @@ namespace AlteredCarbon
         {
             if (pawn.HasCorticalStack(out Hediff_CorticalStack hediff))
             {
-                stack.PersonaData.stackGroupID = hediff.PersonaData.stackGroupID;
                 if (stacksRelationships.TryGetValue(hediff.PersonaData.stackGroupID, out StacksData stackData))
                 {
                     if (stackData.originalPawn == pawn)
@@ -189,7 +170,6 @@ namespace AlteredCarbon
         {
             if (pawn.HasCorticalStack(out Hediff_CorticalStack hediff))
             {
-                hediff.PersonaData.stackGroupID = stack.PersonaData.stackGroupID;
                 if (stacksRelationships.TryGetValue(hediff.PersonaData.stackGroupID, out StacksData stackData))
                 {
                     if (stackData.originalStack == stack)
@@ -204,7 +184,6 @@ namespace AlteredCarbon
                         {
                             stackData.copiedPawns = new List<Pawn>();
                         }
-
                         stackData.copiedPawns.Add(pawn);
                     }
                 }
@@ -224,7 +203,6 @@ namespace AlteredCarbon
                 {
                     stacksRelationships[stack.PersonaData.stackGroupID].copiedStacks = new List<CorticalStack>();
                 }
-
                 stacksRelationships[stack.PersonaData.stackGroupID].copiedStacks.Add(stack);
             }
             else

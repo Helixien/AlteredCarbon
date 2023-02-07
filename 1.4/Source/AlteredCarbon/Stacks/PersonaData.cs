@@ -124,10 +124,20 @@ namespace AlteredCarbon
         public int editTime;
         public float stackDegradation;
         public float stackDegradationToAdd;
-
         public bool restoreToEmptyStack = true;
-
         public Pawn dummyPawn;
+        public PersonaData()
+        {
+            if (AlteredCarbonManager.Instance.stacksRelationships != null)
+            {
+                this.stackGroupID = AlteredCarbonManager.Instance.stacksRelationships.Count + 1;
+            }
+            else
+            {
+                this.stackGroupID = 0;
+            }
+        }
+
         public Pawn GetDummyPawn
         {
             get
@@ -1167,7 +1177,7 @@ namespace AlteredCarbon
         public bool IsPresetPawn(Pawn pawn)
         {
             if (pawn == null || pawn.Name == null) return false;
-            return pawn != null && (pawn.thingIDNumber == pawnID || origPawn == pawn || name != null && name.ToString() == pawn.Name.ToString());
+            return pawn != null && (pawn.thingIDNumber == pawnID || origPawn == pawn || name != null && pawn.Name != null && name.ToStringFull == pawn.Name.ToStringFull);
         }
 
         public Pawn FindOrigPawn(Pawn pawn)

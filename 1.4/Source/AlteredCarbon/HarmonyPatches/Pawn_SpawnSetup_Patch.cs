@@ -20,8 +20,6 @@ namespace AlteredCarbon
                     BodyPartRecord neckRecord = __instance.GetNeck();
                     var hediff = HediffMaker.MakeHediff(AC_DefOf.VFEU_CorticalStack, __instance, neckRecord) as Hediff_CorticalStack;
                     __instance.health.AddHediff(hediff, neckRecord);
-                    AlteredCarbonManager.Instance.RegisterPawn(__instance);
-                    AlteredCarbonManager.Instance.TryAddRelationships(__instance);
                 }
             }
         }

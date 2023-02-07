@@ -5,6 +5,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
+    [HotSwappable]
     public class GameComponent_DigitalStorage : GameComponent
     {
         public static GameComponent_DigitalStorage Instance;
@@ -40,26 +41,13 @@ namespace AlteredCarbon
         {
             get
             {
-                var pawns = AlteredCarbonManager.Instance.PawnsWithStacks.Concat(AlteredCarbonManager.Instance.deadPawns ?? Enumerable.Empty<Pawn>()).ToList();
                 foreach (var personaData in StoredBackedUpStacks)
                 {
                     if (personaData.restoreToEmptyStack)
                     {
-                        foreach (var pawn in pawns)
+                        if (!AnyCorticalStackExist(personaData) && !AnyPawnExist(personaData))
                         {
-                            if (pawn != null && personaData.IsPresetPawn(pawn))
-                            {
-                                if (pawn.Destroyed && pawn.Corpse is null || pawn.Corpse != null
-                                    && pawn.Corpse.Destroyed || pawn.ParentHolder is null ||
-                                    pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is null)
-                                {
-                                    if (!AnyCorticalStackExist(personaData))
-                                    {
-                                        Log.Message("Restoring " + personaData.name);
-                                        return personaData;
-                                    }
-                                }
-                            }
+                            return personaData;
                         }
                     }
                 }
@@ -76,10 +64,25 @@ namespace AlteredCarbon
                 {
                     return true;
                 }
+                if (map.listerThings.ThingsOfDef(AC_Extra_DefOf.AC_StackArray).Cast<Building_StackStorage>()
+                    .Any(x => x.StoredStacks.Any(y => y.PersonaData.pawnID == personaData.pawnID)))
+                {
+                    return true;
+                }
             }
             return false;
         }
-
+        private static bool AnyPawnExist(PersonaData personaData)
+        {
+            foreach (var pawn in PawnsFinder.AllMapsWorldAndTemporary_AliveOrDead)
+            {
+                if (personaData.IsPresetPawn(pawn) && pawn.HasCorticalStack(out _))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public override void ExposeData()
         {
             Instance = this;

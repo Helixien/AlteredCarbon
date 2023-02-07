@@ -306,22 +306,6 @@ namespace AlteredCarbon
                     }
                 }
             }
-            else if (AlteredCarbonManager.Instance.stacksRelationships != null)
-            {
-                foreach (KeyValuePair<int, StacksData> stackGroup in AlteredCarbonManager.Instance.stacksRelationships)
-                {
-                    if (stackGroup.Value.copiedPawns != null)
-                    {
-                        foreach (Pawn copiedPawn in stackGroup.Value.copiedPawns)
-                        {
-                            if (pawn == copiedPawn)
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
             return false;
         }
 

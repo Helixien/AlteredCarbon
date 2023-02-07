@@ -68,21 +68,15 @@ namespace AlteredCarbon
                     otherStack.preventKill = otherStack.preventSpawningStack = false;
                 }
             }
+
             var emptySleeveHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_EmptySleeve);
             if (emptySleeveHediff != null)
             {
                 pawn.health.RemoveHediff(emptySleeveHediff);
             }
-            if (!this.pawn.HasStack() && this.PersonaData.stackGroupID == -1)
+
+            if (AlteredCarbonManager.Instance.PawnsWithStacks.Contains(pawn) is false)
             {
-                if (AlteredCarbonManager.Instance.stacksRelationships != null)
-                {
-                    this.PersonaData.stackGroupID = AlteredCarbonManager.Instance.stacksRelationships.Count + 1;
-                }
-                else
-                {
-                    this.PersonaData.stackGroupID = 0;
-                }
                 AlteredCarbonManager.Instance.RegisterPawn(pawn);
                 AlteredCarbonManager.Instance.TryAddRelationships(pawn);
             }

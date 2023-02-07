@@ -57,9 +57,6 @@ namespace AlteredCarbon
 
                 copyHediff.skipAbility.cooldown = sourceHediff.skipAbility.cooldown;
                 AlteredCarbonManager.Instance.deadPawns.Add(pawn);
-                AlteredCarbonManager.Instance.RegisterPawn(pawnTarget);
-                AlteredCarbonManager.Instance.TryAddRelationships(pawnTarget);
-
                 pawn.GetComp<CompAbilities>().currentlyCasting = null;
             }
         }

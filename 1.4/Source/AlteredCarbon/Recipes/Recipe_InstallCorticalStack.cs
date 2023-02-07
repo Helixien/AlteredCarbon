@@ -69,19 +69,19 @@ namespace AlteredCarbon
         {
             if (billDoer != null)
             {
-                if (CheckSurgeryFail(billDoer, pawn, ingredients, part, bill))
-                {
-                    foreach (var i in ingredients)
-                    {
-                        if (i is CorticalStack c)
-                        {
-                            c.stackCount = 1;
-                            c.mapIndexOrState = (sbyte)-1;
-                            GenPlace.TryPlaceThing(c, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
-                        }
-                    }
-                    return;
-                }
+                //if (CheckSurgeryFail(billDoer, pawn, ingredients, part, bill))
+                //{
+                //    foreach (var i in ingredients)
+                //    {
+                //        if (i is CorticalStack c)
+                //        {
+                //            c.stackCount = 1;
+                //            c.mapIndexOrState = (sbyte)-1;
+                //            GenPlace.TryPlaceThing(c, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
+                //        }
+                //    }
+                //    return;
+                //}
                 TaleRecorder.RecordTale(TaleDefOf.DidSurgery, billDoer, pawn);
             }
 
