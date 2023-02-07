@@ -156,7 +156,7 @@ namespace AlteredCarbon
             {
                 dummyPawn = PawnGenerator.GeneratePawn(PawnKindDefOf.Colonist, Faction.OfPlayer);
             }
-            OverwritePawn(dummyPawn, null, origPawn, overwriteOriginalPawn: false);
+            OverwritePawn(dummyPawn, null, origPawn, overwriteOriginalPawn: false, copyFromOrigPawn: origPawn != null && origPawn.Dead is false);
             if (origPawn != null)
             {
                 ACUtils.CopyBody(origPawn, dummyPawn);
@@ -548,7 +548,6 @@ namespace AlteredCarbon
             adulthood = other.adulthood;
             title = other.title;
             priorities = other.priorities;
-
             psylinkLevel = other.psylinkLevel;
             abilities = other.abilities;
             VEAbilities = other.VEAbilities;
@@ -635,19 +634,17 @@ namespace AlteredCarbon
             {
                 return new NameSingle(nameSingle.nameInt);
             }
-            return Clone(other);
+            if (other != null)
+            {
+                return other.Clone();
+            }
+            return null;
         }
 
-        public T Clone<T>(T obj)
-        {
-            var inst = obj.GetType().GetMethod("MemberwiseClone", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-            return (T)inst?.Invoke(obj, null);
-        }
-
-        public void OverwritePawn(Pawn pawn, StackSavingOptionsModExtension extension, Pawn original = null, bool overwriteOriginalPawn = true)
+        public void OverwritePawn(Pawn pawn, StackSavingOptionsModExtension extension, Pawn original = null, bool overwriteOriginalPawn = true, bool copyFromOrigPawn = true)
         {
             this.origPawn = FindOrigPawn(original);
-            if (overwriteOriginalPawn && origPawn != null)
+            if (copyFromOrigPawn && origPawn != null)
             {
                 CopyFromPawn(origPawn, sourceStack);
             }

@@ -407,7 +407,25 @@ namespace AlteredCarbon
 
         public static bool IsNullValue<T>(this T obj)
         {
-            return obj is null || typeof(T).GetField("def")?.GetValue(obj) is null;
+            var isNull = obj is null;
+            if (!isNull)
+            {
+                var field = typeof(T).GetField("def");
+                if (field != null)
+                {
+                    if (field.GetValue(obj) is null)
+                    {
+                        isNull = true;
+                    }
+                }
+            }
+            return isNull;
+        }
+
+        public static T Clone<T>(this T obj)
+        {
+            var inst = obj.GetType().GetMethod("MemberwiseClone", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+            return (T)inst?.Invoke(obj, null);
         }
     }
 }

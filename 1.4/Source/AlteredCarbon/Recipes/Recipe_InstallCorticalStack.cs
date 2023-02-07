@@ -69,19 +69,19 @@ namespace AlteredCarbon
         {
             if (billDoer != null)
             {
-                //if (CheckSurgeryFail(billDoer, pawn, ingredients, part, bill))
-                //{
-                //    foreach (var i in ingredients)
-                //    {
-                //        if (i is CorticalStack c)
-                //        {
-                //            c.stackCount = 1;
-                //            c.mapIndexOrState = (sbyte)-1;
-                //            GenPlace.TryPlaceThing(c, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
-                //        }
-                //    }
-                //    return;
-                //}
+                if (CheckSurgeryFail(billDoer, pawn, ingredients, part, bill))
+                {
+                    foreach (var i in ingredients)
+                    {
+                        if (i is CorticalStack c)
+                        {
+                            c.stackCount = 1;
+                            c.mapIndexOrState = (sbyte)-1;
+                            GenPlace.TryPlaceThing(c, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
+                        }
+                    }
+                    return;
+                }
                 TaleRecorder.RecordTale(TaleDefOf.DidSurgery, billDoer, pawn);
             }
 
@@ -108,7 +108,7 @@ namespace AlteredCarbon
                     var dummyPawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(kindDef, faction, fixedGender: gender,
                         fixedBiologicalAge: pawn.ageTracker.AgeBiologicalYearsFloat, fixedChronologicalAge: pawn.ageTracker.AgeChronologicalYearsFloat));
                     var copy = new PersonaData();
-                    copy.OverwritePawn(pawn: dummyPawn, null, original: pawn, overwriteOriginalPawn: false);
+                    copy.OverwritePawn(pawn: dummyPawn, null, original: pawn, overwriteOriginalPawn: false, copyFromOrigPawn: false);
                     CopyAllPhysicalDataFrom(pawn, dummyPawn);
                     GenSpawn.Spawn(dummyPawn, pawn.Position, pawn.Map);
                     Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.pawnToSkip = dummyPawn;
@@ -123,7 +123,7 @@ namespace AlteredCarbon
                     AlteredCarbonManager.Instance.emptySleeves.Remove(pawn);
                 }
 
-                hediff.PersonaData.OverwritePawn(pawn, corticalStack.def.GetModExtension<StackSavingOptionsModExtension>(), null);
+                hediff.PersonaData.OverwritePawn(pawn, corticalStack.def.GetModExtension<StackSavingOptionsModExtension>(), null, copyFromOrigPawn: false);
                 pawn.health.AddHediff(hediff, part);
                 pawn.needs.AddOrRemoveNeedsAsAppropriate();
 

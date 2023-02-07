@@ -85,7 +85,6 @@ namespace AlteredCarbon
 
                             Find.LetterStack.ReceiveLetter("Copy", "test", LetterDefOf.NeutralEvent, pawn);
                             Find.LetterStack.ReceiveLetter("Original", "test", LetterDefOf.NeutralEvent, stackData.originalPawn);
-                            Log.Message("1: " + hediff.PersonaData.stackGroupID + " - stackData.originalPawn: " + stackData.originalPawn + " - stackData.copiedPawns: " + stackData.copiedPawns + " - " + string.Join(", ", stackData.copiedPawns ?? new List<Pawn>()) + " - " + pawn + " - is copy: " + pawn.IsCopy());
                         }
                         else if (stackData.copiedPawns != null)
                         {
@@ -95,7 +94,6 @@ namespace AlteredCarbon
                                 {
                                     pawn.relations.AddDirectRelation(AC_DefOf.AC_Original, copiedPawn);
                                     copiedPawn.relations.AddDirectRelation(AC_DefOf.AC_Copy, pawn);
-                                    Log.Message("1.5: " + hediff.PersonaData.stackGroupID + " - stackData.originalPawn: " + stackData.originalPawn + " - stackData.copiedPawns: " + stackData.copiedPawns + " - " + string.Join(", ", stackData.copiedPawns ?? new List<Pawn>()) + " - " + pawn + " - is copy: " + pawn.IsCopy());
                                 }
                             }
                         }
@@ -109,7 +107,6 @@ namespace AlteredCarbon
                             {
                                 pawn.relations.AddDirectRelation(AC_DefOf.AC_Copy, copiedPawn);
                                 copiedPawn.relations.AddDirectRelation(AC_DefOf.AC_Copy, pawn);
-                                Log.Message("2: " + hediff.PersonaData.stackGroupID + " - stackData.originalPawn: " + stackData.originalPawn + " - stackData.copiedPawns: " + stackData.copiedPawns + " - " + string.Join(", ", stackData.copiedPawns ?? new List<Pawn>()) + " - " + pawn + " - is copy: " + pawn.IsCopy());
                             }
                         }
                     }

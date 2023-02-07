@@ -25,10 +25,6 @@ namespace AlteredCarbon
 			bool flag = IsViolationOnPawn(pawn, part, Faction.OfPlayer);
 			if (billDoer != null)
 			{
-				if (CheckSurgeryFail(billDoer, pawn, ingredients, part, bill))
-				{
-					return;
-				}
 				TaleRecorder.RecordTale(TaleDefOf.DidSurgery, billDoer, pawn);
 				if (!pawn.health.hediffSet.GetNotMissingParts().Contains(part))
 				{
