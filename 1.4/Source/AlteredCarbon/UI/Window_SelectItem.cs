@@ -16,7 +16,7 @@ namespace AlteredCarbon
         public List<T> allItems;
         public T chosen;
         public Action<T> actionOnSelect;
-        public Func<T, int> ordering;
+        public bool alphabetOrder;
         public Func<T, string> labelGetter;
         public Func<T, string> tooltipGetter;
         public bool includeInfoCard;
@@ -25,7 +25,7 @@ namespace AlteredCarbon
         public Func<T, Texture2D> icon;
         public Func<T, Color?> iconColor;
         public Func<T, string> labelGetterPostfix;
-        public Window_SelectItem(T currentItem, List<T> items, Action<T> actionOnSelect, Func<T, int> ordering = null, 
+        public Window_SelectItem(T currentItem, List<T> items, Action<T> actionOnSelect, bool alphabetOrder = true, 
             List<Func<T, (string, bool)>> filters = null, Func<T, string> labelGetter = null, Func<T, string> tooltipGetter = null, 
             bool includeInfoCard = true, Func<T, Texture2D> icon = null, Func<T, Color?> iconColor = null, Func<T, string> labelGetterPostfix = null)
         {
@@ -34,7 +34,7 @@ namespace AlteredCarbon
             absorbInputAroundWindow = true;
             this.allItems = items;
             this.actionOnSelect = actionOnSelect;
-            this.ordering = ordering;
+            this.alphabetOrder = alphabetOrder;
             this.labelGetter = labelGetter;
             this.tooltipGetter = tooltipGetter;
             this.includeInfoCard = includeInfoCard;
@@ -56,9 +56,9 @@ namespace AlteredCarbon
             {
                 items = items.Where(x => currentFilter(x).Item2).ToList();
             }
-            if (ordering != null)
+            if (alphabetOrder)
             {
-                items = items.OrderBy(x => ordering(x)).ThenBy(x => GetLabel(x)).ToList();
+                items = items.OrderBy(x => GetLabel(x)).ToList();
             }
             return items;
         }

@@ -79,7 +79,7 @@
     <Compile Include="Recipes\Recipe_RewriteFilledCorticalStack.cs" />
     <Compile Include="Recipes\ThingFilterBiocodable.cs" />
     <Compile Include="Stacks\Thought_StackDegradation.cs" />
-    <Compile Include="UI\Command_WipeStacks.cs" />
+    <Compile Include="UI\Command_ActionOnStack.cs" />
     <Compile Include="HarmonyPatches\Building_GeneExtractor_CanAcceptPawn_Patch.cs" />
     <Compile Include="HarmonyPatches\ChildcareUtility_SwaddleBaby_Patch.cs" />
     <Compile Include="HarmonyPatches\ColonistBarColonistDrawer_HandleClicks_Patch.cs" />

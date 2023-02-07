@@ -82,9 +82,13 @@ namespace AlteredCarbon
                     }
                     return;
                 }
-                TaleRecorder.RecordTale(TaleDefOf.DidSurgery, billDoer, pawn);
+                ApplyCorticalStack(pawn, part, billDoer, ingredients);
             }
+        }
 
+        private void ApplyCorticalStack(Pawn pawn, BodyPartRecord part, Pawn billDoer, List<Thing> ingredients)
+        {
+            TaleRecorder.RecordTale(TaleDefOf.DidSurgery, billDoer, pawn);
             var corticalStack = ingredients.OfType<CorticalStack>().FirstOrDefault();
             pawnToInstallStack = pawn;
             if (pawn.HasCorticalStack(out var stackHediff))
@@ -95,7 +99,7 @@ namespace AlteredCarbon
                 stackHediff.preventKill = true;
                 pawn.health.RemoveHediff(stackHediff);
             }
-            
+
             var hediff = HediffMaker.MakeHediff(recipe.addsHediff, pawn) as Hediff_CorticalStack;
             if (corticalStack.PersonaData.ContainsInnerPersona)
             {
@@ -145,7 +149,7 @@ namespace AlteredCarbon
                     }
                     pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_StackDegradationThought);
                 }
-                
+
                 if (pawn.gender != hediff.PersonaData.originalGender)
                 {
                     if (pawn.story.traits.HasTrait(TraitDefOf.BodyPurist))
@@ -175,7 +179,7 @@ namespace AlteredCarbon
                 {
                     pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_NewSleeve);
                 }
-            
+
                 if (hediff.PersonaData.diedFromCombat.HasValue && hediff.PersonaData.diedFromCombat.Value)
                 {
                     pawn.health.AddHediff(HediffMaker.MakeHediff(AC_DefOf.VFEU_SleeveShock, pawn));
@@ -186,7 +190,7 @@ namespace AlteredCarbon
             {
                 pawn.health.AddHediff(hediff, part);
             }
-            
+
             if (ModsConfig.IdeologyActive)
             {
                 Find.HistoryEventsManager.RecordEvent(new HistoryEvent(AC_DefOf.VFEU_InstalledCorticalStack, pawn.Named(HistoryEventArgsNames.Doer)));

@@ -26,6 +26,7 @@ namespace AlteredCarbon
 			base.DrawAt(drawLoc, flip);
 			base.Comps_PostDraw();
 		}
+
         public override string GetInspectString()
         {
             this.Medical = false;

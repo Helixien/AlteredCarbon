@@ -98,10 +98,11 @@ namespace AlteredCarbon
                             {
                                 if (stack.IsArchoStack is false)
                                 {
-                                    floatList.Add(new FloatMenuOption(stack.PersonaData.PawnNameColored, delegate ()
+                                    var option = new FloatMenuOption(stack.PersonaData.PawnNameColored, delegate ()
                                     {
                                         this.stackToDuplicate = stack;
-                                    }));
+                                    }, stack, stack.DrawColor);
+                                    floatList.Add(option);
                                 }
                             }
                             Find.WindowStack.Add(new FloatMenu(floatList));
@@ -218,14 +219,6 @@ namespace AlteredCarbon
             this.innerContainer.TryAdd(stackCopyTo);
             stackCopyTo.PersonaData.CopyDataFrom(hediff_CorticalStack.PersonaData);
             AlteredCarbonManager.Instance.RegisterStack(stackCopyTo);
-        }
-
-        public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Pawn myPawn)
-        {
-            foreach (FloatMenuOption opt in base.GetFloatMenuOptions(myPawn))
-            {
-                yield return opt;
-            }
         }
         public ThingOwner GetDirectlyHeldThings()
         {

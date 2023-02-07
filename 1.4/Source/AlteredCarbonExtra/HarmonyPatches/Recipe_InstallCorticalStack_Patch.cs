@@ -3,8 +3,8 @@ using Verse;
 
 namespace AlteredCarbon;
 
-[HarmonyPatch(typeof(Recipe_InstallCorticalStack), "ApplyOnPawn")]
-internal static class Recipe_InstallCorticalStack_Patch
+[HarmonyPatch(typeof(Recipe_InstallCorticalStack), "ApplyCorticalStack")]
+internal static class Recipe_InstallCorticalStack_ApplyCorticalStack_Patch
 {
     private static void Postfix(Pawn pawn)
     {

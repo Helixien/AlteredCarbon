@@ -260,7 +260,8 @@ namespace AlteredCarbon
                     }
                 }
             }
-
+            dest.genes.xenotype = XenotypeDefOf.Baseliner;
+            dest.genes.xenotypeName = null;
 
             dest.story.skinColorOverride = source.story.skinColorOverride;
             dest.story.skinColorBase = source.story.skinColorBase;
@@ -269,10 +270,6 @@ namespace AlteredCarbon
             dest.story.hairDef = source.story.hairDef;
             dest.style.beardDef = source.style.beardDef;
             dest.story.headType = source.story.headType;
-
-
-            dest.genes.xenotype = source.genes.xenotype;
-            dest.genes.xenotypeName = source.genes.xenotypeName;
 
             if (ModCompatibility.FacialAnimationsIsActive)
             {

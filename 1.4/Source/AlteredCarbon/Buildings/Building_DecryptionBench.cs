@@ -17,13 +17,14 @@ namespace AlteredCarbon
             {
                 yield return g;
             }
-
-            var wipeStacks = new Command_WipeStacks
+            var wipeStacks = new Command_ActionOnStack
             {
                 defaultLabel = "AC.WipeStack".Translate(),
                 defaultDesc = "AC.WipeStackDesc".Translate(),
                 icon = ContentFinder<Texture2D>.Get("UI/Icons/WipeStack"),
                 activateSound = SoundDefOf.Tick_Tiny,
+                targetParameters = ForFilledStack(includeArchoStack: false),
+                decryptionBench = this,
                 action = delegate ()
                 {
                     Find.Targeter.BeginTargeting(ForFilledStack(includeArchoStack: false), delegate (LocalTargetInfo x)
@@ -31,7 +32,6 @@ namespace AlteredCarbon
                         InstallWipeStackRecipe(x.Thing as CorticalStack);
                     });
                 },
-                decryptionBench = this
             };
             if (powerComp.PowerOn is false)
             {
@@ -56,12 +56,14 @@ namespace AlteredCarbon
             }
             if (ModCompatibility.HelixienAlteredCarbonIsActive)
             {
-                var rewriteStack = new Command_Action
+                var rewriteStack = new Command_ActionOnStack
                 {
                     defaultLabel = "AC.RewriteStack".Translate(),
                     defaultDesc = "AC.RewriteStackDesc".Translate(),
                     icon = ContentFinder<Texture2D>.Get("UI/Icons/EditStack"),
                     activateSound = SoundDefOf.Tick_Tiny,
+                    targetParameters = ForFilledStack(includeArchoStack: false),
+                    decryptionBench = this,
                     action = delegate ()
                     {
                         Find.Targeter.BeginTargeting(ForFilledStack(includeArchoStack: false), delegate (LocalTargetInfo x)
@@ -119,7 +121,7 @@ namespace AlteredCarbon
             }
             return true;
         }
-        private bool CanAddOperationOn(CorticalStack corticalStack)
+        public bool CanAddOperationOn(CorticalStack corticalStack)
         {
             var bill = this.billStack.Bills.OfType<Bill_OperateOnStack>().Where(x => x.corticalStack == corticalStack).FirstOrDefault();
             if (bill != null)
