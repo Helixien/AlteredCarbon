@@ -20,12 +20,23 @@ namespace AlteredCarbon
 
         public GeneDef geneToSeparate;
 
+        protected Effecter progressBarEffecter;
+
         private static readonly Texture2D CancelIcon = ContentFinder<Texture2D>.Get("UI/Designators/Cancel");
 
         public int ticksDone;
+
+        private Sustainer sustainerWorking;
+
         public Building_GeneCentrifuge()
         {
             this.innerContainer = new ThingOwner<Thing>(this, false, LookMode.Deep);
+        }
+
+        public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
+        {
+            base.DeSpawn(mode);
+            progressBarEffecter?.Cleanup();
         }
 
         public CompPowerTrader compPower;
@@ -149,51 +160,78 @@ namespace AlteredCarbon
             if (Powered && StoredGenepack != null)
             {
                 ticksDone++;
-                if (ticksDone >= ExtractionDuration(StoredGenepack))
+                var durationTicks = ExtractionDuration(StoredGenepack);
+                if (progressBarEffecter == null)
                 {
-                    var newGenepack = (Genepack)ThingMaker.MakeThing(ThingDefOf.Genepack);
-                    var storedGenepack = StoredGenepack;
-                    storedGenepack.GeneSet.genes.Remove(geneToSeparate);
-                    storedGenepack.GeneSet.DirtyCache();
-                    newGenepack.Initialize(new List<GeneDef>
+                    progressBarEffecter = EffecterDefOf.ProgressBar.Spawn();
+                }
+                progressBarEffecter.EffectTick(this, TargetInfo.Invalid);
+                MoteProgressBar mote = ((SubEffecter_ProgressBar)progressBarEffecter.children[0]).mote;
+                mote.progress = ticksDone / (float)durationTicks;
+                mote.yOffset += 1;
+                if (sustainerWorking == null || sustainerWorking.Ended)
+                {
+                    sustainerWorking = AC_Extra_DefOf.AC_GeneCentrifuge_Ambience.TrySpawnSustainer(SoundInfo.InMap(this, MaintenanceType.PerTick));
+                }
+                else
+                {
+                    sustainerWorking.Maintain();
+                }
+                if (ticksDone >= durationTicks)
+                {
+                    FinishJob();
+                }
+            }
+        }
+
+        private void FinishJob()
+        {
+            if (progressBarEffecter != null)
+            {
+                progressBarEffecter.Cleanup();
+                progressBarEffecter = null;
+            }
+            var newGenepack = (Genepack)ThingMaker.MakeThing(ThingDefOf.Genepack);
+            var storedGenepack = StoredGenepack;
+            storedGenepack.GeneSet.genes.Remove(geneToSeparate);
+            storedGenepack.GeneSet.DirtyCache();
+            newGenepack.Initialize(new List<GeneDef>
                     {
                         geneToSeparate
                     });
-                    var removed = innerContainer.Remove(storedGenepack);
-                    if (Rand.Chance(0.1f))
-                    {
-                        if (Rand.Bool)
-                        {
-                            GenPlace.TryPlaceThing(storedGenepack, Position, Map, ThingPlaceMode.Near);
-                            Messages.Message("AC.FinishedSeparatingDestroyedMessage".Translate(newGenepack.LabelCap), new List<Thing>
+            var removed = innerContainer.Remove(storedGenepack);
+            if (Rand.Chance(0.1f))
+            {
+                if (Rand.Bool)
+                {
+                    GenPlace.TryPlaceThing(storedGenepack, Position, Map, ThingPlaceMode.Near);
+                    Messages.Message("AC.FinishedSeparatingDestroyedMessage".Translate(newGenepack.LabelCap), new List<Thing>
                             {
                                 storedGenepack
                             }, MessageTypeDefOf.NeutralEvent);
-                            newGenepack.Destroy();
-                        }
-                        else
-                        {
-                            GenPlace.TryPlaceThing(newGenepack, Position, Map, ThingPlaceMode.Near);
-                            Messages.Message("AC.FinishedSeparatingDestroyedMessage".Translate(storedGenepack.LabelCap), new List<Thing>
+                    newGenepack.Destroy();
+                }
+                else
+                {
+                    GenPlace.TryPlaceThing(newGenepack, Position, Map, ThingPlaceMode.Near);
+                    Messages.Message("AC.FinishedSeparatingDestroyedMessage".Translate(storedGenepack.LabelCap), new List<Thing>
                             {
                                 newGenepack
                             }, MessageTypeDefOf.NeutralEvent);
-                            storedGenepack.Destroy();
-                        }
-                    }
-                    else
-                    {
-                        GenPlace.TryPlaceThing(newGenepack, Position, Map, ThingPlaceMode.Near);
-                        GenPlace.TryPlaceThing(storedGenepack, Position, Map, ThingPlaceMode.Near);
-                        Messages.Message("AC.FinishedSeparatingMessage".Translate(), new List<Thing>
+                    storedGenepack.Destroy();
+                }
+            }
+            else
+            {
+                GenPlace.TryPlaceThing(newGenepack, Position, Map, ThingPlaceMode.Near);
+                GenPlace.TryPlaceThing(storedGenepack, Position, Map, ThingPlaceMode.Near);
+                Messages.Message("AC.FinishedSeparatingMessage".Translate(), new List<Thing>
                         {
                             storedGenepack, newGenepack
                         }, MessageTypeDefOf.NeutralEvent);
-                    }
-                    ticksDone = 0;
-                    geneToSeparate = null;
-                }
             }
+            ticksDone = 0;
+            geneToSeparate = null;
         }
 
         public int ExtractionDuration(Genepack genepack)
@@ -219,6 +257,7 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref this.contentsKnown, "contentsKnown", false);
             Scribe_References.Look(ref genepackToStore, "genepackToStore");
             Scribe_Defs.Look(ref geneToSeparate, "geneToSeparate");
+            Scribe_Values.Look(ref ticksDone, "ticksDone");
         }
 
         public bool Accepts(Thing thing)

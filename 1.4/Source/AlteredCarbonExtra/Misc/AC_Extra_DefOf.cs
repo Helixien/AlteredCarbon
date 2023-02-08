@@ -20,6 +20,7 @@ namespace AlteredCarbon
         public static ResearchProjectDef Xenogermination;
         public static JobDef AC_InsertingGenepackIntoCentrifuge;
         public static ThingDef AC_GeneCentrifuge;
+        public static SoundDef AC_GeneCentrifuge_Ambience;
 
 
         [MayRequireIdeology] public static PreceptDef AC_Stacking_Despised;
