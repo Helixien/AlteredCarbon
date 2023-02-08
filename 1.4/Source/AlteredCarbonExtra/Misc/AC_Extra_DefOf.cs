@@ -18,8 +18,10 @@ namespace AlteredCarbon
         public static PawnRelationDef AC_Copy;
         public static JobDef AC_HaulingStacks;
         public static ResearchProjectDef Xenogermination;
-        
-        
+        public static JobDef AC_InsertingGenepackIntoCentrifuge;
+        public static ThingDef AC_GeneCentrifuge;
+
+
         [MayRequireIdeology] public static PreceptDef AC_Stacking_Despised;
         [MayRequireIdeology] public static PreceptDef AC_Sleeving_Despised;
         [MayRequireIdeology] public static PreceptDef AC_CrossSleeving_DontCare;

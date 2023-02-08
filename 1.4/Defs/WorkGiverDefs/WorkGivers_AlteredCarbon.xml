@@ -39,5 +39,17 @@
 			<li>Manipulation</li>
 		</requiredCapacities>
 	</WorkGiverDef>
-
+	<!-- ================================ Inserting genepack ====================== -->
+	<WorkGiverDef>
+		<defName>AC_InsertGenepack</defName>
+		<label>insert genepack in centrifuge</label>
+		<giverClass>AlteredCarbon.WorkGiver_InsertGenepack</giverClass>
+		<workType>Hauling</workType>
+		<verb>insert into centrifuge</verb>
+		<gerund>inserting into centrifuge</gerund>
+		<priorityInType>1000</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
 </Defs>

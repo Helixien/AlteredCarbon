@@ -19,4 +19,11 @@
 		<reportString>hauling TargetA to TargetB.</reportString>
 		<allowOpportunisticPrefix>true</allowOpportunisticPrefix>
 	</JobDef>
+	<!-- ================================ Hauling Stacks ====================== -->
+	<JobDef>
+		<defName>AC_InsertingGenepackIntoCentrifuge</defName>
+		<driverClass>AlteredCarbon.JobDriver_InsertGenepackIntoCentrifuge</driverClass>
+		<reportString>inserting TargetA to TargetB.</reportString>
+		<allowOpportunisticPrefix>true</allowOpportunisticPrefix>
+	</JobDef>
 </Defs>

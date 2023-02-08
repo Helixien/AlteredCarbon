@@ -15,6 +15,14 @@ namespace AlteredCarbon
     public class Building_GeneCentrifuge : Building, IThingHolder
     {
         public static Texture2D InsertGenePack = ContentFinder<Texture2D>.Get("UI/Icons/InsertGenePack");
+
+        public Genepack genepackToStore;
+
+        public GeneDef geneToSeparate;
+
+        private static readonly Texture2D CancelIcon = ContentFinder<Texture2D>.Get("UI/Designators/Cancel");
+
+        public int ticksDone;
         public Building_GeneCentrifuge()
         {
             this.innerContainer = new ThingOwner<Thing>(this, false, LookMode.Deep);
@@ -50,6 +58,7 @@ namespace AlteredCarbon
                 return this.innerContainer.Any();
             }
         }
+        public Genepack StoredGenepack => this.innerContainer.OfType<Genepack>().FirstOrDefault();
         public override IEnumerable<Gizmo> GetGizmos()
         {
             foreach (var g in base.GetGizmos())
@@ -58,7 +67,7 @@ namespace AlteredCarbon
             }
             if (Faction == Faction.OfPlayer)
             {
-                yield return new Command_Action
+               var separateGene = new Command_Action
                 {
                     defaultLabel = "AC.SeparateGene".Translate(),
                     defaultDesc = "AC.SeparateGeneDesc".Translate(),
@@ -82,13 +91,45 @@ namespace AlteredCarbon
                         Find.WindowStack.Add(new FloatMenu(floatList));
                     }
                 };
+                if (StoredGenepack != null)
+                {
+                    separateGene.Disable("AC.CentrigureWorking".Translate());
+                }
+                if (Powered is false)
+                {
+                    separateGene.Disable("NoPower".Translate());
+                }
+                yield return separateGene;
+
+                if (StoredGenepack != null || genepackToStore != null)
+                {
+                    yield return new Command_Action
+                    {
+                        defaultLabel = "AC.CancelGeneSeparating".Translate(),
+                        icon = CancelIcon,
+                        action = delegate ()
+                        {
+                            ticksDone = 0;
+                            genepackToStore = null;
+                            geneToSeparate = null;
+                            if (StoredGenepack != null)
+                            {
+                                this.EjectContents();
+                            }
+                        }
+                    };
+                }
             }
         }
 
         public override string GetInspectString()
         {
             var sb = new StringBuilder();
-
+            if (StoredGenepack != null)
+            {
+                var progress = ticksDone / (float)ExtractionDuration(StoredGenepack);
+                sb.AppendLine("AC.SeparatingProgress".Translate(progress.ToStringPercent()));
+            }
             sb.Append(base.GetInspectString());
             return sb.ToString();
         }
@@ -105,7 +146,68 @@ namespace AlteredCarbon
         public override void Tick()
         {
             base.Tick();
-            this.innerContainer.ThingOwnerTick(true);
+            if (Powered && StoredGenepack != null)
+            {
+                ticksDone++;
+                if (ticksDone >= ExtractionDuration(StoredGenepack))
+                {
+                    var newGenepack = (Genepack)ThingMaker.MakeThing(ThingDefOf.Genepack);
+                    var storedGenepack = StoredGenepack;
+                    storedGenepack.GeneSet.genes.Remove(geneToSeparate);
+                    storedGenepack.GeneSet.DirtyCache();
+                    newGenepack.Initialize(new List<GeneDef>
+                    {
+                        geneToSeparate
+                    });
+                    var removed = innerContainer.Remove(storedGenepack);
+                    if (Rand.Chance(0.1f))
+                    {
+                        if (Rand.Bool)
+                        {
+                            GenPlace.TryPlaceThing(storedGenepack, Position, Map, ThingPlaceMode.Near);
+                            Messages.Message("AC.FinishedSeparatingDestroyedMessage".Translate(newGenepack.LabelCap), new List<Thing>
+                            {
+                                storedGenepack
+                            }, MessageTypeDefOf.NeutralEvent);
+                            newGenepack.Destroy();
+                        }
+                        else
+                        {
+                            GenPlace.TryPlaceThing(newGenepack, Position, Map, ThingPlaceMode.Near);
+                            Messages.Message("AC.FinishedSeparatingDestroyedMessage".Translate(storedGenepack.LabelCap), new List<Thing>
+                            {
+                                newGenepack
+                            }, MessageTypeDefOf.NeutralEvent);
+                            storedGenepack.Destroy();
+                        }
+                    }
+                    else
+                    {
+                        GenPlace.TryPlaceThing(newGenepack, Position, Map, ThingPlaceMode.Near);
+                        GenPlace.TryPlaceThing(storedGenepack, Position, Map, ThingPlaceMode.Near);
+                        Messages.Message("AC.FinishedSeparatingMessage".Translate(), new List<Thing>
+                        {
+                            storedGenepack, newGenepack
+                        }, MessageTypeDefOf.NeutralEvent);
+                    }
+                    ticksDone = 0;
+                    geneToSeparate = null;
+                }
+            }
+        }
+
+        public int ExtractionDuration(Genepack genepack)
+        {
+            if (genepack.GeneSet.ArchitesTotal > 0) 
+            {
+                return 360000;
+            }
+            return 120000;
+        }
+
+        public void StartJob()
+        {
+            genepackToStore = null;
         }
         public override void ExposeData()
         {
@@ -115,11 +217,13 @@ namespace AlteredCarbon
                 this
             });
             Scribe_Values.Look(ref this.contentsKnown, "contentsKnown", false);
+            Scribe_References.Look(ref genepackToStore, "genepackToStore");
+            Scribe_Defs.Look(ref geneToSeparate, "geneToSeparate");
         }
 
         public bool Accepts(Thing thing)
         {
-            return this.innerContainer.CanAcceptAnyOf(thing, true);
+            return this.innerContainer.CanAcceptAnyOf(thing, true) && genepackToStore == thing;
         }
 
         public bool TryAcceptThing(Thing thing, bool allowSpecialEffects = true)

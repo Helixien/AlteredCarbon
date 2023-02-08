@@ -15,7 +15,7 @@ namespace AlteredCarbon
         private static Vector2 scrollPosition;
         public GeneDef chosenGene;
         public List<List<GeneDef>> GeneChunks => genepack.GeneSet.GenesListForReading.ChunkBy(3);
-        public override Vector2 InitialSize => new Vector2(600, GeneChunks.Count == 1 ? 525 : 675);
+        public override Vector2 InitialSize => new Vector2(600, GeneChunks.Count == 1 ? 500 : 675);
         public Window_SeparateGene(Building_GeneCentrifuge centrifuge, Genepack genepack)
         {
             this.centrifuge = centrifuge;
@@ -45,7 +45,7 @@ namespace AlteredCarbon
             float geneBoxHeight = 150;
             var geneChunks = GeneChunks;
             float curY = selectGeneExplanationRect.yMax + 50;
-            var totalRect = new Rect(15f, curY, inRect.width - 30, (geneBoxHeight * 2f) + 30);
+            var totalRect = new Rect(15f, curY, inRect.width - 30, geneChunks.Count > 1 ? (geneBoxHeight * 2f) + 30 : geneBoxHeight + 15);
             var viewRect = new Rect(totalRect.x, totalRect.y, totalRect.width - 16, geneChunks.Count * (geneBoxHeight + 15));
             Widgets.BeginScrollView(totalRect, ref scrollPosition, viewRect);
             for (var i = 0; i < geneChunks.Count; i++)
@@ -86,6 +86,8 @@ namespace AlteredCarbon
             var acceptButtonRect = new Rect(inRect.width - 30 - buttonWidth, cancelButtonRect.y, buttonWidth, 32);
             if (Widgets.ButtonText(acceptButtonRect, "AC.StartSeparating".Translate()))
             {
+                this.centrifuge.genepackToStore = genepack;
+                this.centrifuge.geneToSeparate = chosenGene;
                 this.Close();
             }
         }

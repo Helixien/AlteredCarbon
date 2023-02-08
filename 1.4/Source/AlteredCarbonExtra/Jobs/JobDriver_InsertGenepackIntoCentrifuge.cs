@@ -5,7 +5,7 @@ using Verse.AI;
 
 namespace AlteredCarbon
 {
-    public class JobDriver_HaulStackToStackArray : JobDriver_HaulToContainer
+    public class JobDriver_InsertGenepackIntoCentrifuge : JobDriver_HaulToContainer
     {
         public override IEnumerable<Toil> MakeNewToils()
         {
@@ -60,9 +60,8 @@ namespace AlteredCarbon
             yield return Toils_Construct.MakeSolidThingFromBlueprintIfNecessary(TargetIndex.B, TargetIndex.C);
             yield return Toils_Haul.DepositHauledThingInContainer(TargetIndex.B, TargetIndex.C, delegate
             {
-                var containerComp = Container as Building_StackStorage;
-                MoteMaker.ThrowText(Container.DrawPos, pawn.Map, "InsertedThing".Translate($"{containerComp.innerContainer.Count} / " +
-                    $"{Building_StackStorage.MaxFilledStackCapacity}"));
+                var centrifuge = Container as Building_GeneCentrifuge;
+                centrifuge.StartJob();
             });
             yield return Toils_Haul.JumpToCarryToNextContainerIfPossible(carryToContainer, TargetIndex.C);
         }

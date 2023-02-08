@@ -101,6 +101,7 @@
 		<label>gene centrifuge</label>
 		<description>text.todo</description>
 		<thingClass>AlteredCarbon.Building_GeneCentrifuge</thingClass>
+		<tickerType>Normal</tickerType>
 		<passability>PassThroughOnly</passability>
 		<fillPercent>0.4</fillPercent>
 		<pathCost>14</pathCost>

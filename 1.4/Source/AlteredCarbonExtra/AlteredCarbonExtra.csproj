@@ -76,9 +76,11 @@
     <Compile Include="HarmonyPatches\Recipe_InstallCorticalStack_Patch.cs" />
     <Compile Include="Jobs\JobDriver_CreateStackFromBackup.cs" />
     <Compile Include="Jobs\JobDriver_DuplicateStack.cs" />
+    <Compile Include="Jobs\JobDriver_InsertGenepackIntoCentrifuge.cs" />
     <Compile Include="Jobs\JobDriver_HaulStackToStackArray.cs" />
     <Compile Include="Jobs\WorkGiver_CreateStackFromBackup.cs" />
     <Compile Include="Jobs\WorkGiver_DuplicateStacks.cs" />
+    <Compile Include="Jobs\WorkGiver_InsertGenepack.cs" />
     <Compile Include="Jobs\WorkGiver_HaulStacks.cs" />
     <Compile Include="Misc\ACUtilsExtra.cs" />
     <Compile Include="Misc\AC_Extra_DefOf.cs" />

@@ -201,5 +201,9 @@
 	<AC.SelectGeneExplanation>The selected gene will be separated from the rest of the gene pack.</AC.SelectGeneExplanation>
 	<AC.SeparateGeneExplanation>After successful separation two genepacks will be spawned. One only with the selected gene, the other one with the rest. This process is not perfect and there is a small chance of one of the gene packs being destroyed.</AC.SeparateGeneExplanation>
 	<AC.StartSeparating>Start separating</AC.StartSeparating>
-	
+	<AC.FinishedSeparatingMessage>Gene centrifuge finished separating genepacks!</AC.FinishedSeparatingMessage>
+	<AC.FinishedSeparatingDestroyedMessage>Gene centrifuge finished separating genepacks! {0} was destroyed during the process.</AC.FinishedSeparatingDestroyedMessage>
+	<AC.SeparatingProgress>Separating: {0}</AC.SeparatingProgress>
+	<AC.CentrigureWorking>Centrifuge is working.</AC.CentrigureWorking>
+	<AC.CancelGeneSeparating>Cancel gene separating</AC.CancelGeneSeparating>
 </LanguageData>
