@@ -51,6 +51,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="VFECore">
+      <HintPath>..\..\..\..\VanillaExpandedFramework\1.4\Assemblies\VFECore.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Krafs.Publicizer" Version="2.*">
@@ -66,6 +70,7 @@
     <Publicize Include="Assembly-CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buildings\Building_GeneCentrifuge.cs" />
     <Compile Include="Buildings\Building_StackStorage.cs" />
     <Compile Include="GameComponent_DigitalStorage.cs" />
     <Compile Include="HarmonyPatches\Recipe_InstallCorticalStack_Patch.cs" />
@@ -93,6 +98,7 @@
     <Compile Include="Thoughts\ThoughtWorker_Precept_NoStack_Social.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_Stack.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_Stack_Social.cs" />
+    <Compile Include="UI\Window_SeparateGene.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

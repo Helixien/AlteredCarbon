@@ -160,7 +160,7 @@
 	<AC.HackingBiocodedSuccess>Hacking biocoded equipment: Successful! {0} is unlocked.</AC.HackingBiocodedSuccess>
 	<AC.IsEmptySleeve>Is empty sleeve</AC.IsEmptySleeve>
 	<AC.RewriteStack>Rewrite stack</AC.RewriteStack>
-	<AC.RewriteStackDesc>todo</AC.RewriteStackDesc>
+	<AC.RewriteStackDesc>text.todo</AC.RewriteStackDesc>
 	<AC.RewriteCorticalStack>Rewrite Cortical Stack</AC.RewriteCorticalStack>
 	<AC.CorticalStackEditExplanation>Cortical Stacks feature advanced encryption to prevent outside forces from messing with the stored consciousness. Known exploits allow for some data to be edited and rewritten at the cost of stack degradation.</AC.CorticalStackEditExplanation>
 	<AC.Backstories>Backstories</AC.Backstories>
@@ -193,4 +193,13 @@
 	
 	<AC.AutoLoad>Auto-load</AC.AutoLoad>
 	<AC.AutoLoadDesc>If active, haulers will automatically store this stack in a stack array.</AC.AutoLoadDesc>
+	
+	<AC.SeparateGene>Separate gene</AC.SeparateGene>
+	<AC.SeparateGeneDesc>text.todo</AC.SeparateGeneDesc>
+	<AC.SeparatingGenes>Separating Genes</AC.SeparatingGenes>
+	<AC.SelectGene>Select gene</AC.SelectGene>
+	<AC.SelectGeneExplanation>The selected gene will be separated from the rest of the gene pack.</AC.SelectGeneExplanation>
+	<AC.SeparateGeneExplanation>After successful separation two genepacks will be spawned. One only with the selected gene, the other one with the rest. This process is not perfect and there is a small chance of one of the gene packs being destroyed.</AC.SeparateGeneExplanation>
+	<AC.StartSeparating>Start separating</AC.StartSeparating>
+	
 </LanguageData>
