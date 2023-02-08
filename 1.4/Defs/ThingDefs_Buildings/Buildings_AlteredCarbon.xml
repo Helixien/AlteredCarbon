@@ -99,7 +99,7 @@
 	<ThingDef ParentName="BuildingBase">
 		<defName>AC_GeneCentrifuge</defName>
 		<label>gene centrifuge</label>
-		<description>text.todo</description>
+		<description>A complex centrifugal system capable of separating desirable genetic elements by exploiting minute molecular differences. In effect, this building can separate a desired gene from the rest of a genepack. After the process, two gene packs will be spawned, with the selected gene in one and the remaining genes in the other.</description>
 		<thingClass>AlteredCarbon.Building_GeneCentrifuge</thingClass>
 		<tickerType>Normal</tickerType>
 		<passability>PassThroughOnly</passability>
@@ -115,6 +115,9 @@
 		<canOverlapZones>false</canOverlapZones>
 		<defaultPlacingRot>North</defaultPlacingRot>
 		<designationCategory>Biotech</designationCategory>
+		<researchPrerequisites>
+			<li>GeneProcessor</li>
+		</researchPrerequisites>
 		<statBases>
 			<MaxHitPoints>350</MaxHitPoints>
 			<WorkToBuild>9000</WorkToBuild>
@@ -128,7 +131,7 @@
 		</costList>
 		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 		<building>
-			<soundAmbient>AC_GeneCentrifuge_Ambience</soundAmbient>
+			<!--<soundAmbient>AC_GeneCentrifuge_Ambience</soundAmbient>-->
 			<buildingTags>
 				<li>Biotech</li>
 			</buildingTags>
