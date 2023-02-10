@@ -3,7 +3,7 @@
 	<!-- ================================ Cortical Stack Degradation ====================== -->
 	<HediffDef>
 		<defName>AC_StackDegradation</defName>
-		<label>stack degradation</label>
+		<label>degradation</label>
 		<labelNoun>a stack degradation</labelNoun>
 		<hediffClass>AlteredCarbon.Hediff_StackDegradation</hediffClass>
 		<description>Instability of the cortical stack caused by rewriting its content.</description>

@@ -38,6 +38,8 @@
 					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_Squeamish</li>
 					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_ThickSkinned</li>
 					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_ThinSkinned</li>
+					<li MayRequire="OskarPotocki.VFE.Pirates">VFEP_WarcasketTrait</li>
+					<li MayRequire="OskarPotocki.VFE.Pirates">VFEP_Shellcasket</li>
 					<li MayRequire="sarg.alphagenes">AG_Beauty</li>
 					<li MayRequire="syrchalis.individuality">SYR_Agile</li>
 					<li MayRequire="syrchalis.individuality">SYR_KeenEye</li>
