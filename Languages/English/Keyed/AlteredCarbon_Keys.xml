@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-	<AC.None>None</AC.None>
-	<AC.Copy>Copy</AC.Copy>
-	<AC.Original>Original</AC.Original>
-	<AC.Name>Name</AC.Name>
 	<!-- ================================ Stacks ====================== -->
 	<AC.InstallStack>Implant cortical stack</AC.InstallStack>
 	<AC.InstallStackDesc>Select a pawn or empty sleeve to implant the cortical stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallStackDesc>
@@ -31,6 +27,8 @@
 	<AC.CantWipeStackTooDumb>Rest Stack (requires intellectual skill of 5 or higher)</AC.CantWipeStackTooDumb>
 	<AC.FailedCorticalStackDestroyed>Decrypt Ancient Stacks: Failed, cortical stack destroyed!</AC.FailedCorticalStackDestroyed>
 	<AC.ScenPart_PawnsHaveCorticalStack>{0} have a {1} chance of starting with a {2}.</AC.ScenPart_PawnsHaveCorticalStack>
+	<AC.AutoLoad>Auto-load</AC.AutoLoad>
+	<AC.AutoLoadDesc>If active, haulers will automatically store this stack in a stack array.</AC.AutoLoadDesc>
 	<!-- ================================ Sleeves ====================== -->
 	<AC.EmptySleeve>Empty sleeve</AC.EmptySleeve>
 	<AC.SleeveDeath>Sleeve Death</AC.SleeveDeath>
@@ -94,8 +92,8 @@
 	<AC.SleeveInIncubatorIsDead>Sleeve body in the incubator is dead</AC.SleeveInIncubatorIsDead>
 	<!-- ================================ Stack Array ====================== -->
 	<AC.Backup>Backup</AC.Backup>
-	<AC.BackedUpStacksInArray>Cortical Stack backups in saved in arrays: {0}</AC.BackedUpStacksInArray>
-	<AC.Erase>Erase</AC.Erase>
+	<AC.BackedUpStacksInArray>Cortical Stack backups saved in arrays: {0}</AC.BackedUpStacksInArray>
+	<AC.Erase>Delete the saved backup irreversibly.</AC.Erase>
 	<AC.Backups>Backups</AC.Backups>
 	<AC.BackupNow>Backup now</AC.BackupNow>
 	<AC.CannotBackupNoSuchPawn>Cannot backup {0}: there's no such pawn!</AC.CannotBackupNoSuchPawn>
@@ -104,8 +102,8 @@
 	<AC.EnableBackup>Enable automatic backup</AC.EnableBackup>
 	<AC.EnableBackupDesc>Allow the array to automatically make backups of all installed cortical stacks belonging to the player who are on the local map.</AC.EnableBackupDesc>
 	<AC.BackupAllStacks>Emergency Backup</AC.BackupAllStacks>
-	<AC.BackupAllStacksDesc>Force backup all installed cortical stacks belonging to the player now.</AC.BackupAllStacksDesc>
-	<AC.TimeSinceLastBackup>({0} since last backup)</AC.TimeSinceLastBackup>
+	<AC.BackupAllStacksDesc>Make an emergency backup of all currently active cortical stacks on the local map that belong to the colony.</AC.BackupAllStacksDesc>
+	<AC.TimeSinceLastBackup>(last backup: {0})</AC.TimeSinceLastBackup>
 	<AC.CannotRestoreBackupNoOtherEmptyStacks>Restore stack from backup (no empty stacks in stockpile.)</AC.CannotRestoreBackupNoOtherEmptyStacks>
 	<AC.SuccessfullyRestoredStackFromBackup>{PAWN_nameDef} successfully restored cortical stack from backup.</AC.SuccessfullyRestoredStackFromBackup>
 	<AC.BackupsCompleted>Stack array: Backups Completed! {0} colonists were backed up!</AC.BackupsCompleted>
@@ -116,6 +114,19 @@
 	<AC.DuplicateStackDesc>Make a exact copy of an existing filled cortical stack that is currently stored in the stack array.</AC.DuplicateStackDesc>
 	<AC.AlreadySetToDuplicate>Already set a stack to duplicate</AC.AlreadySetToDuplicate>
 	<AC.NoEnoughSpaceForNewStack>Not enough space for new stack</AC.NoEnoughSpaceForNewStack>
+	<!-- ================================ Gene Centrifuge ====================== -->
+	<AC.SeparateGene>Separate gene</AC.SeparateGene>
+	<AC.SeparateGeneDesc>Select a genepack from which to separate a gene from.</AC.SeparateGeneDesc>
+	<AC.SeparatingGenes>Separating Genes</AC.SeparatingGenes>
+	<AC.SelectGene>Select gene</AC.SelectGene>
+	<AC.SelectGeneExplanation>The selected gene will be separated from the rest of the gene pack.</AC.SelectGeneExplanation>
+	<AC.SeparateGeneExplanation>After successful separation two genepacks will be spawned. One only with the selected gene, the other one with the rest. This process is not perfect and there is a small chance of one of the gene packs being destroyed.</AC.SeparateGeneExplanation>
+	<AC.StartSeparating>Start separating</AC.StartSeparating>
+	<AC.FinishedSeparatingMessage>Gene centrifuge finished separating genepacks!</AC.FinishedSeparatingMessage>
+	<AC.FinishedSeparatingDestroyedMessage>Gene centrifuge finished separating genepacks! {0} was destroyed during the process.</AC.FinishedSeparatingDestroyedMessage>
+	<AC.SeparatingProgress>Separating: {0}</AC.SeparatingProgress>
+	<AC.CentrigureWorking>Centrifuge is working.</AC.CentrigureWorking>
+	<AC.CancelGeneSeparating>Cancel gene separating</AC.CancelGeneSeparating>
 	<!-- ================================ Other ====================== -->
 	<AC.CommandCallsNeuroformers>Call psylink neuroformers</AC.CommandCallsNeuroformers>
 	<AC.SleeveHealthPreview>Health</AC.SleeveHealthPreview>
@@ -160,7 +171,7 @@
 	<AC.HackingBiocodedSuccess>Hacking biocoded equipment: Successful! {0} is unlocked.</AC.HackingBiocodedSuccess>
 	<AC.IsEmptySleeve>Is empty sleeve</AC.IsEmptySleeve>
 	<AC.RewriteStack>Rewrite stack</AC.RewriteStack>
-	<AC.RewriteStackDesc>text.todo</AC.RewriteStackDesc>
+	<AC.RewriteStackDesc>Use exploits to edit the data stored on a cortical stack.</AC.RewriteStackDesc>
 	<AC.RewriteCorticalStack>Rewrite Cortical Stack</AC.RewriteCorticalStack>
 	<AC.CorticalStackEditExplanation>Cortical Stacks feature advanced encryption to prevent outside forces from messing with the stored consciousness. Known exploits allow for some data to be edited and rewritten at the cost of stack degradation.</AC.CorticalStackEditExplanation>
 	<AC.Backstories>Backstories</AC.Backstories>
@@ -181,29 +192,14 @@
 	<AC.Tutorial>WARNING: The more you edit,the higher the stack degradation will be, causing the stored pawns personality to become more and more unstable. Stack degradation will go away over time after being installed in a body, but can take years.</AC.Tutorial>
 	<AC.ResetAll>Reset all</AC.ResetAll>
 	<AC.StackDegradation>Stack degradation: {0}</AC.StackDegradation>
-
 	<AC.EjectAll>Eject all</AC.EjectAll>
 	<AC.EjectAllDesc>Drop all contained stacks onto the ground.</AC.EjectAllDesc>
-	
 	<AC.StartRewriting>Start rewriting</AC.StartRewriting>
 	<AC.StartGrowing>Start growing</AC.StartGrowing>
-	
 	<AC.CancelStackReset>Cancel stack reset</AC.CancelStackReset>
 	<AC.CancelStackRewrite>Cancel stack rewrite</AC.CancelStackRewrite>
-	
-	<AC.AutoLoad>Auto-load</AC.AutoLoad>
-	<AC.AutoLoadDesc>If active, haulers will automatically store this stack in a stack array.</AC.AutoLoadDesc>
-	
-	<AC.SeparateGene>Separate gene</AC.SeparateGene>
-	<AC.SeparateGeneDesc>text.todo</AC.SeparateGeneDesc>
-	<AC.SeparatingGenes>Separating Genes</AC.SeparatingGenes>
-	<AC.SelectGene>Select gene</AC.SelectGene>
-	<AC.SelectGeneExplanation>The selected gene will be separated from the rest of the gene pack.</AC.SelectGeneExplanation>
-	<AC.SeparateGeneExplanation>After successful separation two genepacks will be spawned. One only with the selected gene, the other one with the rest. This process is not perfect and there is a small chance of one of the gene packs being destroyed.</AC.SeparateGeneExplanation>
-	<AC.StartSeparating>Start separating</AC.StartSeparating>
-	<AC.FinishedSeparatingMessage>Gene centrifuge finished separating genepacks!</AC.FinishedSeparatingMessage>
-	<AC.FinishedSeparatingDestroyedMessage>Gene centrifuge finished separating genepacks! {0} was destroyed during the process.</AC.FinishedSeparatingDestroyedMessage>
-	<AC.SeparatingProgress>Separating: {0}</AC.SeparatingProgress>
-	<AC.CentrigureWorking>Centrifuge is working.</AC.CentrigureWorking>
-	<AC.CancelGeneSeparating>Cancel gene separating</AC.CancelGeneSeparating>
+	<AC.None>None</AC.None>
+	<AC.Copy>Copy</AC.Copy>
+	<AC.Original>Original</AC.Original>
+	<AC.Name>Name</AC.Name>
 </LanguageData>
