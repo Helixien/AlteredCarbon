@@ -48,7 +48,19 @@
 				<li>memeMoralist->eternalist</li>
 			</rulesStrings>
 		</generalRules>
-		<descriptionMaker/>
+		<descriptionMaker>
+			<rules>
+				<rulesStrings>
+					<!-- theist myth -->
+					<li>creation(tag=meme_Ouroboros)        ->[deity0_name] granted us the knowledge of how to cheat death, that we may live forever and explore the universe to our hearts content.</li>
+					<li>episode(uses=1,tag=meme_Ouroboros)  ->Human bio-engineers created sleeves of immense quality, which pleased [deity0_objective].</li>
+					<li>episode(uses=1,tag=meme_Ouroboros)  ->as [deity0_name] hoped, humanity abandoned the old structures of male and female.</li>
+					<!-- ideological lesson -->
+					<li>lessonIntro(tag=meme_Ouroboros)         ->humanity's great future is one without death, where bodies are nothing more than vessels for our incredible intellect.</li>
+					<li>lesson(tag=meme_Ouroboros)              ->for death is nothing more than a hindrance on our road to biological perfection</li>
+				</rulesStrings>
+			</rules>
+		</descriptionMaker>
 		<requiredRituals/>
 		<symbolPacks>
 			<li>

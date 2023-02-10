@@ -9,12 +9,6 @@
 		<description>Instability of the cortical stack caused by rewriting its content.</description>
 		<isBad>false</isBad>
 		<defaultLabelColor>(1, 0, 0)</defaultLabelColor>
-		<maxSeverity>1</maxSeverity>
-		<comps>
-			<li Class="HediffCompProperties_SeverityPerDay">
-				<severityPerDay>-0.75</severityPerDay>
-			</li>
-		</comps>
 	</HediffDef>
 	<!-- ================================ Degradation - Brain Trauma ====================== -->
 	<HediffDef>
