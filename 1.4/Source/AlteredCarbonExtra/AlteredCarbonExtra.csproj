@@ -86,6 +86,7 @@
     <Compile Include="Misc\AC_Extra_DefOf.cs" />
     <Compile Include="Misc\RoomRoleWorker_UltraTech.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Recipes\Recipe_RewriteFilledCorticalStack.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_CrossSleeving.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_CrossSleeving_Social.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_Sleeved.cs" />

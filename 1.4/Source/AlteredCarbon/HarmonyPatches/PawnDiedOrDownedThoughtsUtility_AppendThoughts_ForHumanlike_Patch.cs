@@ -7,12 +7,12 @@ namespace AlteredCarbon
     [HarmonyPatch(typeof(PawnDiedOrDownedThoughtsUtility), "AppendThoughts_ForHumanlike")]
     public class PawnDiedOrDownedThoughtsUtility_AppendThoughts_ForHumanlike_Patch
     {
-        public static bool disableKilledEffect = false;
+        public static Pawn disableKillEffect;
         public static bool Prefix(Pawn victim)
         {
-            if (disableKilledEffect)
+            if (disableKillEffect == victim)
             {
-                disableKilledEffect = false;
+                disableKillEffect = null;
                 return false;
             }
             return true;

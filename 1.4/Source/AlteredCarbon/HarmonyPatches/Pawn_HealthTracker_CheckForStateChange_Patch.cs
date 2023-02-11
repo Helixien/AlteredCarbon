@@ -7,7 +7,6 @@ using Verse;
 
 namespace AlteredCarbon
 {
-
     [HarmonyPatch(typeof(Pawn_HealthTracker), "CheckForStateChange", null)]
     public static class Pawn_HealthTracker_CheckForStateChange_Patch
     {
@@ -17,7 +16,6 @@ namespace AlteredCarbon
             {
                 if (Rand.Chance(0.25f))
                 {
-                    StatsRecord_Notify_ColonistKilled_Patch.disableKilledEffect = true;
                     stackHediff.SpawnStack();
                 }
                 if (!___pawn.Dead)

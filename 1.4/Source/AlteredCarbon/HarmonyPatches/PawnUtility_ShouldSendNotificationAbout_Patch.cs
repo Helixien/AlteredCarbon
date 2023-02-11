@@ -11,7 +11,6 @@ namespace AlteredCarbon
         {
             if (p.IsEmptySleeve())
             {
-                Log.Message("Preventing ");
                 return false;
             }
             return true;

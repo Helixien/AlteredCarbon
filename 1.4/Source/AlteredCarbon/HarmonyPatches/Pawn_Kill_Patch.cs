@@ -13,7 +13,7 @@ namespace AlteredCarbon
         {
             if (__instance.HasStack() || __instance.IsEmptySleeve())
             {
-                __instance.DisableKilledEffects();
+                __instance.DisableKillEffects();
             }
 
             if (AlteredCarbonManager.Instance.StacksIndex.TryGetValue(__instance.thingIDNumber, out var corticalStack))
@@ -68,6 +68,7 @@ namespace AlteredCarbon
                     }
                 }
             }
+            __instance.EnableKillEffects();
         }
 
     }

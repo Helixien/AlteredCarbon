@@ -5,4 +5,9 @@
 		<defName>AC_UsedArchoStack</defName>
 		<label>killed faction member with archo stack</label>
 	</HistoryEventDef>
+
+	<HistoryEventDef>
+		<defName>AC_RewroteStack</defName>
+		<label>rewrote stack of faction member</label>
+	</HistoryEventDef>
 </Defs>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RimWorld;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Verse;
@@ -11,6 +12,12 @@ namespace AlteredCarbon
         {
             base.Notify_IterationCompleted(billDoer, ingredients);
             var stack = ingredients.OfType<CorticalStack>().FirstOrDefault();
+            var faction = stack.PersonaData.faction;
+            if (faction != null && faction != Faction.OfPlayer) 
+            {
+                Faction.OfPlayer.TryAffectGoodwillWith(faction, -15, canSendMessage: true, !faction.temporary, AC_Extra_DefOf.AC_RewroteStack);
+
+            }
             stack.PersonaData = stack.personaDataRewritten;
             stack.PersonaData.stackDegradation += stack.personaDataRewritten.stackDegradationToAdd;
             stack.personaDataRewritten.stackDegradationToAdd = 0;

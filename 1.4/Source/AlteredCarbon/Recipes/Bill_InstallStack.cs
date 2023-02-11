@@ -15,7 +15,8 @@ namespace AlteredCarbon
 		{
 			stackToInstall = corticalStack;
 		}
-		public override string Label => base.Label + " (" + (stackToInstall?.PersonaData?.PawnNameColored ?? "Destroyed".Translate()) + ")";
+		public override string Label => this.stackToInstall.IsFilledStack 
+			? base.Label + " (" + (stackToInstall?.PersonaData?.PawnNameColored ?? "Destroyed".Translate()) + ")" : base.Label;
 		public override void ExposeData()
 		{
 			base.ExposeData();

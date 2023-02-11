@@ -126,7 +126,6 @@ namespace AlteredCarbon
                 {
                     AlteredCarbonManager.Instance.emptySleeves.Remove(pawn);
                 }
-                hediff.PersonaData.hostPawn = pawn;
                 hediff.PersonaData.OverwritePawn(pawn, corticalStack.def.GetModExtension<StackSavingOptionsModExtension>(), copyFromOrigPawn: false);
                 pawn.health.AddHediff(hediff, part);
                 pawn.needs.AddOrRemoveNeedsAsAppropriate();

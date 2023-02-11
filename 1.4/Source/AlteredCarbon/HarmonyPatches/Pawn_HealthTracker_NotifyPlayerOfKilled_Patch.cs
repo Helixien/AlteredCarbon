@@ -12,10 +12,10 @@ namespace AlteredCarbon
     [HarmonyPatch(typeof(Pawn_HealthTracker), "NotifyPlayerOfKilled")]
     internal static class Pawn_HealthTracker_NotifyPlayerOfKilled_Patch
     {
-        public static bool disableKilledEffect = false;
+        public static Pawn disableKillEffect;
         private static bool Prefix(Pawn_HealthTracker __instance, Pawn ___pawn, DamageInfo? dinfo, Hediff hediff, Caravan caravan)
         {
-            if (disableKilledEffect)
+            if (disableKillEffect == ___pawn)
             {
                 try
                 {
@@ -36,7 +36,7 @@ namespace AlteredCarbon
                 {
                     Log.Error(ex.ToString());
                 }
-                disableKilledEffect = false;
+                disableKillEffect = null;
                 return false;
             }
             return true;

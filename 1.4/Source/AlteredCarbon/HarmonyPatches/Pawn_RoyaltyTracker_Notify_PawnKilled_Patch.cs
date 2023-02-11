@@ -1,17 +1,17 @@
 ﻿using HarmonyLib;
 using RimWorld;
+using Verse;
 
 namespace AlteredCarbon
 {
     [HarmonyPatch(typeof(Pawn_RoyaltyTracker), "Notify_PawnKilled")]
     public static class Pawn_RoyaltyTracker_Notify_PawnKilled_Patch
     {
-        public static bool disableKilledEffect = false;
-        public static bool Prefix()
+        public static Pawn disableKillEffect;
+        public static bool Prefix(Pawn_RoyaltyTracker __instance)
         {
-            if (disableKilledEffect)
+            if (__instance.pawn == disableKillEffect)
             {
-                disableKilledEffect = false;
                 return false;
             }
             return true;

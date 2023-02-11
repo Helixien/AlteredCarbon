@@ -39,7 +39,6 @@ namespace AlteredCarbon
                     corticalStack.PersonaData.originalRace = hediff.PersonaData.originalRace;
                     corticalStack.PersonaData.RefreshDummyPawn();
                     GenPlace.TryPlaceThing(corticalStack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
-                    Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.disableKilledEffect = true;
 					hediff.preventSpawningStack = true;
                     pawn.health.RemoveHediff(hediff);
                     hediff.preventSpawningStack = false;
@@ -48,7 +47,6 @@ namespace AlteredCarbon
                     {
                         pawn.TakeDamage(new DamageInfo(DamageDefOf.SurgicalCut, 99999f, 999f, -1f, null, head));
                     }
-                    Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.disableKilledEffect = false;
 					AlteredCarbonManager.Instance.ReplacePawnWithStack(pawn, corticalStack);
 					AlteredCarbonManager.Instance.RegisterSleeve(pawn, corticalStack);
 					AlteredCarbonManager.Instance.deadPawns.Add(pawn);

@@ -15,7 +15,6 @@ namespace AlteredCarbon
             {
                 if (Rand.Chance(0.25f))
                 {
-                    StatsRecord_Notify_ColonistKilled_Patch.disableKilledEffect = true;
                     hediff.SpawnStack();
                 }
                 if (!__instance.pawn.Dead)

@@ -31,7 +31,6 @@ namespace AlteredCarbon
         [MayRequireHelixienMod] public static RecipeDef AC_RewriteFilledCorticalStack;
         [MayRequireHelixienMod] public static HistoryEventDef AC_UsedArchoStack;
         [MayRequireHelixienMod] public static ThoughtDef AC_StackDegradationThought;
-        
         [MayRequireIdeology] public static HistoryEventDef VFEU_InstalledCorticalStack;
 
         public static VEBackstoryDef VFEU_VatGrownChild;

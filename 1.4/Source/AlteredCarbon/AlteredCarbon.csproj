@@ -74,12 +74,13 @@
     <Compile Include="HarmonyPatches\Dialog_InfoCard_DoWindowContents_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnRenderer_LayingFacing_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnUtility_ShouldSendNotificationAbout_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_DoKillSideEffects.cs" />
     <Compile Include="HarmonyPatches\Pawn_GuestTracker_Notify_PawnUndowned_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_IdeoTracker_ExposeData_Patch.cs" />
     <Compile Include="Recipes\Bill_RewriteStack.cs" />
     <Compile Include="HarmonyPatches\JobDriver_DoBill_MakeNewToils_Patch.cs" />
     <Compile Include="Recipes\Recipe_HackBiocodedThings.cs" />
     <Compile Include="Recipes\Recipe_OperateOnCorticalStack.cs" />
-    <Compile Include="Recipes\Recipe_RewriteFilledCorticalStack.cs" />
     <Compile Include="Recipes\ThingFilterBiocodable.cs" />
     <Compile Include="Stacks\Thought_StackDegradation.cs" />
     <Compile Include="UI\Command_ActionOnStack.cs" />

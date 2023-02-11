@@ -66,8 +66,8 @@ namespace AlteredCarbon
             personaDataCopy = new PersonaData();
             personaDataCopy.CopyDataFrom(personaData);
             ResetIndices();
-            //this.forcePause = true;
-            //this.absorbInputAroundWindow = true;
+            this.forcePause = true;
+            this.absorbInputAroundWindow = true;
         }
 
         private void ResetIndices()

@@ -42,15 +42,24 @@ namespace AlteredCarbon
 
         public static Dictionary<ThingDef, StackInstallInfo> stackRecipesByDef = new Dictionary<ThingDef, StackInstallInfo>
         {
-            { 
+            {
                 AC_DefOf.VFEU_FilledCorticalStack, new StackInstallInfo
                 {
-                    recipe = AC_DefOf.VFEU_InstallCorticalStack, 
-                    installLabel = "AC.InstallStack".Translate(), 
+                    recipe = AC_DefOf.VFEU_InstallCorticalStack,
+                    installLabel = "AC.InstallStack".Translate(),
                     installDesc = "AC.InstallStackDesc".Translate(),
                     installIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallStack")
                 }
             },
+            {
+                AC_DefOf.VFEU_EmptyCorticalStack, new StackInstallInfo
+                {
+                    recipe = AC_DefOf.VFEU_InstallEmptyCorticalStack,
+                    installLabel = "AC.InstallStack".Translate(),
+                    installDesc = "AC.InstallEmptyStackDesc".Translate(),
+                    installIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallStack")
+                }
+            }
         };
         public static HashSet<RecipeDef> installEmptyStacksRecipes = new HashSet<RecipeDef>
         {
@@ -110,6 +119,13 @@ namespace AlteredCarbon
                     recipe = AC_DefOf.AC_InstallArchoStack,
                     installLabel = "AC.InstallArchoStack".Translate(),
                     installDesc = "AC.InstallArchoStackDesc".Translate(),
+                    installIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallArchoStack")
+                };
+                stackRecipesByDef[AC_DefOf.AC_EmptyArchoStack] = new StackInstallInfo
+                {
+                    recipe = AC_DefOf.AC_InstallEmptyArchoStack,
+                    installLabel = "AC.InstallArchoStack".Translate(),
+                    installDesc = "AC.InstallEmptyArchoStackDesc".Translate(),
                     installIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallArchoStack")
                 };
                 stacksPairs[AC_DefOf.AC_FilledArchoStack] = AC_DefOf.AC_EmptyArchoStack;
@@ -341,15 +357,26 @@ namespace AlteredCarbon
         {
             return pawn.Dead is false && AlteredCarbonManager.Instance.emptySleeves.Contains(pawn);
         }
-        public static void DisableKilledEffects(this Pawn pawn)
+        public static void DisableKillEffects(this Pawn pawn)
         {
-            Faction_Notify_LeaderDied_Patch.disableKilledEffect = true;
-            PawnDiedOrDownedThoughtsUtility_AppendThoughts_ForHumanlike_Patch.disableKilledEffect = true;
-            PawnDiedOrDownedThoughtsUtility_AppendThoughts_Relations_Patch.disableKilledEffect = true;
-            Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.disableKilledEffect = true;
-            StatsRecord_Notify_ColonistKilled_Patch.disableKilledEffect = true;
-            Pawn_RoyaltyTracker_Notify_PawnKilled_Patch.disableKilledEffect = true;
-            Ideo_Notify_MemberDied_Patch.disableKilledEffect = true;
+            Pawn_DoKillSideEffects.disableKillEffect = pawn;
+            Faction_Notify_LeaderDied_Patch.disableKillEffect = pawn;
+            PawnDiedOrDownedThoughtsUtility_AppendThoughts_ForHumanlike_Patch.disableKillEffect = pawn;
+            PawnDiedOrDownedThoughtsUtility_AppendThoughts_Relations_Patch.disableKillEffect = pawn;
+            Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.disableKillEffect = pawn;
+            Pawn_RoyaltyTracker_Notify_PawnKilled_Patch.disableKillEffect = pawn;
+            Ideo_Notify_MemberDied_Patch.disableKillEffect = pawn;
+        }
+
+        public static void EnableKillEffects(this Pawn pawn)
+        {
+            Pawn_DoKillSideEffects.disableKillEffect = null;
+            Faction_Notify_LeaderDied_Patch.disableKillEffect = null;
+            PawnDiedOrDownedThoughtsUtility_AppendThoughts_ForHumanlike_Patch.disableKillEffect = null;
+            PawnDiedOrDownedThoughtsUtility_AppendThoughts_Relations_Patch.disableKillEffect = null;
+            Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.disableKillEffect = null;
+            Pawn_RoyaltyTracker_Notify_PawnKilled_Patch.disableKillEffect = null;
+            Ideo_Notify_MemberDied_Patch.disableKillEffect = null;
         }
         public static bool HasStack(this Pawn pawn)
         {

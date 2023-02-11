@@ -146,7 +146,8 @@ namespace AlteredCarbon
             {
                 CaravanInventoryUtility.GiveThing(caravan, corticalStack);
             }
-            this.pawn.health.RemoveHediff(this);
+            pawn.health.RemoveHediff(this);
+
             AlteredCarbonManager.Instance.RegisterStack(corticalStack);
             AlteredCarbonManager.Instance.RegisterSleeve(this.pawn, corticalStack);
             if (destroyPawn)

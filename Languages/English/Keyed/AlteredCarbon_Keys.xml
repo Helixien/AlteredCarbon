@@ -3,8 +3,10 @@
 	<!-- ================================ Stacks ====================== -->
 	<AC.InstallStack>Implant cortical stack</AC.InstallStack>
 	<AC.InstallStackDesc>Select a pawn or empty sleeve to implant the cortical stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallStackDesc>
+	<AC.InstallEmptyStackDesc>Select a pawn to implant the empty cortical stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallEmptyStackDesc>
 	<AC.InstallArchoStack>Implant archo stack</AC.InstallArchoStack>
 	<AC.InstallArchoStackDesc>Select a pawn or empty sleeve to implant the archo stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallArchoStackDesc>
+	<AC.InstallEmptyArchoStackDesc>Select a pawn to implant the empty archo stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallEmptyArchoStackDesc>
 	<AC.DesignatorExtractStack>Extract stack</AC.DesignatorExtractStack>
 	<AC.DesignatorExtractStackDesc>Extract cortical stacks from dead bodies</AC.DesignatorExtractStackDesc>
 	<AC.MessageMustDesignateHasStack>The body should have a cortical stack</AC.MessageMustDesignateHasStack>

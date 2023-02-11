@@ -156,7 +156,7 @@ namespace AlteredCarbon
             {
                 return corticalStack.PersonaData.stackGroupID;
             }
-            return stacksRelationships != null ? stacksRelationships.Count + 1 : 0;
+            return stacksRelationships.Count + 1;
         }
 
         public override void ExposeData()

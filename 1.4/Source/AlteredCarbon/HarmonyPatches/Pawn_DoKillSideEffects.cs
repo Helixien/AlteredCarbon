@@ -1,16 +1,15 @@
 ﻿using HarmonyLib;
-using RimWorld;
 using Verse;
 
 namespace AlteredCarbon
 {
-    [HarmonyPatch(typeof(Ideo), "Notify_MemberDied")]
-    public static class Ideo_Notify_MemberDied_Patch
+    [HarmonyPatch(typeof(Pawn), "DoKillSideEffects")]
+    public static class Pawn_DoKillSideEffects
     {
         public static Pawn disableKillEffect;
-        public static bool Prefix(Pawn member)
+        public static bool Prefix(Pawn __instance)
         {
-            if (disableKillEffect == member)
+            if (disableKillEffect == __instance)
             {
                 disableKillEffect = null;
                 return false;

@@ -128,14 +128,7 @@ namespace AlteredCarbon
         public Pawn dummyPawn;
         public PersonaData()
         {
-            if (AlteredCarbonManager.Instance.stacksRelationships != null)
-            {
-                this.stackGroupID = AlteredCarbonManager.Instance.stacksRelationships.Count + 1;
-            }
-            else
-            {
-                this.stackGroupID = 0;
-            }
+            this.stackGroupID = AlteredCarbonManager.Instance.stacksRelationships.Count + 1;
         }
 
         public Pawn GetDummyPawn
@@ -793,6 +786,7 @@ namespace AlteredCarbon
                 {
                     pawn.needs.mood.thoughts.situational.Notify_SituationalThoughtsDirty();
                 }
+                this.hostPawn = pawn;
             }
 
             var oldAbilities = pawn.abilities?.abilities.Select(x => x.def);
@@ -887,6 +881,9 @@ namespace AlteredCarbon
             }
             pawn.guest.guestStatusInt = guestStatusInt;
             pawn.guest.interactionMode = interactionMode;
+            if (pawn.guest.interactionMode is null)
+                pawn.guest.interactionMode = PrisonerInteractionModeDefOf.NoInteraction;
+
             pawn.guest.slaveInteractionMode = slaveInteractionMode;
             pawn.guest.hostFactionInt = hostFactionInt;
             pawn.guest.joinStatus = joinStatus;
@@ -985,35 +982,38 @@ namespace AlteredCarbon
 
         private void AssignIdeologyData(Pawn pawn)
         {
-            if (precept_RoleMulti != null)
-            {
-                if (precept_RoleMulti.chosenPawns is null)
-                {
-                    precept_RoleMulti.chosenPawns = new List<IdeoRoleInstance>();
-                }
-
-                precept_RoleMulti.chosenPawns.Add(new IdeoRoleInstance(precept_RoleMulti)
-                {
-                    pawn = pawn
-                });
-                precept_RoleMulti.FillOrUpdateAbilities();
-            }
-            if (precept_RoleSingle != null)
-            {
-                precept_RoleSingle.chosenPawn = new IdeoRoleInstance(precept_RoleMulti)
-                {
-                    pawn = pawn
-                };
-                precept_RoleSingle.FillOrUpdateAbilities();
-            }
-
             if (ideo != null)
             {
+                pawn.ideo ??= new Pawn_IdeoTracker(pawn);
+                pawn.ideo.previousIdeos ??= new List<Ideo>();
                 pawn.ideo.SetIdeo(ideo);
                 pawn.ideo.certaintyInt = certainty;
                 pawn.ideo.previousIdeos = previousIdeos;
                 pawn.ideo.joinTick = joinTick;
+
+                if (precept_RoleMulti != null)
+                {
+                    if (precept_RoleMulti.chosenPawns is null)
+                    {
+                        precept_RoleMulti.chosenPawns = new List<IdeoRoleInstance>();
+                    }
+                    precept_RoleMulti.chosenPawns ??= new List<IdeoRoleInstance>();
+                    precept_RoleMulti.chosenPawns.Add(new IdeoRoleInstance(precept_RoleMulti)
+                    {
+                        pawn = pawn
+                    });
+                    precept_RoleMulti.FillOrUpdateAbilities();
+                }
+                if (precept_RoleSingle != null)
+                {
+                    precept_RoleSingle.chosenPawn = new IdeoRoleInstance(precept_RoleMulti)
+                    {
+                        pawn = pawn
+                    };
+                    precept_RoleSingle.FillOrUpdateAbilities();
+                }
             }
+
             if (favoriteColor.HasValue)
             {
                 pawn.story.favoriteColor = favoriteColor.Value;
