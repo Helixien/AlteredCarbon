@@ -8,8 +8,9 @@
 			<texPath>Things/Item/Equipment/WeaponRanged/Autorevolver</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
-		<uiIconScale>1.5</uiIconScale>
+		<uiIconScale>1.4</uiIconScale>
 		<soundInteract>Interact_Revolver</soundInteract>
+		<generateCommonality>0.5</generateCommonality>
 		<statBases>
 			<WorkToMake>4850</WorkToMake>
 			<Mass>1.6</Mass>
@@ -41,8 +42,10 @@
 				<verbClass>Verb_Shoot</verbClass>
 				<hasStandardCommand>true</hasStandardCommand>
 				<defaultProjectile>Bullet_Revolver</defaultProjectile>
-				<warmupTime>0.3</warmupTime>
+				<warmupTime>0.4</warmupTime>
 				<range>25.9</range>
+				<burstShotCount>2</burstShotCount>
+				<ticksBetweenBurstShots>5</ticksBetweenBurstShots>
 				<soundCast>Shot_Revolver</soundCast>
 				<soundCastTail>GunTail_Light</soundCastTail>
 				<muzzleFlashScale>9</muzzleFlashScale>

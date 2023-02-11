@@ -26,8 +26,8 @@
 		<label>cortical stacks</label>
 		<description>Fabricate advanced ultratech cortical stacks from advanced components and other materials.</description>
 		<baseCost>4000</baseCost>
-		<researchViewX>17.00</researchViewX>
-		<researchViewY>2.70</researchViewY>
+		<researchViewX>16.00</researchViewX>
+		<researchViewY>2.25</researchViewY>
 		<techLevel>Ultra</techLevel>
 		<prerequisites>
 			<li>AdvancedFabrication</li>
@@ -60,8 +60,8 @@
 		<label>rewrite cortical stack</label>
 		<description>todo.</description>
 		<baseCost>5000</baseCost>
-		<researchViewX>12.00</researchViewX>
-		<researchViewY>2.90</researchViewY>
+		<researchViewX>17.00</researchViewX>
+		<researchViewY>2.25</researchViewY>
 		<techLevel>Ultra</techLevel>
 		<prerequisites>
 			<li>AC_CorticalCrafting</li>
