@@ -316,20 +316,21 @@ namespace AlteredCarbon
         }
         public static bool IsCopy(this Pawn pawn)
         {
-            if (pawn.HasCorticalStack(out var hediff) && AlteredCarbonManager.Instance.stacksRelationships.TryGetValue(hediff.PersonaData.stackGroupID, out StacksData stackData))
+            if (pawn.HasCorticalStack(out var hediff))
             {
-                if (stackData.originalPawn != null && pawn != stackData.originalPawn)
+                var stackGroupData = hediff.PersonaData.StackGroupData;
+                if (stackGroupData.copiedPawns.Contains(pawn))
                 {
                     return true;
                 }
-                if (stackData.copiedPawns != null)
+            }
+            else
+            {
+                foreach (var stackGroup in AlteredCarbonManager.Instance.stacksRelationships)
                 {
-                    foreach (Pawn copiedPawn in stackData.copiedPawns)
+                    if (stackGroup.Value.copiedPawns.Contains(pawn))
                     {
-                        if (pawn == copiedPawn)
-                        {
-                            return true;
-                        }
+                        return true;
                     }
                 }
             }
@@ -338,9 +339,8 @@ namespace AlteredCarbon
 
         public static bool IsEmptySleeve(this Pawn pawn)
         {
-            return AlteredCarbonManager.Instance.emptySleeves.Contains(pawn);
+            return pawn.Dead is false && AlteredCarbonManager.Instance.emptySleeves.Contains(pawn);
         }
-
         public static void DisableKilledEffects(this Pawn pawn)
         {
             Faction_Notify_LeaderDied_Patch.disableKilledEffect = true;

@@ -120,9 +120,7 @@ namespace AlteredCarbon
                         icon = CancelIcon,
                         action = delegate ()
                         {
-                            ticksDone = 0;
-                            genepackToStore = null;
-                            geneToSeparate = null;
+                            JobCleanup();
                             if (StoredGenepack != null)
                             {
                                 this.EjectContents();
@@ -140,6 +138,7 @@ namespace AlteredCarbon
             {
                 var progress = ticksDone / (float)ExtractionDuration(StoredGenepack);
                 sb.AppendLine("AC.SeparatingProgress".Translate(progress.ToStringPercent()));
+                sb.AppendLine("AC.ContainsGenepack".Translate(StoredGenepack.Label));
             }
             sb.Append(base.GetInspectString());
             return sb.ToString();
@@ -186,11 +185,6 @@ namespace AlteredCarbon
 
         private void FinishJob()
         {
-            if (progressBarEffecter != null)
-            {
-                progressBarEffecter.Cleanup();
-                progressBarEffecter = null;
-            }
             var newGenepack = (Genepack)ThingMaker.MakeThing(ThingDefOf.Genepack);
             var storedGenepack = StoredGenepack;
             storedGenepack.GeneSet.genes.Remove(geneToSeparate);
@@ -230,8 +224,19 @@ namespace AlteredCarbon
                             storedGenepack, newGenepack
                         }, MessageTypeDefOf.NeutralEvent);
             }
+            JobCleanup();
+        }
+
+        private void JobCleanup()
+        {
+            if (progressBarEffecter != null)
+            {
+                progressBarEffecter.Cleanup();
+                progressBarEffecter = null;
+            }
             ticksDone = 0;
             geneToSeparate = null;
+            genepackToStore = null;
         }
 
         public int ExtractionDuration(Genepack genepack)

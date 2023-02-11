@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using VanillaGenesExpanded;
 using Verse;
+using Verse.Sound;
 
 namespace AlteredCarbon
 {
@@ -101,6 +102,7 @@ namespace AlteredCarbon
                 TooltipHandler.TipRegion(geneRect, text);
                 if (Widgets.ButtonInvisible(geneRect))
                 {
+                    SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                     chosenGene = gene;
                 }
             }

@@ -16,7 +16,7 @@ namespace AlteredCarbon
     {
         public ThingDef sourceStack;
         public Name name;
-        public Pawn origPawn;
+        public Pawn hostPawn;
         private int hostilityMode;
         private Area areaRestriction;
         private MedicalCareCategory medicalCareCategory;
@@ -75,7 +75,7 @@ namespace AlteredCarbon
         private Battle battleActive;
         private int battleExitTick;
 
-        public bool ContainsInnerPersona => origPawn != null || name != null;
+        public bool ContainsInnerPersona => hostPawn != null || name != null;
 
         public Gender originalGender;
         public ThingDef originalRace;
@@ -156,10 +156,10 @@ namespace AlteredCarbon
             {
                 dummyPawn = PawnGenerator.GeneratePawn(PawnKindDefOf.Colonist, Faction.OfPlayer);
             }
-            OverwritePawn(dummyPawn, null, origPawn, overwriteOriginalPawn: false, copyFromOrigPawn: origPawn != null && origPawn.Dead is false);
-            if (origPawn != null)
+            OverwritePawn(dummyPawn, null, overwriteOriginalPawn: false, copyFromOrigPawn: hostPawn != null && hostPawn.Dead is false);
+            if (hostPawn != null)
             {
-                ACUtils.CopyBody(origPawn, dummyPawn);
+                ACUtils.CopyBody(hostPawn, dummyPawn);
                 dummyPawn.RefreshGraphic();
             }
             else if (dummyPawn.genes != null)
@@ -194,6 +194,18 @@ namespace AlteredCarbon
             }
         }
 
+        public StackGroupData StackGroupData
+        {
+            get
+            {
+                if (!AlteredCarbonManager.Instance.stacksRelationships.TryGetValue(stackGroupID, out var stackData))
+                {
+                    AlteredCarbonManager.Instance.stacksRelationships[stackGroupID] = stackData = new StackGroupData();
+                }
+                return stackData;
+            }
+        }
+
         private Color GetFactionRelationColor(Faction faction)
         {
             if (faction == null)
@@ -219,10 +231,7 @@ namespace AlteredCarbon
 
         public void CopyFromPawn(Pawn pawn, ThingDef sourceStack, bool copyRaceGenderInfo = false)
         {
-            if (this.origPawn is null)
-            {
-                this.origPawn = pawn;
-            }
+            this.hostPawn = pawn;
             this.sourceStack = sourceStack ?? AC_DefOf.VFEU_FilledCorticalStack;
             name = GetNameCopy(pawn.Name);
             if (pawn.playerSettings != null)
@@ -239,8 +248,8 @@ namespace AlteredCarbon
             foodRestriction = pawn.foodRestriction?.CurrentFoodRestriction;
             outfit = pawn.outfits?.CurrentOutfit;
             drugPolicy = pawn.drugs?.CurrentPolicy;
-            times = pawn.timetable?.times;
-            thoughts = pawn.needs?.mood?.thoughts?.memories?.Memories;
+            times = pawn.timetable?.times.ListFullCopy();
+            thoughts = pawn.needs?.mood?.thoughts?.memories?.Memories.ListFullCopy();
             faction = pawn.Faction;
             if (pawn.Faction?.leader == pawn)
             {
@@ -266,7 +275,7 @@ namespace AlteredCarbon
                 nextMarriageNameChange = pawn.relations.nextMarriageNameChange;
                 hidePawnRelations = pawn.relations.hidePawnRelations;
 
-                relations = pawn.relations.DirectRelations ?? new List<DirectPawnRelation>();
+                relations = pawn.relations.DirectRelations?.ListFullCopy() ?? new List<DirectPawnRelation>();
                 relatedPawns = pawn.relations.RelatedPawns?.ToList() ?? new List<Pawn>();
                 foreach (Pawn otherPawn in pawn.relations.RelatedPawns)
                 {
@@ -499,7 +508,7 @@ namespace AlteredCarbon
         {
             sourceStack = other.sourceStack;
             name = GetNameCopy(other.name);
-            origPawn = other.origPawn;
+            hostPawn = other.hostPawn;
             hostilityMode = other.hostilityMode;
             areaRestriction = other.areaRestriction;
             ageChronologicalTicks = other.ageChronologicalTicks;
@@ -641,12 +650,11 @@ namespace AlteredCarbon
             return null;
         }
 
-        public void OverwritePawn(Pawn pawn, StackSavingOptionsModExtension extension, Pawn original = null, bool overwriteOriginalPawn = true, bool copyFromOrigPawn = true)
+        public void OverwritePawn(Pawn pawn, StackSavingOptionsModExtension extension, bool overwriteOriginalPawn = true, bool copyFromOrigPawn = true)
         {
-            this.origPawn = FindOrigPawn(original);
-            if (copyFromOrigPawn && origPawn != null)
+            if (copyFromOrigPawn && hostPawn != null)
             {
-                CopyFromPawn(origPawn, sourceStack);
+                CopyFromPawn(hostPawn, sourceStack);
             }
             pawn.Name = GetNameCopy(name);
             PawnComponentsUtility.CreateInitialComponents(pawn);
@@ -679,7 +687,7 @@ namespace AlteredCarbon
                 {
                     thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongRace);
                 }
-                if (pawn.CanThink())
+                if (pawn.CanThink() && thoughts.Any())
                 {
                     foreach (Thought_Memory thought in thoughts)
                     {
@@ -723,9 +731,8 @@ namespace AlteredCarbon
             
             if (overwriteOriginalPawn)
             {
-                var oldOrigPawn = this.origPawn;
-                this.origPawn = pawn;
-                this.pawnID = this.origPawn.thingIDNumber;
+                var oldOrigPawn = this.hostPawn;
+                this.pawnID = this.hostPawn.thingIDNumber;
                 if (relations != null)
                 {
                     for (var i = relations.Count - 1; i >= 0; i--)
@@ -946,10 +953,7 @@ namespace AlteredCarbon
                 AssignIdeologyData(pawn);
             }
 
-            if (pawn.workSettings == null)
-            {
-                pawn.workSettings = new Pawn_WorkSettings(pawn);
-            }
+            pawn.workSettings = new Pawn_WorkSettings(pawn);
             pawn.workSettings.priorities = new DefMap<WorkTypeDef, int>();
             pawn.Notify_DisabledWorkTypesChanged();
             if (priorities != null)
@@ -1174,58 +1178,7 @@ namespace AlteredCarbon
         public bool IsPresetPawn(Pawn pawn)
         {
             if (pawn == null || pawn.Name == null) return false;
-            return pawn != null && (pawn.thingIDNumber == pawnID || origPawn == pawn || name != null && pawn.Name != null && name.ToStringFull == pawn.Name.ToStringFull);
-        }
-
-        public Pawn FindOrigPawn(Pawn pawn)
-        {
-            if (origPawn != null)
-            {
-                return origPawn;
-            }
-            var nameToCheck = pawn?.Name?.ToStringFull ?? name?.ToStringFull;
-            if (nameToCheck != null)
-            {
-                foreach (Pawn otherPawn in AlteredCarbonManager.Instance.PawnsWithStacks)
-                {
-                    if (otherPawn.Name != null && otherPawn.Name.ToStringFull == nameToCheck)
-                    {
-                        origPawn = otherPawn;
-                        return otherPawn;
-                    }
-                }
-
-                if (relatedPawns != null)
-                {
-                    foreach (Pawn otherPawn in relatedPawns)
-                    {
-                        if (otherPawn?.relations?.DirectRelations != null)
-                        {
-                            foreach (DirectPawnRelation rel in otherPawn.relations.DirectRelations)
-                            {
-                                if (rel?.otherPawn?.Name != null)
-                                {
-                                    if (rel.otherPawn.Name.ToStringFull == nameToCheck && rel.otherPawn != pawn)
-                                    {
-                                        origPawn = rel.otherPawn;
-                                        return rel.otherPawn;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                foreach (Pawn otherPawn in PawnsFinder.AllMaps)
-                {
-                    if (otherPawn.Name != null && otherPawn.Name.ToStringFull == nameToCheck && otherPawn != pawn)
-                    {
-                        origPawn = otherPawn;
-                        return otherPawn;
-                    }
-                }
-            }
-            return null;
+            return pawn != null && (pawn.thingIDNumber == pawnID || hostPawn == pawn || name != null && pawn.Name != null && name.ToStringFull == pawn.Name.ToStringFull);
         }
 
         public void ExposeData()
@@ -1234,7 +1187,7 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref isCopied, "isCopied", false, false);
             Scribe_Values.Look(ref diedFromCombat, "diedFromCombat");
             Scribe_Deep.Look(ref name, "name", new object[0]);
-            Scribe_References.Look(ref origPawn, "origPawn", true);
+            Scribe_References.Look(ref hostPawn, "origPawn", true);
             Scribe_Values.Look(ref hostilityMode, "hostilityMode");
             Scribe_References.Look(ref areaRestriction, "areaRestriction", false);
             Scribe_Values.Look(ref medicalCareCategory, "medicalCareCategory", MedicalCareCategory.NoCare, false);
@@ -1331,9 +1284,9 @@ namespace AlteredCarbon
 
             if (VPE_PsycastAbilityImplant != null)
             {
-                if (this.origPawn != null)
+                if (this.hostPawn != null)
                 {
-                    VPE_PsycastAbilityImplant.pawn = this.origPawn;
+                    VPE_PsycastAbilityImplant.pawn = this.hostPawn;
                 }
                 VPE_PsycastAbilityImplant.loadID = Find.UniqueIDsManager.GetNextHediffID();
             }

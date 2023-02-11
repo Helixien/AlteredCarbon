@@ -32,7 +32,7 @@ namespace AlteredCarbon
             DoAllowOption(ref num, viewRect, labelWidth, "AC.AllowArchoStacks", ref Building_StackStorage.allowArchoStacks);
 
             System.Collections.Generic.List<CorticalStack> storedStacks = Building_StackStorage.StoredStacks.ToList();
-            Widgets.ListSeparator(ref num, viewRect.width, "AC.CorticalStacksInArray".Translate(storedStacks.Count(), Building_StackStorage.MaxFilledStackCapacity));
+            Widgets.ListSeparator(ref num, viewRect.width - 15, "AC.CorticalStacksInArray".Translate(storedStacks.Count(), Building_StackStorage.MaxFilledStackCapacity));
             Rect scrollRect = new Rect(0, num, viewRect.width - 16, viewRect.height);
             Rect outerRect = scrollRect;
             outerRect.width += 16;
@@ -68,11 +68,15 @@ namespace AlteredCarbon
             Rect rect1 = new Rect(0.0f, y, width, 28f);
             Widgets.InfoCardButton(0, y, corticalStack);
             Rect rect2 = new Rect(rect1.width - 24, y, 24f, 24f);
-            TooltipHandler.TipRegion(rect2, "DropThing".Translate());
+            TooltipHandler.TipRegion(rect2, "AC.EjectStackTooltip".Translate());
             if (Widgets.ButtonImage(rect2, ContentFinder<Texture2D>.Get("UI/Buttons/Drop", true)))
             {
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
-                Building_StackStorage.innerContainer.TryDrop(corticalStack, Building_StackStorage.InteractionCell, Building_StackStorage.Map, ThingPlaceMode.Near, 1, out Thing droppedThing);
+                Find.WindowStack.Add(new Dialog_MessageBox("AC.EjectStackConfirmation".Translate(corticalStack.def.label + " (" + corticalStack.PersonaData.name.ToStringFull + ")"),
+                     "Confirm".Translate(), delegate
+                     {
+                         Building_StackStorage.innerContainer.TryDrop(corticalStack, Building_StackStorage.InteractionCell, Building_StackStorage.Map, ThingPlaceMode.Near, 1, out Thing droppedThing);
+                     }, "GoBack".Translate(), null));
             }
 
             Rect installStackRect = rect2;

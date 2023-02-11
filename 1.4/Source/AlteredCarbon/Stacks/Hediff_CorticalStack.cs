@@ -74,11 +74,10 @@ namespace AlteredCarbon
             {
                 pawn.health.RemoveHediff(emptySleeveHediff);
             }
-
             if (AlteredCarbonManager.Instance.PawnsWithStacks.Contains(pawn) is false)
             {
                 AlteredCarbonManager.Instance.RegisterPawn(pawn);
-                AlteredCarbonManager.Instance.TryAddRelationships(pawn);
+                AlteredCarbonManager.Instance.TryAddRelationships(pawn, this.PersonaData.StackGroupData);
             }
             CreateSkipAbilityIfMissing();
         }

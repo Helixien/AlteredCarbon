@@ -112,7 +112,7 @@ namespace AlteredCarbon
                     var dummyPawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(kindDef, faction, fixedGender: gender,
                         fixedBiologicalAge: pawn.ageTracker.AgeBiologicalYearsFloat, fixedChronologicalAge: pawn.ageTracker.AgeChronologicalYearsFloat));
                     var copy = new PersonaData();
-                    copy.OverwritePawn(pawn: dummyPawn, null, original: pawn, overwriteOriginalPawn: false, copyFromOrigPawn: false);
+                    copy.OverwritePawn(pawn: dummyPawn, null, overwriteOriginalPawn: false, copyFromOrigPawn: false);
                     CopyAllPhysicalDataFrom(pawn, dummyPawn);
                     GenSpawn.Spawn(dummyPawn, pawn.Position, pawn.Map);
                     Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.pawnToSkip = dummyPawn;
@@ -126,8 +126,8 @@ namespace AlteredCarbon
                 {
                     AlteredCarbonManager.Instance.emptySleeves.Remove(pawn);
                 }
-
-                hediff.PersonaData.OverwritePawn(pawn, corticalStack.def.GetModExtension<StackSavingOptionsModExtension>(), null, copyFromOrigPawn: false);
+                hediff.PersonaData.hostPawn = pawn;
+                hediff.PersonaData.OverwritePawn(pawn, corticalStack.def.GetModExtension<StackSavingOptionsModExtension>(), copyFromOrigPawn: false);
                 pawn.health.AddHediff(hediff, part);
                 pawn.needs.AddOrRemoveNeedsAsAppropriate();
 

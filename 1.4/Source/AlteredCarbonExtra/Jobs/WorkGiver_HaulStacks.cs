@@ -16,9 +16,11 @@ namespace AlteredCarbon
         }
         public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)
         {
-            var stacks = pawn.Map.listerThings.AllThings.OfType<CorticalStack>().Where(x => x.autoLoad && x.PersonaData.ContainsInnerPersona 
-            && !pawn.Map.mapPawns.AllPawnsSpawned.Any(y => y.BillStack.Bills.Any(c => c is Bill_InstallStack installStack 
-            && installStack.stackToInstall == x)) && pawn.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
+            var stacks = pawn.Map.listerThings.AllThings.OfType<CorticalStack>().Where(x => x.autoLoad && x.PersonaData.ContainsInnerPersona
+            && (pawn.Map.mapPawns.AllPawnsSpawned.Any(y => y.BillStack.Bills.Any(c => c is Bill_InstallStack installStack 
+            && installStack.stackToInstall == x)) is false) && (pawn.Map.listerThings.ThingsOfDef(AC_DefOf.VFEU_DecryptionBench)
+            .OfType<Building_DecryptionBench>().Any(y => y.BillStack.Bills.Any(c => c is Bill_OperateOnStack operateOnStack
+                && operateOnStack.corticalStack == x)) is false) && pawn.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
             return stacks;
         }
 

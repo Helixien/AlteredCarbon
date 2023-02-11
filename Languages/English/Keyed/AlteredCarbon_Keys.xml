@@ -114,6 +114,8 @@
 	<AC.DuplicateStackDesc>Make a exact copy of an existing filled cortical stack that is currently stored in the stack array.</AC.DuplicateStackDesc>
 	<AC.AlreadySetToDuplicate>Already set a stack to duplicate</AC.AlreadySetToDuplicate>
 	<AC.NoEnoughSpaceForNewStack>Not enough space for new stack</AC.NoEnoughSpaceForNewStack>
+	<AC.EjectStackTooltip>Eject this cortical stack from the array.</AC.EjectStackTooltip>
+	<AC.EjectStackConfirmation>Do you really want to eject {0}? It will be immediately ejected onto the ground nearby.</AC.EjectStackConfirmation>
 	<!-- ================================ Gene Centrifuge ====================== -->
 	<AC.SeparateGene>Separate gene</AC.SeparateGene>
 	<AC.SeparateGeneDesc>Select a genepack from which to separate a gene from.</AC.SeparateGeneDesc>
@@ -127,6 +129,7 @@
 	<AC.SeparatingProgress>Separating: {0}</AC.SeparatingProgress>
 	<AC.CentrigureWorking>Centrifuge is working.</AC.CentrigureWorking>
 	<AC.CancelGeneSeparating>Cancel gene separating</AC.CancelGeneSeparating>
+	<AC.ContainsGenepack>Contains: {0}</AC.ContainsGenepack>
 	<!-- ================================ Other ====================== -->
 	<AC.CommandCallsNeuroformers>Call psylink neuroformers</AC.CommandCallsNeuroformers>
 	<AC.SleeveHealthPreview>Health</AC.SleeveHealthPreview>

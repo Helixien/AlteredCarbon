@@ -13,7 +13,7 @@ namespace AlteredCarbon
         {
             if (birtherThing is Pawn pawn && pawn.HasCorticalStack(out var hediff) && pawn.CanThink())
             {
-                var origPawn = hediff.PersonaData.origPawn;
+                var origPawn = hediff.PersonaData.hostPawn;
                 if (origPawn != null && origPawn.gender != pawn.gender)
                 {
                     pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongGenderChild);

@@ -73,7 +73,7 @@
     <Compile Include="Buildings\Building_GeneCentrifuge.cs" />
     <Compile Include="Buildings\Building_StackStorage.cs" />
     <Compile Include="GameComponent_DigitalStorage.cs" />
-    <Compile Include="HarmonyPatches\Recipe_InstallCorticalStack_Patch.cs" />
+    <Compile Include="HarmonyPatches\Recipe_InstallCorticalStack_ApplyCorticalStack_Patch.cs" />
     <Compile Include="Jobs\JobDriver_CreateStackFromBackup.cs" />
     <Compile Include="Jobs\JobDriver_DuplicateStack.cs" />
     <Compile Include="Jobs\JobDriver_InsertGenepackIntoCentrifuge.cs" />

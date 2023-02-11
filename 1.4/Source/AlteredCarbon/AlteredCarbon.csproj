@@ -72,6 +72,9 @@
     <Compile Include="Buildings\Building_Incubator.cs" />
     <Compile Include="HarmonyPatches\Dialog_BillConfig_DoWindowContents_Patch.cs" />
     <Compile Include="HarmonyPatches\Dialog_InfoCard_DoWindowContents_Patch.cs" />
+    <Compile Include="HarmonyPatches\PawnRenderer_LayingFacing_Patch.cs" />
+    <Compile Include="HarmonyPatches\PawnUtility_ShouldSendNotificationAbout_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_GuestTracker_Notify_PawnUndowned_Patch.cs" />
     <Compile Include="Recipes\Bill_RewriteStack.cs" />
     <Compile Include="HarmonyPatches\JobDriver_DoBill_MakeNewToils_Patch.cs" />
     <Compile Include="Recipes\Recipe_HackBiocodedThings.cs" />
@@ -161,7 +164,7 @@
     <Compile Include="ExcludeRacesModExtension.cs" />
     <Compile Include="Stacks\PsychologyData.cs" />
     <Compile Include="Stacks\PersonaData.cs" />
-    <Compile Include="Stacks\StacksData.cs" />
+    <Compile Include="Stacks\StackGroupData.cs" />
     <Compile Include="Thoughts\ThoughtWorker_WomansBody.cs" />
     <Compile Include="Thoughts\ThoughtWorker_MansBody.cs" />
     <Compile Include="HarmonyPatches\CompRottable_Stage_Patch.cs" />
@@ -176,7 +179,7 @@
     <Compile Include="Recipes\Recipe_InstallCorticalStack.cs" />
     <Compile Include="Stacks\Hediff_CorticalStack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ACManager.cs" />
+    <Compile Include="AlteredCarbonManager.cs" />
     <Compile Include="ACUtils.cs" />
     <Compile Include="UI\UIHelpers.cs" />
     <Compile Include="UI\Window_ColorPicker.cs" />

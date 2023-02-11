@@ -11,7 +11,7 @@ namespace AlteredCarbon
         public override void Tick()
         {
             base.Tick();
-            stackDegradation -= 0.01f / (GenDate.TicksPerDay * 7f);
+            stackDegradation -= 0.01f / GenDate.TicksPerDay;
         }
         public override void ExposeData()
         {

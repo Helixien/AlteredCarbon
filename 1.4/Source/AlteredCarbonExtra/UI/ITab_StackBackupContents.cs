@@ -80,11 +80,11 @@ namespace AlteredCarbon
 
             Text.Anchor = TextAnchor.MiddleLeft;
             GUI.color = ITab_Pawn_Gear.ThingLabelColor;
-            Rect rect4 = new Rect(21, y, 130, rect1.height);
+            Rect rect4 = new Rect(21, y, 160, rect1.height);
             TaggedString pawnLabel = personaData.PawnNameColored.Truncate(rect4.width);
             Widgets.Label(rect4, pawnLabel);
             Widgets.InfoCardButton(0, y, personaData.GetDummyPawn);
-            Rect timeRect = new Rect(rect4.xMax, rect1.y, 200, rect1.height);
+            Rect timeRect = new Rect(rect4.xMax, rect1.y, 165, rect1.height);
             Widgets.Label(timeRect, "AC.TimeSinceLastBackup".Translate((Find.TickManager.TicksAbs - personaData.lastTimeUpdated).ToStringTicksToPeriod()));
             y += 28;
         }

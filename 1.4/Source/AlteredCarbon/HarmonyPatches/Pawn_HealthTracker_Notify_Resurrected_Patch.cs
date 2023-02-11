@@ -20,15 +20,19 @@ namespace AlteredCarbon
         {
             foreach (var stackGroup in AlteredCarbonManager.Instance.stacksRelationships)
             {
-                if (stackGroup.Value.deadPawns != null && stackGroup.Value.deadPawns.Contains(___pawn))
+                if (stackGroup.Value.deadPawns.Contains(___pawn) && !stackGroup.Value.copiedPawns.Contains(___pawn))
                 {
                     stackGroup.Value.deadPawns.Remove(___pawn);
                     stackGroup.Value.copiedPawns.Add(___pawn);
-                    if (AlteredCarbonManager.Instance.emptySleeves != null && AlteredCarbonManager.Instance.emptySleeves.Contains(___pawn))
+                    if (AlteredCarbonManager.Instance.emptySleeves.Contains(___pawn))
                     {
                         AlteredCarbonManager.Instance.emptySleeves.Remove(___pawn);
                     }
-                    AlteredCarbonManager.Instance.TryAddRelationships(___pawn);
+                    AlteredCarbonManager.Instance.TryAddRelationships(___pawn, stackGroup.Value);
+                    if (ModCompatibility.HelixienAlteredCarbonIsActive)
+                    {
+                        ___pawn.health.AddHediff(AC_DefOf.AC_BrainTrauma, ___pawn.health.hediffSet.GetBrain());
+                    }
                 }
             }
         }

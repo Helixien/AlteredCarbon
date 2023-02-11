@@ -16,8 +16,7 @@ namespace AlteredCarbon
             if (let.def == AC_DefOf.HumanPregnancy && let.lookTargets.PrimaryTarget.Thing is Pawn pawn && 
                 pawn.HasCorticalStack(out var hediff) && pawn.CanThink())
             {
-                var origPawn = hediff.PersonaData.origPawn;
-                if (origPawn != null && origPawn.gender != pawn.gender) 
+                if (hediff.PersonaData.originalGender != pawn.gender) 
                 {
                     pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongGenderPregnant);
                 }
