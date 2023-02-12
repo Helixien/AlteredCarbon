@@ -148,7 +148,7 @@
 	<ThingDef ParentName="GeneBuildingBase">
 		<defName>AC_GeneVault</defName>
 		<label>gene vault</label>
-		<description>text.todo</description>
+		<description>A combination gene processor combined with two advanced gene banks. This building, when placed near a gene assembler, increases the maximum genetic complexity of the xenogerms you can assemble, as well as access a plethora of stored genepacks during their creation.\n\nWhen powered, gene vaults prevent genepacks from deteriorating and will slow repair deterioration.</description>
 		<graphicData>
 			<texPath>Things/Building/Misc/GeneVault/GeneVault</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
