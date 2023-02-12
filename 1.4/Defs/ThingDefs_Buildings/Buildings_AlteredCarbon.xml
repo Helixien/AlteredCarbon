@@ -228,6 +228,9 @@
 		<canOverlapZones>false</canOverlapZones>
 		<defaultPlacingRot>North</defaultPlacingRot>
 		<designationCategory>Biotech</designationCategory>
+		<researchPrerequisites>
+			<li>Xenogermination</li>
+		</researchPrerequisites>
 		<statBases>
 			<MaxHitPoints>350</MaxHitPoints>
 			<WorkToBuild>9000</WorkToBuild>
@@ -254,7 +257,7 @@
 		</comps>
 	</ThingDef>
 	<!-- ================================ Gene Recoder ====================== -->
-<!--	<ThingDef ParentName="BuildingBase">
+	<!--	<ThingDef ParentName="BuildingBase">
 		<defName>AC_GeneRecoder</defName>
 		<label>Gene recoder</label>
 		<description>text.todo</description>
