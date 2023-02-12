@@ -412,7 +412,10 @@ namespace AlteredCarbon
         {
             Thing newStack = ThingMaker.MakeThing(this.GetEmptyStackVariant());
             GenPlace.TryPlaceThing(newStack, affecter.Position, affecter.Map, ThingPlaceMode.Near);
-            AlteredCarbonManager.Instance.StacksIndex.Remove(PersonaData.pawnID);
+            if (PersonaData.hostPawn != null)
+            {
+                AlteredCarbonManager.Instance.StacksIndex.Remove(PersonaData.hostPawn.thingIDNumber);
+            }
             KillInnerPawn(affectFactionRelationship, affecter);
             Destroy();
         }

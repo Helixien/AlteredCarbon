@@ -119,8 +119,10 @@ namespace AlteredCarbon
                     dummyPawn.Kill(null, hediff);
                     dummyPawn.Corpse.DeSpawn();
                 }
-
-                AlteredCarbonManager.Instance.StacksIndex.Remove(hediff.PersonaData.pawnID);
+                if (hediff.PersonaData.hostPawn != null)
+                {
+                    AlteredCarbonManager.Instance.StacksIndex.Remove(hediff.PersonaData.hostPawn.thingIDNumber);
+                }
                 AlteredCarbonManager.Instance.ReplaceStackWithPawn(corticalStack, pawn);
                 if (AlteredCarbonManager.Instance.emptySleeves != null && AlteredCarbonManager.Instance.emptySleeves.Contains(pawn))
                 {

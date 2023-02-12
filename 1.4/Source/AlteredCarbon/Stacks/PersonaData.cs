@@ -79,7 +79,6 @@ namespace AlteredCarbon
 
         public Gender originalGender;
         public ThingDef originalRace;
-        public int pawnID;
 
         // Royalty
         private List<RoyalTitle> royalTitles;
@@ -385,8 +384,6 @@ namespace AlteredCarbon
                 battleExitTick = pawn.records.LastBattleTick;
             }
 
-            pawnID = pawn.thingIDNumber;
-
             if (copyRaceGenderInfo)
             {
                 if (pawn.HasCorticalStack(out var hediff))
@@ -587,7 +584,6 @@ namespace AlteredCarbon
 
             originalGender = other.originalGender;
             originalRace = other.originalRace;
-            pawnID = other.pawnID;
 
             if (ModsConfig.RoyaltyActive)
             {
@@ -725,7 +721,6 @@ namespace AlteredCarbon
             if (overwriteOriginalPawn)
             {
                 var oldOrigPawn = this.hostPawn;
-                this.pawnID = this.hostPawn.thingIDNumber;
                 if (relations != null)
                 {
                     for (var i = relations.Count - 1; i >= 0; i--)
@@ -1178,7 +1173,7 @@ namespace AlteredCarbon
         public bool IsPresetPawn(Pawn pawn)
         {
             if (pawn == null || pawn.Name == null) return false;
-            return pawn != null && (pawn.thingIDNumber == pawnID || hostPawn == pawn || name != null && pawn.Name != null && name.ToStringFull == pawn.Name.ToStringFull);
+            return pawn != null && (hostPawn == pawn || name != null && pawn.Name != null && name.ToStringFull == pawn.Name.ToStringFull);
         }
 
         public void ExposeData()
@@ -1209,7 +1204,6 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref title, "title", null, false);
             Scribe_Defs.Look(ref xenotypeDef, "xenotypeDef");
             Scribe_Values.Look(ref xenotypeName, "xenotypeName");
-            Scribe_Values.Look(ref pawnID, "pawnID", 0, false);
             Scribe_Collections.Look(ref traits, "traits", LookMode.Deep);
             Scribe_Collections.Look(ref skills, "skills", LookMode.Deep);
             Scribe_Collections.Look(ref relations, "otherPawnRelations", LookMode.Deep);
@@ -1346,7 +1340,7 @@ namespace AlteredCarbon
 
         public override string ToString()
         {
-            return name + " - " + faction + " - " + pawnID;
+            return name + " - " + faction;
         }
     }
 }
