@@ -211,7 +211,7 @@
 	<ThingDef ParentName="BuildingBase">
 		<defName>AC_XenoGermDuplicator</defName>
 		<label>germ duplicator</label>
-		<description>text.todo</description>
+		<description>A combination gene processor combined with two advanced gene banks. This building, when placed near a gene assembler, increases the maximum genetic complexity of the xenogerms you can assemble, as well as access a plethora of stored genepacks during their creation.\n\nWhen powered, gene vaults prevent genepacks from deteriorating and will slow repair deterioration.</description>
 		<passability>PassThroughOnly</passability>
 		<fillPercent>0.4</fillPercent>
 		<pathCost>14</pathCost>
@@ -254,7 +254,7 @@
 		</comps>
 	</ThingDef>
 	<!-- ================================ Gene Recoder ====================== -->
-	<ThingDef ParentName="BuildingBase">
+<!--	<ThingDef ParentName="BuildingBase">
 		<defName>AC_GeneRecoder</defName>
 		<label>Gene recoder</label>
 		<description>text.todo</description>
@@ -300,5 +300,5 @@
 			</li>
 			<li Class="CompProperties_Flickable"/>
 		</comps>
-	</ThingDef>
+	</ThingDef>-->
 </Defs>
