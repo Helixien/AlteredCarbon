@@ -53,7 +53,7 @@ namespace AlteredCarbon
             if (Widgets.ButtonImage(rect2, ContentFinder<Texture2D>.Get("UI/Icons/Erase", true)))
             {
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
-                GameComponent_DigitalStorage.Instance.backedUpStacks.Remove(personaData.pawnID);
+                GameComponent_DigitalStorage.Instance.backedUpStacks.Remove(personaData.PawnID);
             }
 
             Rect installStackRect = rect2;

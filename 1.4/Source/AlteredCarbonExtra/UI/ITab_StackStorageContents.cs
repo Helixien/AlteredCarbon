@@ -78,7 +78,6 @@ namespace AlteredCarbon
                          Building_StackStorage.innerContainer.TryDrop(corticalStack, Building_StackStorage.InteractionCell, Building_StackStorage.Map, ThingPlaceMode.Near, 1, out Thing droppedThing);
                      }, "GoBack".Translate(), null));
             }
-
             Rect installStackRect = rect2;
             installStackRect.x -= 28;
 

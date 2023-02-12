@@ -60,12 +60,12 @@ namespace AlteredCarbon
             foreach (var map in Find.Maps)
             {
                 if (map.listerThings.ThingsOfDef(AC_DefOf.VFEU_FilledCorticalStack).Cast<CorticalStack>()
-                    .Any(x => x.PersonaData.pawnID == personaData.pawnID && x.Spawned && !x.Destroyed))
+                    .Any(x => x.PersonaData.IsPresetPawn(personaData) && x.Spawned && !x.Destroyed))
                 {
                     return true;
                 }
                 if (map.listerThings.ThingsOfDef(AC_Extra_DefOf.AC_StackArray).Cast<Building_StackStorage>()
-                    .Any(x => x.StoredStacks.Any(y => y.PersonaData.pawnID == personaData.pawnID)))
+                    .Any(x => x.StoredStacks.Any(y => y.PersonaData.IsPresetPawn(personaData))))
                 {
                     return true;
                 }
@@ -100,7 +100,7 @@ namespace AlteredCarbon
             var personaDataToRestore = FirstPersonaStackToRestore;
             stackRestoreTo.PersonaData.CopyDataFrom(personaDataToRestore, true);
             AlteredCarbonManager.Instance.RegisterStack(stackRestoreTo);
-            backedUpStacks.Remove(personaDataToRestore.pawnID);
+            backedUpStacks.Remove(personaDataToRestore.PawnID);
             Messages.Message("AC.SuccessfullyRestoredStackFromBackup".Translate(doer.Named("PAWN")), stackRestoreTo, MessageTypeDefOf.TaskCompletion);
             GenPlace.TryPlaceThing(stackRestoreTo, doer.Position, doer.Map, ThingPlaceMode.Near);
         }
@@ -120,7 +120,7 @@ namespace AlteredCarbon
                 copy.isCopied = true;
                 copy.lastTimeUpdated = Find.TickManager.TicksAbs;
                 copy.RefreshDummyPawn();
-                this.backedUpStacks[copy.pawnID] = copy;
+                this.backedUpStacks[copy.PawnID] = copy;
             }
         }
 

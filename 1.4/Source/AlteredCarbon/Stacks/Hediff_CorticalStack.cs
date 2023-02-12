@@ -146,8 +146,13 @@ namespace AlteredCarbon
             {
                 CaravanInventoryUtility.GiveThing(caravan, corticalStack);
             }
+            var degradationHediff = pawn.health.hediffSet.GetFirstHediff<Hediff_StackDegradation>();
+            if (degradationHediff != null)
+            {
+                corticalStack.PersonaData.stackDegradation = degradationHediff.stackDegradation;
+                pawn.health.RemoveHediff(degradationHediff);
+            }
             pawn.health.RemoveHediff(this);
-
             AlteredCarbonManager.Instance.RegisterStack(corticalStack);
             AlteredCarbonManager.Instance.RegisterSleeve(this.pawn, corticalStack);
             if (destroyPawn)

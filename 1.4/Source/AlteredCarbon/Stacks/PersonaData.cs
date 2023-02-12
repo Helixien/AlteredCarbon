@@ -79,6 +79,7 @@ namespace AlteredCarbon
 
         public Gender originalGender;
         public ThingDef originalRace;
+        private int pawnID;
 
         // Royalty
         private List<RoyalTitle> royalTitles;
@@ -93,6 +94,7 @@ namespace AlteredCarbon
         private float currentPsyfocus = -1f;
         private float targetPsyfocus = 0.5f;
 
+        // VE
         private List<AbilityDef> abilities = new List<AbilityDef>();
         private List<VFECore.Abilities.AbilityDef> VEAbilities = new List<VFECore.Abilities.AbilityDef>();
         private Hediff VPE_PsycastAbilityImplant;
@@ -142,6 +144,8 @@ namespace AlteredCarbon
                 return dummyPawn;
             }
         }
+
+        public int PawnID => hostPawn != null ? hostPawn.thingIDNumber : pawnID;
         public void RefreshDummyPawn()
         {
             if (dummyPawn is null)
@@ -384,6 +388,8 @@ namespace AlteredCarbon
                 battleExitTick = pawn.records.LastBattleTick;
             }
 
+            pawnID = pawn.thingIDNumber;
+
             if (copyRaceGenderInfo)
             {
                 if (pawn.HasCorticalStack(out var hediff))
@@ -584,6 +590,7 @@ namespace AlteredCarbon
 
             originalGender = other.originalGender;
             originalRace = other.originalRace;
+            pawnID = other.pawnID;
 
             if (ModsConfig.RoyaltyActive)
             {
@@ -782,6 +789,7 @@ namespace AlteredCarbon
                     pawn.needs.mood.thoughts.situational.Notify_SituationalThoughtsDirty();
                 }
                 this.hostPawn = pawn;
+                this.pawnID = this.hostPawn.thingIDNumber;
             }
 
             var oldAbilities = pawn.abilities?.abilities.Select(x => x.def);
@@ -1173,11 +1181,28 @@ namespace AlteredCarbon
         public bool IsPresetPawn(Pawn pawn)
         {
             if (pawn == null || pawn.Name == null) return false;
-            return pawn != null && (hostPawn == pawn || name != null && pawn.Name != null && name.ToStringFull == pawn.Name.ToStringFull);
+            return pawn != null && (hostPawn == pawn || pawn.thingIDNumber == pawnID || name != null && pawn.Name != null && name.ToStringFull == pawn.Name.ToStringFull);
+        }
+        public bool IsPresetPawn(PersonaData otherPersonaData)
+        {
+            if (PawnID != 0)
+            {
+                return PawnID == otherPersonaData.PawnID;
+            }
+            if (hostPawn != null)
+            {
+                return hostPawn == otherPersonaData.hostPawn;
+            }
+            else if (name != null)
+            {
+                return name == otherPersonaData.name;
+            }
+            return false;
         }
 
         public void ExposeData()
         {
+            Scribe_Values.Look(ref pawnID, "pawnID");
             Scribe_Values.Look(ref stackGroupID, "stackGroupID", 0);
             Scribe_Values.Look(ref isCopied, "isCopied", false, false);
             Scribe_Values.Look(ref diedFromCombat, "diedFromCombat");
@@ -1306,6 +1331,14 @@ namespace AlteredCarbon
                 priorities.CleanupDict();
                 favor.CleanupDict();
                 heirs.CleanupDict();
+                if (pawnID == 0 && hostPawn != null)
+                {
+                    pawnID = hostPawn.thingIDNumber;
+                }
+                if (hostPawn != null && pawnID != hostPawn.thingIDNumber)
+                {
+                    Log.Error("[Altered Carbon] Error loading " + pawnID + " for " + hostPawn);
+                }
             }
         }
 

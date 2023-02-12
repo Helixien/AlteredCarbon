@@ -414,7 +414,7 @@ namespace AlteredCarbon
             GenPlace.TryPlaceThing(newStack, affecter.Position, affecter.Map, ThingPlaceMode.Near);
             if (PersonaData.hostPawn != null)
             {
-                AlteredCarbonManager.Instance.StacksIndex.Remove(PersonaData.hostPawn.thingIDNumber);
+                AlteredCarbonManager.Instance.StacksIndex.Remove(PersonaData.PawnID);
             }
             KillInnerPawn(affectFactionRelationship, affecter);
             Destroy();
