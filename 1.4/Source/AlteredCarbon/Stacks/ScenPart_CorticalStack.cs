@@ -13,7 +13,7 @@ public class ScenPart_CorticalStack : ScenPart_PawnModifier
 
     public override string Summary(Scenario scen)
     {
-        return "AC.ScenPart_PawnsHaveCorticalStack".Translate(this.context.ToStringHuman(), this.chance.ToStringPercent(),this.stackHediff.label).CapitalizeFirst();
+        return "AC.ScenPart_PawnsHaveCorticalStack".Translate(this.context.ToStringHuman(), this.chance.ToStringPercent(), this.stackHediff.label).CapitalizeFirst();
     }
 
     public override void ModifyPawnPostGenerate(Pawn pawn, bool redressed)
@@ -76,5 +76,16 @@ public class ScenPart_CorticalStack : ScenPart_PawnModifier
         base.Randomize();
         this.stackHediff = AC_DefOf.VFEU_CorticalStack;
         this.context = PawnGenerationContext.PlayerStarter;
+    }
+
+    public override void ExposeData()
+    {
+        base.ExposeData();
+        Scribe_Defs.Look<HediffDef>(ref this.stackHediff, "ScenPart_CorticalStackDef");
+    }
+
+    public override bool HasNullDefs()
+    {
+        return base.HasNullDefs() || this.stackHediff == null;
     }
 }
