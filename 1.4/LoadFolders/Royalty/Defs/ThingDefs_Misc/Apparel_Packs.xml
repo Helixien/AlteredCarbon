@@ -13,10 +13,9 @@
 				<hasStandardCommand>true</hasStandardCommand>
 				<onlyManualCast>True</onlyManualCast>
 				<forceNormalTimeSpeed>false</forceNormalTimeSpeed>
-				<warmupTime>0.5</warmupTime>
+				<warmupTime>0.05</warmupTime>
 				<warmupEffecter>JumpWarmupEffect</warmupEffecter>
 				<requireLineOfSight>true</requireLineOfSight>
-				<flightEffecterDef>JumpFlightEffect</flightEffecterDef>
 				<soundLanding>JumpPackLand</soundLanding>
 				<targetParams>
 					<canTargetLocations>true</canTargetLocations>
@@ -57,9 +56,6 @@
 			<EquipDelay>1.5</EquipDelay>
 			<JumpRange>13.9</JumpRange>
 		</statBases>
-		<thingSetMakerTags>
-			<li>RewardStandardQualitySuper</li>
-		</thingSetMakerTags>
 		<thingCategories>
 			<li>ApparelUtility</li>
 		</thingCategories>
@@ -146,6 +142,22 @@
 				</li>
 			</options>
 		</colorGenerator>
+		<comps>
+			<li Class="CompProperties_Reloadable">
+				<maxCharges>10</maxCharges>
+				<ammoDef>Chemfuel</ammoDef>
+				<ammoCountPerCharge>10</ammoCountPerCharge>
+				<baseReloadTicks>60</baseReloadTicks>
+				<soundReload>Standard_Reload</soundReload>
+				<hotKey>Misc4</hotKey>
+				<chargeNoun>jump</chargeNoun>
+				<displayGizmoWhileUndrafted>false</displayGizmoWhileUndrafted>
+			</li>
+			<li Class="CompProperties_Biocodable"/>
+		</comps>
+		<thingSetMakerTags Inherit="False">
+			<li>RewardStandardLowFreq</li>
+		</thingSetMakerTags>
 		<allowedArchonexusCount>1</allowedArchonexusCount>
 	</ThingDef>
 </Defs>
