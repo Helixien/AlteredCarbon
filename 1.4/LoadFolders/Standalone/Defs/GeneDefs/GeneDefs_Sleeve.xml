@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 	<!-- Sleeve Quality -->
-	<GeneDef Name="VFEU_SleeveQualityBase" Abstract="True">
+	<GeneDef Name="VFEU_SleeveQualityGeneBase" Abstract="True">
 		<displayCategory>VFEU_SleeveQuality</displayCategory>
 		<exclusionTags>
 			<li>SleeveQuality</li>
@@ -14,49 +14,49 @@
 			</li>
 		</modExtensions>
 	</GeneDef>
-	<GeneDef ParentName="VFEU_SleeveQualityBase">
+	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
 		<defName>VFEU_SleeveQuality_Awful</defName>
 		<label>awful</label>
 		<description>text.todo</description>
 		<iconPath>placeholder</iconPath>
 		<displayOrderInCategory>0</displayOrderInCategory>
 	</GeneDef>
-	<GeneDef ParentName="VFEU_SleeveQualityBase">
+	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
 		<defName>VFEU_SleeveQuality_Poor</defName>
 		<label>poor</label>
 		<description>text.todo</description>
 		<iconPath>placeholder</iconPath>
 		<displayOrderInCategory>5</displayOrderInCategory>
 	</GeneDef>
-	<GeneDef ParentName="VFEU_SleeveQualityBase">
+	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
 		<defName>VFEU_SleeveQuality_Normal</defName>
 		<label>normal</label>
 		<description>text.todo</description>
 		<iconPath>placeholder</iconPath>
 		<displayOrderInCategory>10</displayOrderInCategory>
 	</GeneDef>
-	<GeneDef ParentName="VFEU_SleeveQualityBase">
+	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
 		<defName>VFEU_SleeveQuality_Good</defName>
 		<label>good</label>
 		<description>text.todo</description>
 		<iconPath>placeholder</iconPath>
 		<displayOrderInCategory>15</displayOrderInCategory>
 	</GeneDef>
-	<GeneDef ParentName="VFEU_SleeveQualityBase">
+	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
 		<defName>VFEU_SleeveQuality_Excellent</defName>
 		<label>excellent</label>
 		<description>text.todo</description>
 		<iconPath>placeholder</iconPath>
 		<displayOrderInCategory>20</displayOrderInCategory>
 	</GeneDef>
-	<GeneDef ParentName="VFEU_SleeveQualityBase">
+	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
 		<defName>VFEU_SleeveQuality_Masterwork</defName>
 		<label>masterwork</label>
 		<description>text.todo</description>
 		<iconPath>placeholder</iconPath>
 		<displayOrderInCategory>25</displayOrderInCategory>
 	</GeneDef>
-	<GeneDef ParentName="VFEU_SleeveQualityBase">
+	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
 		<defName>VFEU_SleeveQuality_Legendary</defName>
 		<label>legendary</label>
 		<description>text.todo</description>
