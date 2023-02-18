@@ -92,6 +92,12 @@
 	<AC.IsRunningOutFuel>Sleeve incubator is running out neutroamine</AC.IsRunningOutFuel>
 	<AC.IsRunningOutPower>Sleeve incubator is running out power</AC.IsRunningOutPower>
 	<AC.SleeveInIncubatorIsDead>Sleeve body in the incubator is dead</AC.SleeveInIncubatorIsDead>
+	<AC.RepurposeCorpse>Repurpose corpse</AC.RepurposeCorpse>
+	<AC.RepurposeCorpseDesc>text.todo</AC.RepurposeCorpseDesc>
+	<AC.SleeveGrowerIsOccupied>Sleeve grower is occupied.</AC.SleeveGrowerIsOccupied>
+	<AC.CancelRepurposingCorpse>Cancel repurposing corpse</AC.CancelRepurposingCorpse>
+	<AC.CancelRepurposingCorpseDesc>text.todo</AC.CancelRepurposingCorpseDesc>
+	<AC.CorticalStackMustBeRemovedFirst>Cortical stack must be removed first.</AC.CorticalStackMustBeRemovedFirst>
 	<!-- ================================ Stack Array ====================== -->
 	<AC.Backup>Backup</AC.Backup>
 	<AC.BackedUpStacksInArray>Cortical Stack backups saved in arrays: {0}</AC.BackedUpStacksInArray>

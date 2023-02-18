@@ -110,13 +110,13 @@ namespace AlteredCarbon
             }
         }
         public static void DrawGenes(ref Vector2 pos, TaggedString label, Rect pawnBox,
-            Rect healthBox, ref Rect geneBox, List<Gene> genes, ref Rect rect)
+            float width, ref Rect geneBox, List<Gene> genes, ref Rect rect)
         {
             if (genes.Any())
             {
                 genes.SortGenes();
                 pos.x -= 15;
-                ListSeparator(ref pos, healthBox.width, label);
+                ListSeparator(ref pos, width, label);
                 pos.x += 15;
                 pos.y += 5;
 

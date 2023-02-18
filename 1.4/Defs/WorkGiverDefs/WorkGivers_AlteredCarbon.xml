@@ -52,4 +52,31 @@
 			<li>Manipulation</li>
 		</requiredCapacities>
 	</WorkGiverDef>
+	<!-- ================================ Hauling corpse to sleeve grower ====================== -->
+	<WorkGiverDef>
+		<defName>AC_HaulCorpseToSleeveGrower</defName>
+		<label>haul corpse to sleeve grower</label>
+		<giverClass>AlteredCarbon.WorkGiver_HaulCorpseToSleeveGrower</giverClass>
+		<workType>Hauling</workType>
+		<verb>haul corpse to</verb>
+		<gerund>hauling corpse to</gerund>
+		<priorityInType>1000</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+	<!-- ================================ Cancel body repurposing ====================== -->
+	<WorkGiverDef>
+		<defName>AC_CancelRepurposingBody</defName>
+		<label>cancel repurposing body</label>
+		<giverClass>AlteredCarbon.WorkGiver_CancelRepurposingBody</giverClass>
+		<workType>BasicWorker</workType>
+		<priorityInType>50</priorityInType>
+		<verb>cancel repurposing body</verb>
+		<gerund>canceling repurposing body at</gerund>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+		<prioritizeSustains>true</prioritizeSustains>
+	</WorkGiverDef>
 </Defs>

@@ -15,13 +15,15 @@ namespace AlteredCarbon
     {
         public Xenogerm xenogermToConsume;
 
+        public Corpse corpseToRepurpose;
+
         public bool innerPawnIsDead;
         public override int OpenTicks => 300;
-        public Pawn InnerPawn => innerContainer.OfType<Pawn>().FirstOrDefault();
+        public Pawn InnerPawn => innerContainer.OfType<Pawn>().FirstOrDefault() ?? innerContainer.OfType<Corpse>().FirstOrDefault()?.InnerPawn;
         protected override bool InnerThingIsDead => innerPawnIsDead;
 
         public BodyTypeDef targetBodyType;
-        public override Thing InnerThing => innerContainer.FirstOrDefault();
+        public override Thing InnerThing => InnerPawn;
 
         [Unsaved(false)]
         private Effecter bubbleEffecter;
@@ -69,7 +71,8 @@ namespace AlteredCarbon
             }
             if (base.Faction == Faction.OfPlayer)
             {
-                if (innerContainer.Count > 0 && incubatorState == IncubatorState.Growing)
+                if (innerContainer.Count > 0 && incubatorState == IncubatorState.Growing && corpseToRepurpose is null
+                    && (InnerPawn is null || InnerPawn?.Dead is false))
                 {
                     Command_Action cancelSleeveBody = new Command_Action
                     {
@@ -82,36 +85,84 @@ namespace AlteredCarbon
                     };
                     yield return cancelSleeveBody;
                 }
+                bool isOccuptied = InnerPawn != null;
 
-                if (InnerPawn == null || innerPawnIsDead)
+                Command_Action createSleeveBody = new Command_Action
                 {
-                    Command_Action createSleeveBody = new Command_Action
+                    action = CreateSleeve,
+                    defaultLabel = "AC.CreateSleeveBody".Translate(),
+                    defaultDesc = "AC.CreateSleeveBodyDesc".Translate(),
+                    activateSound = SoundDefOf.Tick_Tiny,
+                    hotKey = KeyBindingDefOf.Misc8,
+                    icon = ContentFinder<Texture2D>.Get("UI/Icons/CreateSleeve", true)
+                };
+                yield return createSleeveBody;
+
+                Command_Action copySleeveBody = new Command_Action
+                {
+                    action = CopyPawnBody,
+                    defaultLabel = "AC.CloneSleeve".Translate(),
+                    defaultDesc = "AC.CloneSleeveDesc".Translate(),
+                    hotKey = KeyBindingDefOf.Misc8,
+                    activateSound = SoundDefOf.Tick_Tiny,
+                    icon = ContentFinder<Texture2D>.Get("UI/Icons/CloneSleeve", true)
+                };
+                yield return copySleeveBody;
+
+                if (powerTrader.PowerOn is false)
+                {
+                    createSleeveBody.Disable("NoPower".Translate().CapitalizeFirst());
+                    copySleeveBody.Disable("NoPower".Translate().CapitalizeFirst());
+                }
+
+                if (isOccuptied)
+                {
+                    createSleeveBody.Disable("AC.SleeveGrowerIsOccupied".Translate());
+                    copySleeveBody.Disable("AC.SleeveGrowerIsOccupied".Translate());
+                }
+
+                if (ModCompatibility.HelixienAlteredCarbonIsActive)
+                {
+                    var repurposeCorpse = new Command_Action
                     {
-                        action = CreateSleeve,
-                        defaultLabel = "AC.CreateSleeveBody".Translate(),
-                        defaultDesc = "AC.CreateSleeveBodyDesc".Translate(),
-                        activateSound = SoundDefOf.Tick_Tiny,
-                        hotKey = KeyBindingDefOf.Misc8,
-                        icon = ContentFinder<Texture2D>.Get("UI/Icons/CreateSleeve", true)
-                    };
-                    yield return createSleeveBody;
-                    Command_Action copySleeveBody = new Command_Action
-                    {
-                        action = CopyPawnBody,
-                        defaultLabel = "AC.CloneSleeve".Translate(),
-                        defaultDesc = "AC.CloneSleeveDesc".Translate(),
+                        action = RepurposeCorpse,
+                        defaultLabel = "AC.RepurposeCorpse".Translate(),
+                        defaultDesc = "AC.RepurposeCorpseDesc".Translate(),
                         hotKey = KeyBindingDefOf.Misc8,
                         activateSound = SoundDefOf.Tick_Tiny,
-                        icon = ContentFinder<Texture2D>.Get("UI/Icons/CloneSleeve", true)
+                        icon = ContentFinder<Texture2D>.Get("UI/Icons/ReuseSleeve", true)
                     };
-                    yield return copySleeveBody;
 
                     if (powerTrader.PowerOn is false)
                     {
-                        createSleeveBody.Disable("NoPower".Translate().CapitalizeFirst());
-                        copySleeveBody.Disable("NoPower".Translate().CapitalizeFirst());
+                        repurposeCorpse.Disable("NoPower".Translate().CapitalizeFirst());
+                    }
+                    if (isOccuptied)
+                    {
+                        repurposeCorpse.Disable("AC.SleeveGrowerIsOccupied".Translate());
+                    }
+                    yield return repurposeCorpse;
+
+                    if (this.corpseToRepurpose != null || incubatorState != IncubatorState.ToBeCanceled 
+                        && this.InnerPawn != null && this.InnerPawn.Dead)
+                    {
+                        Command_Action cancelRepurposeCorpse = new Command_Action
+                        {
+                            action = delegate
+                            {
+                                OrderToCancel();
+                                this.corpseToRepurpose = null;
+                            },
+                            defaultLabel = "AC.CancelRepurposingCorpse".Translate(),
+                            defaultDesc = "AC.CancelRepurposingCorpseDesc".Translate(),
+                            hotKey = KeyBindingDefOf.Misc8,
+                            activateSound = SoundDefOf.Tick_Tiny,
+                            icon = UIHelper.CancelIcon
+                        };
+                        yield return cancelRepurposeCorpse;
                     }
                 }
+
                 if (Prefs.DevMode && incubatorState == IncubatorState.Growing)
                 {
                     Command_Action command_Action = new Command_Action
@@ -142,7 +193,7 @@ namespace AlteredCarbon
                 newPos.z += 0.2f;
                 newPos.y += 1;
                 float growthProgress = GrowthProgress;
-                if (growthProgress < 0.05f)
+                if (growthProgress < 0.05f && InnerPawn.Dead is false)
                 {
                     Vector2 drawSize = Vector2.one * Mathf.Lerp(0.3f, 0.7f, growthProgress / 0.05f);
                     if (growthProgress < 0.02f)
@@ -180,6 +231,13 @@ namespace AlteredCarbon
                 innerContainer.Remove(innerPawn);
             }
         }
+
+        public void CancelBodyRepurposing()
+        {
+            incubatorState = IncubatorState.Inactive;
+            Reset();
+            EjectContents();
+        }
         public void CreateSleeve()
         {
             if (Find.Targeter.IsTargeting)
@@ -214,8 +272,75 @@ namespace AlteredCarbon
             });
         }
 
+        public static TargetingParameters ForCorpse()
+        {
+            TargetingParameters targetingParameters = new TargetingParameters
+            {
+                canTargetItems = true,
+                mapObjectTargetsMustBeAutoAttackable = false,
+                validator = (TargetInfo x) => x.Thing is Corpse corpse && corpse.GetRotStage() != RotStage.Dessicated && corpse.InnerPawn.RaceProps.Humanlike
+            };
+            return targetingParameters;
+        }
+
+        public void RepurposeCorpse()
+        {
+            Find.Targeter.BeginTargeting(ForCorpse(), delegate (LocalTargetInfo x)
+            {
+                var corpse = x.Thing as Corpse;
+                if (corpse.InnerPawn.HasCorticalStack())
+                {
+                    Messages.Message("AC.CorticalStackMustBeRemovedFirst".Translate(), MessageTypeDefOf.CautionInput);
+                }
+                else
+                {
+                    Reset();
+                    this.corpseToRepurpose = corpse;
+                    incubatorState = IncubatorState.ToBeActivated;
+                }
+            });
+        }
+
+        public void PutCorpseForRepurposing(Corpse corpse)
+        {
+            Pawn pawn = InnerPawn;
+            if (pawn != null)
+            {
+                innerContainer.Remove(InnerPawn);
+                pawn.Destroy(DestroyMode.Vanish);
+            }
+            TryAcceptThing(corpse);
+            Reset();
+            var totalTicksToGrow = 60000f;
+            var totalCostToGrow = 25f;
+            var missingParts = InnerPawn.GetMissingParts();
+            totalTicksToGrow += missingParts.Sum(x => x.Part.def.GetMaxHealth(InnerPawn)) * 10;
+            totalCostToGrow += missingParts.Sum(x => x.Part.def.GetMaxHealth(InnerPawn)) / 10;
+            var injuries = InnerPawn.health.hediffSet.hediffs.OfType<Hediff_Injury>();
+            totalTicksToGrow += injuries.Sum(x => x.Severity) * 5;
+            var scars = InnerPawn.health.hediffSet.hediffs.Where(x => x.IsPermanent());
+            totalTicksToGrow += scars.Count() * 650;
+            totalCostToGrow += scars.Count();
+            var brainTraumas = InnerPawn.health.hediffSet.hediffs.Where(x => x.def == AC_DefOf.AC_BrainTrauma || x.def == AC_DefOf.TraumaSavant);
+            totalTicksToGrow += brainTraumas.Count() * 2500;
+            totalCostToGrow += brainTraumas.Count() * 10;
+            if (corpse.GetRotStage() == RotStage.Rotting)
+            {
+                totalTicksToGrow *= 2f;
+                totalCostToGrow *= 2f;
+            }
+            StartRepurpose((int)totalTicksToGrow, totalCostToGrow);
+        }
+
+        public void StartRepurpose(int totalTicksToGrow, float totalGrowthCost)
+        {
+            this.totalTicksToGrow = totalTicksToGrow;
+            this.totalGrowthCost = totalGrowthCost;
+            InnerPawn.Rotation = Rot4.South;
+        }
         public void StartGrowth(Pawn newSleeve, Xenogerm xenogerm, int totalTicksToGrow, int totalGrowthCost)
         {
+            Reset();
             targetBodyType = newSleeve.story.bodyType;
             xenogermToConsume = xenogerm;
             Pawn pawn = InnerPawn;
@@ -225,7 +350,6 @@ namespace AlteredCarbon
                 pawn.Destroy(DestroyMode.Vanish);
             }
             TryAcceptThing(newSleeve);
-            Reset();
             this.totalTicksToGrow = totalTicksToGrow;
             this.totalGrowthCost = totalGrowthCost;
             incubatorState = IncubatorState.ToBeActivated;
@@ -240,6 +364,9 @@ namespace AlteredCarbon
             runningOutFuelInTicks = 0;
             totalGrowthCost = 0;
             totalTicksToGrow = 0;
+            targetBodyType = null;
+            xenogermToConsume = null; 
+            corpseToRepurpose = null;
         }
         public void AddGrowth()
         {
@@ -256,7 +383,29 @@ namespace AlteredCarbon
                 AlteredCarbonManager.Instance.emptySleeves = new HashSet<Pawn>();
             }
 
-            AlteredCarbonManager.Instance.emptySleeves.Add(InnerPawn);
+            var pawn = InnerPawn;
+            var injuries = pawn.health.hediffSet.hediffs.OfType<Hediff_Injury>();
+            var missingParts = pawn.GetMissingParts();
+            var scars = pawn.health.hediffSet.hediffs.Where(x => x.IsPermanent());
+            var brainTraumas = pawn.health.hediffSet.hediffs.Where(x => x.def == AC_DefOf.AC_BrainTrauma || x.def == AC_DefOf.TraumaSavant);
+            var toRemove = injuries.Cast<Hediff>().Concat(missingParts).Concat(scars).Concat(brainTraumas).ToList();
+            var bloodlossHediff = pawn.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.BloodLoss);
+            if (bloodlossHediff != null)
+            {
+                toRemove.Add(bloodlossHediff);
+            }
+            foreach (var h in toRemove)
+            {
+                pawn.health.RemoveHediff(h);
+            }
+
+            if (pawn.Dead)
+            {
+                pawn.MakeEmptySleeve();
+                ResurrectionUtility.Resurrect(pawn);
+                innerContainer.TryAdd(pawn);
+            }
+            AlteredCarbonManager.Instance.emptySleeves.Add(pawn);
             Messages.Message("AC.FinishedGrowingSleeve".Translate(), this, MessageTypeDefOf.CautionInput);
         }
 
@@ -265,7 +414,7 @@ namespace AlteredCarbon
             Pawn sleeve = InnerPawn;
             base.Open();
             Pawn pawn = OpeningPawn();
-            if (pawn != null)
+            if (pawn != null && pawn.Dead is false)
             {
                 Building_Bed bed = RestUtility.FindBedFor(sleeve, pawn, checkSocialProperness: false);
                 if (bed == null)
@@ -306,25 +455,11 @@ namespace AlteredCarbon
         public override void EjectContents()
         {
             base.EjectContents();
-            ThingDef filth_Slime = ThingDefOf.Filth_Slime;
-            foreach (Thing thing in innerContainer)
-            {
-                if (thing is Pawn pawn)
-                {
-                    PawnComponentsUtility.AddComponentsForSpawn(pawn);
-                    pawn.filth.GainFilth(filth_Slime);
-                    pawn.health.AddHediff(AC_DefOf.VFEU_EmptySleeve);
-                }
-            }
-            Pawn openingPawn = OpeningPawn();
-            if (openingPawn != null)
-            {
-                innerContainer.TryDrop(InnerThing, openingPawn.Position, Map, ThingPlaceMode.Direct, 1, out Thing resultingThing);
-            }
-            else
-            {
-                innerContainer.TryDrop(InnerThing, ThingPlaceMode.Near, 1, out Thing resultingThing);
-            }
+            var pawn = InnerPawn;
+            PawnComponentsUtility.AddComponentsForSpawn(pawn);
+            pawn.filth.GainFilth(ThingDefOf.Filth_Slime);
+            pawn.health.AddHediff(AC_DefOf.VFEU_EmptySleeve);
+            innerContainer.TryDrop(pawn, this.InteractionCell, Map, ThingPlaceMode.Direct, 1, out Thing resultingThing);
         }
 
         public override void KillInnerThing()
@@ -344,6 +479,7 @@ namespace AlteredCarbon
                 {
                     if (compRefuelable.HasFuel && powerTrader.PowerOn)
                     {
+                        isRunningOutFuel = isRunningOutPower = false;
                         DoWork();
                     }
 
@@ -415,12 +551,14 @@ namespace AlteredCarbon
                 }
                 curTicksToGrow++;
                 AdjustAge();
+                AdjustHealth();
             }
             else
             {
                 FinishGrowth();
             }
         }
+
 
         private BodyTypeDef GetActualBodyType()
         {
@@ -435,8 +573,64 @@ namespace AlteredCarbon
             return targetBodyType;
         }
 
+        private void AdjustHealth()
+        {
+            var growthProgress = GrowthProgress;
+            var remainingTime = totalTicksToGrow - curTicksToGrow;
+
+            var injuries = InnerPawn.health.hediffSet.hediffs.OfType<Hediff_Injury>();
+            var allSeverities = injuries.Sum(x => x.Severity);
+            var severityToSubtract = allSeverities / (float)remainingTime;
+            if (severityToSubtract > 0)
+            {
+                while (injuries.Any() && severityToSubtract > 0)
+                {
+                    var injury = injuries.FirstOrDefault();
+                    var toSubtract = Mathf.Min(injury.Severity, severityToSubtract);
+                    severityToSubtract -= toSubtract;
+                    injury.Severity -= toSubtract;
+                    if (injury.Severity <= 0)
+                    {
+                        InnerPawn.health.RemoveHediff(injury);
+                    }
+                }
+            }
+
+            var missingParts = InnerPawn.GetMissingParts();
+            if (missingParts.Any())
+            {
+                var hashInterval = (int)(remainingTime / (float)missingParts.Count());
+                if (InnerPawn.IsHashIntervalTick(hashInterval))
+                {
+                    var toRemove = missingParts.FirstOrDefault(x => missingParts.Any(y => x.part.GetDirectChildParts().Contains(y.Part)) is false);
+                    InnerPawn.health.RemoveHediff(toRemove);
+                }
+            }
+
+            var scars = InnerPawn.health.hediffSet.hediffs.Where(x => x.IsPermanent());
+            if (scars.Any())
+            {
+                var hashInterval = (int)(remainingTime / (float)scars.Count());
+                if (InnerPawn.IsHashIntervalTick(hashInterval))
+                {
+                    var toRemove = scars.RandomElement();
+                    InnerPawn.health.RemoveHediff(toRemove);
+                }
+            }
+            var brainTraumas = InnerPawn.health.hediffSet.hediffs.Where(x => x.def == AC_DefOf.AC_BrainTrauma || x.def == AC_DefOf.TraumaSavant);
+            if (brainTraumas.Any())
+            {
+                var hashInterval = (int)(remainingTime / (float)scars.Count());
+                if (InnerPawn.IsHashIntervalTick(hashInterval))
+                {
+                    var toRemove = brainTraumas.RandomElement();
+                    InnerPawn.health.RemoveHediff(toRemove);
+                }
+            }
+        }
         private void AdjustAge()
         {
+            if (InnerPawn.Dead) return;
             var growthProgress = GrowthProgress;
             var lastAdultAge = InnerPawn.RaceProps.lifeStageAges.LastOrDefault((LifeStageAge lifeStageAge) => lifeStageAge.def.developmentalStage.Adult())?.minAge ?? 0f;
             InnerPawn.ageTracker.AgeBiologicalTicks = (long)(Mathf.FloorToInt(lastAdultAge * 3600000f) * growthProgress);
@@ -472,6 +666,7 @@ namespace AlteredCarbon
             base.ExposeData();
             Scribe_Values.Look(ref innerPawnIsDead, "innerPawnIsDead", false, true);
             Scribe_References.Look(ref xenogermToConsume, "xenogermToConsume");
+            Scribe_References.Look(ref corpseToRepurpose, "corpseToRepurpose");
             Scribe_Defs.Look(ref targetBodyType, "targetBodyType");
         }
     }

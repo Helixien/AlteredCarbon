@@ -21,7 +21,8 @@ namespace AlteredCarbon
         public static JobDef AC_InsertingGenepackIntoCentrifuge;
         public static ThingDef AC_GeneCentrifuge;
         public static SoundDef AC_GeneCentrifuge_Ambience;
-
+        public static JobDef AC_HaulCorpseToSleeveGrower;
+        public static JobDef AC_CancelRepurposingBody;
 
         [MayRequireIdeology] public static PreceptDef AC_Stacking_Despised;
         [MayRequireIdeology] public static PreceptDef AC_Sleeving_Despised;

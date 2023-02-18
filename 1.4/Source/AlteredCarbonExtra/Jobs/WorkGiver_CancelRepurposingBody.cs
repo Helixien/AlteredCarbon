@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace AlteredCarbon
 {
-	public class WorkGiver_CancelIncubatingProcess : WorkGiver_Scanner
+	public class WorkGiver_CancelRepurposingBody : WorkGiver_Scanner
 	{
 		public override PathEndMode PathEndMode => PathEndMode.InteractionCell;
 		public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)
@@ -23,19 +23,19 @@ namespace AlteredCarbon
 				return false;
             }
 			if (!pawn.CanReserveAndReach(t, PathEndMode, Danger.Deadly))
-			{
-				return false;
+            {
+                return false;
 			}
 			if (t is Building_SleeveGrower sleeveGrower && (sleeveGrower.InnerPawn?.Dead ?? false))
-			{
-                return false;
+            {
+                return true;
             }
-            return t is Building_Incubator;
+            return false;
 		}
 
 		public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
 		{
-			return JobMaker.MakeJob(AC_DefOf.VFEU_CancelIncubatingProcess, t);
+			return JobMaker.MakeJob(AC_Extra_DefOf.AC_CancelRepurposingBody, t);
 		}
 	}
 }

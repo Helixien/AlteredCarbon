@@ -26,7 +26,11 @@ namespace AlteredCarbon
 			{
 				return false;
 			}
-			return t is Building_Incubator;
+			if (t is Building_SleeveGrower sleeveGrower && sleeveGrower.targetBodyType is null)
+			{
+				return false;
+			}
+			return true;
 		}
 
 		public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
