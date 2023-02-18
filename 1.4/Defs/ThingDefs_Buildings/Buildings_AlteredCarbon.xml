@@ -4,7 +4,7 @@
 	<ThingDef ParentName="BuildingBase">
 		<defName>AC_StackArray</defName>
 		<label>stack array</label>
-		<description>An ultratech quantum computing matrix, designed to store cortical stacks. If in range of auto-linked stacks, the matrix can make emergency backups in case of catastrophic stack faliure.</description>
+		<description>A quantum computing array, designed to store cortical stacks and automatically back up nearby filled cortical stacks.</description>
 		<thingClass>AlteredCarbon.Building_StackStorage</thingClass>
 		<tickerType>Normal</tickerType>
 		<drawerType>RealtimeOnly</drawerType>
@@ -85,7 +85,7 @@
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
 				<shortCircuitInRain>true</shortCircuitInRain>
-				<basePowerConsumption>4500</basePowerConsumption>
+				<basePowerConsumption>4000</basePowerConsumption>
 			</li>
 			<li Class="CompProperties_Glower">
 				<glowRadius>5</glowRadius>
@@ -211,7 +211,7 @@
 	<ThingDef ParentName="BuildingBase">
 		<defName>AC_XenoGermDuplicator</defName>
 		<label>germ duplicator</label>
-		<description>A combination gene processor combined with two advanced gene banks. This building, when placed near a gene assembler, increases the maximum genetic complexity of the xenogerms you can assemble, as well as access a plethora of stored genepacks during their creation.\n\nWhen powered, gene vaults prevent genepacks from deteriorating and will slow repair deterioration.</description>
+		<description>A deceptively simple machine that synthesises genetic material from the environment in order to mass manufacture xenogerms. This building can duplicate an existing xenogerm with the exception of any present archite genes, as they cannot be replicated by human technology.</description>
 		<passability>PassThroughOnly</passability>
 		<fillPercent>0.4</fillPercent>
 		<pathCost>14</pathCost>
@@ -238,9 +238,9 @@
 			<Flammability>0.5</Flammability>
 		</statBases>
 		<costList>
-			<Steel>100</Steel>
-			<Plasteel>25</Plasteel>
-			<ComponentIndustrial>2</ComponentIndustrial>
+			<Steel>120</Steel>
+			<Plasteel>45</Plasteel>
+			<ComponentIndustrial>5</ComponentIndustrial>
 		</costList>
 		<constructionSkillPrerequisite>10</constructionSkillPrerequisite>
 		<building>
