@@ -43,17 +43,17 @@ namespace AlteredCarbon
 
         private int ticksToGrow = 900000;
         private int growCost = 250;
-        private HediffDef qualityDiff;
+        private GeneDef geneQuality;
 
-        public static Dictionary<HediffDef, int> sleeveQualitiesTimeCost = new Dictionary<HediffDef, int>
+        public static Dictionary<GeneDef, int> sleeveQualitiesTimeCost = new Dictionary<GeneDef, int>
         {
-            {AC_DefOf.VFEU_Sleeve_Quality_Awful, 0 },
-            {AC_DefOf.VFEU_Sleeve_Quality_Poor, GenDate.TicksPerDay * 2 },
-            {AC_DefOf.VFEU_Sleeve_Quality_Normal, GenDate.TicksPerDay * 3 },
-            {AC_DefOf.VFEU_Sleeve_Quality_Good, GenDate.TicksPerDay * 5 },
-            {AC_DefOf.VFEU_Sleeve_Quality_Excellent, GenDate.TicksPerDay * 10 },
-            {AC_DefOf.VFEU_Sleeve_Quality_Masterwork, GenDate.TicksPerDay * 15 },
-            {AC_DefOf.VFEU_Sleeve_Quality_Legendary, GenDate.TicksPerDay * 30 },
+            {AC_DefOf.VFEU_SleeveQuality_Awful, 0 },
+            {AC_DefOf.VFEU_SleeveQuality_Poor, GenDate.TicksPerDay * 2 },
+            {AC_DefOf.VFEU_SleeveQuality_Normal, GenDate.TicksPerDay * 3 },
+            {AC_DefOf.VFEU_SleeveQuality_Good, GenDate.TicksPerDay * 5 },
+            {AC_DefOf.VFEU_SleeveQuality_Excellent, GenDate.TicksPerDay * 10 },
+            {AC_DefOf.VFEU_SleeveQuality_Masterwork, GenDate.TicksPerDay * 15 },
+            {AC_DefOf.VFEU_SleeveQuality_Legendary, GenDate.TicksPerDay * 30 },
         };
 
         //Static Values
@@ -84,6 +84,10 @@ namespace AlteredCarbon
             this.sleeveGrower = sleeveGrower;
             Init(pawnToClone.kindDef, pawnToClone.gender);
             ACUtils.CopyBody(pawnToClone, curSleeve);
+            if (pawnToClone.genes.GenesListForReading.Any(x => ACUtils.sleeveQualities.Contains(x.def)) is false)
+            {
+                ApplyGeneQuality();
+            }
             RecheckEverything();
             InitUI();
         }
@@ -159,6 +163,10 @@ namespace AlteredCarbon
                 {
                     curXenogerm = x;
                     GeneUtility.ImplantXenogermItem(curSleeve, curXenogerm);
+                    if (curSleeve.genes.CustomXenotype != null)
+                    {
+                        curSleeve.genes.CustomXenotype.inheritable = true;
+                    }
                     convertedGenes = new List<Gene>();
                     RecheckBodyOptions();
                     InitializeIndexes();
@@ -359,10 +367,10 @@ namespace AlteredCarbon
                 }, floatMenu: false);
 
             DoSelectionButtons(ref firstColumnPos, "AC.SleeveQuality".Translate(), ref sleeveQualityIndex,
-                (HediffDef x) => GetQualityLabel(ACUtils.sleeveQualities.IndexOf(x)), ACUtils.sleeveQualities, delegate (HediffDef x)
+                (GeneDef x) => GetQualityLabel(ACUtils.sleeveQualities.IndexOf(x)), ACUtils.sleeveQualities, delegate (GeneDef x)
                 {
                     sleeveQualityIndex = ACUtils.sleeveQualities.IndexOf(x);
-                    ApplyHediffs();
+                    ApplyGeneQuality();
                     UpdateGrowCost();
                 }, floatMenu: true);
 
@@ -394,30 +402,29 @@ namespace AlteredCarbon
 
             secondColumnPos.y = pawnBox.yMax + 15;
 
-            List<Hediff> hediffs = HealthCardUtility.VisibleHediffGroupsInOrder(curSleeve, false).SelectMany(group => group).ToList();
-            Rect healthBoxLabel = GetLabelRect(ref secondColumnPos, 150, 32);
-            Text.Font = GameFont.Medium;
-            Widgets.Label(healthBoxLabel, "AC.SleeveHealthPreview".Translate().CapitalizeFirst());
-            Rect healthBox = new Rect(pawnBox.x - 15, healthBoxLabel.yMax, pawnBox.width + 30, (hediffs.Count * 25f) + 10);
-            Widgets.DrawHighlight(healthBox);
-            GUI.color = HealthUtility.GoodConditionColor;
-            Listing_Standard diffListing = new Listing_Standard();
-            diffListing.Begin(healthBox.ContractedBy(5));
-            Text.Anchor = TextAnchor.MiddleLeft;
-            for (int ii = 0; ii < hediffs.Count; ++ii)
-            {
-                diffListing.Label(hediffs[ii].LabelCap);
-            }
-            diffListing.End();
-
-            GUI.color = Color.white;
-            if (Mouse.IsOver(healthBox))
-            {
-                Widgets.DrawHighlight(healthBox);
-                TooltipHandler.TipRegion(healthBox, new TipSignal(() => GetHediffToolTip(hediffs, curSleeve), 1147682));
-            }
-
-            secondColumnPos.y = healthBox.yMax + 15;
+            //List<Hediff> hediffs = HealthCardUtility.VisibleHediffGroupsInOrder(curSleeve, false).SelectMany(group => group).ToList();
+            //Rect healthBoxLabel = GetLabelRect(ref secondColumnPos, 150, 32);
+            //Text.Font = GameFont.Medium;
+            //Widgets.Label(healthBoxLabel, "AC.SleeveHealthPreview".Translate().CapitalizeFirst());
+            //Rect healthBox = new Rect(pawnBox.x - 15, healthBoxLabel.yMax, pawnBox.width + 30, (hediffs.Count * 25f) + 10);
+            //Widgets.DrawHighlight(healthBox);
+            //GUI.color = HealthUtility.GoodConditionColor;
+            //Listing_Standard diffListing = new Listing_Standard();
+            //diffListing.Begin(healthBox.ContractedBy(5));
+            //Text.Anchor = TextAnchor.MiddleLeft;
+            //for (int ii = 0; ii < hediffs.Count; ++ii)
+            //{
+            //    diffListing.Label(hediffs[ii].LabelCap);
+            //}
+            //diffListing.End();
+            //
+            //GUI.color = Color.white;
+            //if (Mouse.IsOver(healthBox))
+            //{
+            //    Widgets.DrawHighlight(healthBox);
+            //    TooltipHandler.TipRegion(healthBox, new TipSignal(() => GetHediffToolTip(hediffs, curSleeve), 1147682));
+            //}
+            //secondColumnPos.y = healthBox.yMax + 15;
 
             Text.Font = GameFont.Small;
             if (genes == null || genes.Count == 0)
@@ -439,19 +446,19 @@ namespace AlteredCarbon
                 Rect rect = default;
 
                 var endogenes = genes.Where(x => curSleeve.genes.Endogenes.Contains(x)).ToList();
-                GeneUtils.DrawGenes(ref secondColumnPos, "Endogenes".Translate().CapitalizeFirst(), pawnBox, healthBox, ref geneBox, endogenes, ref rect);
+                GeneUtils.DrawGenes(ref secondColumnPos, "Endogenes".Translate().CapitalizeFirst(), pawnBox, pawnBox.width + 30, ref geneBox, endogenes, ref rect);
                 var xenogenes = genes.Where(x => curSleeve.genes.Xenogenes.Contains(x)).ToList();
-                GeneUtils.DrawGenes(ref secondColumnPos, "Xenogenes".Translate().CapitalizeFirst(), pawnBox, healthBox, ref geneBox, xenogenes, ref rect);
+                GeneUtils.DrawGenes(ref secondColumnPos, "Xenogenes".Translate().CapitalizeFirst(), pawnBox, pawnBox.width + 30, ref geneBox, xenogenes, ref rect);
             }
 
-            if (ModCompatibility.RimJobWorldIsActive && ModCompatibility.HelixienAlteredCarbonIsActive)
-            {
-                Rect setBodyParts = new Rect(healthBox.x, secondColumnPos.y, healthBox.width, buttonHeight);
-                if (ButtonTextSubtleCentered(setBodyParts, "AC.SetBodyParts".Translate().CapitalizeFirst()))
-                {
-                    Find.WindowStack.Add(new Window_BodyPartPicker(curSleeve, this));
-                }
-            }
+            //if (ModCompatibility.RimJobWorldIsActive && ModCompatibility.HelixienAlteredCarbonIsActive)
+            //{
+            //    Rect setBodyParts = new Rect(healthBox.x, secondColumnPos.y, healthBox.width, buttonHeight);
+            //    if (ButtonTextSubtleCentered(setBodyParts, "AC.SetBodyParts".Translate().CapitalizeFirst()))
+            //    {
+            //        Find.WindowStack.Add(new Window_BodyPartPicker(curSleeve, this));
+            //    }
+            //}
 
             Widgets.EndScrollView();
             scrollHeightCount = (int)(Mathf.Max(firstColumnPos.y, secondColumnPos.y) - innerRectYOffset);
@@ -514,18 +521,18 @@ namespace AlteredCarbon
             growCost = 12 * (ticksToGrow / GenDate.TicksPerDay);
         }
 
-        public void ApplyHediffs()
+        public void ApplyGeneQuality()
         {
-            if (qualityDiff != null)
+            foreach (var geneQuality in ACUtils.sleeveQualities)
             {
-                Hediff hediff = curSleeve.health.hediffSet.GetFirstHediffOfDef(qualityDiff);
-                if (hediff != null)
+                var gene = curSleeve.genes.GetGene(geneQuality);
+                if (gene != null)
                 {
-                    curSleeve.health.RemoveHediff(hediff);
+                    curSleeve.genes.RemoveGene(gene);
                 }
             }
-            qualityDiff = ACUtils.sleeveQualities[sleeveQualityIndex];
-            curSleeve.health.AddHediff(qualityDiff, null);
+            geneQuality = ACUtils.sleeveQualities[sleeveQualityIndex];
+            curSleeve.genes.AddGene(geneQuality, false);
         }
 
         public static string GetHediffToolTip(IEnumerable<Hediff> diffs, Pawn pawn)
@@ -569,20 +576,6 @@ namespace AlteredCarbon
             {
                 curSleeve.style.beardDef = permittedBeards.RandomElement();
             }
-
-        }
-
-        public void RemoveAllTraits(Pawn pawn)
-        {
-            if (pawn.story != null)
-            {
-                pawn.story.traits = new TraitSet(pawn);
-            }
-        }
-
-        public void RemoveAllHediffs(Pawn pawn)
-        {
-            pawn.health = new Pawn_HealthTracker(pawn);
         }
 
         public string ExtractHeadLabels(string headLabel)
@@ -800,11 +793,11 @@ namespace AlteredCarbon
                 femaleBodyTypeIndex = GetPermittedBodyTypes().Select(x => x.Value).ToList().IndexOf(curSleeve.story.bodyType);
             }
 
-            foreach (HediffDef hediff in ACUtils.sleeveQualities)
+            foreach (var gene in ACUtils.sleeveQualities)
             {
-                if (curSleeve.health.hediffSet.HasHediff(hediff))
+                if (curSleeve.genes.GetGene(gene) != null)
                 {
-                    sleeveQualityIndex = ACUtils.sleeveQualities.IndexOf(hediff);
+                    sleeveQualityIndex = ACUtils.sleeveQualities.IndexOf(gene);
                 }
             }
         }
@@ -826,58 +819,22 @@ namespace AlteredCarbon
             curSleeve = PawnGenerator.GeneratePawn(new PawnGenerationRequest(currentPawnKindDef, Faction.OfPlayer, PawnGenerationContext.NonPlayer,
                 -1, true, false, false, false, false, 0f, false, true, true, false, false, false, true,
                 fixedGender: gender, forcedXenotype: XenotypeDefOf.Baseliner));
-            curSleeve.SetFaction(null);
+            curSleeve.equipment.DestroyAllEquipment();
+            curSleeve.inventory.DestroyAll();
+            curSleeve.apparel.DestroyAll();
+            curSleeve.MakeEmptySleeve();
             var lastAdultAge = curSleeve.RaceProps.lifeStageAges.LastOrDefault((LifeStageAge lifeStageAge) => lifeStageAge.def.developmentalStage.Adult())?.minAge ?? 0f;
             curSleeve.ageTracker.AgeBiologicalTicks = (long)Mathf.FloorToInt(lastAdultAge * 3600000f);
             curSleeve.ageTracker.AgeChronologicalTicks = (long)Mathf.FloorToInt(lastAdultAge * 3600000f);
-            curSleeve.story.Adulthood = null;
-            curSleeve.guest.recruitable = true;
-            curSleeve.relations = new Pawn_RelationsTracker(curSleeve);
-            curSleeve.Name = new NameSingle("AC.EmptySleeve".Translate());
-            curSleeve.story.title = "";
-            curSleeve?.equipment.DestroyAllEquipment();
-            curSleeve?.inventory.DestroyAll();
-            curSleeve.apparel.DestroyAll();
-            RemoveAllTraits(curSleeve);
-            convertedGenes = new List<Gene>();
-            if (curSleeve.playerSettings == null)
-            {
-                curSleeve.playerSettings = new Pawn_PlayerSettings(curSleeve);
-            }
-
-            curSleeve.playerSettings.medCare = MedicalCareCategory.Best;
-            curSleeve.skills = new Pawn_SkillTracker(curSleeve);
-            curSleeve.needs = new Pawn_NeedsTracker(curSleeve);
-            curSleeve.workSettings = new Pawn_WorkSettings(curSleeve);
-            if (curSleeve.needs.mood != null)
-            {
-                curSleeve.needs.mood.thoughts = new ThoughtHandler(curSleeve);
-            }
-            curSleeve.timetable = new Pawn_TimetableTracker(curSleeve);
-            RemoveAllHediffs(curSleeve);
-            if (curSleeve.workSettings != null)
-            {
-                curSleeve.workSettings.EnableAndInitialize();
-            }
-
-            if (curSleeve.skills != null)
-            {
-                curSleeve.skills.Notify_SkillDisablesChanged();
-            }
-
-            curSleeve.story.Childhood = AC_DefOf.VFEU_VatGrownChild;
-            curSleeve.story.Childhood = AC_DefOf.VFEU_VatGrownAdult;
-            curSleeve.ideo = new Pawn_IdeoTracker(curSleeve);
-            curSleeve.story.favoriteColor = null;
-            if (ModsConfig.IdeologyActive)
-            {
-                curSleeve.style.BodyTattoo = TattooDefOf.NoTattoo_Body;
-                curSleeve.style.FaceTattoo = TattooDefOf.NoTattoo_Face;
-            }
+            curSleeve.health = new Pawn_HealthTracker(curSleeve);
             curSleeve.Rotation = Rot4.South;
-
-            ApplyHediffs();
+            convertedGenes = new List<Gene>();
+            ApplyGeneQuality();
             RecheckEverything();
+            if (curSleeve.genes.CustomXenotype != null)
+            {
+                curSleeve.genes.CustomXenotype.inheritable = true;
+            }
         }
     }
 }

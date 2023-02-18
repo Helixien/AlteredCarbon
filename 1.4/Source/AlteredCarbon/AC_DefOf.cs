@@ -41,13 +41,13 @@ namespace AlteredCarbon
         public static JobDef VFEU_StartIncubatingProcess;
         public static JobDef VFEU_CancelIncubatingProcess;
         public static HediffDef VFEU_CorticalStack;
-        public static HediffDef VFEU_Sleeve_Quality_Awful;
-        public static HediffDef VFEU_Sleeve_Quality_Poor;
-        public static HediffDef VFEU_Sleeve_Quality_Normal;
-        public static HediffDef VFEU_Sleeve_Quality_Good;
-        public static HediffDef VFEU_Sleeve_Quality_Excellent;
-        public static HediffDef VFEU_Sleeve_Quality_Masterwork;
-        public static HediffDef VFEU_Sleeve_Quality_Legendary;
+        public static GeneDef VFEU_SleeveQuality_Awful;
+        public static GeneDef VFEU_SleeveQuality_Poor;
+        public static GeneDef VFEU_SleeveQuality_Normal;
+        public static GeneDef VFEU_SleeveQuality_Good;
+        public static GeneDef VFEU_SleeveQuality_Excellent;
+        public static GeneDef VFEU_SleeveQuality_Masterwork;
+        public static GeneDef VFEU_SleeveQuality_Legendary;
         public static HediffDef VFEU_EmptySleeve;
         public static HediffDef VFEU_SleeveShock;
         public static ThingDef VFEU_AncientStack;
@@ -76,5 +76,6 @@ namespace AlteredCarbon
         public static LetterDef HumanPregnancy;
         public static FleckDef PsycastAreaEffect;
         public static RecipeDef VFEU_HackBiocodedThings;
+        public static HediffDef TraumaSavant;
     }
 }

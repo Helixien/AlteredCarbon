@@ -20,7 +20,7 @@
 		<giverClass>AlteredCarbon.WorkGiver_StartIncubatingProcess</giverClass>
 		<workType>BasicWorker</workType>
 		<priorityInType>50</priorityInType>
-		<verb>starting growing process</verb>
+		<verb>start growing process</verb>
 		<gerund>starting growth process at</gerund>
 		<requiredCapacities>
 			<li>Manipulation</li>
@@ -34,7 +34,7 @@
 		<giverClass>AlteredCarbon.WorkGiver_CancelIncubatingProcess</giverClass>
 		<workType>BasicWorker</workType>
 		<priorityInType>50</priorityInType>
-		<verb>canceling growing process</verb>
+		<verb>cancel growing process</verb>
 		<gerund>canceling growth process at</gerund>
 		<requiredCapacities>
 			<li>Manipulation</li>
@@ -51,7 +51,7 @@
 		<fixedBillGiverDefs>
 			<li>VFEU_DecryptionBench</li>
 		</fixedBillGiverDefs>
-		<verb>hacking stacks</verb>
+		<verb>hack stacks</verb>
 		<gerund>hacking stacks at</gerund>
 		<requiredCapacities>
 			<li>Manipulation</li>

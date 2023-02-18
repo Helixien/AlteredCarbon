@@ -10,7 +10,6 @@ namespace AlteredCarbon
     [StaticConstructorOnStartup]
     public class Building_DecryptionBench : Building_WorkTable
     {
-        private static readonly Texture2D CancelIcon = ContentFinder<Texture2D>.Get("UI/Designators/Cancel");
         public override IEnumerable<Gizmo> GetGizmos()
         {
             foreach (Gizmo g in base.GetGizmos())
@@ -44,7 +43,7 @@ namespace AlteredCarbon
                 yield return new Command_Action
                 {
                     defaultLabel = "AC.CancelStackReset".Translate(),
-                    icon = CancelIcon,
+                    icon = UIHelper.CancelIcon,
                     action = delegate ()
                     {
                         foreach (var bill in wipeStacksBills)
@@ -88,7 +87,7 @@ namespace AlteredCarbon
                     yield return new Command_Action
                     {
                         defaultLabel = "AC.CancelStackRewrite".Translate(),
-                        icon = CancelIcon,
+                        icon = UIHelper.CancelIcon,
                         action = delegate ()
                         {
                             foreach (var bill in rewriteStacksBills)

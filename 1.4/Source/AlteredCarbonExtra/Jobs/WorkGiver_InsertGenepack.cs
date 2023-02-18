@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace AlteredCarbon
 {
+
     [HotSwappable]
     public class WorkGiver_InsertGenepack : WorkGiver_Scanner
     {

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using Verse;
+using Verse.AI;
 
 namespace AlteredCarbon
 {
@@ -29,15 +30,15 @@ namespace AlteredCarbon
             { AC_DefOf.VFEU_FilledCorticalStack, AC_DefOf.VFEU_EmptyCorticalStack },
         };
         
-        public static readonly List<HediffDef> sleeveQualities = new List<HediffDef>
+        public static readonly List<GeneDef> sleeveQualities = new List<GeneDef>
         {
-            AC_DefOf.VFEU_Sleeve_Quality_Awful,
-            AC_DefOf.VFEU_Sleeve_Quality_Poor,
-            AC_DefOf.VFEU_Sleeve_Quality_Normal,
-            AC_DefOf.VFEU_Sleeve_Quality_Good,
-            AC_DefOf.VFEU_Sleeve_Quality_Excellent,
-            AC_DefOf.VFEU_Sleeve_Quality_Masterwork,
-            AC_DefOf.VFEU_Sleeve_Quality_Legendary
+            AC_DefOf.VFEU_SleeveQuality_Awful,
+            AC_DefOf.VFEU_SleeveQuality_Poor,
+            AC_DefOf.VFEU_SleeveQuality_Normal,
+            AC_DefOf.VFEU_SleeveQuality_Good,
+            AC_DefOf.VFEU_SleeveQuality_Excellent,
+            AC_DefOf.VFEU_SleeveQuality_Masterwork,
+            AC_DefOf.VFEU_SleeveQuality_Legendary
         };
 
         public static Dictionary<ThingDef, StackInstallInfo> stackRecipesByDef = new Dictionary<ThingDef, StackInstallInfo>
@@ -311,7 +312,64 @@ namespace AlteredCarbon
                 Scribe.loader.FinalizeLoading();
             }
         }
+        public static bool HasCorticalStack(this Pawn pawn)
+        {
+            return pawn.HasCorticalStack(out _);
+        }
 
+        public static void CreateInitialComponents(Pawn pawn)
+        {
+            pawn.records = new Pawn_RecordsTracker(pawn);
+            pawn.meleeVerbs = new Pawn_MeleeVerbs(pawn);
+            pawn.verbTracker = new VerbTracker(pawn);
+            pawn.mindState = new Pawn_MindState(pawn);
+            pawn.ownership = new Pawn_Ownership(pawn);
+            pawn.connections = new Pawn_ConnectionsTracker(pawn);
+            pawn.thinker = new Pawn_Thinker(pawn);
+            pawn.jobs = new Pawn_JobTracker(pawn);
+            pawn.stances = new Pawn_StanceTracker(pawn);
+            pawn.skills = new Pawn_SkillTracker(pawn);
+            pawn.guest = new Pawn_GuestTracker(pawn);
+            pawn.guilt = new Pawn_GuiltTracker(pawn);
+            pawn.playerSettings = new Pawn_PlayerSettings(pawn);
+            pawn.workSettings = new Pawn_WorkSettings(pawn);
+            pawn.royalty = new Pawn_RoyaltyTracker(pawn);
+            pawn.ideo = new Pawn_IdeoTracker(pawn);
+            pawn.styleObserver = new Pawn_StyleObserverTracker(pawn);
+            pawn.surroundings = new Pawn_SurroundingsTracker(pawn);
+            pawn.abilities = new Pawn_AbilityTracker(pawn);
+            pawn.relations = new Pawn_RelationsTracker(pawn);
+            pawn.psychicEntropy = new Pawn_PsychicEntropyTracker(pawn);
+            pawn.timetable = new Pawn_TimetableTracker(pawn);
+            pawn.needs ??= new Pawn_NeedsTracker(pawn);
+            pawn.needs.mood = new Need_Mood(pawn);
+            pawn.story.traits = new TraitSet(pawn);
+        }
+
+        public static void MakeEmptySleeve(this Pawn pawn)
+        {
+            CreateInitialComponents(pawn);
+            pawn.SetFaction(null);
+            pawn.guest.recruitable = true;
+            pawn.Name = new NameSingle("AC.EmptySleeve".Translate());
+            pawn.story.title = "";
+            pawn.playerSettings.medCare = MedicalCareCategory.Best;
+            pawn.workSettings.EnableAndInitialize();
+            pawn.skills.Notify_SkillDisablesChanged();
+            pawn.story.Childhood = AC_DefOf.VFEU_VatGrownChild;
+            pawn.story.Adulthood = AC_DefOf.VFEU_VatGrownAdult;
+            pawn.story.favoriteColor = null;
+            if (ModsConfig.IdeologyActive)
+            {
+                pawn.style.BodyTattoo = TattooDefOf.NoTattoo_Body;
+                pawn.style.FaceTattoo = TattooDefOf.NoTattoo_Face;
+            }
+        }
+
+        public static IEnumerable<Hediff_MissingPart> GetMissingParts(this Pawn pawn)
+        {
+            return pawn.health.hediffSet.hediffs.OfType<Hediff_MissingPart>();
+        }
         public static bool HasCorticalStack(this Pawn pawn, out Hediff_CorticalStack hediff_CorticalStack)
         {
             if (pawn?.health?.hediffSet != null)
@@ -384,21 +442,21 @@ namespace AlteredCarbon
                 || AlteredCarbonManager.Instance.PawnsWithStacks.Contains(pawn);
         }
 
-        public static bool UsesSleeve(this Pawn pawn)
-        {
-            return sleeveQualities.Exists(def => pawn.health.hediffSet.GetFirstHediffOfDef(def) != null);
-        }
-
-        public static HediffDef GetSleeveQuality(this Pawn pawn)
-        {
-            return sleeveQualities.First(def => pawn.health.hediffSet.HasHediff(def));
-        }
-
         public static Hediff MakeHediff(HediffDef hediffDef, Pawn pawn, BodyPartRecord part)
         {
             return ModCompatibility.RimJobWorldIsActive
                 ? rjw.SexPartAdder.MakePart(hediffDef, pawn, part)
                 : HediffMaker.MakeHediff(hediffDef, pawn, part);
+        }
+
+        public static bool UsesSleeve(this Pawn pawn)
+        {
+            return sleeveQualities.Exists(def => pawn.genes.GetGene(def) != null);
+        }
+
+        public static GeneDef GetSleeveQuality(this Pawn pawn)
+        {
+            return sleeveQualities.First(def => pawn.genes.GetGene(def) != null);
         }
 
         public static void CleanupList<T>(this List<T> list, Predicate<T> predicate = null)

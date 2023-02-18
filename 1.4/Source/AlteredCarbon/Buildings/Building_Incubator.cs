@@ -14,6 +14,7 @@ namespace AlteredCarbon
 		ToBeActivated,
 		Growing,
 	};
+	[HotSwappable]
 	public class Building_Incubator : Building, IThingHolder, IOpenable
 	{
 		public Building_Incubator()
@@ -156,12 +157,8 @@ namespace AlteredCarbon
 			}
 		}
 		public virtual Thing InnerThing => innerContainer.FirstOrDefault();
-
 		public float GrowthProgress => curTicksToGrow / (float)totalTicksToGrow;
-
-
 		public virtual int OpenTicks => -1;
-
 		public bool Accepts(Thing thing)
 		{
 			return InnerThing == null;
@@ -170,7 +167,7 @@ namespace AlteredCarbon
 		public override string GetInspectString()
 		{
 			string str = base.GetInspectString();
-			if (InnerThing != null && !isRunningOutFuel && !isRunningOutPower)
+			if (InnerThing != null)
 			{
 				float growthProgress = GrowthProgress * 100f;
 				return str + "\n" + "AC.GrowthProgress".Translate() + ((int)growthProgress).ToString() + "%";

@@ -26,6 +26,8 @@ namespace AlteredCarbon
         public static Texture2D FilterAtlas = ContentFinder<Texture2D>.Get("UI/Icons/FilterAtlas");
         public static Texture2D DropdownIndicator = ContentFinder<Texture2D>.Get("UI/Icons/DropdownIndicator");
         public static Texture2D ButtonCloseSmall = ContentFinder<Texture2D>.Get("UI/Icons/ButtonCloseSmall");
+        public static Texture2D CancelIcon = ContentFinder<Texture2D>.Get("UI/Designators/Cancel");
+
         public static Color ColorText = new Color(0.80f, 0.80f, 0.80f);
         public static Color ColorButtonHighlight = new Color(0.97647f, 0.97647f, 0.97647f);
         public static void DoColorButtons<T>(ref Vector2 pos, string label, List<T> colors, 
