@@ -42,11 +42,24 @@
 	<!-- ================================ Inserting genepack ====================== -->
 	<WorkGiverDef>
 		<defName>AC_InsertGenepack</defName>
-		<label>insert genepack in centrifuge</label>
+		<label>insert genepack into gene centrifuge</label>
 		<giverClass>AlteredCarbon.WorkGiver_InsertGenepack</giverClass>
 		<workType>Hauling</workType>
-		<verb>insert into centrifuge</verb>
-		<gerund>inserting into centrifuge</gerund>
+		<verb>insert into gene centrifuge</verb>
+		<gerund>inserting into gene centrifuge</gerund>
+		<priorityInType>1000</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+	<!-- ================================ Inserting xenogerm ====================== -->
+	<WorkGiverDef>
+		<defName>AC_InsertXenogerm</defName>
+		<label>insert xenogerm into xenogerm duplicator</label>
+		<giverClass>AlteredCarbon.WorkGiver_InsertXenogerm</giverClass>
+		<workType>Hauling</workType>
+		<verb>insert into xenogerm duplicator</verb>
+		<gerund>inserting into xenogerm duplicator</gerund>
 		<priorityInType>1000</priorityInType>
 		<requiredCapacities>
 			<li>Manipulation</li>

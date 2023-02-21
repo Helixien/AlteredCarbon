@@ -12,64 +12,17 @@ namespace AlteredCarbon
 {
     [HotSwappable]
     [StaticConstructorOnStartup]
-    public class Building_GeneCentrifuge : Building, IThingHolder
+    public class Building_GeneCentrifuge : Building_Processor
     {
         public static Texture2D InsertGenePack = ContentFinder<Texture2D>.Get("UI/Icons/InsertGenePack");
 
         public Genepack genepackToStore;
 
         public GeneDef geneToSeparate;
-
-        protected Effecter progressBarEffecter;
-
-        private static readonly Texture2D CancelIcon = ContentFinder<Texture2D>.Get("UI/Designators/Cancel");
-
-        public int ticksDone;
-
-        private Sustainer sustainerWorking;
-
-        public Building_GeneCentrifuge()
-        {
-            this.innerContainer = new ThingOwner<Thing>(this, false, LookMode.Deep);
-        }
-
-        public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
-        {
-            base.DeSpawn(mode);
-            progressBarEffecter?.Cleanup();
-        }
-
-        public CompPowerTrader compPower;
-        public override void SpawnSetup(Map map, bool respawningAfterLoad)
-        {
-            base.SpawnSetup(map, respawningAfterLoad);
-            if (Faction != null && Faction.IsPlayer)
-            {
-                this.contentsKnown = true;
-            }
-            compPower = this.TryGetComp<CompPowerTrader>();
-        }
-
-
-        public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
-        {
-            if (this.innerContainer.Count > 0 && (mode == DestroyMode.Deconstruct || mode == DestroyMode.KillFinalize))
-            {
-                this.EjectContents();
-            }
-            this.innerContainer.ClearAndDestroyContents(DestroyMode.Vanish);
-            base.Destroy(mode);
-        }
-
-        public bool Powered => this.compPower.PowerOn;
-        public bool HasAnyContents
-        {
-            get
-            {
-                return this.innerContainer.Any();
-            }
-        }
         public Genepack StoredGenepack => this.innerContainer.OfType<Genepack>().FirstOrDefault();
+
+        public override SoundDef SustainerDef => AC_Extra_DefOf.AC_GeneCentrifuge_Ambience;
+
         public override IEnumerable<Gizmo> GetGizmos()
         {
             foreach (var g in base.GetGizmos())
@@ -133,7 +86,7 @@ namespace AlteredCarbon
                 {
                     Command_Action command_Action = new Command_Action
                     {
-                        defaultLabel = "Debug: Finish seperating",
+                        defaultLabel = "Debug: Finish separation",
                         action = delegate
                         {
                             ticksDone = ExtractionDuration(StoredGenepack);
@@ -145,6 +98,16 @@ namespace AlteredCarbon
             }
         }
 
+        public override bool Accepts(Thing thing)
+        {
+            return base.Accepts(thing) && genepackToStore == thing;
+        }
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_References.Look(ref genepackToStore, "xenogermToDuplicate");
+            Scribe_Defs.Look(ref geneToSeparate, "geneToSeparate");
+        }
         public override string GetInspectString()
         {
             var sb = new StringBuilder();
@@ -158,46 +121,17 @@ namespace AlteredCarbon
             return sb.ToString();
         }
 
-        public ThingOwner GetDirectlyHeldThings()
-        {
-            return this.innerContainer;
-        }
-
-        public void GetChildHolders(List<IThingHolder> outChildren)
-        {
-            ThingOwnerUtility.AppendThingHoldersFromThings(outChildren, this.GetDirectlyHeldThings());
-        }
         public override void Tick()
         {
             base.Tick();
             if (Powered && StoredGenepack != null)
             {
-                ticksDone++;
                 var durationTicks = ExtractionDuration(StoredGenepack);
-                if (progressBarEffecter == null)
-                {
-                    progressBarEffecter = EffecterDefOf.ProgressBar.Spawn();
-                }
-                progressBarEffecter.EffectTick(this, TargetInfo.Invalid);
-                MoteProgressBar mote = ((SubEffecter_ProgressBar)progressBarEffecter.children[0]).mote;
-                mote.progress = ticksDone / (float)durationTicks;
-                mote.yOffset += 1;
-                if (sustainerWorking == null || sustainerWorking.Ended)
-                {
-                    sustainerWorking = AC_Extra_DefOf.AC_GeneCentrifuge_Ambience.TrySpawnSustainer(SoundInfo.InMap(this, MaintenanceType.PerTick));
-                }
-                else
-                {
-                    sustainerWorking.Maintain();
-                }
-                if (ticksDone >= durationTicks)
-                {
-                    FinishJob();
-                }
+                DoWork(durationTicks);
             }
         }
 
-        private void FinishJob()
+        protected override void FinishJob()
         {
             var newGenepack = (Genepack)ThingMaker.MakeThing(ThingDefOf.Genepack);
             var storedGenepack = StoredGenepack;
@@ -240,15 +174,9 @@ namespace AlteredCarbon
             }
             JobCleanup();
         }
-
-        private void JobCleanup()
+        protected override void JobCleanup()
         {
-            if (progressBarEffecter != null)
-            {
-                progressBarEffecter.Cleanup();
-                progressBarEffecter = null;
-            }
-            ticksDone = 0;
+            base.JobCleanup();
             geneToSeparate = null;
             genepackToStore = null;
         }
@@ -262,56 +190,9 @@ namespace AlteredCarbon
             return 120000;
         }
 
-        public void StartJob()
+        public override void StartJob()
         {
             genepackToStore = null;
         }
-        public override void ExposeData()
-        {
-            base.ExposeData();
-            Scribe_Deep.Look<ThingOwner>(ref this.innerContainer, "innerContainer", new object[]
-            {
-                this
-            });
-            Scribe_Values.Look(ref this.contentsKnown, "contentsKnown", false);
-            Scribe_References.Look(ref genepackToStore, "genepackToStore");
-            Scribe_Defs.Look(ref geneToSeparate, "geneToSeparate");
-            Scribe_Values.Look(ref ticksDone, "ticksDone");
-        }
-
-        public bool Accepts(Thing thing)
-        {
-            return this.innerContainer.CanAcceptAnyOf(thing, true) && genepackToStore == thing;
-        }
-
-        public bool TryAcceptThing(Thing thing, bool allowSpecialEffects = true)
-        {
-            if (!this.Accepts(thing))
-            {
-                return false;
-            }
-            if (thing.holdingOwner != null)
-            {
-                thing.holdingOwner.TryTransferToContainer(thing, this.innerContainer, thing.stackCount, true);
-            }
-            else if (this.innerContainer.TryAdd(thing, true))
-            {
-                if (thing.Faction != null && thing.Faction.IsPlayer)
-                {
-                    this.contentsKnown = true;
-                }
-                return true;
-            }
-            return false;
-        }
-        public void EjectContents()
-        {
-            this.innerContainer.TryDropAll(this.InteractionCell, Map, ThingPlaceMode.Direct, null, null);
-            this.contentsKnown = true;
-        }
-
-        public ThingOwner innerContainer;
-
-        public bool contentsKnown;
     }
 }

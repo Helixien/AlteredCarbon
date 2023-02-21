@@ -5,7 +5,7 @@ using Verse.AI;
 
 namespace AlteredCarbon
 {
-    public class JobDriver_InsertGenepackIntoCentrifuge : JobDriver_HaulToContainer
+    public class JobDriver_InsertIntoProcessor : JobDriver_HaulToContainer
     {
         public override IEnumerable<Toil> MakeNewToils()
         {
@@ -46,22 +46,13 @@ namespace AlteredCarbon
                 toil.PlaySustainerOrSound(workSustainer);
             }
             Thing destThing = job.GetTarget(TargetIndex.B).Thing;
-            toil.tickAction = delegate
-            {
-                if (pawn.IsHashIntervalTick(80) && destThing is Building_Grave && graveDigEffect == null)
-                {
-                    graveDigEffect = EffecterDefOf.BuryPawn.Spawn();
-                    graveDigEffect.Trigger(destThing, destThing);
-                }
-                graveDigEffect?.EffectTick(destThing, destThing);
-            };
             ModifyPrepareToil(toil);
             yield return toil;
             yield return Toils_Construct.MakeSolidThingFromBlueprintIfNecessary(TargetIndex.B, TargetIndex.C);
             yield return Toils_Haul.DepositHauledThingInContainer(TargetIndex.B, TargetIndex.C, delegate
             {
-                var centrifuge = Container as Building_GeneCentrifuge;
-                centrifuge.StartJob();
+                var processor = Container as Building_Processor;
+                processor.StartJob();
             });
             yield return Toils_Haul.JumpToCarryToNextContainerIfPossible(carryToContainer, TargetIndex.C);
         }

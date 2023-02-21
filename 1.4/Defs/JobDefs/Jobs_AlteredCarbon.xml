@@ -19,10 +19,10 @@
 		<reportString>hauling TargetA to TargetB.</reportString>
 		<allowOpportunisticPrefix>true</allowOpportunisticPrefix>
 	</JobDef>
-	<!-- ================================ Inserting genepack into centrifuge ====================== -->
+	<!-- ================================ Inserting things into processors ====================== -->
 	<JobDef>
-		<defName>AC_InsertingGenepackIntoCentrifuge</defName>
-		<driverClass>AlteredCarbon.JobDriver_InsertGenepackIntoCentrifuge</driverClass>
+		<defName>AC_InsertingThingIntoProcessor</defName>
+		<driverClass>AlteredCarbon.JobDriver_InsertIntoProcessor</driverClass>
 		<reportString>inserting TargetA to TargetB.</reportString>
 		<allowOpportunisticPrefix>true</allowOpportunisticPrefix>
 	</JobDef>

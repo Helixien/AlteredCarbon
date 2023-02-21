@@ -18,11 +18,13 @@ namespace AlteredCarbon
         public static PawnRelationDef AC_Copy;
         public static JobDef AC_HaulingStacks;
         public static ResearchProjectDef Xenogermination;
-        public static JobDef AC_InsertingGenepackIntoCentrifuge;
+        public static JobDef AC_InsertingThingIntoProcessor;
         public static ThingDef AC_GeneCentrifuge;
         public static SoundDef AC_GeneCentrifuge_Ambience;
         public static JobDef AC_HaulCorpseToSleeveGrower;
         public static JobDef AC_CancelRepurposingBody;
+        public static ThingDef AC_XenoGermDuplicator;
+        public static SoundDef AC_XenoGermDuplicator_Ambience;
 
         [MayRequireIdeology] public static PreceptDef AC_Stacking_Despised;
         [MayRequireIdeology] public static PreceptDef AC_Sleeving_Despised;

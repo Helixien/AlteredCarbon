@@ -70,7 +70,9 @@
     <Publicize Include="Assembly-CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buildings\Building_XenogermDuplicator.cs" />
     <Compile Include="Buildings\Building_GeneCentrifuge.cs" />
+    <Compile Include="Buildings\Building_Processor.cs" />
     <Compile Include="Buildings\Building_StackStorage.cs" />
     <Compile Include="GameComponent_DigitalStorage.cs" />
     <Compile Include="HarmonyPatches\PawnUtility_GetPosture_Patch.cs" />
@@ -79,13 +81,13 @@
     <Compile Include="Jobs\JobDriver_CreateStackFromBackup.cs" />
     <Compile Include="Jobs\JobDriver_DuplicateStack.cs" />
     <Compile Include="Jobs\JobDriver_HaulCorpseToSleeveGrower.cs" />
-    <Compile Include="Jobs\JobDriver_InsertGenepackIntoCentrifuge.cs" />
+    <Compile Include="Jobs\JobDriver_InsertIntoProcessor.cs" />
     <Compile Include="Jobs\JobDriver_HaulStackToStackArray.cs" />
     <Compile Include="Jobs\WorkGiver_CancelRepurposingBody.cs" />
     <Compile Include="Jobs\WorkGiver_CreateStackFromBackup.cs" />
     <Compile Include="Jobs\WorkGiver_DuplicateStacks.cs" />
     <Compile Include="Jobs\WorkGiver_HaulCorpseToSleeveGrower.cs" />
-    <Compile Include="Jobs\WorkGiver_InsertGenepack.cs" />
+    <Compile Include="Jobs\WorkGiver_InsertIntoProcessor.cs" />
     <Compile Include="Jobs\WorkGiver_HaulStacks.cs" />
     <Compile Include="Misc\ACUtilsExtra.cs" />
     <Compile Include="Misc\AC_Extra_DefOf.cs" />
