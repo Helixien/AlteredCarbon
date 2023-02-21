@@ -38,8 +38,8 @@ namespace AlteredCarbon
                     icon = InsertGenePack,
                     action = delegate
                     {
-                        var allGenePacks = this.Map.listerThings.ThingsOfDef(ThingDefOf.Genepack)
-                            .Cast<Genepack>().Where(x => x.GeneSet.GenesListForReading.Count > 1);
+                        var allGenePacks = ACUtilsExtra.allGenepacks.SelectMany(def => this.Map.listerThings.ThingsOfDef(def)
+                            .Cast<Genepack>().Where(x => x.GeneSet.GenesListForReading.Count > 1));
                         var floatList = new List<FloatMenuOption>();
                         foreach (var genepack in allGenePacks)
                         {
@@ -133,8 +133,8 @@ namespace AlteredCarbon
 
         protected override void FinishJob()
         {
-            var newGenepack = (Genepack)ThingMaker.MakeThing(ThingDefOf.Genepack);
             var storedGenepack = StoredGenepack;
+            var newGenepack = (Genepack)ThingMaker.MakeThing(storedGenepack.def);
             storedGenepack.GeneSet.genes.Remove(geneToSeparate);
             storedGenepack.GeneSet.DirtyCache();
             newGenepack.Initialize(new List<GeneDef>
@@ -146,7 +146,8 @@ namespace AlteredCarbon
             {
                 if (Rand.Bool)
                 {
-                    GenPlace.TryPlaceThing(storedGenepack, Position, Map, ThingPlaceMode.Near);
+                    GenPlace.TryPlaceThing(storedGenepack, Position, Map, ThingPlaceMode.Near,
+                        nearPlaceValidator: (IntVec3 x) => x.GetFirstThing<Building_GeneCentrifuge>(this.Map) is null);
                     Messages.Message("AC.FinishedSeparatingDestroyedMessage".Translate(newGenepack.LabelCap), new List<Thing>
                             {
                                 storedGenepack
@@ -155,7 +156,8 @@ namespace AlteredCarbon
                 }
                 else
                 {
-                    GenPlace.TryPlaceThing(newGenepack, Position, Map, ThingPlaceMode.Near);
+                    GenPlace.TryPlaceThing(newGenepack, Position, Map, ThingPlaceMode.Near,
+                        nearPlaceValidator: (IntVec3 x) => x.GetFirstThing<Building_GeneCentrifuge>(this.Map) is null);
                     Messages.Message("AC.FinishedSeparatingDestroyedMessage".Translate(storedGenepack.LabelCap), new List<Thing>
                             {
                                 newGenepack
@@ -165,8 +167,10 @@ namespace AlteredCarbon
             }
             else
             {
-                GenPlace.TryPlaceThing(newGenepack, Position, Map, ThingPlaceMode.Near);
-                GenPlace.TryPlaceThing(storedGenepack, Position, Map, ThingPlaceMode.Near);
+                GenPlace.TryPlaceThing(newGenepack, Position, Map, ThingPlaceMode.Near, 
+                    nearPlaceValidator: (IntVec3 x) => x.GetFirstThing<Building_GeneCentrifuge>(this.Map) is null);
+                GenPlace.TryPlaceThing(storedGenepack, Position, Map, ThingPlaceMode.Near,
+                    nearPlaceValidator: (IntVec3 x) => x.GetFirstThing<Building_GeneCentrifuge>(this.Map) is null);
                 Messages.Message("AC.FinishedSeparatingMessage".Translate(), new List<Thing>
                         {
                             storedGenepack, newGenepack

@@ -49,6 +49,27 @@ namespace AlteredCarbon
                 Window_StackEditor.AllPassions[def.index] = def.Icon;
             }
         }
+		public static List<IExposable> GetExpertises(Pawn pawn)
+        {
+			VSE.ExpertiseTracker expertiseTracker = VSE.ExpertiseTrackers.Expertise(pawn);
+			if (expertiseTracker != null)
+			{
+				return expertiseTracker.AllExpertise.Cast<IExposable>().ToList();
+			}
+			return null;
+		}
+        public static void SetExpertises(Pawn pawn, List<IExposable> expertises)
+        {
+            VSE.ExpertiseTracker expertiseTracker = VSE.ExpertiseTrackers.Expertise(pawn);
+            if (expertiseTracker != null)
+            {
+				expertiseTracker.ClearExpertise();
+				foreach (var expertise in expertises.Cast<VSE.ExpertiseRecord>())
+				{
+                    expertiseTracker.AllExpertise.Add(expertise);
+                }
+            }
+        }
 
         public static Color GetSkinColorFirst(Pawn pawn)
 		{

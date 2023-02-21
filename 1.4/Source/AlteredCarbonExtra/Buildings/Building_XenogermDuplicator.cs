@@ -19,6 +19,14 @@ namespace AlteredCarbon
         public Xenogerm xenogermToDuplicate;
         public Xenogerm StoredXenogerm => this.innerContainer.OfType<Xenogerm>().FirstOrDefault();
         public override SoundDef SustainerDef => AC_Extra_DefOf.AC_XenoGermDuplicator_Ambience;
+
+        public CompRefuelable compRefuelable;
+
+        public override void SpawnSetup(Map map, bool respawningAfterLoad)
+        {
+            base.SpawnSetup(map, respawningAfterLoad);
+            compRefuelable = this.GetComp<CompRefuelable>();
+        }
         public override IEnumerable<Gizmo> GetGizmos()
         {
             foreach (var g in base.GetGizmos())
@@ -130,7 +138,19 @@ namespace AlteredCarbon
         {
             var storedXenogerm = StoredXenogerm;
             var newXenogerm = (Xenogerm)ThingMaker.MakeThing(ThingDefOf.Xenogerm);
-            var genesToCopy = storedXenogerm.GeneSet.genes.Where(x => x.biostatArc <= 0).ToList();
+            var genesToCopy = new List<GeneDef>();
+            foreach (var gene in storedXenogerm.GeneSet.genes.ToList())
+            {
+                if (gene.biostatArc <= 0)
+                {
+                    genesToCopy.Add(gene);
+                }
+                else if (compRefuelable.Fuel >= 1)
+                {
+                    compRefuelable.ConsumeFuel(1f);
+                    genesToCopy.Add(gene);
+                }
+            }
             newXenogerm.xenotypeName = storedXenogerm.xenotypeName;
             newXenogerm.iconDef = storedXenogerm.iconDef;
             newXenogerm.geneSet = new GeneSet();
@@ -139,8 +159,10 @@ namespace AlteredCarbon
                 newXenogerm.GeneSet.AddGene(gene);
             }
             newXenogerm.GeneSet.DirtyCache();
-            GenPlace.TryPlaceThing(newXenogerm, Position, Map, ThingPlaceMode.Near);
-            GenPlace.TryPlaceThing(storedXenogerm, Position, Map, ThingPlaceMode.Near);
+            GenPlace.TryPlaceThing(newXenogerm, Position, Map, ThingPlaceMode.Near, 
+                nearPlaceValidator: (IntVec3 x) => x.GetFirstThing<Building_XenogermDuplicator>(this.Map) is null);
+            GenPlace.TryPlaceThing(storedXenogerm, Position, Map, ThingPlaceMode.Near,
+                nearPlaceValidator: (IntVec3 x) => x.GetFirstThing<Building_XenogermDuplicator>(this.Map) is null);
             Messages.Message("AC.FinishedXenogermDuplicationMessage".Translate(), new List<Thing>
                         {
                             storedXenogerm, newXenogerm
@@ -155,7 +177,7 @@ namespace AlteredCarbon
 
         public int DuplicationDuration(Xenogerm xenogerm)
         {
-            return xenogerm.GeneSet.GenesListForReading.Where(x => x.biostatArc <= 0).Count() * 1250;
+            return xenogerm.GeneSet.GenesListForReading.Count() * 1250;
         }
 
         public override void StartJob()

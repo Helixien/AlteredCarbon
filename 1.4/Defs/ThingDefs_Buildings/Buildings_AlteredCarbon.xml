@@ -255,6 +255,21 @@
 				<compClass>CompPowerTrader</compClass>
 				<basePowerConsumption>200</basePowerConsumption>
 			</li>
+			<li Class="CompProperties_Refuelable">
+				<fuelLabel>Archite capsules</fuelLabel>
+				<fuelGizmoLabel>Archite capsules</fuelGizmoLabel>
+				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+				<targetFuelLevelConfigurable>false</targetFuelLevelConfigurable>
+				<fuelCapacity>20</fuelCapacity>
+				<fuelFilter>
+					<thingDefs>
+						<li>ArchiteCapsule</li>
+					</thingDefs>
+				</fuelFilter>
+				<initialFuelPercent>0</initialFuelPercent>
+				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+				<showFuelGizmo>true</showFuelGizmo>
+			</li>
 			<li Class="CompProperties_Flickable"/>
 		</comps>
 	</ThingDef>

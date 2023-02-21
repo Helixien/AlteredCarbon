@@ -8,22 +8,20 @@ namespace AlteredCarbon
 {
     public class WorkGiver_InsertXenogerm : WorkGiver_InsertIntoProcessor
     {
-        public override ThingDef TargetThing => ThingDefOf.Xenogerm;
-
+        public override IEnumerable<ThingDef> TargetThings => Gen.YieldSingle(ThingDefOf.Xenogerm);
         public override ThingDef ProcessorDef => AC_Extra_DefOf.AC_XenoGermDuplicator;
     }
 
     public class WorkGiver_InsertGenepack : WorkGiver_InsertIntoProcessor
     {
-        public override ThingDef TargetThing => ThingDefOf.Genepack;
-
+        public override IEnumerable<ThingDef> TargetThings => ACUtilsExtra.allGenepacks;
         public override ThingDef ProcessorDef => AC_Extra_DefOf.AC_GeneCentrifuge;
     }
 
     [HotSwappable]
     public abstract class WorkGiver_InsertIntoProcessor : WorkGiver_Scanner
     {
-        public abstract ThingDef TargetThing { get; }
+        public abstract IEnumerable<ThingDef> TargetThings { get; }
         public abstract ThingDef ProcessorDef { get; }
         public override Danger MaxPathDanger(Pawn pawn)
         {
@@ -31,8 +29,12 @@ namespace AlteredCarbon
         }
         public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)
         {
-            var things = pawn.Map.listerThings.ThingsOfDef(TargetThing)
-                .Where(x => pawn.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
+            var things = new List<Thing>();
+            foreach (var thing in TargetThings)
+            {
+                things.AddRange(pawn.Map.listerThings.ThingsOfDef(thing)
+                .Where(x => pawn.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly)));
+            }
             return things;
         }
         public override bool HasJobOnThing(Pawn pawn, Thing t, bool forced = false)

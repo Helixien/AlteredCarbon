@@ -118,7 +118,7 @@ namespace AlteredCarbon
         {
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
-            var title = "AC.RewriteCorticalStack".Translate() + ": DEV VERSION";
+            var title = "AC.RewriteCorticalStack".Translate();
             Widgets.Label(GetLabelRect(title, ref pos, labelWidthOverride: inRect.width - (Margin * 2f)), title);
             Text.Anchor = TextAnchor.UpperLeft;
             pos.y += 15;
@@ -569,7 +569,7 @@ namespace AlteredCarbon
                     tooltipGetter: (Trait t) => t.TipString(pawn), filters: traitFilters, includeInfoCard: false));
             }
             Rect traitsContainer = new Rect(pos.x, pos.y, panelWidth, 100);
-            var rect = GenUI.DrawElementStack(traitsContainer, Text.LineHeight, personaData.traits, delegate (Rect r, Trait trait)
+            var rect = GenUI.DrawElementStack(traitsContainer, Text.LineHeight, personaData.traits.ToList(), delegate (Rect r, Trait trait)
             {
                 Color color3 = GUI.color;
                 GUI.color = StackElementBackground;

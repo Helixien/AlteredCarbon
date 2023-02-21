@@ -12,10 +12,18 @@ namespace AlteredCarbon
     [StaticConstructorOnStartup]
     public static class ACUtilsExtra
     {
+        public static List<ThingDef> allGenepacks = new List<ThingDef>();
         static ACUtilsExtra()
         {
             Harmony harmony = new("AlteredCarbonExtra");
             harmony.PatchAll();
+            foreach (var def in DefDatabase<ThingDef>.AllDefs)
+            {
+                if (def.thingClass != null && typeof(Genepack).IsAssignableFrom(def.thingClass))
+                {
+                    allGenepacks.Add(def);
+                }
+            }
         }
 
         public static bool IsUltraTechBuilding(this ThingDef def)

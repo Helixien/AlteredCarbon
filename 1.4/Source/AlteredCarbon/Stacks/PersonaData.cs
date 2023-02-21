@@ -116,6 +116,10 @@ namespace AlteredCarbon
         private PsychologyData psychologyData;
         // RJW
         private RJWData rjwData;
+
+        // Vanilla Skills Expanded
+        private List<IExposable> expertiseRecords;
+
         // misc
         public bool? diedFromCombat;
         public bool isCopied = false;
@@ -152,7 +156,8 @@ namespace AlteredCarbon
             {
                 dummyPawn = PawnGenerator.GeneratePawn(PawnKindDefOf.Colonist, Faction.OfPlayer);
             }
-            OverwritePawn(dummyPawn, null, overwriteOriginalPawn: false, copyFromOrigPawn: hostPawn != null && hostPawn.Dead is false);
+            OverwritePawn(dummyPawn, null, overwriteOriginalPawn: false, 
+                copyFromOrigPawn: hostPawn != null && hostPawn.Dead is false && hostPawn.IsEmptySleeve() is false);
             if (hostPawn != null)
             {
                 ACUtils.CopyBody(hostPawn, dummyPawn);
@@ -171,6 +176,10 @@ namespace AlteredCarbon
                     skill.cachedPermanentlyDisabled = BoolUnknown.Unknown;
                     skill.cachedTotallyDisabled = BoolUnknown.Unknown;
                 }
+            }
+            if (hostPawn != null && (hostPawn.IsEmptySleeve() || hostPawn.Dead))
+            {
+                dummyPawn.health.healthState = PawnHealthState.Dead;
             }
             AssignDummyPawnReferences();
         }
@@ -489,6 +498,10 @@ namespace AlteredCarbon
             {
                 rjwData = ModCompatibility.GetRjwData(pawn);
             }
+            if (ModCompatibility.VanillaSkillsExpandedIsActive)
+            {
+                expertiseRecords = ModCompatibility.GetExpertises(pawn);
+            }
 
             if (ModCompatibility.HelixienAlteredCarbonIsActive)
             {
@@ -625,6 +638,8 @@ namespace AlteredCarbon
             romanceFactor = other.romanceFactor;
             psychologyData = other.psychologyData;
             rjwData = other.rjwData;
+            expertiseRecords = other.expertiseRecords;
+
             stackDegradation = other.stackDegradation;
             AssignDummyPawnReferences();
         }
@@ -733,7 +748,7 @@ namespace AlteredCarbon
                     for (var i = relations.Count - 1; i >= 0; i--)
                     {
                         var rel = relations[i];
-                        if (rel.otherPawn != null)
+                        if (rel != null && rel.otherPawn != null)
                         {
                             ReplaceSocialReferences(rel.otherPawn, pawn);
                         }
@@ -751,7 +766,7 @@ namespace AlteredCarbon
                         }
                     }
                 }
-                if (oldOrigPawn != null)
+                if (oldOrigPawn?.relations != null)
                 {
                     var potentiallyRelatedPawns = oldOrigPawn.relations.PotentiallyRelatedPawns.ToList();
                     for (var i = potentiallyRelatedPawns.Count - 1; i >= 0; i--)
@@ -762,23 +777,25 @@ namespace AlteredCarbon
                             ReplaceSocialReferences(relatedPawn, pawn);
                         }
                     }
-
-                    for (var i = oldOrigPawn.relations.DirectRelations.Count - 1; i >= 0; i--)
+                    if (oldOrigPawn.relations.DirectRelations != null)
                     {
-                        var oldDirectRelation = oldOrigPawn.relations.DirectRelations[i];
-                        oldOrigPawn.relations.directRelations.Remove(oldDirectRelation);
-                        if (pawn.relations.directRelations.Any(x => x.def == oldDirectRelation.def && x.otherPawn == oldDirectRelation.otherPawn) is false)
+                        for (var i = oldOrigPawn.relations.DirectRelations.Count - 1; i >= 0; i--)
                         {
-                            pawn.relations.directRelations.Add(new DirectPawnRelation(oldDirectRelation.def,
-                            oldDirectRelation.otherPawn, oldDirectRelation.startTicks));
-                        }
-                        if (oldDirectRelation.otherPawn.relations.pawnsWithDirectRelationsWithMe.Contains(oldOrigPawn))
-                        {
-                            oldDirectRelation.otherPawn.relations.pawnsWithDirectRelationsWithMe.Remove(oldOrigPawn);
-                        }
-                        if (oldDirectRelation.otherPawn.relations.pawnsWithDirectRelationsWithMe.Contains(pawn) is false)
-                        {
-                            oldDirectRelation.otherPawn.relations.pawnsWithDirectRelationsWithMe.Add(pawn);
+                            var oldDirectRelation = oldOrigPawn.relations.DirectRelations[i];
+                            oldOrigPawn.relations.directRelations.Remove(oldDirectRelation);
+                            if (pawn.relations.directRelations.Any(x => x.def == oldDirectRelation.def && x.otherPawn == oldDirectRelation.otherPawn) is false)
+                            {
+                                pawn.relations.directRelations.Add(new DirectPawnRelation(oldDirectRelation.def,
+                                oldDirectRelation.otherPawn, oldDirectRelation.startTicks));
+                            }
+                            if (oldDirectRelation.otherPawn.relations.pawnsWithDirectRelationsWithMe.Contains(oldOrigPawn))
+                            {
+                                oldDirectRelation.otherPawn.relations.pawnsWithDirectRelationsWithMe.Remove(oldOrigPawn);
+                            }
+                            if (oldDirectRelation.otherPawn.relations.pawnsWithDirectRelationsWithMe.Contains(pawn) is false)
+                            {
+                                oldDirectRelation.otherPawn.relations.pawnsWithDirectRelationsWithMe.Add(pawn);
+                            }
                         }
                     }
                     oldOrigPawn.relations = new Pawn_RelationsTracker(oldOrigPawn);
@@ -980,6 +997,10 @@ namespace AlteredCarbon
             if (ModCompatibility.RimJobWorldIsActive && rjwData != null)
             {
                 ModCompatibility.SetRjwData(pawn, rjwData);
+            }
+            if (ModCompatibility.VanillaSkillsExpandedIsActive && expertiseRecords != null)
+            {
+                ModCompatibility.SetExpertises(pawn, expertiseRecords);
             }
         }
 
@@ -1285,10 +1306,25 @@ namespace AlteredCarbon
                 Scribe_References.Look(ref precept_RoleSingle, "precept_RoleSingle");
                 Scribe_References.Look(ref precept_RoleMulti, "precept_RoleMulti");
             }
-            Scribe_Values.Look(ref sexuality, "sexuality", -1);
-            Scribe_Values.Look(ref romanceFactor, "romanceFactor", -1f);
-            Scribe_Deep.Look(ref psychologyData, "psychologyData");
-            Scribe_Deep.Look(ref rjwData, "rjwData");
+
+            if (ModCompatibility.IndividualityIsActive)
+            {
+                Scribe_Values.Look(ref sexuality, "sexuality", -1);
+                Scribe_Values.Look(ref romanceFactor, "romanceFactor", -1f);
+            }
+            if (ModCompatibility.PsychologyIsActive)
+            {
+                Scribe_Deep.Look(ref psychologyData, "psychologyData");
+            }
+            if (ModCompatibility.RimJobWorldIsActive)
+            {
+                Scribe_Deep.Look(ref rjwData, "rjwData");
+            }
+            if (ModCompatibility.VanillaSkillsExpandedIsActive)
+            {
+                Scribe_Collections.Look(ref expertiseRecords, "expertiseRecords", LookMode.Deep, hostPawn);
+            }
+
             Scribe_Values.Look(ref restoreToEmptyStack, "restoreToEmptyStack", true);
             Scribe_Defs.Look(ref sourceStack, "sourceStack");
             Scribe_Values.Look(ref psylinkLevel, "psylinkLevel");
