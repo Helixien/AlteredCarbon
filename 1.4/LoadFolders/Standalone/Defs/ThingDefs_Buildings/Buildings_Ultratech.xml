@@ -55,9 +55,6 @@
 		<comps>
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Forbiddable"/>
-			<li Class="AlteredCarbon.CompProperties_SleeveGrowerPostDraw">
-				<overlayTexPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorTop</overlayTexPath>
-			</li>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
 				<shortCircuitInRain>true</shortCircuitInRain>
@@ -170,7 +167,6 @@
 					<li MayRequire="VanillaExpanded.VFEMedical">Facility_IVDrip</li>
 				</linkableFacilities>
 			</li>
-			<li Class="AlteredCarbon.CompProperties_SleeveCasketPostDraw"/>
 			<li Class="CompProperties_Breakdownable"/>
 		</comps>
 		<minifiedDef>MinifiedThing</minifiedDef>

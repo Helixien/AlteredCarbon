@@ -14,6 +14,27 @@ namespace AlteredCarbon
     {
         public static void Postfix(Vector3 clickPos, Pawn pawn, ref List<FloatMenuOption> opts)
         {
+            for (var i = opts.Count- 1; i >= 0;--i)
+            {
+                var option = opts[i];
+                if (option.revalidateClickTarget is Pawn pawnTarget && pawnTarget.IsEmptySleeve())
+                {
+                    var captureLabel = "Capture".Translate(pawnTarget.LabelCap, pawnTarget);
+                    var rescueLabel = "Rescue".Translate(pawnTarget.LabelCap, pawnTarget);
+                    if (captureLabel == option.Label)
+                    {
+                        opts.RemoveAt(i);
+                    }
+                    else if (rescueLabel == option.Label)
+                    {
+                        option.Label = "AC.TakeToSleeveCasketOrMedicalBed".Translate();
+                        option.action = delegate
+                        {
+                            ACUtils.AddTakeEmptySleeveJob(pawn, pawnTarget, true);
+                        };
+                    }
+                }
+            }
             foreach (LocalTargetInfo localTargetInfo in GenUI.TargetsAt(clickPos, UninstallStack(pawn), true))
             {
                 JobDef jobDef = AC_DefOf.VFEU_ExtractStack;
@@ -32,6 +53,7 @@ namespace AlteredCarbon
                 }
             }
         }
+
         public static TargetingParameters UninstallStack(Pawn p)
         {
             return new TargetingParameters

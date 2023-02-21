@@ -20,4 +20,14 @@
 		<driverClass>AlteredCarbon.JobDriver_CancelIncubatingProcess</driverClass>
 		<reportString>canceling growth process on incubator</reportString>
 	</JobDef>
+	
+	<JobDef>
+		<defName>AC_TakeEmptySleeve</defName>
+		<driverClass>AlteredCarbon.JobDriver_TakeEmptySleeve</driverClass>
+		<reportString>taking empty sleeve.</reportString>
+		<casualInterruptible>false</casualInterruptible>
+		<carryThingAfterJob>true</carryThingAfterJob>
+		<dropThingBeforeJob>false</dropThingBeforeJob>
+	</JobDef>
+
 </Defs>

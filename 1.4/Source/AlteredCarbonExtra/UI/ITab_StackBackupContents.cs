@@ -80,7 +80,7 @@ namespace AlteredCarbon
 
             Text.Anchor = TextAnchor.MiddleLeft;
             GUI.color = ITab_Pawn_Gear.ThingLabelColor;
-            Rect rect4 = new Rect(21, y, 160, rect1.height);
+            Rect rect4 = new Rect(35, y, 150, rect1.height);
             TaggedString pawnLabel = personaData.PawnNameColored.Truncate(rect4.width);
             Widgets.Label(rect4, pawnLabel);
             Widgets.InfoCardButton(0, y, personaData.GetDummyPawn);

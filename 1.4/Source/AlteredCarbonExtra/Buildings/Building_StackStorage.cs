@@ -83,46 +83,49 @@ namespace AlteredCarbon
             if (Faction == Faction.OfPlayer)
             {
                 var stacks = StoredStacks.ToList();
+                var duplicateStacks = new Command_Action
+                {
+                    defaultLabel = "AC.DuplicateStack".Translate(),
+                    defaultDesc = "AC.DuplicateStackDesc".Translate(),
+                    icon = ContentFinder<Texture2D>.Get("UI/Icons/DuplicateStack"),
+                    activateSound = SoundDefOf.Tick_Tiny,
+                    action = delegate ()
+                    {
+                        var floatList = new List<FloatMenuOption>();
+                        foreach (var stack in StoredStacks.Where(x => x.PersonaData.ContainsInnerPersona))
+                        {
+                            if (stack.IsArchoStack is false)
+                            {
+                                var option = new FloatMenuOption(stack.PersonaData.PawnNameColored, delegate ()
+                                {
+                                    this.stackToDuplicate = stack;
+                                }, stack, stack.DrawColor);
+                                floatList.Add(option);
+                            }
+                        }
+                        Find.WindowStack.Add(new FloatMenu(floatList));
+                    }
+                };
+                if (this.stackToDuplicate != null)
+                {
+                    duplicateStacks.Disable("AC.AlreadySetToDuplicate".Translate());
+                }
+                else if (stacks.Count() >= MaxFilledStackCapacity)
+                {
+                    duplicateStacks.Disable("AC.NoEnoughSpaceForNewStack".Translate());
+                }
+                if (!stacks.Any())
+                {
+                    duplicateStacks.Disable("AC.NoStoredStackToDuplicate".Translate());
+                }
+                if (this.Powered is false)
+                {
+                    duplicateStacks.Disable("NoPower".Translate());
+                }
+                yield return duplicateStacks;
+
                 if (stacks.Any())
                 {
-                    var duplicateStacks = new Command_Action
-                    {
-                        defaultLabel = "AC.DuplicateStack".Translate(),
-                        defaultDesc = "AC.DuplicateStackDesc".Translate(),
-                        icon = ContentFinder<Texture2D>.Get("UI/Icons/DuplicateStack"),
-                        activateSound = SoundDefOf.Tick_Tiny,
-                        action = delegate ()
-                        {
-                            var floatList = new List<FloatMenuOption>();
-                            foreach (var stack in StoredStacks.Where(x => x.PersonaData.ContainsInnerPersona))
-                            {
-                                if (stack.IsArchoStack is false)
-                                {
-                                    var option = new FloatMenuOption(stack.PersonaData.PawnNameColored, delegate ()
-                                    {
-                                        this.stackToDuplicate = stack;
-                                    }, stack, stack.DrawColor);
-                                    floatList.Add(option);
-                                }
-                            }
-                            Find.WindowStack.Add(new FloatMenu(floatList));
-                        }
-                    };
-
-                    if (this.stackToDuplicate != null)
-                    {
-                        duplicateStacks.Disable("AC.AlreadySetToDuplicate".Translate());
-                    }
-                    else if (stacks.Count() >= MaxFilledStackCapacity)
-                    {
-                        duplicateStacks.Disable("AC.NoEnoughSpaceForNewStack".Translate());
-                    }
-                    if (this.Powered is false)
-                    {
-                        duplicateStacks.Disable("NoPower".Translate());
-                    }
-                    yield return duplicateStacks;
-
                     var ejectAll = new Command_Action();
                     ejectAll.defaultLabel = "AC.EjectAll".Translate();
                     ejectAll.defaultDesc = "AC.EjectAllDesc".Translate();

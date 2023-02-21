@@ -62,6 +62,62 @@ namespace AlteredCarbon
                 return fetusLateStageGraphic;
             }
         }
+        public Graphic topGraphic;
+        public Graphic TopGraphic
+        {
+            get
+            {
+                if (topGraphic == null)
+                {
+                    topGraphic = GraphicDatabase.Get<Graphic_Single>("Things/Building/Misc/SleeveIncubator/SleeveIncubatorTop", ShaderDatabase.CutoutComplex, this.def.graphicData.drawSize, Color.white);
+                }
+                return topGraphic;
+            }
+        }
+        public Vector3 PawnDrawOffset => CompBiosculpterPod.FloatingOffset(Find.TickManager.TicksGame);
+
+        public override void DrawAt(Vector3 drawLoc, bool flip = false)
+        {
+            base.DrawAt(drawLoc, flip);
+            if (incubatorState != IncubatorState.ToBeActivated && InnerPawn != null)
+            {
+                Vector3 newPos = drawLoc;
+                newPos.z += 0.2f;
+                newPos.y += 1;
+                float growthProgress = GrowthProgress;
+                if (growthProgress < 0.05f && InnerPawn.Dead is false)
+                {
+                    Vector2 drawSize = Vector2.one * Mathf.Lerp(0.3f, 0.7f, growthProgress / 0.05f);
+                    if (growthProgress < 0.02f)
+                    {
+                        DrawFetus(FetusEarlyStage, drawSize, newPos + PawnDrawOffset, this.Rotation == Rot4.East);
+                    }
+                    else
+                    {
+                        DrawFetus(FetusLateStage, drawSize, newPos + PawnDrawOffset, this.Rotation == Rot4.East);
+                    }
+                }
+                else
+                {
+                    InnerPawn.Rotation = Rotation;
+                    InnerPawn.DrawAt(newPos + PawnDrawOffset, flip);
+                }
+            }
+
+            Vector3 vector = this.DrawPos + Altitudes.AltIncVect;
+            vector.y += 3 + ((this.Map.Size.z - this.Position.z) * 0.0001f);
+            TopGraphic.Draw(vector, Rot4.North, this);
+        }
+
+        public void DrawFetus(Graphic fetusGraphic, Vector2 drawSize, Vector3 loc, bool flip)
+        {
+            fetusGraphic.drawSize = drawSize;
+            Mesh mesh = flip ? MeshPool.GridPlaneFlip(drawSize) : MeshPool.GridPlane(drawSize);
+            Quaternion quat = fetusGraphic.QuatFromRot(Rot4.North);
+            loc += fetusGraphic.DrawOffset(Rot4.North);
+            Material mat = fetusGraphic.MatAt(Rot4.North, null);
+            fetusGraphic.DrawMeshInt(mesh, loc, quat, mat);
+        }
 
         public override IEnumerable<Gizmo> GetGizmos()
         {
@@ -96,6 +152,7 @@ namespace AlteredCarbon
                     hotKey = KeyBindingDefOf.Misc8,
                     icon = ContentFinder<Texture2D>.Get("UI/Icons/CreateSleeve", true)
                 };
+                createSleeveBody.LockBehindReseach(this.def.researchPrerequisites);
                 yield return createSleeveBody;
 
                 Command_Action copySleeveBody = new Command_Action
@@ -107,6 +164,7 @@ namespace AlteredCarbon
                     activateSound = SoundDefOf.Tick_Tiny,
                     icon = ContentFinder<Texture2D>.Get("UI/Icons/CloneSleeve", true)
                 };
+                copySleeveBody.LockBehindReseach(this.def.researchPrerequisites);
                 yield return copySleeveBody;
 
                 if (powerTrader.PowerOn is false)
@@ -141,9 +199,10 @@ namespace AlteredCarbon
                     {
                         repurposeCorpse.Disable("AC.SleeveGrowerIsOccupied".Translate());
                     }
+                    repurposeCorpse.LockBehindReseach(this.def.researchPrerequisites);
                     yield return repurposeCorpse;
 
-                    if (this.corpseToRepurpose != null || incubatorState != IncubatorState.ToBeCanceled 
+                    if (this.corpseToRepurpose != null || incubatorState != IncubatorState.ToBeCanceled
                         && this.InnerPawn != null && this.InnerPawn.Dead)
                     {
                         Command_Action cancelRepurposeCorpse = new Command_Action
@@ -181,39 +240,6 @@ namespace AlteredCarbon
                 }
             }
             yield break;
-        }
-        public Vector3 PawnDrawOffset => CompBiosculpterPod.FloatingOffset(Find.TickManager.TicksGame);
-
-        public override void DrawAt(Vector3 drawLoc, bool flip = false)
-        {
-            base.DrawAt(drawLoc, flip);
-            if (incubatorState != IncubatorState.ToBeActivated && InnerPawn != null)
-            {
-                Vector3 newPos = drawLoc;
-                newPos.z += 0.2f;
-                newPos.y += 1;
-                float growthProgress = GrowthProgress;
-                if (growthProgress < 0.05f && InnerPawn.Dead is false)
-                {
-                    Vector2 drawSize = Vector2.one * Mathf.Lerp(0.3f, 0.7f, growthProgress / 0.05f);
-                    if (growthProgress < 0.02f)
-                    {
-                        FetusEarlyStage.drawSize = drawSize;
-                        FetusEarlyStage.DrawFromDef(newPos + PawnDrawOffset, Rot4.North, null);
-                    }
-                    else
-                    {
-                        FetusLateStage.drawSize = drawSize;
-                        FetusLateStage.DrawFromDef(newPos + PawnDrawOffset, Rot4.North, null);
-                    }
-                }
-                else
-                {
-                    InnerPawn.Rotation = Rotation;
-                    InnerPawn.DrawAt(newPos + PawnDrawOffset, flip);
-                }
-            }
-            base.Comps_PostDraw();
         }
 
         public void OrderToCancel()
@@ -416,17 +442,7 @@ namespace AlteredCarbon
             Pawn pawn = OpeningPawn();
             if (pawn != null && pawn.Dead is false)
             {
-                Building_Bed bed = RestUtility.FindBedFor(sleeve, pawn, checkSocialProperness: false);
-                if (bed == null)
-                {
-                    bed = RestUtility.FindBedFor(sleeve, pawn, checkSocialProperness: false, ignoreOtherReservations: true);
-                }
-                if (bed != null)
-                {
-                    Job job = JobMaker.MakeJob(JobDefOf.Rescue, sleeve, bed);
-                    job.count = 1;
-                    pawn.jobs.jobQueue.EnqueueFirst(job, JobTag.Misc);
-                }
+                ACUtils.AddTakeEmptySleeveJob(pawn, sleeve, false);
             }
         }
         private Pawn OpeningPawn()

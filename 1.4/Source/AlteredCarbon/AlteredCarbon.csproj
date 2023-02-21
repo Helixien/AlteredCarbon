@@ -72,6 +72,7 @@
     <Compile Include="Buildings\Building_Incubator.cs" />
     <Compile Include="HarmonyPatches\Dialog_BillConfig_DoWindowContents_Patch.cs" />
     <Compile Include="HarmonyPatches\Dialog_InfoCard_DoWindowContents_Patch.cs" />
+    <Compile Include="Jobs\JobDriver_TakeEmptySleeve.cs" />
     <Compile Include="HarmonyPatches\PawnRenderer_LayingFacing_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnUtility_ShouldSendNotificationAbout_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_DoKillSideEffects.cs" />
@@ -152,10 +153,6 @@
     <Compile Include="Recipes\Bill_InstallStack.cs" />
     <Compile Include="Recipes\SpecialThingFilterWorker_StacksStranger.cs" />
     <Compile Include="Buildings\Building_SleeveCasket.cs" />
-    <Compile Include="Buildings\CompProperties_SleeveCasketPostDraw.cs" />
-    <Compile Include="Buildings\CompProperties_SleeveGrowerPostDraw.cs" />
-    <Compile Include="Buildings\CompSleeveCasketPostDraw.cs" />
-    <Compile Include="Buildings\CompSleeveGrowerPostDraw.cs" />
     <Compile Include="Jobs\JobDriver_ReleaseSleeve.cs" />
     <Compile Include="HarmonyPatches\Pawn_HealthTracker_CheckForStateChange_Patch.cs" />
     <Compile Include="Buildings\Building_SleeveGrower.cs" />

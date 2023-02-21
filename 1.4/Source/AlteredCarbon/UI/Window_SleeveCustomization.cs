@@ -535,15 +535,15 @@ namespace AlteredCarbon
             curSleeve.genes.AddGene(geneQuality, false);
         }
 
-        public static string GetHediffToolTip(IEnumerable<Hediff> diffs, Pawn pawn)
-        {
-            string str = "";
-            foreach (Hediff hediff in diffs)
-            {
-                str += hediff.GetTooltip(pawn, false) + "\n";
-            }
-            return str;
-        }
+        //public static string GetHediffToolTip(IEnumerable<Hediff> diffs, Pawn pawn)
+        //{
+        //    string str = "";
+        //    foreach (Hediff hediff in diffs)
+        //    {
+        //        str += hediff.GetTooltip(pawn, false) + "\n";
+        //    }
+        //    return str;
+        //}
 
         public void RecheckEverything()
         {

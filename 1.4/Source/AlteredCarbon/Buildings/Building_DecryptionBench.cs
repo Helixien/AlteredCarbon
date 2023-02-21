@@ -74,7 +74,7 @@ namespace AlteredCarbon
                         });
                     }
                 };
-                LockBehindReseach(rewriteStack, AC_DefOf.AC_RewriteFilledCorticalStack.researchPrerequisites);
+                rewriteStack.LockBehindReseach(AC_DefOf.AC_RewriteFilledCorticalStack.researchPrerequisites);
                 if (powerComp.PowerOn is false)
                 {
                     rewriteStack.Disable("NoPower".Translate().CapitalizeFirst());
@@ -100,26 +100,7 @@ namespace AlteredCarbon
             }
         }
 
-        private void LockBehindReseach(Command_Action command, List<ResearchProjectDef> researchProjects)
-        {
-            if (IsResearchFinished(researchProjects) is false)
-            {
-                command.Disable("MissingRequiredResearch".Translate() + ": " + (from x in researchProjects where !x.IsFinished select x.label)
-                    .ToCommaList(useAnd: true).CapitalizeFirst());
-            }
-        }
 
-        public bool IsResearchFinished(List<ResearchProjectDef> research)
-        {
-            for (int i = 0; i < research.Count; i++)
-            {
-                if (!research[i].IsFinished)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
         public bool CanAddOperationOn(CorticalStack corticalStack)
         {
             var bill = this.billStack.Bills.OfType<Bill_OperateOnStack>().Where(x => x.corticalStack == corticalStack).FirstOrDefault();

@@ -38,6 +38,8 @@
 	<AC.PawnDiedBecauseOf>Sleeve of {PAWN_labelShort} has died. Cause: {1}.</AC.PawnDiedBecauseOf>
 	<AC.PawnDied>Sleeve of {1_labelShort} has died.</AC.PawnDied>
 	<AC.SleveOf>Sleeve of </AC.SleveOf>
+	<AC.TakeToSleeveCasketOrMedicalBed>Take empty sleeve to sleeve casket or medical bed</AC.TakeToSleeveCasketOrMedicalBed>
+	<AC.CannotTakeToSleeveCasketOrMedicalBed>Cannot take: No reachable, un-reserved sleeve casket or medical bed in safe temperature.</AC.CannotTakeToSleeveCasketOrMedicalBed>
 	<!-- ================================ Sleeve Incubator ====================== -->
 	<AC.CreateSleeveBody>Grow sleeve</AC.CreateSleeveBody>
 	<AC.SleeveCustomization>Sleeve Customization</AC.SleeveCustomization>
@@ -124,6 +126,7 @@
 	<AC.NoEnoughSpaceForNewStack>Not enough space for new stack</AC.NoEnoughSpaceForNewStack>
 	<AC.EjectStackTooltip>Eject this cortical stack from the array.</AC.EjectStackTooltip>
 	<AC.EjectStackConfirmation>Do you really want to eject {0}? It will be immediately ejected onto the ground nearby.</AC.EjectStackConfirmation>
+	<AC.NoStoredStackToDuplicate>There are no stored cortical stacks in the array to duplicate.</AC.NoStoredStackToDuplicate>
 	<!-- ================================ Gene Centrifuge ====================== -->
 	<AC.SeparateGene>Separate gene</AC.SeparateGene>
 	<AC.SeparateGeneDesc>Select a genepack from which to separate a gene from.</AC.SeparateGeneDesc>

@@ -207,17 +207,20 @@ namespace AlteredCarbon
             }
             if (ModCompatibility.HelixienAlteredCarbonIsActive)
             {
-                yield return new Command_Toggle
+                if (this.IsArchoStack is false && this.IsFilledStack)
                 {
-                    defaultLabel = "AC.AutoLoad".Translate(),
-                    defaultDesc = "AC.AutoLoadDesc".Translate(),
-                    icon = ContentFinder<Texture2D>.Get("UI/Icons/AutoLoadStack"),
-                    isActive = () => autoLoad,
-                    toggleAction = delegate
+                    yield return new Command_Toggle
                     {
-                        autoLoad = !autoLoad;
-                    }
-                };
+                        defaultLabel = "AC.AutoLoad".Translate(),
+                        defaultDesc = "AC.AutoLoadDesc".Translate(),
+                        icon = ContentFinder<Texture2D>.Get("UI/Icons/AutoLoadStack"),
+                        isActive = () => autoLoad,
+                        toggleAction = delegate
+                        {
+                            autoLoad = !autoLoad;
+                        }
+                    };
+                }
             }
         }
 

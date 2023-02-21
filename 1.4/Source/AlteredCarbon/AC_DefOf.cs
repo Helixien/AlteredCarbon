@@ -40,6 +40,7 @@ namespace AlteredCarbon
         public static JobDef VFEU_ExtractStack;
         public static JobDef VFEU_StartIncubatingProcess;
         public static JobDef VFEU_CancelIncubatingProcess;
+        public static JobDef AC_TakeEmptySleeve;
         public static HediffDef VFEU_CorticalStack;
         public static GeneDef VFEU_SleeveQuality_Awful;
         public static GeneDef VFEU_SleeveQuality_Poor;

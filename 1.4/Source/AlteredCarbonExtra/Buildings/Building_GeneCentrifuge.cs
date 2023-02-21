@@ -128,6 +128,20 @@ namespace AlteredCarbon
                         }
                     };
                 }
+
+                if (Prefs.DevMode && StoredGenepack != null)
+                {
+                    Command_Action command_Action = new Command_Action
+                    {
+                        defaultLabel = "Debug: Finish seperating",
+                        action = delegate
+                        {
+                            ticksDone = ExtractionDuration(StoredGenepack);
+                            FinishJob();
+                        }
+                    };
+                    yield return command_Action;
+                }
             }
         }
 
@@ -202,7 +216,7 @@ namespace AlteredCarbon
                     Messages.Message("AC.FinishedSeparatingDestroyedMessage".Translate(newGenepack.LabelCap), new List<Thing>
                             {
                                 storedGenepack
-                            }, MessageTypeDefOf.NeutralEvent);
+                            }, MessageTypeDefOf.CautionInput);
                     newGenepack.Destroy();
                 }
                 else
@@ -211,7 +225,7 @@ namespace AlteredCarbon
                     Messages.Message("AC.FinishedSeparatingDestroyedMessage".Translate(storedGenepack.LabelCap), new List<Thing>
                             {
                                 newGenepack
-                            }, MessageTypeDefOf.NeutralEvent);
+                            }, MessageTypeDefOf.CautionInput);
                     storedGenepack.Destroy();
                 }
             }
@@ -222,7 +236,7 @@ namespace AlteredCarbon
                 Messages.Message("AC.FinishedSeparatingMessage".Translate(), new List<Thing>
                         {
                             storedGenepack, newGenepack
-                        }, MessageTypeDefOf.NeutralEvent);
+                        }, MessageTypeDefOf.CautionInput);
             }
             JobCleanup();
         }

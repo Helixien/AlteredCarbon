@@ -4,6 +4,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
+    [HotSwappable]
     [HarmonyPatch(typeof(PawnRenderer), "LayingFacing")]
     public static class PawnRenderer_LayingFacing_Patch
     {
@@ -11,8 +12,11 @@ namespace AlteredCarbon
         {
             if (___pawn.CurrentBed() is Building_SleeveCasket bed)
             {
-                __result = bed.Rotation;
-                return false;
+                if (bed.Rotation == Rot4.North)
+                {
+                    __result = Rot4.South;
+                    return false;
+                }
             }
             return true;
         }

@@ -293,6 +293,47 @@ namespace AlteredCarbon
                 ModCompatibility.CopyFacialFeatures(source, dest);
             }
         }
+        public static void AddTakeEmptySleeveJob(Pawn pawn, Pawn pawnTarget, bool failMessage)
+        {
+            Building_Bed building_Bed3 = RestUtility.FindBedFor(pawnTarget, pawn, checkSocialProperness: false);
+            if (building_Bed3 == null)
+            {
+                building_Bed3 = RestUtility.FindBedFor(pawnTarget, pawn, checkSocialProperness: false, ignoreOtherReservations: true);
+            }
+            if (building_Bed3 == null)
+            {
+                if (failMessage)
+                {
+                    Messages.Message("AC.CannotTakeToSleeveCasketOrMedicalBed".Translate(), pawnTarget, MessageTypeDefOf.RejectInput, historical: false);
+                }
+            }
+            else
+            {
+                Job job28 = JobMaker.MakeJob(AC_DefOf.AC_TakeEmptySleeve, pawnTarget, building_Bed3);
+                job28.count = 1;
+                pawn.jobs.TryTakeOrderedJob(job28, JobTag.Misc);
+            }
+        }
+
+        public static void LockBehindReseach(this Command_Action command, List<ResearchProjectDef> researchProjects)
+        {
+            if (researchProjects != null && IsResearchFinished(researchProjects) is false)
+            {
+                command.Disable("MissingRequiredResearch".Translate() + ": " + (from x in researchProjects where !x.IsFinished select x.label)
+                    .ToCommaList(useAnd: true).CapitalizeFirst());
+            }
+        }
+        public static bool IsResearchFinished(List<ResearchProjectDef> research)
+        {
+            for (int i = 0; i < research.Count; i++)
+            {
+                if (!research[i].IsFinished)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         public static string PawnTemplatesPath => Path.Combine(GenFilePaths.ConfigFolderPath, "AC_PawnTemplates.xml");
 
         public static void SavePresets()

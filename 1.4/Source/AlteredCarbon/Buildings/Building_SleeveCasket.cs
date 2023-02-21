@@ -11,6 +11,7 @@ using Verse.Sound;
 
 namespace AlteredCarbon
 {
+    [HotSwappable]
 	public class Building_SleeveCasket : Building_Bed
     {
         public int runningOutFuelInTicks;
@@ -21,11 +22,28 @@ namespace AlteredCarbon
             base.SpawnSetup(map, respawningAfterLoad);
             this.compRefuelable = base.GetComp<CompRefuelable>();
         }
+
+        public Graphic topGraphic;
+        public Graphic TopGraphic
+        {
+            get
+            {
+                if (topGraphic == null)
+                {
+                    topGraphic = GraphicDatabase.Get<Graphic_Multi>("Things/Building/Furniture/Bed/SleeveCasketTop",
+                        ShaderDatabase.CutoutComplex, this.def.graphicData.drawSize, Color.white);
+                }
+                return topGraphic;
+            }
+        }
+
         public override void DrawAt(Vector3 drawLoc, bool flip = false)
 		{
 			base.DrawAt(drawLoc, flip);
-			base.Comps_PostDraw();
-		}
+            Vector3 vector = this.DrawPos;
+            vector.y += 3f;
+            TopGraphic.Draw(vector, this.Rotation, this);
+        }
 
         public override string GetInspectString()
         {
@@ -78,28 +96,25 @@ namespace AlteredCarbon
 			{
                 foreach (var occupant in this.CurOccupants)
                 {
-                    if (occupant.IsEmptySleeve())
+                    if (occupant.needs.food.CurLevel < occupant.needs.food.MaxLevel)
                     {
-                        if (occupant.needs.food.CurLevel < occupant.needs.food.MaxLevel)
-                        {
-                            occupant.needs.food.CurLevel += 0.001f;
-                        }
-                        if (ModCompatibility.DubsBadHygieneActive)
-                        {
-                            ModCompatibility.FillThirstNeed(occupant, 0.001f);
-                            ModCompatibility.FillHygieneNeed(occupant, 0.001f);
-                            ModCompatibility.FillBladderNeed(occupant, 0.001f);
-                        }
-                        var malnutrition = occupant.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.Malnutrition);
-                        if (malnutrition != null)
-                        {
-                            occupant.health.RemoveHediff(malnutrition);
-                        }
-                        var dehydration = occupant.health.hediffSet.hediffs.FirstOrDefault(x => x.def.defName == "DBHDehydration");
-                        if (dehydration != null)
-                        {
-                            occupant.health.RemoveHediff(dehydration);
-                        }
+                        occupant.needs.food.CurLevel += 0.001f;
+                    }
+                    if (ModCompatibility.DubsBadHygieneActive)
+                    {
+                        ModCompatibility.FillThirstNeed(occupant, 0.001f);
+                        ModCompatibility.FillHygieneNeed(occupant, 0.001f);
+                        ModCompatibility.FillBladderNeed(occupant, 0.001f);
+                    }
+                    var malnutrition = occupant.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.Malnutrition);
+                    if (malnutrition != null)
+                    {
+                        occupant.health.RemoveHediff(malnutrition);
+                    }
+                    var dehydration = occupant.health.hediffSet.hediffs.FirstOrDefault(x => x.def.defName == "DBHDehydration");
+                    if (dehydration != null)
+                    {
+                        occupant.health.RemoveHediff(dehydration);
                     }
                 }
             }
