@@ -121,10 +121,10 @@
 		<canOverlapZones>false</canOverlapZones>
 		<defaultPlacingRot>South</defaultPlacingRot>
 		<building>
-			<bed_showSleeperBody>True</bed_showSleeperBody>
+			<bed_showSleeperBody>false</bed_showSleeperBody>
 			<buildingSizeCategory>Small</buildingSizeCategory>
 			<bed_humanlike>true</bed_humanlike>
-			<bed_healPerDay>0</bed_healPerDay>
+			<bed_healPerDay>2</bed_healPerDay>
 			<bed_defaultMedical>true</bed_defaultMedical>
 			<ai_chillDestination>false</ai_chillDestination>
 			<buildingTags>

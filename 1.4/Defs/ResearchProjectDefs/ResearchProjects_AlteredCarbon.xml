@@ -6,15 +6,12 @@
 		<label>sleeving</label>
 		<description>Build facilities that gestate empty sleeves, ready for cortical stack implantation.</description>
 		<baseCost>3000</baseCost>
-		<researchViewX>8.00</researchViewX>
-		<researchViewY>5.40</researchViewY>
+		<researchViewX>6.00</researchViewX>
+		<researchViewY>4.80</researchViewY>
 		<techLevel>Ultra</techLevel>
 		<prerequisites>
-			<li>Xenogermination</li>
-		</prerequisites>
-		<hiddenPrerequisites>
 			<li>MicroelectronicsBasics</li>
-		</hiddenPrerequisites>
+		</prerequisites>
 		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
 		<requiredResearchFacilities>
 			<li>MultiAnalyzer</li>

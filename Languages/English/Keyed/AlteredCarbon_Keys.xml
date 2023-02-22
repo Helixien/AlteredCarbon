@@ -90,12 +90,12 @@
 	<AC.SelectRace>Select race</AC.SelectRace>
 	<AC.RaceTypeReplace>Race type</AC.RaceTypeReplace>
 	<AC.CloneSleeve>Clone sleeve</AC.CloneSleeve>
-	<AC.CloneSleeveDesc>Create a sleeve based on an existing pawn.</AC.CloneSleeveDesc>
+	<AC.CloneSleeveDesc>Create a sleeve based on an existing pawn, including endogenes.</AC.CloneSleeveDesc>
 	<AC.IsRunningOutFuel>Sleeve incubator is running out neutroamine</AC.IsRunningOutFuel>
 	<AC.IsRunningOutPower>Sleeve incubator is running out power</AC.IsRunningOutPower>
 	<AC.SleeveInIncubatorIsDead>Sleeve body in the incubator is dead</AC.SleeveInIncubatorIsDead>
 	<AC.RepurposeCorpse>Repurpose corpse</AC.RepurposeCorpse>
-	<AC.RepurposeCorpseDesc>text.todo</AC.RepurposeCorpseDesc>
+	<AC.RepurposeCorpseDesc>Repurpose a not fully rotten corpse and turn it into an empty sleeve.</AC.RepurposeCorpseDesc>
 	<AC.SleeveGrowerIsOccupied>Sleeve grower is occupied.</AC.SleeveGrowerIsOccupied>
 	<AC.CancelRepurposingCorpse>Cancel repurposing corpse</AC.CancelRepurposingCorpse>
 	<AC.CancelRepurposingCorpseDesc>text.todo</AC.CancelRepurposingCorpseDesc>
