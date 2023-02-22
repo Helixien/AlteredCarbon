@@ -85,6 +85,8 @@
 		<workDisables>
 			<li>Intellectual</li>
 		</workDisables>
+		<bodyTypeMale>Male</bodyTypeMale>
+		<bodyTypeFemale>Female</bodyTypeFemale>
 		<disallowedTraits>
 			<Transhumanist>0</Transhumanist>
 			<Industriousness>2</Industriousness>
@@ -121,7 +123,9 @@
 			<li>Animals</li>
 			<li>PlantWork</li>
 		</workDisables>
-	</BackstoryDef>
+		<bodyTypeMale>Male</bodyTypeMale>
+		<bodyTypeFemale>Female</bodyTypeFemale>
+		</BackstoryDef>
 	<BackstoryDef>
 		<defName>AC_SlumDweller</defName>
 		<title>slum dweller</title>
@@ -152,6 +156,8 @@
 			<li>Animals</li>
 			<li>PlantWork</li>
 		</workDisables>
+		<bodyTypeMale>Male</bodyTypeMale>
+		<bodyTypeFemale>Female</bodyTypeFemale>
 		<forcedTraits>
 			<Brawler>0</Brawler>
 		</forcedTraits>
@@ -187,6 +193,8 @@
 		<workDisables>
 			<li>Social</li>
 		</workDisables>
+		<bodyTypeMale>Male</bodyTypeMale>
+		<bodyTypeFemale>Female</bodyTypeFemale>
 		<forcedTraits>
 			<VFEU_FreeMind>0</VFEU_FreeMind>
 		</forcedTraits>
@@ -216,6 +224,8 @@
 			<li>Outlander</li>
 			<li>ImperialFighter</li>
 		</spawnCategories>
+		<bodyTypeMale>Male</bodyTypeMale>
+		<bodyTypeFemale>Female</bodyTypeFemale>
 		<forcedTraits>
 			<VFEU_Sleever>0</VFEU_Sleever>
 		</forcedTraits>
@@ -245,6 +255,8 @@
 			<li>Animals</li>
 			<li>PlantWork</li>
 		</workDisables>
+		<bodyTypeMale>Male</bodyTypeMale>
+		<bodyTypeFemale>Female</bodyTypeFemale>
 		<forcedTraits>
 			<FastLearner>0</FastLearner>
 		</forcedTraits>
@@ -313,8 +325,7 @@
 			<li>Pirate</li>
 			<li>ImperialFighter</li>
 		</spawnCategories>
-		<bodyTypeMale>Hulk</bodyTypeMale>
-		<bodyTypeFemale>Hulk</bodyTypeFemale>
+
 		<requiredWorkTags>
 			<li>Violent</li>
 		</requiredWorkTags>
@@ -323,6 +334,8 @@
 			<li>Intellectual</li>
 			<li>Caring</li>
 		</workDisables>
+		<bodyTypeMale>Hulk</bodyTypeMale>
+		<bodyTypeFemale>Hulk</bodyTypeFemale>
 		<forcedTraits>
 			<Psychopath>0</Psychopath>
 			<Bloodlust>0</Bloodlust>
@@ -385,6 +398,8 @@
 			<li>Offworld</li>
 			<li>ImperialCommon</li>
 		</spawnCategories>
+		<bodyTypeMale>Male</bodyTypeMale>
+		<bodyTypeFemale>Female</bodyTypeFemale>
 	</BackstoryDef>
 	<BackstoryDef>
 		<defName>AC_SettledCivilian</defName>
@@ -407,6 +422,8 @@
 			<li>Outlander</li>
 			<li>ImperialCommon</li>
 		</spawnCategories>
+		<bodyTypeMale>Male</bodyTypeMale>
+		<bodyTypeFemale>Female</bodyTypeFemale>
 		<forcedTraits>
 			<Industriousness>1</Industriousness>
 		</forcedTraits>
@@ -439,6 +456,8 @@
 			<li>Offworld</li>
 			<li>Pirate</li>
 		</spawnCategories>
+		<bodyTypeMale>Thin</bodyTypeMale>
+		<bodyTypeFemale>Thin</bodyTypeFemale>
 		<workDisables>
 			<li>Cleaning</li>
 			<li>Crafting</li>
@@ -486,6 +505,8 @@
 			<li>PlantWork</li>
 			<li>Constructing</li>
 		</workDisables>
+		<bodyTypeMale>Male</bodyTypeMale>
+		<bodyTypeFemale>Female</bodyTypeFemale>
 		<forcedTraits>
 			<Industriousness>-2</Industriousness>
 			<Wimp>0</Wimp>
@@ -519,8 +540,6 @@
 			<li>Offworld</li>
 			<li>ImperialFighter</li>
 		</spawnCategories>
-		<bodyTypeMale>Male</bodyTypeMale>
-		<bodyTypeFemale>Female</bodyTypeFemale>
 		<requiredWorkTags>
 			<li>Violent</li>
 		</requiredWorkTags>
@@ -528,6 +547,8 @@
 			<li>Intellectual</li>
 			<li>Caring</li>
 		</workDisables>
+		<bodyTypeMale>Male</bodyTypeMale>
+		<bodyTypeFemale>Female</bodyTypeFemale>
 		<forcedTraits>
 			<VFEU_Sleever>0</VFEU_Sleever>
 			<Psychopath>0</Psychopath>
