@@ -115,7 +115,6 @@
 		</statBases>
 		<altitudeLayer>Building</altitudeLayer>
 		<castEdgeShadows>True</castEdgeShadows>
-		<staticSunShadowHeight>0.17</staticSunShadowHeight>
 		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
 		<drawGUIOverlay>true</drawGUIOverlay>
 		<canOverlapZones>false</canOverlapZones>
@@ -140,7 +139,7 @@
 				<shortCircuitInRain>false</shortCircuitInRain>
 				<basePowerConsumption>75</basePowerConsumption>
 			</li>
-			<li Class="CompProperties_Refuelable">
+<!--			<li Class="CompProperties_Refuelable">
 				<fuelLabel>Neutroamine</fuelLabel>
 				<fuelGizmoLabel>Neutroamine</fuelGizmoLabel>
 				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
@@ -154,7 +153,7 @@
 				<initialFuelPercent>1</initialFuelPercent>
 				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
 				<showFuelGizmo>true</showFuelGizmo>
-			</li>
+			</li>-->
 			<li Class="CompProperties_AssignableToPawn">
 				<drawAssignmentOverlay>false</drawAssignmentOverlay>
 				<compClass>CompAssignableToPawn_Bed</compClass>
