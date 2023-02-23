@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
+	<!-- ================================ Hacking Research ====================== -->
 	<ResearchProjectDef>
 		<defName>VFEU_Hacking</defName>
 		<label>hacking</label>

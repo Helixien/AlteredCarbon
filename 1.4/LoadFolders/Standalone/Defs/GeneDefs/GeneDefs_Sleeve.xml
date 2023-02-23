@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-	<!-- Sleeve Quality -->
+	<!-- ================================ Sleeve Quality Base ====================== -->
 	<GeneDef Name="VFEU_SleeveQualityGeneBase" Abstract="True">
 		<displayCategory>VFEU_SleeveQuality</displayCategory>
 		<exclusionTags>
@@ -15,6 +15,7 @@
 			</li>
 		</modExtensions>
 	</GeneDef>
+	<!-- ================================ Sleeve Quality Genes ====================== -->
 	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
 		<defName>VFEU_SleeveQuality_Awful</defName>
 		<label>awful quality</label>

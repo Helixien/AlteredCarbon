@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
+	<!-- ================================ Ancient Cortical Stacks ====================== -->
 	<ThingDef ParentName="ResourceBase">
 		<defName>VFEU_AncientStack</defName>
 		<label>ancient cortical stack</label>

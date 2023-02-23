@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
+	<!-- ================================ Extract Stacks Designator ====================== -->
 	<DesignationDef>
 		<defName>VFEU_ExtractStackDesignation</defName>
 		<texturePath>UI/Icons/ExtractStacks_2</texturePath>

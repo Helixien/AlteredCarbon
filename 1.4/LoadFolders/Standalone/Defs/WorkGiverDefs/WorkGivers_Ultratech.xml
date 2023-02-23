@@ -13,7 +13,7 @@
 			<li>Manipulation</li>
 		</requiredCapacities>
 	</WorkGiverDef>
-	<!-- ================================ Start Sleeve growing ====================== -->
+	<!-- ================================ Sleeve growing ====================== -->
 	<WorkGiverDef>
 		<defName>VFEU_StartIncubatingProcess</defName>
 		<label>start growing process</label>
@@ -27,7 +27,6 @@
 		</requiredCapacities>
 		<prioritizeSustains>true</prioritizeSustains>
 	</WorkGiverDef>
-	<!-- ================================ Stop Sleeve growing ====================== -->
 	<WorkGiverDef>
 		<defName>VFEU_CancelIncubatingProcess</defName>
 		<label>cancel growing process</label>

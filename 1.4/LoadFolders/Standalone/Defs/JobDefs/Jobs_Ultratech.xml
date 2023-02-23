@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
+	<!-- ================================ Cortical Stack Jobs ====================== -->
 	<JobDef>
 		<defName>VFEU_ExtractStack</defName>
 		<driverClass>AlteredCarbon.JobDriver_ExtractStack</driverClass>
 		<reportString>extracts cortical stack from target</reportString>
 	</JobDef>
+	<!-- ================================ Sleeve Jobs ====================== -->
 	<JobDef>
 		<defName>VFEU_ReleaseSleeve</defName>
 		<driverClass>AlteredCarbon.JobDriver_ReleaseSleeve</driverClass>
@@ -20,7 +22,6 @@
 		<driverClass>AlteredCarbon.JobDriver_CancelIncubatingProcess</driverClass>
 		<reportString>canceling growth process on incubator</reportString>
 	</JobDef>
-	
 	<JobDef>
 		<defName>AC_TakeEmptySleeve</defName>
 		<driverClass>AlteredCarbon.JobDriver_TakeEmptySleeve</driverClass>
@@ -29,5 +30,4 @@
 		<carryThingAfterJob>true</carryThingAfterJob>
 		<dropThingBeforeJob>false</dropThingBeforeJob>
 	</JobDef>
-
 </Defs>

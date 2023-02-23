@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
+	<!-- ================================ Deterioration Damage ====================== -->
 	<DamageDef>
 		<defName>VFEU_Deterioration</defName>
 		<label>deterioration</label>

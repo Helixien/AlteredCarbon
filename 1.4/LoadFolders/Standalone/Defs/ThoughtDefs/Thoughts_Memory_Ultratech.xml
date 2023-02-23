@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
+	<!-- ================================ Wrong Sleeve Race ====================== -->
 	<ThoughtDef>
 		<defName>VFEU_WrongRace</defName>
 		<durationDays>120</durationDays>
@@ -16,6 +17,7 @@
 			</li>
 		</stages>
 	</ThoughtDef>
+	<!-- ================================ Wrong Sleeve Gender ====================== -->
 	<ThoughtDef>
 		<defName>VFEU_WrongGender</defName>
 		<durationDays>120</durationDays>
@@ -88,6 +90,7 @@
 			</li>
 		</stages>
 	</ThoughtDef>
+	<!-- ================================ New Sleeve ====================== -->
 	<ThoughtDef>
 		<defName>VFEU_NewSleeve</defName>
 		<durationDays>30</durationDays>
@@ -122,6 +125,7 @@
 			</li>
 		</stages>
 	</ThoughtDef>
+	<!-- ================================ Wrong Sleeve Gender ====================== -->
 	<ThoughtDef>
 		<defName>VFEU_MansBody</defName>
 		<workerClass>AlteredCarbon.ThoughtWorker_MansBody</workerClass>
