@@ -101,6 +101,7 @@
 	<AC.CancelRepurposingCorpseDesc>text.todo</AC.CancelRepurposingCorpseDesc>
 	<AC.CorticalStackMustBeRemovedFirst>Cortical stack must be removed first.</AC.CorticalStackMustBeRemovedFirst>
 	<AC.SleeveDesignCouldntBeFullyLoaded>Saved Sleeve Design could not be fully loaded. Missing required xenogerm!</AC.SleeveDesignCouldntBeFullyLoaded>
+	<AC.PawnBodyCouldntBeFullyCopied>A {PAWN_nameDef} body couldn't be copied fully. The following xenogenes were skipped: {1}</AC.PawnBodyCouldntBeFullyCopied>
 	<!-- ================================ Stack Array ====================== -->
 	<AC.Backup>Backup</AC.Backup>
 	<AC.BackedUpStacksInArray>Cortical Stack backups saved in arrays: {0}</AC.BackedUpStacksInArray>

@@ -88,6 +88,15 @@ namespace AlteredCarbon
             {
                 ApplyGeneQuality();
             }
+            var xenogenes = pawnToClone.genes.Xenogenes.Select(x => x.def).ToList();
+            if (xenogenes.Any() )
+            {
+                curXenogerm = TryFindXenogerm(xenogenes);
+                if (curXenogerm is null)
+                {
+                    Messages.Message("AC.PawnBodyCouldntBeFullyCopied".Translate(pawnToClone.Named("PAWN"), string.Join(", ", xenogenes.Select(x => x.label))), MessageTypeDefOf.CautionInput);
+                }
+            }
             RecheckEverything();
             InitUI();
         }
@@ -758,15 +767,7 @@ namespace AlteredCarbon
             var xenogenes = curSleeve.genes.Xenogenes.Select(x => x.def).ToList();
             if (xenogenes.Any())
             {
-                foreach (var xenogerm in sleeveGrower.Map.GetXenogerms())
-                {
-                    var genes = xenogerm.GeneSet.GenesListForReading;
-                    if (genes.Count == xenogenes.Count && xenogenes.OrderBy(x => x.defName).SequenceEqual(genes.OrderBy(x => x.defName).ToList()))
-                    {
-                        curXenogerm = xenogerm;
-                        break;
-                    }
-                }
+                curXenogerm = TryFindXenogerm(xenogenes);
                 if (curXenogerm is null)
                 {
                     foreach (var gene in curSleeve.genes.Xenogenes.ToList())
@@ -778,6 +779,19 @@ namespace AlteredCarbon
             }
             currentPawnKindDef = curSleeve.kindDef;
             InitializeIndexes();
+        }
+
+        private Xenogerm TryFindXenogerm(List<GeneDef> xenogenes)
+        {
+            foreach (var xenogerm in sleeveGrower.Map.GetXenogerms())
+            {
+                var genes = xenogerm.GeneSet.GenesListForReading;
+                if (genes.Count == xenogenes.Count && xenogenes.OrderBy(x => x.defName).SequenceEqual(genes.OrderBy(x => x.defName).ToList()))
+                {
+                    return xenogerm;
+                }
+            }
+            return null;
         }
 
         private void InitializeIndexes()
