@@ -496,12 +496,17 @@ namespace AlteredCarbon
         public override void Tick()
         {
             base.Tick();
-            if (InnerPawn == null && curTicksToGrow > 0)
+            if (InnerPawn == null)
             {
-                curTicksToGrow = 0;
+                if (curTicksToGrow > 0)
+                {
+                    curTicksToGrow = 0;
+                }
+                powerTrader.PowerOutput = 0f - powerTrader.Props.idlePowerDraw;
             }
-            if (InnerPawn != null)
+            else
             {
+                powerTrader.PowerOutput = 0f - powerTrader.Props.PowerConsumption;
                 if (incubatorState == IncubatorState.Growing || incubatorState == IncubatorState.ToBeCanceled)
                 {
                     if (compRefuelable.HasFuel && powerTrader.PowerOn)

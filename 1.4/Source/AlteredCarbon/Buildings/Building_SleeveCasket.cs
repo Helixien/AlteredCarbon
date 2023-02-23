@@ -17,10 +17,12 @@ namespace AlteredCarbon
         public int runningOutFuelInTicks;
         public bool isRunningOutFuel;
         protected CompRefuelable compRefuelable;
+        protected CompPowerTrader compPower;
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             base.SpawnSetup(map, respawningAfterLoad);
             this.compRefuelable = base.GetComp<CompRefuelable>();
+            this.compPower = base.GetComp<CompPowerTrader>();
         }
 
         public Graphic topGraphic;
@@ -72,6 +74,11 @@ namespace AlteredCarbon
             if (this.CurOccupants.Any())
             {
                 compRefuelable.ConsumeFuel(2f / 60000f);
+                compPower.PowerOutput = 0f - compPower.Props.PowerConsumption;
+            }
+            else
+            {
+                compPower.PowerOutput = 0f - compPower.Props.idlePowerDraw;
             }
             if (!compRefuelable.HasFuel && !isRunningOutFuel)
             {
