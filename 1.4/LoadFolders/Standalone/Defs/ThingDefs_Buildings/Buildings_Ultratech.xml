@@ -4,42 +4,46 @@
 	<ThingDef ParentName="BuildingBase">
 		<defName>VFEU_SleeveIncubator</defName>
 		<label>sleeve incubator</label>
-		<description>An exceedingly complex vat of nutrients that is capable of gestating sleeves, empty shells without a mind of their own. Neutroamine is used in order to grow the body through its different stages and the incubator must remained powered throughout this process. Should it lose power for extended periods, the gestation process will fail./n/nSimple, low grade sleeves can be churned out quite quickly for minimal resources. However, more complex and sophisticated sleeves take longer and require more nutrients to ensure the body is properly formed./n/nOnce the sleeve has finished growing, it should be extracted and cared for as it is incapable of independent movement or thought, including feeding itself.</description>
-		<descriptionHyperlinks>
-			<ThingDef>VFEU_SleeveCasket</ThingDef>
-			<ThingDef>GeneAssembler</ThingDef>
-			<ThingDef>Xenogerm</ThingDef>
-		</descriptionHyperlinks>
+		<description>An exceedingly complex vat of nutrients that is capable of gestating sleeves, empty shells without a mind of their own. Neutroamine is used in order to grow the body through its different stages and the incubator must remained powered throughout this process. Should it lose power for extended periods, the gestation process will fail. \n\nSimple, low grade sleeves can be churned out quite quickly for minimal resources. However, more complex and sophisticated sleeves take longer and require more nutrients to ensure the body is properly formed. /n/nOnce the sleeve has finished growing, it should be extracted and cared for as it is incapable of independent movement or thought, including feeding itself.</description>
+		<thingClass>AlteredCarbon.Building_SleeveGrower</thingClass>
+		<passability>PassThroughOnly</passability>
+		<castEdgeShadows>true</castEdgeShadows>
+		<fillPercent>0.4</fillPercent>
 		<graphicData>
 			<texPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorBottom</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<drawSize>(7,7)</drawSize>
 		</graphicData>
 		<uiIconPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorUI_Icon</uiIconPath>
-		<thingClass>AlteredCarbon.Building_SleeveGrower</thingClass>
-		<tickerType>Normal</tickerType>
-		<drawerType>RealtimeOnly</drawerType>
-		<passability>PassThroughOnly</passability>
-		<containedPawnsSelectable>true</containedPawnsSelectable>
-		<castEdgeShadows>true</castEdgeShadows>
 		<uiIconScale>1.1</uiIconScale>
+		<descriptionHyperlinks>
+			<ThingDef>VFEU_SleeveCasket</ThingDef>
+			<ThingDef>GeneAssembler</ThingDef>
+			<ThingDef>Xenogerm</ThingDef>
+		</descriptionHyperlinks>
+		<tickerType>Normal</tickerType>
 		<size>(3,3)</size>
 		<hasInteractionCell>true</hasInteractionCell>
 		<interactionCellOffset>(0,0,2)</interactionCellOffset>
 		<defaultPlacingRot>South</defaultPlacingRot>
-		<neverMultiSelect>true</neverMultiSelect>
-		<fillPercent>0.6</fillPercent>
-		<pathCost>70</pathCost>
 		<canOverlapZones>false</canOverlapZones>
-		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-		<blockWind>true</blockWind>
+		<neverMultiSelect>true</neverMultiSelect>
 		<statBases>
 			<MarketValue>3580</MarketValue>
-			<WorkToBuild>16000</WorkToBuild>
-			<MaxHitPoints>400</MaxHitPoints>
+			<WorkToBuild>18000</WorkToBuild>
+			<MaxHitPoints>800</MaxHitPoints>
 			<Flammability>0.5</Flammability>
 			<Mass>60</Mass>
 		</statBases>
+		<pathCost>70</pathCost>
+		<blockWind>true</blockWind>
+		<drawerType>RealtimeOnly</drawerType>
+		<containedPawnsSelectable>true</containedPawnsSelectable>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<placeWorkers>
+			<li>PlaceWorker_FuelingPort</li>
+		</placeWorkers>
 		<building>
 			<destroySound>BuildingDestroyed_Metal_Big</destroySound>
 			<ai_chillDestination>false</ai_chillDestination>
@@ -48,10 +52,6 @@
 				<li>Biotech</li>
 			</buildingTags>
 		</building>
-		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
-		<placeWorkers>
-			<li>PlaceWorker_FuelingPort</li>
-		</placeWorkers>
 		<comps>
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Forbiddable"/>
@@ -59,6 +59,7 @@
 				<compClass>CompPowerTrader</compClass>
 				<shortCircuitInRain>true</shortCircuitInRain>
 				<basePowerConsumption>350</basePowerConsumption>
+				<idlePowerDraw>50</idlePowerDraw>
 			</li>
 			<li Class="CompProperties_Refuelable">
 				<fuelLabel>Neutroamine</fuelLabel>
@@ -66,7 +67,7 @@
 				<outOfFuelMessage>Cannot grow: Needs neutroamine</outOfFuelMessage>
 				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
 				<targetFuelLevelConfigurable>false</targetFuelLevelConfigurable>
-				<fuelCapacity>300</fuelCapacity>
+				<fuelCapacity>500</fuelCapacity>
 				<fuelFilter>
 					<thingDefs>
 						<li>Neutroamine</li>

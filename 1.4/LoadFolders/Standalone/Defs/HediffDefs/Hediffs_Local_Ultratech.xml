@@ -110,6 +110,7 @@
 	</HediffDef>
 	<!-- ================================ Sleeve Quality Base - LEFTOVER ====================== -->
 	<HediffDef Name="VFEU_SleeveQualityBase" Abstract="True">
+		<description>LEFTOVER! This hediff is no longer used and only in the game for the sake of compatibility with old saves.</description>
 		<hediffClass>HediffWithComps</hediffClass>
 		<initialSeverity>0.001</initialSeverity>
 		<isBad>false</isBad>
@@ -125,363 +126,29 @@
 	<HediffDef ParentName="VFEU_SleeveQualityBase">
 		<defName>VFEU_Sleeve_Quality_Awful</defName>
 		<label>awful quality sleeve</label>
-		<description>LEFTOVER! This hediff is no longer used and only in the game for the sake of compatibility with old saves.</description>
-		<stages>
-			<li>
-				<naturalHealingFactor>0.5</naturalHealingFactor>
-				<statFactors>
-					<ImmunityGainSpeed>0.8</ImmunityGainSpeed>
-					<MarketValue>0.5</MarketValue>
-				</statFactors>
-				<capMods>
-					<li>
-						<capacity>Consciousness</capacity>
-						<offset>-0.20</offset>
-					</li>
-					<li>
-						<capacity>Moving</capacity>
-						<offset>-0.20</offset>
-					</li>
-					<li>
-						<capacity>Manipulation</capacity>
-						<offset>-0.20</offset>
-					</li>
-					<li>
-						<capacity>Talking</capacity>
-						<offset>-0.20</offset>
-					</li>
-					<li>
-						<capacity>Eating</capacity>
-						<offset>-0.20</offset>
-					</li>
-					<li>
-						<capacity>Sight</capacity>
-						<offset>-0.20</offset>
-					</li>
-					<li>
-						<capacity>Hearing</capacity>
-						<offset>-0.20</offset>
-					</li>
-					<li>
-						<capacity>Breathing</capacity>
-						<offset>-0.20</offset>
-					</li>
-					<li>
-						<capacity>BloodFiltration</capacity>
-						<offset>-0.20</offset>
-					</li>
-					<li>
-						<capacity>BloodPumping</capacity>
-						<offset>-0.20</offset>
-					</li>
-					<li>
-						<capacity>Metabolism</capacity>
-						<offset>-0.20</offset>
-					</li>
-				</capMods>
-			</li>
-		</stages>
 	</HediffDef>
 	<HediffDef ParentName="VFEU_SleeveQualityBase">
 		<defName>VFEU_Sleeve_Quality_Poor</defName>
 		<label>poor quality sleeve</label>
-		<description>LEFTOVER! This hediff is no longer used and only in the game for the sake of compatibility with old saves.</description>
-		<stages>
-			<li>
-				<naturalHealingFactor>0.8</naturalHealingFactor>
-				<statFactors>
-					<MarketValue>0.75</MarketValue>
-				</statFactors>
-				<capMods>
-					<li>
-						<capacity>Consciousness</capacity>
-						<offset>-0.10</offset>
-					</li>
-					<li>
-						<capacity>Moving</capacity>
-						<offset>-0.10</offset>
-					</li>
-					<li>
-						<capacity>Manipulation</capacity>
-						<offset>-0.10</offset>
-					</li>
-					<li>
-						<capacity>Talking</capacity>
-						<offset>-0.10</offset>
-					</li>
-					<li>
-						<capacity>Eating</capacity>
-						<offset>-0.10</offset>
-					</li>
-					<li>
-						<capacity>Sight</capacity>
-						<offset>-0.10</offset>
-					</li>
-					<li>
-						<capacity>Hearing</capacity>
-						<offset>-0.10</offset>
-					</li>
-					<li>
-						<capacity>Breathing</capacity>
-						<offset>-0.10</offset>
-					</li>
-					<li>
-						<capacity>BloodFiltration</capacity>
-						<offset>-0.10</offset>
-					</li>
-					<li>
-						<capacity>BloodPumping</capacity>
-						<offset>-0.10</offset>
-					</li>
-					<li>
-						<capacity>Metabolism</capacity>
-						<offset>-0.10</offset>
-					</li>
-				</capMods>
-			</li>
-		</stages>
 	</HediffDef>
 	<HediffDef ParentName="VFEU_SleeveQualityBase">
 		<defName>VFEU_Sleeve_Quality_Normal</defName>
 		<label>normal quality sleeve</label>
-		<description>LEFTOVER! This hediff is no longer used and only in the game for the sake of compatibility with old saves.</description>
 	</HediffDef>
 	<HediffDef ParentName="VFEU_SleeveQualityBase">
 		<defName>VFEU_Sleeve_Quality_Good</defName>
 		<label>good quality sleeve</label>
-		<description>LEFTOVER! This hediff is no longer used and only in the game for the sake of compatibility with old saves.</description>
-		<stages>
-			<li>
-				<naturalHealingFactor>1.1</naturalHealingFactor>
-				<statFactors>
-					<MarketValue>1.25</MarketValue>
-				</statFactors>
-				<capMods>
-					<li>
-						<capacity>Consciousness</capacity>
-						<offset>0.10</offset>
-					</li>
-					<li>
-						<capacity>Moving</capacity>
-						<offset>0.10</offset>
-					</li>
-					<li>
-						<capacity>Manipulation</capacity>
-						<offset>0.10</offset>
-					</li>
-					<li>
-						<capacity>Talking</capacity>
-						<offset>0.10</offset>
-					</li>
-					<li>
-						<capacity>Eating</capacity>
-						<offset>0.10</offset>
-					</li>
-					<li>
-						<capacity>Sight</capacity>
-						<offset>0.10</offset>
-					</li>
-					<li>
-						<capacity>Hearing</capacity>
-						<offset>0.10</offset>
-					</li>
-					<li>
-						<capacity>Breathing</capacity>
-						<offset>0.10</offset>
-					</li>
-					<li>
-						<capacity>BloodFiltration</capacity>
-						<offset>0.10</offset>
-					</li>
-					<li>
-						<capacity>BloodPumping</capacity>
-						<offset>0.10</offset>
-					</li>
-					<li>
-						<capacity>Metabolism</capacity>
-						<offset>0.10</offset>
-					</li>
-				</capMods>
-			</li>
-		</stages>
 	</HediffDef>
 	<HediffDef ParentName="VFEU_SleeveQualityBase">
 		<defName>VFEU_Sleeve_Quality_Excellent</defName>
 		<label>excellent quality sleeve</label>
-		<description>LEFTOVER! This hediff is no longer used and only in the game for the sake of compatibility with old saves.</description>
-		<stages>
-			<li>
-				<naturalHealingFactor>1.25</naturalHealingFactor>
-				<statFactors>
-					<MarketValue>1.5</MarketValue>
-				</statFactors>
-				<capMods>
-					<li>
-						<capacity>Consciousness</capacity>
-						<offset>0.20</offset>
-					</li>
-					<li>
-						<capacity>Moving</capacity>
-						<offset>0.20</offset>
-					</li>
-					<li>
-						<capacity>Manipulation</capacity>
-						<offset>0.20</offset>
-					</li>
-					<li>
-						<capacity>Talking</capacity>
-						<offset>0.20</offset>
-					</li>
-					<li>
-						<capacity>Eating</capacity>
-						<offset>0.20</offset>
-					</li>
-					<li>
-						<capacity>Sight</capacity>
-						<offset>0.20</offset>
-					</li>
-					<li>
-						<capacity>Hearing</capacity>
-						<offset>0.20</offset>
-					</li>
-					<li>
-						<capacity>Breathing</capacity>
-						<offset>0.20</offset>
-					</li>
-					<li>
-						<capacity>BloodFiltration</capacity>
-						<offset>0.20</offset>
-					</li>
-					<li>
-						<capacity>BloodPumping</capacity>
-						<offset>0.20</offset>
-					</li>
-					<li>
-						<capacity>Metabolism</capacity>
-						<offset>0.20</offset>
-					</li>
-				</capMods>
-			</li>
-		</stages>
 	</HediffDef>
 	<HediffDef ParentName="VFEU_SleeveQualityBase">
 		<defName>VFEU_Sleeve_Quality_Masterwork</defName>
 		<label>masterwork quality sleeve</label>
-		<description>LEFTOVER! This hediff is no longer used and only in the game for the sake of compatibility with old saves.</description>
-		<stages>
-			<li>
-				<naturalHealingFactor>1.5</naturalHealingFactor>
-				<statFactors>
-					<ImmunityGainSpeed>1.25</ImmunityGainSpeed>
-					<MarketValue>2.5</MarketValue>
-				</statFactors>
-				<capMods>
-					<li>
-						<capacity>Consciousness</capacity>
-						<offset>0.30</offset>
-					</li>
-					<li>
-						<capacity>Moving</capacity>
-						<offset>0.30</offset>
-					</li>
-					<li>
-						<capacity>Manipulation</capacity>
-						<offset>0.30</offset>
-					</li>
-					<li>
-						<capacity>Talking</capacity>
-						<offset>0.30</offset>
-					</li>
-					<li>
-						<capacity>Eating</capacity>
-						<offset>0.30</offset>
-					</li>
-					<li>
-						<capacity>Sight</capacity>
-						<offset>0.30</offset>
-					</li>
-					<li>
-						<capacity>Hearing</capacity>
-						<offset>0.30</offset>
-					</li>
-					<li>
-						<capacity>Breathing</capacity>
-						<offset>0.30</offset>
-					</li>
-					<li>
-						<capacity>BloodFiltration</capacity>
-						<offset>0.30</offset>
-					</li>
-					<li>
-						<capacity>BloodPumping</capacity>
-						<offset>0.30</offset>
-					</li>
-					<li>
-						<capacity>Metabolism</capacity>
-						<offset>0.30</offset>
-					</li>
-				</capMods>
-			</li>
-		</stages>
 	</HediffDef>
 	<HediffDef ParentName="VFEU_SleeveQualityBase">
 		<defName>VFEU_Sleeve_Quality_Legendary</defName>
 		<label>legendary quality sleeve</label>
-		<description>LEFTOVER! This hediff is no longer used and only in the game for the sake of compatibility with old saves.</description>
-		<stages>
-			<li>
-				<naturalHealingFactor>2</naturalHealingFactor>
-				<statFactors>
-					<ImmunityGainSpeed>1.5</ImmunityGainSpeed>
-					<MarketValue>5</MarketValue>
-				</statFactors>
-				<capMods>
-					<li>
-						<capacity>Consciousness</capacity>
-						<offset>0.50</offset>
-					</li>
-					<li>
-						<capacity>Moving</capacity>
-						<offset>0.50</offset>
-					</li>
-					<li>
-						<capacity>Manipulation</capacity>
-						<offset>0.50</offset>
-					</li>
-					<li>
-						<capacity>Talking</capacity>
-						<offset>0.50</offset>
-					</li>
-					<li>
-						<capacity>Eating</capacity>
-						<offset>0.50</offset>
-					</li>
-					<li>
-						<capacity>Sight</capacity>
-						<offset>0.50</offset>
-					</li>
-					<li>
-						<capacity>Hearing</capacity>
-						<offset>0.50</offset>
-					</li>
-					<li>
-						<capacity>Breathing</capacity>
-						<offset>0.50</offset>
-					</li>
-					<li>
-						<capacity>BloodFiltration</capacity>
-						<offset>0.50</offset>
-					</li>
-					<li>
-						<capacity>BloodPumping</capacity>
-						<offset>0.50</offset>
-					</li>
-					<li>
-						<capacity>Metabolism</capacity>
-						<offset>0.50</offset>
-					</li>
-				</capMods>
-			</li>
-		</stages>
 	</HediffDef>
 </Defs>
