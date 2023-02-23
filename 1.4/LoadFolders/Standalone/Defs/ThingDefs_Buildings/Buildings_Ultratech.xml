@@ -139,7 +139,7 @@
 				<shortCircuitInRain>false</shortCircuitInRain>
 				<basePowerConsumption>75</basePowerConsumption>
 			</li>
-<!--			<li Class="CompProperties_Refuelable">
+			<li Class="CompProperties_Refuelable">
 				<fuelLabel>Neutroamine</fuelLabel>
 				<fuelGizmoLabel>Neutroamine</fuelGizmoLabel>
 				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
@@ -150,10 +150,10 @@
 						<li>Neutroamine</li>
 					</thingDefs>
 				</fuelFilter>
-				<initialFuelPercent>1</initialFuelPercent>
+				<initialFuelPercent>25</initialFuelPercent>
 				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
 				<showFuelGizmo>true</showFuelGizmo>
-			</li>-->
+			</li>
 			<li Class="CompProperties_AssignableToPawn">
 				<drawAssignmentOverlay>false</drawAssignmentOverlay>
 				<compClass>CompAssignableToPawn_Bed</compClass>
