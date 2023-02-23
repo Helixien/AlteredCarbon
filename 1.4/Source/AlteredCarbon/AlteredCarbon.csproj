@@ -72,6 +72,7 @@
     <Compile Include="Buildings\Building_Incubator.cs" />
     <Compile Include="HarmonyPatches\Dialog_BillConfig_DoWindowContents_Patch.cs" />
     <Compile Include="HarmonyPatches\Dialog_InfoCard_DoWindowContents_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_AdoptableBy_Patch.cs" />
     <Compile Include="Jobs\JobDriver_TakeEmptySleeve.cs" />
     <Compile Include="HarmonyPatches\PawnRenderer_LayingFacing_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnUtility_ShouldSendNotificationAbout_Patch.cs" />
@@ -113,7 +114,7 @@
     <Compile Include="HarmonyPatches\Pawn_Kill_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_NeedsTracker_ShouldHaveNeed_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_RoyaltyTracker_Notify_PawnKilled_Patch.cs" />
-    <Compile Include="HarmonyPatches\Pawn_SpawnSetup_Patch.cs" />
+    <Compile Include="HarmonyPatches\PawnGenerator_GeneratePawn_Patch.cs" />
     <Compile Include="HarmonyPatches\BillPatches\RecipeDef_AvailableOnNow_Patch.cs" />
     <Compile Include="HarmonyPatches\BedPatches\RestUtility_IsValidBedFor_Patch.cs" />
     <Compile Include="HarmonyPatches\BedPatches\RestUtility_FindBedFor_Patch.cs" />

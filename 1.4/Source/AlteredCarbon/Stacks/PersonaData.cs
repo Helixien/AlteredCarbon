@@ -116,10 +116,8 @@ namespace AlteredCarbon
         private PsychologyData psychologyData;
         // RJW
         private RJWData rjwData;
-
         // Vanilla Skills Expanded
         private List<IExposable> expertiseRecords;
-
         // misc
         public bool? diedFromCombat;
         public bool isCopied = false;
@@ -148,7 +146,6 @@ namespace AlteredCarbon
                 return dummyPawn;
             }
         }
-
         public int PawnID => hostPawn != null ? hostPawn.thingIDNumber : pawnID;
         public void RefreshDummyPawn()
         {
@@ -160,7 +157,7 @@ namespace AlteredCarbon
                 copyFromOrigPawn: hostPawn != null && hostPawn.Dead is false && hostPawn.IsEmptySleeve() is false);
             if (hostPawn != null)
             {
-                ACUtils.CopyBody(hostPawn, dummyPawn);
+                ACUtils.CopyBody(hostPawn, dummyPawn, copyGenesFully: true);
                 dummyPawn.RefreshGraphic();
             }
             else if (dummyPawn.genes != null)

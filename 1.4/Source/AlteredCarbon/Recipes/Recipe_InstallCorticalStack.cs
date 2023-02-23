@@ -124,7 +124,7 @@ namespace AlteredCarbon
                     AlteredCarbonManager.Instance.StacksIndex.Remove(hediff.PersonaData.PawnID);
                 }
                 AlteredCarbonManager.Instance.ReplaceStackWithPawn(corticalStack, pawn);
-                if (AlteredCarbonManager.Instance.emptySleeves != null && AlteredCarbonManager.Instance.emptySleeves.Contains(pawn))
+                if (AlteredCarbonManager.Instance.emptySleeves.Contains(pawn))
                 {
                     AlteredCarbonManager.Instance.emptySleeves.Remove(pawn);
                 }

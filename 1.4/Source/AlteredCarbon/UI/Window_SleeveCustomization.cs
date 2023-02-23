@@ -83,7 +83,7 @@ namespace AlteredCarbon
         {
             this.sleeveGrower = sleeveGrower;
             Init(pawnToClone.kindDef, pawnToClone.gender);
-            ACUtils.CopyBody(pawnToClone, curSleeve);
+            ACUtils.CopyBody(pawnToClone, curSleeve, copyGenesPartially: true);
             if (pawnToClone.genes.GenesListForReading.Any(x => ACUtils.sleeveQualities.Contains(x.def)) is false)
             {
                 ApplyGeneQuality();
@@ -753,7 +753,29 @@ namespace AlteredCarbon
 
         public void LoadSleeve(SleevePreset preset)
         {
+            curXenogerm = null;
             curSleeve = preset.sleeve;
+            var xenogenes = curSleeve.genes.Xenogenes.Select(x => x.def).ToList();
+            if (xenogenes.Any())
+            {
+                foreach (var xenogerm in sleeveGrower.Map.GetXenogerms())
+                {
+                    var genes = xenogerm.GeneSet.GenesListForReading;
+                    if (genes.Count == xenogenes.Count && xenogenes.OrderBy(x => x.defName).SequenceEqual(genes.OrderBy(x => x.defName).ToList()))
+                    {
+                        curXenogerm = xenogerm;
+                        break;
+                    }
+                }
+                if (curXenogerm is null)
+                {
+                    foreach (var gene in curSleeve.genes.Xenogenes.ToList())
+                    {
+                        curSleeve.genes.RemoveGene(gene);
+                    }
+                    Messages.Message("AC.SleeveDesignCouldntBeFullyLoaded".Translate(), MessageTypeDefOf.CautionInput);
+                }
+            }
             currentPawnKindDef = curSleeve.kindDef;
             InitializeIndexes();
         }
@@ -819,9 +841,7 @@ namespace AlteredCarbon
             curSleeve = PawnGenerator.GeneratePawn(new PawnGenerationRequest(currentPawnKindDef, Faction.OfPlayer, PawnGenerationContext.NonPlayer,
                 -1, true, false, false, false, false, 0f, false, true, true, false, false, false, true,
                 fixedGender: gender, forcedXenotype: XenotypeDefOf.Baseliner));
-            curSleeve.equipment.DestroyAllEquipment();
-            curSleeve.inventory.DestroyAll();
-            curSleeve.apparel.DestroyAll();
+            curSleeve.DestroyGear();
             curSleeve.MakeEmptySleeve();
             var lastAdultAge = curSleeve.RaceProps.lifeStageAges.LastOrDefault((LifeStageAge lifeStageAge) => lifeStageAge.def.developmentalStage.Adult())?.minAge ?? 0f;
             curSleeve.ageTracker.AgeBiologicalTicks = (long)Mathf.FloorToInt(lastAdultAge * 3600000f);

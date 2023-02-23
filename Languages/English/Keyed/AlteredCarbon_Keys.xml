@@ -100,6 +100,7 @@
 	<AC.CancelRepurposingCorpse>Cancel repurposing corpse</AC.CancelRepurposingCorpse>
 	<AC.CancelRepurposingCorpseDesc>text.todo</AC.CancelRepurposingCorpseDesc>
 	<AC.CorticalStackMustBeRemovedFirst>Cortical stack must be removed first.</AC.CorticalStackMustBeRemovedFirst>
+	<AC.SleeveDesignCouldntBeFullyLoaded>Saved Sleeve Design could not be fully loaded. Missing required xenogerm!</AC.SleeveDesignCouldntBeFullyLoaded>
 	<!-- ================================ Stack Array ====================== -->
 	<AC.Backup>Backup</AC.Backup>
 	<AC.BackedUpStacksInArray>Cortical Stack backups saved in arrays: {0}</AC.BackedUpStacksInArray>

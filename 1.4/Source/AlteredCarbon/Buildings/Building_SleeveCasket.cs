@@ -69,7 +69,10 @@ namespace AlteredCarbon
         public override void Tick()
         {
             base.Tick();
-            compRefuelable.ConsumeFuel(2 / 60000f);
+            if (this.CurOccupants.Any())
+            {
+                compRefuelable.ConsumeFuel(2f / 60000f);
+            }
             if (!compRefuelable.HasFuel && !isRunningOutFuel)
             {
                 Messages.Message("AC.IsRunningOutFuel".Translate(), this, MessageTypeDefOf.NegativeEvent);

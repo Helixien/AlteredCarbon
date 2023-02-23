@@ -46,12 +46,9 @@ namespace AlteredCarbon
         {
             this.pawn = pawn;
             this.onSelect = onSelect;
-            foreach (Thing item in map.listerThings.ThingsOfDef(ThingDefOf.Xenogerm))
+            foreach (var xenogerm in map.GetXenogerms())
             {
-                if (!item.PositionHeld.Fogged(map))
-                {
-                    xenogerms.Add((Xenogerm)item);
-                }
+                xenogerms.Add(xenogerm);
             }
             if (initialSelected != null && xenogerms.Contains(initialSelected))
             {

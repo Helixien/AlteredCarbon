@@ -237,12 +237,23 @@ namespace AlteredCarbon
         }
         public static void RefreshGraphic(this Pawn pawn)
         {
+            pawn.Drawer.renderer.WoundOverlays.ClearCache();
             pawn.Drawer.renderer.graphics.ResolveAllGraphics();
             PortraitsCache.SetDirty(pawn);
             PortraitsCache.PortraitsCacheUpdate();
             GlobalTextureAtlasManager.TryMarkPawnFrameSetDirty(pawn);
+            Find.ColonistBar.MarkColonistsDirty();
         }
-        public static void CopyBody(Pawn source, Pawn dest)
+
+        public static Pawn ClonePawn(Pawn source)
+        {
+            var clone = PawnGenerator.GeneratePawn(source.kindDef, source.Faction);
+            CopyBody(source, clone, copyAgeInfo: true, copyGenesFully: true, copyHealth: true);
+            clone.MakeEmptySleeve();
+            return clone;
+        }
+        public static void CopyBody(Pawn source, Pawn dest, bool copyAgeInfo = false, bool copyGenesPartially = false, bool copyGenesFully = false, 
+            bool copyHealth = false)
         {
             dest.gender = source.gender;
             dest.kindDef = source.kindDef;
@@ -261,22 +272,34 @@ namespace AlteredCarbon
                 dest.genes.RemoveGene(oldGene);
             }
 
-            var sourceGenes = source.genes.Endogenes;
-            if (sourceGenes != null)
+            if (copyGenesPartially)
             {
-                foreach (var sourceGene in sourceGenes)
+                CopyEndogenes(source, dest);
+            }
+            else if (copyGenesFully)
+            {
+                CopyEndogenes(source, dest);
+                CopyXenogenes(source, dest);
+            }
+
+            dest.health.hediffSet.hediffs.Clear();
+            if (copyHealth)
+            {
+                foreach (var hediff in source.health.hediffSet.hediffs)
                 {
-                    dest.genes.AddGene(sourceGene.def, false);
-                }
-                for (var i = 0; i < sourceGenes.Count; i++)
-                {
-                    var gene = dest.genes.Endogenes[i];
-                    if (sourceGenes[i].Active)
-                    {
-                        GeneUtils.ApplyGene(gene, dest);
-                    }
+                    var newHediff = hediff.Clone();
+                    newHediff.loadID = Find.UniqueIDsManager.GetNextHediffID();
+                    newHediff.pawn = dest;
+                    dest.health.hediffSet.hediffs.Add(newHediff);
                 }
             }
+
+            if (copyAgeInfo)
+            {
+                dest.ageTracker = source.ageTracker.Clone();
+                dest.ageTracker.pawn = dest;
+            }
+
             dest.genes.xenotype = XenotypeDefOf.Baseliner;
             dest.genes.xenotypeName = null;
 
@@ -293,6 +316,39 @@ namespace AlteredCarbon
                 ModCompatibility.CopyFacialFeatures(source, dest);
             }
         }
+
+        private static void CopyEndogenes(Pawn source, Pawn dest)
+        {
+            var genes = source.genes.Endogenes;
+            if (genes != null)
+            {
+                CopyGene(dest, genes, false);
+            }
+        }
+        private static void CopyXenogenes(Pawn source, Pawn dest)
+        {
+            var genes = source.genes.Xenogenes;
+            if (genes != null)
+            {
+                CopyGene(dest, genes, true);
+            }
+        }
+        private static void CopyGene(Pawn dest, List<Gene> sourceGenes, bool xenogene)
+        {
+            foreach (var sourceGene in sourceGenes)
+            {
+                dest.genes.AddGene(sourceGene.def, xenogene);
+            }
+            for (var i = 0; i < sourceGenes.Count; i++)
+            {
+                var gene = dest.genes.Endogenes[i];
+                if (sourceGenes[i].Active)
+                {
+                    GeneUtils.ApplyGene(gene, dest);
+                }
+            }
+        }
+
         public static void AddTakeEmptySleeveJob(Pawn pawn, Pawn pawnTarget, bool failMessage)
         {
             Building_Bed building_Bed3 = RestUtility.FindBedFor(pawnTarget, pawn, checkSocialProperness: false);
@@ -353,12 +409,18 @@ namespace AlteredCarbon
                 Scribe.loader.FinalizeLoading();
             }
         }
+
+        public static IEnumerable<Xenogerm> GetXenogerms(this Map map)
+        {
+            return map.listerThings.ThingsOfDef(ThingDefOf.Xenogerm).OfType<Xenogerm>().Where(x => 
+            x.PositionHeld.Fogged(map) is false && !x.IsForbidden(Faction.OfPlayer));
+        }
         public static bool HasCorticalStack(this Pawn pawn)
         {
             return pawn.HasCorticalStack(out _);
         }
 
-        public static void CreateInitialComponents(Pawn pawn)
+        public static void ResetInitialComponents(this Pawn pawn)
         {
             pawn.records = new Pawn_RecordsTracker(pawn);
             pawn.meleeVerbs = new Pawn_MeleeVerbs(pawn);
@@ -389,11 +451,14 @@ namespace AlteredCarbon
 
         public static void MakeEmptySleeve(this Pawn pawn)
         {
-            CreateInitialComponents(pawn);
-            pawn.SetFaction(null);
+            pawn.ResetInitialComponents();
+            if (pawn.Faction != null)
+            {
+                pawn.SetFaction(null);
+            }
             pawn.guest.recruitable = true;
             pawn.Name = new NameSingle("AC.EmptySleeve".Translate());
-            pawn.story.title = "";
+            pawn.story.title = null;
             pawn.playerSettings.medCare = MedicalCareCategory.Best;
             pawn.workSettings.EnableAndInitialize();
             pawn.skills.Notify_SkillDisablesChanged();
@@ -405,8 +470,14 @@ namespace AlteredCarbon
                 pawn.style.BodyTattoo = TattooDefOf.NoTattoo_Body;
                 pawn.style.FaceTattoo = TattooDefOf.NoTattoo_Face;
             }
+            AlteredCarbonManager.Instance.emptySleeves.Add(pawn);
         }
-
+        public static void DestroyGear(this Pawn pawn)
+        {
+            pawn.equipment.DestroyAllEquipment();
+            pawn.inventory.DestroyAll();
+            pawn.apparel.DestroyAll();
+        }
         public static IEnumerable<Hediff_MissingPart> GetMissingParts(this Pawn pawn)
         {
             return pawn.health.hediffSet.hediffs.OfType<Hediff_MissingPart>();
