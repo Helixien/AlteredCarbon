@@ -16,51 +16,51 @@
 	</GeneDef>
 	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
 		<defName>VFEU_SleeveQuality_Awful</defName>
-		<label>awful</label>
-		<description>text.todo</description>
-		<iconPath>placeholder</iconPath>
+		<label>awful quality</label>
+		<description>Carriers of this gene had their bodies grown in a vat. As little effort as possible was put into it, resulting in awful quality. Sleeve quality acts like an offset to capacities.</description>
+		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_Awful</iconPath>
 		<displayOrderInCategory>0</displayOrderInCategory>
 	</GeneDef>
 	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
 		<defName>VFEU_SleeveQuality_Poor</defName>
-		<label>poor</label>
-		<description>text.todo</description>
-		<iconPath>placeholder</iconPath>
+		<label>poor quality</label>
+		<description>Carriers of this gene had their bodies grown in a vat. Little effort was put into it, resulting in poor quality. Sleeve quality acts like an offset to capacities.</description>
+		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Poor</iconPath>
 		<displayOrderInCategory>5</displayOrderInCategory>
 	</GeneDef>
 	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
 		<defName>VFEU_SleeveQuality_Normal</defName>
-		<label>normal</label>
-		<description>text.todo</description>
-		<iconPath>placeholder</iconPath>
+		<label>normal quality</label>
+		<description>Carriers of this gene had their bodies grown in a vat. Enough effort was put into it to result in normal quality. Sleeve quality acts like an offset to capacities.</description>
+		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Normal</iconPath>
 		<displayOrderInCategory>10</displayOrderInCategory>
 	</GeneDef>
 	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
 		<defName>VFEU_SleeveQuality_Good</defName>
-		<label>good</label>
-		<description>text.todo</description>
-		<iconPath>placeholder</iconPath>
+		<label>good quality</label>
+		<description>Carriers of this gene had their bodies grown in a vat. Above average effort was put into it, resulting in good quality. Sleeve quality acts like an offset to capacities.</description>
+		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Good</iconPath>
 		<displayOrderInCategory>15</displayOrderInCategory>
 	</GeneDef>
 	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
 		<defName>VFEU_SleeveQuality_Excellent</defName>
-		<label>excellent</label>
-		<description>text.todo</description>
-		<iconPath>placeholder</iconPath>
+		<label>excellent quality</label>
+		<description>Carriers of this gene had their bodies grown in a vat. A good amount of effort was put into it, resulting in excellent quality. Sleeve quality acts like an offset to capacities.</description>
+		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Excellent</iconPath>
 		<displayOrderInCategory>20</displayOrderInCategory>
 	</GeneDef>
 	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
 		<defName>VFEU_SleeveQuality_Masterwork</defName>
-		<label>masterwork</label>
-		<description>text.todo</description>
-		<iconPath>placeholder</iconPath>
+		<label>masterwork quality</label>
+		<description>Carriers of this gene had their bodies grown in a vat. A lot of effort was put into it, resulting in masterwork quality. Sleeve quality acts like an offset to capacities.</description>
+		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Masterwork</iconPath>
 		<displayOrderInCategory>25</displayOrderInCategory>
 	</GeneDef>
 	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
 		<defName>VFEU_SleeveQuality_Legendary</defName>
-		<label>legendary</label>
-		<description>text.todo</description>
-		<iconPath>placeholder</iconPath>
+		<label>legendary quality</label>
+		<description>Carriers of this gene had their bodies grown in a vat. An extreme amount of effort was put into it, resulting in legendary quality. Sleeve quality acts like an offset to capacities.</description>
+		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Legendary</iconPath>
 		<displayOrderInCategory>30</displayOrderInCategory>
 	</GeneDef>
 </Defs>
