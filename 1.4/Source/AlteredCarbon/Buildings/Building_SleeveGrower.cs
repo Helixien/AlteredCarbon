@@ -337,6 +337,7 @@ namespace AlteredCarbon
                     Reset();
                     this.corpseToRepurpose = corpse;
                     incubatorState = IncubatorState.ToBeActivated;
+                    corpse.SetForbidden(false, false);
                 }
             });
         }
@@ -414,7 +415,6 @@ namespace AlteredCarbon
         {
             curTicksToGrow = totalTicksToGrow;
             AdjustAge();
-            AdjustHealth();
             incubatorState = IncubatorState.Inactive;
             var pawn = InnerPawn;
             var injuries = pawn.health.hediffSet.hediffs.OfType<Hediff_Injury>();
@@ -617,51 +617,54 @@ namespace AlteredCarbon
             }
             var injuries = InnerPawn.health.hediffSet.hediffs.OfType<Hediff_Injury>();
             var allSeverities = injuries.Sum(x => x.Severity);
-            var severityToSubtract = allSeverities / (float)remainingTime;
-            if (severityToSubtract > 0)
+            if (remainingTime > 0)
             {
-                while (injuries.Any() && severityToSubtract > 0)
+                var severityToSubtract = allSeverities / (float)remainingTime;
+                if (severityToSubtract > 0)
                 {
-                    var injury = injuries.FirstOrDefault();
-                    var toSubtract = Mathf.Min(injury.Severity, severityToSubtract);
-                    severityToSubtract -= toSubtract;
-                    injury.Severity -= toSubtract;
-                    if (injury.Severity <= 0)
+                    while (injuries.Any() && severityToSubtract > 0)
                     {
-                        InnerPawn.health.RemoveHediff(injury);
+                        var injury = injuries.FirstOrDefault();
+                        var toSubtract = Mathf.Min(injury.Severity, severityToSubtract);
+                        severityToSubtract -= toSubtract;
+                        injury.Severity -= toSubtract;
+                        if (injury.Severity <= 0)
+                        {
+                            InnerPawn.health.RemoveHediff(injury);
+                        }
                     }
                 }
-            }
 
-            var missingParts = InnerPawn.GetMissingParts();
-            if (missingParts.Any())
-            {
-                var hashInterval = (int)(remainingTime / (float)missingParts.Count());
-                if (InnerPawn.IsHashIntervalTick(hashInterval))
+                var missingParts = InnerPawn.GetMissingParts();
+                if (missingParts.Any())
                 {
-                    var toRemove = missingParts.FirstOrDefault(x => missingParts.Any(y => x.part.GetDirectChildParts().Contains(y.Part)) is false);
-                    InnerPawn.health.RemoveHediff(toRemove);
+                    var hashInterval = (int)(remainingTime / (float)missingParts.Count());
+                    if (InnerPawn.IsHashIntervalTick(hashInterval))
+                    {
+                        var toRemove = missingParts.FirstOrDefault(x => missingParts.Any(y => x.part.GetDirectChildParts().Contains(y.Part)) is false);
+                        InnerPawn.health.RemoveHediff(toRemove);
+                    }
                 }
-            }
 
-            var scars = InnerPawn.health.hediffSet.hediffs.Where(x => x.IsPermanent());
-            if (scars.Any())
-            {
-                var hashInterval = (int)(remainingTime / (float)scars.Count());
-                if (InnerPawn.IsHashIntervalTick(hashInterval))
+                var scars = InnerPawn.health.hediffSet.hediffs.Where(x => x.IsPermanent());
+                if (scars.Any())
                 {
-                    var toRemove = scars.RandomElement();
-                    InnerPawn.health.RemoveHediff(toRemove);
+                    var hashInterval = (int)(remainingTime / (float)scars.Count());
+                    if (InnerPawn.IsHashIntervalTick(hashInterval))
+                    {
+                        var toRemove = scars.RandomElement();
+                        InnerPawn.health.RemoveHediff(toRemove);
+                    }
                 }
-            }
-            var brainTraumas = InnerPawn.health.hediffSet.hediffs.Where(x => x.def == AC_DefOf.AC_BrainTrauma || x.def == AC_DefOf.TraumaSavant);
-            if (brainTraumas.Any())
-            {
-                var hashInterval = (int)(remainingTime / (float)scars.Count());
-                if (InnerPawn.IsHashIntervalTick(hashInterval))
+                var brainTraumas = InnerPawn.health.hediffSet.hediffs.Where(x => x.def == AC_DefOf.AC_BrainTrauma || x.def == AC_DefOf.TraumaSavant);
+                if (brainTraumas.Any())
                 {
-                    var toRemove = brainTraumas.RandomElement();
-                    InnerPawn.health.RemoveHediff(toRemove);
+                    var hashInterval = (int)(remainingTime / (float)scars.Count());
+                    if (InnerPawn.IsHashIntervalTick(hashInterval))
+                    {
+                        var toRemove = brainTraumas.RandomElement();
+                        InnerPawn.health.RemoveHediff(toRemove);
+                    }
                 }
             }
             InnerPawn.RefreshGraphic();
