@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
+	<!-- ================================ Cortical Stack Hediff	====================== -->
 	<HediffDef ParentName="ImplantHediffBase">
 		<defName>VFEU_CorticalStack</defName>
 		<label>cortical stack</label>
@@ -17,13 +18,14 @@
 			<betterThanNatural>true</betterThanNatural>
 		</addedPartProps>
 	</HediffDef>
-	<HediffDef Name="VFEU_SleeveQualityBase" Abstract="True">
+	<!-- ================================ Sleeve Base ====================== -->
+	<HediffDef Name="VFEU_SleeveBase" Abstract="True">
 		<hediffClass>HediffWithComps</hediffClass>
 		<initialSeverity>0.001</initialSeverity>
 		<isBad>false</isBad>
 		<makesSickThought>false</makesSickThought>
 	</HediffDef>
-	<HediffDef ParentName="VFEU_SleeveQualityBase">
+	<HediffDef ParentName="VFEU_SleeveBase">
 		<defName>VFEU_EmptySleeve</defName>
 		<label>empty sleeve</label>
 		<description>An empty sleeve.</description>
@@ -42,7 +44,8 @@
 			</li>
 		</stages>
 	</HediffDef>
-	<HediffDef ParentName="VFEU_SleeveQualityBase">
+	<!-- ================================ Sleeve Shock Hediff ====================== -->
+	<HediffDef ParentName="VFEU_SleeveBase">
 		<defName>VFEU_SleeveShock</defName>
 		<label>sleeve shock</label>
 		<description>In shock due to switching bodies.</description>
@@ -105,6 +108,20 @@
 			</li>
 		</comps>
 	</HediffDef>
+	<!-- ================================ Sleeve Quality Base - LEFTOVER ====================== -->
+	<HediffDef Name="VFEU_SleeveQualityBase" Abstract="True">
+		<hediffClass>HediffWithComps</hediffClass>
+		<initialSeverity>0.001</initialSeverity>
+		<isBad>false</isBad>
+		<makesSickThought>false</makesSickThought>
+		<stages>
+			<li>
+				<label>DEV</label>
+				<becomeVisible>false</becomeVisible>
+			</li>
+		</stages>
+	</HediffDef>
+	<!-- ================================ Sleeve Qualitys ====================== -->
 	<HediffDef ParentName="VFEU_SleeveQualityBase">
 		<defName>VFEU_Sleeve_Quality_Awful</defName>
 		<label>awful quality sleeve</label>
