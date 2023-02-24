@@ -13,7 +13,6 @@ internal static class Recipe_InstallCorticalStack_ApplyCorticalStack_Patch
             hediff.PersonaData.thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGender);
             hediff.PersonaData.thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGenderDouble);
             hediff.PersonaData.thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGenderPregnant);
-            hediff.PersonaData.thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGenderChild);
         }
     }
     
