@@ -7,7 +7,7 @@ using Verse.Sound;
 
 namespace AlteredCarbon
 {
-	public enum IncubatorState
+    public enum IncubatorState
 	{
 		Inactive,
 		ToBeCanceled,

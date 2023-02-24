@@ -72,24 +72,6 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-	<ThoughtDef>
-		<defName>VFEU_WrongGenderChild</defName>
-		<durationDays>120</durationDays>
-		<stackLimit>1</stackLimit>
-		<nullifyingTraits>
-			<li>Bisexual</li>
-			<li>Masochist</li>
-			<li>Asexual</li>
-			<li>VFEU_FreeMind</li>
-		</nullifyingTraits>
-		<stages>
-			<li>
-				<label>VFEU_WrongGenderChild</label>
-				<description>My child's sleeve is the wrong gender, how could this happen?</description>
-				<baseMoodEffect>-5</baseMoodEffect>
-			</li>
-		</stages>
-	</ThoughtDef>
 	<!-- ================================ New Sleeve ====================== -->
 	<ThoughtDef>
 		<defName>VFEU_NewSleeve</defName>

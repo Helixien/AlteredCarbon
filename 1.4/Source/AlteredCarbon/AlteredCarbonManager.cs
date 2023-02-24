@@ -121,6 +121,7 @@ namespace AlteredCarbon
             {
                 stackData.originalStack = stack;
             }
+            stack.PersonaData.hostPawn = null;
         }
 
         public void RegisterPawn(Pawn pawn)

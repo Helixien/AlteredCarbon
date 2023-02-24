@@ -148,7 +148,6 @@ namespace AlteredCarbon
                     Faction faction = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction).RandomElement();
                     Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnKind, faction));
                     PersonaData.CopyFromPawn(pawn, this.def, copyRaceGenderInfo: true);
-                    PersonaData.hostPawn = null;
                     PersonaData.stackGroupID = AlteredCarbonManager.Instance.GetStackGroupID(this);
                     AlteredCarbonManager.Instance.RegisterStack(this);
                     if (LookTargets_Patch.targets.TryGetValue(pawn, out List<LookTargets> targets))

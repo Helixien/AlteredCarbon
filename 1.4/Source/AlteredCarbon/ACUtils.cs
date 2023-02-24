@@ -317,6 +317,10 @@ namespace AlteredCarbon
             }
         }
 
+        public static string GetFullName(this Pawn pawn)
+        {
+            return pawn.Name.ToStringFull + " - " + pawn.thingIDNumber;
+        }
         private static void CopyEndogenes(Pawn source, Pawn dest)
         {
             var genes = source.genes.Endogenes;

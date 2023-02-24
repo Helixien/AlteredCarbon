@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Buildings\Building_DecryptionBench.cs" />
     <Compile Include="Buildings\Building_Incubator.cs" />
+    <Compile Include="HarmonyPatches\ContainingSelectionUtility_CanSelect_Patch.cs" />
     <Compile Include="HarmonyPatches\Dialog_BillConfig_DoWindowContents_Patch.cs" />
     <Compile Include="HarmonyPatches\Dialog_InfoCard_DoWindowContents_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_AdoptableBy_Patch.cs" />
@@ -119,7 +120,6 @@
     <Compile Include="HarmonyPatches\BedPatches\RestUtility_IsValidBedFor_Patch.cs" />
     <Compile Include="HarmonyPatches\BedPatches\RestUtility_FindBedFor_Patch.cs" />
     <Compile Include="HarmonyPatches\BestowingPatches\Reward_BestowingCeremony_StackElements_Patch.cs" />
-    <Compile Include="HarmonyPatches\PregnancyUtility_ApplyBirthOutcome_Patch.cs" />
     <Compile Include="HarmonyPatches\RitualObligationTrigger_MemberDied_Notify_MemberDied_Patch.cs" />
     <Compile Include="HarmonyPatches\SocialCardUtility_GetPawnSituationLabel_Patch.cs" />
     <Compile Include="Recipes\Bill_OperateOnStack.cs" />

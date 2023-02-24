@@ -64,7 +64,6 @@ namespace AlteredCarbon
         public static ThoughtDef VFEU_WrongGender;
         public static ThoughtDef VFEU_WrongGenderDouble;
         public static ThoughtDef VFEU_WrongGenderPregnant;
-        public static ThoughtDef VFEU_WrongGenderChild;
         public static ThoughtDef VFEU_WrongRace;
         public static ThoughtDef VFEU_NewSleeve;
         public static ThoughtDef VFEU_NewSleeveDouble;
