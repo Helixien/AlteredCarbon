@@ -9,12 +9,12 @@ namespace AlteredCarbon
 {
     public static class GeneUtils
     {
-        public static Gene ApplyGene(GeneDef geneDef, Pawn pawn)
+        public static Gene ApplyGene(GeneDef geneDef, Pawn pawn, bool xenogene)
         {
             var gene = pawn.genes.GetGene(geneDef);
             if (gene is null)
             {
-                gene = pawn.genes.AddGene(geneDef, false);
+                gene = pawn.genes.AddGene(geneDef, xenogene);
             }
             ApplyGene(gene, pawn);
             return gene;
@@ -23,7 +23,7 @@ namespace AlteredCarbon
         public static void ApplyGene(Gene gene, Pawn pawn)
         {
             OverrideAllConflicting(gene, pawn);
-            if (ModLister.BiotechInstalled && gene.def.graphicData != null && gene.def.graphicData.skinIsHairColor)
+            if (gene.def.graphicData != null && gene.def.graphicData.skinIsHairColor)
             {
                 pawn.story.skinColorOverride = pawn.story.HairColor;
             }

@@ -334,6 +334,15 @@ namespace AlteredCarbon
                 {
                     stringBuilder.AppendLineTagged("AC.Race".Translate() + ": " + PersonaData.originalRace.LabelCap);
                 }
+                if (PersonaData.originalXenotypeName != null)
+                {
+                    stringBuilder.AppendLineTagged("AC.Xenotype".Translate() + ": " + PersonaData.originalXenotypeName);
+                }
+                else if (PersonaData.originalXenotypeDef != null)
+                {
+                    stringBuilder.AppendLineTagged("AC.Xenotype".Translate() + ": " + PersonaData.originalXenotypeDef.LabelCap);
+                }
+
                 if (PersonaData.childhood != null)
                 {
                     stringBuilder.Append("AC.Childhood".Translate() + ": " + PersonaData.childhood.title.CapitalizeFirst() + "\n");

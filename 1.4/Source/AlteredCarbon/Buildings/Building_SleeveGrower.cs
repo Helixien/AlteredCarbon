@@ -86,7 +86,6 @@ namespace AlteredCarbon
         public override void DrawAt(Vector3 drawLoc, bool flip = false)
         {
             base.DrawAt(drawLoc, flip);
-            var corpse = innerContainer.OfType<Corpse>().FirstOrDefault();
             if (incubatorState != IncubatorState.ToBeActivated && InnerPawn != null)
             {
                 Vector3 newPos = drawLoc;
@@ -507,6 +506,12 @@ namespace AlteredCarbon
             else
             {
                 powerTrader.PowerOutput = 0f - powerTrader.Props.PowerConsumption;
+                var corpse = StoredPawnOrCorpse as Corpse;
+                if (corpse != null)
+                {
+                    corpse.TryGetComp<CompRottable>().RotProgress--;
+                }
+
                 if (incubatorState == IncubatorState.Growing || incubatorState == IncubatorState.ToBeCanceled)
                 {
                     if (compRefuelable.HasFuel && powerTrader.PowerOn)

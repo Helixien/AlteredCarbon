@@ -40,9 +40,6 @@ namespace AlteredCarbon
         public BackstoryDef adulthood;
 
         public string title;
-        public XenotypeDef xenotypeDef;
-        public string xenotypeName;
-
         public bool everSeenByPlayer;
         public bool canGetRescuedThought = true;
         public Pawn relativeInvolvedInRescueQuest;
@@ -78,8 +75,12 @@ namespace AlteredCarbon
 
         public bool ContainsInnerPersona => hostPawn != null || name != null;
 
+        // original pawn data before sleeving
         public Gender originalGender;
         public ThingDef originalRace;
+        public XenotypeDef originalXenotypeDef;
+        public string originalXenotypeName;
+
         private int pawnID;
 
         // Royalty
@@ -350,8 +351,8 @@ namespace AlteredCarbon
             title = pawn.story?.title;
             if (ModsConfig.BiotechActive && pawn.genes != null)
             {
-                xenotypeDef = pawn.genes.Xenotype;
-                xenotypeName = pawn.genes.xenotypeName;
+                originalXenotypeDef = pawn.genes.Xenotype;
+                originalXenotypeName = pawn.genes.xenotypeName;
             }
             priorities = new Dictionary<WorkTypeDef, int>();
             if (pawn.workSettings != null && pawn.workSettings.priorities != null)
@@ -432,13 +433,31 @@ namespace AlteredCarbon
             {
                 if (pawn.HasCorticalStack(out var hediff))
                 {
-                    originalRace = hediff.PersonaData.originalRace ?? pawn.def;
-                    originalGender = hediff.PersonaData.originalGender != Gender.None ? hediff.PersonaData.originalGender : pawn.gender;
+                    var personaData = hediff.PersonaData;
+                    originalRace = personaData.originalRace ?? pawn.def;
+                    originalGender = personaData.originalGender != Gender.None ? personaData.originalGender : pawn.gender;
+                    if (personaData.originalXenotypeName.NullOrEmpty())
+                    {
+                        if (pawn.genes.xenotypeName.NullOrEmpty())
+                        {
+                            originalXenotypeDef = personaData.originalXenotypeDef != null ? personaData.originalXenotypeDef : pawn.genes.xenotype;
+                        }
+                        else
+                        {
+                            originalXenotypeName = pawn.genes.xenotypeName;
+                        }
+                    }
+                    else
+                    {
+                        originalXenotypeName = personaData.originalXenotypeName;
+                    }
                 }
                 else
                 {
                     originalRace = pawn.def;
                     originalGender = pawn.gender;
+                    originalXenotypeDef = pawn.genes.xenotype;
+                    originalXenotypeName = pawn.genes.xenotypeName;
                 }
             }
             if (ModsConfig.RoyaltyActive && pawn.royalty != null)
@@ -589,8 +608,6 @@ namespace AlteredCarbon
                     });
                 }
             }
-            xenotypeDef = other.xenotypeDef;
-            xenotypeName = other.xenotypeName;
             childhood = other.childhood;
             adulthood = other.adulthood;
             title = other.title;
@@ -630,8 +647,8 @@ namespace AlteredCarbon
             battleActive = other.battleActive;
             battleExitTick = other.battleExitTick;
 
-            originalGender = other.originalGender;
-            originalRace = other.originalRace;
+            CopyOriginalData(other);
+
             pawnID = other.pawnID;
 
             if (ModsConfig.RoyaltyActive)
@@ -671,6 +688,14 @@ namespace AlteredCarbon
 
             stackDegradation = other.stackDegradation;
             AssignDummyPawnReferences();
+        }
+
+        public void CopyOriginalData(PersonaData other)
+        {
+            originalGender = other.originalGender;
+            originalRace = other.originalRace;
+            originalXenotypeDef = other.originalXenotypeDef;
+            originalXenotypeName = other.originalXenotypeName;
         }
 
         private Name GetNameCopy(Name other)
@@ -726,6 +751,12 @@ namespace AlteredCarbon
                 {
                     thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongRace);
                 }
+                if (originalXenotypeDef != null && originalXenotypeDef == pawn.genes.xenotype 
+                    || originalXenotypeName.NullOrEmpty() is false && originalXenotypeName == pawn.genes.xenotypeName)
+                {
+                    thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongXenotype);
+                }
+
                 if (pawn.CanThink() && thoughts.Any())
                 {
                     foreach (Thought_Memory thought in thoughts)
@@ -1377,8 +1408,9 @@ namespace AlteredCarbon
             Scribe_Defs.Look(ref childhood, "childhood");
             Scribe_Defs.Look(ref adulthood, "adulthood");
             Scribe_Values.Look(ref title, "title", null, false);
-            Scribe_Defs.Look(ref xenotypeDef, "xenotypeDef");
-            Scribe_Values.Look(ref xenotypeName, "xenotypeName");
+            Scribe_Defs.Look(ref originalXenotypeDef, "originalXenotypeDef");
+            Scribe_Values.Look(ref originalXenotypeName, "originalXenotypeName");
+
             Scribe_Collections.Look(ref traits, "traits", LookMode.Deep);
             Scribe_Collections.Look(ref skills, "skills", LookMode.Deep);
             Scribe_Collections.Look(ref relations, "otherPawnRelations", LookMode.Deep);

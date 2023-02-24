@@ -57,6 +57,7 @@
 	<AC.FuelSleeveWillBeDeteriorated>Due to lack of neutroamine, the sleeve will begin to deteriorate in {0}</AC.FuelSleeveWillBeDeteriorated>
 	<AC.FuelSleeveIsDeteriorating>Due to lack of neutroamine, the sleeve is deteriorating.</AC.FuelSleeveIsDeteriorating>
 	<AC.Race>Race</AC.Race>
+	<AC.Xenotype>Xenotype</AC.Xenotype>
 	<AC.ActiveBrainTemplateDesc>Active brain template: </AC.ActiveBrainTemplateDesc>
 	<AC.AwaitingBrainTemplateDesc>Awaiting brain template: </AC.AwaitingBrainTemplateDesc>
 	<AC.BrainTemplateIsUsedCurrently>Brain template is active and cannot be removed or changed during sleeve growth process. Abort sleeve growth in order to remove/change brain template.</AC.BrainTemplateIsUsedCurrently>
@@ -129,6 +130,8 @@
 	<AC.EjectStackTooltip>Eject this cortical stack from the array.</AC.EjectStackTooltip>
 	<AC.EjectStackConfirmation>Do you really want to eject {0}? It will be immediately ejected onto the ground nearby.</AC.EjectStackConfirmation>
 	<AC.NoStoredStackToDuplicate>There are no stored cortical stacks in the array to duplicate.</AC.NoStoredStackToDuplicate>
+	<AC.CancelStackDuplication>Cancel stack duplication</AC.CancelStackDuplication>
+
 	<!-- ================================ Gene Centrifuge ====================== -->
 	<AC.SeparateGene>Separate gene</AC.SeparateGene>
 	<AC.SeparateGeneDesc>Select a genepack from which to separate a gene from.</AC.SeparateGeneDesc>

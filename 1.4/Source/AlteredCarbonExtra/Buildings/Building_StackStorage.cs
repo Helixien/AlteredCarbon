@@ -123,7 +123,18 @@ namespace AlteredCarbon
                     duplicateStacks.Disable("NoPower".Translate());
                 }
                 yield return duplicateStacks;
-
+                if (this.stackToDuplicate != null)
+                {
+                    yield return new Command_Action
+                    {
+                        defaultLabel = "AC.CancelStackDuplication".Translate(),
+                        icon = UIHelper.CancelIcon,
+                        action = delegate ()
+                        {
+                            this.stackToDuplicate = null;
+                        }
+                    };
+                }
                 if (stacks.Any())
                 {
                     var ejectAll = new Command_Action();

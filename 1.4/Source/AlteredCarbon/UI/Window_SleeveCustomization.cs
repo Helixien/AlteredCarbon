@@ -217,7 +217,7 @@ namespace AlteredCarbon
                         DoSelectionButtons(ref firstColumnPos, category.Key.SplitCamelCase().FirstCharToUpper(), ref index,
                             (GeneDef x) => x.LabelCap, xenogermGenes, delegate (GeneDef x)
                             {
-                                GeneUtils.ApplyGene(x, curSleeve);
+                                GeneUtils.ApplyGene(x, curSleeve, false);
                                 RecheckEverything();
                                 indexesPerCategory[category.Key] = xenogermGenes.IndexOf(x);
                             }, floatMenu: false);
@@ -265,7 +265,7 @@ namespace AlteredCarbon
                     }
 
                     curSleeve.story.skinColorOverride = curSleeve.story.skinColorBase = null;
-                    var gene = GeneUtils.ApplyGene(selected.Key, curSleeve);
+                    var gene = GeneUtils.ApplyGene(selected.Key, curSleeve, false);
                     if (selected.Key.endogeneCategory == EndogeneCategory.Melanin)
                     {
                         var melaninGene = curSleeve.genes.GenesListForReading
@@ -292,7 +292,7 @@ namespace AlteredCarbon
                 {
                     if (selected.Key != null)
                     {
-                        GeneUtils.ApplyGene(selected.Key, curSleeve);
+                        GeneUtils.ApplyGene(selected.Key, curSleeve, false);
                     }
                     else
                     {
@@ -310,7 +310,7 @@ namespace AlteredCarbon
                     {
                         if (x.Key != null)
                         {
-                            GeneUtils.ApplyGene(x.Key, curSleeve);
+                            GeneUtils.ApplyGene(x.Key, curSleeve, false);
                         }
                         else
                         {
@@ -328,7 +328,7 @@ namespace AlteredCarbon
                     {
                         if (x.Key != null)
                         {
-                            GeneUtils.ApplyGene(x.Key, curSleeve);
+                            GeneUtils.ApplyGene(x.Key, curSleeve, false);
                         }
                         else
                         {
@@ -348,7 +348,7 @@ namespace AlteredCarbon
                         {
                             ModCompatibility.SetHairColorFirst(curSleeve, selected.Value);
                         }
-                        var gene = GeneUtils.ApplyGene(selected.Key, curSleeve);
+                        var gene = GeneUtils.ApplyGene(selected.Key, curSleeve, false);
                         var hairGene = curSleeve.genes.GenesListForReading
                             .FirstOrDefault(x => selected.Key.endogeneCategory == x.def.endogeneCategory);
                         if (hairGene != null && gene != hairGene)

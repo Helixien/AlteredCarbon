@@ -242,7 +242,10 @@ namespace AlteredCarbon
             PortraitsCache.SetDirty(pawn);
             PortraitsCache.PortraitsCacheUpdate();
             GlobalTextureAtlasManager.TryMarkPawnFrameSetDirty(pawn);
-            Find.ColonistBar.MarkColonistsDirty();
+            if (Find.World != null)
+            {
+                Find.ColonistBar.MarkColonistsDirty();
+            }
         }
 
         public static Pawn ClonePawn(Pawn source)
@@ -345,8 +348,8 @@ namespace AlteredCarbon
             }
             for (var i = 0; i < sourceGenes.Count; i++)
             {
-                var gene = dest.genes.Endogenes[i];
-                if (sourceGenes[i].Active)
+                var gene = sourceGenes[i];
+                if (gene.Active)
                 {
                     GeneUtils.ApplyGene(gene, dest);
                 }
@@ -377,7 +380,7 @@ namespace AlteredCarbon
 
         public static void LockBehindReseach(this Command_Action command, List<ResearchProjectDef> researchProjects)
         {
-            if (researchProjects != null && IsResearchFinished(researchProjects) is false)
+            if (researchProjects != null && researchProjects.Any() && IsResearchFinished(researchProjects) is false)
             {
                 command.Disable("MissingRequiredResearch".Translate() + ": " + (from x in researchProjects where !x.IsFinished select x.label)
                     .ToCommaList(useAnd: true).CapitalizeFirst());

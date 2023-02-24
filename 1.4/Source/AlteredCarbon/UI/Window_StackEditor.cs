@@ -150,7 +150,7 @@ namespace AlteredCarbon
                 DoNameInput(ref pos, "FirstName".Translate().CapitalizeFirst(), ref nameTriple.firstInt, delegate
                 {
                     var name = PawnBioAndNameGenerator.GeneratePawnName(personaData.GetDummyPawn, NameStyle.Full, null,
-                        forceNoNick: false, personaData.xenotypeDef);
+                        forceNoNick: false, personaData.originalXenotypeDef);
                     if (name is NameTriple nameTriple1)
                     {
                         nameTriple.firstInt = nameTriple1.firstInt;
@@ -163,7 +163,7 @@ namespace AlteredCarbon
                 DoNameInput(ref pos, "NickName".Translate().CapitalizeFirst(), ref nameTriple.nickInt, delegate
                 {
                     var name = PawnBioAndNameGenerator.GeneratePawnName(personaData.GetDummyPawn, NameStyle.Full, null,
-                        forceNoNick: false, personaData.xenotypeDef);
+                        forceNoNick: false, personaData.originalXenotypeDef);
                     if (name is NameTriple nameTriple1)
                     {
                         nameTriple.nickInt = nameTriple1.nickInt;
@@ -176,7 +176,7 @@ namespace AlteredCarbon
                 DoNameInput(ref pos, "LastName".Translate().CapitalizeFirst(), ref nameTriple.lastInt, delegate
                 {
                     var name = PawnBioAndNameGenerator.GeneratePawnName(personaData.GetDummyPawn, NameStyle.Full, null,
-                        forceNoNick: false, personaData.xenotypeDef);
+                        forceNoNick: false, personaData.originalXenotypeDef);
                     if (name is NameTriple nameTriple1)
                     {
                         nameTriple.lastInt = nameTriple1.lastInt;
@@ -192,7 +192,7 @@ namespace AlteredCarbon
                 DoNameInput(ref pos, "Name".Translate().CapitalizeFirst(), ref nameSingle.nameInt, delegate
                 {
                     var name = PawnBioAndNameGenerator.GeneratePawnName(personaData.GetDummyPawn, NameStyle.Full, null,
-                    forceNoNick: false, personaData.xenotypeDef);
+                    forceNoNick: false, personaData.originalXenotypeDef);
                     personaData.name = name;
                 });
             }

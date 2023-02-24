@@ -167,6 +167,11 @@ namespace AlteredCarbon
                 {
                     pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongRace);
                 }
+                if (hediff.PersonaData.originalXenotypeName != null && pawn.genes.xenotypeName != hediff.PersonaData.originalXenotypeName
+                    || hediff.PersonaData.originalXenotypeDef != null && pawn.genes.xenotype != hediff.PersonaData.originalXenotypeDef)
+                {
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongXenotype);
+                }
 
                 var naturalMood = pawn.story.traits.GetTrait(TraitDefOf.NaturalMood);
                 var nerves = pawn.story.traits.GetTrait(TraitDefOf.Nerves);
