@@ -10,7 +10,7 @@
 				<spawnLocType>BetweenTouchingCells</spawnLocType>
 				<positionLerpFactor>0.6</positionLerpFactor>
 				<scale>0.3~0.5</scale>
-				<color>(0, 255, 0)</color>
+				<color>(0, 255, 255)</color>
 				<positionRadius>0.4</positionRadius>
 				<ticksBetweenMotes>20</ticksBetweenMotes>
 			</li>
