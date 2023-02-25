@@ -17,7 +17,7 @@ namespace AlteredCarbon
         private static bool Prefix(string text, LookTargets lookTargets, MessageTypeDef def)
         {
             if (def == MessageTypeDefOf.PawnDeath && lookTargets.TryGetPrimaryTarget().Thing is Pawn pawn && (pawn.IsEmptySleeve() 
-                || pawn.HasCorticalStack()))
+                || pawn.HasStackInsideOrOutside()))
             {
                 return false;
             }

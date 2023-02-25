@@ -563,6 +563,12 @@ namespace AlteredCarbon
                 : HediffMaker.MakeHediff(hediffDef, pawn, part);
         }
 
+        public static bool HasStackInsideOrOutside(this Pawn pawn)
+        {
+            return AlteredCarbonManager.Instance.StacksIndex.ContainsKey(pawn.thingIDNumber)
+                || AlteredCarbonManager.Instance.PawnsWithStacks.Contains(pawn);
+        }
+
         public static bool UsesSleeve(this Pawn pawn)
         {
             return sleeveQualities.Exists(def => pawn.genes.GetGene(def) != null);
