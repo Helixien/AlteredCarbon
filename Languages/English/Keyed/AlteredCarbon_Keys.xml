@@ -32,6 +32,10 @@
 	<AC.AutoLoad>Auto-load</AC.AutoLoad>
 	<AC.AutoLoadDesc>If active, haulers will automatically store this stack in a stack array.</AC.AutoLoadDesc>
 	<AC.SleeveWithStack>Sleeve with stack installed inside.</AC.SleeveWithStack>
+	<AC.PawnAlreadyHasStack>{PAWN_nameDef} already has a cortical stack installed!</AC.PawnAlreadyHasStack>
+	<AC.PawnAlreadyHasArchoStack>{PAWN_nameDef} already has an archo stack installed!</AC.PawnAlreadyHasArchoStack>
+	<AC.PawnStackCannotDowngrade>{PAWN_nameDef} already has an archo stack installed!</AC.PawnStackCannotDowngrade>
+	<AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>Cannot install cortical stack - neck is missing or another implant installed in the neck.</AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>
 	<!-- ================================ Sleeves ====================== -->
 	<AC.EmptySleeve>Empty sleeve</AC.EmptySleeve>
 	<AC.SleeveDeath>Sleeve Death</AC.SleeveDeath>
@@ -100,10 +104,12 @@
 	<AC.RepurposeCorpseDesc>Repurpose a not fully rotten corpse and turn it into an empty sleeve.</AC.RepurposeCorpseDesc>
 	<AC.SleeveGrowerIsOccupied>Sleeve grower is occupied.</AC.SleeveGrowerIsOccupied>
 	<AC.CancelRepurposingCorpse>Cancel repurposing corpse</AC.CancelRepurposingCorpse>
-	<AC.CancelRepurposingCorpseDesc>text.todo</AC.CancelRepurposingCorpseDesc>
+	<AC.CancelRepurposingCorpseDesc>Cancel repurposing corpse into a empty sleeve.</AC.CancelRepurposingCorpseDesc>
 	<AC.CorticalStackMustBeRemovedFirst>Cortical stack must be removed first.</AC.CorticalStackMustBeRemovedFirst>
 	<AC.SleeveDesignCouldntBeFullyLoaded>Saved Sleeve Design could not be fully loaded. Missing required xenogerm!</AC.SleeveDesignCouldntBeFullyLoaded>
 	<AC.PawnBodyCouldntBeFullyCopied>A {PAWN_nameDef} body couldn't be copied fully. The following xenogenes were skipped: {1}</AC.PawnBodyCouldntBeFullyCopied>
+	<AC.StartGrowing>Start growing</AC.StartGrowing>
+	<AC.FinishedGrowingSleeve>Sleeve Incubator: Finished growing sleeve!</AC.FinishedGrowingSleeve>
 	<!-- ================================ Stack Array ====================== -->
 	<AC.Backup>Backup</AC.Backup>
 	<AC.BackedUpStacksInArray>Cortical Stack backups saved in arrays: {0}</AC.BackedUpStacksInArray>
@@ -132,9 +138,20 @@
 	<AC.EjectStackConfirmation>Do you really want to eject {0}? It will be immediately ejected onto the ground nearby.</AC.EjectStackConfirmation>
 	<AC.NoStoredStackToDuplicate>There are no stored cortical stacks in the array to duplicate.</AC.NoStoredStackToDuplicate>
 	<AC.CancelStackDuplication>Cancel stack duplication</AC.CancelStackDuplication>
-	<AC.CancelStackDuplicationDesc>todo</AC.CancelStackDuplicationDesc>
+	<AC.CancelStackDuplicationDesc>Cancel duplication of stored cortical stack.</AC.CancelStackDuplicationDesc>
 	<AC.MessageCantSelectOffMapPawn>{1_labelShort} is off the map or not in a sleeve.</AC.MessageCantSelectOffMapPawn>
-
+	<AC.StackStorage>Contents</AC.StackStorage>
+	<AC.CorticalStacksInArray>Cortical Stacks in array: ({0}/{1})</AC.CorticalStacksInArray>
+	<AC.CorticalStacksStored>Cortical Stacks stored: {0}/{1}</AC.CorticalStacksStored>
+	<AC.LastBackup>Last Backup: {0}</AC.LastBackup>
+	<AC.AllowColonistStacks>*Allow colonist cortical stacks</AC.AllowColonistStacks>
+	<AC.AllowStrangerStacks>*Allow stranger cortical stacks</AC.AllowStrangerStacks>
+	<AC.AllowHostileStacks>*Allow hostile cortical stacks</AC.AllowHostileStacks>
+	<AC.AllowArchoStacks>*Allow archo stacks</AC.AllowArchoStacks>
+	<AC.SuccessfullyDuplicatedStack>{PAWN_nameDef} successfully duplicated cortical stack.</AC.SuccessfullyDuplicatedStack>
+	<AC.FailedToDuplicatedStack>{PAWN_nameDef} failed to duplicate cortical stack.</AC.FailedToDuplicatedStack>
+	<AC.EjectAll>Eject all</AC.EjectAll>
+	<AC.EjectAllDesc>Drop all contained stacks onto the ground.</AC.EjectAllDesc>
 	<!-- ================================ Gene Centrifuge ====================== -->
 	<AC.SeparateGene>Separate gene</AC.SeparateGene>
 	<AC.SeparateGeneDesc>Select a genepack from which to separate a gene from.</AC.SeparateGeneDesc>
@@ -148,14 +165,14 @@
 	<AC.SeparatingProgress>Separating: {0}</AC.SeparatingProgress>
 	<AC.CentrigureWorking>Gene centrifuge is working.</AC.CentrigureWorking>
 	<AC.CancelGeneSeparating>Cancel gene separating</AC.CancelGeneSeparating>
-	<AC.CancelGeneSeparatingDesc>todo</AC.CancelGeneSeparatingDesc>
+	<AC.CancelGeneSeparatingDesc>Cancel separating genes.</AC.CancelGeneSeparatingDesc>
 	<AC.ContainsGenepack>Contains: {0}</AC.ContainsGenepack>
 	<!-- ================================ Xenogerm duplicator ====================== -->
 	<AC.DuplicateXenogerm>Duplicate xenogerm</AC.DuplicateXenogerm>
 	<AC.DuplicateXenogermDesc>Select a xenogerm to duplicate. Xenogerms with archite genes require archite capsules to be loaded.</AC.DuplicateXenogermDesc>
 	<AC.DuplicatorWorking>Xenogerm duplicator is working</AC.DuplicatorWorking>
 	<AC.CancelXenogermDuplication>Cancel xenogerm duplication</AC.CancelXenogermDuplication>
-	<AC.CancelXenogermDuplicationDesc>todo</AC.CancelXenogermDuplicationDesc>
+	<AC.CancelXenogermDuplicationDesc>Cancel xenogerm duplication.</AC.CancelXenogermDuplicationDesc>
 	<AC.DuplicationProgress>Duplicating: {0}</AC.DuplicationProgress>
 	<AC.ContainsXenogerm>Contains: {0}</AC.ContainsXenogerm>
 	<AC.FinishedXenogermDuplicationMessage>Xenogerm duplicator finished duplicating xenogerm!</AC.FinishedXenogermDuplicationMessage>
@@ -172,27 +189,22 @@
 	<AC.FactionDemandsStacks>{FACTION_name} demands stacks of their members back.\n\n{0}</AC.FactionDemandsStacks>
 	<AC.AppeptFactionDemand>Accept: (+{0} goodwill)</AC.AppeptFactionDemand>
 	<AC.RejectFactionDemand>Reject: ({0} goodwill)</AC.RejectFactionDemand>
-	<AC.CorticalStacksInArray>Cortical Stacks in array: ({0}/{1})</AC.CorticalStacksInArray>
-	<AC.CorticalStacksStored>Cortical Stacks stored: {0}/{1}</AC.CorticalStacksStored>
-	<AC.LastBackup>Last Backup: {0}</AC.LastBackup>
-	<AC.StackStorage>Contents</AC.StackStorage>
-	<AC.AllowColonistStacks>*Allow colonist cortical stacks</AC.AllowColonistStacks>
-	<AC.AllowStrangerStacks>*Allow stranger cortical stacks</AC.AllowStrangerStacks>
-	<AC.AllowHostileStacks>*Allow hostile cortical stacks</AC.AllowHostileStacks>
-	<AC.AllowArchoStacks>*Allow archo stacks</AC.AllowArchoStacks>
-	<AC.SuccessfullyDuplicatedStack>{PAWN_nameDef} successfully duplicated cortical stack.</AC.SuccessfullyDuplicatedStack>
-	<AC.FailedToDuplicatedStack>{PAWN_nameDef} failed to duplicate cortical stack.</AC.FailedToDuplicatedStack>
-	<AC.FinishedGrowingSleeve>Sleeve Incubator: Finished growing sleeve!</AC.FinishedGrowingSleeve>
+	<AC.None>None</AC.None>
+	<AC.Copy>Copy</AC.Copy>
+	<AC.Original>Original</AC.Original>
+	<AC.Name>Name</AC.Name>
+	<AC.Search>Search</AC.Search>
+	<AC.AddFilter>Add filter</AC.AddFilter>
+	<AC.NoFilters>No filters</AC.NoFilters>
+	<AC.IsEmptySleeve>Is empty sleeve</AC.IsEmptySleeve>
+	<AC.OriginalGender>Original gender</AC.OriginalGender>
+	<!-- ================================ Decryption Bench ====================== -->
 	<AC.HackStack>Hack stack</AC.HackStack>
 	<AC.HackStackDesc>Convert a stack to the players faction.</AC.HackStackDesc>
 	<AC.ConvertStack>Convert stack ideo</AC.ConvertStack>
 	<AC.ConvertStackDesc>Convert a stack to the players ideology.</AC.ConvertStackDesc>
 	<AC.WipeStack>Reset stack</AC.WipeStack>
 	<AC.WipeStackDesc>Factory reset a filled cortical to be used on a new host. This process will deleted the pawn stored on it, effectively killing them.</AC.WipeStackDesc>
-	<AC.PawnAlreadyHasStack>{PAWN_nameDef} already has a cortical stack installed!</AC.PawnAlreadyHasStack>
-	<AC.PawnAlreadyHasArchoStack>{PAWN_nameDef} already has an archo stack installed!</AC.PawnAlreadyHasArchoStack>
-	<AC.PawnStackCannotDowngrade>{PAWN_nameDef} already has an archo stack installed, cannot downgrade!</AC.PawnStackCannotDowngrade>
-	<AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>Cannot install cortical stack - neck is missing or another implant installed in the neck.</AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>
 	<AC.AlreadyOrderedToHackStack>This stack is set for hacking already on the decryption workbench. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToHackStack>
 	<AC.AlreadyOrderedToWipeStack>This stack is set for reseting already on a decryption workbench. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToWipeStack>
 	<AC.AlreadyOrderedToRewriteStack>This stack is set for rewriting already on a decryption workbench. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToRewriteStack>
@@ -202,15 +214,11 @@
 	<AC.GainedEmptyCorticalStack>Decrypt Ancient Stacks: Gained empty cortical stack!</AC.GainedEmptyCorticalStack>
 	<AC.HackingBiocodedFailed>Hacking biocoded equipment: Failed, {0} destroyed!</AC.HackingBiocodedFailed>
 	<AC.HackingBiocodedSuccess>Hacking biocoded equipment: Successful! {0} is unlocked.</AC.HackingBiocodedSuccess>
-	<AC.IsEmptySleeve>Is empty sleeve</AC.IsEmptySleeve>
 	<AC.RewriteStack>Rewrite stack</AC.RewriteStack>
 	<AC.RewriteStackDesc>Use exploits to edit the data stored on a cortical stack.</AC.RewriteStackDesc>
 	<AC.RewriteCorticalStack>Rewrite Cortical Stack</AC.RewriteCorticalStack>
 	<AC.CorticalStackEditExplanation>Cortical Stacks feature advanced encryption to prevent outside forces from messing with the stored consciousness. Known exploits allow for some data to be edited and rewritten at the cost of stack degradation.</AC.CorticalStackEditExplanation>
 	<AC.Backstories>Backstories</AC.Backstories>
-	<AC.Search>Search</AC.Search>
-	<AC.AddFilter>Add filter</AC.AddFilter>
-	<AC.NoFilters>No filters</AC.NoFilters>
 	<AC.NoDisabledWorkTypes>No disabled work types</AC.NoDisabledWorkTypes>
 	<AC.NoSkillPenalties>No skill penalties</AC.NoSkillPenalties>
 	<AC.FactionAllegiance>Faction allegiance</AC.FactionAllegiance>
@@ -219,22 +227,14 @@
 	<AC.Belief>Belief</AC.Belief>
 	<AC.Certainty>Certainty</AC.Certainty>
 	<AC.ChangingPawnIdeologyWarning>Changing a pawn ideology will also remove any roles assosiated from them.</AC.ChangingPawnIdeologyWarning>
-	<AC.OriginalGender>Original gender</AC.OriginalGender>
 	<AC.TotalTimeToRewrite>Total time to rewrite: {0}</AC.TotalTimeToRewrite>
 	<AC.TotalStackDegradation>Expected stack degradation: {0}</AC.TotalStackDegradation>
 	<AC.Tutorial>WARNING: The more you edit,the higher the stack degradation will be, causing the stored pawns personality to become more and more unstable. Stack degradation will go away over time after being installed in a body, but can take years.</AC.Tutorial>
 	<AC.ResetAll>Reset all</AC.ResetAll>
 	<AC.StackDegradation>Stack degradation: {0}</AC.StackDegradation>
-	<AC.EjectAll>Eject all</AC.EjectAll>
-	<AC.EjectAllDesc>Drop all contained stacks onto the ground.</AC.EjectAllDesc>
 	<AC.StartRewriting>Start rewriting</AC.StartRewriting>
-	<AC.StartGrowing>Start growing</AC.StartGrowing>
 	<AC.CancelStackReset>Cancel stack reset</AC.CancelStackReset>
-	<AC.CancelStackResetDesc>todo</AC.CancelStackResetDesc>
+	<AC.CancelStackResetDesc>Cancel reseting cortical stack.</AC.CancelStackResetDesc>
 	<AC.CancelStackRewrite>Cancel stack rewrite</AC.CancelStackRewrite>
-	<AC.CancelStackRewriteDesc>todo</AC.CancelStackRewriteDesc>
-	<AC.None>None</AC.None>
-	<AC.Copy>Copy</AC.Copy>
-	<AC.Original>Original</AC.Original>
-	<AC.Name>Name</AC.Name>
+	<AC.CancelStackRewriteDesc>Cancel rewriting cortical stack.</AC.CancelStackRewriteDesc>
 </LanguageData>
