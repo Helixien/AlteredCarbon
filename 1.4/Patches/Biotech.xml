@@ -21,6 +21,13 @@
 					</li>
 				</value>
 			</li>
+			<!-- ================================ Effected by additions ====================== -->
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[defName="GeneAssembler"]/comps/li[@Class="CompProperties_AffectedByFacilities"]/linkableFacilities</xpath>
+				<value>
+					<li>AC_GeneVault</li>
+				</value>
+			</li>
 			<!-- ================================ Add Hyperlinks ====================== -->
 			<li Class="PatchOperationAdd">
 				<xpath>/Defs/ThingDef[defName="GeneBank" or defName="GeneAssembler"]/descriptionHyperlinks</xpath>
@@ -29,9 +36,23 @@
 				</value>
 			</li>
 			<li Class="PatchOperationAdd">
-				<xpath>/Defs/ThingDef[defName="GeneAssembler"]/comps/li[@Class="CompProperties_AffectedByFacilities"]/linkableFacilities</xpath>
+				<xpath>/Defs/ThingDef[defName="GeneAssembler"]/descriptionHyperlinks</xpath>
 				<value>
-					<li>AC_GeneVault</li>
+					<ThingDef>VFEU_SleeveIncubator</ThingDef>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[defName="Xenogerm"]/descriptionHyperlinks</xpath>
+				<value>
+					<ThingDef>AC_XenoGermDuplicator</ThingDef>
+					<ThingDef>VFEU_SleeveIncubator</ThingDef>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[defName="Genepack"]/descriptionHyperlinks</xpath>
+				<value>
+					<ThingDef>AC_GeneCentrifuge</ThingDef>
+
 				</value>
 			</li>
 		</operations>

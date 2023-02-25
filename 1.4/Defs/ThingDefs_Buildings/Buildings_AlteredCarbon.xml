@@ -36,6 +36,10 @@
 			<Plasteel>150</Plasteel>
 			<ComponentSpacer>6</ComponentSpacer>
 		</costList>
+		<descriptionHyperlinks>
+			<ThingDef>VFEU_FilledCorticalStack</ThingDef>
+			<ThingDef>AC_FilledArchoStack</ThingDef>
+		</descriptionHyperlinks>
 		<altitudeLayer>BuildingOnTop</altitudeLayer>
 		<neverMultiSelect>true</neverMultiSelect>
 		<hasInteractionCell>True</hasInteractionCell>
@@ -118,6 +122,9 @@
 		<researchPrerequisites>
 			<li>GeneProcessor</li>
 		</researchPrerequisites>
+		<descriptionHyperlinks>
+			<ThingDef>Genepack</ThingDef>
+		</descriptionHyperlinks>
 		<statBases>
 			<MaxHitPoints>350</MaxHitPoints>
 			<WorkToBuild>9000</WorkToBuild>
@@ -233,6 +240,9 @@
 		<researchPrerequisites>
 			<li>Xenogermination</li>
 		</researchPrerequisites>
+		<descriptionHyperlinks>
+			<ThingDef>Xenogerm</ThingDef>
+		</descriptionHyperlinks>
 		<statBases>
 			<MaxHitPoints>350</MaxHitPoints>
 			<WorkToBuild>9000</WorkToBuild>
