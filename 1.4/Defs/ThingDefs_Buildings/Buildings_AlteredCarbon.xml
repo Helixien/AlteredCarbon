@@ -28,7 +28,7 @@
 			<Cleanliness>1</Cleanliness>
 		</statBases>
 		<researchPrerequisites>
-			<li>AC_CorticalStorage</li>
+			<li>AC_CorticalCrafting</li>
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 		<costList>

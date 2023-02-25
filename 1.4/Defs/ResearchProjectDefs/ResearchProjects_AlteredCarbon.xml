@@ -34,33 +34,13 @@
 			<li>MultiAnalyzer</li>
 		</requiredResearchFacilities>
 	</ResearchProjectDef>
-	<!-- ================================ Cortical Stack storage ====================== -->
-	<ResearchProjectDef>
-		<defName>AC_CorticalStorage</defName>
-		<label>cortical storage</label>
-		<description>Build arrays for long-term storage of cortical stacks.</description>
-		<baseCost>5000</baseCost>
-		<researchViewX>17.00</researchViewX>
-		<researchViewY>2.25</researchViewY>
-		<techLevel>Ultra</techLevel>
-		<prerequisites>
-			<li>AC_CorticalCrafting</li>
-		</prerequisites>
-		<hiddenPrerequisites>
-			<li>MicroelectronicsBasics</li>
-		</hiddenPrerequisites>
-		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
-		<requiredResearchFacilities>
-			<li>MultiAnalyzer</li>
-		</requiredResearchFacilities>
-	</ResearchProjectDef>
 	<!-- ================================ Rewrite Cortical Stack ====================== -->
 	<ResearchProjectDef>
 		<defName>AC_RewriteCorticalStack</defName>
-		<label>rewrite cortical stack</label>
+		<label>cortical modification</label>
 		<description>todo.</description>
 		<baseCost>5000</baseCost>
-		<researchViewX>18.00</researchViewX>
+		<researchViewX>17.00</researchViewX>
 		<researchViewY>2.25</researchViewY>
 		<techLevel>Ultra</techLevel>
 		<prerequisites>

@@ -148,7 +148,7 @@
 	<AC.ContainsGenepack>Contains: {0}</AC.ContainsGenepack>
 	<!-- ================================ Xenogerm duplicator ====================== -->
 	<AC.DuplicateXenogerm>Duplicate xenogerm</AC.DuplicateXenogerm>
-	<AC.DuplicateXenogermDesc>todo</AC.DuplicateXenogermDesc>
+	<AC.DuplicateXenogermDesc>Select a xenogerm to duplicate. Xenogerms with archite genes require archite capsules to be loaded.</AC.DuplicateXenogermDesc>
 	<AC.DuplicatorWorking>Xenogerm duplicator is working</AC.DuplicatorWorking>
 	<AC.CancelXenogermDuplication>Cancel xenogerm duplication</AC.CancelXenogermDuplication>
 	<AC.DuplicationProgress>Duplicating: {0}</AC.DuplicationProgress>
