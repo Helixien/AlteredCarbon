@@ -215,7 +215,7 @@
 	<AC.HackingBiocodedFailed>Hacking biocoded equipment: Failed, {0} destroyed!</AC.HackingBiocodedFailed>
 	<AC.HackingBiocodedSuccess>Hacking biocoded equipment: Successful! {0} is unlocked.</AC.HackingBiocodedSuccess>
 	<AC.RewriteStack>Rewrite stack</AC.RewriteStack>
-	<AC.RewriteStackDesc>Use exploits to edit the data stored on a cortical stack.</AC.RewriteStackDesc>
+	<AC.RewriteStackDesc>Use exploits to edit the data stored on a filled cortical stack.</AC.RewriteStackDesc>
 	<AC.RewriteCorticalStack>Rewrite Cortical Stack</AC.RewriteCorticalStack>
 	<AC.CorticalStackEditExplanation>Cortical Stacks feature advanced encryption to prevent outside forces from messing with the stored consciousness. Known exploits allow for some data to be edited and rewritten at the cost of stack degradation.</AC.CorticalStackEditExplanation>
 	<AC.Backstories>Backstories</AC.Backstories>

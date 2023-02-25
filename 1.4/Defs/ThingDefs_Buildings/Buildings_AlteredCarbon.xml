@@ -204,11 +204,11 @@
 				<basePowerConsumption>150</basePowerConsumption>
 			</li>
 			<li Class="CompProperties_GenepackContainer">
-				<maxCapacity>16</maxCapacity>
+				<maxCapacity>12</maxCapacity>
 			</li>
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Facility">
-				<maxSimultaneous>100</maxSimultaneous>
+				<maxSimultaneous>50</maxSimultaneous>
 				<maxDistance>12.9</maxDistance>
 			</li>
 			<li Class="CompProperties_Flickable"/>
@@ -218,7 +218,7 @@
 	<ThingDef ParentName="BuildingBase">
 		<defName>AC_XenoGermDuplicator</defName>
 		<label>xenogerm duplicator</label>
-		<description>A deceptively simple machine that synthesises genetic material from the environment in order to mass manufacture xenogerms. This building can duplicate an existing xenogerm with the exception of any present archite genes, as they cannot be replicated by human technology.</description>
+		<description>A deceptively simple machine that synthesises genetic material in order to mass manufacture an exact copy of an existing xenogerms. This building can duplicate any existing xenogerm, including any present archite genes, as long as it is supplied with the required amount of archite capsules.</description>
 		<thingClass>AlteredCarbon.Building_XenogermDuplicator</thingClass>
 		<tickerType>Normal</tickerType>
 		<passability>PassThroughOnly</passability>

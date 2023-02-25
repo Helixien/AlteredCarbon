@@ -3,7 +3,7 @@
 	<ThingDef ParentName="ApparelBase">
 		<defName>AC_Apparel_WingJump</defName>
 		<label>jump wings</label>
-		<description>to.do</description>
+		<description>A single-person set of mechanical wings for short-ranged flight. With its artificial polymer muscles and guidance assistant, the jump wing allows anyone to leap distances at high speed, while staying completely silent. It must be recharged after several uses.\n\nSome spacer tech militaries have melee combat specialists who use jump wings for covert infiltration or black ops missions.</description>
 		<techLevel>Spacer</techLevel>
 		<verbs>
 			<li>
@@ -116,6 +116,7 @@
 			</layers>
 			<tags>
 				<li>WingJump</li>
+				<li>PackJump</li>
 			</tags>
 		</apparel>
 		<tradeTags>
@@ -144,9 +145,9 @@
 		</colorGenerator>
 		<comps>
 			<li Class="CompProperties_Reloadable">
-				<maxCharges>10</maxCharges>
-				<ammoDef>Chemfuel</ammoDef>
-				<ammoCountPerCharge>10</ammoCountPerCharge>
+				<maxCharges>15</maxCharges>
+				<ammoDef>Neutroamine</ammoDef>
+				<ammoCountPerCharge>5</ammoCountPerCharge>
 				<baseReloadTicks>60</baseReloadTicks>
 				<soundReload>Standard_Reload</soundReload>
 				<hotKey>Misc4</hotKey>

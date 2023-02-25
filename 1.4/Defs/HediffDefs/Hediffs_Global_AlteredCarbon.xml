@@ -4,7 +4,7 @@
 	<HediffDef>
 		<defName>AC_StackDegradation</defName>
 		<label>degradation</label>
-		<labelNoun>a stack degradation</labelNoun>
+		<labelNoun>stack degradation</labelNoun>
 		<hediffClass>AlteredCarbon.Hediff_StackDegradation</hediffClass>
 		<description>Instability of the cortical stack caused by rewriting its content.</description>
 		<isBad>false</isBad>
@@ -16,6 +16,6 @@
 		<label>brain trauma</label>
 		<labelNoun>a brain trauma</labelNoun>
 		<hediffClass>HediffWithComps</hediffClass>
-		<description>text todo.</description>
+		<description>An injury to the brain caused by various conditions such as head trauma, inadequate oxygen supply, infections, or intracranial hemorrhage. This damage may be associated with a behavioral or functional abnormality.</description>
 	</HediffDef>
 </Defs>
