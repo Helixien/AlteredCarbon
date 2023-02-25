@@ -24,12 +24,12 @@ namespace AlteredCarbon
             GUI.BeginGroup(viewRect);
             Text.Font = GameFont.Small;
             GUI.color = Color.white;
-            float labelWidth = viewRect.width - 26f;
+            float labelWidth = viewRect.width - 15f;
             float num = 0;
-            DoAllowOption(ref num, viewRect, labelWidth, "AC.AllowColonistStacks", ref Building_StackStorage.allowColonistCorticalStacks);
-            DoAllowOption(ref num, viewRect, labelWidth, "AC.AllowStrangerStacks", ref Building_StackStorage.allowStrangerCorticalStacks);
-            DoAllowOption(ref num, viewRect, labelWidth, "AC.AllowHostileStacks", ref Building_StackStorage.allowHostileCorticalStacks);
-            DoAllowOption(ref num, viewRect, labelWidth, "AC.AllowArchoStacks", ref Building_StackStorage.allowArchoStacks);
+            DoAllowOption(ref num, labelWidth, "AC.AllowColonistStacks", ref Building_StackStorage.allowColonistCorticalStacks);
+            DoAllowOption(ref num, labelWidth, "AC.AllowStrangerStacks", ref Building_StackStorage.allowStrangerCorticalStacks);
+            DoAllowOption(ref num, labelWidth, "AC.AllowHostileStacks", ref Building_StackStorage.allowHostileCorticalStacks);
+            DoAllowOption(ref num, labelWidth, "AC.AllowArchoStacks", ref Building_StackStorage.allowArchoStacks);
 
             System.Collections.Generic.List<CorticalStack> storedStacks = Building_StackStorage.StoredStacks.ToList();
             Widgets.ListSeparator(ref num, viewRect.width - 15, "AC.CorticalStacksInArray".Translate(storedStacks.Count(), Building_StackStorage.MaxFilledStackCapacity));
@@ -50,17 +50,16 @@ namespace AlteredCarbon
             Text.Anchor = TextAnchor.UpperLeft;
         }
 
-        private void DoAllowOption(ref float num, Rect viewRect, float labelWidth, string optionKey, ref bool option)
+        private void DoAllowOption(ref float num, float labelWidth, string optionKey, ref bool option)
         {
-            Rect labelRect = new Rect(0f, num, viewRect.width, 24);
+            Rect labelRect = new Rect(0f, num, labelWidth, 24);
             Widgets.DrawHighlightIfMouseover(labelRect);
             Text.Anchor = TextAnchor.MiddleLeft;
-            labelRect.width = labelWidth - labelRect.xMin;
             labelRect.yMax += 5f;
             labelRect.yMin -= 5f;
-            Widgets.Label(labelRect, optionKey.Translate().Truncate(labelRect.width));
+            Widgets.CheckboxLabeled(labelRect, optionKey.Translate().Truncate(labelRect.width), ref option);
             Text.Anchor = TextAnchor.UpperLeft;
-            Widgets.Checkbox(new Vector2(labelWidth, num), ref option, 24, disabled: false, paintable: true);
+
             num += 24f;
         }
         private void DrawThingRow(ref float y, float width, CorticalStack corticalStack, bool showDuplicateStatus)

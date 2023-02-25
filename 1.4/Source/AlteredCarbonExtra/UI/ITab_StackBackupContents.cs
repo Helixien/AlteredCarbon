@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using RimWorld.Planet;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -27,7 +28,7 @@ namespace AlteredCarbon
             GUI.color = Color.white;
             float num = 0;
             List<PersonaData> backedUpStacks = GameComponent_DigitalStorage.Instance.StoredBackedUpStacks.ToList();
-            Widgets.ListSeparator(ref num, viewRect.width, "AC.BackedUpStacksInArray".Translate(backedUpStacks.Count()));
+            Widgets.ListSeparator(ref num, viewRect.width - 15, "AC.BackedUpStacksInArray".Translate(backedUpStacks.Count()));
             Rect scrollRect = new Rect(0, num, viewRect.width - 16, viewRect.height);
             Rect outerRect = scrollRect;
             outerRect.width += 16;
@@ -83,6 +84,24 @@ namespace AlteredCarbon
             Rect rect4 = new Rect(35, y, 150, rect1.height);
             TaggedString pawnLabel = personaData.PawnNameColored.Truncate(rect4.width);
             Widgets.Label(rect4, pawnLabel);
+            if (Widgets.ButtonInvisible(rect4))
+            {
+                if (personaData.hostPawn != null && personaData.hostPawn.Destroyed is false)
+                {
+                    if (personaData.hostPawn.SpawnedOrAnyParentSpawned || personaData.hostPawn.IsCaravanMember())
+                    {
+                        CameraJumper.TryJumpAndSelect(personaData.hostPawn);
+                    }
+                    else
+                    {
+                        Messages.Message("AC.MessageCantSelectOffMapPawn".Translate(personaData.hostPawn.LabelShort, personaData.hostPawn).CapitalizeFirst(), MessageTypeDefOf.RejectInput, historical: false);
+                    }
+                }
+                else
+                {
+                    Messages.Message("AC.MessageCantSelectOffMapPawn".Translate(personaData.hostPawn.LabelShort, personaData.hostPawn).CapitalizeFirst(), MessageTypeDefOf.RejectInput, historical: false);
+                }
+            }
             Widgets.InfoCardButton(0, y, personaData.GetDummyPawn);
             Rect timeRect = new Rect(rect4.xMax, rect1.y, 165, rect1.height);
             Widgets.Label(timeRect, "AC.TimeSinceLastBackup".Translate((Find.TickManager.TicksAbs - personaData.lastTimeUpdated).ToStringTicksToPeriod()));

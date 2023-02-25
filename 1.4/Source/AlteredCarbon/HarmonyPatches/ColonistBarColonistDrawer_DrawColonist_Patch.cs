@@ -17,7 +17,7 @@ namespace AlteredCarbon
         public static bool Prefix(ColonistBarColonistDrawer __instance, Rect rect, Pawn colonist, Map pawnMap, bool highlight, bool reordering,
             Dictionary<string, string> ___pawnLabelsCache, Vector2 ___PawnTextureSize, Texture2D ___MoodBGTex)
         {
-            if (colonist.Dead && colonist.HasStack())
+            if (colonist.Dead && colonist.HasCorticalStack())
             {
                 float alpha = Find.ColonistBar.GetEntryRectAlpha(rect);
                 __instance.ApplyEntryInAnotherMapAlphaFactor(pawnMap, ref alpha);
@@ -53,6 +53,7 @@ namespace AlteredCarbon
 
                 float num3 = 20f * Find.ColonistBar.Scale;
                 Vector2 pos2 = new Vector2(rect.x + 1f, rect.yMax - num3 - 1f);
+                GUI.color = Color.white;
                 DrawIcon(Icon_StackDead, ref pos2, "ActivityIconMedicalRest".Translate());
                 GUI.color = color2;
 

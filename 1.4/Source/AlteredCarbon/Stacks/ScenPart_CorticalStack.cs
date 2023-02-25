@@ -18,7 +18,7 @@ public class ScenPart_CorticalStack : ScenPart_PawnModifier
 
     public override void ModifyPawnPostGenerate(Pawn pawn, bool redressed)
     {
-        if (this.stackHediff != null && !pawn.HasStack())
+        if (this.stackHediff != null && !pawn.HasCorticalStack())
         {
             pawn.health.AddHediff(this.stackHediff);
         }

@@ -117,6 +117,10 @@ namespace AlteredCarbon
             {
                 var copy = new PersonaData();
                 copy.CopyFromPawn(pawn, stackHediff.SourceStack, copyRaceGenderInfo: true);
+                if (this.backedUpStacks.TryGetValue(copy.PawnID, out var oldBackup))
+                {
+                    copy.restoreToEmptyStack = oldBackup.restoreToEmptyStack;
+                }
                 copy.isCopied = true;
                 copy.lastTimeUpdated = Find.TickManager.TicksAbs;
                 copy.RefreshDummyPawn();

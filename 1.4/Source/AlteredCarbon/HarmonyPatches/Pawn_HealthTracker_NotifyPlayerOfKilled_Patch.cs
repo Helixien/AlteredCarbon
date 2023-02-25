@@ -19,7 +19,7 @@ namespace AlteredCarbon
             {
                 try
                 {
-                    if (!___pawn.IsEmptySleeve() && ___pawn.HasStack())
+                    if (!___pawn.IsEmptySleeve() && ___pawn.HasCorticalStack())
                     {
                         TaggedString taggedString = "";
                         taggedString = (dinfo.HasValue ? "AC.SleveOf".Translate() + dinfo.Value.Def.deathMessage

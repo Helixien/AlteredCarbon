@@ -16,19 +16,17 @@ namespace AlteredCarbon
             {
                 yield return g;
             }
-            var wipeStacks = new Command_ActionOnStack
+            var wipeStacks = new Command_ActionOnStack(this, ForFilledStack(includeArchoStack: false), InstallWipeStackBill)
             {
                 defaultLabel = "AC.WipeStack".Translate(),
                 defaultDesc = "AC.WipeStackDesc".Translate(),
                 icon = ContentFinder<Texture2D>.Get("UI/Icons/WipeStack"),
                 activateSound = SoundDefOf.Tick_Tiny,
-                targetParameters = ForFilledStack(includeArchoStack: false),
-                decryptionBench = this,
                 action = delegate ()
                 {
                     Find.Targeter.BeginTargeting(ForFilledStack(includeArchoStack: false), delegate (LocalTargetInfo x)
                     {
-                        InstallWipeStackRecipe(x.Thing as CorticalStack);
+                        InstallWipeStackBill(x);
                     });
                 },
             };
@@ -43,6 +41,8 @@ namespace AlteredCarbon
                 yield return new Command_Action
                 {
                     defaultLabel = "AC.CancelStackReset".Translate(),
+                    defaultDesc = "AC.CancelStackResetDesc".Translate(),
+                    activateSound = SoundDefOf.Tick_Tiny,
                     icon = UIHelper.CancelIcon,
                     action = delegate ()
                     {
@@ -55,22 +55,17 @@ namespace AlteredCarbon
             }
             if (ModCompatibility.HelixienAlteredCarbonIsActive)
             {
-                var rewriteStack = new Command_ActionOnStack
+                var rewriteStack = new Command_ActionOnStack(this, ForFilledStack(includeArchoStack: false), InstallRewriteBill)
                 {
                     defaultLabel = "AC.RewriteStack".Translate(),
                     defaultDesc = "AC.RewriteStackDesc".Translate(),
                     icon = ContentFinder<Texture2D>.Get("UI/Icons/EditStack"),
                     activateSound = SoundDefOf.Tick_Tiny,
-                    targetParameters = ForFilledStack(includeArchoStack: false),
-                    decryptionBench = this,
                     action = delegate ()
                     {
                         Find.Targeter.BeginTargeting(ForFilledStack(includeArchoStack: false), delegate (LocalTargetInfo x)
                         {
-                            if (x.Thing is CorticalStack corticalStack && CanAddOperationOn(corticalStack))
-                            {
-                                Find.WindowStack.Add(new Window_StackEditor(this, corticalStack));
-                            }
+                            InstallRewriteBill(x);
                         });
                     }
                 };
@@ -87,6 +82,8 @@ namespace AlteredCarbon
                     yield return new Command_Action
                     {
                         defaultLabel = "AC.CancelStackRewrite".Translate(),
+                        defaultDesc = "AC.CancelStackRewriteDesc".Translate(),
+                        activateSound = SoundDefOf.Tick_Tiny,
                         icon = UIHelper.CancelIcon,
                         action = delegate ()
                         {
@@ -131,12 +128,21 @@ namespace AlteredCarbon
             return targetingParameters;
         }
 
-        public void InstallWipeStackRecipe(CorticalStack corticalStack)
+        public void InstallWipeStackBill(LocalTargetInfo x)
         {
-            if (CanAddOperationOn(corticalStack))
+            if (x.Thing is CorticalStack corticalStack && CanAddOperationOn(corticalStack))
             {
                 billStack.AddBill(new Bill_OperateOnStack(corticalStack, AC_DefOf.VFEU_WipeFilledCorticalStack, null));
             }
         }
+
+        private void InstallRewriteBill(LocalTargetInfo x)
+        {
+            if (x.Thing is CorticalStack corticalStack && CanAddOperationOn(corticalStack))
+            {
+                Find.WindowStack.Add(new Window_StackEditor(this, corticalStack));
+            }
+        }
+
     }
 }

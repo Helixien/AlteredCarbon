@@ -555,11 +555,6 @@ namespace AlteredCarbon
             Pawn_RoyaltyTracker_Notify_PawnKilled_Patch.disableKillEffect = null;
             Ideo_Notify_MemberDied_Patch.disableKillEffect = null;
         }
-        public static bool HasStack(this Pawn pawn)
-        {
-            return AlteredCarbonManager.Instance.StacksIndex.ContainsKey(pawn.thingIDNumber) 
-                || AlteredCarbonManager.Instance.PawnsWithStacks.Contains(pawn);
-        }
 
         public static Hediff MakeHediff(HediffDef hediffDef, Pawn pawn, BodyPartRecord part)
         {

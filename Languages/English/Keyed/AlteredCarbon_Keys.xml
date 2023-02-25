@@ -131,6 +131,8 @@
 	<AC.EjectStackConfirmation>Do you really want to eject {0}? It will be immediately ejected onto the ground nearby.</AC.EjectStackConfirmation>
 	<AC.NoStoredStackToDuplicate>There are no stored cortical stacks in the array to duplicate.</AC.NoStoredStackToDuplicate>
 	<AC.CancelStackDuplication>Cancel stack duplication</AC.CancelStackDuplication>
+	<AC.CancelStackDuplicationDesc>todo</AC.CancelStackDuplicationDesc>
+	<AC.MessageCantSelectOffMapPawn>{1_labelShort} is off the map or not in a sleeve.</AC.MessageCantSelectOffMapPawn>
 
 	<!-- ================================ Gene Centrifuge ====================== -->
 	<AC.SeparateGene>Separate gene</AC.SeparateGene>
@@ -145,15 +147,18 @@
 	<AC.SeparatingProgress>Separating: {0}</AC.SeparatingProgress>
 	<AC.CentrigureWorking>Gene centrifuge is working.</AC.CentrigureWorking>
 	<AC.CancelGeneSeparating>Cancel gene separating</AC.CancelGeneSeparating>
+	<AC.CancelGeneSeparatingDesc>todo</AC.CancelGeneSeparatingDesc>
 	<AC.ContainsGenepack>Contains: {0}</AC.ContainsGenepack>
 	<!-- ================================ Xenogerm duplicator ====================== -->
 	<AC.DuplicateXenogerm>Duplicate xenogerm</AC.DuplicateXenogerm>
 	<AC.DuplicateXenogermDesc>Select a xenogerm to duplicate. Xenogerms with archite genes require archite capsules to be loaded.</AC.DuplicateXenogermDesc>
 	<AC.DuplicatorWorking>Xenogerm duplicator is working</AC.DuplicatorWorking>
 	<AC.CancelXenogermDuplication>Cancel xenogerm duplication</AC.CancelXenogermDuplication>
+	<AC.CancelXenogermDuplicationDesc>todo</AC.CancelXenogermDuplicationDesc>
 	<AC.DuplicationProgress>Duplicating: {0}</AC.DuplicationProgress>
 	<AC.ContainsXenogerm>Contains: {0}</AC.ContainsXenogerm>
 	<AC.FinishedXenogermDuplicationMessage>Xenogerm duplicator finished duplicating xenogerm!</AC.FinishedXenogermDuplicationMessage>
+	<AC.NotEnoughArchiteCapsulesLoaded>Do you really want to duplicate the xenogerm? Not enough archite capsules are loaded to duplicate all any archite genes inside the xenogerm.</AC.NotEnoughArchiteCapsulesLoaded>
 	<!-- ================================ Other ====================== -->
 	<AC.CommandCallsNeuroformers>Call psylink neuroformers</AC.CommandCallsNeuroformers>
 	<AC.SleeveHealthPreview>Health</AC.SleeveHealthPreview>
@@ -167,7 +172,7 @@
 	<AC.AppeptFactionDemand>Accept: (+{0} goodwill)</AC.AppeptFactionDemand>
 	<AC.RejectFactionDemand>Reject: ({0} goodwill)</AC.RejectFactionDemand>
 	<AC.CorticalStacksInArray>Cortical Stacks in array: ({0}/{1})</AC.CorticalStacksInArray>
-	<AC.CorticalStacksStored>Cortical Stacks stored: {0}</AC.CorticalStacksStored>
+	<AC.CorticalStacksStored>Cortical Stacks stored: {0}/{1}</AC.CorticalStacksStored>
 	<AC.LastBackup>Last Backup: {0}</AC.LastBackup>
 	<AC.StackStorage>Contents</AC.StackStorage>
 	<AC.AllowColonistStacks>*Allow colonist cortical stacks</AC.AllowColonistStacks>
@@ -224,7 +229,9 @@
 	<AC.StartRewriting>Start rewriting</AC.StartRewriting>
 	<AC.StartGrowing>Start growing</AC.StartGrowing>
 	<AC.CancelStackReset>Cancel stack reset</AC.CancelStackReset>
+	<AC.CancelStackResetDesc>todo</AC.CancelStackResetDesc>
 	<AC.CancelStackRewrite>Cancel stack rewrite</AC.CancelStackRewrite>
+	<AC.CancelStackRewriteDesc>todo</AC.CancelStackRewriteDesc>
 	<AC.None>None</AC.None>
 	<AC.Copy>Copy</AC.Copy>
 	<AC.Original>Original</AC.Original>

@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Verse;
@@ -8,9 +9,16 @@ namespace AlteredCarbon
     [HotSwappable]
     public class Command_ActionOnStack : Command_Action
     {
-        public Building_DecryptionBench decryptionBench;
+        private Building_DecryptionBench decryptionBench;
+        private TargetingParameters targetParameters;
+        private Action<LocalTargetInfo> actionOnStack;
+        public Command_ActionOnStack(Building_DecryptionBench decryptionBench, TargetingParameters targetParameters, Action<LocalTargetInfo> actionOnStack)
+        {
+            this.decryptionBench = decryptionBench;
+            this.targetParameters = targetParameters;
+            this.actionOnStack = actionOnStack;
+        }
 
-        public TargetingParameters targetParameters;
         public override IEnumerable<FloatMenuOption> RightClickFloatMenuOptions
         {
             get
@@ -24,10 +32,7 @@ namespace AlteredCarbon
                     {
                         yield return new FloatMenuOption(corticalStack.PersonaData.PawnNameColored, delegate ()
                         {
-                            if (decryptionBench.CanAddOperationOn(corticalStack))
-                            {
-                                decryptionBench.InstallWipeStackRecipe(corticalStack);
-                            }
+                            actionOnStack(corticalStack);
                         }, iconThing: corticalStack, iconColor: corticalStack.DrawColor);
                     }
                 }

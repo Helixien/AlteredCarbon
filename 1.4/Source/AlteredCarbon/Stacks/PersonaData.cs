@@ -14,7 +14,7 @@ namespace AlteredCarbon
     [HotSwappable]
     public class PersonaData : IExposable
     {
-        public static bool relationshipDebug => true;
+        public static bool relationshipDebug => false;
         public ThingDef sourceStack;
         public Name name;
         public Pawn hostPawn;
@@ -122,6 +122,7 @@ namespace AlteredCarbon
         private List<IExposable> expertiseRecords;
         // misc
         public bool? diedFromCombat;
+        public bool restoreToEmptyStack = true;
         public bool isCopied = false;
         public int stackGroupID = -1;
         public int lastTimeUpdated;
@@ -129,7 +130,6 @@ namespace AlteredCarbon
         public int editTime;
         public float stackDegradation;
         public float stackDegradationToAdd;
-        public bool restoreToEmptyStack = true;
         public Pawn dummyPawn;
         public PersonaData()
         {
@@ -678,6 +678,7 @@ namespace AlteredCarbon
 
             isCopied = isDuplicateOperation || other.isCopied;
             diedFromCombat = other.diedFromCombat;
+            restoreToEmptyStack = other.restoreToEmptyStack;
             stackGroupID = other.stackGroupID;
 
             sexuality = other.sexuality;
@@ -892,6 +893,16 @@ namespace AlteredCarbon
                     pawn.needs.mood.thoughts.situational.Notify_SituationalThoughtsDirty();
                 }
 
+                if (ModsConfig.RoyaltyActive)
+                {
+                    AssignRoyaltyData(pawn);
+                }
+
+                if (ModsConfig.IdeologyActive)
+                {
+                    AssignIdeologyData(pawn);
+                }
+
                 this.hostPawn = pawn;
                 this.pawnID = this.hostPawn.thingIDNumber;
             }
@@ -1045,16 +1056,6 @@ namespace AlteredCarbon
             if (times != null && times.Count == 24)
             {
                 pawn.timetable.times = times;
-            }
-
-            if (ModsConfig.RoyaltyActive)
-            {
-                AssignRoyaltyData(pawn);
-            }
-
-            if (ModsConfig.IdeologyActive)
-            {
-                AssignIdeologyData(pawn);
             }
 
             pawn.workSettings = new Pawn_WorkSettings(pawn);
@@ -1300,10 +1301,8 @@ namespace AlteredCarbon
 
         private static void ReplacePawnRelations(Pawn relatedPawn, Pawn newReference, Pawn otherPawn)
         {
-
             relatedPawn.relations.pawnsWithDirectRelationsWithMe.Remove(otherPawn);
             relatedPawn.relations.pawnsWithDirectRelationsWithMe.Add(newReference);
-
             foreach (var relation in relatedPawn.relations.DirectRelations)
             {
                 if (relation.def.reflexive)
@@ -1319,17 +1318,6 @@ namespace AlteredCarbon
                             var rel = new DirectPawnRelation(relation.def, relatedPawn, relation.startTicks);
                             newReference.relations.directRelations.Add(rel);
                         }
-                    }
-                }
-            }
-            foreach (var otherRelation in otherPawn.relations.DirectRelations.ToList())
-            {
-                if (otherRelation.def.reflexive)
-                {
-                    if (otherRelation.otherPawn == relatedPawn)
-                    {
-                        if (relationshipDebug) 
-                            Log.Message("2 FAIL!!!");
                     }
                 }
             }

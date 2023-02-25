@@ -11,7 +11,7 @@ namespace AlteredCarbon
     {
         public static void Prefix(Pawn __instance, DamageInfo? dinfo, Hediff exactCulprit = null)
         {
-            if (__instance.HasStack() || __instance.IsEmptySleeve())
+            if (__instance.HasCorticalStack() || __instance.IsEmptySleeve())
             {
                 __instance.DisableKillEffects();
             }

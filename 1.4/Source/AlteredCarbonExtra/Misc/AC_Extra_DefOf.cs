@@ -25,6 +25,8 @@ namespace AlteredCarbon
         public static JobDef AC_CancelRepurposingBody;
         public static ThingDef AC_XenoGermDuplicator;
         public static SoundDef AC_XenoGermDuplicator_Ambience;
+        public static ResearchProjectDef AC_RewriteCorticalStack;
+        public static EffecterDef VFEU_Hacking;
 
         [MayRequireIdeology] public static PreceptDef AC_Stacking_Despised;
         [MayRequireIdeology] public static PreceptDef AC_Sleeving_Despised;

@@ -74,6 +74,8 @@ namespace AlteredCarbon
                     yield return new Command_Action
                     {
                         defaultLabel = "AC.CancelXenogermDuplication".Translate(),
+                        defaultDesc = "AC.CancelXenogermDuplicationDesc".Translate(),
+                        activateSound = SoundDefOf.Tick_Tiny,
                         icon = CancelIcon,
                         action = delegate ()
                         {
@@ -177,7 +179,7 @@ namespace AlteredCarbon
 
         public int DuplicationDuration(Xenogerm xenogerm)
         {
-            return xenogerm.GeneSet.GenesListForReading.Count() * 1250;
+            return xenogerm.GeneSet.GenesListForReading.Count() * 1875;
         }
 
         public override void StartJob()

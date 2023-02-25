@@ -70,6 +70,8 @@ namespace AlteredCarbon
                     yield return new Command_Action
                     {
                         defaultLabel = "AC.CancelGeneSeparating".Translate(),
+                        defaultDesc = "AC.CancelGeneSeparatingDesc".Translate(),
+                        activateSound = SoundDefOf.Tick_Tiny,
                         icon = CancelIcon,
                         action = delegate ()
                         {

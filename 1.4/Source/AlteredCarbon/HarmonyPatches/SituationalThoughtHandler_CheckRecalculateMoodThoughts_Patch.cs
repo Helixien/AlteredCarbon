@@ -15,7 +15,7 @@ namespace AlteredCarbon
     {
 		public static bool Prefix(Pawn ___pawn)
 		{
-			if (___pawn.IsEmptySleeve() && !___pawn.HasStack())
+			if (___pawn.IsEmptySleeve())
 			{
 				return false;
 			}

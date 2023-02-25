@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using RimWorld;
 using Verse;
 
 namespace AlteredCarbon
 {
+    [HotSwappable]
     public class StackGroupData : IExposable
     {
         public Pawn originalPawn;
@@ -19,8 +21,7 @@ namespace AlteredCarbon
             {
                 if (pawn != this.originalPawn)
                 {
-                    AssignRelation(pawn, AC_DefOf.AC_Original, originalPawn, 1);
-                    AssignRelation(originalPawn, AC_DefOf.AC_Copy, pawn, 2);
+                    AssignOriginalCopyRelationships(this.originalPawn, pawn);
                 }
                 else
                 {
@@ -28,24 +29,66 @@ namespace AlteredCarbon
                     {
                         if (copiedPawn != null && pawn != copiedPawn)
                         {
-                            AssignRelation(copiedPawn, AC_DefOf.AC_Original, pawn, 3);
-                            AssignRelation(pawn, AC_DefOf.AC_Copy, copiedPawn, 4);
+                            AssignOriginalCopyRelationships(pawn, copiedPawn);
                         }
                     }
                 }
             }
 
+
             foreach (Pawn copiedPawn in this.copiedPawns)
             {
                 if (this.copiedPawns.Contains(pawn) && copiedPawn != null && pawn != copiedPawn && pawn != this.originalPawn)
                 {
-                    AssignRelation(pawn, AC_DefOf.AC_Copy, copiedPawn, 5);
-                    AssignRelation(copiedPawn, AC_DefOf.AC_Copy, pawn, 6);
+                    AssignRelation(pawn, AC_DefOf.AC_Copy, copiedPawn);
+                    AssignRelation(copiedPawn, AC_DefOf.AC_Copy, pawn);
                 }
             }
         }
 
-        public void AssignRelation(Pawn pawn, PawnRelationDef def, Pawn otherPawn, int lineCount)
+        private void AssignOriginalCopyRelationships(Pawn original, Pawn copy)
+        {
+            AssignRelation(copy, AC_DefOf.AC_Original, original);
+            AssignRelation(original, AC_DefOf.AC_Copy, copy);
+
+            foreach (var relationship in original.relations.DirectRelations)
+            {
+                if (relationshipBlackListForCopies.Contains(relationship.def) is false && relationship.def.implied is false)
+                {
+                    copy.relations.AddDirectRelation(relationship.def, relationship.otherPawn);
+                }
+            }
+
+            foreach (var related in original.relations.PotentiallyRelatedPawns)
+            {
+                if (related.CanThink())
+                {
+                    foreach (var thought in related.needs.mood.thoughts.memories.Memories.ToList())
+                    {
+                        if (thought.otherPawn == original)
+                        {
+                            var thoughtCopy = (Thought_Memory)ThoughtMaker.MakeThought(thought.def);
+                            thoughtCopy.moodPowerFactor = thought.moodPowerFactor;
+                            thoughtCopy.moodOffset = thought.moodOffset;
+                            if (thought is Thought_MemorySocial social && thoughtCopy is Thought_MemorySocial socialCopy)
+                            {
+                                socialCopy.opinionOffset = social.opinionOffset;
+                            }
+                            related.needs.mood.thoughts.memories.TryGainMemory(thoughtCopy, copy);
+                        }
+                    }
+                }
+            }
+        }
+
+        public static HashSet<PawnRelationDef> relationshipBlackListForCopies = new HashSet<PawnRelationDef>
+        {
+            PawnRelationDefOf.Lover, PawnRelationDefOf.Spouse, PawnRelationDefOf.Bond,
+            PawnRelationDefOf.Overseer, PawnRelationDefOf.Fiance, PawnRelationDefOf.ExSpouse, PawnRelationDefOf.ExLover,
+            AC_DefOf.AC_Copy, AC_DefOf.AC_Original
+        };
+
+        public void AssignRelation(Pawn pawn, PawnRelationDef def, Pawn otherPawn)
         {
             pawn.relations.hidePawnRelations = false;
             pawn.relations.everSeenByPlayer = true;

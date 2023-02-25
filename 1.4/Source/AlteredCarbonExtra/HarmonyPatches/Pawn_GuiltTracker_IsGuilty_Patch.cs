@@ -29,7 +29,7 @@ internal static class Pawn_GuiltTracker_IsGuilty_Patch
 
     private static bool IdeoGuiltyOfStacking(Pawn ___pawn)
     {
-        return ___pawn.Ideo.HasPrecept(AC_Extra_DefOf.AC_Stacking_Despised) && ___pawn.HasStack();
+        return ___pawn.Ideo.HasPrecept(AC_Extra_DefOf.AC_Stacking_Despised) && ___pawn.HasCorticalStack();
     }
     
     private static bool IdeoGuiltyOfCrossSleeving(Pawn ___pawn)

@@ -123,11 +123,14 @@ namespace AlteredCarbon
                     duplicateStacks.Disable("NoPower".Translate());
                 }
                 yield return duplicateStacks;
+                duplicateStacks.LockBehindReseach(new List<ResearchProjectDef> { AC_Extra_DefOf.AC_RewriteCorticalStack });
                 if (this.stackToDuplicate != null)
                 {
                     yield return new Command_Action
                     {
                         defaultLabel = "AC.CancelStackDuplication".Translate(),
+                        defaultDesc = "AC.CancelStackDuplicationDesc".Translate(),
+                        activateSound = SoundDefOf.Tick_Tiny,
                         icon = UIHelper.CancelIcon,
                         action = delegate ()
                         {
@@ -199,7 +202,7 @@ namespace AlteredCarbon
         public override string GetInspectString()
         {
             var sb = new StringBuilder();
-            sb.AppendLine("AC.CorticalStacksStored".Translate(StoredStacks.Count()));
+            sb.AppendLine("AC.CorticalStacksStored".Translate(StoredStacks.Count(), MaxFilledStackCapacity));
             if (GameComponent_DigitalStorage.Instance.backedUpStacks.Values.Any())
             {
                 var lastTimeUpdated = GameComponent_DigitalStorage.Instance.backedUpStacks.Select(x => x.Value.lastTimeUpdated).Max();
