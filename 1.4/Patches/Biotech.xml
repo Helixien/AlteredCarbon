@@ -52,7 +52,6 @@
 				<xpath>/Defs/ThingDef[defName="Genepack"]/descriptionHyperlinks</xpath>
 				<value>
 					<ThingDef>AC_GeneCentrifuge</ThingDef>
-
 				</value>
 			</li>
 		</operations>
