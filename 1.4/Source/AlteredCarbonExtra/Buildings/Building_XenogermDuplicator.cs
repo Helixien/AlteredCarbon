@@ -49,7 +49,19 @@ namespace AlteredCarbon
                         {
                             floatList.Add(new FloatMenuOption(xenogerm.LabelCap, delegate
                             {
-                                xenogermToDuplicate = xenogerm;
+                                var architeGenes = xenogerm.GeneSet.ArchitesTotal;
+                                if (this.compRefuelable.Fuel < architeGenes)
+                                {
+                                    Find.WindowStack.Add(new Dialog_MessageBox("AC.NotEnoughArchiteCapsulesLoaded".Translate(), 
+                                        "Confirm".Translate(), delegate
+                                        {
+                                            xenogermToDuplicate = xenogerm;
+                                        }, "GoBack".Translate(), null));
+                                }
+                                else
+                                {
+                                    xenogermToDuplicate = xenogerm;
+                                }
                             }));
                         }
                         if (floatList.Any() is false)

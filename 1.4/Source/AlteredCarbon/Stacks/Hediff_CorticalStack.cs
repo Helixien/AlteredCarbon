@@ -122,9 +122,14 @@ namespace AlteredCarbon
                 this.pawn.Kill(null);
             }
 
-            if (this.def == AC_DefOf.AC_ArchoStack && !preventSpawningStack)
+            if (this.def == AC_DefOf.AC_ArchoStack)
             {
-                SpawnStack(placeMode: ThingPlaceMode.Near);
+                if (!preventSpawningStack)
+                {
+                    SpawnStack(placeMode: ThingPlaceMode.Near);
+                }
+                pawn.health.hediffSet.hediffs.RemoveAll(x => x.def.defName == "VPE_PsycastAbilityImplant");
+                pawn.health.hediffSet.hediffs.RemoveAll(x => x.def == HediffDefOf.PsychicAmplifier);
             }
         }
         public bool preventSpawningStack;

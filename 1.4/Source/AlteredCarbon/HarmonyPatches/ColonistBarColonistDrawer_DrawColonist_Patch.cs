@@ -54,7 +54,7 @@ namespace AlteredCarbon
                 float num3 = 20f * Find.ColonistBar.Scale;
                 Vector2 pos2 = new Vector2(rect.x + 1f, rect.yMax - num3 - 1f);
                 GUI.color = Color.white;
-                DrawIcon(Icon_StackDead, ref pos2, "ActivityIconMedicalRest".Translate());
+                DrawIcon(Icon_StackDead, ref pos2, "AC.SleeveWithStack".Translate());
                 GUI.color = color2;
 
                 float num2 = 4f * Find.ColonistBar.Scale;

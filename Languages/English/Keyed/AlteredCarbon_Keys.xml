@@ -31,6 +31,7 @@
 	<AC.ScenPart_PawnsHaveCorticalStack>{0} have a {1} chance of starting with a {2}.</AC.ScenPart_PawnsHaveCorticalStack>
 	<AC.AutoLoad>Auto-load</AC.AutoLoad>
 	<AC.AutoLoadDesc>If active, haulers will automatically store this stack in a stack array.</AC.AutoLoadDesc>
+	<AC.SleeveWithStack>Sleeve with stack installed inside.</AC.SleeveWithStack>
 	<!-- ================================ Sleeves ====================== -->
 	<AC.EmptySleeve>Empty sleeve</AC.EmptySleeve>
 	<AC.SleeveDeath>Sleeve Death</AC.SleeveDeath>
