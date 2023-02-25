@@ -8,13 +8,6 @@
 	</ThingStyleDef>
 	<!-- ================================ Vanilla Weapons ====================== -->
 	<ThingStyleDef ParentName="AC_WeaponStyle">
-		<defName>AC_Ultrist_AssaultRifle</defName>
-		<graphicData>
-			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/AssaultRifle</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-		</graphicData>
-	</ThingStyleDef>
-	<ThingStyleDef ParentName="AC_WeaponStyle">
 		<defName>AC_Ultrist_AutoPistol</defName>
 		<graphicData>
 			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/AutoPistol</texPath>
@@ -22,9 +15,37 @@
 		</graphicData>
 	</ThingStyleDef>
 	<ThingStyleDef ParentName="AC_WeaponStyle">
-		<defName>AC_Ultrist_ChargeRifle</defName>
+		<defName>AC_Ultrist_Revolver</defName>
 		<graphicData>
-			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/ChargeRifle</texPath>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/Revolver</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+	<ThingStyleDef ParentName="AC_WeaponStyle">
+		<defName>AC_Ultrist_Autorevolver</defName>
+		<graphicData>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/Autorevolver</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+	<ThingStyleDef ParentName="AC_WeaponStyle">
+		<defName>AC_Ultrist_BoltActionRifle</defName>
+		<graphicData>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/BoltActionRifle</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+	<ThingStyleDef ParentName="AC_WeaponStyle">
+		<defName>AC_Ultrist_PumpShotgun</defName>
+		<graphicData>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/Shotgun</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+	<ThingStyleDef ParentName="AC_WeaponStyle">
+		<defName>AC_Ultrist_AssaultRifle</defName>
+		<graphicData>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/AssaultRifle</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 	</ThingStyleDef>
@@ -32,6 +53,20 @@
 		<defName>AC_Ultrist_HeavySMG</defName>
 		<graphicData>
 			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/HeavySMG</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+	<ThingStyleDef ParentName="AC_WeaponStyle">
+		<defName>AC_Ultrist_SniperRifle</defName>
+		<graphicData>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/SniperRifle</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+	<ThingStyleDef ParentName="AC_WeaponStyle">
+		<defName>AC_Ultrist_ChargeRifle</defName>
+		<graphicData>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/ChargeRifle</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 	</ThingStyleDef>

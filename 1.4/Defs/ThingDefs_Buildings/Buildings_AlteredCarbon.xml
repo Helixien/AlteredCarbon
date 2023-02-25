@@ -230,9 +230,6 @@
 			<graphicClass>Graphic_Single</graphicClass>
 			<drawSize>(4, 4)</drawSize>
 		</graphicData>
-		<descriptionHyperlinks>
-			<ThingDef>Xenogerm</ThingDef>
-		</descriptionHyperlinks>
 		<size>(2, 2)</size>
 		<canOverlapZones>false</canOverlapZones>
 		<defaultPlacingRot>North</defaultPlacingRot>

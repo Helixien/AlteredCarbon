@@ -10,20 +10,40 @@
 		<thingDefStyles>
 			<!-- ================================ Vanilla ====================== -->
 			<li>
-				<thingDef>Gun_AssaultRifle</thingDef>
-				<styleDef>AC_Ultrist_AssaultRifle</styleDef>
-			</li>
-			<li>
 				<thingDef>Gun_Autopistol</thingDef>
 				<styleDef>AC_Ultrist_AutoPistol</styleDef>
 			</li>
 			<li>
-				<thingDef>Gun_ChargeRifle</thingDef>
-				<styleDef>AC_Ultrist_ChargeRifle</styleDef>
+				<thingDef>Gun_Revolver</thingDef>
+				<styleDef>AC_Ultrist_Revolver</styleDef>
+			</li>
+			<li>
+				<thingDef>AC_Gun_Autorevolver</thingDef>
+				<styleDef>AC_Ultrist_Autorevolver</styleDef>
+			</li>
+			<li>
+				<thingDef>Gun_BoltActionRifle</thingDef>
+				<styleDef>AC_Ultrist_BoltActionRifle</styleDef>
+			</li>
+			<li>
+				<thingDef>Gun_PumpShotgun</thingDef>
+				<styleDef>AC_Ultrist_PumpShotgun</styleDef>
+			</li>
+			<li>
+				<thingDef>Gun_AssaultRifle</thingDef>
+				<styleDef>AC_Ultrist_AssaultRifle</styleDef>
 			</li>
 			<li>
 				<thingDef>Gun_HeavySMG</thingDef>
 				<styleDef>AC_Ultrist_HeavySMG</styleDef>
+			</li>
+			<li>
+				<thingDef>Gun_SniperRifle</thingDef>
+				<styleDef>AC_Ultrist_SniperRifle</styleDef>
+			</li>
+			<li>
+				<thingDef>Gun_ChargeRifle</thingDef>
+				<styleDef>AC_Ultrist_ChargeRifle</styleDef>
 			</li>
 			<!-- ================================ Modded ====================== -->
 			<li MayRequire="VanillaExpanded.VWEL">
