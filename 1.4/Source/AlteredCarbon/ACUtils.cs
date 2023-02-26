@@ -611,6 +611,16 @@ namespace AlteredCarbon
         {
             return sleeveQualities.First(def => pawn.genes.GetGene(def) != null);
         }
+        
+        public static bool AcceptsStacks(this Pawn p)
+        {
+            if (p.def.GetModExtension<ExcludeRacesModExtension>() is ExcludeRacesModExtension props)
+            {
+                return (props.acceptsStacks);
+            }
+
+            return true;
+        }
 
         public static void CleanupList<T>(this List<T> list, Predicate<T> predicate = null)
         {

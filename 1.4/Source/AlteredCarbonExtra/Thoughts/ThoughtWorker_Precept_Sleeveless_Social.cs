@@ -7,6 +7,7 @@ public class ThoughtWorker_Precept_Sleeveless_Social : ThoughtWorker_Precept_Soc
 {
     public override ThoughtState ShouldHaveThought(Pawn p, Pawn otherPawn)
     {
-        return !otherPawn.UsesSleeve();
+        return otherPawn.AcceptsStacks() && !otherPawn.UsesSleeve();
     }
+    
 }

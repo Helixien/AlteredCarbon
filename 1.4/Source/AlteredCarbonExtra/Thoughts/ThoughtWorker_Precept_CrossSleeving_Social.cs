@@ -7,6 +7,6 @@ public class ThoughtWorker_Precept_CrossSleeving_Social: ThoughtWorker_Precept_S
 {
     public override ThoughtState ShouldHaveThought(Pawn p, Pawn otherPawn)
     {
-        return (otherPawn.HasCorticalStack(out Hediff_CorticalStack hediff) && hediff.PersonaData.originalGender != otherPawn.gender);
+        return otherPawn.AcceptsStacks() && (otherPawn.HasCorticalStack(out Hediff_CorticalStack hediff) && hediff.PersonaData.originalGender != otherPawn.gender);
     }
 }

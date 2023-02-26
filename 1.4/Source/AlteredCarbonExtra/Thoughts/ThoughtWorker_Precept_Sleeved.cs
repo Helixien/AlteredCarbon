@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using RimWorld;
 using Verse;
 
@@ -8,7 +7,7 @@ public class ThoughtWorker_Precept_Sleeved: ThoughtWorker_Precept
 {
     public override ThoughtState ShouldHaveThought(Pawn p)
     {
-        if (!p.UsesSleeve())
+        if (!p.AcceptsStacks() || !p.UsesSleeve())
         {
             return false;
         }
