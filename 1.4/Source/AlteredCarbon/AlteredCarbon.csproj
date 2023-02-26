@@ -78,6 +78,7 @@
     <Compile Include="HarmonyPatches\PawnRenderer_RenderPawnAt_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_AdoptableBy_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_RelationsTracker_OpinionOf_Patch.cs" />
+    <Compile Include="HarmonyPatches\RitualObligationTrigger_MemberCorpseDestroyed_Notify_MemberCorpseDestroyed_Patch.cs" />
     <Compile Include="Jobs\JobDriver_TakeEmptySleeve.cs" />
     <Compile Include="HarmonyPatches\PawnRenderer_LayingFacing_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnUtility_ShouldSendNotificationAbout_Patch.cs" />

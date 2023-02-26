@@ -177,8 +177,22 @@ namespace AlteredCarbon
 			}
 			return new List<Color>();
 		}
-
-		public static int GetSyrTraitsSexuality(Pawn pawn)
+        public static List<ThingDef> GetPermittedRaces()
+        {
+            List<ThingDef> excludedRaces = new List<ThingDef>();
+            foreach (ThingDef def in DefDatabase<ThingDef>.AllDefs.Where(def => def.category == ThingCategory.Pawn))
+            {
+                if (def.GetModExtension<ExcludeRacesModExtension>() is ExcludeRacesModExtension props)
+                {
+                    if (!props.canBeGrown)
+                    {
+                        excludedRaces.Add(def);
+                    }
+                }
+            }
+            return GetGrowableRaces(excludedRaces).OrderBy(entry => entry.LabelCap.RawText).ToList();
+        }
+        public static int GetSyrTraitsSexuality(Pawn pawn)
 		{
 			SyrTraits.CompIndividuality comp = ThingCompUtility.TryGetComp<SyrTraits.CompIndividuality>(pawn);
 			return comp != null ? (int)comp.sexuality : -1;

@@ -185,7 +185,7 @@ namespace AlteredCarbon
             DrawExplanation(ref firstColumnPos, highlightRect.width + labelWidth + 15, 32, "AC.XenogermExplanation".Translate());
             if (ModCompatibility.AlienRacesIsActive)
             {
-                var permittedRaces = GetPermittedRaces();
+                var permittedRaces = ModCompatibility.GetPermittedRaces();
                 DoSelectionButtons(ref firstColumnPos, "AC.SelectRace".Translate(), ref raceTypeIndex,
                     (ThingDef x) => x.LabelCap, permittedRaces, delegate (ThingDef x)
                     {
@@ -598,23 +598,6 @@ namespace AlteredCarbon
             return headLabel;
         }
 
-        private List<ThingDef> GetPermittedRaces()
-        {
-            List<ThingDef> excludedRaces = new List<ThingDef>();
-            foreach (ThingDef def in DefDatabase<ThingDef>.AllDefs.Where(def => def.category == ThingCategory.Pawn))
-            {
-                if (def.GetModExtension<ExcludeRacesModExtension>() is ExcludeRacesModExtension props)
-                {
-                    if (!props.canBeGrown)
-                    {
-                        excludedRaces.Add(def);
-                    }
-                }
-            }
-            return ModCompatibility.GetGrowableRaces(excludedRaces).OrderBy(entry => entry.LabelCap.RawText).ToList();
-        }
-
-
         private static List<BodyTypeDef> invalidBodies = new List<BodyTypeDef>
         {
             BodyTypeDefOf.Baby, BodyTypeDefOf.Child
@@ -817,7 +800,7 @@ namespace AlteredCarbon
 
             if (ModCompatibility.AlienRacesIsActive)
             {
-                raceTypeIndex = GetPermittedRaces().IndexOf(curSleeve.def);
+                raceTypeIndex = ModCompatibility.GetPermittedRaces().IndexOf(curSleeve.def);
             }
 
             if (curSleeve.gender == Gender.Male)
