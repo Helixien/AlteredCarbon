@@ -114,7 +114,7 @@
 			<li>
 				<grains>
 					<li Class="AudioGrain_Clip">
-						<clipPath>Electricity/GeneCentrifuge/Start/GeneCentrifugeStart_1a</clipPath>
+						<clipPath>Electricity/XenogermDuplicator/Start/XenogermDuplicatorStart_1a</clipPath>
 					</li>
 				</grains>
 				<volumeRange>16~16</volumeRange>
@@ -130,7 +130,7 @@
 			<li>
 				<grains>
 					<li Class="AudioGrain_Clip">
-						<clipPath>Electricity/GeneCentrifuge/Stop/GeneCentrifugeStop_1a</clipPath>
+						<clipPath>Electricity/XenogermDuplicator/Stop/XenogermDuplicatorStop_1a</clipPath>
 					</li>
 				</grains>
 				<volumeRange>16~16</volumeRange>
@@ -151,7 +151,7 @@
 				<muteWhenPaused>True</muteWhenPaused>
 				<grains>
 					<li Class="AudioGrain_Clip">
-						<clipPath>Electricity/GeneCentrifuge/Run/GeneCentrifugeRun_Loop1a</clipPath>
+						<clipPath>Electricity/XenogermDuplicator/Run/XenogermDuplicatorRun_Loop1a</clipPath>
 					</li>
 				</grains>
 				<volumeRange>14~14</volumeRange>
