@@ -15,7 +15,31 @@
 		<defName>AC_BrainTrauma</defName>
 		<label>brain trauma</label>
 		<labelNoun>a brain trauma</labelNoun>
-		<hediffClass>HediffWithComps</hediffClass>
 		<description>An injury to the brain caused by various conditions such as head trauma, inadequate oxygen supply, infections, or intracranial hemorrhage. This damage may be associated with a behavioral or functional abnormality.</description>
+		<hediffClass>HediffWithComps</hediffClass>
+		<cureAllAtOnceIfCuredByItem>true</cureAllAtOnceIfCuredByItem>
+		<stages>
+			<li>
+				<partIgnoreMissingHP>true</partIgnoreMissingHP>
+				<!-- to avoid penalties from brain injuries, so manipulation is 100%+ -->
+				<opinionOfOthersFactor>0</opinionOfOthersFactor>
+				<partEfficiencyOffset>-0.15</partEfficiencyOffset>
+				<forgetMemoryThoughtMtbDays>14</forgetMemoryThoughtMtbDays>
+				<capMods>
+					<li>
+						<capacity>Talking</capacity>
+						<setMax>0</setMax>
+					</li>
+					<li>
+						<capacity>Hearing</capacity>
+						<setMax>0</setMax>
+					</li>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>0.5</offset>
+					</li>
+				</capMods>
+			</li>
+		</stages>
 	</HediffDef>
 </Defs>
