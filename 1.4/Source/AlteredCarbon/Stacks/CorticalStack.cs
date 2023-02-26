@@ -125,9 +125,9 @@ namespace AlteredCarbon
             get
             {
                 var label = base.Label;
-                if (this.IsFilledStack && this.PersonaData.name != null)
+                if (this.IsFilledStack)
                 {
-                    label += " (" + this.PersonaData.name.ToStringFull + ")";
+                    label += " (" + this.PersonaData.PawnNameColored.ToStringSafe() + ")";
                 }
                 return label;
             }

@@ -48,22 +48,6 @@ namespace AlteredCarbon
             }, () => 0.1f));
             actions.Add(new Pair<Action, Func<float>>(delegate
             {
-                if (TryGetUnfinishedSpacerResearch(out var researchProjectDef))
-                {
-                    AddResearchProgress(researchProjectDef, 1f);
-                    Messages.Message("AC.UnlockedNewTechnology".Translate(researchProjectDef.label), billDoer, MessageTypeDefOf.PositiveEvent);
-                }
-            }, () => TryGetUnfinishedSpacerResearch(out var projectDef) ? 0.1f : 0));
-            actions.Add(new Pair<Action, Func<float>>(delegate
-            {
-                if (TryGetUnfinishedSpacerResearch(out var researchProjectDef))
-                {
-                    AddResearchProgress(researchProjectDef, Rand.Range(0.1f, 0.2f));
-                    Messages.Message("AC.GainedProgressToTechnology".Translate(researchProjectDef.label), billDoer, MessageTypeDefOf.PositiveEvent);
-                }
-            }, () => TryGetUnfinishedSpacerResearch(out var projectDef) ? 0.4f : 0));
-            actions.Add(new Pair<Action, Func<float>>(delegate
-            {
                 var emptyStack = ThingMaker.MakeThing(AC_DefOf.VFEU_EmptyCorticalStack);
                 GenPlace.TryPlaceThing(emptyStack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
                 Messages.Message("AC.GainedEmptyCorticalStack".Translate(), emptyStack, MessageTypeDefOf.PositiveEvent);
@@ -101,63 +85,63 @@ namespace AlteredCarbon
             }
         }
 
-        private void AddResearchProgress(ResearchProjectDef proj, float researchProgressMultiplier)
-        {
-            if (proj != null)
-            {
-                var prevProj = Find.ResearchManager.currentProj;
-                var prerequisites = GetNonFinishedPrerequisites(proj).ToList();
-                foreach (var prerequisite in prerequisites)
-                {
-                    Find.ResearchManager.currentProj = prerequisite;
-                    Find.ResearchManager.FinishProject(prerequisite, doCompletionDialog: false);
-                }
-                Dictionary<ResearchProjectDef, float> dictionary = Find.ResearchManager.progress;
-                if (dictionary.ContainsKey(proj))
-                {
-                    dictionary[proj] += (proj.baseCost - Find.ResearchManager.GetProgress(proj)) * researchProgressMultiplier;
-                }
-                else
-                {
-                    dictionary[proj] = proj.baseCost * researchProgressMultiplier;
-                }
-                if (proj.IsFinished)
-                {
-                    Find.ResearchManager.currentProj = proj;
-                    Find.ResearchManager.FinishProject(proj, doCompletionDialog: true);
-                }
-                Find.ResearchManager.currentProj = prevProj;
-            }
-        }
-
-        private IEnumerable<ResearchProjectDef> GetNonFinishedPrerequisites(ResearchProjectDef proj)
-        {
-            if (proj.prerequisites != null)
-            {
-                for (int i = 0; i < proj.prerequisites.Count; i++)
-                {
-                    if (!proj.prerequisites[i].IsFinished)
-                    {
-                        yield return proj.prerequisites[i];
-                    }
-                }
-            }
-            if (proj.hiddenPrerequisites != null)
-            {
-                for (int j = 0; j < proj.hiddenPrerequisites.Count; j++)
-                {
-                    if (!proj.hiddenPrerequisites[j].IsFinished)
-                    {
-                        yield return proj.hiddenPrerequisites[j];
-                    }
-                }
-            }
-        }
-
-        private bool TryGetUnfinishedSpacerResearch(out ResearchProjectDef researchProjectDef)
-        {
-            return DefDatabase<ResearchProjectDef>.AllDefs.Where(x => x.techLevel > TechLevel.Spacer && !x.IsFinished).TryRandomElement(out researchProjectDef);
-        }
+        //private void AddResearchProgress(ResearchProjectDef proj, float researchProgressMultiplier)
+        //{
+        //    if (proj != null)
+        //    {
+        //        var prevProj = Find.ResearchManager.currentProj;
+        //        var prerequisites = GetNonFinishedPrerequisites(proj).ToList();
+        //        foreach (var prerequisite in prerequisites)
+        //        {
+        //            Find.ResearchManager.currentProj = prerequisite;
+        //            Find.ResearchManager.FinishProject(prerequisite, doCompletionDialog: false);
+        //        }
+        //        Dictionary<ResearchProjectDef, float> dictionary = Find.ResearchManager.progress;
+        //        if (dictionary.ContainsKey(proj))
+        //        {
+        //            dictionary[proj] += (proj.baseCost - Find.ResearchManager.GetProgress(proj)) * researchProgressMultiplier;
+        //        }
+        //        else
+        //        {
+        //            dictionary[proj] = proj.baseCost * researchProgressMultiplier;
+        //        }
+        //        if (proj.IsFinished)
+        //        {
+        //            Find.ResearchManager.currentProj = proj;
+        //            Find.ResearchManager.FinishProject(proj, doCompletionDialog: true);
+        //        }
+        //        Find.ResearchManager.currentProj = prevProj;
+        //    }
+        //}
+        //
+        //private IEnumerable<ResearchProjectDef> GetNonFinishedPrerequisites(ResearchProjectDef proj)
+        //{
+        //    if (proj.prerequisites != null)
+        //    {
+        //        for (int i = 0; i < proj.prerequisites.Count; i++)
+        //        {
+        //            if (!proj.prerequisites[i].IsFinished)
+        //            {
+        //                yield return proj.prerequisites[i];
+        //            }
+        //        }
+        //    }
+        //    if (proj.hiddenPrerequisites != null)
+        //    {
+        //        for (int j = 0; j < proj.hiddenPrerequisites.Count; j++)
+        //        {
+        //            if (!proj.hiddenPrerequisites[j].IsFinished)
+        //            {
+        //                yield return proj.hiddenPrerequisites[j];
+        //            }
+        //        }
+        //    }
+        //}
+        //
+        //private bool TryGetUnfinishedSpacerResearch(out ResearchProjectDef researchProjectDef)
+        //{
+        //    return DefDatabase<ResearchProjectDef>.AllDefs.Where(x => x.techLevel > TechLevel.Spacer && !x.IsFinished).TryRandomElement(out researchProjectDef);
+        //}
     }
 }
 

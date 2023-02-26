@@ -263,15 +263,22 @@ namespace AlteredCarbon
         }
         public static void RefreshGraphic(this Pawn pawn)
         {
-            pawn.Drawer.renderer.WoundOverlays.ClearCache();
-            pawn.Drawer.renderer.graphics.ResolveAllGraphics();
-            PortraitsCache.SetDirty(pawn);
-            PortraitsCache.PortraitsCacheUpdate();
-            GlobalTextureAtlasManager.TryMarkPawnFrameSetDirty(pawn);
-            if (Find.World != null)
+            LongEventHandler.ExecuteWhenFinished(delegate
             {
-                Find.ColonistBar.MarkColonistsDirty();
-            }
+                pawn.Drawer.renderer.WoundOverlays.ClearCache();
+                pawn.Drawer.renderer.graphics.ResolveAllGraphics();
+                PortraitsCache.SetDirty(pawn);
+                PortraitsCache.PortraitsCacheUpdate();
+                GlobalTextureAtlasManager.TryMarkPawnFrameSetDirty(pawn);
+                try
+                {
+                    if (Find.World != null)
+                    {
+                        Find.ColonistBar.MarkColonistsDirty();
+                    }
+                }
+                catch { }
+            });
         }
 
         public static Pawn ClonePawn(Pawn source)
