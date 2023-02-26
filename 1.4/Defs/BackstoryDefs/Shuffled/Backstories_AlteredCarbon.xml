@@ -1,56 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-	<!--	<BackstoryDef>
-		<defName>AC_ImmortalPhilosopher</defName>
-		<title>immortal philosopher</title>
-		<titleShort>philosopher</titleShort>
-		<baseDesc>text.todo</baseDesc>
-		<slot>Adulthood</slot>
-		<skillGains>
-			<li>
-				<key>Intellectual</key>
-				<value>18</value>
-			</li>
-			<li>
-				<key>Social</key>
-				<value>18</value>
-			</li>
-			<li>
-				<key>Artistic</key>
-				<value>5</value>
-			</li>
-		</skillGains>
-		<spawnCategories>
-			<li>Offworld</li>
-		</spawnCategories>
-		<workDisables>
-			<li>Violent</li>
-		</workDisables>
-		<requiredWorkTags>
-			<li>Caring</li>
-			<li>Social</li>
-			<li>Intellectual</li>
-		</requiredWorkTags>
-		<bodyTypeMale>Male</bodyTypeMale>
-		<bodyTypeFemale>Female</bodyTypeFemale>
-		<possessions>
-			<li>
-				<key>MealLavish</key>
-				<value>3</value>
-			</li>
-			<li>
-				<key>MedicineUltratech</key>
-				<value>2</value>
-			</li>
-		</possessions>
-		<forcedTraits>
-			<VFEU_FreeMind>0</VFEU_FreeMind>
-			<VFEU_Sleever>0</VFEU_Sleever>
-		</forcedTraits>
-		<disallowedTraits>
-			<Psychopath>0</Psychopath>
-		</disallowedTraits>
-	</BackstoryDef>-->
 	<!-- ================================ Childhood ====================== -->
 	<BackstoryDef>
 		<defName>AC_FrontierUpbringing</defName>
