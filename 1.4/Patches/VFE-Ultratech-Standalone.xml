@@ -144,6 +144,15 @@
 					<researchPrerequisite>AC_CorticalCrafting</researchPrerequisite>
 				</value>
 			</li>
+			<!-- ================================ Patches thoughts ====================== -->
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThoughtDef[defName="VFEU_WrongGender" or defName="VFEU_WrongGenderDouble" or defName="VFEU_WrongGenderPregnant" or defName="VFEU_MansBody" or defName="VFEU_WomansBody"]</xpath>
+				<value>
+					<nullifyingPrecepts>
+						<li MayRequire="Ludeon.RimWorld.Ideology">AC_CrossSleeving_DontCare</li>
+					</nullifyingPrecepts>
+				</value>
+			</li>
 		</operations>
 	</Operation>
 </Patch>

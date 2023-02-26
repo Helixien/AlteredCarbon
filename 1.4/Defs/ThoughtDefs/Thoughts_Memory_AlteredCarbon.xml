@@ -9,6 +9,10 @@
 			<li>Transhumanist</li>
 			<li>Psychopath</li>
 		</nullifyingTraits>
+		<nullifyingPrecepts>
+			<li MayRequire="Ludeon.RimWorld.Ideology">AC_StackDuplicating_DontCare</li>
+			<li MayRequire="Ludeon.RimWorld.Ideology">AC_StackDuplicating_Enlightened</li>
+		</nullifyingPrecepts>
 		<stages>
 			<li>
 				<label>Just a copy</label>

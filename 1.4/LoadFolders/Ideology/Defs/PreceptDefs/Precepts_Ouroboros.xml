@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-	<!-- ================================ Issue - Stacking ====================== -->
+	<!-- ================================ Issues ====================== -->
 	<IssueDef>
 		<defName>AC_Stacking</defName>
 		<label>stacking</label>
 		<iconPath>UI/Issues/Stacking</iconPath>
 	</IssueDef>
-	<!-- ================================ Precepts - Stacking ====================== -->
+	<IssueDef>
+		<defName>AC_Sleeving</defName>
+		<label>sleeving</label>
+		<iconPath>UI/Issues/Sleeving</iconPath>
+	</IssueDef>
+	<IssueDef>
+		<defName>AC_CrossSleeving</defName>
+		<label>cross-sleeving</label>
+		<iconPath>UI/Issues/CrossSleeving</iconPath>
+	</IssueDef>
+	<IssueDef>
+		<defName>AC_StackDuplicating</defName>
+		<label>duplicating</label>
+		<iconPath>UI/Issues/Duplicating</iconPath>
+	</IssueDef>
+	<!-- ================================ Precepts - Stacking Central ====================== -->
 	<PreceptDef>
 		<defName>AC_Stacking_Central</defName>
 		<issue>AC_Stacking</issue>
@@ -49,6 +64,65 @@
 			</li>-->
 		</comps>
 	</PreceptDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Central_Stack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Stack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>cortical stack installed</label>
+				<description>I have a stack as any human should. The world is right, and I am as I should be.</description>
+				<baseMoodEffect>4</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Central_ArchoStack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_ArchoStack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>archo stack installed</label>
+				<description>I have a stack as any human should. The world is right, and I am as I should be.</description>
+				<baseMoodEffect>8</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Central_NoStack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_NoStack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>no stack installed</label>
+				<description>I have no stack installed in me. This is wrong!</description>
+				<baseMoodEffect>-15</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Central_Stack_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Stack_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>installed stack</label>
+				<baseOpinionOffset>5</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Central_NoStack_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_NoStack_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>no installed stack</label>
+				<baseOpinionOffset>-10</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ Precepts - Stacking Preferred ====================== -->
 	<PreceptDef>
 		<defName>AC_Stacking_Preferred</defName>
 		<issue>AC_Stacking</issue>
@@ -82,6 +156,65 @@
 			</li>
 		</comps>
 	</PreceptDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Preferred_Stack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Stack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>cortical stack installed</label>
+				<description>I have a stack installed. Death shall not take me this easily now.</description>
+				<baseMoodEffect>2</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Preferred_ArchoStack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_ArchoStack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>archo stack installed</label>
+				<description>I have a stack installed. Death shall not take me this easily now.</description>
+				<baseMoodEffect>4</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Preferred_NoStack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_NoStack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>no stack installed</label>
+				<description>I would feel a lot safer with a stack inside my neck.</description>
+				<baseMoodEffect>-5</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Preferred_Stack_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Stack_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>installed stack</label>
+				<baseOpinionOffset>2</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Preferred_NoStack_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_NoStack_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>no installed stack</label>
+				<baseOpinionOffset>-5</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ Precepts - Stacking Despised ====================== -->
 	<PreceptDef>
 		<defName>AC_Stacking_Despised</defName>
 		<issue>AC_Stacking</issue>
@@ -109,143 +242,14 @@
 			</li>
 		</comps>
 	</PreceptDef>
-	<!-- ================================ Thoughts - Stacking ====================== -->
-	<ThoughtDef>
-		<defName>AC_Stacking_Central_Stack</defName>
-		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Stack</workerClass>
-		<thoughtClass>Thought_Situational</thoughtClass>
-		<stages>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>cortical stack installed</label>
-				<description>Todo.</description>
-				<baseMoodEffect>4</baseMoodEffect>
-			</li>
-		</stages>
-	</ThoughtDef>
-	<ThoughtDef>
-		<defName>AC_Stacking_Central_ArchoStack</defName>
-		<workerClass>AlteredCarbon.ThoughtWorker_Precept_ArchoStack</workerClass>
-		<thoughtClass>Thought_Situational</thoughtClass>
-		<stages>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>archo stack installed</label>
-				<description>Todo.</description>
-				<baseMoodEffect>8</baseMoodEffect>
-			</li>
-		</stages>
-	</ThoughtDef>
-	<ThoughtDef>
-		<defName>AC_Stacking_Central_NoStack</defName>
-		<workerClass>AlteredCarbon.ThoughtWorker_Precept_NoStack</workerClass>
-		<thoughtClass>Thought_Situational</thoughtClass>
-		<stages>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>no stack installed</label>
-				<description>Todo.</description>
-				<baseMoodEffect>-15</baseMoodEffect>
-			</li>
-		</stages>
-	</ThoughtDef>
-	<ThoughtDef>
-		<defName>AC_Stacking_Central_Stack_Social</defName>
-		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Stack_Social</workerClass>
-		<thoughtClass>Thought_SituationalSocial</thoughtClass>
-		<stages>
-			<li>
-				<!--				TODO: rename-->
-				<label>stack installed</label>
-				<baseOpinionOffset>5</baseOpinionOffset>
-			</li>
-		</stages>
-	</ThoughtDef>
-	<ThoughtDef>
-		<defName>AC_Stacking_Central_NoStack_Social</defName>
-		<workerClass>AlteredCarbon.ThoughtWorker_Precept_NoStack_Social</workerClass>
-		<thoughtClass>Thought_SituationalSocial</thoughtClass>
-		<stages>
-			<li>
-				<!--				TODO: rename-->
-				<label>no stack installed</label>
-				<baseOpinionOffset>-10</baseOpinionOffset>
-			</li>
-		</stages>
-	</ThoughtDef>
-	<ThoughtDef>
-		<defName>AC_Stacking_Preferred_Stack</defName>
-		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Stack</workerClass>
-		<thoughtClass>Thought_Situational</thoughtClass>
-		<stages>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>cortical stack installed</label>
-				<description>Todo.</description>
-				<baseMoodEffect>2</baseMoodEffect>
-			</li>
-		</stages>
-	</ThoughtDef>
-	<ThoughtDef>
-		<defName>AC_Stacking_Preferred_ArchoStack</defName>
-		<workerClass>AlteredCarbon.ThoughtWorker_Precept_ArchoStack</workerClass>
-		<thoughtClass>Thought_Situational</thoughtClass>
-		<stages>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>archo stack installed</label>
-				<description>Todo.</description>
-				<baseMoodEffect>4</baseMoodEffect>
-			</li>
-		</stages>
-	</ThoughtDef>
-	<ThoughtDef>
-		<defName>AC_Stacking_Preferred_NoStack</defName>
-		<workerClass>AlteredCarbon.ThoughtWorker_Precept_NoStack</workerClass>
-		<thoughtClass>Thought_Situational</thoughtClass>
-		<stages>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>no stack installed</label>
-				<description>Todo.</description>
-				<baseMoodEffect>-5</baseMoodEffect>
-			</li>
-		</stages>
-	</ThoughtDef>
-	<ThoughtDef>
-		<defName>AC_Stacking_Preferred_Stack_Social</defName>
-		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Stack_Social</workerClass>
-		<thoughtClass>Thought_SituationalSocial</thoughtClass>
-		<stages>
-			<li>
-				<!--				TODO: rename-->
-				<label>stack installed</label>
-				<baseOpinionOffset>2</baseOpinionOffset>
-			</li>
-		</stages>
-	</ThoughtDef>
-	<ThoughtDef>
-		<defName>AC_Stacking_Preferred_NoStack_Social</defName>
-		<workerClass>AlteredCarbon.ThoughtWorker_Precept_NoStack_Social</workerClass>
-		<thoughtClass>Thought_SituationalSocial</thoughtClass>
-		<stages>
-			<li>
-				<!--				TODO: rename-->
-				<label>no stack installed</label>
-				<baseOpinionOffset>-5</baseOpinionOffset>
-			</li>
-		</stages>
-	</ThoughtDef>
-
 	<ThoughtDef>
 		<defName>AC_Stacking_Despised_Stack</defName>
 		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Stack</workerClass>
 		<thoughtClass>Thought_Situational</thoughtClass>
 		<stages>
 			<li>
-				<!--				TODO: rename/change desc-->
 				<label>cortical stack installed</label>
-				<description>Todo.</description>
+				<description>I have a stack installed. It's an abhorrent offense against everything I believe!</description>
 				<baseMoodEffect>-15</baseMoodEffect>
 			</li>
 		</stages>
@@ -256,9 +260,9 @@
 		<thoughtClass>Thought_Situational</thoughtClass>
 		<stages>
 			<li>
-				<!--				TODO: rename/change desc-->
+
 				<label>archo stack installed</label>
-				<description>Todo.</description>
+				<description>I have a stack installed. It's an abhorrent offense against everything I believe!</description>
 				<baseMoodEffect>-30</baseMoodEffect>
 			</li>
 		</stages>
@@ -269,19 +273,12 @@
 		<thoughtClass>Thought_SituationalSocial</thoughtClass>
 		<stages>
 			<li>
-				<!--				TODO: rename-->
-				<label>stack installed</label>
+				<label>installed stack</label>
 				<baseOpinionOffset>-20</baseOpinionOffset>
 			</li>
 		</stages>
 	</ThoughtDef>
-	<!-- ================================ Issue - Sleeving ====================== -->
-	<IssueDef>
-		<defName>AC_Sleeving</defName>
-		<label>sleeving</label>
-		<iconPath>UI/Issues/Sleeving</iconPath>
-	</IssueDef>
-	<!-- ================================ Precepts - Sleeving ====================== -->
+	<!-- ================================ Precepts - Sleeving Demanded====================== -->
 	<PreceptDef>
 		<defName>AC_Sleeving_Demanded</defName>
 		<issue>AC_Sleeving</issue>
@@ -309,11 +306,100 @@
 			</li>
 		</comps>
 	</PreceptDef>
+	<ThoughtDef>
+		<defName>AC_Sleeving_Demanded_Sleeved</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Sleeved</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>awful sleeve</label>
+				<description>My sleeve is of awful quality.</description>
+				<baseMoodEffect>-10</baseMoodEffect>
+			</li>
+			<li>
+				<label>poor sleeve</label>
+				<description>My sleeve is of poor quality.</description>
+				<baseMoodEffect>-5</baseMoodEffect>
+			</li>
+			<li>
+				<label>normal sleeve</label>
+				<visible>false</visible>
+			</li>
+			<li>
+				<label>good sleeve</label>
+				<description>My sleeve is of good quality.</description>
+				<baseMoodEffect>3</baseMoodEffect>
+			</li>
+			<li>
+				<label>excellent sleeve</label>
+				<description>My sleeve is of excellent quality.</description>
+				<baseMoodEffect>5</baseMoodEffect>
+			</li>
+			<li>
+				<label>masterwork sleeve</label>
+				<description>My sleeve is of masterwork quality.</description>
+				<baseMoodEffect>7</baseMoodEffect>
+			</li>
+			<li>
+				<label>legendary sleeve</label>
+				<description>My sleeve is of legendary quality.</description>
+				<baseMoodEffect>10</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Sleeving_Demanded_Sleeved_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Sleeved_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>awful sleeve</label>
+				<baseOpinionOffset>-25</baseOpinionOffset>
+			</li>
+			<li>
+				<label>poor sleeve</label>
+				<baseOpinionOffset>-15</baseOpinionOffset>
+			</li>
+			<li>
+				<label>normal sleeve</label>
+				<visible>false</visible>
+				<baseOpinionOffset>0</baseOpinionOffset>
+			</li>
+			<li>
+				<label>good sleeve</label>
+				<baseOpinionOffset>5</baseOpinionOffset>
+			</li>
+			<li>
+				<label>excellent sleeve</label>
+				<baseOpinionOffset>10</baseOpinionOffset>
+			</li>
+			<li>
+				<label>masterwork sleeve</label>
+				<baseOpinionOffset>15</baseOpinionOffset>
+			</li>
+			<li>
+				<label>legendary sleeve</label>
+				<baseOpinionOffset>20</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Sleeving_Demanded_Sleeveless_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Sleeveless_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>sleeveless</label>
+				<baseOpinionOffset>-30</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ Precepts - Sleeving Preferred ===================== -->
 	<PreceptDef>
 		<defName>AC_Sleeving_Preferred</defName>
 		<issue>AC_Sleeving</issue>
 		<label>preferred</label>
-		<description>Our birth bodies are flawed and obsolete. Using a sleeve is therefore understandable.</description>
+		<description>Our birth bodies are flawed and often obsolete. Using a sleeve is therefore understandable.</description>
 		<impact>Low</impact>
 		<displayOrderInIssue>0</displayOrderInIssue>
 		<displayOrderInImpact>-100</displayOrderInImpact>
@@ -331,6 +417,48 @@
 			</li>
 		</comps>
 	</PreceptDef>
+	<ThoughtDef>
+		<defName>AC_Sleeving_Preferred_Sleeved</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Sleeved</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>awful sleeve</label>
+				<description>My sleeve is of awful quality.</description>
+				<baseMoodEffect>-5</baseMoodEffect>
+			</li>
+			<li>
+				<label>poor sleeve</label>
+				<description>My sleeve is of poor quality.</description>
+				<baseMoodEffect>-3</baseMoodEffect>
+			</li>
+			<li>
+				<label>normal quality sleeve</label>
+				<visible>false</visible>
+			</li>
+			<li>
+				<label>good sleeve</label>
+				<description>My sleeve is of good quality.</description>
+				<baseMoodEffect>1</baseMoodEffect>
+			</li>
+			<li>
+				<label>excellent sleeve</label>
+				<description>My sleeve is of excellent quality.</description>
+				<baseMoodEffect>2</baseMoodEffect>
+			</li>
+			<li>
+				<label>masterwork sleeve</label>
+				<description>My sleeve is of masterwork quality.</description>
+				<baseMoodEffect>3</baseMoodEffect>
+			</li>
+			<li>
+				<label>legendary sleeve</label>
+				<description>My sleeve is of legendary quality.</description>
+				<baseMoodEffect>5</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ Precepts - Sleeving Despised ===================== -->
 	<PreceptDef>
 		<defName>AC_Sleeving_Despised</defName>
 		<issue>AC_Sleeving</issue>
@@ -351,176 +479,14 @@
 			</li>
 		</comps>
 	</PreceptDef>
-	<!-- ================================ Thoughts - Sleeving ====================== -->
-	<ThoughtDef>
-		<defName>AC_Sleeving_Demanded_Sleeved</defName>
-		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Sleeved</workerClass>
-		<thoughtClass>Thought_Situational</thoughtClass>
-		<stages>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>awful quality sleeve</label>
-				<description>Todo.</description>
-				<baseMoodEffect>-10</baseMoodEffect>
-			</li>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>poor quality sleeve</label>
-				<description>Todo.</description>
-				<baseMoodEffect>-5</baseMoodEffect>
-			</li>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>normal quality sleeve</label>
-				<visible>false</visible>
-			</li>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>good quality sleeve</label>
-				<description>Todo.</description>
-				<baseMoodEffect>3</baseMoodEffect>
-			</li>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>excellent quality sleeve</label>
-				<description>Todo.</description>
-				<baseMoodEffect>5</baseMoodEffect>
-			</li>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>masterwork quality sleeve</label>
-				<description>Todo.</description>
-				<baseMoodEffect>7</baseMoodEffect>
-			</li>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>legendary quality sleeve</label>
-				<description>Todo.</description>
-				<baseMoodEffect>10</baseMoodEffect>
-			</li>
-		</stages>
-	</ThoughtDef>
-	<ThoughtDef>
-		<defName>AC_Sleeving_Demanded_Sleeved_Social</defName>
-		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Sleeved_Social</workerClass>
-		<thoughtClass>Thought_SituationalSocial</thoughtClass>
-		<stages>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>awful quality sleeve</label>
-				<description>Todo.</description>
-				<baseOpinionOffset>-25</baseOpinionOffset>
-			</li>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>poor quality sleeve</label>
-				<description>Todo.</description>
-				<baseOpinionOffset>-15</baseOpinionOffset>
-			</li>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>normal quality sleeve</label>
-				<description>Todo.</description>
-				<visible>false</visible>
-				<baseOpinionOffset>0</baseOpinionOffset>
-			</li>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>good quality sleeve</label>
-				<description>Todo.</description>
-				<baseOpinionOffset>6</baseOpinionOffset>
-			</li>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>excellent quality sleeve</label>
-				<description>Todo.</description>
-				<baseOpinionOffset>12</baseOpinionOffset>
-			</li>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>masterwork quality sleeve</label>
-				<description>Todo.</description>
-				<baseOpinionOffset>18</baseOpinionOffset>
-			</li>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>legendary quality sleeve</label>
-				<description>Todo.</description>
-				<baseOpinionOffset>25</baseOpinionOffset>
-			</li>
-		</stages>
-	</ThoughtDef>
-	<ThoughtDef>
-		<defName>AC_Sleeving_Demanded_Sleeveless_Social</defName>
-		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Sleeveless_Social</workerClass>
-		<thoughtClass>Thought_SituationalSocial</thoughtClass>
-		<stages>
-			<li>
-				<!--				TODO: rename-->
-				<label>sleeveless</label>
-				<description>Todo.</description>
-				<baseOpinionOffset>-20</baseOpinionOffset>
-			</li>
-		</stages>
-	</ThoughtDef>
-	
-	<ThoughtDef>
-		<defName>AC_Sleeving_Preferred_Sleeved</defName>
-		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Sleeved</workerClass>
-		<thoughtClass>Thought_Situational</thoughtClass>
-		<stages>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>awful quality sleeve</label>
-				<description>Todo.</description>
-				<baseMoodEffect>-5</baseMoodEffect>
-			</li>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>poor quality sleeve</label>
-				<description>Todo.</description>
-				<baseMoodEffect>-3</baseMoodEffect>
-			</li>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>normal quality sleeve</label>
-				<visible>false</visible>
-			</li>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>good quality sleeve</label>
-				<description>Todo.</description>
-				<baseMoodEffect>1</baseMoodEffect>
-			</li>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>excellent quality sleeve</label>
-				<description>Todo.</description>
-				<baseMoodEffect>2</baseMoodEffect>
-			</li>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>masterwork quality sleeve</label>
-				<description>Todo.</description>
-				<baseMoodEffect>3</baseMoodEffect>
-			</li>
-			<li>
-				<!--				TODO: rename/change desc-->
-				<label>legendary quality sleeve</label>
-				<description>Todo.</description>
-				<baseMoodEffect>5</baseMoodEffect>
-			</li>
-		</stages>
-	</ThoughtDef>
 	<ThoughtDef>
 		<defName>AC_Sleeving_Despised_Sleeved</defName>
 		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Sleeved</workerClass>
 		<thoughtClass>Thought_Situational</thoughtClass>
 		<stages>
 			<li>
-				<!--				TODO: rename/change desc-->
 				<label>sleeved</label>
-				<description>Todo.</description>
+				<description>I am forced to live in a body that was not given to me by nature. This is horrible and against my believes.</description>
 				<baseMoodEffect>-20</baseMoodEffect>
 			</li>
 		</stages>
@@ -531,19 +497,12 @@
 		<thoughtClass>Thought_SituationalSocial</thoughtClass>
 		<stages>
 			<li>
-				<!--				TODO: rename-->
 				<label>uses sleeve</label>
-				<baseOpinionOffset>-25</baseOpinionOffset>
+				<baseOpinionOffset>-30</baseOpinionOffset>
 			</li>
 		</stages>
 	</ThoughtDef>
-	<!-- ================================ Issue - Cross Sleeving ====================== -->
-	<IssueDef>
-		<defName>AC_CrossSleeving</defName>
-		<label>cross-sleeving</label>
-		<iconPath>UI/Issues/CrossSleeving</iconPath>
-	</IssueDef>
-	<!-- ================================ Precept - Cross Sleeving ====================== -->
+	<!-- ================================ Precept - Cross Sleeving Don't Care ====================== -->
 	<PreceptDef>
 		<defName>AC_CrossSleeving_DontCare</defName>
 		<issue>AC_CrossSleeving</issue>
@@ -556,6 +515,7 @@
 			<li>AC_Ouroboros</li>
 		</associatedMemes>
 	</PreceptDef>
+	<!-- ================================ Precept - Cross Sleeving Despised ====================== -->	
 	<PreceptDef>
 		<defName>AC_CrossSleeving_Despised</defName>
 		<issue>AC_CrossSleeving</issue>
@@ -580,16 +540,14 @@
 			</li>
 		</comps>
 	</PreceptDef>
-	<!-- ================================ Thoughts - Cross Sleeving ====================== -->
 	<ThoughtDef>
 		<defName>AC_Sleeving_Despised_CrossSleeving</defName>
 		<workerClass>AlteredCarbon.ThoughtWorker_Precept_CrossSleeving</workerClass>
 		<thoughtClass>Thought_Situational</thoughtClass>
 		<stages>
 			<li>
-				<!--				TODO: rename/change desc-->
 				<label>cross sleeved</label>
-				<description>Todo.</description>
+				<description>I am forced to live in a body of the opposite gender. This is horrible and against my believes.</description>
 				<baseMoodEffect>-20</baseMoodEffect>
 			</li>
 		</stages>
@@ -600,19 +558,12 @@
 		<thoughtClass>Thought_SituationalSocial</thoughtClass>
 		<stages>
 			<li>
-				<!--				TODO: rename-->
-				<label>uses sleeve of wrong gender</label>
+				<label>cross sleeved</label>
 				<baseOpinionOffset>-25</baseOpinionOffset>
 			</li>
 		</stages>
 	</ThoughtDef>
-	<!-- ================================ Issue - Duplicating ====================== -->
-	<IssueDef>
-		<defName>AC_StackDuplicating</defName>
-		<label>duplicating</label>
-		<iconPath>UI/Issues/Duplicating</iconPath>
-	</IssueDef>
-	<!-- ================================ Precepts - Duplicating ====================== -->
+	<!-- ================================ Precepts - Duplicating - Enlightened ====================== -->
 	<PreceptDef>
 		<defName>AC_StackDuplicating_Enlightened</defName>
 		<issue>AC_StackDuplicating</issue>
@@ -626,6 +577,7 @@
 			<li>FleshPurity</li>
 		</conflictingMemes>
 	</PreceptDef>
+	<!-- ================================ Precepts - Duplicating - Don't care ====================== -->
 	<PreceptDef>
 		<defName>AC_StackDuplicating_DontCare</defName>
 		<issue>AC_StackDuplicating</issue>
@@ -639,6 +591,7 @@
 			<li>FleshPurity</li>
 		</conflictingMemes>
 	</PreceptDef>
+	<!-- ================================ Precepts - Duplicating - Horrible ===================== -->
 	<PreceptDef>
 		<defName>AC_StackDuplicating_Horrible</defName>
 		<issue>AC_StackDuplicating</issue>
@@ -648,5 +601,4 @@
 			<li>FleshPurity</li>
 		</associatedMemes>
 	</PreceptDef>
-	<!-- ================================ Thoughts - Duplicating ====================== -->
 </Defs>

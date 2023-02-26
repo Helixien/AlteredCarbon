@@ -129,6 +129,12 @@
 		<defName>VFEU_MansBody</defName>
 		<workerClass>AlteredCarbon.ThoughtWorker_MansBody</workerClass>
 		<stackLimit>1</stackLimit>
+		<nullifyingTraits>
+			<li>Bisexual</li>
+			<li>Masochist</li>
+			<li>Asexual</li>
+			<li>VFEU_FreeMind</li>
+		</nullifyingTraits>
 		<stages>
 			<li>
 				<label>A man’s body</label>
@@ -141,6 +147,12 @@
 		<defName>VFEU_WomansBody</defName>
 		<workerClass>AlteredCarbon.ThoughtWorker_WomansBody</workerClass>
 		<stackLimit>1</stackLimit>
+		<nullifyingTraits>
+			<li>Bisexual</li>
+			<li>Masochist</li>
+			<li>Asexual</li>
+			<li>VFEU_FreeMind</li>
+		</nullifyingTraits>
 		<stages>
 			<li>
 				<label>A woman's body</label>
