@@ -292,7 +292,9 @@ namespace AlteredCarbon
                 canTargetPawns = true,
                 canTargetItems = true,
                 mapObjectTargetsMustBeAutoAttackable = false,
-                validator = (TargetInfo x) => (x.Thing is Pawn pawn && pawn.RaceProps.Humanlike) || (x.Thing is Corpse corpse && corpse.InnerPawn.RaceProps.Humanlike)
+                validator = (TargetInfo x) => (x.Thing is Pawn pawn && pawn.RaceProps.Humanlike) 
+                || (x.Thing is Corpse corpse && corpse.InnerPawn.RaceProps.Humanlike) && 
+                (!ModCompatibility.AlienRacesIsActive || ModCompatibility.GetPermittedRaces().Contains(corpse.InnerPawn.def))
             };
             return targetingParameters;
         }
@@ -317,7 +319,8 @@ namespace AlteredCarbon
             {
                 canTargetItems = true,
                 mapObjectTargetsMustBeAutoAttackable = false,
-                validator = (TargetInfo x) => x.Thing is Corpse corpse && corpse.GetRotStage() != RotStage.Dessicated && corpse.InnerPawn.RaceProps.Humanlike
+                validator = (TargetInfo x) => x.Thing is Corpse corpse && corpse.GetRotStage() != RotStage.Dessicated 
+                && corpse.InnerPawn.RaceProps.Humanlike && (!ModCompatibility.AlienRacesIsActive || ModCompatibility.GetPermittedRaces().Contains(corpse.InnerPawn.def))
             };
             return targetingParameters;
         }

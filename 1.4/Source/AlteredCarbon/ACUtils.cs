@@ -23,7 +23,7 @@ namespace AlteredCarbon
     public static class ACUtils
     {
         public static Harmony harmony;
-
+        public static HashSet<ThingDef> unstackableRaces;
         public static Dictionary<string, List<GeneDef>> genesByCategories = new Dictionary<string, List<GeneDef>>();
         public static Dictionary<ThingDef, ThingDef> stacksPairs = new Dictionary<ThingDef, ThingDef>
         {
@@ -133,7 +133,7 @@ namespace AlteredCarbon
                 installEmptyStacksRecipes.Add(AC_DefOf.AC_InstallEmptyArchoStack);
                 installFilledStacksRecipes.Add(AC_DefOf.AC_InstallArchoStack);
             }
-
+            unstackableRaces = GetUnstackableRaces();
             foreach (var gene in DefDatabase<GeneDef>.AllDefs)
             {
                 if (gene.exclusionTags.NullOrEmpty() is false)
@@ -200,9 +200,35 @@ namespace AlteredCarbon
                 AC_DefOf.VFEU_HackBiocodedThings.defaultIngredientFilter.SetAllow(thingDef, true);
             }
         }
+        static HashSet<ThingDef> GetUnstackableRaces()
+        {
+            if (ModCompatibility.AlienRacesIsActive)
+            {
+                HashSet<ThingDef> excludedRaces = new HashSet<ThingDef>();
+                foreach (ThingDef def in DefDatabase<ThingDef>.AllDefs.Where(def => def.category == ThingCategory.Pawn))
+                {
+                    if (def.GetModExtension<ExcludeRacesModExtension>() is ExcludeRacesModExtension props)
+                    {
+                        if (!props.acceptsStacks)
+                        {
+                            excludedRaces.Add(def);
+                        }
+                    }
+                }
+                return excludedRaces;
+            }
+            else
+            {
+                return new HashSet<ThingDef>();
+            }
+        }
 
         public static bool CanImplantStackTo(HediffDef stackToImplant, Pawn pawn)
         {
+            if (unstackableRaces.Contains(pawn.def))
+            {
+                return false;
+            }
             if (pawn.RaceProps.Humanlike is false)
             {
                 return false;

@@ -120,6 +120,18 @@ namespace AlteredCarbon
             };
         }
 
+        public override string Label
+        {
+            get
+            {
+                var label = base.Label;
+                if (this.IsFilledStack && this.PersonaData.name != null)
+                {
+                    label += " (" + this.PersonaData.name.ToStringFull + ")";
+                }
+                return label;
+            }
+        }
         public override void Tick()
         {
             base.Tick();
@@ -325,7 +337,6 @@ namespace AlteredCarbon
             StringBuilder stringBuilder = new StringBuilder();
             if (PersonaData.ContainsInnerPersona)
             {
-                stringBuilder.AppendLineTagged("AC.Name".Translate() + ": " + PersonaData.PawnNameColored);
                 if (PersonaData.faction != null)
                 {
                     stringBuilder.AppendLineTagged("AC.Faction".Translate() + ": " + PersonaData.faction.NameColored);

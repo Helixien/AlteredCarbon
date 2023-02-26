@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Verse;
+using Verse.Sound;
 
 namespace AlteredCarbon
 {
@@ -170,6 +171,7 @@ namespace AlteredCarbon
             if (Widgets.ButtonInvisible(rect))
             {
                 selected = xenogerm;
+                SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
             }
         }
 
