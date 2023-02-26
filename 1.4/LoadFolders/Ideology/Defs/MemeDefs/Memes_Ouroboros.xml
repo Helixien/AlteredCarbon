@@ -3,7 +3,7 @@
 	<MemeDef>
 		<defName>AC_Ouroboros</defName>
 		<label>ouroboros</label>
-		<description>We are beyond death, we shall live forever.</description>
+		<description>We are the beginning and the end, for we are beyond death. We shall live forever, from now on to the death of the universe.</description>
 		<iconPath>UI/Memes/Ouroboros</iconPath>
 		<groupDef>Misc</groupDef>
 		<impact>2</impact>
@@ -92,6 +92,10 @@
 			<noble>Ultratech</noble>
 			<despised>Neolithic</despised>
 		</preferredWeaponClasses>
+		<addDesignators>
+			<li>SleepAccelerator</li>
+			<li>NeuralSupercharger</li>
+		</addDesignators>
 		<thingStyleCategories>
 			<li>
 				<category>AC_Ultrist</category>
