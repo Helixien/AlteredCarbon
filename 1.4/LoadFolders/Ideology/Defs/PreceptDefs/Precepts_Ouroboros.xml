@@ -21,6 +21,11 @@
 		<label>duplicating</label>
 		<iconPath>UI/Issues/Duplicating</iconPath>
 	</IssueDef>
+	<IssueDef>
+		<defName>AC_XenoSleeving</defName>
+		<label>xeno-sleeving</label>
+		<iconPath>UI/Issues/CrossSleeving</iconPath>
+	</IssueDef>
 	<!-- ================================ Precepts - Stacking Central ====================== -->
 	<PreceptDef>
 		<defName>AC_Stacking_Central</defName>
@@ -599,6 +604,32 @@
 		<description>To make a copy of oneself is a horrendous crime against not only nature, but the copy that is created.</description>
 		<associatedMemes>
 			<li>FleshPurity</li>
+		</associatedMemes>
+	</PreceptDef>
+	<!-- ================================ Precepts - Xeno-Sleeving Despised ====================== -->
+	<PreceptDef>
+		<defName>AC_XenoSleeving_DontCare</defName>
+		<issue>AC_XenoSleeving</issue>
+		<label>don't care</label>
+		<description>text.todo</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>10</displayOrderInIssue>
+		<associatedMemes>
+			<li>Transhumanist</li>
+			<li>AC_Ouroboros</li>
+		</associatedMemes>
+	</PreceptDef>
+	<!-- ================================ Precepts - Xeno-Sleeving Despised ====================== -->
+	<PreceptDef>
+		<defName>AC_XenoSleeving_Despised</defName>
+		<issue>AC_XenoSleeving</issue>
+		<label>despised</label>
+		<description>text.todo</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>10</displayOrderInIssue>
+		<associatedMemes>
+			<li>Transhumanist</li>
+			<li>AC_Ouroboros</li>
 		</associatedMemes>
 	</PreceptDef>
 </Defs>
