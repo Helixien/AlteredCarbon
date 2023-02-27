@@ -26,7 +26,7 @@
 			<fadeOutTime>0.2</fadeOutTime>
 		</mote>
 		<graphicData>
-			<texPath>Things/Mote/VFEU_Hacking</texPath>
+			<texPath>Things/Mote/Ultratech/Hacking</texPath>
 			<shaderType>MoteGlow</shaderType>
 		</graphicData>
 	</ThingDef>
