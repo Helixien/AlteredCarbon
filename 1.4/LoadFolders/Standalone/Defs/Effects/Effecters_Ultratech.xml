@@ -10,7 +10,7 @@
 				<spawnLocType>BetweenTouchingCells</spawnLocType>
 				<positionLerpFactor>0.6</positionLerpFactor>
 				<scale>0.3~0.5</scale>
-				<color>(0, 255, 255)</color>
+				<color>(0, 255, 0)</color>
 				<positionRadius>0.4</positionRadius>
 				<ticksBetweenMotes>20</ticksBetweenMotes>
 			</li>
@@ -20,15 +20,15 @@
 	<ThingDef ParentName="MoteBase">
 		<defName>VFEU_Mote_Hacking</defName>
 		<altitudeLayer>MoteOverhead</altitudeLayer>
-		<graphicData>
-			<texPath>Things/Mote/Hacking</texPath>
-			<shaderType>MoteGlow</shaderType>
-		</graphicData>
 		<mote>
 			<fadeInTime>0.2</fadeInTime>
 			<solidTime>0.2</solidTime>
 			<fadeOutTime>0.2</fadeOutTime>
 		</mote>
+		<graphicData>
+			<texPath>Things/Mote/VFEU_Hacking</texPath>
+			<shaderType>MoteGlow</shaderType>
+		</graphicData>
 	</ThingDef>
 	<!-- ================================ Sleeve Incubator Glow ====================== -->
 	<ThingDef ParentName="MoteBase">
