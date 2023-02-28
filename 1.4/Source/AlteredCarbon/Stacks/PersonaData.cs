@@ -14,7 +14,7 @@ namespace AlteredCarbon
     [HotSwappable]
     public class PersonaData : IExposable
     {
-        public static bool relationshipDebug => false;
+        public static bool debug => false;
         public ThingDef sourceStack;
         public Name name;
         public Pawn hostPawn;
@@ -273,7 +273,7 @@ namespace AlteredCarbon
 
             if (pawn.relations != null)
             {
-                if (relationshipDebug) Log.Message("CopyFromPawn START");
+                if (debug) Log.Message("CopyFromPawn START");
 
                 everSeenByPlayer = pawn.relations.everSeenByPlayer;
                 canGetRescuedThought = pawn.relations.canGetRescuedThought;
@@ -282,7 +282,7 @@ namespace AlteredCarbon
                 hidePawnRelations = pawn.relations.hidePawnRelations;
 
                 relations = pawn.relations.DirectRelations?.ListFullCopy() ?? new List<DirectPawnRelation>();
-                if (relationshipDebug)
+                if (debug)
                 {
                     Log.Message("CopyFromPawn: relations: " + string.Join(", ", relations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
                     foreach (var rel in relations)
@@ -296,7 +296,7 @@ namespace AlteredCarbon
 
 
                 relatedPawns = pawn.relations.PotentiallyRelatedPawns?.ToList() ?? new List<Pawn>();
-                if (relationshipDebug)
+                if (debug)
                 {
                     Log.Message("CopyFromPawn: relatedPawns: " + string.Join(", ", relatedPawns.Select(x => x.GetFullName())));
                     //foreach (var rel in relatedPawns)
@@ -316,15 +316,15 @@ namespace AlteredCarbon
                             if (!rel2.implied)
                             {
                                 relations.Add(new DirectPawnRelation(rel2, otherPawn, 0));
-                                if (relationshipDebug) Log.Message("CopyFromPawn: added otherRelation: " + rel2 + " - " + otherPawn.GetFullName());
+                                if (debug) Log.Message("CopyFromPawn: added otherRelation: " + rel2 + " - " + otherPawn.GetFullName());
 
                             }
                         }
                     }
-                    if (relationshipDebug) Log.Message("CopyFromPawn: added otherPawn: " + otherPawn.GetFullName());
+                    if (debug) Log.Message("CopyFromPawn: added otherPawn: " + otherPawn.GetFullName());
                     relatedPawns.Add(otherPawn);
                 }
-                if (relationshipDebug) Log.Message("CopyFromPawn END");
+                if (debug) Log.Message("CopyFromPawn END");
 
             }
 
@@ -832,11 +832,11 @@ namespace AlteredCarbon
                 if (oldOrigPawn is null)
                 {
                     oldOrigPawn = allPotentialRelatedPawns.FirstOrDefault(x => x.Dead && x.thingIDNumber == pawnID);
-                    Log.Message("Found orig pawn: " + oldOrigPawn + " + " + string.Join(", ", oldOrigPawn?.relations?.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
+                    if (debug) Log.Message("Found orig pawn: " + oldOrigPawn + " + " + string.Join(", ", oldOrigPawn?.relations?.DirectRelations?.Select(x => x?.def + " - " + x?.otherPawn?.GetFullName()) ?? new List<string>()));
                     if (oldOrigPawn is null)
                     {
                         oldOrigPawn = allPotentialRelatedPawns.FirstOrDefault(x => x.Dead && IsPresetPawn(x) && x != pawn);
-                        Log.Message("2 Found orig pawn: " + oldOrigPawn + " + " + string.Join(", ", oldOrigPawn?.relations?.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
+                        if (debug) Log.Message("2 Found orig pawn: " + oldOrigPawn + " + " + string.Join(", ", oldOrigPawn?.relations?.DirectRelations.Select(x => x?.def + " - " + x?.otherPawn?.GetFullName()) ?? new List<string>()));
                     }
                 }
 
@@ -869,7 +869,7 @@ namespace AlteredCarbon
 
                 if (oldOrigPawn?.relations.DirectRelations != null)
                 {
-                    if (relationshipDebug) Log.Message("OverwritePawn: oldOrigPawn.relations.DirectRelations: " + string.Join(", ", oldOrigPawn.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
+                    if (debug) Log.Message("OverwritePawn: oldOrigPawn.relations.DirectRelations: " + string.Join(", ", oldOrigPawn.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
                     for (var i = oldOrigPawn.relations.DirectRelations.Count - 1; i >= 0; i--)
                     {
                         var oldDirectRelation = oldOrigPawn.relations.DirectRelations[i];
@@ -879,11 +879,11 @@ namespace AlteredCarbon
                             var rel = new DirectPawnRelation(oldDirectRelation.def, oldDirectRelation.otherPawn,
                                 oldDirectRelation.startTicks);
                             pawn.relations.directRelations.Add(rel);
-                            if (relationshipDebug) Log.Message("OverwritePawn: Adding rel: " + rel + " - " + oldDirectRelation.otherPawn.GetFullName());
+                            if (debug) Log.Message("OverwritePawn: Adding rel: " + rel + " - " + oldDirectRelation.otherPawn.GetFullName());
                         }
                         oldDirectRelation.otherPawn.relations.pawnsWithDirectRelationsWithMe.Remove(oldOrigPawn);
                         oldDirectRelation.otherPawn.relations.pawnsWithDirectRelationsWithMe.Add(pawn);
-                        if (relationshipDebug) Log.Message("OverwritePawn: Adding pawnsWithDirectRelationsWithMe: " + pawn.GetFullName());
+                        if (debug) Log.Message("OverwritePawn: Adding pawnsWithDirectRelationsWithMe: " + pawn.GetFullName());
                     }
                     oldOrigPawn.relations = new Pawn_RelationsTracker(oldOrigPawn);
                 }
@@ -1293,8 +1293,8 @@ namespace AlteredCarbon
 
             if (replacedReferences && relatedPawn.needs?.mood?.thoughts != null)
             {
-                if (relationshipDebug) Log.Message("END ReplacePawnRelations: relatedPawn relations: " + relatedPawn.GetFullName() + " - " + string.Join(", ", relatedPawn.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
-                if (relationshipDebug) Log.Message("END ReplacePawnRelations: newReference relations: " + newReference.GetFullName() + " - " + string.Join(", ", newReference.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
+                if (debug) Log.Message("END ReplacePawnRelations: relatedPawn relations: " + relatedPawn.GetFullName() + " - " + string.Join(", ", relatedPawn.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
+                if (debug) Log.Message("END ReplacePawnRelations: newReference relations: " + newReference.GetFullName() + " - " + string.Join(", ", newReference.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
                 relatedPawn.needs.mood.thoughts.situational.Notify_SituationalThoughtsDirty();
             }
         }
@@ -1322,9 +1322,9 @@ namespace AlteredCarbon
                 }
             }
 
-            if (relationshipDebug) Log.Message("2 ReplacePawnRelations: relatedPawn: " + relatedPawn.GetFullName() + " - " + string.Join(", ", relatedPawn.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
-            if (relationshipDebug) Log.Message("2 ReplacePawnRelations: newReference: " + newReference.GetFullName() + " - " + string.Join(", ", newReference.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
-            if (relationshipDebug) Log.Message("2 ReplacePawnRelations: otherPawn: " + otherPawn.GetFullName() + " - " + string.Join(", ", otherPawn.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
+            if (debug) Log.Message("2 ReplacePawnRelations: relatedPawn: " + relatedPawn.GetFullName() + " - " + string.Join(", ", relatedPawn.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
+            if (debug) Log.Message("2 ReplacePawnRelations: newReference: " + newReference.GetFullName() + " - " + string.Join(", ", newReference.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
+            if (debug) Log.Message("2 ReplacePawnRelations: otherPawn: " + otherPawn.GetFullName() + " - " + string.Join(", ", otherPawn.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
         }
 
         public void ChangeIdeo(Ideo newIdeo, float certainty)

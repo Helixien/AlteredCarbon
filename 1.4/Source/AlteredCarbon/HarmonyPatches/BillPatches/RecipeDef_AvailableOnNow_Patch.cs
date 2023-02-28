@@ -12,7 +12,7 @@ namespace AlteredCarbon
 		{
 			if (ACUtils.installEmptyStacksRecipes.Contains(__instance) && thing is Pawn pawn)
 			{
-				if (ACUtils.CanImplantStackTo(__instance.addsHediff, pawn) is false || pawn.IsEmptySleeve())
+				if (ACUtils.CanImplantStackTo(__instance.addsHediff, pawn) is false)
 				{
 					__result = false;
 					return false;

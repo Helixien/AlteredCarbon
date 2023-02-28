@@ -283,17 +283,16 @@ namespace AlteredCarbon
                 {
                     return false;
                 }
+                if (!this.allowArchoStacks && stack.IsArchoStack)
+                {
+                    return false;
+                }
 
                 if (this.allowColonistCorticalStacks && stack.PersonaData.faction != null && stack.PersonaData.faction == Faction.OfPlayer)
                 {
                     return true;
                 }
-
                 if (this.allowHostileCorticalStacks && stack.PersonaData.faction.HostileTo(Faction.OfPlayer))
-                {
-                    return true;
-                }
-                if (this.allowArchoStacks && stack.IsArchoStack)
                 {
                     return true;
                 }
@@ -301,7 +300,6 @@ namespace AlteredCarbon
                 {
                     return true;
                 }
-
                 return false;
             };
             return validator(thing) && this.innerContainer.CanAcceptAnyOf(thing, true) && HasFreeSpace;

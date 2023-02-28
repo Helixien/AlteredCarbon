@@ -19,6 +19,7 @@ namespace AlteredCarbon
         public string installDesc;
         public Texture2D installIcon;
     }
+    [HotSwappable]
     [StaticConstructorOnStartup]
     public static class ACUtils
     {
@@ -223,8 +224,12 @@ namespace AlteredCarbon
             }
         }
 
-        public static bool CanImplantStackTo(HediffDef stackToImplant, Pawn pawn)
+        public static bool CanImplantStackTo(HediffDef stackToImplant, Pawn pawn, CorticalStack corticalStack = null)
         {
+            if (corticalStack != null && pawn.IsEmptySleeve() && corticalStack.IsFilledStack is false)
+            {
+                return false;
+            }
             if (unstackableRaces.Contains(pawn.def))
             {
                 return false;
