@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<EffecterDef>
+		<defName>AC_JumpWingsLaunch</defName>
+		<children>
+			<li>
+				<subEffecterClass>SubEffecter_SoundTriggered</subEffecterClass>
+				<spawnLocType>OnSource</spawnLocType>
+				<soundDef>AC_JumpWingsLaunch</soundDef>
+			</li>
+			<li>
+				<subEffecterClass>SubEffecter_SprayerTriggeredDelayed</subEffecterClass>
+				<spawnLocType>OnSource</spawnLocType>
+				<fleckDef>JumpWarmupSmoke</fleckDef>
+				<initialDelayTicks>80</initialDelayTicks>
+				<speed>0.6~0.8</speed>
+				<angle>170~190</angle>
+				<absoluteAngle>true</absoluteAngle>
+			</li>
+		</children>
+	</EffecterDef>
+</Defs>

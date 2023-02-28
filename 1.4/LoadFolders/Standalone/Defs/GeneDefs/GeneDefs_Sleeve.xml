@@ -23,22 +23,20 @@
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_Awful</iconPath>
 		<displayOrderInCategory>0</displayOrderInCategory>
 		<biostatCpx>-4</biostatCpx>
-		<statOffsets>
-			<MoveSpeed>-0.2</MoveSpeed>
-			<ImmunityGainSpeed>-0.2</ImmunityGainSpeed>
-			<MeleeDamageFactor>-0.2</MeleeDamageFactor>
-			<RestFallRateFactor>-0.2</RestFallRateFactor>
-			<GlobalLearningFactor>-0.4</GlobalLearningFactor>
-			<IncomingDamageFactor>-0.4</IncomingDamageFactor>
-			<InjuryHealingFactor>-0.4</InjuryHealingFactor>
-			<ToxicEnvironmentResistance>-0.4</ToxicEnvironmentResistance>
-			<Fertility>-0.5</Fertility>
-			<MarketValue>-0.5</MarketValue>
-		</statOffsets>
 		<statFactors>
-			<LifespanFactor>0.4</LifespanFactor>
+			<LifespanFactor>0.5</LifespanFactor>
 			<CancerRate>5</CancerRate>
 		</statFactors>
+		<statOffsets>
+			<MarketValue>-500</MarketValue>
+			<Fertility>-0.5</Fertility>
+			<IncomingDamageFactor>0.4</IncomingDamageFactor>
+			<ToxicEnvironmentResistance>-0.4</ToxicEnvironmentResistance>
+			<GlobalLearningFactor>-0.4</GlobalLearningFactor>
+			<InjuryHealingFactor>-0.4</InjuryHealingFactor>
+			<ImmunityGainSpeed>-0.2</ImmunityGainSpeed>
+			<MeleeDamageFactor>-0.2</MeleeDamageFactor>
+		</statOffsets>
 	</GeneDef>
 	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
 		<defName>VFEU_SleeveQuality_Poor</defName>
@@ -47,22 +45,20 @@
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Poor</iconPath>
 		<displayOrderInCategory>5</displayOrderInCategory>
 		<biostatCpx>-2</biostatCpx>
-		<statOffsets>
-			<MoveSpeed>-0.1</MoveSpeed>
-			<ImmunityGainSpeed>-0.1</ImmunityGainSpeed>
-			<MeleeDamageFactor>-0.1</MeleeDamageFactor>
-			<RestFallRateFactor>-0.1</RestFallRateFactor>
-			<GlobalLearningFactor>-0.2</GlobalLearningFactor>
-			<IncomingDamageFactor>-0.2</IncomingDamageFactor>
-			<InjuryHealingFactor>-0.2</InjuryHealingFactor>
-			<ToxicEnvironmentResistance>-0.2</ToxicEnvironmentResistance>
-			<Fertility>-0.25</Fertility>
-			<MarketValue>-0.25</MarketValue>
-		</statOffsets>
 		<statFactors>
-			<LifespanFactor>0.2</LifespanFactor>
+			<LifespanFactor>0.75</LifespanFactor>
 			<CancerRate>2.5</CancerRate>
 		</statFactors>
+		<statOffsets>
+			<MarketValue>-250</MarketValue>
+			<Fertility>-0.25</Fertility>
+			<IncomingDamageFactor>0.2</IncomingDamageFactor>
+			<ToxicEnvironmentResistance>-0.2</ToxicEnvironmentResistance>
+			<GlobalLearningFactor>-0.2</GlobalLearningFactor>
+			<InjuryHealingFactor>-0.2</InjuryHealingFactor>
+			<ImmunityGainSpeed>-0.1</ImmunityGainSpeed>
+			<MeleeDamageFactor>-0.1</MeleeDamageFactor>
+		</statOffsets>
 	</GeneDef>
 	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
 		<defName>VFEU_SleeveQuality_Normal</defName>
@@ -79,21 +75,20 @@
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Good</iconPath>
 		<displayOrderInCategory>15</displayOrderInCategory>
 		<biostatCpx>4</biostatCpx>
+		<statFactors>
+			<LifespanFactor>1.25</LifespanFactor>
+			<CancerRate>-0.1</CancerRate>
+		</statFactors>
 		<statOffsets>
-			<MoveSpeed>0.1</MoveSpeed>
+			<MarketValue>250</MarketValue>
+			<Fertility>0.1</Fertility>
+			<IncomingDamageFactor>-0.2</IncomingDamageFactor>
+			<ToxicEnvironmentResistance>0.2</ToxicEnvironmentResistance>
+			<GlobalLearningFactor>0.2</GlobalLearningFactor>
+			<InjuryHealingFactor>0.2</InjuryHealingFactor>
 			<ImmunityGainSpeed>0.1</ImmunityGainSpeed>
 			<MeleeDamageFactor>0.1</MeleeDamageFactor>
-			<RestFallRateFactor>0.1</RestFallRateFactor>
-			<GlobalLearningFactor>0.2</GlobalLearningFactor>
-			<IncomingDamageFactor>0.2</IncomingDamageFactor>
-			<InjuryHealingFactor>0.2</InjuryHealingFactor>
-			<ToxicEnvironmentResistance>0.2</ToxicEnvironmentResistance>
-			<Fertility>0.25</Fertility>
-			<MarketValue>0.25</MarketValue>
 		</statOffsets>
-		<statFactors>
-			<LifespanFactor>1.2</LifespanFactor>
-		</statFactors>
 	</GeneDef>
 	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
 		<defName>VFEU_SleeveQuality_Excellent</defName>
@@ -102,21 +97,20 @@
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Excellent</iconPath>
 		<displayOrderInCategory>20</displayOrderInCategory>
 		<biostatCpx>6</biostatCpx>
+		<statFactors>
+			<LifespanFactor>1.5</LifespanFactor>
+			<CancerRate>-0.2</CancerRate>
+		</statFactors>
 		<statOffsets>
-			<MoveSpeed>0.2</MoveSpeed>
+			<MarketValue>500</MarketValue>
+			<Fertility>0.2</Fertility>
+			<IncomingDamageFactor>-0.3</IncomingDamageFactor>
+			<ToxicEnvironmentResistance>0.3</ToxicEnvironmentResistance>
+			<GlobalLearningFactor>0.3</GlobalLearningFactor>
+			<InjuryHealingFactor>0.3</InjuryHealingFactor>
 			<ImmunityGainSpeed>0.2</ImmunityGainSpeed>
 			<MeleeDamageFactor>0.2</MeleeDamageFactor>
-			<RestFallRateFactor>0.2</RestFallRateFactor>
-			<GlobalLearningFactor>0.3</GlobalLearningFactor>
-			<IncomingDamageFactor>0.3</IncomingDamageFactor>
-			<InjuryHealingFactor>0.3</InjuryHealingFactor>
-			<ToxicEnvironmentResistance>0.3</ToxicEnvironmentResistance>
-			<Fertility>0.35</Fertility>
-			<MarketValue>0.35</MarketValue>
 		</statOffsets>
-		<statFactors>
-			<LifespanFactor>1.4</LifespanFactor>
-		</statFactors>
 	</GeneDef>
 	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
 		<defName>VFEU_SleeveQuality_Masterwork</defName>
@@ -125,21 +119,21 @@
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Masterwork</iconPath>
 		<displayOrderInCategory>25</displayOrderInCategory>
 		<biostatCpx>8</biostatCpx>
+		<statFactors>
+			<LifespanFactor>2</LifespanFactor>
+			<CancerRate>-0.3</CancerRate>
+		</statFactors>
 		<statOffsets>
-			<MoveSpeed>0.3</MoveSpeed>
+			<MarketValue>750</MarketValue>
+			<Fertility>0.3</Fertility>
+			<IncomingDamageFactor>-0.4</IncomingDamageFactor>
+			<ToxicEnvironmentResistance>0.4</ToxicEnvironmentResistance>
+			<GlobalLearningFactor>0.4</GlobalLearningFactor>
+			<InjuryHealingFactor>0.4</InjuryHealingFactor>
 			<ImmunityGainSpeed>0.3</ImmunityGainSpeed>
 			<MeleeDamageFactor>0.3</MeleeDamageFactor>
-			<RestFallRateFactor>0.3</RestFallRateFactor>
-			<GlobalLearningFactor>0.4</GlobalLearningFactor>
-			<IncomingDamageFactor>0.4</IncomingDamageFactor>
-			<InjuryHealingFactor>0.4</InjuryHealingFactor>
-			<ToxicEnvironmentResistance>0.4</ToxicEnvironmentResistance>
-			<Fertility>0.45</Fertility>
-			<MarketValue>0.45</MarketValue>
+			<MoveSpeed>0.3</MoveSpeed>
 		</statOffsets>
-		<statFactors>
-			<LifespanFactor>1.6</LifespanFactor>
-		</statFactors>
 	</GeneDef>
 	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
 		<defName>VFEU_SleeveQuality_Legendary</defName>
@@ -148,20 +142,20 @@
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Legendary</iconPath>
 		<displayOrderInCategory>30</displayOrderInCategory>
 		<biostatCpx>10</biostatCpx>
+		<statFactors>
+			<LifespanFactor>3</LifespanFactor>
+			<CancerRate>-0.5</CancerRate>
+		</statFactors>
 		<statOffsets>
-			<MoveSpeed>0.4</MoveSpeed>
+			<MarketValue>1500</MarketValue>
+			<Fertility>0.5</Fertility>
+			<IncomingDamageFactor>-0.5</IncomingDamageFactor>
+			<ToxicEnvironmentResistance>0.5</ToxicEnvironmentResistance>
+			<GlobalLearningFactor>0.5</GlobalLearningFactor>
+			<InjuryHealingFactor>0.5</InjuryHealingFactor>
 			<ImmunityGainSpeed>0.4</ImmunityGainSpeed>
 			<MeleeDamageFactor>0.4</MeleeDamageFactor>
-			<RestFallRateFactor>0.4</RestFallRateFactor>
-			<GlobalLearningFactor>0.5</GlobalLearningFactor>
-			<IncomingDamageFactor>0.5</IncomingDamageFactor>
-			<InjuryHealingFactor>0.5</InjuryHealingFactor>
-			<ToxicEnvironmentResistance>0.5</ToxicEnvironmentResistance>
-			<Fertility>0.5</Fertility>
-			<MarketValue>0.55</MarketValue>
+			<MoveSpeed>0.4</MoveSpeed>
 		</statOffsets>
-		<statFactors>
-			<LifespanFactor>1.8</LifespanFactor>
-		</statFactors>
 	</GeneDef>
 </Defs>

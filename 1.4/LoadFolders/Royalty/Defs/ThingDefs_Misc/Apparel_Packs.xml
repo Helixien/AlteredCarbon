@@ -13,10 +13,10 @@
 				<hasStandardCommand>true</hasStandardCommand>
 				<onlyManualCast>True</onlyManualCast>
 				<forceNormalTimeSpeed>false</forceNormalTimeSpeed>
-				<warmupTime>0.05</warmupTime>
-				<warmupEffecter>JumpWarmupEffect</warmupEffecter>
+				<warmupTime>0.6</warmupTime>
+				<warmupEffecter>AC_JumpWingsLaunch</warmupEffecter>
 				<requireLineOfSight>true</requireLineOfSight>
-				<soundLanding>JumpPackLand</soundLanding>
+				<soundLanding>AC_JumpWingsLand</soundLanding>
 				<targetParams>
 					<canTargetLocations>true</canTargetLocations>
 					<canTargetPawns>false</canTargetPawns>
