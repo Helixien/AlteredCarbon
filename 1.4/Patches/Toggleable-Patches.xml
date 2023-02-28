@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<!-- ================ Add new music tracks ================ -->
+	<Operation Class="VFECore.PatchOperationToggableSequence">
+		<enabled>True</enabled>
+		<label>Enable new IXION inspired music tracks?</label>
+		<operations>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs</xpath>
+				<value>
+					<SongDef>
+						<defName>AC_Song_IxionsLegacy</defName>
+						<label>ixion's legacy</label>
+						<clipPath>Songs/Relax/Ixions_Legacy</clipPath>
+						<volume>0.8</volume>
+					</SongDef>
+					<SongDef>
+						<defName>AC_AsAnIronFeather</defName>
+						<label>as an iron feather</label>
+						<clipPath>Songs/Relax/As_An_Iron_Feather</clipPath>
+						<volume>0.8</volume>
+					</SongDef>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+</Patch>

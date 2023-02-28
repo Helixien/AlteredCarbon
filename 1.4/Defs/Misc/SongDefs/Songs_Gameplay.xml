@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Defs>
-	<SongDef>
-		<defName>AC_Song_IxionsLegacy</defName>
-		<label>ixion's legacy</label>
-		<clipPath>Songs/Relax/Ixions_Legacy</clipPath>
-		<volume>1.00</volume>
-	</SongDef>
-</Defs>
