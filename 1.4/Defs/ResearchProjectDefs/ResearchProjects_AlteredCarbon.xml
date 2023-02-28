@@ -23,8 +23,8 @@
 		<label>cortical stacks</label>
 		<description>Fabricate advanced ultratech cortical stacks from advanced components and other materials.</description>
 		<baseCost>4000</baseCost>
-		<researchViewX>16.00</researchViewX>
-		<researchViewY>2.25</researchViewY>
+		<researchViewX>17.00</researchViewX>
+		<researchViewY>0.00</researchViewY>
 		<techLevel>Ultra</techLevel>
 		<prerequisites>
 			<li>AdvancedFabrication</li>
@@ -40,8 +40,8 @@
 		<label>cortical modification</label>
 		<description>Modify the data on cortical stacks using exploits in the software of cortical stacks.</description>
 		<baseCost>5000</baseCost>
-		<researchViewX>17.00</researchViewX>
-		<researchViewY>2.25</researchViewY>
+		<researchViewX>18.00</researchViewX>
+		<researchViewY>0.00</researchViewY>
 		<techLevel>Ultra</techLevel>
 		<prerequisites>
 			<li>AC_CorticalCrafting</li>
