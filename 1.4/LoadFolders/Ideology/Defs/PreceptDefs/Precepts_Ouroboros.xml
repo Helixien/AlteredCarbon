@@ -581,7 +581,54 @@
 		<conflictingMemes>
 			<li>FleshPurity</li>
 		</conflictingMemes>
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_StackDuplicating_Enlightened_ForOriginal_Social</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_StackDuplicating_Enlightened_ForCopy_Social</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_StackDuplicating_Enlightened_Social</thought>
+			</li>
+		</comps>
 	</PreceptDef>
+	<ThoughtDef>
+		<defName>AC_StackDuplicating_Enlightened_ForOriginal_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_StackDuplicating_ForOriginal_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+<!--				TODO: rename-->
+				<label>enlightened duplicate</label>
+				<baseOpinionOffset>5</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_StackDuplicating_Enlightened_ForCopy_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_StackDuplicating_ForCopy_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+<!--				TODO: rename-->
+				<label>enlightened original</label>
+				<baseOpinionOffset>10</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_StackDuplicating_Enlightened_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_StackDuplicating_HasDuplicates_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+<!--				TODO: rename-->
+				<label>has copy</label>
+				<baseOpinionOffset>5</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
 	<!-- ================================ Precepts - Duplicating - Don't care ====================== -->
 	<PreceptDef>
 		<defName>AC_StackDuplicating_DontCare</defName>
@@ -605,7 +652,54 @@
 		<associatedMemes>
 			<li>FleshPurity</li>
 		</associatedMemes>
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_StackDuplicating_Horrible_ForOriginal_Social</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_StackDuplicating_Horrible_ForCopy_Social</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_StackDuplicating_Horrible_Social</thought>
+			</li>
+		</comps>
 	</PreceptDef>
+	<ThoughtDef>
+		<defName>AC_StackDuplicating_Horrible_ForOriginal_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_StackDuplicating_ForOriginal_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename-->
+				<label>souless duplicate</label>
+				<baseOpinionOffset>-5</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_StackDuplicating_Horrible_ForCopy_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_StackDuplicating_ForCopy_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename-->
+				<label>shattered soul</label>
+				<baseOpinionOffset>-10</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_StackDuplicating_Horrible_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_StackDuplicating_HasDuplicates_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename-->
+				<label>has copy</label>
+				<baseOpinionOffset>-5</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
 	<!-- ================================ Precepts - Xeno-Sleeving Despised ====================== -->
 	<PreceptDef>
 		<defName>AC_XenoSleeving_DontCare</defName>
