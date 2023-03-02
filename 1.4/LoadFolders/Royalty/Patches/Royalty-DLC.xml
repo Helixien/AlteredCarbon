@@ -39,16 +39,13 @@
 					</li>
 				</value>
 			</li>
-			<li Class="PatchOperationReplace">
-				<xpath>/Defs/PawnKindDef[deName="Empire_Royal_Consul"]/modExtensions/li[@Class="AlteredCarbon.StackSpawnModExtension"/ChanceToSpawnWithStack</xpath>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[deName="Empire_Royal_Stellarch" or defName="Empire_Royal_Bestower" or defName="Empire_Royal_Consul"]</xpath>
 				<value>
-					<ChanceToSpawnWithStack>75</ChanceToSpawnWithStack>
-				</value>
-			</li>
-			<li Class="PatchOperationReplace">
-				<xpath>/Defs/PawnKindDef[deName="Empire_Royal_Stellarch" or defName="Empire_Royal_Bestower"]/modExtensions/li[@Class="AlteredCarbon.StackSpawnModExtension"/ChanceToSpawnWithStack</xpath>
-				<value>
-					<ChanceToSpawnWithStack>100</ChanceToSpawnWithStack>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<SpawnsWithStack>true</SpawnsWithStack>
+						<ChanceToSpawnWithStack>100</ChanceToSpawnWithStack>
+					</li>
 				</value>
 			</li>
 			<!-- ================================ Add Stacks to Deserter Quest ====================== -->
