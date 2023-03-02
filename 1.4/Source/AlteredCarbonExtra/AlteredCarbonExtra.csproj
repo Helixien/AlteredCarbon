@@ -94,12 +94,14 @@
     <Compile Include="Misc\RoomRoleWorker_UltraTech.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recipes\Recipe_RewriteFilledCorticalStack.cs" />
+    <Compile Include="Thoughts\ThoughtWorker_Precept_XenoSleeving.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_CrossSleeving.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_CrossSleeving_Social.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_Sleeved.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_Sleeved_Social.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_Sleeveless_Social.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_StackDuplicating_Social.cs" />
+    <Compile Include="Thoughts\ThoughtWorker_Precept_XenoSleeving_Social.cs" />
     <Compile Include="UI\Dialog_InfoCardStack.cs" />
     <Compile Include="UI\ITab_StackBackupContents.cs" />
     <Compile Include="UI\ITab_StackStorageContents.cs" />

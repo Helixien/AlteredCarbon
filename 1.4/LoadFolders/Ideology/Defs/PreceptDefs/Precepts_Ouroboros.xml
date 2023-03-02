@@ -725,5 +725,38 @@
 			<li>Transhumanist</li>
 			<li>AC_Ouroboros</li>
 		</associatedMemes>
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_XenoSleeving_Despised_Xenosleeved</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_XenoSleeving_Despised_Xenosleeved_Social</thought>
+			</li>
+		</comps>
 	</PreceptDef>
+	<ThoughtDef>
+		<defName>AC_XenoSleeving_Despised_Xenosleeved</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_XenoSleeving</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename-->
+				<label>xenosleeved</label>
+				<description>My body does not reflect my born nature.</description>
+				<baseMoodEffect>-5</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_XenoSleeving_Despised_Xenosleeved_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_XenoSleeving_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<!--				TODO: rename-->
+				<label>xenosleeved</label>
+				<baseOpinionOffset>-10</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
 </Defs>

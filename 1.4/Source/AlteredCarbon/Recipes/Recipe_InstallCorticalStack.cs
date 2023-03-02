@@ -168,8 +168,7 @@ namespace AlteredCarbon
                 {
                     pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongRace);
                 }
-                if (hediff.PersonaData.originalXenotypeName != null && pawn.genes.xenotypeName != hediff.PersonaData.originalXenotypeName
-                    || hediff.PersonaData.originalXenotypeDef != null && pawn.genes.xenotype != hediff.PersonaData.originalXenotypeDef)
+                if (pawn.SleeveMatchesOriginalXenotype(hediff.PersonaData))
                 {
                     pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongXenotype);
                 }
