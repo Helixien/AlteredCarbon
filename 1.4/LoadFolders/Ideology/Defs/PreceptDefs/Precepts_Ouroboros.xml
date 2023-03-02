@@ -26,6 +26,11 @@
 		<label>xeno-sleeving</label>
 		<iconPath>UI/Issues/XenoSleeving</iconPath>
 	</IssueDef>
+	<IssueDef MayRequire="erdelf.HumanoidAlienRaces">
+		<defName>AC_RaceSleeving</defName>
+		<label>race-sleeving</label>
+		<iconPath>UI/Issues/RaceSleeving</iconPath>
+	</IssueDef>
 	<!-- ================================ Precepts - Stacking Central ====================== -->
 	<PreceptDef>
 		<defName>AC_Stacking_Central</defName>
@@ -736,6 +741,63 @@
 		<stages>
 			<li>
 				<label>xenosleeved</label>
+				<baseOpinionOffset>-10</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ Precepts - Race-Sleeving Despised ====================== -->
+	<PreceptDef MayRequire="erdelf.HumanoidAlienRaces">
+		<defName>AC_RaceSleeving_DontCare</defName>
+		<issue>AC_RaceSleeving</issue>
+		<label>don't care</label>
+		<description>Even bigger biological changes are irrelevant, we are all sentient beings at the end..</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>10</displayOrderInIssue>
+		<associatedMemes>
+			<li>Transhumanist</li>
+			<li>AC_Ouroboros</li>
+		</associatedMemes>
+	</PreceptDef>
+	<!-- ================================ Precepts - Race-Sleeving Despised ====================== -->
+	<PreceptDef MayRequire="erdelf.HumanoidAlienRaces">
+		<defName>AC_RaceSleeving_Despised</defName>
+		<issue>AC_RaceSleeving</issue>
+		<label>despised</label>
+		<description>One's race is sacred and abandoning it is despicable.</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>10</displayOrderInIssue>
+		<associatedMemes>
+			<li>Transhumanist</li>
+			<li>AC_Ouroboros</li>
+		</associatedMemes>
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_RaceSleeving_Despised_Racesleeved</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_RaceSleeving_Despised_Racesleeved_Social</thought>
+			</li>
+		</comps>
+	</PreceptDef>
+	<ThoughtDef MayRequire="erdelf.HumanoidAlienRaces">
+		<defName>AC_RaceSleeving_Despised_Racesleeved</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_RaceSleeving</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>raceleeved</label>
+				<description>My body does not reflect my natural born one.</description>
+				<baseMoodEffect>-5</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef MayRequire="erdelf.HumanoidAlienRaces">
+		<defName>AC_RaceSleeving_Despised_Racesleeved_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_RaceSleeving_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>raceleeved</label>
 				<baseOpinionOffset>-10</baseOpinionOffset>
 			</li>
 		</stages>
