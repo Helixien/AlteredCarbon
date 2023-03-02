@@ -724,7 +724,7 @@
 		<stages>
 			<li>
 				<label>xenosleeved</label>
-				<description>My body does not reflect my  natural born one.</description>
+				<description>My body does not reflect my natural born one.</description>
 				<baseMoodEffect>-5</baseMoodEffect>
 			</li>
 		</stages>
