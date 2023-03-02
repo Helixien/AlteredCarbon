@@ -24,7 +24,7 @@
 	<IssueDef>
 		<defName>AC_XenoSleeving</defName>
 		<label>xeno-sleeving</label>
-		<iconPath>UI/Issues/CrossSleeving</iconPath>
+		<iconPath>UI/Issues/XenoSleeving</iconPath>
 	</IssueDef>
 	<!-- ================================ Precepts - Stacking Central ====================== -->
 	<PreceptDef>
@@ -56,17 +56,6 @@
 			<li Class="PreceptComp_SituationalThought">
 				<thought>AC_Stacking_Central_NoStack_Social</thought>
 			</li>
-			<!--TODO: Do you want recently got stack event?-->
-			<!--<li Class="PreceptComp_SelfTookMemoryThought">
-				<eventDef>GotBlinded</eventDef>
-				<thought>BlindingCeremony_Self_Sublime</thought>
-			</li> -->
-			<!--TODO: you want to support fluid ideology? -->
-			<!--<li Class="PreceptComp_DevelopmentPoints">
-				<eventDef>GotBlinded</eventDef>
-				<eventLabel>blinded someone</eventLabel>
-				<points>1</points>
-			</li>-->
 		</comps>
 	</PreceptDef>
 	<ThoughtDef>
@@ -599,7 +588,6 @@
 		<thoughtClass>Thought_SituationalSocial</thoughtClass>
 		<stages>
 			<li>
-<!--				TODO: rename-->
 				<label>enlightened duplicate</label>
 				<baseOpinionOffset>5</baseOpinionOffset>
 			</li>
@@ -611,7 +599,6 @@
 		<thoughtClass>Thought_SituationalSocial</thoughtClass>
 		<stages>
 			<li>
-<!--				TODO: rename-->
 				<label>enlightened original</label>
 				<baseOpinionOffset>10</baseOpinionOffset>
 			</li>
@@ -623,7 +610,6 @@
 		<thoughtClass>Thought_SituationalSocial</thoughtClass>
 		<stages>
 			<li>
-<!--				TODO: rename-->
 				<label>has copy</label>
 				<baseOpinionOffset>5</baseOpinionOffset>
 			</li>
@@ -670,7 +656,6 @@
 		<thoughtClass>Thought_SituationalSocial</thoughtClass>
 		<stages>
 			<li>
-				<!--				TODO: rename-->
 				<label>souless duplicate</label>
 				<baseOpinionOffset>-5</baseOpinionOffset>
 			</li>
@@ -682,7 +667,6 @@
 		<thoughtClass>Thought_SituationalSocial</thoughtClass>
 		<stages>
 			<li>
-				<!--				TODO: rename-->
 				<label>shattered soul</label>
 				<baseOpinionOffset>-10</baseOpinionOffset>
 			</li>
@@ -694,7 +678,6 @@
 		<thoughtClass>Thought_SituationalSocial</thoughtClass>
 		<stages>
 			<li>
-				<!--				TODO: rename-->
 				<label>has copy</label>
 				<baseOpinionOffset>-5</baseOpinionOffset>
 			</li>
@@ -705,7 +688,7 @@
 		<defName>AC_XenoSleeving_DontCare</defName>
 		<issue>AC_XenoSleeving</issue>
 		<label>don't care</label>
-		<description>text.todo</description>
+		<description>Small differences in our bodies are irrelevant, at our core we are all human.</description>
 		<impact>Low</impact>
 		<displayOrderInIssue>10</displayOrderInIssue>
 		<associatedMemes>
@@ -718,7 +701,7 @@
 		<defName>AC_XenoSleeving_Despised</defName>
 		<issue>AC_XenoSleeving</issue>
 		<label>despised</label>
-		<description>text.todo</description>
+		<description>One's xenotype is sacred and switching to one of a different type is despicable.</description>
 		<impact>Low</impact>
 		<displayOrderInIssue>10</displayOrderInIssue>
 		<associatedMemes>
@@ -740,9 +723,8 @@
 		<thoughtClass>Thought_Situational</thoughtClass>
 		<stages>
 			<li>
-				<!--				TODO: rename-->
 				<label>xenosleeved</label>
-				<description>My body does not reflect my born nature.</description>
+				<description>My body does not reflect my  natural born one.</description>
 				<baseMoodEffect>-5</baseMoodEffect>
 			</li>
 		</stages>
@@ -753,7 +735,6 @@
 		<thoughtClass>Thought_SituationalSocial</thoughtClass>
 		<stages>
 			<li>
-				<!--				TODO: rename-->
 				<label>xenosleeved</label>
 				<baseOpinionOffset>-10</baseOpinionOffset>
 			</li>

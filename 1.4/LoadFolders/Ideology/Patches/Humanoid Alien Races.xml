@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Humanoid Alien Races</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+				<!-- ================================ Add Precept for Races ====================== -->
+				<li Class="PatchOperationAdd">
+					<xpath>Defs</xpath>
+					<value>
+						<!-- ================================ Issues ====================== -->
+						<IssueDef>
+							<defName>AC_RaceSleeving</defName>
+							<label>race-sleeving</label>
+							<iconPath>UI/Issues/XenoSleeving</iconPath>
+						</IssueDef>
+						<!-- ================================ Precepts - Race-Sleeving Despised ====================== -->
+						<PreceptDef>
+							<defName>AC_RaceSleeving_DontCare</defName>
+							<issue>AC_RaceSleeving</issue>
+							<label>don't care</label>
+							<description>Even bigger biological changes are irrelevant, we are all sentient beings at the end..</description>
+							<impact>Low</impact>
+							<displayOrderInIssue>10</displayOrderInIssue>
+							<associatedMemes>
+								<li>Transhumanist</li>
+								<li>AC_Ouroboros</li>
+							</associatedMemes>
+						</PreceptDef>
+						<!-- ================================ Precepts - Race-Sleeving Despised ====================== -->
+						<PreceptDef>
+							<defName>AC_RaceSleeving_Despised</defName>
+							<issue>AC_RaceSleeving</issue>
+							<label>despised</label>
+							<description>One's race is sacred and abandoning it is despicable.</description>
+							<impact>Low</impact>
+							<displayOrderInIssue>10</displayOrderInIssue>
+							<associatedMemes>
+								<li>Transhumanist</li>
+								<li>AC_Ouroboros</li>
+							</associatedMemes>
+						</PreceptDef>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+</Patch>
