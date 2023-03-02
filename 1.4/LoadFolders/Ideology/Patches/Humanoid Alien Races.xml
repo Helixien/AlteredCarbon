@@ -14,7 +14,7 @@
 						<IssueDef>
 							<defName>AC_RaceSleeving</defName>
 							<label>race-sleeving</label>
-							<iconPath>UI/Issues/XenoSleeving</iconPath>
+							<iconPath>UI/Issues/RaceSleeving</iconPath>
 						</IssueDef>
 						<!-- ================================ Precepts - Race-Sleeving Despised ====================== -->
 						<PreceptDef>
