@@ -1,22 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<!-- ================================ Wrong Sleeve Race ====================== -->
-	<ThoughtDef>
-		<defName>VFEU_WrongRace</defName>
-		<durationDays>120</durationDays>
-		<stackLimit>1</stackLimit>
-		<nullifyingTraits>
-			<li>Masochist</li>
-			<li>VFEU_FreeMind</li>
-		</nullifyingTraits>
-		<stages>
-			<li>
-				<label>different sleeve race</label>
-				<description>The race of my sleeve is not my own, this feels wrong.</description>
-				<baseMoodEffect>-5</baseMoodEffect>
-			</li>
-		</stages>
-	</ThoughtDef>
 	<!-- ================================ Wrong Sleeve Xenotype ====================== -->
 	<ThoughtDef>
 		<defName>VFEU_WrongXenotype</defName>
@@ -158,6 +141,23 @@
 				<label>A woman's body</label>
 				<description>I am in the body of a woman, I don't like it!</description>
 				<baseMoodEffect>-3</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ Wrong Sleeve Race ====================== -->
+	<ThoughtDef MayRequire="erdelf.HumanoidAlienRaces">
+		<defName>VFEU_WrongRace</defName>
+		<durationDays>120</durationDays>
+		<stackLimit>1</stackLimit>
+		<nullifyingTraits>
+			<li>Masochist</li>
+			<li>VFEU_FreeMind</li>
+		</nullifyingTraits>
+		<stages>
+			<li>
+				<label>different sleeve race</label>
+				<description>The race of my sleeve is not my own, this feels wrong.</description>
+				<baseMoodEffect>-5</baseMoodEffect>
 			</li>
 		</stages>
 	</ThoughtDef>
