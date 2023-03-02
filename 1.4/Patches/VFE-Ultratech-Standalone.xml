@@ -153,6 +153,14 @@
 					</nullifyingPrecepts>
 				</value>
 			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThoughtDef[defName="VFEU_WrongXenotype"]</xpath>
+				<value>
+					<nullifyingPrecepts>
+						<li MayRequire="Ludeon.RimWorld.Ideology">AC_XenoSleeving_DontCare</li>
+					</nullifyingPrecepts>
+				</value>
+			</li>
 		</operations>
 	</Operation>
 </Patch>
