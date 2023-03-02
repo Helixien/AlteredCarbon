@@ -42,6 +42,7 @@
 		</descriptionHyperlinks>
 		<altitudeLayer>BuildingOnTop</altitudeLayer>
 		<neverMultiSelect>true</neverMultiSelect>
+		<designationCategory>Biotech</designationCategory>
 		<hasInteractionCell>True</hasInteractionCell>
 		<interactionCellOffset>(0,0,2)</interactionCellOffset>
 		<defaultPlacingRot>South</defaultPlacingRot>
