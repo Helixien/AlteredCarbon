@@ -2,6 +2,15 @@
 <Patch>
 	<Operation Class="PatchOperationSequence">
 		<operations>
+			<!-- ================================ Add faction tag to research ====================== -->
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ResearchProjectDef[@Name="AC_ResearchBase"]</xpath>
+				<value>
+					<heldByFactionCategoryTags>
+						<li>Empire</li>
+					</heldByFactionCategoryTags>
+				</value>
+			</li>
 			<!-- ================================ Spawn Pawns with Stacks ====================== -->
 			<li Class="PatchOperationAddModExtension">
 				<xpath>/Defs/PawnKindDef[@Name="EmpireCommonerBase"]</xpath>
