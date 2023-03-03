@@ -4,10 +4,6 @@
 		<techLevel>Ultra</techLevel>
 		<techprintCount MayRequire="Ludeon.RimWorld.Royalty">1</techprintCount>
 		<techprintCommonality MayRequire="Ludeon.RimWorld.Royalty">1.2</techprintCommonality>
-		<heldByFactionCategoryTags MayRequire="Ludeon.RimWorld.Royalty">
-			<li>Empire</li>
-			<li MayRequire="hlx.ReinforcedMechanoids2">RM_Remnants</li>
-		</heldByFactionCategoryTags>
 		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
 		<requiredResearchFacilities>
 			<li>MultiAnalyzer</li>
