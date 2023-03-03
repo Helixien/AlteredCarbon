@@ -88,57 +88,58 @@ namespace AlteredCarbon
         {
             Listing_Standard listingStandard = new Listing_Standard();
             listingStandard.Begin(inRect);
-            DoSlider(listingStandard, "AC.GrowingTimeDuration".Translate(), ref baseGrowingTimeDuration, baseGrowingTimeDuration.ToStringTicksToPeriod(), 1000, 9000000);
-            DoSlider(listingStandard, "AC.editTimeOffsetPerNameChange".Translate(), ref editTimeOffsetPerNameChange, editTimeOffsetPerNameChange.ToStringTicksToPeriod(), 0, 60000);
-            DoSlider(listingStandard, "AC.editTimeOffsetPerGenderChange".Translate(), ref editTimeOffsetPerGenderChange, editTimeOffsetPerGenderChange.ToStringTicksToPeriod(), 0, 60000);
-            DoSlider(listingStandard, "AC.editTimeOffsetPerSkillLevelChange".Translate(), ref editTimeOffsetPerSkillLevelChange, editTimeOffsetPerSkillLevelChange.ToStringTicksToPeriod(), 0, 60000);
-            DoSlider(listingStandard, "AC.editTimeOffsetPerSkillPassionChange".Translate(), ref editTimeOffsetPerSkillPassionChange, editTimeOffsetPerSkillPassionChange.ToStringTicksToPeriod(), 0, 60000);
-            DoSlider(listingStandard, "AC.editTimeOffsetPerTraitChange".Translate(), ref editTimeOffsetPerTraitChange, editTimeOffsetPerTraitChange.ToStringTicksToPeriod(), 0, 60000);
-            DoSlider(listingStandard, "AC.editTimeOffsetPerChildhoodChange".Translate(), ref editTimeOffsetPerChildhoodChange, editTimeOffsetPerChildhoodChange.ToStringTicksToPeriod(), 0, 60000);
-            DoSlider(listingStandard, "AC.editTimeOffsetPerAdulthoodChange".Translate(), ref editTimeOffsetPerAdulthoodChange, editTimeOffsetPerAdulthoodChange.ToStringTicksToPeriod(), 0, 60000);
-            DoSlider(listingStandard, "AC.editTimeOffsetPerIdeologyChange".Translate(), ref editTimeOffsetPerIdeologyChange, editTimeOffsetPerIdeologyChange.ToStringTicksToPeriod(), 0, 60000);
-            DoSlider(listingStandard, "AC.editTimeOffsetPerCertaintyChange".Translate(), ref editTimeOffsetPerCertaintyChange, editTimeOffsetPerCertaintyChange.ToStringTicksToPeriod(), 0, 60000);
-            DoSlider(listingStandard, "AC.editTimeOffsetPerFactionChange".Translate(), ref editTimeOffsetPerFactionChange, editTimeOffsetPerFactionChange.ToStringTicksToPeriod(), 0, 60000);
-            DoSlider(listingStandard, "AC.editTimeOffsetPerUnwaveringLoyalChange".Translate(), ref editTimeOffsetPerUnwaveringLoyalChange, editTimeOffsetPerUnwaveringLoyalChange.ToStringTicksToPeriod(), 0, 60000);
-            
-            DoSlider(listingStandard, "AC.stackDegradationOffsetPerNameChange".Translate(), ref stackDegradationOffsetPerNameChange, stackDegradationOffsetPerNameChange.ToStringPercent(), 0f, 1f);
-            DoSlider(listingStandard, "AC.stackDegradationOffsetPerGenderChange".Translate(), ref stackDegradationOffsetPerGenderChange, stackDegradationOffsetPerGenderChange.ToStringPercent(), 0f, 1f);
-            DoSlider(listingStandard, "AC.stackDegradationOffsetPerSkillLevelChange".Translate(), ref stackDegradationOffsetPerSkillLevelChange, stackDegradationOffsetPerSkillLevelChange.ToStringPercent(), 0f, 1f);
-            DoSlider(listingStandard, "AC.stackDegradationOffsetPerSkillPassionChange".Translate(), ref stackDegradationOffsetPerSkillPassionChange, stackDegradationOffsetPerSkillPassionChange.ToStringPercent(), 0f, 1f);
-            DoSlider(listingStandard, "AC.stackDegradationOffsetPerTraitChange".Translate(), ref stackDegradationOffsetPerTraitChange, stackDegradationOffsetPerTraitChange.ToStringPercent(), 0f, 1f);
-            DoSlider(listingStandard, "AC.stackDegradationOffsetPerChildhoodChange".Translate(), ref stackDegradationOffsetPerChildhoodChange, stackDegradationOffsetPerChildhoodChange.ToStringPercent(), 0f, 1f);
-            DoSlider(listingStandard, "AC.stackDegradationOffsetPerAdulthoodChange".Translate(), ref stackDegradationOffsetPerAdulthoodChange, stackDegradationOffsetPerAdulthoodChange.ToStringPercent(), 0f, 1f);
-            DoSlider(listingStandard, "AC.stackDegradationOffsetPerIdeologyChange".Translate(), ref stackDegradationOffsetPerIdeologyChange, stackDegradationOffsetPerIdeologyChange.ToStringPercent(), 0f, 1f);
-            DoSlider(listingStandard, "AC.stackDegradationOffsetPerCertaintyChange".Translate(), ref stackDegradationOffsetPerCertaintyChange, stackDegradationOffsetPerCertaintyChange.ToStringPercent(), 0f, 1f);
-            DoSlider(listingStandard, "AC.stackDegradationOffsetPerFactionChange".Translate(), ref stackDegradationOffsetPerFactionChange, stackDegradationOffsetPerFactionChange.ToStringPercent(), 0f, 1f);
-            DoSlider(listingStandard, "AC.stackDegradationOffsetPerUnwaveringLoyalChange".Translate(), ref stackDegradationOffsetPerUnwaveringLoyalChange, stackDegradationOffsetPerFactionChange.ToStringPercent(), 0f, 1f);
-            listingStandard.Gap(10);
-            if (listingStandard.ButtonText("Reset".Translate()))
-            {
-                baseGrowingTimeDuration = 900000;
-
-                editTimeOffsetPerNameChange = 2000;
-                editTimeOffsetPerGenderChange = 5000;
-                editTimeOffsetPerSkillLevelChange = 250;
-                editTimeOffsetPerSkillPassionChange = 1000;
-                editTimeOffsetPerTraitChange = 1200;
-                editTimeOffsetPerChildhoodChange = 5000;
-                editTimeOffsetPerAdulthoodChange = 5000;
-                editTimeOffsetPerIdeologyChange = 2500;
-                editTimeOffsetPerCertaintyChange = 50;
-                editTimeOffsetPerFactionChange = 2500;
-
-                stackDegradationOffsetPerNameChange = 0.25f;
-                stackDegradationOffsetPerGenderChange = 0.5f;
-                stackDegradationOffsetPerSkillLevelChange = 0.03f;
-                stackDegradationOffsetPerSkillPassionChange = 0.1f;
-                stackDegradationOffsetPerTraitChange = 0.15f;
-                stackDegradationOffsetPerChildhoodChange = 0.5f;
-                stackDegradationOffsetPerAdulthoodChange = 0.5f;
-                stackDegradationOffsetPerIdeologyChange = 0.25f;
-                stackDegradationOffsetPerCertaintyChange = 0.01f;
-                stackDegradationOffsetPerFactionChange = 0.25f;
-            }
+            listingStandard.Label("Mod options are coming in 4.3!");
+            //DoSlider(listingStandard, "AC.GrowingTimeDuration".Translate(), ref baseGrowingTimeDuration, baseGrowingTimeDuration.ToStringTicksToPeriod(), 1000, 9000000);
+            //DoSlider(listingStandard, "AC.editTimeOffsetPerNameChange".Translate(), ref editTimeOffsetPerNameChange, editTimeOffsetPerNameChange.ToStringTicksToPeriod(), 0, 60000);
+            //DoSlider(listingStandard, "AC.editTimeOffsetPerGenderChange".Translate(), ref editTimeOffsetPerGenderChange, editTimeOffsetPerGenderChange.ToStringTicksToPeriod(), 0, 60000);
+            //DoSlider(listingStandard, "AC.editTimeOffsetPerSkillLevelChange".Translate(), ref editTimeOffsetPerSkillLevelChange, editTimeOffsetPerSkillLevelChange.ToStringTicksToPeriod(), 0, 60000);
+            //DoSlider(listingStandard, "AC.editTimeOffsetPerSkillPassionChange".Translate(), ref editTimeOffsetPerSkillPassionChange, editTimeOffsetPerSkillPassionChange.ToStringTicksToPeriod(), 0, 60000);
+            //DoSlider(listingStandard, "AC.editTimeOffsetPerTraitChange".Translate(), ref editTimeOffsetPerTraitChange, editTimeOffsetPerTraitChange.ToStringTicksToPeriod(), 0, 60000);
+            //DoSlider(listingStandard, "AC.editTimeOffsetPerChildhoodChange".Translate(), ref editTimeOffsetPerChildhoodChange, editTimeOffsetPerChildhoodChange.ToStringTicksToPeriod(), 0, 60000);
+            //DoSlider(listingStandard, "AC.editTimeOffsetPerAdulthoodChange".Translate(), ref editTimeOffsetPerAdulthoodChange, editTimeOffsetPerAdulthoodChange.ToStringTicksToPeriod(), 0, 60000);
+            //DoSlider(listingStandard, "AC.editTimeOffsetPerIdeologyChange".Translate(), ref editTimeOffsetPerIdeologyChange, editTimeOffsetPerIdeologyChange.ToStringTicksToPeriod(), 0, 60000);
+            //DoSlider(listingStandard, "AC.editTimeOffsetPerCertaintyChange".Translate(), ref editTimeOffsetPerCertaintyChange, editTimeOffsetPerCertaintyChange.ToStringTicksToPeriod(), 0, 60000);
+            //DoSlider(listingStandard, "AC.editTimeOffsetPerFactionChange".Translate(), ref editTimeOffsetPerFactionChange, editTimeOffsetPerFactionChange.ToStringTicksToPeriod(), 0, 60000);
+            //DoSlider(listingStandard, "AC.editTimeOffsetPerUnwaveringLoyalChange".Translate(), ref editTimeOffsetPerUnwaveringLoyalChange, editTimeOffsetPerUnwaveringLoyalChange.ToStringTicksToPeriod(), 0, 60000);
+            //
+            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerNameChange".Translate(), ref stackDegradationOffsetPerNameChange, stackDegradationOffsetPerNameChange.ToStringPercent(), 0f, 1f);
+            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerGenderChange".Translate(), ref stackDegradationOffsetPerGenderChange, stackDegradationOffsetPerGenderChange.ToStringPercent(), 0f, 1f);
+            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerSkillLevelChange".Translate(), ref stackDegradationOffsetPerSkillLevelChange, stackDegradationOffsetPerSkillLevelChange.ToStringPercent(), 0f, 1f);
+            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerSkillPassionChange".Translate(), ref stackDegradationOffsetPerSkillPassionChange, stackDegradationOffsetPerSkillPassionChange.ToStringPercent(), 0f, 1f);
+            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerTraitChange".Translate(), ref stackDegradationOffsetPerTraitChange, stackDegradationOffsetPerTraitChange.ToStringPercent(), 0f, 1f);
+            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerChildhoodChange".Translate(), ref stackDegradationOffsetPerChildhoodChange, stackDegradationOffsetPerChildhoodChange.ToStringPercent(), 0f, 1f);
+            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerAdulthoodChange".Translate(), ref stackDegradationOffsetPerAdulthoodChange, stackDegradationOffsetPerAdulthoodChange.ToStringPercent(), 0f, 1f);
+            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerIdeologyChange".Translate(), ref stackDegradationOffsetPerIdeologyChange, stackDegradationOffsetPerIdeologyChange.ToStringPercent(), 0f, 1f);
+            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerCertaintyChange".Translate(), ref stackDegradationOffsetPerCertaintyChange, stackDegradationOffsetPerCertaintyChange.ToStringPercent(), 0f, 1f);
+            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerFactionChange".Translate(), ref stackDegradationOffsetPerFactionChange, stackDegradationOffsetPerFactionChange.ToStringPercent(), 0f, 1f);
+            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerUnwaveringLoyalChange".Translate(), ref stackDegradationOffsetPerUnwaveringLoyalChange, stackDegradationOffsetPerFactionChange.ToStringPercent(), 0f, 1f);
+            //listingStandard.Gap(10);
+            //if (listingStandard.ButtonText("Reset".Translate()))
+            //{
+            //    baseGrowingTimeDuration = 900000;
+            //
+            //    editTimeOffsetPerNameChange = 2000;
+            //    editTimeOffsetPerGenderChange = 5000;
+            //    editTimeOffsetPerSkillLevelChange = 250;
+            //    editTimeOffsetPerSkillPassionChange = 1000;
+            //    editTimeOffsetPerTraitChange = 1200;
+            //    editTimeOffsetPerChildhoodChange = 5000;
+            //    editTimeOffsetPerAdulthoodChange = 5000;
+            //    editTimeOffsetPerIdeologyChange = 2500;
+            //    editTimeOffsetPerCertaintyChange = 50;
+            //    editTimeOffsetPerFactionChange = 2500;
+            //
+            //    stackDegradationOffsetPerNameChange = 0.25f;
+            //    stackDegradationOffsetPerGenderChange = 0.5f;
+            //    stackDegradationOffsetPerSkillLevelChange = 0.03f;
+            //    stackDegradationOffsetPerSkillPassionChange = 0.1f;
+            //    stackDegradationOffsetPerTraitChange = 0.15f;
+            //    stackDegradationOffsetPerChildhoodChange = 0.5f;
+            //    stackDegradationOffsetPerAdulthoodChange = 0.5f;
+            //    stackDegradationOffsetPerIdeologyChange = 0.25f;
+            //    stackDegradationOffsetPerCertaintyChange = 0.01f;
+            //    stackDegradationOffsetPerFactionChange = 0.25f;
+            //}
             listingStandard.End();
         }
 

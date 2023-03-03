@@ -40,7 +40,7 @@ namespace AlteredCarbon
         private List<Ideo> allIdeos;
         private List<TraitDef> allTraits;
         private float LeftPanelWidth => 450;
-        public override Vector2 InitialSize => new Vector2(900, 975);
+        public override Vector2 InitialSize => new Vector2(900, Mathf.Min(UI.screenHeight, 975));
         public Window_StackEditor(Building_DecryptionBench decryptionBench, CorticalStack corticalStack)
         {
             this.decryptionBench = decryptionBench;
@@ -87,10 +87,17 @@ namespace AlteredCarbon
             }
         }
 
-        private Vector2 scrollPos;
+        private Vector2 windowScrollPos;
+        private Vector2 traitAreaScrollPos;
+        private float totalHeight = 0f;
         public override void DoWindowContents(Rect inRect)
         {
+            var viewRect = new Rect(inRect.x, inRect.y, inRect.width, inRect.height - 170);
+            var totalRect = new Rect(viewRect.x, viewRect.y, viewRect.width - 16, totalHeight);
+            Widgets.BeginScrollView(viewRect, ref windowScrollPos, totalRect);
+            totalHeight = 0f;
             Vector2 pos = new Vector2(inRect.x + Margin, inRect.y);
+            Log.Message(viewRect + " - " + totalRect + " - " + totalHeight + " - pos: " + pos);
             DrawTitle(ref pos, inRect);
             DrawNamePanel(ref pos);
             DrawGenderPanel(ref pos);
@@ -100,10 +107,14 @@ namespace AlteredCarbon
             {
                 DrawIdeoPanel(ref pos);
             }
+            var leftY = pos.y;
             pos.x += (inRect.width - LeftPanelWidth) + 100;
             pos.y = inRect.y + 100;
             DrawSkillsPanel(ref pos, inRect);
             DrawTraitsPanel(ref pos, inRect);
+            var rightY = pos.y;
+            totalHeight = Mathf.Max(leftY, rightY);
+            Widgets.EndScrollView();
             pos.x = inRect.x + Margin;
             pos.y = inRect.height - 175;
             DrawTimePanel(ref pos, inRect);
@@ -369,7 +380,7 @@ namespace AlteredCarbon
                 Widgets.DrawRectFast(traitsFill, Widgets.MenuSectionBGFillColor, null);
 
 
-                Widgets.BeginScrollView(traitsFill, ref scrollPos, skillsContainer);
+                Widgets.BeginScrollView(traitsFill, ref traitAreaScrollPos, skillsContainer);
                 skillsContainer.x += this.Margin;
                 skillsContainer.y += this.Margin;
 

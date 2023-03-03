@@ -748,7 +748,7 @@ namespace AlteredCarbon
                     thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGenderDouble);
                     thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGenderPregnant);
                 }
-                if (originalRace == pawn.kindDef.race)
+                if (ModCompatibility.AlienRacesIsActive && originalRace == pawn.kindDef.race)
                 {
                     thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongRace);
                 }

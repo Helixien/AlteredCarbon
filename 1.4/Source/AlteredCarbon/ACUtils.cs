@@ -380,16 +380,18 @@ namespace AlteredCarbon
         }
         private static void CopyGene(Pawn dest, List<Gene> sourceGenes, bool xenogene)
         {
+            var copiedGenes = new List<Gene>();
             foreach (var sourceGene in sourceGenes)
             {
-                dest.genes.AddGene(sourceGene.def, xenogene);
+                copiedGenes.Add(dest.genes.AddGene(sourceGene.def, xenogene));
             }
             for (var i = 0; i < sourceGenes.Count; i++)
             {
-                var gene = sourceGenes[i];
-                if (gene.Active)
+                var originalGene = sourceGenes[i];
+                var copiedGene = copiedGenes[i];
+                if (originalGene.Active)
                 {
-                    GeneUtils.ApplyGene(gene, dest);
+                    GeneUtils.ApplyGene(copiedGene, dest);
                 }
             }
         }

@@ -120,10 +120,8 @@ namespace AlteredCarbon
                     dummyPawn.Kill(null, hediff);
                     dummyPawn.Corpse.DeSpawn();
                 }
-                if (hediff.PersonaData.hostPawn != null)
-                {
-                    AlteredCarbonManager.Instance.StacksIndex.Remove(hediff.PersonaData.PawnID);
-                }
+
+                AlteredCarbonManager.Instance.StacksIndex.Remove(hediff.PersonaData.PawnID);
                 AlteredCarbonManager.Instance.ReplaceStackWithPawn(corticalStack, pawn);
                 if (AlteredCarbonManager.Instance.emptySleeves.Contains(pawn))
                 {
@@ -164,7 +162,7 @@ namespace AlteredCarbon
                     }
                 }
 
-                if (hediff.PersonaData.originalRace != null && pawn.kindDef.race != hediff.PersonaData.originalRace)
+                if (ModCompatibility.AlienRacesIsActive && hediff.PersonaData.originalRace != null && pawn.kindDef.race != hediff.PersonaData.originalRace)
                 {
                     pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongRace);
                 }
