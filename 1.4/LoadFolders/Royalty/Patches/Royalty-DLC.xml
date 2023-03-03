@@ -3,7 +3,7 @@
 	<Operation Class="PatchOperationSequence">
 		<operations>
 			<!-- ================================ Add Faction Tags to Research ====================== -->
-			<li Class="PatchOperationAddModExtension">
+			<li Class="PatchOperationAdd">
 				<xpath>/Defs/ResearchProjectDef[@Name="AC_Research_Base"]</xpath>
 				<value>
 					<heldByFactionCategoryTags>
