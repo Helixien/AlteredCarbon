@@ -396,6 +396,14 @@ namespace AlteredCarbon
             }
         }
 
+        public static bool IsXenogene(this Pawn pawn, GeneDef gene)
+        {
+            if (pawn.genes.HasEndogene(gene))
+            {
+                return false;
+            }
+            return true;
+        }
         public static void AddTakeEmptySleeveJob(Pawn pawn, Pawn pawnTarget, bool failMessage)
         {
             Building_Bed building_Bed3 = RestUtility.FindBedFor(pawnTarget, pawn, checkSocialProperness: false);

@@ -198,31 +198,31 @@ namespace AlteredCarbon
             }
 
             var genes = curSleeve.genes?.GenesListForReading;
+            bool geneOptionsDrawn = false;
+            foreach (var category in ACUtils.genesByCategories)
+            {
+                var groupedGenes = genes.Where(x => x.def.exclusionTags.NullOrEmpty() is false
+                && x.def.exclusionTags.Contains(category.Key)).Select(x => x.def).ToList();
+                if (groupedGenes.Count > 1)
+                {
+                    if (geneOptionsDrawn is false)
+                    {
+                        ListSeparator(ref firstColumnPos, LineSeparatorWidth, "AC.GeneOptions".Translate());
+                        firstColumnPos.y += 5f;
+                        geneOptionsDrawn = true;
+                    }
+                    var index = indexesPerCategory[category.Key];
+                    DoSelectionButtons(ref firstColumnPos, category.Key.SplitCamelCase().FirstCharToUpper(), ref index,
+                        (GeneDef x) => x.LabelCap, groupedGenes, delegate (GeneDef x)
+                        {
+                            GeneUtils.ApplyGene(x, curSleeve, curSleeve.IsXenogene(x));
+                            RecheckEverything();
+                            indexesPerCategory[category.Key] = groupedGenes.IndexOf(x);
+                        }, floatMenu: false);
+                }
+            }
             if (curXenogerm != null)
             {
-                bool geneOptionsDrawn = false;
-                foreach (var category in ACUtils.genesByCategories)
-                {
-                    var xenogermGenes = curXenogerm.GeneSet.genes.Where(x => x.exclusionTags.NullOrEmpty() is false
-                    && x.exclusionTags.Contains(category.Key)).ToList();
-                    if (xenogermGenes.Count > 1)
-                    {
-                        if (geneOptionsDrawn is false)
-                        {
-                            ListSeparator(ref firstColumnPos, LineSeparatorWidth, "AC.GeneOptions".Translate());
-                            firstColumnPos.y += 5f;
-                            geneOptionsDrawn = true;
-                        }
-                        var index = indexesPerCategory[category.Key];
-                        DoSelectionButtons(ref firstColumnPos, category.Key.SplitCamelCase().FirstCharToUpper(), ref index,
-                            (GeneDef x) => x.LabelCap, xenogermGenes, delegate (GeneDef x)
-                            {
-                                GeneUtils.ApplyGene(x, curSleeve, false);
-                                RecheckEverything();
-                                indexesPerCategory[category.Key] = xenogermGenes.IndexOf(x);
-                            }, floatMenu: false);
-                    }
-                }
                 if (ModCompatibility.HelixienAlteredCarbonIsActive)
                 {
                     label = "AC.ConvertGenesToGermline".Translate();
@@ -265,7 +265,7 @@ namespace AlteredCarbon
                     }
 
                     curSleeve.story.skinColorOverride = curSleeve.story.skinColorBase = null;
-                    var gene = GeneUtils.ApplyGene(selected.Key, curSleeve, false);
+                    var gene = GeneUtils.ApplyGene(selected.Key, curSleeve, curSleeve.IsXenogene(selected.Key));
                     if (selected.Key.endogeneCategory == EndogeneCategory.Melanin)
                     {
                         var melaninGene = curSleeve.genes.GenesListForReading
@@ -292,7 +292,7 @@ namespace AlteredCarbon
                 {
                     if (selected.Key != null)
                     {
-                        GeneUtils.ApplyGene(selected.Key, curSleeve, false);
+                        GeneUtils.ApplyGene(selected.Key, curSleeve, curSleeve.IsXenogene(selected.Key));
                     }
                     else
                     {
@@ -310,7 +310,7 @@ namespace AlteredCarbon
                     {
                         if (x.Key != null)
                         {
-                            GeneUtils.ApplyGene(x.Key, curSleeve, false);
+                            GeneUtils.ApplyGene(x.Key, curSleeve, curSleeve.IsXenogene(x.Key));
                         }
                         else
                         {
@@ -328,7 +328,7 @@ namespace AlteredCarbon
                     {
                         if (x.Key != null)
                         {
-                            GeneUtils.ApplyGene(x.Key, curSleeve, false);
+                            GeneUtils.ApplyGene(x.Key, curSleeve, curSleeve.IsXenogene(x.Key));
                         }
                         else
                         {
@@ -348,7 +348,7 @@ namespace AlteredCarbon
                         {
                             ModCompatibility.SetHairColorFirst(curSleeve, selected.Value);
                         }
-                        var gene = GeneUtils.ApplyGene(selected.Key, curSleeve, false);
+                        var gene = GeneUtils.ApplyGene(selected.Key, curSleeve, curSleeve.IsXenogene(selected.Key));
                         var hairGene = curSleeve.genes.GenesListForReading
                             .FirstOrDefault(x => selected.Key.endogeneCategory == x.def.endogeneCategory);
                         if (hairGene != null && gene != hairGene)
@@ -782,19 +782,16 @@ namespace AlteredCarbon
             hairTypeIndex = GetPermittedHairs().IndexOf(curSleeve.story.hairDef);
             beardTypeIndex = GetPermittedBeards().IndexOf(curSleeve.style.beardDef);
             headTypeIndex = GetPermittedHeads().Select(x => x.Value).ToList().IndexOf(curSleeve.story.headType);
-            if (curXenogerm != null)
+            indexesPerCategory = new Dictionary<string, int>();
+            var genes = curSleeve.genes.GenesListForReading.Where(x => x.def.exclusionTags.NullOrEmpty() is false).Select(x => x.def).ToList();
+            foreach (var gene in genes)
             {
-                indexesPerCategory = new Dictionary<string, int>();
-                var genes = curXenogerm.GeneSet.genes.Where(x => x.exclusionTags.NullOrEmpty() is false);
-                foreach (var gene in genes)
+                foreach (var tag in gene.exclusionTags)
                 {
-                    foreach (var tag in gene.exclusionTags)
-                    {
-                        var genesOfThisTag = curSleeve.genes.GenesListForReading.Where(x => x.def.exclusionTags.NullOrEmpty() is false
-                            && x.def.exclusionTags.Contains(tag)).ToList();
-                        var activeGene = genesOfThisTag.FirstOrDefault(x => x.Active);
-                        indexesPerCategory[tag] = genesOfThisTag.IndexOf(activeGene);
-                    }
+                    var genesOfThisTag = curSleeve.genes.GenesListForReading.Where(x => x.def.exclusionTags.NullOrEmpty() is false
+                        && x.def.exclusionTags.Contains(tag)).ToList();
+                    var activeGene = genesOfThisTag.FirstOrDefault(x => x.Active);
+                    indexesPerCategory[tag] = genesOfThisTag.IndexOf(activeGene);
                 }
             }
 
