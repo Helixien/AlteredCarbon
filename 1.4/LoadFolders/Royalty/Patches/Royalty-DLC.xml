@@ -8,7 +8,6 @@
 				<value>
 					<heldByFactionCategoryTags>
 						<li>Empire</li>
-						<li MayRequire="hlx.ReinforcedMechanoids2">RM_Remnants</li>
 					</heldByFactionCategoryTags>
 				</value>
 			</li>
