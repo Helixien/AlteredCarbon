@@ -4,7 +4,7 @@
 		<operations>
 			<!-- ================================ Add Faction Tags to Research ====================== -->
 			<li Class="PatchOperationAddModExtension">
-				<xpath>/Defs/PawnKindDef[@Name="AC_Research_Base"]</xpath>
+				<xpath>/Defs/ResearchProjectDef[@Name="AC_Research_Base"]</xpath>
 				<value>
 					<heldByFactionCategoryTags>
 						<li>Empire</li>
