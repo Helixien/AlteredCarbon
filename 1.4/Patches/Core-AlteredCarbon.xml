@@ -83,17 +83,4 @@
 			</li>
 		</operations>
 	</Operation>
-	<!-- ================================ Remove Faction Tags to Research if Royalty is not found ====================== -->
-	<Operation Class="PatchOperationFindMod">
-		<mods>
-			<li>Royalty</li>
-		</mods>
-		<nomatch Class="PatchOperationSequence">
-			<operations>
-				<li Class="PatchOperationRemove">
-					<xpath>/Defs/ResearchProjectDef[@Name="AC_ResearchBase"]/heldByFactionCategoryTags</xpath>
-				</li>
-			</operations>
-		</nomatch>
-	</Operation>
 </Patch>
