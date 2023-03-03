@@ -23,12 +23,12 @@
 		<castFleck>PsycastPsychicEffect</castFleck>
 		<fleckOnTarget>PsycastPsychicEffect</fleckOnTarget>
 		<modExtensions>
-			<li Class="VFECore.Abilities.AbilityExtension_FleckOnTarget">
-				<sound MayRequire="Ludeon.RimWorld.Royalty">Psycast_Skip_Exit</sound>
+			<li Class="VFECore.Abilities.AbilityExtension_FleckOnTarget"  MayRequire="Ludeon.RimWorld.Royalty">
+				<sound>Psycast_Skip_Exit</sound>
 				<preCastTicks>5</preCastTicks>
 			</li>
-			<li Class="VFECore.Abilities.AbilityExtension_EffecterOnTarget">
-				<effecterDef>Skip_Exit</effecterDef>
+			<li Class="VFECore.Abilities.AbilityExtension_EffecterOnTarget" MayRequire="Ludeon.RimWorld.Royalty">
+				<effecterDef >Skip_Exit</effecterDef>
 				<maintainForTicks>60</maintainForTicks>
 				<scale>3</scale>
 			</li>

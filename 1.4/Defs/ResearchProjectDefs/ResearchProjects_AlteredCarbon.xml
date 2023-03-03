@@ -1,54 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
+	<ResearchProjectDef Name="AC_ResearchBase" Abstract="True">
+		<techLevel>Ultra</techLevel>
+		<techprintCount MayRequire="Ludeon.RimWorld.Royalty">1</techprintCount>
+		<techprintCommonality MayRequire="Ludeon.RimWorld.Royalty">1.2</techprintCommonality>
+		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
+		<requiredResearchFacilities>
+			<li>MultiAnalyzer</li>
+		</requiredResearchFacilities>
+	</ResearchProjectDef>
 	<!-- ================================ Sleeve Production	====================== -->
-	<ResearchProjectDef>
+	<ResearchProjectDef ParentName="AC_ResearchBase">
 		<defName>AC_Sleeving</defName>
 		<label>sleeving</label>
 		<description>Build facilities that gestate empty sleeves, ready for cortical stack implantation.</description>
 		<baseCost>3000</baseCost>
+		<techprintMarketValue MayRequire="Ludeon.RimWorld.Royalty">1500</techprintMarketValue>
 		<researchViewX>12.00</researchViewX>
 		<researchViewY>2.90</researchViewY>
-		<techLevel>Ultra</techLevel>
 		<prerequisites>
 			<li>MicroelectronicsBasics</li>
 		</prerequisites>
-		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
-		<requiredResearchFacilities>
-			<li>MultiAnalyzer</li>
-		</requiredResearchFacilities>
 	</ResearchProjectDef>
 	<!-- ================================ Cortical Stack crafting ====================== -->
-	<ResearchProjectDef>
+	<ResearchProjectDef ParentName="AC_ResearchBase">
 		<defName>AC_CorticalCrafting</defName>
 		<label>cortical stacks</label>
 		<description>Fabricate advanced ultratech cortical stacks from advanced components and other materials.</description>
 		<baseCost>4000</baseCost>
+		<techprintMarketValue MayRequire="Ludeon.RimWorld.Royalty">1500</techprintMarketValue>
 		<researchViewX>17.00</researchViewX>
 		<researchViewY>0.00</researchViewY>
-		<techLevel>Ultra</techLevel>
 		<prerequisites>
 			<li>AdvancedFabrication</li>
 		</prerequisites>
-		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
-		<requiredResearchFacilities>
-			<li>MultiAnalyzer</li>
-		</requiredResearchFacilities>
 	</ResearchProjectDef>
 	<!-- ================================ Rewrite Cortical Stack ====================== -->
-	<ResearchProjectDef>
+	<ResearchProjectDef ParentName="AC_ResearchBase">
 		<defName>AC_RewriteCorticalStack</defName>
 		<label>cortical modification</label>
 		<description>Modify the data on cortical stacks using exploits in the software of cortical stacks.</description>
 		<baseCost>5000</baseCost>
+		<techprintMarketValue MayRequire="Ludeon.RimWorld.Royalty">2000</techprintMarketValue>
 		<researchViewX>18.00</researchViewX>
 		<researchViewY>0.00</researchViewY>
-		<techLevel>Ultra</techLevel>
 		<prerequisites>
 			<li>AC_CorticalCrafting</li>
 		</prerequisites>
-		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
-		<requiredResearchFacilities>
-			<li>MultiAnalyzer</li>
-		</requiredResearchFacilities>
 	</ResearchProjectDef>
 </Defs>
