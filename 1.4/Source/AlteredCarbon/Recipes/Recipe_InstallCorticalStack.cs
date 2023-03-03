@@ -164,7 +164,7 @@ namespace AlteredCarbon
                     }
                 }
 
-                if (hediff.PersonaData.originalRace != null && pawn.kindDef.race != hediff.PersonaData.originalRace)
+                if (ModCompatibility.AlienRacesIsActive && hediff.PersonaData.originalRace != null && pawn.kindDef.race != hediff.PersonaData.originalRace)
                 {
                     pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongRace);
                 }
