@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<ResearchProjectDef Abstract="True" Name="AC_Research_Base">
+	<ResearchProjectDef Name="AC_ResearchBase" Abstract="True">
 		<techLevel>Ultra</techLevel>
 		<techprintCount MayRequire="Ludeon.RimWorld.Royalty">1</techprintCount>
 		<techprintCommonality MayRequire="Ludeon.RimWorld.Royalty">1.2</techprintCommonality>
+		<heldByFactionCategoryTags>
+			<li>Empire</li>
+		</heldByFactionCategoryTags>
 		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
 		<requiredResearchFacilities>
 			<li>MultiAnalyzer</li>
 		</requiredResearchFacilities>
 	</ResearchProjectDef>
 	<!-- ================================ Sleeve Production	====================== -->
-	<ResearchProjectDef ParentName="AC_Research_Base">
+	<ResearchProjectDef ParentName="AC_ResearchBase">
 		<defName>AC_Sleeving</defName>
 		<label>sleeving</label>
 		<description>Build facilities that gestate empty sleeves, ready for cortical stack implantation.</description>
@@ -23,7 +26,7 @@
 		</prerequisites>
 	</ResearchProjectDef>
 	<!-- ================================ Cortical Stack crafting ====================== -->
-	<ResearchProjectDef ParentName="AC_Research_Base">
+	<ResearchProjectDef ParentName="AC_ResearchBase">
 		<defName>AC_CorticalCrafting</defName>
 		<label>cortical stacks</label>
 		<description>Fabricate advanced ultratech cortical stacks from advanced components and other materials.</description>
@@ -36,7 +39,7 @@
 		</prerequisites>
 	</ResearchProjectDef>
 	<!-- ================================ Rewrite Cortical Stack ====================== -->
-	<ResearchProjectDef ParentName="AC_Research_Base">
+	<ResearchProjectDef ParentName="AC_ResearchBase">
 		<defName>AC_RewriteCorticalStack</defName>
 		<label>cortical modification</label>
 		<description>Modify the data on cortical stacks using exploits in the software of cortical stacks.</description>
