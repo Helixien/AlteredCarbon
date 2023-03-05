@@ -1,8 +1,8 @@
 <loadFolders>
 	<v1.4>
+		<li IfModNotActive="OskarPotocki.VFE.Ultratech">1.4/LoadFolders/Standalone</li>
 		<li>/</li>
 		<li>1.4</li>
-		<li IfModNotActive="OskarPotocki.VFE.Ultratech">1.4/LoadFolders/Standalone</li>
 		<li IfModActive="Ludeon.RimWorld.Royalty">1.4/LoadFolders/Royalty</li>
 		<li IfModActive="Ludeon.RimWorld.Ideology">1.4/LoadFolders/Ideology</li>
 	</v1.4>
