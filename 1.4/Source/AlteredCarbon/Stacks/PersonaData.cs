@@ -17,11 +17,13 @@ namespace AlteredCarbon
         public static bool debug => false;
         public ThingDef sourceStack;
         public Name name;
+        public PawnKindDef kindDef;
         public Pawn hostPawn;
         private int hostilityMode;
         private Area areaRestriction;
         private MedicalCareCategory medicalCareCategory;
         private bool selfTend;
+        public long ageBiologicalTicks;
         public long ageChronologicalTicks;
         private List<TimeAssignmentDef> times;
         private FoodRestriction foodRestriction;
@@ -142,7 +144,6 @@ namespace AlteredCarbon
             {
                 if (dummyPawn is null)
                 {
-                    dummyPawn = PawnGenerator.GeneratePawn(PawnKindDefOf.Colonist, Faction.OfPlayer);
                     RefreshDummyPawn();
                 }
                 return dummyPawn;
@@ -153,7 +154,7 @@ namespace AlteredCarbon
         {
             if (dummyPawn is null)
             {
-                dummyPawn = PawnGenerator.GeneratePawn(PawnKindDefOf.Colonist, Faction.OfPlayer);
+                dummyPawn = CreateDummyPawn(originalRace, faction);
             }
             OverwritePawn(dummyPawn, null, overwriteOriginalPawn: false, 
                 copyFromOrigPawn: hostPawn != null && hostPawn.Dead is false && hostPawn.IsEmptySleeve() is false);
@@ -181,6 +182,27 @@ namespace AlteredCarbon
                 dummyPawn.health.healthState = PawnHealthState.Dead;
             }
             AssignDummyPawnReferences();
+        }
+
+        public Pawn CreateDummyPawn(ThingDef race, Faction faction)
+        {
+            Pawn pawn = (Pawn)ThingMaker.MakeThing(race ?? ThingDefOf.Human);
+            pawn.kindDef = hostPawn?.kindDef ?? kindDef ?? PawnKindDefOf.Colonist;
+            pawn.SetFactionDirect(faction);
+            PawnComponentsUtility.CreateInitialComponents(pawn);
+            if (ageBiologicalTicks != default)
+            {
+                pawn.ageTracker.AgeBiologicalTicks = ageBiologicalTicks;
+            }
+            else if (hostPawn != null)
+            {
+                pawn.ageTracker.AgeBiologicalTicks = ageBiologicalTicks = hostPawn.ageTracker.AgeBiologicalTicks;
+            }
+            else
+            {
+                pawn.ageTracker.AgeBiologicalTicks = 0;
+            }
+            return pawn;
         }
         public TaggedString PawnNameColored => TitleShort?.CapitalizeFirst().NullOrEmpty() ?? false
                     ? (TaggedString)(name?.ToStringShort.Colorize(GetFactionRelationColor(faction)))
@@ -238,6 +260,7 @@ namespace AlteredCarbon
             this.hostPawn = pawn;
             this.sourceStack = sourceStack ?? AC_DefOf.VFEU_FilledCorticalStack;
             name = GetNameCopy(pawn.Name);
+            this.kindDef = pawn.kindDef;
             if (pawn.playerSettings != null)
             {
                 hostilityMode = (int)pawn.playerSettings.hostilityResponse;
@@ -248,6 +271,7 @@ namespace AlteredCarbon
             if (pawn.ageTracker != null)
             {
                 ageChronologicalTicks = pawn.ageTracker.AgeChronologicalTicks;
+                ageBiologicalTicks = pawn.ageTracker.AgeBiologicalTicks;
             }
             foodRestriction = pawn.foodRestriction?.CurrentFoodRestriction;
             outfit = pawn.outfits?.CurrentOutfit;
@@ -565,10 +589,12 @@ namespace AlteredCarbon
         {
             sourceStack = other.sourceStack;
             name = GetNameCopy(other.name);
+            kindDef = other.kindDef;
             hostPawn = other.hostPawn;
             hostilityMode = other.hostilityMode;
             areaRestriction = other.areaRestriction;
             ageChronologicalTicks = other.ageChronologicalTicks;
+            ageBiologicalTicks = other.ageBiologicalTicks;
             medicalCareCategory = other.medicalCareCategory;
             selfTend = other.selfTend;
             foodRestriction = other.foodRestriction;
@@ -723,6 +749,10 @@ namespace AlteredCarbon
                 CopyFromPawn(hostPawn, sourceStack);
             }
             pawn.Name = GetNameCopy(name);
+            if (kindDef != null)
+            {
+                pawn.kindDef = kindDef;
+            }
             PawnComponentsUtility.CreateInitialComponents(pawn);
             if (pawn.Faction != faction)
             {
@@ -791,6 +821,10 @@ namespace AlteredCarbon
             }
             
             pawn.mindState = new Pawn_MindState(pawn);
+            foreach (var rel in pawn.relations.directRelations)
+            {
+                rel.otherPawn.relations.directRelations.RemoveAll(x => x.otherPawn == pawn);
+            }
             pawn.relations = new Pawn_RelationsTracker(pawn)
             {
                 everSeenByPlayer = everSeenByPlayer,
@@ -799,7 +833,6 @@ namespace AlteredCarbon
                 nextMarriageNameChange = nextMarriageNameChange,
                 hidePawnRelations = hidePawnRelations
             };
-            
             if (overwriteOriginalPawn)
             {
                 var allPotentialRelatedPawns = new HashSet<Pawn>();
@@ -1381,8 +1414,10 @@ namespace AlteredCarbon
             Scribe_References.Look(ref areaRestriction, "areaRestriction", false);
             Scribe_Values.Look(ref medicalCareCategory, "medicalCareCategory", MedicalCareCategory.NoCare, false);
             Scribe_Values.Look(ref selfTend, "selfTend", false, false);
+            Scribe_Values.Look(ref ageBiologicalTicks, "ageBiologicalTicks", 0, false);
             Scribe_Values.Look(ref ageChronologicalTicks, "ageChronologicalTicks", 0, false);
             Scribe_Defs.Look(ref originalRace, "race");
+            Scribe_Defs.Look(ref kindDef, "kindDef");
             Scribe_References.Look(ref outfit, "outfit", false);
             Scribe_References.Look(ref foodRestriction, "foodPolicy", false);
             Scribe_References.Look(ref drugPolicy, "drugPolicy", false);

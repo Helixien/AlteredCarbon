@@ -55,15 +55,6 @@ namespace AlteredCarbon
             base.ConsumeIngredient(ingredient, recipe, map);
             Thing.allowDestroyNonDestroyable = false;
         }
-        private void CopyAllPhysicalDataFrom(Pawn source, Pawn to)
-        {
-            to.health.hediffSet.hediffs = new List<Hediff>();
-            foreach (var hediff in source.health.hediffSet.hediffs)
-            {
-                to.health.hediffSet.hediffs.Add(hediff);
-            }
-            to.health.hediffSet.DirtyCache();
-        }
 
         public static Pawn pawnToInstallStack;
         public override void ApplyOnPawn(Pawn pawn, BodyPartRecord part, Pawn billDoer, List<Thing> ingredients, Bill bill)
@@ -107,14 +98,9 @@ namespace AlteredCarbon
                 hediff.PersonaData = corticalStack.PersonaData;
                 if (pawn.IsEmptySleeve() is false)
                 {
-                    var gender = pawn.gender;
-                    var kindDef = pawn.kindDef;
-                    var faction = pawn.Faction;
-                    var dummyPawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(kindDef, faction, fixedGender: gender,
-                        fixedBiologicalAge: pawn.ageTracker.AgeBiologicalYearsFloat, fixedChronologicalAge: pawn.ageTracker.AgeChronologicalYearsFloat));
                     var copy = new PersonaData();
-                    copy.OverwritePawn(pawn: dummyPawn, null, overwriteOriginalPawn: false, copyFromOrigPawn: false);
-                    CopyAllPhysicalDataFrom(pawn, dummyPawn);
+                    copy.CopyFromPawn(pawn, hediff.PersonaData.sourceStack);
+                    var dummyPawn = copy.GetDummyPawn;
                     GenSpawn.Spawn(dummyPawn, pawn.Position, pawn.Map);
                     Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.pawnToSkip = dummyPawn;
                     dummyPawn.Kill(null, hediff);

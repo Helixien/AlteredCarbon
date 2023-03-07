@@ -364,21 +364,15 @@ namespace AlteredCarbon
         }
         private static void CopyEndogenes(Pawn source, Pawn dest)
         {
-            var genes = source.genes.Endogenes;
-            if (genes != null)
-            {
-                CopyGene(dest, genes, false);
-            }
+            var genes = source.genes.Endogenes.Where(x => x?.def != null).ToList();
+            CopyGenes(dest, genes, false);
         }
         private static void CopyXenogenes(Pawn source, Pawn dest)
         {
-            var genes = source.genes.Xenogenes;
-            if (genes != null)
-            {
-                CopyGene(dest, genes, true);
-            }
+            var genes = source.genes.Xenogenes.Where(x => x?.def != null).ToList();
+            CopyGenes(dest, genes, true);
         }
-        private static void CopyGene(Pawn dest, List<Gene> sourceGenes, bool xenogene)
+        private static void CopyGenes(Pawn dest, List<Gene> sourceGenes, bool xenogene)
         {
             var copiedGenes = new List<Gene>();
             foreach (var sourceGene in sourceGenes)
@@ -389,9 +383,12 @@ namespace AlteredCarbon
             {
                 var originalGene = sourceGenes[i];
                 var copiedGene = copiedGenes[i];
-                if (originalGene.Active)
+                if (copiedGene != null)
                 {
-                    GeneUtils.ApplyGene(copiedGene, dest);
+                    if (originalGene.Active)
+                    {
+                        GeneUtils.ApplyGene(copiedGene, dest);
+                    }
                 }
             }
         }
@@ -496,6 +493,10 @@ namespace AlteredCarbon
             pawn.styleObserver = new Pawn_StyleObserverTracker(pawn);
             pawn.surroundings = new Pawn_SurroundingsTracker(pawn);
             pawn.abilities = new Pawn_AbilityTracker(pawn);
+            foreach (var rel in pawn.relations.directRelations)
+            {
+                rel.otherPawn.relations.directRelations.RemoveAll(x => x.otherPawn == pawn);
+            }
             pawn.relations = new Pawn_RelationsTracker(pawn);
             pawn.psychicEntropy = new Pawn_PsychicEntropyTracker(pawn);
             pawn.timetable = new Pawn_TimetableTracker(pawn);

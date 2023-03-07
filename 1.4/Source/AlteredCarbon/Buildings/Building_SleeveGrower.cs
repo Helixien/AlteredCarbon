@@ -680,7 +680,10 @@ namespace AlteredCarbon
                     }
                 }
             }
-            InnerPawn.RefreshGraphic();
+            if (Find.TickManager.TicksGame % 60 == 0)
+            {
+                InnerPawn.RefreshGraphic();
+            }
         }
 
         private void AdjustAge()

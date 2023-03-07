@@ -97,7 +97,6 @@ namespace AlteredCarbon
             Widgets.BeginScrollView(viewRect, ref windowScrollPos, totalRect);
             totalHeight = 0f;
             Vector2 pos = new Vector2(inRect.x + Margin, inRect.y);
-            Log.Message(viewRect + " - " + totalRect + " - " + totalHeight + " - pos: " + pos);
             DrawTitle(ref pos, inRect);
             DrawNamePanel(ref pos);
             DrawGenderPanel(ref pos);
