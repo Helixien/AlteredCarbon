@@ -16,8 +16,12 @@ namespace AlteredCarbon
             {
                 gene = pawn.genes.AddGene(geneDef, xenogene);
             }
-            ApplyGene(gene, pawn);
-            return gene;
+            if (gene != null)
+            {
+                ApplyGene(gene, pawn);
+                return gene;
+            }
+            return null;
         }
 
         public static void ApplyGene(Gene gene, Pawn pawn)

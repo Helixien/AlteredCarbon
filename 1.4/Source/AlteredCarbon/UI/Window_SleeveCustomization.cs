@@ -266,20 +266,23 @@ namespace AlteredCarbon
 
                     curSleeve.story.skinColorOverride = curSleeve.story.skinColorBase = null;
                     var gene = GeneUtils.ApplyGene(selected.Key, curSleeve, curSleeve.IsXenogene(selected.Key));
-                    if (selected.Key.endogeneCategory == EndogeneCategory.Melanin)
+                    if (gene != null)
                     {
-                        var melaninGene = curSleeve.genes.GenesListForReading
-                            .FirstOrDefault(x => x.def.endogeneCategory == EndogeneCategory.Melanin);
-                        if (melaninGene != null && gene != melaninGene)
+                        if (selected.Key.endogeneCategory == EndogeneCategory.Melanin)
                         {
-                            curSleeve.genes.RemoveGene(melaninGene);
+                            var melaninGene = curSleeve.genes.GenesListForReading
+                                .FirstOrDefault(x => x.def.endogeneCategory == EndogeneCategory.Melanin);
+                            if (melaninGene != null && gene != melaninGene)
+                            {
+                                curSleeve.genes.RemoveGene(melaninGene);
+                            }
                         }
-                    }
-                    foreach (var otherGene in curSleeve.genes.GenesListForReading) 
-                    {
-                        if (otherGene != gene && (otherGene.def.skinColorOverride != null || otherGene.def.skinColorBase != null))
+                        foreach (var otherGene in curSleeve.genes.GenesListForReading)
                         {
-                            otherGene.OverrideBy(gene);
+                            if (otherGene != gene && (otherGene.def.skinColorOverride != null || otherGene.def.skinColorBase != null))
+                            {
+                                otherGene.OverrideBy(gene);
+                            }
                         }
                     }
                     RecheckEverything();
@@ -349,12 +352,16 @@ namespace AlteredCarbon
                             ModCompatibility.SetHairColorFirst(curSleeve, selected.Value);
                         }
                         var gene = GeneUtils.ApplyGene(selected.Key, curSleeve, curSleeve.IsXenogene(selected.Key));
-                        var hairGene = curSleeve.genes.GenesListForReading
-                            .FirstOrDefault(x => selected.Key.endogeneCategory == x.def.endogeneCategory);
-                        if (hairGene != null && gene != hairGene)
+                        if (gene != null)
                         {
-                            curSleeve.genes.RemoveGene(hairGene);
+                            var hairGene = curSleeve.genes.GenesListForReading
+    .FirstOrDefault(x => selected.Key.endogeneCategory == x.def.endogeneCategory);
+                            if (hairGene != null && gene != hairGene)
+                            {
+                                curSleeve.genes.RemoveGene(hairGene);
+                            }
                         }
+
                         RecheckEverything();
                     });
 
