@@ -107,7 +107,6 @@
     <Compile Include="UI\Dialog_InfoCardStack.cs" />
     <Compile Include="UI\ITab_StackBackupContents.cs" />
     <Compile Include="UI\ITab_StackStorageContents.cs" />
-    <Compile Include="HarmonyPatches\Pawn_GuiltTracker_IsGuilty_Patch.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_ArchoStack.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_NoStack.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_NoStack_Social.cs" />
