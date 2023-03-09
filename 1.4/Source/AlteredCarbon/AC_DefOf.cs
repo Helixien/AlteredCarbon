@@ -85,5 +85,7 @@ namespace AlteredCarbon
         public static FleckDef PsycastAreaEffect;
         public static RecipeDef VFEU_HackBiocodedThings;
         public static HediffDef TraumaSavant;
+        public static RecipeDef CremateCorpse;
+        public static RecipeDef ButcherCorpseFlesh;
     }
 }

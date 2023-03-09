@@ -139,6 +139,7 @@ namespace AlteredCarbon
             var stackDef = SourceStack;
             var corticalStack = ThingMaker.MakeThing(stackDef) as CorticalStack;
             corticalStack.PersonaData.CopyFromPawn(this.pawn, stackDef);
+            corticalStack.PersonaData.CopyOriginalData(PersonaData);
             if (this.pawn.MapHeld != null)
             {
                 GenPlace.TryPlaceThing(corticalStack, this.pawn.PositionHeld, this.pawn.MapHeld, placeMode);
