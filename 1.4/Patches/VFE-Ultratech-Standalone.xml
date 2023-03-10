@@ -66,17 +66,12 @@
 			</li>
 			<!-- ================================ Protector Power Armor ====================== -->
 			<li Class="PatchOperationAdd">
-				<xpath>/Defs/ThingDef[@Name="VFEU_HuntersArmourBase" or @Name="VFEU_HuntersHelmet"]</xpath>
-				<value>
-					<workSkill>Crafting</workSkill>
-				</value>
-			</li>
-			<li Class="PatchOperationAdd">
 				<xpath>/Defs/ThingDef[defName="VFEU_Apparel_ProtectorArmor" or defName="VFEU_Apparel_ProtectorHelmet"]</xpath>
 				<value>
 					<recipeMaker>
 						<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
 						<researchPrerequisite>PoweredArmor</researchPrerequisite>
+						<workSkill>Crafting</workSkill>
 						<skillRequirements>
 							<Crafting>9</Crafting>
 						</skillRequirements>
