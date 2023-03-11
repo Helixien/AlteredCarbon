@@ -12,9 +12,11 @@ namespace AlteredCarbon
     class AlteredCarbonMod : Mod
     {
         public static AlteredCarbonSettings settings;
+        public static ModContentPack modContentPack;
         public AlteredCarbonMod(ModContentPack pack) : base(pack)
         {
             settings = GetSettings<AlteredCarbonSettings>();
+            modContentPack = pack;
         }
         public override void DoSettingsWindowContents(Rect inRect)
         {
@@ -22,10 +24,15 @@ namespace AlteredCarbon
             settings.DoSettingsWindowContents(inRect);
         }
 
-        // Return the name of the mod in the settings tab in game
+        public override void WriteSettings()
+        {
+            base.WriteSettings();
+            ACUtils.ApplySettings();
+
+        }
         public override string SettingsCategory()
         {
-            return "Altered Carbon";
+            return this.Content.Name;
         }
     }
 }

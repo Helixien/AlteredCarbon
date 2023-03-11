@@ -39,6 +39,30 @@ namespace AlteredCarbon
         private List<Faction> allFactions;
         private List<Ideo> allIdeos;
         private List<TraitDef> allTraits;
+
+        public static int editTimeOffsetPerNameChange = 2000;
+        public static int editTimeOffsetPerGenderChange = 5000;
+        public static int editTimeOffsetPerSkillLevelChange = 250;
+        public static int editTimeOffsetPerSkillPassionChange = 1000;
+        public static int editTimeOffsetPerTraitChange = 1200;
+        public static int editTimeOffsetPerChildhoodChange = 5000;
+        public static int editTimeOffsetPerAdulthoodChange = 5000;
+        public static int editTimeOffsetPerIdeologyChange = 2500;
+        public static int editTimeOffsetPerCertaintyChange = 50;
+        public static int editTimeOffsetPerFactionChange = 2500;
+        public static int editTimeOffsetPerUnwaveringLoyalChange = 1200;
+
+        public static float stackDegradationOffsetPerNameChange = 0.25f;
+        public static float stackDegradationOffsetPerGenderChange = 0.5f;
+        public static float stackDegradationOffsetPerSkillLevelChange = 0.03f;
+        public static float stackDegradationOffsetPerSkillPassionChange = 0.1f;
+        public static float stackDegradationOffsetPerTraitChange = 0.15f;
+        public static float stackDegradationOffsetPerChildhoodChange = 0.5f;
+        public static float stackDegradationOffsetPerAdulthoodChange = 0.5f;
+        public static float stackDegradationOffsetPerIdeologyChange = 0.25f;
+        public static float stackDegradationOffsetPerCertaintyChange = 0.01f;
+        public static float stackDegradationOffsetPerFactionChange = 0.25f;
+        public static float stackDegradationOffsetPerUnwaveringLoyalChange = 0.25f;
         private float LeftPanelWidth => 450;
         public override Vector2 InitialSize => new Vector2(900, Mathf.Min(UI.screenHeight, 975));
         public Window_StackEditor(Building_DecryptionBench decryptionBench, CorticalStack corticalStack)
@@ -623,14 +647,17 @@ namespace AlteredCarbon
             string time = ToStringTicksToHours(GetEditTime());
             Widgets.Label(editTime, "AC.TotalTimeToRewrite".Translate(time));
             editTime.y += Text.LineHeight + 5;
-            string stackDegradation = Mathf.Min(1f, this.personaData.stackDegradation + GetDegradation()).ToStringPercent();
-            Text.Font = GameFont.Small;
-            Text.Anchor = TextAnchor.MiddleLeft;
-            Widgets.DrawHighlight(editTime);
-            editTime.xMin += 10f;
-            Text.Font = GameFont.Small;
-            Widgets.Label(editTime, "AC.TotalStackDegradation".Translate(stackDegradation.Colorize(Color.red)));
-            Text.Anchor = TextAnchor.UpperLeft;
+            if (AlteredCarbonMod.settings.enableStackDegradation)
+            {
+                string stackDegradation = Mathf.Min(1f, this.personaData.stackDegradation + GetDegradation()).ToStringPercent();
+                Text.Font = GameFont.Small;
+                Text.Anchor = TextAnchor.MiddleLeft;
+                Widgets.DrawHighlight(editTime);
+                editTime.xMin += 10f;
+                Text.Font = GameFont.Small;
+                Widgets.Label(editTime, "AC.TotalStackDegradation".Translate(stackDegradation.Colorize(Color.red)));
+                Text.Anchor = TextAnchor.UpperLeft;
+            }
             pos.y += (editTime.yMax - pos.y) + 15;
         }
 
@@ -671,7 +698,10 @@ namespace AlteredCarbon
             if (Widgets.ButtonText(acceptButtonRect, "AC.StartRewriting".Translate()))
             {
                 personaData.editTime = GetEditTime();
-                personaData.stackDegradationToAdd = GetDegradation();
+                if (AlteredCarbonMod.settings.enableStackDegradation)
+                {
+                    personaData.stackDegradationToAdd = GetDegradation();
+                }
                 corticalStack.personaDataRewritten = personaData;
                 decryptionBench.billStack.AddBill(new Bill_RewriteStack(corticalStack, AC_DefOf.AC_RewriteFilledCorticalStack, null));
                 this.Close();
@@ -683,11 +713,11 @@ namespace AlteredCarbon
             var time = 0;
             if (personaDataCopy.name.ToStringFull != personaData.name.ToStringFull)
             {
-                time += AlteredCarbonSettings.editTimeOffsetPerNameChange;
+                time += editTimeOffsetPerNameChange;
             }
             if (personaDataCopy.originalGender != personaData.originalGender)
             {
-                time += AlteredCarbonSettings.editTimeOffsetPerGenderChange;
+                time += editTimeOffsetPerGenderChange;
             }
             if (personaDataCopy.skills != null)
             {
@@ -697,12 +727,12 @@ namespace AlteredCarbon
                     var skillLevelDiff = Mathf.Abs(curSkill.Level - origSkill.Level);
                     if (skillLevelDiff > 0)
                     {
-                        time += skillLevelDiff * AlteredCarbonSettings.editTimeOffsetPerSkillLevelChange;
+                        time += skillLevelDiff * editTimeOffsetPerSkillLevelChange;
                     }
                     var skillPassionsDiff = Mathf.Abs((int)curSkill.passion - (int)origSkill.passion);
                     if (skillPassionsDiff > 0)
                     {
-                        time += skillPassionsDiff * AlteredCarbonSettings.editTimeOffsetPerSkillPassionChange;
+                        time += skillPassionsDiff * editTimeOffsetPerSkillPassionChange;
                     }
                 }
             }
@@ -714,40 +744,40 @@ namespace AlteredCarbon
                 {
                     if (origTraits.Any(x => trait.def == x.def && trait.degree == x.degree) is false)
                     {
-                        time += AlteredCarbonSettings.editTimeOffsetPerTraitChange;
+                        time += editTimeOffsetPerTraitChange;
                     }
                 }
                 var missingTraits = origTraits.Where(x => curTraits.Any(y => y.degree == x.degree && y.def == x.def) is false);
                 var missingTraitsCount = missingTraits.Count();
-                time += missingTraitsCount * AlteredCarbonSettings.editTimeOffsetPerTraitChange;
+                time += missingTraitsCount * editTimeOffsetPerTraitChange;
             }
 
             if (personaDataCopy.childhood != personaData.childhood)
             {
-                time += AlteredCarbonSettings.editTimeOffsetPerChildhoodChange;
+                time += editTimeOffsetPerChildhoodChange;
             }
             if (personaDataCopy.adulthood != personaData.adulthood)
             {
-                time += AlteredCarbonSettings.editTimeOffsetPerAdulthoodChange;
+                time += editTimeOffsetPerAdulthoodChange;
             }
             if (personaDataCopy.ideo != personaData.ideo)
             {
-                time += AlteredCarbonSettings.editTimeOffsetPerIdeologyChange;
+                time += editTimeOffsetPerIdeologyChange;
             }
             var certaintyDiff = Mathf.Abs(personaDataCopy.certainty - personaData.certainty) * 100f;
             if (certaintyDiff > 0)
             {
-                time += (int)(certaintyDiff * AlteredCarbonSettings.editTimeOffsetPerCertaintyChange);
+                time += (int)(certaintyDiff * editTimeOffsetPerCertaintyChange);
             }
             if (personaDataCopy.faction != personaData.faction)
             {
-                time += AlteredCarbonSettings.editTimeOffsetPerFactionChange;
+                time += editTimeOffsetPerFactionChange;
             }
             if (personaDataCopy.recruitable != personaData.recruitable)
             {
-                time += AlteredCarbonSettings.editTimeOffsetPerUnwaveringLoyalChange;
+                time += editTimeOffsetPerUnwaveringLoyalChange;
             }
-            return time;
+            return (int)(time * AlteredCarbonMod.settings.stackRewriteEditTimeValueMultiplier);
         }
 
         private float GetDegradation()
@@ -755,11 +785,11 @@ namespace AlteredCarbon
             var degradation = 0f;
             if (personaDataCopy.name.ToStringFull != personaData.name.ToStringFull)
             {
-                degradation += AlteredCarbonSettings.stackDegradationOffsetPerNameChange;
+                degradation += stackDegradationOffsetPerNameChange;
             }
             if (personaDataCopy.originalGender != personaData.originalGender)
             {
-                degradation += AlteredCarbonSettings.stackDegradationOffsetPerGenderChange;
+                degradation += stackDegradationOffsetPerGenderChange;
             }
             if (personaDataCopy.skills != null)
             {
@@ -769,12 +799,12 @@ namespace AlteredCarbon
                     var skillLevelDiff = Mathf.Abs(curSkill.Level - origSkill.Level);
                     if (skillLevelDiff > 0)
                     {
-                        degradation += skillLevelDiff * AlteredCarbonSettings.stackDegradationOffsetPerSkillLevelChange;
+                        degradation += skillLevelDiff * stackDegradationOffsetPerSkillLevelChange;
                     }
                     var skillPassionsDiff = Mathf.Abs((int)curSkill.passion - (int)origSkill.passion);
                     if (skillPassionsDiff > 0)
                     {
-                        degradation += skillPassionsDiff * AlteredCarbonSettings.stackDegradationOffsetPerSkillPassionChange;
+                        degradation += skillPassionsDiff * stackDegradationOffsetPerSkillPassionChange;
                     }
                 }
             }
@@ -787,40 +817,40 @@ namespace AlteredCarbon
                 {
                     if (origTraits.Any(x => trait.def == x.def && trait.degree == x.degree) is false)
                     {
-                        degradation += AlteredCarbonSettings.stackDegradationOffsetPerTraitChange;
+                        degradation += stackDegradationOffsetPerTraitChange;
                     }
                 }
                 var missingTraits = origTraits.Where(x => curTraits.Any(y => y.degree == x.degree && y.def == x.def) is false);
                 var missingTraitsCount = missingTraits.Count();
-                degradation += missingTraitsCount * AlteredCarbonSettings.stackDegradationOffsetPerTraitChange;
+                degradation += missingTraitsCount * stackDegradationOffsetPerTraitChange;
             }
 
             if (personaDataCopy.childhood != personaData.childhood)
             {
-                degradation += AlteredCarbonSettings.stackDegradationOffsetPerChildhoodChange;
+                degradation += stackDegradationOffsetPerChildhoodChange;
             }
             if (personaDataCopy.adulthood != personaData.adulthood)
             {
-                degradation += AlteredCarbonSettings.stackDegradationOffsetPerChildhoodChange;
+                degradation += stackDegradationOffsetPerChildhoodChange;
             }
             if (personaDataCopy.ideo != personaData.ideo)
             {
-                degradation += AlteredCarbonSettings.stackDegradationOffsetPerIdeologyChange;
+                degradation += stackDegradationOffsetPerIdeologyChange;
             }
             var certaintyDiff = Mathf.Abs(personaDataCopy.certainty - personaData.certainty) * 100f;
             if (certaintyDiff > 0)
             {
-                degradation += (int)(certaintyDiff * AlteredCarbonSettings.stackDegradationOffsetPerCertaintyChange);
+                degradation += (int)(certaintyDiff * stackDegradationOffsetPerCertaintyChange);
             }
             if (personaDataCopy.faction != personaData.faction)
             {
-                degradation += AlteredCarbonSettings.stackDegradationOffsetPerFactionChange;
+                degradation += stackDegradationOffsetPerFactionChange;
             }
             if (personaDataCopy.recruitable != personaData.recruitable)
             {
-                degradation += AlteredCarbonSettings.stackDegradationOffsetPerUnwaveringLoyalChange;
+                degradation += stackDegradationOffsetPerUnwaveringLoyalChange;
             }
-            return degradation;
+            return degradation * AlteredCarbonMod.settings.stackRewriteDegradationValueMultiplier;
         }
 
         private void ResetAll()

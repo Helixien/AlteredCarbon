@@ -11,7 +11,7 @@ namespace AlteredCarbon
     {
         public static void Postfix(Pawn __result)
         {
-            if (__result != null && __result.RaceProps.Humanlike && __result.kindDef.HasModExtension<StackSpawnModExtension>())
+            if (AlteredCarbonMod.settings.enableStackSpawning && __result != null && __result.RaceProps.Humanlike && __result.kindDef.HasModExtension<StackSpawnModExtension>())
             {
                 var extension = __result.kindDef.GetModExtension<StackSpawnModExtension>();
                 if (extension.SpawnsWithStack && __result.HasCorticalStack(out _) is false

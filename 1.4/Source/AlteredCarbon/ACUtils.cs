@@ -200,7 +200,26 @@ namespace AlteredCarbon
                 AC_DefOf.VFEU_HackBiocodedThings.defaultIngredientFilter.thingDefs.Add(thingDef);
                 AC_DefOf.VFEU_HackBiocodedThings.defaultIngredientFilter.SetAllow(thingDef, true);
             }
+            ApplySettings();
         }
+
+        public static void ApplySettings()
+        {
+            if (AlteredCarbonMod.settings.enableTechprintRequirement is false)
+            {
+                foreach (var researchProjectDef in DefDatabase<ResearchProjectDef>.AllDefs)
+                {
+                    if (researchProjectDef.modContentPack == AlteredCarbonMod.modContentPack)
+                    {
+                        researchProjectDef.techprintCount = 0;
+                        researchProjectDef.techprintCommonality = 0;
+                        researchProjectDef.techprintMarketValue = 0;
+                        researchProjectDef.heldByFactionCategoryTags = null;
+                    }
+                }
+            }
+        }
+
         static HashSet<ThingDef> GetUnstackableRaces()
         {
             if (ModCompatibility.AlienRacesIsActive)

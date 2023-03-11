@@ -237,4 +237,25 @@
 	<AC.CancelStackResetDesc>Cancel reseting cortical stack.</AC.CancelStackResetDesc>
 	<AC.CancelStackRewrite>Cancel stack rewrite</AC.CancelStackRewrite>
 	<AC.CancelStackRewriteDesc>Cancel rewriting cortical stack.</AC.CancelStackRewriteDesc>
+	<!-- ================================ Mod Settings ====================== -->
+	<AC.General>General</AC.General>
+	<AC.EnableStackSpawning>Enable Stack Spawning</AC.EnableStackSpawning>
+	<AC.EnableStackSpawningDesc>If disabled, Cortical Stacks and Archostacks will NOT spawn on any pawns. You can still craft them, get them as rewards or trade for them.</AC.EnableStackSpawningDesc>
+	<AC.EnableTechprintRequirement>Enable techprint requirements in research projects</AC.EnableTechprintRequirement>
+	<AC.EnableTechprintRequirementDesc>Only affects Royalty owners!</AC.EnableTechprintRequirementDesc>
+	<AC.SleeveGrowing>Sleeve Growing</AC.SleeveGrowing>
+	<AC.TimeToGrowSleeveMultiplier>Time to grow sleeve multiplicator:</AC.TimeToGrowSleeveMultiplier>
+	<AC.TimeToGrowSleeveMultiplierDesc>Multiplicator of the overall time needed to grow a new sleeve.</AC.TimeToGrowSleeveMultiplierDesc>
+	<AC.CostToGrowSleeveMultiplier>Cost to grow sleeve multiplicator:</AC.CostToGrowSleeveMultiplier>
+	<AC.CostToGrowSleeveMultiplierDesc>Multiplicator of the overall neutroamine cost needed to grow a new sleeve.</AC.CostToGrowSleeveMultiplierDesc>
+	<AC.StackRewriting>Stack Rewriting</AC.StackRewriting>
+	<AC.EnableStackDegradation>Enable Stack Degradation</AC.EnableStackDegradation>
+	<AC.EnableStackDegradationDesc>If disabled, Cortical Stacks can be edited to your heart's content without having to worry about stack degradation.</AC.EnableStackDegradationDesc>
+	<AC.StackRewriteEditTimeValueMultiplier>Stack editing time gain multiplier:</AC.StackRewriteEditTimeValueMultiplier>
+	<AC.StackRewriteEditTimeValueMultiplierDesc>Multiplicator of the overall stack editing time.</AC.StackRewriteEditTimeValueMultiplierDesc>
+	<AC.StackRewriteDegradationValueMultiplier>Stack Degradation gain multiplier:</AC.StackRewriteDegradationValueMultiplier>
+	<AC.StackRewriteDegradationValueMultiplierDesc>Multiplies the overall stack degradation that is accumulated through editing.</AC.StackRewriteDegradationValueMultiplierDesc>
+	<AC.EnableArchostackRewriting>Enable Archo Stack rewriting</AC.EnableArchostackRewriting>
+	<AC.EnableArchostackRewritingDesc>Allows you to edit the content of Archo Stacks.</AC.EnableArchostackRewritingDesc>
+
 </LanguageData>

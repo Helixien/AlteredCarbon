@@ -40,9 +40,11 @@ namespace AlteredCarbon
         private int maleBodyTypeIndex = 0;
         private int femaleBodyTypeIndex = 0;
         private int sleeveQualityIndex = 2;
+        private int sleeveBeautyIndex = 2;
 
-        private int ticksToGrow = 900000;
-        private int growCost = 250;
+        private int ticksToGrow;
+        private int growCost;
+
         private GeneDef geneQuality;
 
         public static Dictionary<GeneDef, int> sleeveQualitiesTimeCost = new Dictionary<GeneDef, int>
@@ -54,6 +56,23 @@ namespace AlteredCarbon
             {AC_DefOf.VFEU_SleeveQuality_Excellent, GenDate.TicksPerDay * 10 },
             {AC_DefOf.VFEU_SleeveQuality_Masterwork, GenDate.TicksPerDay * 15 },
             {AC_DefOf.VFEU_SleeveQuality_Legendary, GenDate.TicksPerDay * 30 },
+        };
+
+        public static Dictionary<int, int> sleeveBeautiesTimeCost = new Dictionary<int, int>
+        {
+            {-2, 0 },
+            {-1, GenDate.TicksPerDay * 1 },
+            {0, GenDate.TicksPerDay * 2 },
+            {1, GenDate.TicksPerDay * 4 },
+            {2, GenDate.TicksPerDay * 5 },
+        };
+        private static readonly List<int> beautyDegrees = new List<int>
+        {
+            -2,
+            -1,
+            0,
+            1,
+            2
         };
 
         //Static Values
@@ -390,6 +409,14 @@ namespace AlteredCarbon
                     UpdateGrowCost();
                 }, floatMenu: true);
 
+            DoSelectionButtons(ref firstColumnPos, "AC.SleeveBeauty".Translate(), ref sleeveBeautyIndex,
+                (int x) => GetBeautyLabel(x), beautyDegrees, delegate (int x)
+                {
+                    sleeveBeautyIndex = beautyDegrees.IndexOf(x);
+                    ApplyBeauty();
+                    UpdateGrowCost();
+                }, floatMenu: true);
+
             DrawExplanation(ref firstColumnPos, highlightRect.width + labelWidth + 15, 32, "AC.BodyOptionsExplanation".Translate());
 
             //Pawn Box
@@ -527,14 +554,17 @@ namespace AlteredCarbon
 
         public void UpdateGrowCost()
         {
-            ticksToGrow = AlteredCarbonMod.settings.baseGrowingTimeDuration;
-            ticksToGrow += sleeveQualitiesTimeCost[ACUtils.sleeveQualities[sleeveQualityIndex]];
-            ticksToGrow = Mathf.Max(AlteredCarbonMod.settings.baseGrowingTimeDuration, ticksToGrow);
+            ticksToGrow = 900000;
             if (convertXenogenesToEndegones)
             {
                 ticksToGrow *= 2;
             }
+
+            ticksToGrow += sleeveQualitiesTimeCost[ACUtils.sleeveQualities[sleeveQualityIndex]];
+            ticksToGrow += sleeveBeautiesTimeCost[beautyDegrees[sleeveBeautyIndex]];
             growCost = 12 * (ticksToGrow / GenDate.TicksPerDay);
+            ticksToGrow = (int)(ticksToGrow * AlteredCarbonMod.settings.sleeveGrowingTimeMultiplier);
+            growCost = (int)(growCost * AlteredCarbonMod.settings.sleeveGrowingCostMultiplier);
         }
 
         public void ApplyGeneQuality()
@@ -549,6 +579,32 @@ namespace AlteredCarbon
             }
             geneQuality = ACUtils.sleeveQualities[sleeveQualityIndex];
             curSleeve.genes.AddGene(geneQuality, false);
+        }
+
+        public void ApplyBeauty()
+        {
+            Trait trait = curSleeve.story.traits.GetTrait(TraitDefOf.Beauty);
+            if (trait != null)
+            {
+                curSleeve.story.traits.RemoveTrait(trait);
+            }
+            if (beautyDegrees[sleeveBeautyIndex] != 0)
+            {
+                curSleeve.story.traits.GainTrait(new Trait(TraitDefOf.Beauty, beautyDegrees[sleeveBeautyIndex]));
+            }
+        }
+
+        public string GetBeautyLabel(int index)
+        {
+            if (index != 0)
+            {
+                Trait beauty = new Trait(TraitDefOf.Beauty, index);
+                return beauty.LabelCap;
+            }
+            else
+            {
+                return QualityCategory.Normal.GetLabel().CapitalizeFirst();
+            }
         }
 
         //public static string GetHediffToolTip(IEnumerable<Hediff> diffs, Pawn pawn)

@@ -117,7 +117,7 @@ namespace AlteredCarbon
                 pawn.health.AddHediff(hediff, part);
                 pawn.needs.AddOrRemoveNeedsAsAppropriate();
 
-                if (ModCompatibility.HelixienAlteredCarbonIsActive && hediff.PersonaData.stackDegradation > 0)
+                if (AlteredCarbonMod.settings.enableStackDegradation && ModCompatibility.HelixienAlteredCarbonIsActive && hediff.PersonaData.stackDegradation > 0)
                 {
                     var stackDegradationHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_StackDegradation) as Hediff_StackDegradation;
                     if (stackDegradationHediff is null)

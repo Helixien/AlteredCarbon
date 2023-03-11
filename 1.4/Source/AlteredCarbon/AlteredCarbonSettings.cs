@@ -21,145 +21,129 @@ namespace AlteredCarbon
     [HotSwappable]
     public class AlteredCarbonSettings : ModSettings
     {
-        public int baseGrowingTimeDuration = 900000;
-
-        public static int editTimeOffsetPerNameChange = 2000;
-        public static int editTimeOffsetPerGenderChange = 5000;
-        public static int editTimeOffsetPerSkillLevelChange = 250;
-        public static int editTimeOffsetPerSkillPassionChange = 1000;
-        public static int editTimeOffsetPerTraitChange = 1200;
-        public static int editTimeOffsetPerChildhoodChange = 5000;
-        public static int editTimeOffsetPerAdulthoodChange = 5000;
-        public static int editTimeOffsetPerIdeologyChange = 2500;
-        public static int editTimeOffsetPerCertaintyChange = 50;
-        public static int editTimeOffsetPerFactionChange = 2500;
-        public static int editTimeOffsetPerUnwaveringLoyalChange = 1200;
-
-        public static float stackDegradationOffsetPerNameChange = 0.25f;
-        public static float stackDegradationOffsetPerGenderChange = 0.5f;
-        public static float stackDegradationOffsetPerSkillLevelChange = 0.03f;
-        public static float stackDegradationOffsetPerSkillPassionChange = 0.1f;
-        public static float stackDegradationOffsetPerTraitChange = 0.15f;
-        public static float stackDegradationOffsetPerChildhoodChange = 0.5f;
-        public static float stackDegradationOffsetPerAdulthoodChange = 0.5f;
-        public static float stackDegradationOffsetPerIdeologyChange = 0.25f;
-        public static float stackDegradationOffsetPerCertaintyChange = 0.01f;
-        public static float stackDegradationOffsetPerFactionChange = 0.25f;
-        public static float stackDegradationOffsetPerUnwaveringLoyalChange = 0.25f;
-
-
+        public float sleeveGrowingTimeMultiplier = 1f;
+        public float sleeveGrowingCostMultiplier = 1f;
+        public bool enableStackSpawning = true;
+        public bool enableStackDegradation = true;
+        public bool enableArchostackRewriting = false;
+        public float stackRewriteDegradationValueMultiplier = 1f;
+        public float stackRewriteEditTimeValueMultiplier = 1f;
+        public bool enableTechprintRequirement = true;
         public Dictionary<string, SleevePreset> presets = new Dictionary<string, SleevePreset>();
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref baseGrowingTimeDuration, "baseGrowingTimeDuration", 900000);
-
-            Scribe_Values.Look(ref editTimeOffsetPerNameChange, "editTimeOffsetPerNameChange", 2000);
-            Scribe_Values.Look(ref editTimeOffsetPerGenderChange, "editTimeOffsetPerGenderChange", 5000);
-            Scribe_Values.Look(ref editTimeOffsetPerSkillLevelChange, "editTimeOffsetPerSkillLevelChange", 250);
-            Scribe_Values.Look(ref editTimeOffsetPerSkillPassionChange, "editTimeOffsetPerSkillPassionChange", 1000);
-            Scribe_Values.Look(ref editTimeOffsetPerTraitChange, "editTimeOffsetPerTraitChange", 1200);
-            Scribe_Values.Look(ref editTimeOffsetPerChildhoodChange, "editTimeOffsetPerChildhoodChange", 5000);
-            Scribe_Values.Look(ref editTimeOffsetPerAdulthoodChange, "editTimeOffsetPerAdulthoodChange", 5000);
-            Scribe_Values.Look(ref editTimeOffsetPerIdeologyChange, "editTimeOffsetPerIdeologyChange", 2500);
-            Scribe_Values.Look(ref editTimeOffsetPerCertaintyChange, "editTimeOffsetPerCertaintyChange", 50);
-            Scribe_Values.Look(ref editTimeOffsetPerFactionChange, "editTimeOffsetPerFactionChange", 2500);
-            Scribe_Values.Look(ref editTimeOffsetPerUnwaveringLoyalChange, "editTimeOffsetPerUnwaveringLoyalChange", 1200);
-
-            Scribe_Values.Look(ref stackDegradationOffsetPerNameChange, "stackDegradationOffsetPerNameChange", 0.25f);
-            Scribe_Values.Look(ref stackDegradationOffsetPerGenderChange, "stackDegradationOffsetPerGenderChange", 0.5f);
-            Scribe_Values.Look(ref stackDegradationOffsetPerSkillLevelChange, "stackDegradationOffsetPerSkillLevelChange", 0.05f);
-            Scribe_Values.Look(ref stackDegradationOffsetPerSkillPassionChange, "stackDegradationOffsetPerSkillPassionChange", 0.1f);
-            Scribe_Values.Look(ref stackDegradationOffsetPerTraitChange, "stackDegradationOffsetPerTraitChange", 0.15f);
-            Scribe_Values.Look(ref stackDegradationOffsetPerChildhoodChange, "stackDegradationOffsetPerChildhoodChange", 0.5f);
-            Scribe_Values.Look(ref stackDegradationOffsetPerAdulthoodChange, "stackDegradationOffsetPerAdulthoodChange", 0.5f);
-            Scribe_Values.Look(ref stackDegradationOffsetPerIdeologyChange, "stackDegradationOffsetPerIdeologyChange", 0.25f);
-            Scribe_Values.Look(ref stackDegradationOffsetPerCertaintyChange, "stackDegradationOffsetPerCertaintyChange", 0.01f);
-            Scribe_Values.Look(ref stackDegradationOffsetPerFactionChange, "stackDegradationOffsetPerFactionChange", 0.25f);
-            Scribe_Values.Look(ref stackDegradationOffsetPerUnwaveringLoyalChange, "stackDegradationOffsetPerUnwaveringLoyalChange", 0.25f);
-
+            Scribe_Values.Look(ref sleeveGrowingTimeMultiplier, "sleeveGrowingTimeMultiplier", 1f);
+            Scribe_Values.Look(ref sleeveGrowingCostMultiplier, "sleeveGrowingCostMultiplier", 1f);
+            Scribe_Values.Look(ref enableStackSpawning, "enableStackSpawning", true);
+            Scribe_Values.Look(ref enableStackDegradation, "enableStackDegradation", true);
+            Scribe_Values.Look(ref enableTechprintRequirement, "enableTechprintRequirement", true);
+            Scribe_Values.Look(ref enableArchostackRewriting, "enableArchostackRewriting", false);
+            Scribe_Values.Look(ref stackRewriteDegradationValueMultiplier, "stackRewriteDegradationValueMultiplier", 1f);
+            Scribe_Values.Look(ref stackRewriteEditTimeValueMultiplier, "stackRewriteEditTimeValueMultiplier", 1f);
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 if (presets is null) 
                     presets = new Dictionary<string, SleevePreset>();
             }
         }
+
+        private Vector2 scrollPos;
+        private float scrollHeight = 99999999;
         public void DoSettingsWindowContents(Rect inRect)
         {
+            var viewRect = new Rect(inRect.x, inRect.y, inRect.width - 16, scrollHeight);
+            scrollHeight = 0;
+            Widgets.BeginScrollView(inRect, ref scrollPos, viewRect);
             Listing_Standard listingStandard = new Listing_Standard();
-            listingStandard.Begin(inRect);
-            listingStandard.Label("Mod options are coming in 4.3!");
-            //DoSlider(listingStandard, "AC.GrowingTimeDuration".Translate(), ref baseGrowingTimeDuration, baseGrowingTimeDuration.ToStringTicksToPeriod(), 1000, 9000000);
-            //DoSlider(listingStandard, "AC.editTimeOffsetPerNameChange".Translate(), ref editTimeOffsetPerNameChange, editTimeOffsetPerNameChange.ToStringTicksToPeriod(), 0, 60000);
-            //DoSlider(listingStandard, "AC.editTimeOffsetPerGenderChange".Translate(), ref editTimeOffsetPerGenderChange, editTimeOffsetPerGenderChange.ToStringTicksToPeriod(), 0, 60000);
-            //DoSlider(listingStandard, "AC.editTimeOffsetPerSkillLevelChange".Translate(), ref editTimeOffsetPerSkillLevelChange, editTimeOffsetPerSkillLevelChange.ToStringTicksToPeriod(), 0, 60000);
-            //DoSlider(listingStandard, "AC.editTimeOffsetPerSkillPassionChange".Translate(), ref editTimeOffsetPerSkillPassionChange, editTimeOffsetPerSkillPassionChange.ToStringTicksToPeriod(), 0, 60000);
-            //DoSlider(listingStandard, "AC.editTimeOffsetPerTraitChange".Translate(), ref editTimeOffsetPerTraitChange, editTimeOffsetPerTraitChange.ToStringTicksToPeriod(), 0, 60000);
-            //DoSlider(listingStandard, "AC.editTimeOffsetPerChildhoodChange".Translate(), ref editTimeOffsetPerChildhoodChange, editTimeOffsetPerChildhoodChange.ToStringTicksToPeriod(), 0, 60000);
-            //DoSlider(listingStandard, "AC.editTimeOffsetPerAdulthoodChange".Translate(), ref editTimeOffsetPerAdulthoodChange, editTimeOffsetPerAdulthoodChange.ToStringTicksToPeriod(), 0, 60000);
-            //DoSlider(listingStandard, "AC.editTimeOffsetPerIdeologyChange".Translate(), ref editTimeOffsetPerIdeologyChange, editTimeOffsetPerIdeologyChange.ToStringTicksToPeriod(), 0, 60000);
-            //DoSlider(listingStandard, "AC.editTimeOffsetPerCertaintyChange".Translate(), ref editTimeOffsetPerCertaintyChange, editTimeOffsetPerCertaintyChange.ToStringTicksToPeriod(), 0, 60000);
-            //DoSlider(listingStandard, "AC.editTimeOffsetPerFactionChange".Translate(), ref editTimeOffsetPerFactionChange, editTimeOffsetPerFactionChange.ToStringTicksToPeriod(), 0, 60000);
-            //DoSlider(listingStandard, "AC.editTimeOffsetPerUnwaveringLoyalChange".Translate(), ref editTimeOffsetPerUnwaveringLoyalChange, editTimeOffsetPerUnwaveringLoyalChange.ToStringTicksToPeriod(), 0, 60000);
-            //
-            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerNameChange".Translate(), ref stackDegradationOffsetPerNameChange, stackDegradationOffsetPerNameChange.ToStringPercent(), 0f, 1f);
-            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerGenderChange".Translate(), ref stackDegradationOffsetPerGenderChange, stackDegradationOffsetPerGenderChange.ToStringPercent(), 0f, 1f);
-            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerSkillLevelChange".Translate(), ref stackDegradationOffsetPerSkillLevelChange, stackDegradationOffsetPerSkillLevelChange.ToStringPercent(), 0f, 1f);
-            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerSkillPassionChange".Translate(), ref stackDegradationOffsetPerSkillPassionChange, stackDegradationOffsetPerSkillPassionChange.ToStringPercent(), 0f, 1f);
-            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerTraitChange".Translate(), ref stackDegradationOffsetPerTraitChange, stackDegradationOffsetPerTraitChange.ToStringPercent(), 0f, 1f);
-            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerChildhoodChange".Translate(), ref stackDegradationOffsetPerChildhoodChange, stackDegradationOffsetPerChildhoodChange.ToStringPercent(), 0f, 1f);
-            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerAdulthoodChange".Translate(), ref stackDegradationOffsetPerAdulthoodChange, stackDegradationOffsetPerAdulthoodChange.ToStringPercent(), 0f, 1f);
-            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerIdeologyChange".Translate(), ref stackDegradationOffsetPerIdeologyChange, stackDegradationOffsetPerIdeologyChange.ToStringPercent(), 0f, 1f);
-            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerCertaintyChange".Translate(), ref stackDegradationOffsetPerCertaintyChange, stackDegradationOffsetPerCertaintyChange.ToStringPercent(), 0f, 1f);
-            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerFactionChange".Translate(), ref stackDegradationOffsetPerFactionChange, stackDegradationOffsetPerFactionChange.ToStringPercent(), 0f, 1f);
-            //DoSlider(listingStandard, "AC.stackDegradationOffsetPerUnwaveringLoyalChange".Translate(), ref stackDegradationOffsetPerUnwaveringLoyalChange, stackDegradationOffsetPerFactionChange.ToStringPercent(), 0f, 1f);
-            //listingStandard.Gap(10);
-            //if (listingStandard.ButtonText("Reset".Translate()))
-            //{
-            //    baseGrowingTimeDuration = 900000;
-            //
-            //    editTimeOffsetPerNameChange = 2000;
-            //    editTimeOffsetPerGenderChange = 5000;
-            //    editTimeOffsetPerSkillLevelChange = 250;
-            //    editTimeOffsetPerSkillPassionChange = 1000;
-            //    editTimeOffsetPerTraitChange = 1200;
-            //    editTimeOffsetPerChildhoodChange = 5000;
-            //    editTimeOffsetPerAdulthoodChange = 5000;
-            //    editTimeOffsetPerIdeologyChange = 2500;
-            //    editTimeOffsetPerCertaintyChange = 50;
-            //    editTimeOffsetPerFactionChange = 2500;
-            //
-            //    stackDegradationOffsetPerNameChange = 0.25f;
-            //    stackDegradationOffsetPerGenderChange = 0.5f;
-            //    stackDegradationOffsetPerSkillLevelChange = 0.03f;
-            //    stackDegradationOffsetPerSkillPassionChange = 0.1f;
-            //    stackDegradationOffsetPerTraitChange = 0.15f;
-            //    stackDegradationOffsetPerChildhoodChange = 0.5f;
-            //    stackDegradationOffsetPerAdulthoodChange = 0.5f;
-            //    stackDegradationOffsetPerIdeologyChange = 0.25f;
-            //    stackDegradationOffsetPerCertaintyChange = 0.01f;
-            //    stackDegradationOffsetPerFactionChange = 0.25f;
-            //}
+            listingStandard.Begin(viewRect);
+            var initY = listingStandard.curY;
+            DoCategory(listingStandard, "AC.General".Translate());
+            DoCheckbox(listingStandard, "AC.EnableStackSpawning".Translate(), ref enableStackSpawning, "AC.EnableStackSpawningDesc".Translate());
+            DoCheckbox(listingStandard, "AC.EnableTechprintRequirement".Translate(), ref enableStackSpawning, "AC.EnableTechprintRequirementDesc".Translate());
+            DoCategory(listingStandard, "AC.SleeveGrowing".Translate());
+            DoSlider(listingStandard, "AC.TimeToGrowSleeveMultiplier".Translate(), ref sleeveGrowingTimeMultiplier,
+                sleeveGrowingTimeMultiplier.ToStringPercent(), 0, 5f, "AC.TimeToGrowSleeveMultiplierDesc".Translate()); 
+            DoSlider(listingStandard, "AC.CostToGrowSleeveMultiplier".Translate(), ref sleeveGrowingCostMultiplier,
+                sleeveGrowingCostMultiplier.ToStringPercent(), 0, 5f, "AC.CostToGrowSleeveMultiplierDesc".Translate());
+            DoCategory(listingStandard, "AC.StackRewriting".Translate());
+            DoCheckbox(listingStandard, "AC.EnableStackDegradation".Translate(), ref enableStackDegradation, "AC.EnableStackDegradationDesc".Translate());
+            DoSlider(listingStandard, "AC.StackRewriteEditTimeValueMultiplier".Translate(), ref stackRewriteEditTimeValueMultiplier,
+                stackRewriteEditTimeValueMultiplier.ToStringPercent(), 0f, 5f, "AC.StackRewriteEditTimeValueMultiplierDesc".Translate());
+            
+            if (enableStackDegradation)
+            {
+                DoSlider(listingStandard, "AC.StackRewriteDegradationValueMultiplier".Translate(), ref stackRewriteDegradationValueMultiplier,
+                    stackRewriteDegradationValueMultiplier.ToStringPercent(), 0f, 5f, "AC.StackRewriteDegradationValueMultiplierDesc".Translate());
+            }
+            DoCheckbox(listingStandard, "AC.EnableArchostackRewriting".Translate(), ref enableArchostackRewriting, "AC.EnableArchostackRewritingDesc".Translate());
+            if (listingStandard.ButtonText("Reset".Translate()))
+            {
+                sleeveGrowingTimeMultiplier = 1f;
+                sleeveGrowingCostMultiplier = 1f;
+                enableStackSpawning = true;
+                enableStackDegradation = true;
+                enableArchostackRewriting = false;
+                stackRewriteDegradationValueMultiplier = 1f;
+                stackRewriteEditTimeValueMultiplier = 1f;
+                enableTechprintRequirement = true;
+            }
             listingStandard.End();
+            Widgets.EndScrollView();
+            scrollHeight = listingStandard.curY - initY;
         }
 
-        private void DoSlider(Listing_Standard listingStandard, string label, ref int value, string valueLabel, int min, int max)
+        private static void DoCategory(Listing_Standard listingStandard, string categoryName)
+        {
+            Text.Font = GameFont.Medium;
+            listingStandard.Label(categoryName);
+            Text.Font = GameFont.Small;
+            listingStandard.GapLine(24);
+        }
+
+        private void DoCheckbox(Listing_Standard listingStandard, string optionLabel, ref bool field, string explanation)
+        {
+            listingStandard.CheckboxLabeled(optionLabel, ref field);
+            if (explanation.NullOrEmpty() is false)
+            {
+                DoExplanation(listingStandard, explanation);
+            }
+        }
+
+        private void DoExplanation(Listing_Standard listingStandard, string explanation)
+        {
+            Text.Font = GameFont.Tiny;
+            GUI.color = Color.grey;
+            listingStandard.Label(explanation);
+            Text.Font = GameFont.Small;
+            GUI.color = Color.white;
+            listingStandard.Gap();
+        }
+
+        private void DoSlider(Listing_Standard listingStandard, string label, ref int value, string valueLabel, int min, int max, string explanation)
         {
             Rect rect = listingStandard.GetRect(Text.LineHeight);
             Rect sliderRect = rect.RightPart(.60f).Rounded();
             Widgets.Label(rect, label);
             value = (int)Widgets.HorizontalSlider_NewTemp(sliderRect, (float)value, min, max, true, valueLabel);
             listingStandard.Gap(5);
-
+            if (explanation.NullOrEmpty() is false)
+            {
+                DoExplanation(listingStandard, explanation);
+            }
         }
 
-        private void DoSlider(Listing_Standard listingStandard, string label, ref float value, string valueLabel, float min, float max)
+        private void DoSlider(Listing_Standard listingStandard, string label, ref float value, string valueLabel, float min, float max, string explanation)
         {
             Rect rect = listingStandard.GetRect(Text.LineHeight);
             Rect sliderRect = rect.RightPart(.60f).Rounded();
             Widgets.Label(rect, label);
-            value = (float)Widgets.HorizontalSlider_NewTemp(sliderRect, (float)value, min, max, true, valueLabel);
+            value = Widgets.HorizontalSlider_NewTemp(sliderRect, (float)value, min, max, true, valueLabel);
             listingStandard.Gap(5);
+            if (explanation.NullOrEmpty() is false)
+            {
+                DoExplanation(listingStandard, explanation);
+            }
         }
     }
 }
