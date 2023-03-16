@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Patch>
 	<Operation Class="PatchOperationSequence">
 		<!-- ================================ Patches in new stuff into the base game ====================== -->
@@ -22,8 +22,7 @@
 				<xpath>/Defs/PawnKindDef[defName="Pirate"]</xpath>
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
-						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>3</ChanceToSpawnWithStack>
+						<chanceToSpawnWithStack>3</chanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>
@@ -31,8 +30,7 @@
 				<xpath>/Defs/PawnKindDef[defName="Grenadier_Destructive" or defName="Grenadier_Smoke" or defName="Mercenary_Gunner" or efName="Mercenary_Gunner_Acidifier" or defName="Mercenary_Sniper" or defName="Mercenary_Sniper_Acidifier" or defName="Mercenary_Slasher" or defName="Mercenary_Slasher_Acidifier" or defName="Mercenary_Heavy"]</xpath>
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
-						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>7</ChanceToSpawnWithStack>
+						<chanceToSpawnWithStack>7</chanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>
@@ -40,8 +38,7 @@
 				<xpath>/Defs/PawnKindDef[defName="Mercenary_Elite" or defName="Mercenary_Elite_Acidifier"]</xpath>
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
-						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>20</ChanceToSpawnWithStack>
+						<chanceToSpawnWithStack>20</chanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>
@@ -49,8 +46,7 @@
 				<xpath>/Defs/PawnKindDef[defName="PirateBoss"]</xpath>
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
-						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>40</ChanceToSpawnWithStack>
+						<chanceToSpawnWithStack>40</chanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>
@@ -58,8 +54,7 @@
 				<xpath>/Defs/PawnKindDef[defName="Town_Guard" or defName="Town_Trader" or defName="Town_Councilman"]</xpath>
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
-						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>2</ChanceToSpawnWithStack>
+						<chanceToSpawnWithStack>2</chanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>
@@ -67,8 +62,7 @@
 				<xpath>/Defs/PawnKindDef[defName="SpaceRefugee" or defName="SpaceRefugee_Clothed"]</xpath>
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
-						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>5</ChanceToSpawnWithStack>
+						<chanceToSpawnWithStack>5</chanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>
@@ -76,8 +70,7 @@
 				<xpath>/Defs/PawnKindDef[defName="AncientSoldier" or defName="StrangerInBlack"]</xpath>
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
-						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>25</ChanceToSpawnWithStack>
+						<chanceToSpawnWithStack>25</chanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>

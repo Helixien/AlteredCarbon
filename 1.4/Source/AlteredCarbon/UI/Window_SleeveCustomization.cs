@@ -139,7 +139,6 @@ namespace AlteredCarbon
 
         public override void DoWindowContents(Rect inRect)
         {
-
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
             Widgets.Label(new Rect(0f, 0f, inRect.width, 32f), "AC.SleeveCustomization".Translate());
@@ -374,7 +373,7 @@ namespace AlteredCarbon
                         if (gene != null)
                         {
                             var hairGene = curSleeve.genes.GenesListForReading
-    .FirstOrDefault(x => selected.Key.endogeneCategory == x.def.endogeneCategory);
+                                .FirstOrDefault(x => selected.Key.endogeneCategory == x.def.endogeneCategory);
                             if (hairGene != null && gene != hairGene)
                             {
                                 curSleeve.genes.RemoveGene(hairGene);
@@ -900,9 +899,15 @@ namespace AlteredCarbon
                 fixedGender: gender, forcedXenotype: XenotypeDefOf.Baseliner));
             curSleeve.DestroyGear();
             curSleeve.MakeEmptySleeve();
-            var lastAdultAge = curSleeve.RaceProps.lifeStageAges.LastOrDefault((LifeStageAge lifeStageAge) => lifeStageAge.def.developmentalStage.Adult())?.minAge ?? 0f;
+            var lastAdultAgeDef = curSleeve.RaceProps.lifeStageAges.LastOrDefault((LifeStageAge lifeStageAge) => lifeStageAge.def.developmentalStage.Adult());
+            var lastAdultAge = lastAdultAgeDef?.minAge ?? 18f;
+            if (lastAdultAge == float.MaxValue)
+            {
+                lastAdultAge = 18f;
+            }
             curSleeve.ageTracker.AgeBiologicalTicks = (long)Mathf.FloorToInt(lastAdultAge * 3600000f);
             curSleeve.ageTracker.AgeChronologicalTicks = (long)Mathf.FloorToInt(lastAdultAge * 3600000f);
+
             curSleeve.health = new Pawn_HealthTracker(curSleeve);
             curSleeve.Rotation = Rot4.South;
             convertedGenes = new List<Gene>();

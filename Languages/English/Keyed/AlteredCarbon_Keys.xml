@@ -167,6 +167,7 @@
 	<AC.CancelGeneSeparating>Cancel gene separating</AC.CancelGeneSeparating>
 	<AC.CancelGeneSeparatingDesc>Cancel separating genes.</AC.CancelGeneSeparatingDesc>
 	<AC.ContainsGenepack>Contains: {0}</AC.ContainsGenepack>
+	<AC.SelectAGeneToSeparate>Select a gene to separate.</AC.SelectAGeneToSeparate>
 	<!-- ================================ Xenogerm duplicator ====================== -->
 	<AC.DuplicateXenogerm>Duplicate xenogerm</AC.DuplicateXenogerm>
 	<AC.DuplicateXenogermDesc>Select a xenogerm to duplicate. Xenogerms with archite genes require archite capsules to be loaded.</AC.DuplicateXenogermDesc>

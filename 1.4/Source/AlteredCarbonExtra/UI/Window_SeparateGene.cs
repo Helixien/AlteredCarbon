@@ -87,9 +87,16 @@ namespace AlteredCarbon
             var acceptButtonRect = new Rect(inRect.width - 30 - buttonWidth, cancelButtonRect.y, buttonWidth, 32);
             if (Widgets.ButtonText(acceptButtonRect, "AC.StartSeparating".Translate()))
             {
-                this.centrifuge.genepackToStore = genepack;
-                this.centrifuge.geneToSeparate = chosenGene;
-                this.Close();
+                if (chosenGene != null)
+                {
+                    this.centrifuge.genepackToStore = genepack;
+                    this.centrifuge.geneToSeparate = chosenGene;
+                    this.Close();
+                }
+                else
+                {
+                    Messages.Message("AC.SelectAGeneToSeparate".Translate(), MessageTypeDefOf.CautionInput);
+                }
             }
         }
 

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Patch>
 	<Operation Class="PatchOperationSequence">
 		<operations>
@@ -16,8 +16,7 @@
 				<xpath>/Defs/PawnKindDef[@Name="EmpireCommonerBase"]</xpath>
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
-						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>15</ChanceToSpawnWithStack>
+						<chanceToSpawnWithStack>15</chanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>
@@ -25,8 +24,7 @@
 				<xpath>/Defs/PawnKindDef[@Name="ImperialFighterBase"]</xpath>
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
-						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>45</ChanceToSpawnWithStack>
+						<chanceToSpawnWithStack>45</chanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>
@@ -34,8 +32,7 @@
 				<xpath>/Defs/PawnKindDef[@Name="RoyalBase"]</xpath>
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
-						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>45</ChanceToSpawnWithStack>
+						<chanceToSpawnWithStack>45</chanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>
@@ -43,8 +40,7 @@
 				<xpath>/Defs/PawnKindDef[@Name="RoyalUpperBase"]</xpath>
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
-						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>75</ChanceToSpawnWithStack>
+						<chanceToSpawnWithStack>75</chanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>
@@ -52,8 +48,7 @@
 				<xpath>/Defs/PawnKindDef[deName="Empire_Royal_Stellarch" or defName="Empire_Royal_Bestower" or defName="Empire_Royal_Consul"]</xpath>
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
-						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>100</ChanceToSpawnWithStack>
+						<chanceToSpawnWithStack>100</chanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>

@@ -9,8 +9,8 @@ namespace AlteredCarbon
 {
     public class StackSpawnModExtension : DefModExtension
     {
-        public bool SpawnsWithStack;
-        public int ChanceToSpawnWithStack;
+        public int chanceToSpawnWithStack;
+        public bool spawnArchoStack;
     }
 }
 

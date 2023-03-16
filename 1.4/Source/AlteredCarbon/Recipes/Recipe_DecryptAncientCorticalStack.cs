@@ -32,11 +32,11 @@ namespace AlteredCarbon
             actions.Add(new Pair<Action, Func<float>>(delegate
             {
                 var pawn = PawnGenerator.GeneratePawn(PawnKindDefOf.AncientSoldier, Faction.OfAncients);
-                var skills = DefDatabase<SkillDef>.AllDefs.Where(x => !pawn.skills.GetSkill(x).TotallyDisabled && pawn.skills.GetSkill(x).levelInt < 15).InRandomOrder().Take(2);
+                var skills = DefDatabase<SkillDef>.AllDefs.Where(x => !pawn.skills.GetSkill(x).TotallyDisabled && pawn.skills.GetSkill(x).Level < 15).InRandomOrder().Take(2);
                 foreach (var skill in skills)
                 {
                     var skillRecord = pawn.skills.GetSkill(skill);
-                    skillRecord.levelInt = Rand.RangeInclusive(15, 20);
+                    skillRecord.Level = Rand.RangeInclusive(15, 20);
                     skillRecord.passion = (Passion)Rand.RangeInclusive(1, 2);
                 }
                 var corticalStack = ThingMaker.MakeThing(AC_DefOf.VFEU_FilledCorticalStack) as CorticalStack;
@@ -66,7 +66,7 @@ namespace AlteredCarbon
             {
                 // Chance: 50% with skill level 8, each skill level lowers the chance by 5% until its 0%.
                 float chance = 0.5f;
-                var intelSkill = billDoer.skills.GetSkill(SkillDefOf.Intellectual)?.levelInt ?? 0;
+                var intelSkill = billDoer.skills.GetSkill(SkillDefOf.Intellectual)?.Level ?? 0;
                 if (intelSkill > 8)
                 {
                     var bonus = intelSkill - 8;

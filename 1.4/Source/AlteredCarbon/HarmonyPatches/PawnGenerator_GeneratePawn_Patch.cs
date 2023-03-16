@@ -14,11 +14,12 @@ namespace AlteredCarbon
             if (AlteredCarbonMod.settings.enableStackSpawning && __result != null && __result.RaceProps.Humanlike && __result.kindDef.HasModExtension<StackSpawnModExtension>())
             {
                 var extension = __result.kindDef.GetModExtension<StackSpawnModExtension>();
-                if (extension.SpawnsWithStack && __result.HasCorticalStack(out _) is false
-                    && Rand.Chance((float)extension.ChanceToSpawnWithStack / 100f))
+                if (extension != null && __result.HasCorticalStack(out _) is false
+                    && Rand.Chance((float)extension.chanceToSpawnWithStack / 100f))
                 {
-                    BodyPartRecord neckRecord = __result.GetNeck();
-                    var hediff = HediffMaker.MakeHediff(AC_DefOf.VFEU_CorticalStack, __result, neckRecord) as Hediff_CorticalStack;
+                    var neckRecord = __result.GetNeck();
+                    var hediff =  HediffMaker.MakeHediff(extension.spawnArchoStack && ModCompatibility.HelixienAlteredCarbonIsActive 
+                        ? AC_DefOf.AC_ArchoStack : AC_DefOf.VFEU_CorticalStack, __result, neckRecord) as Hediff_CorticalStack;
                     __result.health.AddHediff(hediff, neckRecord);
                 }
             }

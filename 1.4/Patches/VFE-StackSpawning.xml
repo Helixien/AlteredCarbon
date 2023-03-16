@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Patch>
 	<!-- ================================ Vikings ====================== -->
 	<Operation Class="PatchOperationFindMod">
@@ -11,8 +11,7 @@
 					<xpath>/Defs/PawnKindDef[defName="VFEV_VikingHero" or defName="VFEV_VikingLegend"]</xpath>
 					<value>
 						<li Class="AlteredCarbon.StackSpawnModExtension">
-							<SpawnsWithStack>true</SpawnsWithStack>
-							<ChanceToSpawnWithStack>45</ChanceToSpawnWithStack>
+							<chanceToSpawnWithStack>45</chanceToSpawnWithStack>
 						</li>
 					</value>
 				</li>
@@ -30,8 +29,7 @@
 					<xpath>/Defs/PawnKindDef[@Name="VFEE_DeserterBase"]</xpath>
 					<value>
 						<li Class="AlteredCarbon.StackSpawnModExtension">
-							<SpawnsWithStack>true</SpawnsWithStack>
-							<ChanceToSpawnWithStack>15</ChanceToSpawnWithStack>
+							<chanceToSpawnWithStack>15</chanceToSpawnWithStack>
 						</li>
 					</value>
 				</li>
@@ -49,8 +47,7 @@
 					<xpath>/Defs/PawnKindDef[@Name="VFEP_JunkersBase" or @Name="VFEP_MercenariesBase"]</xpath>
 					<value>
 						<li Class="AlteredCarbon.StackSpawnModExtension">
-							<SpawnsWithStack>true</SpawnsWithStack>
-							<ChanceToSpawnWithStack>7</ChanceToSpawnWithStack>
+							<chanceToSpawnWithStack>7</chanceToSpawnWithStack>
 						</li>
 					</value>
 				</li>
@@ -68,8 +65,7 @@
 					<xpath>/Defs/PawnKindDef[defName="VFEA_AncientSoldierOneAbility" or defName="VFEA_AncientSoldierTwoAbilities"]</xpath>
 					<value>
 						<li Class="AlteredCarbon.StackSpawnModExtension">
-							<SpawnsWithStack>true</SpawnsWithStack>
-							<ChanceToSpawnWithStack>25</ChanceToSpawnWithStack>
+							<chanceToSpawnWithStack>25</chanceToSpawnWithStack>
 						</li>
 					</value>
 				</li>

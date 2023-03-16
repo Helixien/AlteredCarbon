@@ -16,7 +16,7 @@ namespace AlteredCarbon
             base.Notify_IterationCompleted(billDoer, ingredients);
             var biocodedThing = ingredients.FirstOrDefault(x => x.TryGetComp<CompBiocodable>() != null);
             var baseFailChance = 0.3f;
-            var intelSkill = billDoer.skills.GetSkill(SkillDefOf.Intellectual)?.levelInt ?? 0;
+            var intelSkill = billDoer.skills.GetSkill(SkillDefOf.Intellectual)?.Level ?? 0;
             var diff = intelSkill - 10;
             for (var i = 0; i < diff; i++)
             {

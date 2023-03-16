@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Patch>
 	<Operation Class="PatchOperationSequence">
 		<operations>
@@ -7,8 +7,7 @@
 				<xpath>/Defs/PawnKindDef[@Name="MechanitorBase"]</xpath>
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
-						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>25</ChanceToSpawnWithStack>
+						<chanceToSpawnWithStack>25</chanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>
@@ -16,8 +15,7 @@
 				<xpath>/Defs/PawnKindDef[defName="SanguophageThrall"]</xpath>
 				<value>
 					<li Class="AlteredCarbon.StackSpawnModExtension">
-						<SpawnsWithStack>true</SpawnsWithStack>
-						<ChanceToSpawnWithStack>15</ChanceToSpawnWithStack>
+						<chanceToSpawnWithStack>15</chanceToSpawnWithStack>
 					</li>
 				</value>
 			</li>

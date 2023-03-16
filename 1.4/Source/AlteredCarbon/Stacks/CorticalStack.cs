@@ -218,7 +218,7 @@ namespace AlteredCarbon
             }
             if (ModCompatibility.HelixienAlteredCarbonIsActive)
             {
-                if (this.IsArchoStack is false && this.IsFilledStack)
+                if (this.IsFilledStack)
                 {
                     yield return new Command_Toggle
                     {
