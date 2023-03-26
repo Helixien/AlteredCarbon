@@ -12,7 +12,7 @@
 		<uiIconForStackCount>1</uiIconForStackCount>
 		<tradeNeverStack>true</tradeNeverStack>
 		<techHediffsTags Inherit="False">
-			<li>Archotech</li>
+			<li>Archostack</li>
 		</techHediffsTags>
 		<statBases>
 			<Mass>0.3</Mass>

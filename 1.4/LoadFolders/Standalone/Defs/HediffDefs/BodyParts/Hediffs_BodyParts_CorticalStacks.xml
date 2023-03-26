@@ -12,7 +12,7 @@
 		<uiIconForStackCount>1</uiIconForStackCount>
 		<tradeNeverStack>false</tradeNeverStack>
 		<useHitPoints>true</useHitPoints>
-		<techHediffsTags>
+		<techHediffsTags Inherit="False">
 			<li>Ultra</li>
 		</techHediffsTags>
 		<statBases>
