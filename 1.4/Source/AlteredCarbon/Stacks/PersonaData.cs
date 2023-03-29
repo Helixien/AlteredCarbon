@@ -154,8 +154,19 @@ namespace AlteredCarbon
         {
             if (dummyPawn is null)
             {
-                dummyPawn = CreateDummyPawn(originalRace, faction);
+                long ticks = (long)Mathf.FloorToInt(18f * 3600000f);
+                if (ageBiologicalTicks != default)
+                {
+                    ticks = ageBiologicalTicks;
+                }
+                else if (hostPawn != null)
+                {
+                    ticks = ageBiologicalTicks = hostPawn.ageTracker.AgeBiologicalTicks;
+                }
+                dummyPawn = ACUtils.CreateEmptyPawn(hostPawn?.kindDef ?? kindDef ?? PawnKindDefOf.Colonist,
+                    faction, originalRace ?? ThingDefOf.Human, ticks, originalXenotypeDef != null ? originalXenotypeDef : XenotypeDefOf.Baseliner);
             }
+
             OverwritePawn(dummyPawn, null, overwriteOriginalPawn: false, 
                 copyFromOrigPawn: hostPawn != null && hostPawn.Dead is false && hostPawn.IsEmptySleeve() is false);
             if (hostPawn != null)
@@ -184,26 +195,6 @@ namespace AlteredCarbon
             AssignDummyPawnReferences();
         }
 
-        public Pawn CreateDummyPawn(ThingDef race, Faction faction)
-        {
-            Pawn pawn = (Pawn)ThingMaker.MakeThing(race ?? ThingDefOf.Human);
-            pawn.kindDef = hostPawn?.kindDef ?? kindDef ?? PawnKindDefOf.Colonist;
-            pawn.SetFactionDirect(faction);
-            PawnComponentsUtility.CreateInitialComponents(pawn);
-            if (ageBiologicalTicks != default)
-            {
-                pawn.ageTracker.AgeBiologicalTicks = ageBiologicalTicks;
-            }
-            else if (hostPawn != null)
-            {
-                pawn.ageTracker.AgeBiologicalTicks = ageBiologicalTicks = hostPawn.ageTracker.AgeBiologicalTicks;
-            }
-            else
-            {
-                pawn.ageTracker.AgeBiologicalTicks = 0;
-            }
-            return pawn;
-        }
         public TaggedString PawnNameColored => TitleShort?.CapitalizeFirst().NullOrEmpty() ?? false
                     ? (TaggedString)(name?.ToStringShort.Colorize(GetFactionRelationColor(faction)))
                     : (TaggedString)(name?.ToStringShort.Colorize(GetFactionRelationColor(faction)) + ", " + TitleShort?.CapitalizeFirst());

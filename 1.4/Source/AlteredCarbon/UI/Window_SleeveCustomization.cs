@@ -894,10 +894,7 @@ namespace AlteredCarbon
                     gender = Gender.Male;
                 }
             }
-            curSleeve = PawnGenerator.GeneratePawn(new PawnGenerationRequest(currentPawnKindDef, Faction.OfPlayer, PawnGenerationContext.NonPlayer,
-                -1, true, false, false, false, false, 0f, false, true, true, false, false, false, true,
-                fixedGender: gender, forcedXenotype: XenotypeDefOf.Baseliner));
-            curSleeve.DestroyGear();
+            curSleeve = ACUtils.CreateEmptyPawn(currentPawnKindDef, Faction.OfPlayer, currentPawnKindDef.race, (long)Mathf.FloorToInt(18f * 3600000f), XenotypeDefOf.Baseliner);
             curSleeve.MakeEmptySleeve();
             var lastAdultAgeDef = curSleeve.RaceProps.lifeStageAges.LastOrDefault((LifeStageAge lifeStageAge) => lifeStageAge.def.developmentalStage.Adult());
             var lastAdultAge = lastAdultAgeDef?.minAge ?? 18f;
@@ -907,8 +904,6 @@ namespace AlteredCarbon
             }
             curSleeve.ageTracker.AgeBiologicalTicks = (long)Mathf.FloorToInt(lastAdultAge * 3600000f);
             curSleeve.ageTracker.AgeChronologicalTicks = (long)Mathf.FloorToInt(lastAdultAge * 3600000f);
-
-            curSleeve.health = new Pawn_HealthTracker(curSleeve);
             curSleeve.Rotation = Rot4.South;
             convertedGenes = new List<Gene>();
             ApplyGeneQuality();

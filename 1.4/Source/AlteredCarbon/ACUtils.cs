@@ -305,9 +305,26 @@ namespace AlteredCarbon
             });
         }
 
+        public static Pawn CreateEmptyPawn(PawnKindDef kindDef, Faction faction, ThingDef race = null, long ageBiologicalTicks = default, XenotypeDef xenotypeDef = null)
+        {
+            Pawn pawn = (Pawn)ThingMaker.MakeThing(race ?? kindDef.race ?? ThingDefOf.Human);
+            pawn.kindDef = kindDef;
+            pawn.SetFactionDirect(faction);
+            PawnComponentsUtility.CreateInitialComponents(pawn);
+            if (ageBiologicalTicks != default)
+            {
+                pawn.ageTracker.AgeBiologicalTicks = ageBiologicalTicks;
+            }
+            if (xenotypeDef != null)
+            {
+                pawn.genes.SetXenotype(xenotypeDef);
+            }
+            return pawn;
+        }
+
         public static Pawn ClonePawn(Pawn source)
         {
-            var clone = PawnGenerator.GeneratePawn(source.kindDef, source.Faction);
+            var clone = CreateEmptyPawn(source.kindDef, source.Faction);
             CopyBody(source, clone, copyAgeInfo: true, copyGenesFully: true, copyHealth: true);
             clone.MakeEmptySleeve();
             return clone;
@@ -546,12 +563,6 @@ namespace AlteredCarbon
                 pawn.style.FaceTattoo = TattooDefOf.NoTattoo_Face;
             }
             AlteredCarbonManager.Instance.emptySleeves.Add(pawn);
-        }
-        public static void DestroyGear(this Pawn pawn)
-        {
-            pawn.equipment.DestroyAllEquipment();
-            pawn.inventory.DestroyAll();
-            pawn.apparel.DestroyAll();
         }
         public static IEnumerable<Hediff_MissingPart> GetMissingParts(this Pawn pawn)
         {

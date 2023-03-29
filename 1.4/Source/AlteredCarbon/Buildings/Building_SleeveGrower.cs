@@ -348,7 +348,6 @@ namespace AlteredCarbon
         {
             Reset();
             var copyPawn = ACUtils.ClonePawn(corpse.InnerPawn);
-            copyPawn.DestroyGear();
             copyPawn.health.healthState = PawnHealthState.Dead;
             Find.WorldPawns.AddPawn(copyPawn);
             var newCorpse = copyPawn.MakeCorpse(null, null);
