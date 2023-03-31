@@ -60,7 +60,7 @@ namespace AlteredCarbon
             var initY = listingStandard.curY;
             DoCategory(listingStandard, "AC.General".Translate());
             DoCheckbox(listingStandard, "AC.EnableStackSpawning".Translate(), ref enableStackSpawning, "AC.EnableStackSpawningDesc".Translate());
-            DoCheckbox(listingStandard, "AC.EnableTechprintRequirement".Translate(), ref enableStackSpawning, "AC.EnableTechprintRequirementDesc".Translate());
+            DoCheckbox(listingStandard, "AC.EnableTechprintRequirement".Translate(), ref enableTechprintRequirement, "AC.EnableTechprintRequirementDesc".Translate());
             DoCategory(listingStandard, "AC.SleeveGrowing".Translate());
             DoSlider(listingStandard, "AC.TimeToGrowSleeveMultiplier".Translate(), ref sleeveGrowingTimeMultiplier,
                 sleeveGrowingTimeMultiplier.ToStringPercent(), 0, 5f, "AC.TimeToGrowSleeveMultiplierDesc".Translate()); 
