@@ -5,7 +5,7 @@
 		<defName>VFEU_VatGrownChild</defName>
 		<title>Vat-Grown Sleeve</title>
 		<titleShort>Vat-Grown Sleeve</titleShort>
-		<baseDesc>This body was grown in a vat. Having no consciousness inside, it is effectively braindead and only servers as a sleeve for someone's cortical stack.</baseDesc>
+		<baseDesc>This body was grown in a vat. Having no consciousness inside, it is effectively braindead and only serves as a sleeve for someone's cortical stack.</baseDesc>
 		<slot>Childhood</slot>
 		<workDisables>
 			<li>Animals</li>
@@ -33,7 +33,7 @@
 		<defName>VFEU_VatGrownAdult</defName>
 		<title>Vat-Grown Sleeve</title>
 		<titleShort>Vat-Grown Sleeve</titleShort>
-		<baseDesc>This body was grown in a vat. Having no consciousness inside, it is effectively braindead and only servers as a sleeve for someone's cortical stack.</baseDesc>
+		<baseDesc>This body was grown in a vat. Having no consciousness inside, it is effectively braindead and only serves as a sleeve for someone's cortical stack.</baseDesc>
 		<slot>Adulthood</slot>
 		<workDisables>
 			<li>Animals</li>
