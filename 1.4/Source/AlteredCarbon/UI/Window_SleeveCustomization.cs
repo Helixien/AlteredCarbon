@@ -733,7 +733,8 @@ namespace AlteredCarbon
             }
             var list = (ModCompatibility.AlienRacesIsActive ?
                     ModCompatibility.GetAllowedHeadTypes(curSleeve.def) :
-                    DefDatabase<HeadTypeDef>.AllDefs.Where(x => x.modContentPack?.IsOfficialMod ?? false).Except(invalidHeads)).Where(x => CanUseHeadType(x)).ToList();
+                    DefDatabase<HeadTypeDef>.AllDefs.Where(x => x.modContentPack?.IsOfficialMod ?? false).Except(invalidHeads))
+                    .Where(x => CanUseHeadType(x)).ToList();
             foreach (var entry in list)
             {
                 keyValuePairs.Add(new KeyValuePair<GeneDef, HeadTypeDef>(null, entry));
@@ -755,7 +756,7 @@ namespace AlteredCarbon
                         }
                     }
                 }
-                return head.gender == 0 || head.gender == curSleeve.gender;
+                return head.gender ==  Gender.None || head.gender == curSleeve.gender;
             }
         }
 
@@ -895,6 +896,7 @@ namespace AlteredCarbon
                 }
             }
             curSleeve = ACUtils.CreateEmptyPawn(currentPawnKindDef, Faction.OfPlayer, currentPawnKindDef.race, (long)Mathf.FloorToInt(18f * 3600000f), XenotypeDefOf.Baseliner);
+            curSleeve.gender = gender;
             curSleeve.MakeEmptySleeve();
             var lastAdultAgeDef = curSleeve.RaceProps.lifeStageAges.LastOrDefault((LifeStageAge lifeStageAge) => lifeStageAge.def.developmentalStage.Adult());
             var lastAdultAge = lastAdultAgeDef?.minAge ?? 18f;
