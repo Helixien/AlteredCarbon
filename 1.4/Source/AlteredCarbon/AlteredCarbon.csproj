@@ -58,6 +58,10 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="VFEAncients">
+      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\2654846754\1.4\Assemblies\VFEAncients.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="VFECore">
       <HintPath>..\..\..\..\VanillaExpandedFramework\1.4\Assemblies\VFECore.dll</HintPath>
       <Private>False</Private>
@@ -77,6 +81,7 @@
     <Compile Include="HarmonyPatches\ITab_Pawn_Health_ShouldAllowOperations_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnRenderer_RenderPawnAt_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_AdoptableBy_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_NeedsTracker_ShouldHaveNeed_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_RelationsTracker_OpinionOf_Patch.cs" />
     <Compile Include="HarmonyPatches\RitualObligationTrigger_MemberCorpseDestroyed_Notify_MemberCorpseDestroyed_Patch.cs" />
     <Compile Include="HarmonyPatches\Toils_Recipe_CalculateIngredients_Patch.cs" />
@@ -119,7 +124,6 @@
     <Compile Include="HarmonyPatches\Pawn_Destroy_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_Kill_Patch.cs" />
-    <Compile Include="HarmonyPatches\Pawn_NeedsTracker_ShouldHaveNeed_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_RoyaltyTracker_Notify_PawnKilled_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnGenerator_GeneratePawn_Patch.cs" />
     <Compile Include="HarmonyPatches\BillPatches\RecipeDef_AvailableOnNow_Patch.cs" />

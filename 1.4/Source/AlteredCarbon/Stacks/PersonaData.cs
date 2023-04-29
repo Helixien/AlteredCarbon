@@ -77,6 +77,8 @@ namespace AlteredCarbon
 
         public bool ContainsInnerPersona => hostPawn != null || name != null;
 
+        public static HashSet<Pawn> dummyPawns = new HashSet<Pawn>();
+
         // original pawn data before sleeving
         public Gender originalGender;
         public ThingDef originalRace;
@@ -165,8 +167,9 @@ namespace AlteredCarbon
                 }
                 dummyPawn = ACUtils.CreateEmptyPawn(hostPawn?.kindDef ?? kindDef ?? PawnKindDefOf.Colonist,
                     faction, originalRace ?? ThingDefOf.Human, ticks, originalXenotypeDef != null ? originalXenotypeDef : XenotypeDefOf.Baseliner);
+                dummyPawns.Add(dummyPawn);
             }
-
+            
             OverwritePawn(dummyPawn, null, overwriteOriginalPawn: false, 
                 copyFromOrigPawn: hostPawn != null && hostPawn.Dead is false && hostPawn.IsEmptySleeve() is false);
             if (hostPawn != null)
@@ -931,22 +934,26 @@ namespace AlteredCarbon
                 this.pawnID = this.hostPawn.thingIDNumber;
             }
 
-            var oldAbilities = pawn.abilities?.abilities.Select(x => x.def);
+            var oldAbilities = pawn.abilities?.abilities.Select(x => x.def).ToList();
             pawn.abilities = new Pawn_AbilityTracker(pawn);
             if (oldAbilities != null)
             {
                 foreach (var ability in oldAbilities)
                 {
-                    if (IsNaturalAbilityFor(pawn, ability))
+                    if (IsNaturalAbility(pawn, ability))
+                    {
+                        pawn.abilities.GainAbility(ability); 
+                    }
+                    else if (IsPsycastAbility(ability))
                     {
                         pawn.abilities.GainAbility(ability);
                     }
                 }
             }
             var compAbilities = pawn.GetComp<VFECore.Abilities.CompAbilities>();
-            if (compAbilities != null)
+            if (compAbilities?.LearnedAbilities != null)
             {
-                compAbilities.LearnedAbilities?.Clear();
+                compAbilities.LearnedAbilities.RemoveAll(x => IsNaturalAbility(pawn, x.def) is false && IsPsycastAbility(x.def) is false); 
             }
             pawn.psychicEntropy = new Pawn_PsychicEntropyTracker(pawn);
             if (this.sourceStack == AC_DefOf.AC_FilledArchoStack)
@@ -1219,28 +1226,37 @@ namespace AlteredCarbon
         }
 
         private static Type VEPsycastModExtensionType = AccessTools.TypeByName("VanillaPsycastsExpanded.AbilityExtension_Psycast");
-        private bool CanStoreAbility(Pawn pawn, Def def)
+        public static bool CanStoreAbility(Pawn pawn, Def def)
+        {
+            if (IsNaturalAbility(pawn, def))
+            {
+                return false;
+            }
+            if (IsPsycastAbility(def))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool IsPsycastAbility(Def def)
         {
             if (def is AbilityDef abilityDef)
             {
-                if (IsNaturalAbilityFor(pawn, abilityDef))
-                {
-                    return false;
-                }
-                if (typeof(Psycast).IsAssignableFrom(abilityDef.abilityClass))
-                {
-                    return true;
-                }
+                return typeof(Psycast).IsAssignableFrom(abilityDef.abilityClass);
             }
-            else if (def is VFECore.Abilities.AbilityDef && VEPsycastModExtensionType != null)
+            else if (def is VFECore.Abilities.AbilityDef abilityDef2)
             {
-                if (def.modExtensions != null)
+                if (VEPsycastModExtensionType != null)
                 {
-                    foreach (var modExtension in def.modExtensions)
+                    if (def.modExtensions != null)
                     {
-                        if (VEPsycastModExtensionType.IsAssignableFrom(modExtension.GetType()))
+                        foreach (var modExtension in def.modExtensions)
                         {
-                            return true;
+                            if (VEPsycastModExtensionType.IsAssignableFrom(modExtension.GetType()))
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
@@ -1248,13 +1264,26 @@ namespace AlteredCarbon
             return false;
         }
 
-        private static bool IsNaturalAbilityFor(Pawn pawn, AbilityDef ability)
+        public static bool IsNaturalAbility(Pawn pawn, Def def)
         {
-            if (ModsConfig.BiotechActive && pawn.genes != null)
+            if (def is AbilityDef ability)
             {
-                foreach (var gene in pawn.genes.GenesListForReading)
+                if (ModsConfig.BiotechActive && pawn.genes != null)
                 {
-                    if (gene.Active && gene.def.abilities.NullOrEmpty() is false && gene.def.abilities.Contains(ability))
+                    foreach (var gene in pawn.genes.GenesListForReading)
+                    {
+                        if (gene.Active && gene.def.abilities.NullOrEmpty() is false && gene.def.abilities.Contains(ability))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            else if (def is VFECore.Abilities.AbilityDef ability2)
+            {
+                if (ModCompatibility.VanillaFactionsExpandedAncientsIsActive)
+                {
+                    if (ModCompatibility.HasPowerAbility(pawn, ability2))
                     {
                         return true;
                     }
@@ -1557,22 +1586,25 @@ namespace AlteredCarbon
         {
             LongEventHandler.ExecuteWhenFinished(delegate
             {
-                var dummyPawn = GetDummyPawn;
-                if (skills != null)
+                if (dummyPawns.Contains(hostPawn) is false)
                 {
-                    foreach (var skill in skills)
+                    var dummyPawn = GetDummyPawn;
+                    if (skills != null)
                     {
-                        skill.pawn = dummyPawn;
+                        foreach (var skill in skills)
+                        {
+                            skill.pawn = dummyPawn;
+                        }
                     }
-                }
-                if (traits != null)
-                {
-                    foreach (var trait in traits)
+                    if (traits != null)
                     {
-                        trait.pawn = dummyPawn;
+                        foreach (var trait in traits)
+                        {
+                            trait.pawn = dummyPawn;
+                        }
                     }
+                    dummyPawn.Notify_DisabledWorkTypesChanged();
                 }
-                dummyPawn.Notify_DisabledWorkTypesChanged();
             });
         }
 

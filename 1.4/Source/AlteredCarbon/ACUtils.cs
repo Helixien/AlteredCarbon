@@ -91,13 +91,13 @@ namespace AlteredCarbon
         private static void AddHarmonyLogging()
         {
             //var postfixLogMethod = AccessTools.Method(typeof(ACUtils), "PostfixLogMethod");
-            //foreach (var method in typeof(Pawn_RelationsTracker).GetMethods())
+            //foreach (var method in typeof(ACUtils).Assembly.GetTypes().SelectMany(x => x.GetMethods(AccessTools.all)))
             //{
             //    try
             //    {
             //        var toIgnore = new List<string>
             //        {
-            //            "get_", "RelationsTrackerTick", "Notify_", "GetDirectRelationsCount", "GetFirstDirectRelationPawn"
+            //            "PostfixLogMethod"
             //        };
             //        if (toIgnore.Any(x => method.Name.Contains(x)) is false)
             //        {
@@ -289,6 +289,7 @@ namespace AlteredCarbon
         {
             LongEventHandler.ExecuteWhenFinished(delegate
             {
+                pawn.Drawer.renderer.graphics.nakedGraphic = null;
                 pawn.Drawer.renderer.WoundOverlays.ClearCache();
                 pawn.Drawer.renderer.graphics.ResolveAllGraphics();
                 PortraitsCache.SetDirty(pawn);
@@ -326,9 +327,46 @@ namespace AlteredCarbon
         {
             var clone = CreateEmptyPawn(source.kindDef, source.Faction);
             CopyBody(source, clone, copyAgeInfo: true, copyGenesFully: true, copyHealth: true);
-            clone.MakeEmptySleeve();
+            clone.MakeEmptySleeve(keepNaturalAbilities: true, keepPsycastAbilities: true);
+            CopyAbilities(source, clone);
             return clone;
         }
+
+        public static void CopyAbilities(Pawn source, Pawn dest)
+        {
+            var comp = source.GetComp<VFECore.Abilities.CompAbilities>();
+            if (comp != null && comp.LearnedAbilities != null)
+            {
+                var veAbilities = comp.LearnedAbilities.Select(x => x.def).ToList();
+                var otherComp = dest.GetComp<VFECore.Abilities.CompAbilities>();
+                if (otherComp != null)
+                {
+                    foreach (var ability in veAbilities)
+                    {
+                        otherComp.GiveAbility(ability);
+                    }
+                }
+            }
+
+            var abilities = source.abilities?.abilities;
+            if (abilities != null)
+            {
+                foreach (var ability in abilities)
+                {
+                    dest.abilities.GainAbility(ability.def);
+                }
+            }
+
+            if (ModCompatibility.VanillaFactionsExpandedAncientsIsActive)
+            {
+                var powers = ModCompatibility.GetPowers(source);
+                if (powers != null && powers.Any())
+                {
+                    ModCompatibility.SetPowers(dest, powers);
+                }
+            }
+        }
+
         public static void CopyBody(Pawn source, Pawn dest, bool copyAgeInfo = false, bool copyGenesPartially = false, bool copyGenesFully = false, 
             bool copyHealth = false)
         {
@@ -541,9 +579,42 @@ namespace AlteredCarbon
             pawn.story.traits = new TraitSet(pawn);
         }
 
-        public static void MakeEmptySleeve(this Pawn pawn)
+        public static void MakeEmptySleeve(this Pawn pawn, bool keepNaturalAbilities, bool keepPsycastAbilities)
         {
+            var entropy = pawn.psychicEntropy.currentEntropy;
+            var psyfocus = pawn.psychicEntropy.currentPsyfocus;
+            var oldAbilities = pawn.abilities?.abilities.Select(x => x.def).ToList();
             pawn.ResetInitialComponents();
+            if (keepNaturalAbilities)
+            {
+                if (oldAbilities != null)
+                {
+                    foreach (var ability in oldAbilities)
+                    {
+                        if (PersonaData.IsNaturalAbility(pawn, ability))
+                        {
+                            pawn.abilities.GainAbility(ability);
+                        }
+
+                    }
+                }
+            }
+            if (keepPsycastAbilities)
+            {
+                if (oldAbilities != null)
+                {
+                    foreach (var ability in oldAbilities)
+                    {
+                        if (PersonaData.IsPsycastAbility(ability))
+                        {
+                            pawn.abilities.GainAbility(ability);
+                        }
+                    }
+                }
+
+                pawn.psychicEntropy.currentEntropy = Mathf.Max(0, entropy);
+                pawn.psychicEntropy.currentPsyfocus = Mathf.Max(0, psyfocus);
+            }
             if (pawn.Faction != null)
             {
                 pawn.SetFaction(null);

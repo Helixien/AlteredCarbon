@@ -435,7 +435,7 @@ namespace AlteredCarbon
 
             if (pawn.Dead)
             {
-                pawn.MakeEmptySleeve();
+                pawn.MakeEmptySleeve(keepNaturalAbilities: true, keepPsycastAbilities: true);
                 ResurrectionUtility.Resurrect(pawn);
                 innerContainer.TryAddOrTransfer(pawn);
                 if (Find.WorldPawns.Contains(pawn))
@@ -445,6 +445,7 @@ namespace AlteredCarbon
             }
             AlteredCarbonManager.Instance.emptySleeves.Add(pawn);
             Messages.Message("AC.FinishedGrowingSleeve".Translate(), this, MessageTypeDefOf.CautionInput);
+            pawn.RefreshGraphic();
         }
 
         public override void Open()

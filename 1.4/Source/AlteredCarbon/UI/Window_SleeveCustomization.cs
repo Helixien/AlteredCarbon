@@ -897,7 +897,7 @@ namespace AlteredCarbon
             }
             curSleeve = ACUtils.CreateEmptyPawn(currentPawnKindDef, Faction.OfPlayer, currentPawnKindDef.race, (long)Mathf.FloorToInt(18f * 3600000f), XenotypeDefOf.Baseliner);
             curSleeve.gender = gender;
-            curSleeve.MakeEmptySleeve();
+            curSleeve.MakeEmptySleeve(keepNaturalAbilities: true, keepPsycastAbilities: true);
             var lastAdultAgeDef = curSleeve.RaceProps.lifeStageAges.LastOrDefault((LifeStageAge lifeStageAge) => lifeStageAge.def.developmentalStage.Adult());
             var lastAdultAge = lastAdultAgeDef?.minAge ?? 18f;
             if (lastAdultAge == float.MaxValue)

@@ -20,6 +20,7 @@ namespace AlteredCarbon
         public static bool DubsBadHygieneActive;
         public static bool HelixienAlteredCarbonIsActive;
         public static bool VanillaSkillsExpandedIsActive;
+        public static bool VanillaFactionsExpandedAncientsIsActive;
         static ModCompatibility()
         {
             HelixienAlteredCarbonIsActive = ModsConfig.IsActive("Hlx.UltratechAlteredCarbon");
@@ -39,6 +40,7 @@ namespace AlteredCarbon
             {
                 AddVSEPassions();
             }
+            VanillaFactionsExpandedAncientsIsActive = ModsConfig.IsActive("VanillaExpanded.VFEA");
         }
 
         private static void AddVSEPassions()
@@ -67,6 +69,43 @@ namespace AlteredCarbon
 				foreach (var expertise in expertises.Cast<VSE.ExpertiseRecord>())
 				{
                     expertiseTracker.AllExpertise.Add(expertise);
+                }
+            }
+        }
+
+        public static List<Def> GetPowers(Pawn pawn)
+        {
+            VFEAncients.Pawn_PowerTracker powerTracker = VFEAncients.Pawn_PowerTracker.Get(pawn);
+            if (powerTracker != null)
+            {
+                return powerTracker.AllPowers.Cast<Def>().ToList();
+            }
+            return null;
+        }
+
+		public static bool HasPowerAbility(Pawn pawn, VFECore.Abilities.AbilityDef abilityDef)
+		{
+            VFEAncients.Pawn_PowerTracker powerTracker = VFEAncients.Pawn_PowerTracker.Get(pawn);
+            if (powerTracker != null)
+            {
+				foreach (var power in powerTracker.AllPowers)
+				{
+					if (power.abilities.Contains(abilityDef))
+					{
+						return true;
+					}
+				}
+            }
+			return false;
+        }
+        public static void SetPowers(Pawn pawn, List<Def> powers)
+        {
+            VFEAncients.Pawn_PowerTracker powerTracker = VFEAncients.Pawn_PowerTracker.Get(pawn);
+            if (powerTracker != null)
+            {
+                foreach (var powerDef in powers.Cast<VFEAncients.PowerDef>())
+                {
+                    powerTracker.AddPower(powerDef);
                 }
             }
         }

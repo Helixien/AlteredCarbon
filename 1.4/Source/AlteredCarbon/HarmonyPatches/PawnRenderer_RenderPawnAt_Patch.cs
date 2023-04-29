@@ -37,7 +37,7 @@ namespace AlteredCarbon
             }
             if (!found)
             {
-                Log.Error("Regrowth Core failed to transpile PawnRenderer.RenderPawnAt");
+                Log.Error("AlteredCarbon failed to transpile PawnRenderer.RenderPawnAt");
             }
         }
 
