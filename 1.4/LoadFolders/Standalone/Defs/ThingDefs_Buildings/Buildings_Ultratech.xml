@@ -220,7 +220,6 @@
 			</buildingTags>
 		</building>
 		<recipes>
-			<li>VFEU_DecryptAncientStack</li>
 			<li>VFEU_WipeFilledCorticalStack</li>
 			<li>VFEU_HackBiocodedThings</li>
 		</recipes>

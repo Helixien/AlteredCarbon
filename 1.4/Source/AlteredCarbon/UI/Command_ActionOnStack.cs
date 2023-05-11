@@ -6,6 +6,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
+
     [HotSwappable]
     public class Command_ActionOnStack : Command_Action
     {

@@ -258,5 +258,6 @@
 	<AC.StackRewriteDegradationValueMultiplierDesc>Multiplies the overall stack degradation that is accumulated through editing.</AC.StackRewriteDegradationValueMultiplierDesc>
 	<AC.EnableArchostackRewriting>Enable Archo Stack rewriting</AC.EnableArchostackRewriting>
 	<AC.EnableArchostackRewritingDesc>Allows you to edit the content of Archo Stacks.</AC.EnableArchostackRewritingDesc>
-
+	<AC.ColonistStackNeedsExtracting>Colonist stack needs extracting</AC.ColonistStackNeedsExtracting>
+	<AC.ColonistStackNeedsExtractingDesc>These colonists are incapacitated on the ground:\n\n{0}\nSend another colonist to rescue them and carry them back to bed.\n\n(To rescue, select another colonist, then right click on the victim and select Rescue.)</AC.ColonistStackNeedsExtractingDesc>
 </LanguageData>

@@ -74,24 +74,22 @@ namespace AlteredCarbon
                     }
                     return;
                 }
-                ApplyCorticalStack(pawn, part, billDoer, ingredients);
+                TaleRecorder.RecordTale(TaleDefOf.DidSurgery, billDoer, pawn);
+                if (pawn.HasCorticalStack(out var stackHediff))
+                {
+                    var emptyStack = ACUtils.stacksPairs[stackHediff.SourceStack];
+                    var stack = ThingMaker.MakeThing(emptyStack);
+                    GenPlace.TryPlaceThing(stack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
+                    stackHediff.preventKill = true;
+                    pawn.health.RemoveHediff(stackHediff);
+                }
+                ApplyCorticalStack(recipe, pawn, part, ingredients.OfType<CorticalStack>().FirstOrDefault());
             }
         }
 
-        private void ApplyCorticalStack(Pawn pawn, BodyPartRecord part, Pawn billDoer, List<Thing> ingredients)
+        public static void ApplyCorticalStack(RecipeDef recipe, Pawn pawn, BodyPartRecord part, CorticalStack corticalStack)
         {
-            TaleRecorder.RecordTale(TaleDefOf.DidSurgery, billDoer, pawn);
-            var corticalStack = ingredients.OfType<CorticalStack>().FirstOrDefault();
             pawnToInstallStack = pawn;
-            if (pawn.HasCorticalStack(out var stackHediff))
-            {
-                var emptyStack = ACUtils.stacksPairs[stackHediff.SourceStack];
-                var stack = ThingMaker.MakeThing(emptyStack);
-                GenPlace.TryPlaceThing(stack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
-                stackHediff.preventKill = true;
-                pawn.health.RemoveHediff(stackHediff);
-            }
-
             var hediff = HediffMaker.MakeHediff(recipe.addsHediff, pawn) as Hediff_CorticalStack;
             if (corticalStack.PersonaData.ContainsInnerPersona)
             {

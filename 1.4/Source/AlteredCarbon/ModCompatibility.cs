@@ -17,10 +17,14 @@ namespace AlteredCarbon
         public static bool IndividualityIsActive;
         public static bool PsychologyIsActive;
         public static bool RimJobWorldIsActive;
+        private static readonly MethodInfo tryGetRaceGroupDef;
+        private static readonly Type raceGroupDef_HelperType;
+
         public static bool DubsBadHygieneActive;
         public static bool HelixienAlteredCarbonIsActive;
         public static bool VanillaSkillsExpandedIsActive;
         public static bool VanillaFactionsExpandedAncientsIsActive;
+        public static bool VanillaRacesExpandedAndroidIsActive;
         static ModCompatibility()
         {
             HelixienAlteredCarbonIsActive = ModsConfig.IsActive("Hlx.UltratechAlteredCarbon");
@@ -41,8 +45,21 @@ namespace AlteredCarbon
                 AddVSEPassions();
             }
             VanillaFactionsExpandedAncientsIsActive = ModsConfig.IsActive("VanillaExpanded.VFEA");
+            VanillaRacesExpandedAndroidIsActive = ModsConfig.IsActive("vanillaracesexpanded.android");
         }
 
+
+		public static bool IsAndroid(this Pawn pawn)
+		{
+			if (VanillaRacesExpandedAndroidIsActive)
+			{
+				if (VREAndroids.Utils.IsAndroid(pawn))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
         private static void AddVSEPassions()
         {
             Window_StackEditor.AllPassions.Clear();
@@ -381,8 +398,7 @@ namespace AlteredCarbon
                 }
             }
         }
-        private static readonly MethodInfo tryGetRaceGroupDef;
-		private static readonly Type raceGroupDef_HelperType;
+
 		public static bool RJWAllowsThisFor(this HediffDef hediffDef, Pawn pawn)
 		{
 			try

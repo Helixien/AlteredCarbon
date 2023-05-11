@@ -6,29 +6,6 @@
 		<effectWorking>VFEU_Hacking</effectWorking>
 		<soundWorking>VFEU_Interact_Hacking</soundWorking>
 	</RecipeDef>
-	<!-- ================================ Hacking Ancient Stacks ====================== -->
-	<RecipeDef ParentName="VFEU_RecipeHacking">
-		<defName>VFEU_DecryptAncientStack</defName>
-		<label>decrypt ancient stack</label>
-		<description>Decrypt ancient stacks in an attempt to repair them or acquire information from them.</description>
-		<jobString>decrypting ancient stack.</jobString>
-		<workerClass>AlteredCarbon.Recipe_DecryptAncientCorticalStack</workerClass>
-		<workAmount>15000</workAmount>
-		<unfinishedThingDef>VFEU_UnfinishedAncientStack</unfinishedThingDef>
-		<ingredients>
-			<li>
-				<filter>
-					<thingDefs>
-						<li>VFEU_AncientStack</li>
-					</thingDefs>
-				</filter>
-				<count>1</count>
-			</li>
-		</ingredients>
-		<skillRequirements>
-			<Intellectual>8</Intellectual>
-		</skillRequirements>
-	</RecipeDef>
 	<!-- ================================ Hacking Biocoded things ====================== -->
 	<RecipeDef ParentName="VFEU_RecipeHacking">
 		<defName>VFEU_HackBiocodedThings</defName>

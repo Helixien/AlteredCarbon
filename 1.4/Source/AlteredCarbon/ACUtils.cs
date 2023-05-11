@@ -82,6 +82,7 @@ namespace AlteredCarbon
             return pawn.health.hediffSet.GetNotMissingParts().FirstOrDefault(x => x.def == BodyPartDefOf.Neck);
         }
 
+
         private static void PostfixLogMethod(MethodBase __originalMethod)
         {
             Log.Message("Running " + __originalMethod.FullDescription() + " - " + new StackTrace());

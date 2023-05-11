@@ -215,6 +215,31 @@ namespace AlteredCarbon
                     }
                 };
                 yield return installStack;
+                if (DebugSettings.godMode)
+                {
+                    yield return new Command_Action
+                    {
+                        defaultLabel = "DEV: Instant implant",
+                        action = delegate
+                        {
+                            Find.Targeter.BeginTargeting(new TargetingParameters
+                            {
+                                canTargetHumans = true,
+                                canTargetPawns = true,
+                                canTargetAnimals = false,
+                                canTargetCorpses = false,
+                                canTargetMechs = false,
+                                validator = (TargetInfo x) => x.Thing is Pawn pawn 
+                                && ACUtils.CanImplantStackTo(installInfo.recipe.addsHediff, pawn, this)
+
+                            }, delegate (LocalTargetInfo x)
+                            {
+                                Recipe_InstallCorticalStack.ApplyCorticalStack(installInfo.recipe, x.Pawn, x.Pawn.GetNeck(), this);
+                                this.Destroy();
+                            });
+                        }
+                    };
+                }
             }
             if (ModCompatibility.HelixienAlteredCarbonIsActive)
             {

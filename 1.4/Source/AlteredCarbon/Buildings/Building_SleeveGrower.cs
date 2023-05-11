@@ -292,12 +292,18 @@ namespace AlteredCarbon
                 canTargetPawns = true,
                 canTargetItems = true,
                 mapObjectTargetsMustBeAutoAttackable = false,
-                validator = (TargetInfo x) => (x.Thing is Pawn pawn && pawn.RaceProps.Humanlike) 
-                || (x.Thing is Corpse corpse && corpse.InnerPawn.RaceProps.Humanlike) && 
-                (!ModCompatibility.AlienRacesIsActive || ModCompatibility.GetPermittedRaces().Contains(corpse.InnerPawn.def))
+                validator = (TargetInfo x) => (x.Thing is Pawn pawn && BodyCanBeReused(pawn))
+                || (x.Thing is Corpse corpse && BodyCanBeReused(corpse.InnerPawn))
             };
             return targetingParameters;
         }
+
+        private static bool BodyCanBeReused(Pawn pawn)
+        {
+            return pawn.RaceProps.Humanlike && (!ModCompatibility.AlienRacesIsActive 
+                || ModCompatibility.GetPermittedRaces().Contains(pawn.def)) && pawn.IsAndroid() is false;
+        }
+
         public void CopyPawnBody()
         {
             Find.Targeter.BeginTargeting(ForPawn(), delegate (LocalTargetInfo x)
@@ -320,7 +326,7 @@ namespace AlteredCarbon
                 canTargetItems = true,
                 mapObjectTargetsMustBeAutoAttackable = false,
                 validator = (TargetInfo x) => x.Thing is Corpse corpse && corpse.GetRotStage() != RotStage.Dessicated 
-                && corpse.InnerPawn.RaceProps.Humanlike && (!ModCompatibility.AlienRacesIsActive || ModCompatibility.GetPermittedRaces().Contains(corpse.InnerPawn.def))
+                && BodyCanBeReused(corpse.InnerPawn)
             };
             return targetingParameters;
         }

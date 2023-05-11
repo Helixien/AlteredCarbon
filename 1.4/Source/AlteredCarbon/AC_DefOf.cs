@@ -58,7 +58,6 @@ namespace AlteredCarbon
         public static GeneDef VFEU_SleeveQuality_Legendary;
         public static HediffDef VFEU_EmptySleeve;
         public static HediffDef VFEU_SleeveShock;
-        public static ThingDef VFEU_AncientStack;
         public static ThingDef VFEU_SleeveIncubator;
         public static ThingDef VFEU_SleeveCasket;
         public static ThingDef VFEU_DecryptionBench;
