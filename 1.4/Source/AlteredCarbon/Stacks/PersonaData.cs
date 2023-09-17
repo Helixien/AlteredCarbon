@@ -140,6 +140,8 @@ namespace AlteredCarbon
             this.stackGroupID = AlteredCarbonManager.Instance.stacksRelationships.Count + 1;
         }
 
+        public static Pawn lastDummyPawn;
+
         public Pawn GetDummyPawn
         {
             get
@@ -148,6 +150,7 @@ namespace AlteredCarbon
                 {
                     RefreshDummyPawn();
                 }
+                lastDummyPawn = dummyPawn;
                 return dummyPawn;
             }
         }
