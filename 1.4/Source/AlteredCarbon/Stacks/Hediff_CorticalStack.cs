@@ -135,42 +135,53 @@ namespace AlteredCarbon
         public bool preventSpawningStack;
         public void SpawnStack(bool destroyPawn = false, ThingPlaceMode placeMode = ThingPlaceMode.Near, Caravan caravan = null, bool psycastEffect = false)
         {
+            if (preventSpawningStack)
+            {
+                return;
+            }
             preventSpawningStack = true;
-            var stackDef = SourceStack;
-            var corticalStack = ThingMaker.MakeThing(stackDef) as CorticalStack;
-            corticalStack.PersonaData.CopyFromPawn(this.pawn, stackDef);
-            corticalStack.PersonaData.CopyOriginalData(PersonaData);
-            if (this.pawn.MapHeld != null)
+            try
             {
-                GenPlace.TryPlaceThing(corticalStack, this.pawn.PositionHeld, this.pawn.MapHeld, placeMode);
-                if (psycastEffect)
+                var stackDef = SourceStack;
+                var corticalStack = ThingMaker.MakeThing(stackDef) as CorticalStack;
+                corticalStack.PersonaData.CopyFromPawn(this.pawn, stackDef);
+                corticalStack.PersonaData.CopyOriginalData(PersonaData);
+                if (this.pawn.MapHeld != null)
                 {
-                    FleckMaker.Static(corticalStack.Position, corticalStack.Map, AC_DefOf.PsycastAreaEffect, 3f);
+                    GenPlace.TryPlaceThing(corticalStack, this.pawn.PositionHeld, this.pawn.MapHeld, placeMode);
+                    if (psycastEffect)
+                    {
+                        FleckMaker.Static(corticalStack.Position, corticalStack.Map, AC_DefOf.PsycastAreaEffect, 3f);
+                    }
+                }
+                else if (caravan != null)
+                {
+                    CaravanInventoryUtility.GiveThing(caravan, corticalStack);
+                }
+                var degradationHediff = pawn.health.hediffSet.GetFirstHediff<Hediff_StackDegradation>();
+                if (degradationHediff != null)
+                {
+                    corticalStack.PersonaData.stackDegradation = degradationHediff.stackDegradation;
+                    pawn.health.RemoveHediff(degradationHediff);
+                }
+                pawn.health.RemoveHediff(this);
+                AlteredCarbonManager.Instance.RegisterStack(corticalStack);
+                AlteredCarbonManager.Instance.RegisterSleeve(this.pawn, corticalStack);
+                if (destroyPawn)
+                {
+                    if (this.pawn.Dead)
+                    {
+                        this.pawn.Corpse.Destroy();
+                    }
+                    else
+                    {
+                        this.pawn.Destroy();
+                    }
                 }
             }
-            else if (caravan != null)
+            catch (Exception ex)
             {
-                CaravanInventoryUtility.GiveThing(caravan, corticalStack);
-            }
-            var degradationHediff = pawn.health.hediffSet.GetFirstHediff<Hediff_StackDegradation>();
-            if (degradationHediff != null)
-            {
-                corticalStack.PersonaData.stackDegradation = degradationHediff.stackDegradation;
-                pawn.health.RemoveHediff(degradationHediff);
-            }
-            pawn.health.RemoveHediff(this);
-            AlteredCarbonManager.Instance.RegisterStack(corticalStack);
-            AlteredCarbonManager.Instance.RegisterSleeve(this.pawn, corticalStack);
-            if (destroyPawn)
-            {
-                if (this.pawn.Dead)
-                {
-                    this.pawn.Corpse.Destroy();
-                }
-                else
-                {
-                    this.pawn.Destroy();
-                }
+                Log.Message("Error spawning stack: " + this + " - " + ex.ToString());
             }
             preventSpawningStack = false;
         }
