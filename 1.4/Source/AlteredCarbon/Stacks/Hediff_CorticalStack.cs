@@ -181,7 +181,7 @@ namespace AlteredCarbon
             }
             catch (Exception ex)
             {
-                Log.Message("Error spawning stack: " + this + " - " + ex.ToString());
+                Log.Error("Error spawning stack: " + this + " - " + ex.ToString());
             }
             preventSpawningStack = false;
         }

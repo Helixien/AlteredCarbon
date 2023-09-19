@@ -62,6 +62,11 @@
 				<thought>AC_Stacking_Central_NoStack_Social</thought>
 			</li>
 		</comps>
+		<modExtensions>
+			<li Class="AlteredCarbon.StackSpawnModExtension">
+				<chanceToSpawnWithStack>95</chanceToSpawnWithStack>
+			</li>
+		</modExtensions>
 	</PreceptDef>
 	<ThoughtDef>
 		<defName>AC_Stacking_Central_Stack</defName>
@@ -154,6 +159,11 @@
 				<thought>AC_Stacking_Preferred_NoStack_Social</thought>
 			</li>
 		</comps>
+		<modExtensions>
+			<li Class="AlteredCarbon.StackSpawnModExtension">
+				<chanceToSpawnWithStack>75</chanceToSpawnWithStack>
+			</li>
+		</modExtensions>
 	</PreceptDef>
 	<ThoughtDef>
 		<defName>AC_Stacking_Preferred_Stack</defName>
@@ -304,6 +314,11 @@
 				<thought>AC_Sleeving_Demanded_Sleeveless_Social</thought>
 			</li>
 		</comps>
+		<modExtensions>
+			<li Class="AlteredCarbon.StackSpawnModExtension">
+				<chanceToSpawnSleeveQuality>85</chanceToSpawnSleeveQuality>
+			</li>
+		</modExtensions>
 	</PreceptDef>
 	<ThoughtDef>
 		<defName>AC_Sleeving_Demanded_Sleeved</defName>
@@ -415,6 +430,11 @@
 				<tooltipShowMoodRange>true</tooltipShowMoodRange>
 			</li>
 		</comps>
+		<modExtensions>
+			<li Class="AlteredCarbon.StackSpawnModExtension">
+				<chanceToSpawnSleeveQuality>55</chanceToSpawnSleeveQuality>
+			</li>
+		</modExtensions>
 	</PreceptDef>
 	<ThoughtDef>
 		<defName>AC_Sleeving_Preferred_Sleeved</defName>

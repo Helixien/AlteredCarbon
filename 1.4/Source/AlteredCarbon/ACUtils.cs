@@ -290,14 +290,14 @@ namespace AlteredCarbon
         {
             LongEventHandler.ExecuteWhenFinished(delegate
             {
-                pawn.Drawer.renderer.graphics.nakedGraphic = null;
-                pawn.Drawer.renderer.WoundOverlays.ClearCache();
-                pawn.Drawer.renderer.graphics.ResolveAllGraphics();
-                PortraitsCache.SetDirty(pawn);
-                PortraitsCache.PortraitsCacheUpdate();
-                GlobalTextureAtlasManager.TryMarkPawnFrameSetDirty(pawn);
                 try
                 {
+                    pawn.Drawer.renderer.graphics.nakedGraphic = null;
+                    pawn.Drawer.renderer.WoundOverlays.ClearCache();
+                    pawn.Drawer.renderer.graphics.ResolveAllGraphics();
+                    PortraitsCache.SetDirty(pawn);
+                    PortraitsCache.PortraitsCacheUpdate();
+                    GlobalTextureAtlasManager.TryMarkPawnFrameSetDirty(pawn);
                     if (Find.World != null)
                     {
                         Find.ColonistBar.MarkColonistsDirty();

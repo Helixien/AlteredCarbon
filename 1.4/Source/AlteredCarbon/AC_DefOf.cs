@@ -86,5 +86,6 @@ namespace AlteredCarbon
         public static HediffDef TraumaSavant;
         public static RecipeDef CremateCorpse;
         public static RecipeDef ButcherCorpseFlesh;
+        public static TraitDef VFEU_Sleever;
     }
 }

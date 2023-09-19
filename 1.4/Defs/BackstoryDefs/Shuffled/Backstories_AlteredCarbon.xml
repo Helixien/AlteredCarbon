@@ -147,6 +147,11 @@
 		<forcedTraits>
 			<VFEU_FreeMind>0</VFEU_FreeMind>
 		</forcedTraits>
+		<modExtensions>
+			<li Class="AlteredCarbon.StackSpawnModExtension">
+				<chanceToSpawnWithStack>100</chanceToSpawnWithStack>
+			</li>
+		</modExtensions>
 	</BackstoryDef>
 	<BackstoryDef>
 		<defName>AC_EarlyResleeving</defName>
@@ -178,6 +183,11 @@
 		<forcedTraits>
 			<VFEU_Sleever>0</VFEU_Sleever>
 		</forcedTraits>
+		<modExtensions>
+			<li Class="AlteredCarbon.StackSpawnModExtension">
+				<chanceToSpawnWithStack>100</chanceToSpawnWithStack>
+			</li>
+		</modExtensions>
 	</BackstoryDef>
 	<BackstoryDef>
 		<defName>AC_RichAspirant</defName>
@@ -289,6 +299,11 @@
 			<Psychopath>0</Psychopath>
 			<Bloodlust>0</Bloodlust>
 		</forcedTraits>
+		<modExtensions>
+			<li Class="AlteredCarbon.StackSpawnModExtension">
+				<chanceToSpawnWithStack>100</chanceToSpawnWithStack>
+			</li>
+		</modExtensions>
 	</BackstoryDef>
 	<!-- ================================ Adultdhood ====================== -->
 	<BackstoryDef>
@@ -415,6 +430,11 @@
 		<forcedTraits>
 			<VFEU_FreeMind>0</VFEU_FreeMind>
 		</forcedTraits>
+		<modExtensions>
+			<li Class="AlteredCarbon.StackSpawnModExtension">
+				<chanceToSpawnWithStack>100</chanceToSpawnWithStack>
+			</li>
+		</modExtensions>
 	</BackstoryDef>
 	<BackstoryDef>
 		<defName>AC_RichOutcast</defName>
@@ -535,5 +555,10 @@
 		<forcedTraits>
 			<VFEU_Sleever>0</VFEU_Sleever>
 		</forcedTraits>
+		<modExtensions>
+			<li Class="AlteredCarbon.StackSpawnModExtension">
+				<chanceToSpawnWithStack>100</chanceToSpawnWithStack>
+			</li>
+		</modExtensions>
 	</BackstoryDef>
 </Defs>

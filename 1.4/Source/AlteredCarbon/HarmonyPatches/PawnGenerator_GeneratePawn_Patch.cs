@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using HarmonyLib;
-using RimWorld;
 using Verse;
 
 namespace AlteredCarbon
@@ -11,16 +10,23 @@ namespace AlteredCarbon
     {
         public static void Postfix(Pawn __result)
         {
-            if (AlteredCarbonMod.settings.enableStackSpawning && __result != null && __result.RaceProps.Humanlike && __result.kindDef.HasModExtension<StackSpawnModExtension>())
+            if (__result != null && __result.RaceProps.Humanlike)
             {
                 var extension = __result.kindDef.GetModExtension<StackSpawnModExtension>();
-                if (extension != null && __result.HasCorticalStack(out _) is false
-                    && Rand.Chance((float)extension.chanceToSpawnWithStack / 100f))
+                if (extension != null)
                 {
-                    var neckRecord = __result.GetNeck();
-                    var hediff =  HediffMaker.MakeHediff(extension.spawnArchoStack && ModCompatibility.HelixienAlteredCarbonIsActive 
-                        ? AC_DefOf.AC_ArchoStack : AC_DefOf.VFEU_CorticalStack, __result, neckRecord) as Hediff_CorticalStack;
-                    __result.health.AddHediff(hediff, neckRecord);
+                    extension.TryAddStack(__result);
+                }
+
+                foreach (var precept in __result.Ideo.PreceptsListForReading
+                    .OrderByDescending(x => x.def.GetModExtension<StackSpawnModExtension>()
+                    ?.chanceToSpawnWithStack > 0))
+                {
+                    extension = precept?.def.GetModExtension<StackSpawnModExtension>();
+                    if (extension != null)
+                    {
+                        extension.TryAddStack(__result);
+                    }
                 }
             }
         }
