@@ -42,7 +42,7 @@
 				<xpath>/Defs/ThingDef[defName="VFEU_DecryptionBench"]</xpath>
 				<value>
 					<researchPrerequisites>
-						<li>MicroelectronicsBasics</li>
+						<li>VFEU_Hacking</li>
 					</researchPrerequisites>
 					<constructionSkillPrerequisite>4</constructionSkillPrerequisite>
 					<costList>
