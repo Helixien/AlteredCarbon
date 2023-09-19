@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<VREAndroids.AndroidGeneDef ParentName="VREA_HardwareBase">
+		<defName>AC_CorticalModule</defName>
+		<label>cortical module</label>
+		<description>text.todo</description>
+		<iconPath>UI/Icons/Genes/Hardware/Gene_CorticalModule</iconPath>
+		<displayOrderInCategory>5</displayOrderInCategory>
+		<biostatCpx>2</biostatCpx>
+		<biostatMet>5</biostatMet>
+	</VREAndroids.AndroidGeneDef>
+</Defs>

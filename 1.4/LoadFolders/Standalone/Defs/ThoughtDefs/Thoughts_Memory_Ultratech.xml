@@ -3,7 +3,7 @@
 	<!-- ================================ Wrong Sleeve Xenotype ====================== -->
 	<ThoughtDef>
 		<defName>VFEU_WrongXenotype</defName>
-		<durationDays>120</durationDays>
+		<durationDays>35</durationDays>
 		<stackLimit>1</stackLimit>
 		<nullifyingTraits>
 			<li>Masochist</li>
@@ -20,7 +20,7 @@
 	<!-- ================================ Wrong Sleeve Gender ====================== -->
 	<ThoughtDef>
 		<defName>VFEU_WrongGender</defName>
-		<durationDays>120</durationDays>
+		<durationDays>30</durationDays>
 		<stackLimit>1</stackLimit>
 		<nullifyingTraits>
 			<li>Bisexual</li>
@@ -38,7 +38,7 @@
 	</ThoughtDef>
 	<ThoughtDef>
 		<defName>VFEU_WrongGenderDouble</defName>
-		<durationDays>120</durationDays>
+		<durationDays>30</durationDays>
 		<stackLimit>1</stackLimit>
 		<nullifyingTraits>
 			<li>Bisexual</li>
@@ -56,7 +56,7 @@
 	</ThoughtDef>
 	<ThoughtDef>
 		<defName>VFEU_WrongGenderPregnant</defName>
-		<durationDays>120</durationDays>
+		<durationDays>35</durationDays>
 		<stackLimit>1</stackLimit>
 		<nullifyingTraits>
 			<li>Bisexual</li>
@@ -75,7 +75,7 @@
 	<!-- ================================ New Sleeve ====================== -->
 	<ThoughtDef>
 		<defName>VFEU_NewSleeve</defName>
-		<durationDays>30</durationDays>
+		<durationDays>20</durationDays>
 		<stackLimit>1</stackLimit>
 		<nullifyingTraits>
 			<li>Transhumanist</li>
@@ -91,7 +91,7 @@
 	</ThoughtDef>
 	<ThoughtDef>
 		<defName>VFEU_NewSleeveDouble</defName>
-		<durationDays>30</durationDays>
+		<durationDays>20</durationDays>
 		<stackLimit>1</stackLimit>
 		<nullifyingTraits>
 			<li>Bisexual</li>
@@ -147,7 +147,7 @@
 	<!-- ================================ Wrong Sleeve Race ====================== -->
 	<ThoughtDef MayRequire="erdelf.HumanoidAlienRaces">
 		<defName>VFEU_WrongRace</defName>
-		<durationDays>120</durationDays>
+		<durationDays>35</durationDays>
 		<stackLimit>1</stackLimit>
 		<nullifyingTraits>
 			<li>Masochist</li>

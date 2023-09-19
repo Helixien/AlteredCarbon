@@ -176,8 +176,8 @@
 		<canOverlapZones>false</canOverlapZones>
 		<defaultPlacingRot>South</defaultPlacingRot>
 		<designationCategory>Biotech</designationCategory>
-		<researchPrerequisites>
-			<li>GeneProcessor</li>
+		<researchPrerequisites Inherit="False">
+			<li>Xenogermination</li>
 		</researchPrerequisites>
 		<statBases>
 			<MaxHitPoints>800</MaxHitPoints>
@@ -235,8 +235,8 @@
 		<canOverlapZones>false</canOverlapZones>
 		<defaultPlacingRot>North</defaultPlacingRot>
 		<designationCategory>Biotech</designationCategory>
-		<researchPrerequisites>
-			<li>Xenogermination</li>
+		<researchPrerequisites Inherit="False">
+			<li>GeneProcessor</li>
 		</researchPrerequisites>
 		<descriptionHyperlinks>
 			<ThingDef>Xenogerm</ThingDef>

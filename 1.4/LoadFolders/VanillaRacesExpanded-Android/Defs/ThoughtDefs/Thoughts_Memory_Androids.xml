@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ New Shell ====================== -->
+	<ThoughtDef>
+		<defName>VFEU_NewShell</defName>
+		<durationDays>35</durationDays>
+		<stackLimit>1</stackLimit>
+		<nullifyingTraits>
+			<li>Transhumanist</li>
+			<li>VFEU_Shellwalker</li>
+		</nullifyingTraits>
+		<stages>
+			<li>
+				<label>shell body</label>
+				<description>I am in an android body, this feels so different. I will need time to get used to it.</description>
+				<baseMoodEffect>-6</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>VFEU_NewShellDouble</defName>
+		<durationDays>35</durationDays>
+		<stackLimit>1</stackLimit>
+		<nullifyingTraits>
+			<li>Transhumanist</li>
+			<li>VFEU_Shellwalker</li>
+		</nullifyingTraits>
+		<stages>
+			<li>
+				<label>shell body</label>
+				<description>I am in an android body, this feels so different. I will need time to get used to it.</description>
+				<baseMoodEffect>-12</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ Wrong Shell Gender ====================== -->
+	<ThoughtDef>
+		<defName>VFEU_WrongShellGender</defName>
+		<durationDays>30</durationDays>
+		<stackLimit>1</stackLimit>
+		<nullifyingTraits>
+			<li>Bisexual</li>
+			<li>Masochist</li>
+			<li>Asexual</li>
+			<li>VFEU_FreeMind</li>
+		</nullifyingTraits>
+		<stages>
+			<li>
+				<label>different shell gender</label>
+				<description>The gender of my shell is not my own, this feels wrong.</description>
+				<baseMoodEffect>-5</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>VFEU_WrongShellGenderDouble</defName>
+		<durationDays>30</durationDays>
+		<stackLimit>1</stackLimit>
+		<nullifyingTraits>
+			<li>Bisexual</li>
+			<li>Masochist</li>
+			<li>Asexual</li>
+			<li>VFEU_FreeMind</li>
+		</nullifyingTraits>
+		<stages>
+			<li>
+				<label>different shell gender</label>
+				<description>The gender of my shell is not my own, this is wrong.</description>
+				<baseMoodEffect>-10</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ No Shell ====================== -->
+	<ThoughtDef>
+		<defName>VFEU_WantsShell</defName>
+		<durationDays>15</durationDays>
+		<stackLimit>1</stackLimit>
+		<stages>
+			<li>
+				<label>New shell</label>
+				<description>I am not in an android body, this feels so different. I will need time to get used to it.</description>
+				<baseMoodEffect>-8</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+</Defs>

@@ -212,6 +212,9 @@
 		<hasInteractionCell>true</hasInteractionCell>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
 		<surfaceType>Item</surfaceType>
+		<researchPrerequisites Inherit="false">
+			<li>VFEU_Hacking</li>
+		</researchPrerequisites>
 		<building>
 			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
 			<ai_chillDestination>false</ai_chillDestination>
