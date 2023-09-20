@@ -33,6 +33,8 @@ namespace AlteredCarbon
         [MayRequireIdeology] public static PreceptDef AC_CrossSleeving_DontCare;
         [MayRequireIdeology] public static PreceptDef AC_CrossSleeving_Despised;
         [MayRequireIdeology] public static HistoryEventDef AC_RewroteStack;
+
+        public static ThoughtDef AC_CortexOverseerFreed;
     }
 }
 

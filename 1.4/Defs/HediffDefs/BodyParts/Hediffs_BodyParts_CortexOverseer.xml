@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <HediffDef ParentName="ImplantHediffBase">
+    <defName>AC_CortexOverseer</defName>
+    <label>cortex overseer</label>
+    <labelNoun>a cortex overseer</labelNoun>
+    <description>An installed cortex overseer.</description>
+    <descriptionHyperlinks><ThingDef>AC_CortexOverseer</ThingDef></descriptionHyperlinks>
+    <spawnThingOnRemoved>AC_CortexOverseer</spawnThingOnRemoved>
+	<hediffClass>AlteredCarbon.Hediff_CortexOverseer</hediffClass>
+  </HediffDef>
+
+  <ThingDef ParentName="BodyPartBase">
+    <defName>AC_CortexOverseer</defName>
+    <label>cortex overseer</label>
+    <description>todo.</description>
+    <descriptionHyperlinks><RecipeDef>AC_InstallCortexOverseer</RecipeDef></descriptionHyperlinks>
+    <techLevel>Spacer</techLevel>
+    <graphicData>
+      <texPath>Things/Item/Health/HealthItem</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>400</MarketValue>
+    </statBases>
+    <thingCategories>
+      <li>BodyPartsBionic</li>
+    </thingCategories>
+  </ThingDef>
+
+  <RecipeDef ParentName="SurgeryInstallImplantBase">
+    <defName>AC_InstallCortexOverseer</defName>
+    <label>install cortex overseer</label>
+    <description>Install a cortex overseer.</description>
+    <descriptionHyperlinks>
+      <ThingDef>AC_CortexOverseer</ThingDef>
+      <HediffDef>AC_CortexOverseer</HediffDef>
+    </descriptionHyperlinks>
+    <jobString>Installing cortex overseer.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>AC_CortexOverseer</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>AC_CortexOverseer</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <appliedOnFixedBodyParts>
+      <li>Neck</li>
+    </appliedOnFixedBodyParts>
+    <addsHediff>AC_CortexOverseer</addsHediff>
+  </RecipeDef>
+  
+  <RecipeDef ParentName="SurgeryFlesh">
+    <defName>AC_DeactivateCortexOverseer</defName>
+    <label>deactivate cortex overseer</label>
+    <description>Deactivate cortex overseer</description>
+    <descriptionHyperlinks>
+      <ThingDef>AC_CortexOverseer</ThingDef>
+      <HediffDef>AC_CortexOverseer</HediffDef>
+    </descriptionHyperlinks>
+    <jobString>deactivating cortex overseer.</jobString>
+    <workerClass>AlteredCarbon.Recipe_DeactivateCortexOverseer</workerClass>
+    <workAmount>2500</workAmount>
+    <isViolation>true</isViolation>
+	<targetsBodyPart>false</targetsBodyPart>
+    <skillRequirements>
+      <Medicine>5</Medicine>
+      <Crafting>8</Crafting>
+    </skillRequirements>
+    <recipeUsers>
+      <li>Human</li>
+    </recipeUsers>
+    <ingredients>
+      <li>
+        <filter><categories><li>Medicine</li></categories></filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <categories>
+        <li>Medicine</li>
+      </categories>
+    </fixedIngredientFilter>
+  </RecipeDef>
+</Defs>

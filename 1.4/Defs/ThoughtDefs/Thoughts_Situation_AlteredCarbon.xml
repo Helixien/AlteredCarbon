@@ -46,6 +46,8 @@
 	<!-- ================================ Cortex Overseer ====================== -->
 	<ThoughtDef>
 		<defName>AC_CortexOverseerInstalled</defName>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<workerClass>AlteredCarbon.ThoughtWorker_CortexOverseerInstalled</workerClass>
 		<nullifyingTraits>
 			<li>Masochist</li>
 		</nullifyingTraits>
@@ -57,8 +59,11 @@
 			</li>
 		</stages>
 	</ThoughtDef>
+	
 	<ThoughtDef>
 		<defName>AC_CortexOverseerDeactivated</defName>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<workerClass>AlteredCarbon.ThoughtWorker_CortexOverseerDeactivated</workerClass>
 		<nullifyingTraits>
 			<li>Masochist</li>
 		</nullifyingTraits>
@@ -70,6 +75,7 @@
 			</li>
 		</stages>
 	</ThoughtDef>
+	
 	<ThoughtDef>
 		<defName>AC_CortexOverseerFreed</defName>
 		<stackLimit>1</stackLimit>

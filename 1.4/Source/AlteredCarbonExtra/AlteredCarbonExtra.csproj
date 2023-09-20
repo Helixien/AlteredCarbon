@@ -91,7 +91,11 @@
     <Compile Include="Jobs\WorkGiver_HaulStacks.cs" />
     <Compile Include="Misc\ACUtilsExtra.cs" />
     <Compile Include="Misc\AC_Extra_DefOf.cs" />
+    <Compile Include="Misc\Hediff_CortexOverseer.cs" />
+    <Compile Include="Misc\Recipe_DeactivateCortexOverseer.cs" />
     <Compile Include="Misc\RoomRoleWorker_UltraTech.cs" />
+    <Compile Include="Misc\ThoughtWorker_CortexOverseerInstalled.cs" />
+    <Compile Include="Misc\ThoughtWorker_CortexOverseerDeactivated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recipes\Recipe_RewriteFilledCorticalStack.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_RaceSleeving.cs" />

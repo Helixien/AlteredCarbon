@@ -300,8 +300,9 @@ namespace AlteredCarbon
 
         private static bool BodyCanBeReused(Pawn pawn)
         {
-            return pawn.RaceProps.Humanlike && (!ModCompatibility.AlienRacesIsActive 
-                || ModCompatibility.GetPermittedRaces().Contains(pawn.def)) && pawn.IsAndroid() is false;
+            return pawn.RaceProps.Humanlike && pawn.DevelopmentalStage == DevelopmentalStage.Adult 
+                && (!ModCompatibility.AlienRacesIsActive  || ModCompatibility.GetPermittedRaces().Contains(pawn.def)) 
+                && pawn.IsAndroid() is false;
         }
 
         public void CopyPawnBody()

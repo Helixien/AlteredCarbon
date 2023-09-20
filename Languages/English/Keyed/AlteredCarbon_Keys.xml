@@ -266,5 +266,7 @@
 	<AC.CannotInstallStackInNonHumanlikes>Cannot install stack in non-humanlikes</AC.CannotInstallStackInNonHumanlikes>
 	<AC.CannotInstallFilledStackInChildren>Cannot install filled stack in children</AC.CannotInstallFilledStackInChildren>
 	<AC.CannotInstallAlreadyHaveStack>Cannot install stack in pawn who already has a stack</AC.CannotInstallAlreadyHaveStack>
-
+	<AC.Detonate>Detonate</AC.Detonate>
+	<AC.DetonateDesc>todo</AC.DetonateDesc>
+	<AC.Deactivated>deactivated</AC.Deactivated>
 </LanguageData>
