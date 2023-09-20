@@ -43,4 +43,43 @@
 			</li>
 		</stages>
 	</ThoughtDef>
+	<!-- ================================ Cortex Overseer ====================== -->
+	<ThoughtDef>
+		<defName>AC_CortexOverseerInstalled</defName>
+		<nullifyingTraits>
+			<li>Masochist</li>
+		</nullifyingTraits>
+		<stages>
+			<li>
+				<label>cortex overseer</label>
+				<description>I have no saying anymore in my life... unless I am willing to end it...</description>
+				<baseMoodEffect>-15</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_CortexOverseerDeactivated</defName>
+		<nullifyingTraits>
+			<li>Masochist</li>
+		</nullifyingTraits>
+		<stages>
+			<li>
+				<label>cortex overseer</label>
+				<description>I know its deactivated, but its still inside me. I will never not feel uneasy...</description>
+				<baseMoodEffect>-3</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_CortexOverseerFreed</defName>
+		<stackLimit>1</stackLimit>
+		<durationDays>8</durationDays>
+		<stages>
+			<li>
+				<label>Free again</label>
+				<description>My cortex overseer was removed, I am finally free again!</description>
+				<baseMoodEffect>10</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
 </Defs>
