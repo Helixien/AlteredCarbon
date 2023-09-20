@@ -52,12 +52,27 @@ namespace AlteredCarbon
 		public static bool IsAndroid(this Pawn pawn)
 		{
 			if (VanillaRacesExpandedAndroidIsActive)
+            {
+                return IsAndroidInt(pawn);
+            }
+            return false;
+		}
+
+        private static bool IsAndroidInt(Pawn pawn)
+        {
+            if (VREAndroids.Utils.IsAndroid(pawn))
+            {
+                return true;
+            }
+            return false;
+        }
+
+		public static bool IsAwakenedAndroid(Pawn pawn)
+		{
+			if (pawn.IsAndroid())
 			{
-				if (VREAndroids.Utils.IsAndroid(pawn))
-				{
-					return true;
-				}
-			}
+				return VREAndroids.Utils.IsAwakened(pawn);
+            }
 			return false;
 		}
         private static void AddVSEPassions()

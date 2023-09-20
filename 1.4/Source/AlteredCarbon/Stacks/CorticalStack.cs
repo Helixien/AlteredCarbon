@@ -187,7 +187,7 @@ namespace AlteredCarbon
             TargetingParameters targetingParameters = new TargetingParameters
             {
                 canTargetPawns = true,
-                validator = (TargetInfo x) => x.Thing is Pawn pawn && ACUtils.CanImplantStackTo(ACUtils.stackRecipesByDef[this.def].recipe.addsHediff, pawn, this)
+                validator = (TargetInfo x) => x.Thing is Pawn pawn
             };
             return targetingParameters;
         }
@@ -210,7 +210,10 @@ namespace AlteredCarbon
                     {
                         Find.Targeter.BeginTargeting(ForPawn(), delegate (LocalTargetInfo x)
                         {
-                            InstallStackRecipe(x.Pawn, installInfo.recipe);
+                            if (ACUtils.CanImplantStackTo(ACUtils.stackRecipesByDef[this.def].recipe.addsHediff, x.Pawn, this, true))
+                            {
+                                InstallStackRecipe(x.Pawn, installInfo.recipe);
+                            }
                         });
                     }
                 };
@@ -229,13 +232,15 @@ namespace AlteredCarbon
                                 canTargetAnimals = false,
                                 canTargetCorpses = false,
                                 canTargetMechs = false,
-                                validator = (TargetInfo x) => x.Thing is Pawn pawn 
-                                && ACUtils.CanImplantStackTo(installInfo.recipe.addsHediff, pawn, this)
+                                validator = (TargetInfo x) => x.Thing is Pawn pawn
 
                             }, delegate (LocalTargetInfo x)
                             {
-                                Recipe_InstallCorticalStack.ApplyCorticalStack(installInfo.recipe, x.Pawn, x.Pawn.GetNeck(), this);
-                                this.Destroy();
+                                if (ACUtils.CanImplantStackTo(installInfo.recipe.addsHediff, x.Pawn, this, true))
+                                {
+                                    Recipe_InstallCorticalStack.ApplyCorticalStack(installInfo.recipe, x.Pawn, x.Pawn.GetNeck(), this);
+                                    this.Destroy();
+                                }
                             });
                         }
                     };
@@ -315,48 +320,10 @@ namespace AlteredCarbon
                 {
                     Messages.Message("MessageMedicalOperationWillAngerFaction".Translate(medPawn.HomeFaction), medPawn, MessageTypeDefOf.CautionInput, historical: false);
                 }
-                ThingDef minRequiredMedicine = GetMinRequiredMedicine(recipe);
-                if (minRequiredMedicine != null && medPawn.playerSettings != null && !medPawn.playerSettings.medCare.AllowsMedicine(minRequiredMedicine))
-                {
-                    Messages.Message("MessageTooLowMedCare".Translate(minRequiredMedicine.label, medPawn.LabelShort, medPawn.playerSettings.medCare.GetLabel(), medPawn.Named("PAWN")), medPawn, MessageTypeDefOf.CautionInput, historical: false);
-                }
                 recipe.Worker.CheckForWarnings(medPawn);
             }
-
         }
 
-        private static readonly List<ThingDef> tmpMedicineBestToWorst = new List<ThingDef>();
-        private static ThingDef GetMinRequiredMedicine(RecipeDef recipe)
-        {
-            tmpMedicineBestToWorst.Clear();
-            List<ThingDef> allDefsListForReading = DefDatabase<ThingDef>.AllDefsListForReading;
-            for (int i = 0; i < allDefsListForReading.Count; i++)
-            {
-                if (allDefsListForReading[i].IsMedicine)
-                {
-                    tmpMedicineBestToWorst.Add(allDefsListForReading[i]);
-                }
-            }
-            tmpMedicineBestToWorst.SortByDescending((ThingDef x) => x.GetStatValueAbstract(StatDefOf.MedicalPotency));
-            ThingDef thingDef = null;
-            for (int j = 0; j < recipe.ingredients.Count; j++)
-            {
-                ThingDef thingDef2 = null;
-                for (int k = 0; k < tmpMedicineBestToWorst.Count; k++)
-                {
-                    if (recipe.ingredients[j].filter.Allows(tmpMedicineBestToWorst[k]))
-                    {
-                        thingDef2 = tmpMedicineBestToWorst[k];
-                    }
-                }
-                if (thingDef2 != null && (thingDef == null || thingDef2.GetStatValueAbstract(StatDefOf.MedicalPotency) > thingDef.GetStatValueAbstract(StatDefOf.MedicalPotency)))
-                {
-                    thingDef = thingDef2;
-                }
-            }
-            tmpMedicineBestToWorst.Clear();
-            return thingDef;
-        }
         public override string GetInspectString()
         {
             StringBuilder stringBuilder = new StringBuilder();

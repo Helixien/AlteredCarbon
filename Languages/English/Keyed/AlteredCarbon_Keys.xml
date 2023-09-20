@@ -260,4 +260,11 @@
 	<AC.EnableArchostackRewritingDesc>Allows you to edit the content of Archo Stacks.</AC.EnableArchostackRewritingDesc>
 	<AC.ColonistStackNeedsExtracting>Colonist stack needs extracting</AC.ColonistStackNeedsExtracting>
 	<AC.ColonistStackNeedsExtractingDesc>These colonists are incapacitated on the ground:\n\n{0}\nSend another colonist to rescue them and carry them back to bed.\n\n(To rescue, select another colonist, then right click on the victim and select Rescue.)</AC.ColonistStackNeedsExtractingDesc>
+	<AC.CannotInstallStackOnAndroidWithoutCorticalModule>Cannot install stack on android with missing cortical module</AC.CannotInstallStackOnAndroidWithoutCorticalModule>
+	<AC.CannotInstallEmptyStackInEmptySleeve>Cannot install empty stack in an empty sleeve</AC.CannotInstallEmptyStackInEmptySleeve>
+	<AC.CannotInstallStackInBodyOfThisRace>Cannot install stack in the body of this race: {0}</AC.CannotInstallStackInBodyOfThisRace>
+	<AC.CannotInstallStackInNonHumanlikes>Cannot install stack in non-humanlikes</AC.CannotInstallStackInNonHumanlikes>
+	<AC.CannotInstallFilledStackInChildren>Cannot install filled stack in children</AC.CannotInstallFilledStackInChildren>
+	<AC.CannotInstallAlreadyHaveStack>Cannot install stack in pawn who already has a stack</AC.CannotInstallAlreadyHaveStack>
+
 </LanguageData>

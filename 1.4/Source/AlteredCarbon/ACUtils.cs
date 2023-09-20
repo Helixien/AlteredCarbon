@@ -244,28 +244,57 @@ namespace AlteredCarbon
             }
         }
 
-        public static bool CanImplantStackTo(HediffDef stackToImplant, Pawn pawn, CorticalStack corticalStack = null)
+        public static bool CanImplantStackTo(HediffDef stackToImplant, Pawn pawn, CorticalStack corticalStack = null, bool throwMessages = false)
         {
             if (corticalStack != null && pawn.IsEmptySleeve() && corticalStack.IsFilledStack is false)
             {
+                if (throwMessages)
+                {
+                    Messages.Message("AC.CannotInstallEmptyStackInEmptySleeve".Translate(), MessageTypeDefOf.RejectInput);
+                }
                 return false;
             }
             if (unstackableRaces.Contains(pawn.def))
             {
+                Messages.Message("AC.CannotInstallStackInBodyOfThisRace".Translate(pawn.def.label), MessageTypeDefOf.RejectInput);
                 return false;
             }
             if (pawn.RaceProps.Humanlike is false)
             {
+                Messages.Message("AC.CannotInstallStackInNonHumanlikes".Translate(), MessageTypeDefOf.RejectInput);
                 return false;
             }
             if (pawn.DevelopmentalStage != DevelopmentalStage.Adult)
             {
-                return false;
+                if (corticalStack.IsFilledStack)
+                {
+                    if (throwMessages)
+                    {
+                        Messages.Message("AC.CannotInstallFilledStackInChildren".Translate(), MessageTypeDefOf.RejectInput);
+                    }
+                    return false;
+                }
             }
             if (pawn.HasCorticalStack(out var stackHediff)
                 && (stackHediff.def == AC_DefOf.AC_ArchoStack || stackToImplant == stackHediff.def))
             {
+                if (throwMessages)
+                {
+                    Messages.Message("AC.CannotInstallAlreadyHaveStack".Translate(), MessageTypeDefOf.RejectInput);
+                }
                 return false;
+            }
+            if (ModCompatibility.IsAndroid(pawn))
+            {
+                if (pawn.genes.HasGene(AC_DefOf.AC_CorticalModule))
+                {
+                    return true;
+                }
+                else if (throwMessages)
+                {
+                    Messages.Message("AC.CannotInstallStackOnAndroidWithoutCorticalModule".Translate(), MessageTypeDefOf.RejectInput);
+                    return false;
+                }
             }
             return true;
         }

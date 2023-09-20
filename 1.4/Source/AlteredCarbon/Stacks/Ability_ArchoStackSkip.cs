@@ -16,7 +16,7 @@ namespace AlteredCarbon
             var pawnTarget = target.Pawn;
             if (pawnTarget != null)
             {
-                if (ACUtils.CanImplantStackTo(Hediff_CorticalStack.def, pawnTarget))
+                if (ACUtils.CanImplantStackTo(Hediff_CorticalStack.def, pawnTarget, null, showMessages))
                 {
                     return true;
                 }
@@ -54,6 +54,8 @@ namespace AlteredCarbon
                 sourceHediff.preventSpawningStack = true;
                 pawn.health.RemoveHediff(sourceHediff);
                 sourceHediff.preventSpawningStack = false;
+
+                Recipe_InstallCorticalStack.ApplyMindEffects(pawnTarget, copyHediff);
 
                 copyHediff.skipAbility.cooldown = sourceHediff.skipAbility.cooldown;
                 AlteredCarbonManager.Instance.deadPawns.Add(pawn);

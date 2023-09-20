@@ -20,7 +20,7 @@ namespace AlteredCarbon
         {
             if (PawnGenerator.IsBeingGenerated(__instance.pawn))
             {
-                var extension = value.GetModExtension<StackSpawnModExtension>();
+                var extension = value?.GetModExtension<StackSpawnModExtension>();
                 if (extension != null)
                 {
                     extension.TryAddStack(__instance.pawn);

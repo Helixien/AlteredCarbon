@@ -113,66 +113,7 @@ namespace AlteredCarbon
                 }
                 hediff.PersonaData.OverwritePawn(pawn, corticalStack.def.GetModExtension<StackSavingOptionsModExtension>(), copyFromOrigPawn: false);
                 pawn.health.AddHediff(hediff, part);
-                pawn.needs.AddOrRemoveNeedsAsAppropriate();
-
-                if (AlteredCarbonMod.settings.enableStackDegradation && ModCompatibility.HelixienAlteredCarbonIsActive && hediff.PersonaData.stackDegradation > 0)
-                {
-                    var stackDegradationHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_StackDegradation) as Hediff_StackDegradation;
-                    if (stackDegradationHediff is null)
-                    {
-                        BodyPartRecord neckRecord = pawn.GetNeck();
-                        stackDegradationHediff = HediffMaker.MakeHediff(AC_DefOf.AC_StackDegradation, pawn, neckRecord) as Hediff_StackDegradation;
-                        pawn.health.AddHediff(stackDegradationHediff, neckRecord);
-                    }
-                    stackDegradationHediff.stackDegradation = hediff.PersonaData.stackDegradation;
-
-                    var brainTraumaChance = (hediff.PersonaData.stackDegradation - 0.8f) * 5f;
-                    if (brainTraumaChance > 0 && Rand.Chance(brainTraumaChance))
-                    {
-                        pawn.health.AddHediff(AC_DefOf.AC_BrainTrauma, pawn.health.hediffSet.GetBrain());
-                    }
-                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_StackDegradationThought);
-                }
-
-                if (pawn.gender != hediff.PersonaData.originalGender)
-                {
-                    if (pawn.story.traits.HasTrait(TraitDefOf.BodyPurist))
-                    {
-                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongGenderDouble);
-                    }
-                    else
-                    {
-                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongGender);
-                    }
-                }
-
-                if (ModCompatibility.AlienRacesIsActive && hediff.PersonaData.originalRace != null && pawn.kindDef.race != hediff.PersonaData.originalRace)
-                {
-                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongRace);
-                }
-                if (pawn.SleeveMatchesOriginalXenotype(hediff.PersonaData))
-                {
-                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongXenotype);
-                }
-
-                var naturalMood = pawn.story.traits.GetTrait(TraitDefOf.NaturalMood);
-                var nerves = pawn.story.traits.GetTrait(TraitDefOf.Nerves);
-                if ((naturalMood != null && naturalMood.Degree == -2)
-                        || pawn.story.traits.HasTrait(TraitDefOf.BodyPurist)
-                        || (nerves != null && nerves.Degree == -2))
-                {
-                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_NewSleeveDouble);
-                }
-                else
-                {
-                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_NewSleeve);
-                }
-
-                if (hediff.PersonaData.diedFromCombat.HasValue && hediff.PersonaData.diedFromCombat.Value)
-                {
-                    pawn.health.AddHediff(HediffMaker.MakeHediff(AC_DefOf.VFEU_SleeveShock, pawn));
-                    hediff.PersonaData.diedFromCombat = null;
-                }
+                ApplyMindEffects(pawn, hediff);
             }
             else
             {
@@ -183,6 +124,79 @@ namespace AlteredCarbon
             {
                 Find.HistoryEventsManager.RecordEvent(new HistoryEvent(AC_DefOf.VFEU_InstalledCorticalStack, pawn.Named(HistoryEventArgsNames.Doer)));
             }
+        }
+
+        public static void ApplyMindEffects(Pawn pawn, Hediff_CorticalStack hediff)
+        {
+            if (AlteredCarbonMod.settings.enableStackDegradation && ModCompatibility.HelixienAlteredCarbonIsActive && hediff.PersonaData.stackDegradation > 0)
+            {
+                var stackDegradationHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_StackDegradation) as Hediff_StackDegradation;
+                if (stackDegradationHediff is null)
+                {
+                    BodyPartRecord neckRecord = pawn.GetNeck();
+                    stackDegradationHediff = HediffMaker.MakeHediff(AC_DefOf.AC_StackDegradation, pawn, neckRecord) as Hediff_StackDegradation;
+                    pawn.health.AddHediff(stackDegradationHediff, neckRecord);
+                }
+                stackDegradationHediff.stackDegradation = hediff.PersonaData.stackDegradation;
+
+                var brainTraumaChance = (hediff.PersonaData.stackDegradation - 0.8f) * 5f;
+                if (brainTraumaChance > 0 && Rand.Chance(brainTraumaChance))
+                {
+                    pawn.health.AddHediff(AC_DefOf.AC_BrainTrauma, pawn.health.hediffSet.GetBrain());
+                }
+                pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_StackDegradationThought);
+            }
+
+            bool isAndroid = pawn.IsAndroid();
+
+            if (pawn.gender != hediff.PersonaData.originalGender)
+            {
+                if (pawn.story.traits.HasTrait(TraitDefOf.BodyPurist))
+                {
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(isAndroid ? AC_DefOf.VFEU_WrongShellGenderDouble : AC_DefOf.VFEU_WrongGenderDouble);
+                }
+                else
+                {
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(isAndroid ? AC_DefOf.VFEU_WrongShellGender : AC_DefOf.VFEU_WrongGender);
+                }
+            }
+
+            if (ModCompatibility.AlienRacesIsActive && hediff.PersonaData.originalRace != null && pawn.kindDef.race != hediff.PersonaData.originalRace)
+            {
+                pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongRace);
+            }
+            if (pawn.SleeveMatchesOriginalXenotype(hediff.PersonaData))
+            {
+                pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongXenotype);
+            }
+
+            var naturalMood = pawn.story.traits.GetTrait(TraitDefOf.NaturalMood);
+            var nerves = pawn.story.traits.GetTrait(TraitDefOf.Nerves);
+            if ((naturalMood != null && naturalMood.Degree == -2)
+                    || pawn.story.traits.HasTrait(TraitDefOf.BodyPurist)
+                    || (nerves != null && nerves.Degree == -2))
+            {
+                pawn.needs.mood.thoughts.memories.TryGainMemory(isAndroid ? AC_DefOf.VFEU_NewShellDouble : AC_DefOf.VFEU_NewSleeveDouble);
+            }
+            else
+            {
+                pawn.needs.mood.thoughts.memories.TryGainMemory(isAndroid ? AC_DefOf.VFEU_NewShell : AC_DefOf.VFEU_NewSleeve);
+            }
+
+            if (ModCompatibility.VanillaRacesExpandedAndroidIsActive)
+            {
+                if (pawn.story.traits.HasTrait(AC_DefOf.VFEU_Shellwalker) && isAndroid is false)
+                {
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WantsShell);
+                }
+            }
+
+            if (hediff.PersonaData.diedFromCombat.HasValue && hediff.PersonaData.diedFromCombat.Value)
+            {
+                pawn.health.AddHediff(HediffMaker.MakeHediff(AC_DefOf.VFEU_SleeveShock, pawn));
+                hediff.PersonaData.diedFromCombat = null;
+            }
+            pawn.needs.AddOrRemoveNeedsAsAppropriate();
         }
     }
 }

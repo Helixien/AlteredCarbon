@@ -18,6 +18,13 @@ namespace AlteredCarbon
         {
         }
     }
+    public class MayRequireVREAndroidModAttribute : MayRequireAttribute
+    {
+        public MayRequireVREAndroidModAttribute()
+            : base("vanillaracesexpanded.android")
+        {
+        }
+    }
     [DefOf]
     public static class AC_DefOf
     {
@@ -87,5 +94,8 @@ namespace AlteredCarbon
         public static RecipeDef CremateCorpse;
         public static RecipeDef ButcherCorpseFlesh;
         public static TraitDef VFEU_Sleever;
+        [MayRequireVREAndroidMod] public static GeneDef AC_CorticalModule;
+        [MayRequireVREAndroidMod] public static ThoughtDef VFEU_NewShell, VFEU_NewShellDouble, VFEU_WantsShell, VFEU_WrongShellGender, VFEU_WrongShellGenderDouble;
+        [MayRequireVREAndroidMod] public static TraitDef VFEU_Shellwalker;
     }
 }
