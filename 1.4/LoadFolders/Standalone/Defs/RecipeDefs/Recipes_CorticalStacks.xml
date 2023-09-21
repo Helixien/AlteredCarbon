@@ -116,7 +116,7 @@
 			<Plasteel>7</Plasteel>
 		</products>
 	</RecipeDef>
-	<RecipeDef ParentName="ButcherCorpseMechanoidBase">
+	<RecipeDef ParentName="VFEU_DestroyCorticalStacksBase">
 		<defName>VFEU_SmashCorticalStacks</defName>
 		<label>smash cortical stacks</label>
 		<description>Smash a cortical stack with simple hand tools to salvage usable material.</description>
