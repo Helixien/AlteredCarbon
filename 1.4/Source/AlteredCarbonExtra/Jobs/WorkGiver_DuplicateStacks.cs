@@ -19,7 +19,7 @@ namespace AlteredCarbon
         }
         public override bool HasJobOnThing(Pawn pawn, Thing t, bool forced = false)
         {
-            if (pawn.skills.GetSkill(SkillDefOf.Intellectual).levelInt < 10)
+            if (pawn.skills.GetSkill(SkillDefOf.Intellectual).Level < 10)
             {
                 JobFailReason.Is("AC.CannotCopyNoIntellectual".Translate());
                 return false;

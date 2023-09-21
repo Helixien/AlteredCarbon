@@ -7,19 +7,7 @@ namespace AlteredCarbon
 {
     public class Hediff_CortexOverseer : HediffWithComps
     {
-        public Need_Suppression suppresion;
-        public Need_Suppression Suppresion => suppresion ??= pawn.needs.TryGetNeed<Need_Suppression>();
-
         public bool activated = true;
-
-        public override void Tick()
-        {
-            base.Tick();
-            if (activated && pawn.IsSlave)
-            {
-                Suppresion.CurLevel = Mathf.Max(Suppresion.CurLevel, 0.8f);
-            }
-        }
 
         public override string LabelInBrackets => activated ? "" : "AC.Deactivated".Translate();
 

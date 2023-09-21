@@ -94,6 +94,7 @@
     <Compile Include="Misc\Hediff_CortexOverseer.cs" />
     <Compile Include="Misc\Recipe_DeactivateCortexOverseer.cs" />
     <Compile Include="Misc\RoomRoleWorker_UltraTech.cs" />
+    <Compile Include="HarmonyPatches\TerrorUtility_GetTerrorLevel_Patch.cs" />
     <Compile Include="Misc\ThoughtWorker_CortexOverseerInstalled.cs" />
     <Compile Include="Misc\ThoughtWorker_CortexOverseerDeactivated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

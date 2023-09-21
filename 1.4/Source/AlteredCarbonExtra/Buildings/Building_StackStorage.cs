@@ -215,7 +215,7 @@ namespace AlteredCarbon
 
         public void PerformStackDuplication(Pawn doer)
         {
-            float successChance = 1f - Mathf.Abs((doer.skills.GetSkill(SkillDefOf.Intellectual).levelInt / 2f) - 11f) / 10f;
+            float successChance = 1f - Mathf.Abs((doer.skills.GetSkill(SkillDefOf.Intellectual).Level / 2f) - 11f) / 10f;
             if (Rand.Chance(successChance))
             {
                 var stackCopyTo = (CorticalStack)ThingMaker.MakeThing(AC_DefOf.VFEU_FilledCorticalStack);
