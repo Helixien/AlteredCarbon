@@ -149,7 +149,7 @@ namespace AlteredCarbon
 
             bool isAndroid = pawn.IsAndroid();
 
-            if (pawn.gender != hediff.PersonaData.originalGender)
+            if (pawn.gender != hediff.PersonaData.OriginalGender)
             {
                 if (pawn.story.traits.HasTrait(TraitDefOf.BodyPurist))
                 {
@@ -161,7 +161,7 @@ namespace AlteredCarbon
                 }
             }
 
-            if (ModCompatibility.AlienRacesIsActive && hediff.PersonaData.originalRace != null && pawn.kindDef.race != hediff.PersonaData.originalRace)
+            if (ModCompatibility.AlienRacesIsActive && hediff.PersonaData.OriginalRace != null && pawn.kindDef.race != hediff.PersonaData.OriginalRace)
             {
                 pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongRace);
             }

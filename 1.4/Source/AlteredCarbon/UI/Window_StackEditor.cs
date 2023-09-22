@@ -184,7 +184,7 @@ namespace AlteredCarbon
                 DoNameInput(ref pos, "FirstName".Translate().CapitalizeFirst(), ref nameTriple.firstInt, delegate
                 {
                     var name = PawnBioAndNameGenerator.GeneratePawnName(personaData.GetDummyPawn, NameStyle.Full, null,
-                        forceNoNick: false, personaData.originalXenotypeDef);
+                        forceNoNick: false, personaData.OriginalXenotypeDef);
                     if (name is NameTriple nameTriple1)
                     {
                         nameTriple.firstInt = nameTriple1.firstInt;
@@ -197,7 +197,7 @@ namespace AlteredCarbon
                 DoNameInput(ref pos, "NickName".Translate().CapitalizeFirst(), ref nameTriple.nickInt, delegate
                 {
                     var name = PawnBioAndNameGenerator.GeneratePawnName(personaData.GetDummyPawn, NameStyle.Full, null,
-                        forceNoNick: false, personaData.originalXenotypeDef);
+                        forceNoNick: false, personaData.OriginalXenotypeDef);
                     if (name is NameTriple nameTriple1)
                     {
                         nameTriple.nickInt = nameTriple1.nickInt;
@@ -210,7 +210,7 @@ namespace AlteredCarbon
                 DoNameInput(ref pos, "LastName".Translate().CapitalizeFirst(), ref nameTriple.lastInt, delegate
                 {
                     var name = PawnBioAndNameGenerator.GeneratePawnName(personaData.GetDummyPawn, NameStyle.Full, null,
-                        forceNoNick: false, personaData.originalXenotypeDef);
+                        forceNoNick: false, personaData.OriginalXenotypeDef);
                     if (name is NameTriple nameTriple1)
                     {
                         nameTriple.lastInt = nameTriple1.lastInt;
@@ -226,7 +226,7 @@ namespace AlteredCarbon
                 DoNameInput(ref pos, "Name".Translate().CapitalizeFirst(), ref nameSingle.nameInt, delegate
                 {
                     var name = PawnBioAndNameGenerator.GeneratePawnName(personaData.GetDummyPawn, NameStyle.Full, null,
-                    forceNoNick: false, personaData.originalXenotypeDef);
+                    forceNoNick: false, personaData.OriginalXenotypeDef);
                     personaData.name = name;
                 });
             }
@@ -257,16 +257,16 @@ namespace AlteredCarbon
             var maleLabel = "Male".Translate().CapitalizeFirst();
             var maleRect = new Rect(originalGenderRect.xMax + 15, originalGenderRect.y, Text.CalcSize(maleLabel).x + 15, originalGenderRect.height);
             Widgets.Label(maleRect, maleLabel);
-            if (Widgets.RadioButton(new Vector2(maleRect.xMax, maleRect.y), personaData.originalGender == Gender.Male))
+            if (Widgets.RadioButton(new Vector2(maleRect.xMax, maleRect.y), personaData.OriginalGender == Gender.Male))
             {
-                personaData.originalGender = Gender.Male;
+                personaData.OriginalGender = Gender.Male;
             }
             var femaleLabel = "Female".Translate().CapitalizeFirst();
             var femaleRect = new Rect(maleRect.xMax + 50, maleRect.y, Text.CalcSize(femaleLabel).x + 15, maleRect.height);
             Widgets.Label(femaleRect, femaleLabel);
-            if (Widgets.RadioButton(new Vector2(femaleRect.xMax, femaleRect.y), personaData.originalGender == Gender.Female))
+            if (Widgets.RadioButton(new Vector2(femaleRect.xMax, femaleRect.y), personaData.OriginalGender == Gender.Female))
             {
-                personaData.originalGender = Gender.Female;
+                personaData.OriginalGender = Gender.Female;
             }
         }
         protected void DrawBackstoryPanel(ref Vector2 pos)
@@ -285,7 +285,7 @@ namespace AlteredCarbon
             backstoryFilters.Add(NoSkillPenalties);
 
             DoSelectionButtons(ref pos, "Childhood".Translate(), ref backstoryChildIndex,
-                (BackstoryDef x) => x.TitleCapFor(personaData.originalGender), allChildhoodBackstories, delegate (BackstoryDef x)
+                (BackstoryDef x) => x.TitleCapFor(personaData.OriginalGender), allChildhoodBackstories, delegate (BackstoryDef x)
                 {
                     SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                     personaData.childhood = x;
@@ -296,7 +296,7 @@ namespace AlteredCarbon
             if (personaData.adulthood != null)
             {
                 DoSelectionButtons(ref pos, "Adulthood".Translate(), ref backstoryAdultIndex,
-                (BackstoryDef x) => x.TitleCapFor(personaData.originalGender), allAdulthoodBackstories, delegate (BackstoryDef x)
+                (BackstoryDef x) => x.TitleCapFor(personaData.OriginalGender), allAdulthoodBackstories, delegate (BackstoryDef x)
                 {
                     SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                     personaData.adulthood = x;
@@ -715,7 +715,7 @@ namespace AlteredCarbon
             {
                 time += editTimeOffsetPerNameChange;
             }
-            if (personaDataCopy.originalGender != personaData.originalGender)
+            if (personaDataCopy.OriginalGender != personaData.OriginalGender)
             {
                 time += editTimeOffsetPerGenderChange;
             }
@@ -787,7 +787,7 @@ namespace AlteredCarbon
             {
                 degradation += stackDegradationOffsetPerNameChange;
             }
-            if (personaDataCopy.originalGender != personaData.originalGender)
+            if (personaDataCopy.OriginalGender != personaData.OriginalGender)
             {
                 degradation += stackDegradationOffsetPerGenderChange;
             }

@@ -771,8 +771,8 @@ namespace AlteredCarbon
 
         public static bool SleeveMatchesOriginalXenotype(this Pawn p, PersonaData stackPersonaData)
         {
-            return stackPersonaData.originalXenotypeName != null && p.genes.xenotypeName != stackPersonaData.originalXenotypeName
-                   || stackPersonaData.originalXenotypeDef != null && p.genes.xenotype != stackPersonaData.originalXenotypeDef;
+            return stackPersonaData.OriginalXenotypeName != null && p.genes.xenotypeName != stackPersonaData.OriginalXenotypeName
+                   || stackPersonaData.OriginalXenotypeDef != null && p.genes.xenotype != stackPersonaData.OriginalXenotypeDef;
         }
 
         public static void CleanupList<T>(this List<T> list, Predicate<T> predicate = null)

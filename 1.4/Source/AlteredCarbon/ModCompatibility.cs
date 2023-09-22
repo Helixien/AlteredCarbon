@@ -46,10 +46,25 @@ namespace AlteredCarbon
             }
             VanillaFactionsExpandedAncientsIsActive = ModsConfig.IsActive("VanillaExpanded.VFEA");
             VanillaRacesExpandedAndroidIsActive = ModsConfig.IsActive("vanillaracesexpanded.android");
+			if (VanillaRacesExpandedAndroidIsActive)
+			{
+				ACUtils.harmony.Patch(AccessTools.Method("VREAndroids.CharacterCardUtility_DoLeftSection_Patch:Prefix"),
+				new HarmonyMethod(AccessTools.Method(typeof(ModCompatibility), "CharacterCardUtility_DoLeftSection_PatchPrefix")));
+            }
         }
 
+		public static bool CharacterCardUtility_DoLeftSection_PatchPrefix(Pawn __0, ref bool __result)
+		{
+			if (__0.HasCorticalStack())
+			{
+				__result = true;
+                return false;
+			}
+			return true;
+		}
 
-		public static bool IsAndroid(this Pawn pawn)
+
+        public static bool IsAndroid(this Pawn pawn)
 		{
 			if (VanillaRacesExpandedAndroidIsActive)
             {
@@ -523,80 +538,94 @@ namespace AlteredCarbon
 		public static RJWData GetRjwData(Pawn pawn)
 		{
 			RJWData rjwData = null;
-			rjw.DataStore dataStore = Find.World.GetComponent<rjw.DataStore>();
-			if (dataStore != null)
+			try
 			{
-				rjwData = new RJWData();
-				rjw.PawnData pawnData = dataStore.GetPawnData(pawn);
-				if (pawnData != null)
-				{
-					foreach (FieldInfo fieldInfo in typeof(rjw.PawnData).GetFields())
-					{
-						try
-						{
-							FieldInfo newField = rjwData.GetType().GetField(fieldInfo.Name);
-							newField.SetValue(rjwData, fieldInfo.GetValue(pawnData));
-						}
-						catch { }
-					}
-				}
+                rjw.DataStore dataStore = Find.World.GetComponent<rjw.DataStore>();
+                if (dataStore != null)
+                {
+                    rjwData = new RJWData();
+                    rjw.PawnData pawnData = dataStore.GetPawnData(pawn);
+                    if (pawnData != null)
+                    {
+                        foreach (FieldInfo fieldInfo in typeof(rjw.PawnData).GetFields())
+                        {
+                            try
+                            {
+                                FieldInfo newField = rjwData.GetType().GetField(fieldInfo.Name);
+                                newField.SetValue(rjwData, fieldInfo.GetValue(pawnData));
+                            }
+                            catch { }
+                        }
+                    }
 
-			}
-			rjw.CompRJW comp = ThingCompUtility.TryGetComp<rjw.CompRJW>(pawn);
-			if (comp != null)
+                }
+                rjw.CompRJW comp = ThingCompUtility.TryGetComp<rjw.CompRJW>(pawn);
+                if (comp != null)
+                {
+                    if (rjwData is null)
+                    {
+                        rjwData = new RJWData();
+                    }
+                    rjwData.quirksave = comp.quirksave;
+                    rjwData.quirksave.Replace("Fertile", "");
+                    rjwData.quirksave.Replace("Infertile", "");
+                    rjwData.orientation = (OrientationAC)(int)comp.orientation;
+                    rjwData.NextHookupTick = comp.NextHookupTick;
+                }
+            }
+			catch (Exception ex)
 			{
-				if (rjwData is null)
-				{
-					rjwData = new RJWData();
-				}
-				rjwData.quirksave = comp.quirksave;
-				rjwData.quirksave.Replace("Fertile", "");
-				rjwData.quirksave.Replace("Infertile", "");
-				rjwData.orientation = (OrientationAC)(int)comp.orientation;
-				rjwData.NextHookupTick = comp.NextHookupTick;
+				Log.Message("Error getting RJW data: " + ex.ToString());
 			}
 			return rjwData;
 		}
 
 		public static void SetRjwData(Pawn pawn, RJWData rjwData)
 		{
-			rjw.DataStore dataStore = Find.World.GetComponent<rjw.DataStore>();
-			if (dataStore != null)
+			try
 			{
-				rjw.PawnData pawnData = dataStore.GetPawnData(pawn);
-				if (pawnData != null)
-				{
-					foreach (FieldInfo fieldInfo in typeof(RJWData).GetFields())
-					{
-						try
-						{
-							FieldInfo newField = pawnData.GetType().GetField(fieldInfo.Name);
-							newField.SetValue(pawnData, fieldInfo.GetValue(rjwData));
-						}
-						catch { }
-					}
-					if (pawnData.Hero)
-					{
-						foreach (Pawn otherPawn in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_OfPlayerFaction)
-						{
-							if (otherPawn != pawn)
-							{
-								rjw.PawnData otherPawnData = dataStore.GetPawnData(otherPawn);
-								otherPawnData.Hero = false;
-							}
-						}
-					}
-				}
-			}
+                rjw.DataStore dataStore = Find.World.GetComponent<rjw.DataStore>();
+                if (dataStore != null)
+                {
+                    rjw.PawnData pawnData = dataStore.GetPawnData(pawn);
+                    if (pawnData != null)
+                    {
+                        foreach (FieldInfo fieldInfo in typeof(RJWData).GetFields())
+                        {
+                            try
+                            {
+                                FieldInfo newField = pawnData.GetType().GetField(fieldInfo.Name);
+                                newField.SetValue(pawnData, fieldInfo.GetValue(rjwData));
+                            }
+                            catch { }
+                        }
+                        if (pawnData.Hero)
+                        {
+                            foreach (Pawn otherPawn in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_OfPlayerFaction)
+                            {
+                                if (otherPawn != pawn)
+                                {
+                                    rjw.PawnData otherPawnData = dataStore.GetPawnData(otherPawn);
+                                    otherPawnData.Hero = false;
+                                }
+                            }
+                        }
+                    }
+                }
 
-			rjw.CompRJW comp = ThingCompUtility.TryGetComp<rjw.CompRJW>(pawn);
-			if (comp != null)
+                rjw.CompRJW comp = ThingCompUtility.TryGetComp<rjw.CompRJW>(pawn);
+                if (comp != null)
+                {
+                    comp.quirksave = rjwData.quirksave;
+                    comp.quirks = new System.Text.StringBuilder(comp.quirksave);
+
+                    comp.orientation = (rjw.Orientation)(int)rjwData.orientation;
+                    comp.NextHookupTick = rjwData.NextHookupTick;
+                }
+            }
+			catch (Exception e)
 			{
-				comp.quirksave = rjwData.quirksave;
-				comp.quirks = new System.Text.StringBuilder(comp.quirksave);
-
-				comp.orientation = (rjw.Orientation)(int)rjwData.orientation;
-				comp.NextHookupTick = rjwData.NextHookupTick;
+				Log.Error("Error setting RJW data: " + e.ToString());
 			}
 		}
 	}

@@ -333,17 +333,17 @@ namespace AlteredCarbon
                 {
                     stringBuilder.AppendLineTagged("AC.Faction".Translate() + ": " + PersonaData.faction.NameColored);
                 }
-                if (ModCompatibility.AlienRacesIsActive && PersonaData.originalRace != null)
+                if (ModCompatibility.AlienRacesIsActive && PersonaData.OriginalRace != null)
                 {
-                    stringBuilder.AppendLineTagged("AC.Race".Translate() + ": " + PersonaData.originalRace.LabelCap);
+                    stringBuilder.AppendLineTagged("AC.Race".Translate() + ": " + PersonaData.OriginalRace.LabelCap);
                 }
-                if (PersonaData.originalXenotypeName != null)
+                if (PersonaData.OriginalXenotypeName != null)
                 {
-                    stringBuilder.AppendLineTagged("AC.Xenotype".Translate() + ": " + PersonaData.originalXenotypeName);
+                    stringBuilder.AppendLineTagged("AC.Xenotype".Translate() + ": " + PersonaData.OriginalXenotypeName);
                 }
-                else if (PersonaData.originalXenotypeDef != null)
+                else if (PersonaData.OriginalXenotypeDef != null)
                 {
-                    stringBuilder.AppendLineTagged("AC.Xenotype".Translate() + ": " + PersonaData.originalXenotypeDef.LabelCap);
+                    stringBuilder.AppendLineTagged("AC.Xenotype".Translate() + ": " + PersonaData.OriginalXenotypeDef.LabelCap);
                 }
 
                 if (PersonaData.childhood != null)

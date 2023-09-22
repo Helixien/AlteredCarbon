@@ -103,6 +103,7 @@
     <Compile Include="Recipes\Recipe_HackBiocodedThings.cs" />
     <Compile Include="Recipes\Recipe_OperateOnCorticalStack.cs" />
     <Compile Include="Recipes\ThingFilterBiocodable.cs" />
+    <Compile Include="Stacks\RJWData.cs" />
     <Compile Include="Stacks\Thought_StackDegradation.cs" />
     <Compile Include="UI\Alert_ColonistStackNeedsExtracting.cs" />
     <Compile Include="UI\Command_ActionOnStack.cs" />
