@@ -6,9 +6,30 @@
 			<li Class="PatchOperationAdd">
 				<xpath>/Defs/ResearchProjectDef[@Name="AC_ResearchBase"]</xpath>
 				<value>
+					<techprintCount>1</techprintCount>
+					<techprintCommonality>1.2</techprintCommonality>
 					<heldByFactionCategoryTags>
 						<li>Empire</li>
 					</heldByFactionCategoryTags>
+
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ResearchProjectDef[defName="AC_Sleeving"]</xpath>
+				<value>
+					<techprintMarketValue>1500</techprintMarketValue>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ResearchProjectDef[defName="AC_CorticalCrafting"]</xpath>
+				<value>
+					<techprintMarketValue>1500</techprintMarketValue>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ResearchProjectDef[defName="AC_RewriteCorticalStack"]</xpath>
+				<value>
+					<techprintMarketValue>2000</techprintMarketValue>
 				</value>
 			</li>
 			<!-- ================================ Spawn Pawns with Stacks ====================== -->
