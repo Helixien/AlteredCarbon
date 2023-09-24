@@ -90,6 +90,12 @@ namespace AlteredCarbon
             }
 			return false;
 		}
+
+		public static RecipeDef GetRecipeForAndroid(RecipeDef recipe)
+		{
+			return VREAndroids.Utils.RecipeForAndroid(recipe);
+		}
+
         private static void AddVSEPassions()
         {
             Window_StackEditor.AllPassions.Clear();

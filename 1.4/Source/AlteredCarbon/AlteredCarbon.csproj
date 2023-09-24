@@ -79,6 +79,7 @@
     <Compile Include="Buildings\Building_DecryptionBench.cs" />
     <Compile Include="Buildings\Building_Incubator.cs" />
     <Compile Include="HarmonyPatches\CharacterCardUtility_DrawCharacterCard_Patch.cs" />
+    <Compile Include="HarmonyPatches\TransferableUIUtility_DoExtraIcons_Patch.cs" />
     <Compile Include="HarmonyPatches\CompRottable_CompInspectStringExtra_Patch.cs" />
     <Compile Include="HarmonyPatches\ContainingSelectionUtility_CanSelect_Patch.cs" />
     <Compile Include="HarmonyPatches\Dialog_BillConfig_DoWindowContents_Patch.cs" />

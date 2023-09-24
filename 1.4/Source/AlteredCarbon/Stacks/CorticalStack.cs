@@ -289,6 +289,10 @@ namespace AlteredCarbon
             else
             {
                 medPawn.BillStack.Bills.RemoveAll(x => x is Bill_InstallStack);
+                if (medPawn.IsAndroid())
+                {
+                    recipe = ModCompatibility.GetRecipeForAndroid(recipe);
+                }
                 Bill_InstallStack bill_Medical = new Bill_InstallStack(recipe, this);
                 medPawn.BillStack.AddBill(bill_Medical);
                 bill_Medical.Part = recipe.Worker.GetPartsToApplyOn(medPawn, recipe).First();

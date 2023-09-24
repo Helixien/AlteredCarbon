@@ -17,15 +17,17 @@ namespace AlteredCarbon
                 {
                     extension.TryAddStack(__result);
                 }
-
-                foreach (var precept in __result.Ideo.PreceptsListForReading
-                    .OrderByDescending(x => x.def.GetModExtension<StackSpawnModExtension>()
-                    ?.chanceToSpawnWithStack > 0))
+                var precepts = __result.Ideo?.PreceptsListForReading;
+                if (precepts != null)
                 {
-                    extension = precept?.def.GetModExtension<StackSpawnModExtension>();
-                    if (extension != null)
+                    foreach (var precept in precepts.OrderByDescending(x =>
+                        x.def.GetModExtension<StackSpawnModExtension>()?.chanceToSpawnWithStack > 0))
                     {
-                        extension.TryAddStack(__result);
+                        extension = precept?.def.GetModExtension<StackSpawnModExtension>();
+                        if (extension != null)
+                        {
+                            extension.TryAddStack(__result);
+                        }
                     }
                 }
             }

@@ -12,15 +12,18 @@ namespace AlteredCarbon
     {
         public static IEnumerable<Toil> Postfix(IEnumerable<Toil> __result, JobDriver_DoBill __instance)
         {
-            foreach (var toil in __result)
+            if (__result != null)
             {
-                if (toil.debugName == "DoRecipeWork" && __instance.job.bill is Bill_RewriteStack)
+                foreach (var toil in __result)
                 {
-                    yield return DoRecipeWorkFixed();
-                }
-                else
-                {
-                    yield return toil;
+                    if (toil?.debugName == "DoRecipeWork" && __instance.job?.bill is Bill_RewriteStack)
+                    {
+                        yield return DoRecipeWorkFixed();
+                    }
+                    else
+                    {
+                        yield return toil;
+                    }
                 }
             }
         }
