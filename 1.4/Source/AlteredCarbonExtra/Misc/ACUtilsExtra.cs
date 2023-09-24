@@ -24,6 +24,35 @@ namespace AlteredCarbon
                     allGenepacks.Add(def);
                 }
             }
+
+            foreach (IngredientCount li in AC_Extra_DefOf.AC_HackBiocodedThings.ingredients)
+            {
+                li.filter = new ThingFilterBiocodable();
+                li.filter.thingDefs ??= new List<ThingDef>();
+                foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs.Where(x => x.comps != null
+                    && x.HasAssignableCompFrom(typeof(CompBiocodable))))
+                {
+                    li.filter.SetAllow(thingDef, true);
+                    li.filter.thingDefs.Add(thingDef);
+                }
+            }
+            AC_Extra_DefOf.AC_HackBiocodedThings.fixedIngredientFilter = new ThingFilterBiocodable();
+            AC_Extra_DefOf.AC_HackBiocodedThings.fixedIngredientFilter.thingDefs ??= new List<ThingDef>();
+            foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs.Where(x => x.comps != null && x.HasAssignableCompFrom(typeof(CompBiocodable))))
+            {
+                AC_Extra_DefOf.AC_HackBiocodedThings.fixedIngredientFilter.thingDefs.Add(thingDef);
+                AC_Extra_DefOf.AC_HackBiocodedThings.fixedIngredientFilter.SetAllow(thingDef, true);
+            }
+
+
+            AC_Extra_DefOf.AC_HackBiocodedThings.defaultIngredientFilter = new ThingFilterBiocodable();
+            AC_Extra_DefOf.AC_HackBiocodedThings.defaultIngredientFilter.thingDefs ??= new List<ThingDef>();
+            foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs.Where(x => x.comps != null && x.HasAssignableCompFrom(typeof(CompBiocodable))))
+            {
+                AC_Extra_DefOf.AC_HackBiocodedThings.defaultIngredientFilter.thingDefs.Add(thingDef);
+                AC_Extra_DefOf.AC_HackBiocodedThings.defaultIngredientFilter.SetAllow(thingDef, true);
+            }
+
         }
 
         public static bool IsUltraTechBuilding(this ThingDef def)

@@ -6,35 +6,7 @@
 		<effectWorking>VFEU_Hacking</effectWorking>
 		<soundWorking>VFEU_Interact_Hacking</soundWorking>
 	</RecipeDef>
-	<!-- ================================ Hacking Biocoded things ====================== -->
-	<RecipeDef ParentName="VFEU_RecipeHacking">
-		<defName>VFEU_HackBiocodedThings</defName>
-		<label>hack biocoded things</label>
-		<description>Attempt to hack and remove biocoding from weapons and equipment to make them usable. If unsuccessful, the item will break.</description>
-		<jobString>hacking biocoded things.</jobString>
-		<workerClass>AlteredCarbon.Recipe_HackBiocodedThings</workerClass>
-		<workAmount>25000</workAmount>
-		<ingredients>
-			<li>
-				<filter>
-					<thingDefs>
-						<li>Apparel_PowerArmorHelmet</li>
-						<li>Gun_TripleRocket</li>
-					</thingDefs>
-				</filter>
-				<count>1</count>
-			</li>
-		</ingredients>
-		<fixedIngredientFilter>
-			<thingDefs>
-				<li>Apparel_PowerArmorHelmet</li>
-				<li>Gun_TripleRocket</li>
-			</thingDefs>
-		</fixedIngredientFilter>
-		<skillRequirements>
-			<Intellectual>10</Intellectual>
-		</skillRequirements>
-	</RecipeDef>
+
 	<!-- ================================ Hacking - Wipe filled cortical stacks ====================== -->
 	<RecipeDef ParentName="VFEU_RecipeHacking">
 		<defName>VFEU_WipeFilledCorticalStack</defName>

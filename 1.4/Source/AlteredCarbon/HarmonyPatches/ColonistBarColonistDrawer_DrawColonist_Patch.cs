@@ -12,7 +12,7 @@ namespace AlteredCarbon
     [StaticConstructorOnStartup]
     public static class DrawColonist_Patch
     {
-        private static readonly Texture2D Icon_StackDead = ContentFinder<Texture2D>.Get("UI/Icons/StackDead");
+        public static readonly Texture2D Icon_StackDead = ContentFinder<Texture2D>.Get("UI/Icons/StackDead");
 
         public static bool Prefix(ColonistBarColonistDrawer __instance, Rect rect, Pawn colonist, Map pawnMap, bool highlight, bool reordering,
             Dictionary<string, string> ___pawnLabelsCache, Vector2 ___PawnTextureSize, Texture2D ___MoodBGTex)

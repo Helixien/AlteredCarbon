@@ -98,7 +98,9 @@
     <Compile Include="Misc\ThoughtWorker_CortexOverseerInstalled.cs" />
     <Compile Include="Misc\ThoughtWorker_CortexOverseerDeactivated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Recipes\Recipe_HackBiocodedThings.cs" />
     <Compile Include="Recipes\Recipe_RewriteFilledCorticalStack.cs" />
+    <Compile Include="Recipes\ThingFilterBiocodable.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_RaceSleeving.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_RaceSleeving_Social.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_XenoSleeving.cs" />

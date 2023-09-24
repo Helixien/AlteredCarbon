@@ -33,6 +33,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0ModSettingsFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\LoadFolders\Standalone\Assemblies\0ModSettingsFramework.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="AlienRace">
       <HintPath>..\..\..\..\..\..\..\workshop\content\294100\839005762\1.4\Assemblies\AlienRace.dll</HintPath>
       <Private>False</Private>
@@ -101,9 +106,8 @@
     <Compile Include="HarmonyPatches\Pawn_IdeoTracker_ExposeData_Patch.cs" />
     <Compile Include="Recipes\Bill_RewriteStack.cs" />
     <Compile Include="HarmonyPatches\JobDriver_DoBill_MakeNewToils_Patch.cs" />
-    <Compile Include="Recipes\Recipe_HackBiocodedThings.cs" />
     <Compile Include="Recipes\Recipe_OperateOnCorticalStack.cs" />
-    <Compile Include="Recipes\ThingFilterBiocodable.cs" />
+    <Compile Include="SleevePreset.cs" />
     <Compile Include="Stacks\RJWData.cs" />
     <Compile Include="Stacks\Thought_StackDegradation.cs" />
     <Compile Include="UI\Alert_ColonistStackNeedsExtracting.cs" />

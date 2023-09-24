@@ -221,7 +221,7 @@
 		</building>
 		<recipes>
 			<li>VFEU_WipeFilledCorticalStack</li>
-			<li>VFEU_HackBiocodedThings</li>
+			<li MayRequire="hlx.UltratechAlteredCarbon">AC_HackBiocodedThings</li>
 		</recipes>
 		<inspectorTabs>
 			<li>ITab_Bills</li>

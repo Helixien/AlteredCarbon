@@ -16,7 +16,7 @@ namespace AlteredCarbon
         }
         protected override void DoPresetInteraction(string name)
         {
-            parent.LoadSleeve(AlteredCarbonMod.settings.presets[name]);
+            parent.LoadSleeve(ACUtils.settings.presets[name]);
             Close();
         }
     }
@@ -31,7 +31,7 @@ namespace AlteredCarbon
 
         protected override void DoPresetInteraction(string name)
         {
-            AlteredCarbonMod.settings.presets[name] = new SleevePreset { sleeve = parent.curSleeve };
+            ACUtils.settings.presets[name] = new SleevePreset { sleeve = parent.curSleeve };
             Messages.Message("SavedAs".Translate(name), MessageTypeDefOf.SilentInput, false);
             ACUtils.SavePresets();
             Close();
@@ -88,7 +88,7 @@ namespace AlteredCarbon
         {
             var vector = new Vector2(inRect.width - 16f, 40f);
             var y = vector.y;
-            var presets = AlteredCarbonMod.settings.presets;
+            var presets = ACUtils.settings.presets;
             var height = presets.Count * y;
             var viewRect = new Rect(0f, 0f, inRect.width - 16f, height);
             var num = inRect.height - CloseButSize.y - bottomAreaHeight - 18f;
@@ -116,7 +116,7 @@ namespace AlteredCarbon
                     if (Widgets.ButtonImage(rect2, TexButton.DeleteX, Color.white, GenUI.SubtleMouseoverColor))
                     {
                         Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("ConfirmDelete".Translate(preset),
-                            delegate { AlteredCarbonMod.settings.presets.Remove(preset); }, true));
+                            delegate { ACUtils.settings.presets.Remove(preset); }, true));
                     }
 
                     Text.Font = GameFont.Small;

@@ -24,6 +24,7 @@ namespace AlteredCarbon
     public static class ACUtils
     {
         public static Harmony harmony;
+        public static AlteredCarbonSettingsWorker settings;
         public static HashSet<ThingDef> unstackableRaces;
         public static Dictionary<string, List<GeneDef>> genesByCategories = new Dictionary<string, List<GeneDef>>();
         public static Dictionary<ThingDef, ThingDef> stacksPairs = new Dictionary<ThingDef, ThingDef>
@@ -112,6 +113,7 @@ namespace AlteredCarbon
         }
         static ACUtils()
         {
+            settings = AlteredCarbonMod.modContentPack.Patches.OfType<AlteredCarbonSettingsWorker>().FirstOrDefault();
             harmony = new Harmony("Altered.Carbon");
             harmony.PatchAll();
             AddHarmonyLogging();
@@ -174,39 +176,12 @@ namespace AlteredCarbon
                 info.recipe.defaultIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksHostile, true);
             }
 
-            foreach (IngredientCount li in AC_DefOf.VFEU_HackBiocodedThings.ingredients)
-            {
-                li.filter = new ThingFilterBiocodable();
-                li.filter.thingDefs ??= new List<ThingDef>();
-                foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs.Where(x => x.comps != null 
-                    && x.HasAssignableCompFrom(typeof(CompBiocodable))))
-                {
-                    li.filter.SetAllow(thingDef, true);
-                    li.filter.thingDefs.Add(thingDef);
-                }
-            }
-            AC_DefOf.VFEU_HackBiocodedThings.fixedIngredientFilter = new ThingFilterBiocodable();
-            AC_DefOf.VFEU_HackBiocodedThings.fixedIngredientFilter.thingDefs ??= new List<ThingDef>();
-            foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs.Where(x => x.comps != null && x.HasAssignableCompFrom(typeof(CompBiocodable))))
-            {
-                AC_DefOf.VFEU_HackBiocodedThings.fixedIngredientFilter.thingDefs.Add(thingDef);
-                AC_DefOf.VFEU_HackBiocodedThings.fixedIngredientFilter.SetAllow(thingDef, true);
-            }
-
-
-            AC_DefOf.VFEU_HackBiocodedThings.defaultIngredientFilter = new ThingFilterBiocodable();
-            AC_DefOf.VFEU_HackBiocodedThings.defaultIngredientFilter.thingDefs ??= new List<ThingDef>();
-            foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs.Where(x => x.comps != null && x.HasAssignableCompFrom(typeof(CompBiocodable))))
-            {
-                AC_DefOf.VFEU_HackBiocodedThings.defaultIngredientFilter.thingDefs.Add(thingDef);
-                AC_DefOf.VFEU_HackBiocodedThings.defaultIngredientFilter.SetAllow(thingDef, true);
-            }
             ApplySettings();
         }
 
         public static void ApplySettings()
         {
-            if (AlteredCarbonMod.settings.enableTechprintRequirement is false)
+            if (ACUtils.settings.enableTechprintRequirement is false)
             {
                 foreach (var researchProjectDef in DefDatabase<ResearchProjectDef>.AllDefs)
                 {
@@ -551,7 +526,7 @@ namespace AlteredCarbon
         public static void SavePresets()
         {
             Scribe.saver.InitSaving(PawnTemplatesPath, "PawnTemplates");
-            Scribe_Collections.Look(ref AlteredCarbonMod.settings.presets, "presets", LookMode.Value, LookMode.Deep);
+            Scribe_Collections.Look(ref ACUtils.settings.presets, "presets", LookMode.Value, LookMode.Deep);
             Scribe.saver.FinalizeSaving();
         }
 
@@ -561,7 +536,7 @@ namespace AlteredCarbon
             if (info.Exists)
             {
                 Scribe.loader.InitLoading(PawnTemplatesPath);
-                Scribe_Collections.Look(ref AlteredCarbonMod.settings.presets, "presets", LookMode.Value, LookMode.Deep);
+                Scribe_Collections.Look(ref ACUtils.settings.presets, "presets", LookMode.Value, LookMode.Deep);
                 Scribe.loader.FinalizeLoading();
             }
         }

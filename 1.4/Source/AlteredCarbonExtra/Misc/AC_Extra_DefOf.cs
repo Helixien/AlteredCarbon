@@ -35,6 +35,7 @@ namespace AlteredCarbon
         [MayRequireIdeology] public static HistoryEventDef AC_RewroteStack;
 
         public static ThoughtDef AC_CortexOverseerFreed;
+        public static RecipeDef AC_HackBiocodedThings;
     }
 }
 

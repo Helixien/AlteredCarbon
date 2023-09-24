@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<ModSettingsFramework.ModOptionCategoryDef>
+		<defName>AC_General</defName>
+		<label>General</label>
+		<order>0</order>
+	</ModSettingsFramework.ModOptionCategoryDef>
+</Defs>

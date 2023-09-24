@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<Operation Class="AlteredCarbon.AlteredCarbonSettingsWorker">
+		<id>AlteredCarbon_ModSettings</id>
+		<order>0</order>
+		<category>AC_General</category>
+	</Operation>
+</Patch>
