@@ -55,7 +55,7 @@ namespace AlteredCarbon
             }
             if (ModCompatibility.HelixienAlteredCarbonIsActive)
             {
-                var rewriteStack = new Command_ActionOnStack(this, ForFilledStack(includeArchoStack: ACUtils.settings.enableArchostackRewriting), InstallRewriteBill)
+                var rewriteStack = new Command_ActionOnStack(this, ForFilledStack(includeArchoStack: ACUtils.generalRewriteStacks.enableArchostackRewriting), InstallRewriteBill)
                 {
                     defaultLabel = "AC.RewriteStack".Translate(),
                     defaultDesc = "AC.RewriteStackDesc".Translate(),
@@ -63,7 +63,7 @@ namespace AlteredCarbon
                     activateSound = SoundDefOf.Tick_Tiny,
                     action = delegate ()
                     {
-                        Find.Targeter.BeginTargeting(ForFilledStack(includeArchoStack: ACUtils.settings.enableArchostackRewriting), delegate (LocalTargetInfo x)
+                        Find.Targeter.BeginTargeting(ForFilledStack(includeArchoStack: ACUtils.generalRewriteStacks.enableArchostackRewriting), delegate (LocalTargetInfo x)
                         {
                             InstallRewriteBill(x);
                         });

@@ -562,8 +562,8 @@ namespace AlteredCarbon
             ticksToGrow += sleeveQualitiesTimeCost[ACUtils.sleeveQualities[sleeveQualityIndex]];
             ticksToGrow += sleeveBeautiesTimeCost[beautyDegrees[sleeveBeautyIndex]];
             growCost = 12 * (ticksToGrow / GenDate.TicksPerDay);
-            ticksToGrow = (int)(ticksToGrow * ACUtils.settings.sleeveGrowingTimeMultiplier);
-            growCost = (int)(growCost * ACUtils.settings.sleeveGrowingCostMultiplier);
+            ticksToGrow = (int)(ticksToGrow * ACUtils.generalSettings.sleeveGrowingTimeMultiplier);
+            growCost = (int)(growCost * ACUtils.generalSettings.sleeveGrowingCostMultiplier);
         }
 
         public void ApplyGeneQuality()

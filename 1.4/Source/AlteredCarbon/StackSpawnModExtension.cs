@@ -16,7 +16,7 @@ namespace AlteredCarbon
 
         public void TryAddStack(Pawn pawn)
         {
-            if (ACUtils.settings.enableStackSpawning)
+            if (ACUtils.generalSettings.enableStackSpawning)
             {
                 if (pawn.HasCorticalStack() is false && Rand.Chance(chanceToSpawnWithStack / 100f))
                 {

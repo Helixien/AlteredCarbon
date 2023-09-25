@@ -234,6 +234,25 @@ namespace AlteredCarbon
 				}
 			}
 		}
+
+		public static void CopyPrivateParts(Pawn source, Pawn to)
+		{
+            foreach (var hediff in source.health.hediffSet.hediffs)
+            {
+				if (hediff is rjw.Hediff_PartBaseNatural part)
+				{
+					var existingHediff = to.health.hediffSet.GetFirstHediffOfDef(part.def);
+					if (existingHediff != null)
+					{
+						to.health.RemoveHediff(existingHediff);
+					}
+					var newPart = rjw.SexPartAdder.MakePart(part.def, to, part.Part);
+					newPart.Severity = part.Severity;
+					to.health.AddHediff(newPart);
+				}
+            }
+        }
+
 		public static List<Color> GetRacialColorPresets(ThingDef thingDef, string channelName)
 		{
 			ColorGenerator generator = null;

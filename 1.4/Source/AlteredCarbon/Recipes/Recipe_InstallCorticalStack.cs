@@ -128,7 +128,7 @@ namespace AlteredCarbon
 
         public static void ApplyMindEffects(Pawn pawn, Hediff_CorticalStack hediff)
         {
-            if (ACUtils.settings.enableStackDegradation && ModCompatibility.HelixienAlteredCarbonIsActive && hediff.PersonaData.stackDegradation > 0)
+            if (ACUtils.generalRewriteStacks.enableStackDegradation && ModCompatibility.HelixienAlteredCarbonIsActive && hediff.PersonaData.stackDegradation > 0)
             {
                 var stackDegradationHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_StackDegradation) as Hediff_StackDegradation;
                 if (stackDegradationHediff is null)

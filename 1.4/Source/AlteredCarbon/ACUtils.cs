@@ -24,7 +24,8 @@ namespace AlteredCarbon
     public static class ACUtils
     {
         public static Harmony harmony;
-        public static AlteredCarbonSettingsWorker settings;
+        public static AlteredCarbonSettingsWorker_General generalSettings;
+        public static AlteredCarbonSettingsWorker_RewriteStack generalRewriteStacks;
         public static HashSet<ThingDef> unstackableRaces;
         public static Dictionary<string, List<GeneDef>> genesByCategories = new Dictionary<string, List<GeneDef>>();
         public static Dictionary<ThingDef, ThingDef> stacksPairs = new Dictionary<ThingDef, ThingDef>
@@ -113,9 +114,12 @@ namespace AlteredCarbon
         }
         static ACUtils()
         {
-            settings = AlteredCarbonMod.modContentPack.Patches.OfType<AlteredCarbonSettingsWorker>().FirstOrDefault();
+            generalSettings = AlteredCarbonMod.modContentPack.Patches.OfType<AlteredCarbonSettingsWorker_General>().First();
+            generalRewriteStacks = AlteredCarbonMod.modContentPack.Patches.OfType<AlteredCarbonSettingsWorker_RewriteStack>().First();
             harmony = new Harmony("Altered.Carbon");
             harmony.PatchAll();
+            var field = typeof(OverlayDrawer).GetField("NeedsPowerMat", BindingFlags.Static | BindingFlags.NonPublic);
+            field.SetValue(null, MaterialPool.MatFrom("UI/Overlays/NeedsPower", ShaderDatabase.MetaOverlay));
             AddHarmonyLogging();
             if (ModCompatibility.HelixienAlteredCarbonIsActive)
             {
@@ -181,7 +185,7 @@ namespace AlteredCarbon
 
         public static void ApplySettings()
         {
-            if (ACUtils.settings.enableTechprintRequirement is false)
+            if (ACUtils.generalSettings.enableTechprintRequirement is false)
             {
                 foreach (var researchProjectDef in DefDatabase<ResearchProjectDef>.AllDefs)
                 {
@@ -414,6 +418,11 @@ namespace AlteredCarbon
                 }
             }
 
+            if (ModCompatibility.RimJobWorldIsActive)
+            {
+                ModCompatibility.CopyPrivateParts(source, dest);
+            }
+
             if (copyAgeInfo)
             {
                 dest.ageTracker = source.ageTracker.Clone();
@@ -526,7 +535,7 @@ namespace AlteredCarbon
         public static void SavePresets()
         {
             Scribe.saver.InitSaving(PawnTemplatesPath, "PawnTemplates");
-            Scribe_Collections.Look(ref ACUtils.settings.presets, "presets", LookMode.Value, LookMode.Deep);
+            Scribe_Collections.Look(ref ACUtils.generalSettings.presets, "presets", LookMode.Value, LookMode.Deep);
             Scribe.saver.FinalizeSaving();
         }
 
@@ -536,7 +545,7 @@ namespace AlteredCarbon
             if (info.Exists)
             {
                 Scribe.loader.InitLoading(PawnTemplatesPath);
-                Scribe_Collections.Look(ref ACUtils.settings.presets, "presets", LookMode.Value, LookMode.Deep);
+                Scribe_Collections.Look(ref ACUtils.generalSettings.presets, "presets", LookMode.Value, LookMode.Deep);
                 Scribe.loader.FinalizeLoading();
             }
         }

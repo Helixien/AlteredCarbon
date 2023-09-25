@@ -81,6 +81,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlteredCarbonSettingsWorkerBase.cs" />
+    <Compile Include="AlteredCarbonSettingsWorker_RewriteStack.cs" />
     <Compile Include="Buildings\Building_DecryptionBench.cs" />
     <Compile Include="Buildings\Building_Incubator.cs" />
     <Compile Include="HarmonyPatches\CharacterCardUtility_DrawCharacterCard_Patch.cs" />
@@ -165,7 +167,7 @@
     <Compile Include="ModCompatibility.cs" />
     <Compile Include="AC_DefOf.cs" />
     <Compile Include="AlteredCarbonMod.cs" />
-    <Compile Include="AlteredCarbonSettings.cs" />
+    <Compile Include="AlteredCarbonSettingsWorker_General.cs" />
     <Compile Include="HarmonyPatches\Pawn_HealthTracker_Notify_Resurrected_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnRenderer_RenderPawnInternal_Patch.cs" />
     <Compile Include="HarmonyPatches\BedPatches\BedPatches.cs" />

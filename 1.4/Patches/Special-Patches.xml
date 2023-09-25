@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Patch>
-	<Operation Class="AlteredCarbon.AlteredCarbonSettingsWorker">
-		<id>AlteredCarbon_ModSettings</id>
+	<Operation Class="AlteredCarbon.AlteredCarbonSettingsWorker_General">
+		<id>AlteredCarbon_ModSettings_General</id>
 		<order>0</order>
 		<category>AC_General</category>
+	</Operation>
+
+	<Operation Class="AlteredCarbon.AlteredCarbonSettingsWorker_RewriteStack">
+		<id>AlteredCarbon_ModSettings_StackRewriting</id>
+		<order>1</order>
+		<category>AC_StackRewriting</category>
 	</Operation>
 </Patch>
