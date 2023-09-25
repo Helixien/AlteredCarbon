@@ -15,7 +15,6 @@ namespace AlteredCarbon
         public float sleeveGrowingCostMultiplier = 1f;
         public bool enableStackSpawning = true;
         public bool enableTechprintRequirement = true;
-        public Dictionary<string, SleevePreset> presets = new Dictionary<string, SleevePreset>();
 
         public override void ExposeData()
         {
@@ -23,11 +22,6 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref sleeveGrowingCostMultiplier, "sleeveGrowingCostMultiplier", 1f);
             Scribe_Values.Look(ref enableStackSpawning, "enableStackSpawning", true);
             Scribe_Values.Look(ref enableTechprintRequirement, "enableTechprintRequirement", true);
-            if (Scribe.mode == LoadSaveMode.PostLoadInit)
-            {
-                if (presets is null)
-                    presets = new Dictionary<string, SleevePreset>();
-            }
         }
 
         public override void CopyFrom(PatchOperationWorker savedWorker)
@@ -37,9 +31,7 @@ namespace AlteredCarbon
             this.sleeveGrowingCostMultiplier = copy.sleeveGrowingCostMultiplier;
             this.enableStackSpawning = copy.enableStackSpawning;
             this.enableTechprintRequirement = copy.enableTechprintRequirement;
-            this.presets = copy.presets.ToDictionary(entry => entry.Key, entry => entry.Value);
         }
-
 
         public override void DoSettings(ModSettingsContainer container, Listing_Standard list)
         {

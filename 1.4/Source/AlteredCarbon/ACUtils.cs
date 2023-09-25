@@ -26,6 +26,8 @@ namespace AlteredCarbon
         public static Harmony harmony;
         public static AlteredCarbonSettingsWorker_General generalSettings;
         public static AlteredCarbonSettingsWorker_RewriteStack generalRewriteStacks;
+        public static Dictionary<string, SleevePreset> presets = new Dictionary<string, SleevePreset>();
+
         public static HashSet<ThingDef> unstackableRaces;
         public static Dictionary<string, List<GeneDef>> genesByCategories = new Dictionary<string, List<GeneDef>>();
         public static Dictionary<ThingDef, ThingDef> stacksPairs = new Dictionary<ThingDef, ThingDef>
@@ -535,7 +537,7 @@ namespace AlteredCarbon
         public static void SavePresets()
         {
             Scribe.saver.InitSaving(PawnTemplatesPath, "PawnTemplates");
-            Scribe_Collections.Look(ref ACUtils.generalSettings.presets, "presets", LookMode.Value, LookMode.Deep);
+            Scribe_Collections.Look(ref ACUtils.presets, "presets", LookMode.Value, LookMode.Deep);
             Scribe.saver.FinalizeSaving();
         }
 
@@ -545,7 +547,7 @@ namespace AlteredCarbon
             if (info.Exists)
             {
                 Scribe.loader.InitLoading(PawnTemplatesPath);
-                Scribe_Collections.Look(ref ACUtils.generalSettings.presets, "presets", LookMode.Value, LookMode.Deep);
+                Scribe_Collections.Look(ref ACUtils.presets, "presets", LookMode.Value, LookMode.Deep);
                 Scribe.loader.FinalizeLoading();
             }
         }
