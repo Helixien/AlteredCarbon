@@ -29,7 +29,7 @@
 		<defaultPlacingRot>South</defaultPlacingRot>
 		<canOverlapZones>false</canOverlapZones>
 		<neverMultiSelect>true</neverMultiSelect>
-		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+		<constructionSkillPrerequisite>10</constructionSkillPrerequisite>
 		<costList>
 			<Steel>250</Steel>
 			<Plasteel>50</Plasteel>
@@ -37,7 +37,7 @@
 		</costList>
 		<statBases>
 			<MarketValue>3580</MarketValue>
-			<WorkToBuild>18000</WorkToBuild>
+			<WorkToBuild>24000</WorkToBuild>
 			<MaxHitPoints>800</MaxHitPoints>
 			<Flammability>0.5</Flammability>
 			<Mass>60</Mass>
@@ -111,16 +111,17 @@
 		<drawerType>RealtimeOnly</drawerType>
 		<passability>PassThroughOnly</passability>
 		<size>(1,2)</size>
-		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 		<costList>
 			<Steel>100</Steel>
 			<Plasteel>25</Plasteel>
 			<ComponentSpacer>2</ComponentSpacer>
 		</costList>
 		<statBases>
+			<MarketValue>1520</MarketValue>
 			<MaxHitPoints>250</MaxHitPoints>
 			<WorkToBuild>6000</WorkToBuild>
-			<Mass>60</Mass>
+			<Mass>50</Mass>
 			<Flammability>0.5</Flammability>
 			<BedRestEffectiveness>1.2</BedRestEffectiveness>
 			<Comfort>0.4</Comfort>
@@ -155,7 +156,7 @@
 				<basePowerConsumption>75</basePowerConsumption>
 				<idlePowerDraw>15</idlePowerDraw>
 			</li>
-			<li Class="CompProperties_Refuelable">
+<!--			<li Class="CompProperties_Refuelable">
 				<fuelLabel>Neutroamine</fuelLabel>
 				<fuelGizmoLabel>Neutroamine</fuelGizmoLabel>
 				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
@@ -169,7 +170,7 @@
 				<initialFuelPercent>25</initialFuelPercent>
 				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
 				<showFuelGizmo>true</showFuelGizmo>
-			</li>
+			</li>-->
 			<li Class="CompProperties_AssignableToPawn">
 				<drawAssignmentOverlay>false</drawAssignmentOverlay>
 				<compClass>CompAssignableToPawn_Bed</compClass>
