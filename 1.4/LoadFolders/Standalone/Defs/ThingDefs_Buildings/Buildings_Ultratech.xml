@@ -114,7 +114,7 @@
 		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 		<costList>
 			<Steel>100</Steel>
-			<Plasteel>25</Plasteel>
+			<Plasteel>15</Plasteel>
 			<ComponentSpacer>2</ComponentSpacer>
 		</costList>
 		<statBases>
