@@ -4,7 +4,7 @@
 	<ThingDef Name="VFEU_HuntersArmourBase" ParentName="ApparelBase" Abstract="True">
 		<techLevel>Ultra</techLevel>
 		<tickerType>Normal</tickerType>
-		<generateCommonality>2</generateCommonality>
+		<generateCommonality>0.8</generateCommonality>
 		<equippedStatOffsets>
 			<SlaveSuppressionOffset MayRequire="Ludeon.RimWorld.Ideology">-0.3</SlaveSuppressionOffset>
 		</equippedStatOffsets>
@@ -12,13 +12,8 @@
 			<li>ApparelArmor</li>
 		</thingCategories>
 		<tradeTags>
-			<li>BuyableFromHunterCorpGoodQuality</li>
+			<li>HiTechArmor</li>
 		</tradeTags>
-		<costList>
-			<ComponentSpacer>6</ComponentSpacer>
-			<Plasteel>140</Plasteel>
-			<Uranium>20</Uranium>
-		</costList>
 		<apparel>
 			<bodyPartGroups>
 				<li>Torso</li>
@@ -36,6 +31,9 @@
 			</defaultOutfitTags>
 			<useDeflectMetalEffect>true</useDeflectMetalEffect>
 		</apparel>
+		<thingSetMakerTags>
+			<li>RewardStandardLowFreq</li>
+		</thingSetMakerTags>
 		<colorGenerator Class="ColorGenerator_Options">
 			<options>
 				<li>
@@ -60,9 +58,6 @@
 		<comps>
 			<li Class="CompProperties_Biocodable"/>
 		</comps>
-		<thingSetMakerTags>
-			<li>HunterCorpReward</li>
-		</thingSetMakerTags>
 	</ThingDef>
 	<!-- ================================ Protector Armour ====================== -->
 	<ThingDef ParentName="VFEU_HuntersArmourBase">
@@ -74,39 +69,138 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<statBases>
-			<MaxHitPoints>340</MaxHitPoints>
-			<Mass>18</Mass>
+			<WorkToMake>55000</WorkToMake>
+			<MaxHitPoints>320</MaxHitPoints>
+			<Mass>10</Mass>
 			<Flammability>0.4</Flammability>
-			<ArmorRating_Sharp>1.24</ArmorRating_Sharp>
-			<ArmorRating_Blunt>0.64</ArmorRating_Blunt>
-			<ArmorRating_Heat>0.66</ArmorRating_Heat>
-			<Insulation_Cold>42</Insulation_Cold>
-			<Insulation_Heat>18</Insulation_Heat>
-			<EquipDelay>14</EquipDelay>
-			<WorkToMake>60000</WorkToMake>
+			<ArmorRating_Sharp>1.12</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.54</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.62</ArmorRating_Heat>
+			<Insulation_Cold>36</Insulation_Cold>
+			<Insulation_Heat>12</Insulation_Heat>
+			<EquipDelay>12</EquipDelay>
 		</statBases>
-		<thingSetMakerTags>
-			<li>RewardStandardHighFreq</li>
-		</thingSetMakerTags>
 		<recipeMaker>
 			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
-			<researchPrerequisite>PoweredArmor</researchPrerequisite>
+			<researchPrerequisite>AC_AdvancedPoweredArmor</researchPrerequisite>
 			<workSkill>Crafting</workSkill>
 			<skillRequirements>
-				<Crafting>9</Crafting>
+				<Crafting>7</Crafting>
 			</skillRequirements>
 			<recipeUsers Inherit="False">
 				<li>FabricationBench</li>
 			</recipeUsers>
 			<displayPriority>105</displayPriority>
 		</recipeMaker>
+		<costList>
+			<ComponentSpacer>3</ComponentSpacer>
+			<Plasteel>90</Plasteel>
+			<Uranium>12</Uranium>
+		</costList>
 		<equippedStatOffsets>
-			<PainShockThreshold>1.0</PainShockThreshold>
+			<MoveSpeed>-0.35</MoveSpeed>
 		</equippedStatOffsets>
 		<apparel>
 			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/ProtectorArmor/ProtectorArmor</wornGraphicPath>
 			<tags>
-				<li>VFEU_HuntersBasic</li>
+				<li>SpacerMilitary</li>
+				<li>UltraMilitary</li>
+			</tags>
+		</apparel>
+	</ThingDef>
+	<!-- ================================ Dragoon Armour ====================== -->
+	<ThingDef ParentName="VFEU_HuntersArmourBase">
+		<defName>VFEU_Apparel_DragoonArmor</defName>
+		<label>dragoon armor</label>
+		<description>A suit of powered armor, built to provide the best protection available for humanity. Every suit is manufactured at a specialized facility, which effectively prints the entirety as one piece, molecule by molecule. The result is levels of protection unmatched by military hardware, as the production costs are staggering and unsustainable for mass production.\n\nIncludes a package of pain inhibitors to ensure the user can fulfill their objective until their dying breath. The intent of the armor is to ensure their benefactor’s survival, as opposed to the user.\n\nThis model includes kinetic assistors and stability modules that allow the user to leap an impressive distance. The module reduces the protective capabilities in exchange for this function, as well as a kinetic energy converter that eliminates the need for external fuel.</description>
+		<graphicData>
+			<texPath>Things/Pawn/Humanlike/Apparel/DragoonArmor/DragoonArmor</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>76500</WorkToMake>
+			<MaxHitPoints>450</MaxHitPoints>
+			<Mass>18</Mass>
+			<Flammability>0.4</Flammability>
+			<ArmorRating_Sharp>1.25</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.65</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.62</ArmorRating_Heat>
+			<Insulation_Cold>38</Insulation_Cold>
+			<Insulation_Heat>16</Insulation_Heat>
+			<EquipDelay>20</EquipDelay>
+		</statBases>
+		<recipeMaker>
+			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+			<researchPrerequisite>AC_AdvancedPoweredArmor</researchPrerequisite>
+			<workSkill>Crafting</workSkill>
+			<skillRequirements>
+				<Crafting>10</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>FabricationBench</li>
+			</recipeUsers>
+			<displayPriority>106</displayPriority>
+		</recipeMaker>
+		<costList>
+			<ComponentSpacer>8</ComponentSpacer>
+			<Plasteel>165</Plasteel>
+			<Uranium>75</Uranium>
+		</costList>
+		<equippedStatOffsets>
+			<MoveSpeed>-0.7</MoveSpeed>
+		</equippedStatOffsets>
+		<apparel>
+			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/DragoonArmor/DragoonArmor</wornGraphicPath>
+			<tags>
+				<li>SpacerMilitary</li>
+				<li>UltraMilitary</li>
+			</tags>
+		</apparel>
+	</ThingDef>
+	<!-- ================================ Fusilier Armour ====================== -->
+	<ThingDef ParentName="VFEU_HuntersArmourBase">
+		<defName>VFEU_Apparel_FusilierArmor</defName>
+		<label>fusilier armor</label>
+		<description>A suit of powered armor, built to provide the best protection available for humanity. Every suit is manufactured at a specialized facility, which effectively prints the entirety as one piece, molecule by molecule. The result is levels of protection unmatched by military hardware, as the production costs are staggering and unsustainable for mass production.\n\nIncludes a package of pain inhibitors to ensure the user can fulfill their objective until their dying breath. The intent of the armor is to ensure their benefactor’s survival, as opposed to the user.\n\nThis model includes a powerful smokepop dispenser to obfuscate the user’s location. Primarily used by infiltration and ambush units, the extra bulk from smokepop synthesizers provides minimal protective improvements.</description>
+		<graphicData>
+			<texPath>Things/Pawn/Humanlike/Apparel/FusilierArmor/FusilierArmor</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>76500</WorkToMake>
+			<MaxHitPoints>450</MaxHitPoints>
+			<Mass>18</Mass>
+			<Flammability>0.4</Flammability>
+			<ArmorRating_Sharp>1.14</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.53</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.51</ArmorRating_Heat>
+			<Insulation_Cold>32</Insulation_Cold>
+			<Insulation_Heat>11</Insulation_Heat>
+			<EquipDelay>18</EquipDelay>
+		</statBases>
+		<recipeMaker>
+			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+			<researchPrerequisite>AC_AdvancedPoweredArmor</researchPrerequisite>
+			<workSkill>Crafting</workSkill>
+			<skillRequirements>
+				<Crafting>10</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>FabricationBench</li>
+			</recipeUsers>
+			<displayPriority>107</displayPriority>
+		</recipeMaker>
+		<costList>
+			<ComponentSpacer>8</ComponentSpacer>
+			<Plasteel>160</Plasteel>
+			<Uranium>80</Uranium>
+		</costList>
+		<equippedStatOffsets>
+			<MoveSpeed>-0.85</MoveSpeed>
+		</equippedStatOffsets>
+		<apparel>
+			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/FusilierArmor/FusilierArmor</wornGraphicPath>
+			<tags>
 				<li>SpacerMilitary</li>
 				<li>UltraMilitary</li>
 			</tags>

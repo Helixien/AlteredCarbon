@@ -5,10 +5,9 @@
 		<order>0</order>
 		<category>AC_General</category>
 	</Operation>
-
 	<Operation Class="AlteredCarbon.AlteredCarbonSettingsWorker_RewriteStack">
 		<id>AlteredCarbon_ModSettings_StackRewriting</id>
-		<order>1</order>
+		<order>10</order>
 		<category>AC_StackRewriting</category>
 	</Operation>
 </Patch>

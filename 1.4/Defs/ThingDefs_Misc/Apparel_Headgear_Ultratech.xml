@@ -12,16 +12,12 @@
 		</thingCategories>
 		<uiIconScale>1.25</uiIconScale>
 		<tradeTags>
-			<li>BuyableFromHunterCorpGoodQuality</li>
+			<li>HiTechArmor</li>
 		</tradeTags>
-		<generateCommonality>2</generateCommonality>
+		<generateCommonality>0.8</generateCommonality>
 		<equippedStatOffsets>
 			<SlaveSuppressionOffset MayRequire="Ludeon.RimWorld.Ideology">-0.1</SlaveSuppressionOffset>
 		</equippedStatOffsets>
-		<costList>
-			<ComponentSpacer>3</ComponentSpacer>
-			<Plasteel>80</Plasteel>
-		</costList>
 		<apparel>
 			<bodyPartGroups>
 				<li>FullHead</li>
@@ -35,6 +31,9 @@
 			<useDeflectMetalEffect>true</useDeflectMetalEffect>
 			<useWornGraphicMask>true</useWornGraphicMask>
 		</apparel>
+		<thingSetMakerTags>
+			<li>RewardStandardLowFreq</li>
+		</thingSetMakerTags>
 		<colorGenerator Class="ColorGenerator_Options">
 			<options>
 				<li>
@@ -59,9 +58,6 @@
 		<comps>
 			<li Class="CompProperties_Biocodable"/>
 		</comps>
-		<thingSetMakerTags>
-			<li>HunterCorpReward</li>
-		</thingSetMakerTags>
 	</ThingDef>
 	<!-- ================================ Protector Armour - Helmet ====================== -->
 	<ThingDef ParentName="VFEU_HuntersHelmet">
@@ -69,46 +65,142 @@
 		<label>protector helmet</label>
 		<description>A helmet of protector-issue power armor. Improved protection over standard marine power armor, offered by molecular plasteel integration thoughout the helmet. Complete with tactical telemetry feed and aim assist.</description>
 		<graphicData>
-			<texPath>Things/Pawn/Humanlike/Apparel/ProtectorArmor/AC_ProtectorHelmet</texPath>
+			<texPath>Things/Pawn/Humanlike/Apparel/ProtectorArmor/ProtectorHelmet</texPath>
 		</graphicData>
 		<statBases>
-			<MaxHitPoints>150</MaxHitPoints>
-			<Mass>3.5</Mass>
+			<WorkToMake>20000</WorkToMake>
+			<MaxHitPoints>125</MaxHitPoints>
+			<Mass>1.8</Mass>
 			<Flammability>0.4</Flammability>
-			<ArmorRating_Sharp>1.24</ArmorRating_Sharp>
-			<ArmorRating_Blunt>0.64</ArmorRating_Blunt>
-			<ArmorRating_Heat>0.66</ArmorRating_Heat>
+			<ArmorRating_Sharp>1.12</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.54</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.6</ArmorRating_Heat>
 			<Insulation_Cold>8</Insulation_Cold>
 			<Insulation_Heat>4</Insulation_Heat>
-			<EquipDelay>4</EquipDelay>
-			<VEF_RangedCooldownFactor>0.9</VEF_RangedCooldownFactor>
-			<WorkToMake>21000</WorkToMake>
+			<EquipDelay>3</EquipDelay>
+			<VEF_RangedCooldownFactor>0.82</VEF_RangedCooldownFactor>
 		</statBases>
-		<thingSetMakerTags>
-			<li>RewardStandardHighFreq</li>
-		</thingSetMakerTags>
 		<recipeMaker>
 			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
-			<researchPrerequisite>PoweredArmor</researchPrerequisite>
+			<researchPrerequisite>AC_AdvancedPoweredArmor</researchPrerequisite>
 			<workSkill>Crafting</workSkill>
 			<skillRequirements>
-				<Crafting>9</Crafting>
+				<Crafting>7</Crafting>
 			</skillRequirements>
 			<recipeUsers Inherit="False">
 				<li>FabricationBench</li>
 			</recipeUsers>
 			<displayPriority>105</displayPriority>
 		</recipeMaker>
+		<costList>
+			<ComponentSpacer>1</ComponentSpacer>
+			<Plasteel>35</Plasteel>
+		</costList>
+		<equippedStatOffsets>
+			<AimingDelayFactor>-0.1</AimingDelayFactor>
+			<ShootingAccuracyPawn>5</ShootingAccuracyPawn>
+		</equippedStatOffsets>
 		<apparel>
-			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/ProtectorArmor/AC_ProtectorHelmet</wornGraphicPath>
+			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/ProtectorArmor/ProtectorHelmet</wornGraphicPath>
 			<tags>
-				<li>VFEU_HuntersBasic</li>
+				<li>SpacerMilitary</li>
+				<li>UltraMilitary</li>
+			</tags>
+		</apparel>
+	</ThingDef>
+	<!-- ================================ Dragoon Armour - Helmet ====================== -->
+	<ThingDef ParentName="VFEU_HuntersHelmet">
+		<defName>VFEU_Apparel_DragoonHelmet</defName>
+		<label>dragoon helmet</label>
+		<description>A powered armor helmet, built to provide the best protection available for humanity. Every helmet is manufactured at a specialized facility, which effectively prints the entirety as one piece, molecule by molecule. The result is levels of protection unmatched by military hardware, as the production costs are staggering and unsustainable for mass production.\n\nIncludes a package of a classifier AI, to analyze terrain composition and guide the user, effectively eliminating terrain movement penalties.</description>
+		<graphicData>
+			<texPath>Things/Pawn/Humanlike/Apparel/DragoonArmor/DragoonHelmet</texPath>
+		</graphicData>
+		<statBases>
+			<WorkToMake>28250</WorkToMake>
+			<MaxHitPoints>200</MaxHitPoints>
+			<Mass>3.5</Mass>
+			<Flammability>0.4</Flammability>
+			<ArmorRating_Sharp>1.18</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.52</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.62</ArmorRating_Heat>
+			<Insulation_Cold>5</Insulation_Cold>
+			<Insulation_Heat>4</Insulation_Heat>
+			<EquipDelay>7</EquipDelay>
+		</statBases>
+		<recipeMaker>
+			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+			<researchPrerequisite>AC_AdvancedPoweredArmor</researchPrerequisite>
+			<workSkill>Crafting</workSkill>
+			<skillRequirements>
+				<Crafting>10</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>FabricationBench</li>
+			</recipeUsers>
+			<displayPriority>106</displayPriority>
+		</recipeMaker>
+		<costList>
+			<ComponentSpacer>2</ComponentSpacer>
+			<Plasteel>65</Plasteel>
+		</costList>
+		<equippedStatOffsets>
+			<MoveSpeed>-0.35</MoveSpeed>
+		</equippedStatOffsets>
+		<apparel>
+			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/DragoonArmor/DragoonHelmet</wornGraphicPath>
+			<tags>
+				<li>SpacerMilitary</li>
+				<li>UltraMilitary</li>
+			</tags>
+		</apparel>
+	</ThingDef>
+	<!-- ================================ Fusilier Armour - Helmet ====================== -->
+	<ThingDef ParentName="VFEU_HuntersHelmet">
+		<defName>VFEU_Apparel_FusilierHelmet</defName>
+		<label>fusilier helmet</label>
+		<description>A powered armor helmet, built to provide the best protection available for humanity. Every helmet is manufactured at a specialized facility, which effectively prints the entirety as one piece, molecule by molecule. The result is levels of protection unmatched by military hardware, as the production costs are staggering and unsustainable for mass production.\n\nIncludes a package of several multi-spectrum sensors and a classifier AI, allowing the user to see in darkness and smokey conditions as if it were bright and clear conditions. The integrated ballistic rangefinder provides optimal firing solutions, increasing the user’s effective range by 50%.</description>
+		<graphicData>
+			<texPath>Things/Pawn/Humanlike/Apparel/FusilierArmor/FusilierHelmet</texPath>
+		</graphicData>
+		<statBases>
+			<WorkToMake>28250</WorkToMake>
+			<MaxHitPoints>200</MaxHitPoints>
+			<Mass>3.5</Mass>
+			<Flammability>0.4</Flammability>
+			<ArmorRating_Sharp>1.04</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.48</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.56</ArmorRating_Heat>
+			<Insulation_Cold>8</Insulation_Cold>
+			<Insulation_Heat>8</Insulation_Heat>
+			<EquipDelay>7</EquipDelay>
+			<VEF_RangedCooldownFactor>0.85</VEF_RangedCooldownFactor>
+		</statBases>
+		<recipeMaker>
+			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+			<researchPrerequisite>AC_AdvancedPoweredArmor</researchPrerequisite>
+			<workSkill>Crafting</workSkill>
+			<skillRequirements>
+				<Crafting>10</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>FabricationBench</li>
+			</recipeUsers>
+			<displayPriority>107</displayPriority>
+		</recipeMaker>
+		<costList>
+			<ComponentSpacer>2</ComponentSpacer>
+			<Plasteel>65</Plasteel>
+		</costList>
+		<apparel>
+			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/FusilierArmor/FusilierHelmet</wornGraphicPath>
+			<tags>
 				<li>SpacerMilitary</li>
 				<li>UltraMilitary</li>
 			</tags>
 		</apparel>
 		<equippedStatOffsets>
-			<AimingDelayFactor>-0.1</AimingDelayFactor>
+			<AimingDelayFactor>-0.5</AimingDelayFactor>
 			<ShootingAccuracyPawn>10</ShootingAccuracyPawn>
 		</equippedStatOffsets>
 	</ThingDef>
