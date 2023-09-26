@@ -83,7 +83,23 @@
 			<Insulation_Cold>42</Insulation_Cold>
 			<Insulation_Heat>18</Insulation_Heat>
 			<EquipDelay>14</EquipDelay>
+			<WorkToMake>60000</WorkToMake>
 		</statBases>
+		<thingSetMakerTags>
+			<li>RewardStandardHighFreq</li>
+		</thingSetMakerTags>
+		<recipeMaker>
+			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+			<researchPrerequisite>PoweredArmor</researchPrerequisite>
+			<workSkill>Crafting</workSkill>
+			<skillRequirements>
+				<Crafting>9</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>FabricationBench</li>
+			</recipeUsers>
+			<displayPriority>105</displayPriority>
+		</recipeMaker>
 		<equippedStatOffsets>
 			<PainShockThreshold>1.0</PainShockThreshold>
 		</equippedStatOffsets>
@@ -91,6 +107,8 @@
 			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/ProtectorArmor/ProtectorArmor</wornGraphicPath>
 			<tags>
 				<li>VFEU_HuntersBasic</li>
+				<li>SpacerMilitary</li>
+				<li>UltraMilitary</li>
 			</tags>
 		</apparel>
 	</ThingDef>
