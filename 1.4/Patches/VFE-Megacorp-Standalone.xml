@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<Operation Class="PatchOperationSequence">
+		<!-- ================================ Patches in new stuff into the base game ====================== -->
+		<operations>
+			<!-- ================================ Patches thoughts ====================== -->
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThoughtDef[defName="VFEU_WrongGender" or defName="VFEU_WrongGenderDouble" or defName="VFEU_WrongGenderPregnant" or defName="VFEU_MansBody" or defName="VFEU_WomansBody"]</xpath>
+				<value>
+					<nullifyingPrecepts>
+						<li MayRequire="Ludeon.RimWorld.Ideology">AC_CrossSleeving_DontCare</li>
+					</nullifyingPrecepts>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThoughtDef[defName="VFEU_WrongXenotype"]</xpath>
+				<value>
+					<nullifyingPrecepts>
+						<li MayRequire="Ludeon.RimWorld.Ideology">AC_XenoSleeving_DontCare</li>
+					</nullifyingPrecepts>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+</Patch>
