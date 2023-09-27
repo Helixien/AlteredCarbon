@@ -232,18 +232,16 @@
 			</li>
 		</verbs>
 		<comps>
-			<comps>
-				<li Class="CompProperties_Reloadable">
-					<maxCharges>10</maxCharges>
-					<ammoDef>Neutroamine</ammoDef>
-					<ammoCountPerCharge>10</ammoCountPerCharge>
-					<baseReloadTicks>50</baseReloadTicks>
-					<soundReload>Standard_Reload</soundReload>
-					<hotKey>Misc4</hotKey>
-					<chargeNoun>dragoon jump</chargeNoun>
-					<displayGizmoWhileUndrafted>false</displayGizmoWhileUndrafted>
-				</li>
-			</comps>
+			<li Class="CompProperties_Reloadable">
+				<maxCharges>10</maxCharges>
+				<ammoDef>Neutroamine</ammoDef>
+				<ammoCountPerCharge>10</ammoCountPerCharge>
+				<baseReloadTicks>50</baseReloadTicks>
+				<soundReload>Standard_Reload</soundReload>
+				<hotKey>Misc4</hotKey>
+				<chargeNoun>dragoon jump</chargeNoun>
+				<displayGizmoWhileUndrafted>false</displayGizmoWhileUndrafted>
+			</li>
 			<li Class="VFECore.CompProperties_ApparelHediffs">
 				<hediffDefnames>
 					<li>AC_PainProtection</li>
