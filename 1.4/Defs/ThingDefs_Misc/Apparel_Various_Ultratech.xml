@@ -1,7 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 	<!-- ================================ Base ====================== -->
-	<ThingDef Name="VFEU_HuntersArmourBase" ParentName="ApparelBase" Abstract="True">
+	<ThingDef Name="AC_HuntersArmourBase" ParentName="ApparelBase" Abstract="True">
 		<techLevel>Ultra</techLevel>
 		<tickerType>Normal</tickerType>
 		<generateCommonality>0.8</generateCommonality>
@@ -60,8 +60,8 @@
 		</comps>
 	</ThingDef>
 	<!-- ================================ Protector Armour ====================== -->
-	<ThingDef ParentName="VFEU_HuntersArmourBase">
-		<defName>VFEU_Apparel_ProtectorArmor</defName>
+	<ThingDef ParentName="AC_HuntersArmourBase">
+		<defName>AC_Apparel_ProtectorArmor</defName>
 		<label>protector armor</label>
 		<description>A suit of protector-issue power armor. Improved protection over standard marine power armor, offered by molecular plasteel integration thoughout the suit as well as on-board processors to assist movement and dampen pain receptors.</description>
 		<graphicData>
@@ -107,10 +107,17 @@
 				<li>UltraMilitary</li>
 			</tags>
 		</apparel>
+		<comps>
+			<li Class="VFECore.CompProperties_ApparelHediffs">
+				<hediffDefnames>
+					<li>AC_PainProtection</li>
+				</hediffDefnames>
+			</li>
+		</comps>
 	</ThingDef>
 	<!-- ================================ Dragoon Armour ====================== -->
-	<ThingDef ParentName="VFEU_HuntersArmourBase">
-		<defName>VFEU_Apparel_DragoonArmor</defName>
+	<ThingDef ParentName="AC_HuntersArmourBase">
+		<defName>AC_Apparel_DragoonArmor</defName>
 		<label>dragoon armor</label>
 		<description>A suit of powered armor, built to provide the best protection available for humanity. Every suit is manufactured at a specialized facility, which effectively prints the entirety as one piece, molecule by molecule. The result is levels of protection unmatched by military hardware, as the production costs are staggering and unsustainable for mass production.\n\nIncludes a package of pain inhibitors to ensure the user can fulfill their objective until their dying breath. The intent of the armor is to ensure their benefactor’s survival, as opposed to the user.\n\nThis model includes kinetic assistors and stability modules that allow the user to leap an impressive distance. The module reduces the protective capabilities in exchange for this function, as well as a kinetic energy converter that eliminates the need for external fuel.</description>
 		<graphicData>
@@ -156,10 +163,22 @@
 				<li>UltraMilitary</li>
 			</tags>
 		</apparel>
+		<comps>
+			<li Class="VFECore.CompProperties_ApparelHediffs">
+				<hediffDefnames>
+					<li>AC_PainProtection</li>
+				</hediffDefnames>
+			</li>
+			<li Class="VFECore.Abilities.CompProperties_AbilitiesApparel">
+				<abilities>
+					<li>AC_Jump</li>
+				</abilities>
+			</li>
+		</comps>
 	</ThingDef>
 	<!-- ================================ Fusilier Armour ====================== -->
-	<ThingDef ParentName="VFEU_HuntersArmourBase">
-		<defName>VFEU_Apparel_FusilierArmor</defName>
+	<ThingDef ParentName="AC_HuntersArmourBase">
+		<defName>AC_Apparel_FusilierArmor</defName>
 		<label>fusilier armor</label>
 		<description>A suit of powered armor, built to provide the best protection available for humanity. Every suit is manufactured at a specialized facility, which effectively prints the entirety as one piece, molecule by molecule. The result is levels of protection unmatched by military hardware, as the production costs are staggering and unsustainable for mass production.\n\nIncludes a package of pain inhibitors to ensure the user can fulfill their objective until their dying breath. The intent of the armor is to ensure their benefactor’s survival, as opposed to the user.\n\nThis model includes a powerful smokepop dispenser to obfuscate the user’s location. Primarily used by infiltration and ambush units, the extra bulk from smokepop synthesizers provides minimal protective improvements.</description>
 		<graphicData>
@@ -205,5 +224,17 @@
 				<li>UltraMilitary</li>
 			</tags>
 		</apparel>
+		<comps>
+			<li Class="VFECore.CompProperties_ApparelHediffs">
+				<hediffDefnames>
+					<li>AC_PainProtection</li>
+				</hediffDefnames>
+			</li>
+			<li Class="VFECore.Abilities.CompProperties_AbilitiesApparel">
+				<abilities>
+					<li>AC_Smokepop</li>
+				</abilities>
+			</li>
+		</comps>
 	</ThingDef>
 </Defs>

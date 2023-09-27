@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<VFECore.Abilities.AbilityDef>
+		<defName>AC_Smokepop</defName>
+		<label>Smokepop</label>
+		<description>Deploy a cloud of protective smoke, covering your escape. Does not consume fuel, but requires time to recharge.</description>
+		<abilityClass>VFECore.Abilities.Ability_Explode</abilityClass>
+		<targetMode>Self</targetMode>
+		<iconPath>UI/Ability_FusilierSmoke</iconPath>
+		<cooldownTime>15000</cooldownTime>
+		<castTime>0</castTime>
+		<modExtensions>
+			<li Class="VFECore.Abilities.AbilityExtension_Explosion">
+				<explosionDamageDef>Smoke</explosionDamageDef>
+				<explosionRadius>7</explosionRadius>
+				<onCaster>true</onCaster>
+				<postExplosionGasType>BlindSmoke</postExplosionGasType>
+				<postExplosionSpawnChance>1</postExplosionSpawnChance>
+			</li>
+		</modExtensions>
+	</VFECore.Abilities.AbilityDef>
+	<VFECore.Abilities.AbilityDef>
+		<defName>AC_Jump</defName>
+		<label>Dragoon jump</label>
+		<description>Utilising kinetic assistors, jump over a long distance to either close the distance to the enemy or escape from a dangerous situation.</description>
+		<iconPath>UI/Ability_DragoonJump</iconPath>
+		<abilityClass>AlteredCarbon.Ability_Jump</abilityClass>
+		<cooldownTime>7500</cooldownTime>
+		<castTime>0</castTime>
+		<targetMode>Location</targetMode>
+		<range>12.9</range>
+	</VFECore.Abilities.AbilityDef>
+	
+    <ThingDef ParentName="PawnFlyerBase">
+        <defName>AC_JumpingPawn</defName>
+        <thingClass>AlteredCarbon.JumpingPawn</thingClass>
+        <pawnFlyer>
+            <flightDurationMin>0.1</flightDurationMin>
+            <flightSpeed>20</flightSpeed>
+        </pawnFlyer>
+    </ThingDef>
+</Defs>

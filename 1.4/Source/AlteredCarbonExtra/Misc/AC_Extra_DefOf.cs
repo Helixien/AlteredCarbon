@@ -36,6 +36,10 @@ namespace AlteredCarbon
 
         public static ThoughtDef AC_CortexOverseerFreed;
         public static RecipeDef AC_HackBiocodedThings;
+
+        public static ThingDef AC_JumpingPawn;
+        public static ThingDef AC_Apparel_DragoonHelmet;
+        public static ThingDef AC_Apparel_FusilierHelmet;
     }
 }
 

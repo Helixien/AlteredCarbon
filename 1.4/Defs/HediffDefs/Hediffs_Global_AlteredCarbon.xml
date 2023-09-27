@@ -42,4 +42,17 @@
 			</li>
 		</stages>
 	</HediffDef>
+	
+	<HediffDef>
+		<defName>AC_PainProtection</defName>
+		<label>pain protection</label>
+		<labelNoun>pain protection</labelNoun>
+		<description>pain protection</description>
+		<hediffClass>HediffWithComps</hediffClass>
+		<stages>
+			<li>
+				<painFactor>0</painFactor>
+			</li>
+		</stages>
+	</HediffDef>
 </Defs>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 	<!-- ================================ Base ====================== -->
-	<ThingDef Name="VFEU_HuntersHelmet" ParentName="ApparelBase" Abstract="True">
+	<ThingDef Name="AC_HuntersHelmet" ParentName="ApparelBase" Abstract="True">
 		<graphicData>
 			<graphicClass>Graphic_Single</graphicClass>
 			<shaderType>CutoutComplex</shaderType>
@@ -60,8 +60,8 @@
 		</comps>
 	</ThingDef>
 	<!-- ================================ Protector Armour - Helmet ====================== -->
-	<ThingDef ParentName="VFEU_HuntersHelmet">
-		<defName>VFEU_Apparel_ProtectorHelmet</defName>
+	<ThingDef ParentName="AC_HuntersHelmet">
+		<defName>AC_Apparel_ProtectorHelmet</defName>
 		<label>protector helmet</label>
 		<description>A helmet of protector-issue power armor. Improved protection over standard marine power armor, offered by molecular plasteel integration thoughout the helmet. Complete with tactical telemetry feed and aim assist.</description>
 		<graphicData>
@@ -109,8 +109,8 @@
 		</apparel>
 	</ThingDef>
 	<!-- ================================ Dragoon Armour - Helmet ====================== -->
-	<ThingDef ParentName="VFEU_HuntersHelmet">
-		<defName>VFEU_Apparel_DragoonHelmet</defName>
+	<ThingDef ParentName="AC_HuntersHelmet">
+		<defName>AC_Apparel_DragoonHelmet</defName>
 		<label>dragoon helmet</label>
 		<description>A powered armor helmet, built to provide the best protection available for humanity. Every helmet is manufactured at a specialized facility, which effectively prints the entirety as one piece, molecule by molecule. The result is levels of protection unmatched by military hardware, as the production costs are staggering and unsustainable for mass production.\n\nIncludes a package of a classifier AI, to analyze terrain composition and guide the user, effectively eliminating terrain movement penalties.</description>
 		<graphicData>
@@ -156,8 +156,8 @@
 		</apparel>
 	</ThingDef>
 	<!-- ================================ Fusilier Armour - Helmet ====================== -->
-	<ThingDef ParentName="VFEU_HuntersHelmet">
-		<defName>VFEU_Apparel_FusilierHelmet</defName>
+	<ThingDef ParentName="AC_HuntersHelmet">
+		<defName>AC_Apparel_FusilierHelmet</defName>
 		<label>fusilier helmet</label>
 		<description>A powered armor helmet, built to provide the best protection available for humanity. Every helmet is manufactured at a specialized facility, which effectively prints the entirety as one piece, molecule by molecule. The result is levels of protection unmatched by military hardware, as the production costs are staggering and unsustainable for mass production.\n\nIncludes a package of several multi-spectrum sensors and a classifier AI, allowing the user to see in darkness and smokey conditions as if it were bright and clear conditions. The integrated ballistic rangefinder provides optimal firing solutions, increasing the user’s effective range by 50%.</description>
 		<graphicData>

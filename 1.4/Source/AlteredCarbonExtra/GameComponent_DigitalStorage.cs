@@ -5,6 +5,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
+
     [HotSwappable]
     public class GameComponent_DigitalStorage : GameComponent
     {

@@ -70,6 +70,10 @@
     <Publicize Include="Assembly-CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abilities\Ability_Jump.cs" />
+    <Compile Include="HarmonyPatches\PathFinder_FindPath_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_PathFollower_CostToMoveIntoCell_Patch.cs" />
+    <Compile Include="HarmonyPatches\ShotReport_HitReportFor_Patch.cs" />
     <Compile Include="Buildings\Building_XenogermDuplicator.cs" />
     <Compile Include="Buildings\Building_GeneCentrifuge.cs" />
     <Compile Include="Buildings\Building_Processor.cs" />
@@ -89,6 +93,7 @@
     <Compile Include="Jobs\WorkGiver_HaulCorpseToSleeveGrower.cs" />
     <Compile Include="Jobs\WorkGiver_InsertIntoProcessor.cs" />
     <Compile Include="Jobs\WorkGiver_HaulStacks.cs" />
+    <Compile Include="Abilities\JumpingPawn.cs" />
     <Compile Include="Misc\ACUtilsExtra.cs" />
     <Compile Include="Misc\AC_Extra_DefOf.cs" />
     <Compile Include="Misc\Hediff_CortexOverseer.cs" />
@@ -121,5 +126,6 @@
     <Compile Include="Thoughts\ThoughtWorker_Precept_Stack_Social.cs" />
     <Compile Include="UI\Window_SeparateGene.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

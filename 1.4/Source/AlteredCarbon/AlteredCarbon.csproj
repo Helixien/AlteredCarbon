@@ -33,9 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0ModSettingsFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\LoadFolders\Standalone\Assemblies\0ModSettingsFramework.dll</HintPath>
+    <Reference Include="0ModSettingsFramework">
+      <HintPath>..\..\..\..\VanillaExpandedFramework\1.4\Assemblies\0ModSettingsFramework.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AlienRace">

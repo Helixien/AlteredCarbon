@@ -52,7 +52,21 @@ namespace AlteredCarbon
                 AC_Extra_DefOf.AC_HackBiocodedThings.defaultIngredientFilter.thingDefs.Add(thingDef);
                 AC_Extra_DefOf.AC_HackBiocodedThings.defaultIngredientFilter.SetAllow(thingDef, true);
             }
+        }
 
+        public static bool Wears(this Pawn pawn, ThingDef thingDef)
+        {
+            if (pawn?.apparel?.WornApparel != null)
+            {
+                foreach (var apparel in pawn.apparel.WornApparel)
+                {
+                    if (apparel.def == thingDef)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         public static bool IsUltraTechBuilding(this ThingDef def)
