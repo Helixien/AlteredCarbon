@@ -70,7 +70,6 @@
     <Publicize Include="Assembly-CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abilities\Ability_Jump.cs" />
     <Compile Include="HarmonyPatches\PathFinder_FindPath_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_PathFollower_CostToMoveIntoCell_Patch.cs" />
     <Compile Include="HarmonyPatches\ShotReport_HitReportFor_Patch.cs" />
@@ -93,7 +92,6 @@
     <Compile Include="Jobs\WorkGiver_HaulCorpseToSleeveGrower.cs" />
     <Compile Include="Jobs\WorkGiver_InsertIntoProcessor.cs" />
     <Compile Include="Jobs\WorkGiver_HaulStacks.cs" />
-    <Compile Include="Abilities\JumpingPawn.cs" />
     <Compile Include="Misc\ACUtilsExtra.cs" />
     <Compile Include="Misc\AC_Extra_DefOf.cs" />
     <Compile Include="Misc\Hediff_CortexOverseer.cs" />
