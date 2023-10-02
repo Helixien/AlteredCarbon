@@ -96,6 +96,11 @@ namespace AlteredCarbon
 			return VREAndroids.Utils.RecipeForAndroid(recipe);
 		}
 
+		public static bool IsAndroidGene(GeneDef gene)
+		{
+			return VREAndroids.Utils.IsAndroidGene(gene);
+		}
+
         private static void AddVSEPassions()
         {
             Window_StackEditor.AllPassions.Clear();
@@ -592,15 +597,18 @@ namespace AlteredCarbon
                         rjwData = new RJWData();
                     }
                     rjwData.quirksave = comp.quirksave;
-                    rjwData.quirksave.Replace("Fertile", "");
-                    rjwData.quirksave.Replace("Infertile", "");
+					if (rjwData.quirksave != null)
+					{
+                        rjwData.quirksave = rjwData.quirksave.Replace("Fertile", "");
+                        rjwData.quirksave = rjwData.quirksave.Replace("Infertile", "");
+                    }
                     rjwData.orientation = (OrientationAC)(int)comp.orientation;
                     rjwData.NextHookupTick = comp.NextHookupTick;
                 }
             }
 			catch (Exception ex)
 			{
-				Log.Message("Error getting RJW data: " + ex.ToString());
+				Log.Error("Error getting RJW data: " + ex.ToString());
 			}
 			return rjwData;
 		}

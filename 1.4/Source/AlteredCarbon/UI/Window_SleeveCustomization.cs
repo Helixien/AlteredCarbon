@@ -765,6 +765,11 @@ namespace AlteredCarbon
             var skinColors = new Dictionary<GeneDef, Color>();
             foreach (var geneDef in DefDatabase<GeneDef>.AllDefsListForReading)
             {
+                if (ModCompatibility.VanillaRacesExpandedAndroidIsActive && ModCompatibility.IsAndroidGene(geneDef))
+                {
+                    continue;
+                }
+                Log.Message("Allows: " + geneDef);
                 if (geneDef.skinColorBase != null && geneDef.endogeneCategory == EndogeneCategory.Melanin)
                 {
                     skinColors[geneDef] = geneDef.skinColorBase.Value;
@@ -772,6 +777,10 @@ namespace AlteredCarbon
             }
             foreach (var gene in curSleeve.genes.GenesListForReading)
             {
+                if (ModCompatibility.VanillaRacesExpandedAndroidIsActive && ModCompatibility.IsAndroidGene(gene.def))
+                {
+                    continue;
+                }
                 if ((!geneActiveCheck || gene.Active))
                 {
                     if (gene.def.skinColorBase != null && gene.def.endogeneCategory == EndogeneCategory.Melanin)
@@ -791,6 +800,11 @@ namespace AlteredCarbon
             var hairColors = new Dictionary<GeneDef, Color>();
             foreach (var geneDef in DefDatabase<GeneDef>.AllDefsListForReading)
             {
+                if (ModCompatibility.VanillaRacesExpandedAndroidIsActive && ModCompatibility.IsAndroidGene(geneDef))
+                {
+                    continue;
+                }
+                Log.Message("Allows: " + geneDef);
                 if (geneDef.hairColorOverride != null)
                 {
                     hairColors[geneDef] = geneDef.hairColorOverride.Value;
@@ -798,6 +812,10 @@ namespace AlteredCarbon
             }
             foreach (var gene in curSleeve.genes.GenesListForReading)
             {
+                if (ModCompatibility.VanillaRacesExpandedAndroidIsActive && ModCompatibility.IsAndroidGene(gene.def))
+                {
+                    continue;
+                }
                 if ((!geneActiveCheck || gene.Active) && gene.def.hairColorOverride != null && gene.def.endogeneCategory == EndogeneCategory.HairColor)
                 {
                     hairColors[gene.def] = gene.def.hairColorOverride.Value;

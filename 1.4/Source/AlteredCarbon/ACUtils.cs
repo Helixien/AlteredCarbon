@@ -146,6 +146,10 @@ namespace AlteredCarbon
             unstackableRaces = GetUnstackableRaces();
             foreach (var gene in DefDatabase<GeneDef>.AllDefs)
             {
+                if (ModCompatibility.VanillaRacesExpandedAndroidIsActive && ModCompatibility.IsAndroidGene(gene))
+                {
+                    continue;
+                }
                 if (gene.exclusionTags.NullOrEmpty() is false)
                 {
                     for (var i = 0; i < gene.exclusionTags.Count; i++)
@@ -392,10 +396,13 @@ namespace AlteredCarbon
                 ModCompatibility.SetHairColorSecond(dest, ModCompatibility.GetHairColorSecond(source));
             }
 
-            var genes = dest.genes.GenesListForReading;
-            foreach (var oldGene in genes)
+            if (copyGenesPartially || copyGenesFully)
             {
-                dest.genes.RemoveGene(oldGene);
+                var genes = dest.genes.GenesListForReading;
+                foreach (var oldGene in genes)
+                {
+                    dest.genes.RemoveGene(oldGene);
+                }
             }
 
             if (copyGenesPartially)

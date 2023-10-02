@@ -90,6 +90,8 @@ namespace AlteredCarbon
         public XenotypeDef OriginalXenotypeDef { get => originalXenotypeDef; set => originalXenotypeDef = value; }
         public string OriginalXenotypeName { get => originalXenotypeName; set => originalXenotypeName = value; }
 
+        private Gender? dummyGender;
+
         private int pawnID;
 
         // Royalty
@@ -174,21 +176,23 @@ namespace AlteredCarbon
                     ticks = ageBiologicalTicks = hostPawn.ageTracker.AgeBiologicalTicks;
                 }
                 dummyPawn = ACUtils.CreateEmptyPawn(hostPawn?.kindDef ?? kindDef ?? PawnKindDefOf.Colonist,
-                    faction, OriginalRace ?? ThingDefOf.Human, ticks, OriginalXenotypeDef != null ? OriginalXenotypeDef : XenotypeDefOf.Baseliner);
+                    faction, OriginalRace ?? ThingDefOf.Human, ticks, OriginalXenotypeDef != null 
+                    ? OriginalXenotypeDef : XenotypeDefOf.Baseliner);
+                dummyPawn.gender = dummyGender ?? originalGender;
                 dummyPawns.Add(dummyPawn);
             }
-            
-            OverwritePawn(dummyPawn, null, overwriteOriginalPawn: false, 
-                copyFromOrigPawn: hostPawn != null && hostPawn.Dead is false && hostPawn.IsEmptySleeve() is false);
+
+            OverwritePawn(dummyPawn, null, overwriteOriginalPawn: false, copyFromOrigPawn: hostPawn != null 
+                && hostPawn.Dead is false && hostPawn.IsEmptySleeve() is false);
             if (hostPawn != null)
             {
-                ACUtils.CopyBody(hostPawn, dummyPawn, copyGenesFully: true);
+                dummyGender = hostPawn.gender;
+                ACUtils.CopyBody(hostPawn, dummyPawn, copyAgeInfo: true, copyGenesFully: true);
                 dummyPawn.RefreshGraphic();
             }
-            else if (dummyPawn.genes != null)
-            {
-                dummyPawn.genes.ClearXenogenes();
-            }
+
+            dummyPawn.genes.GenesListForReading.Where(x => x.def.aptitudes.NullOrEmpty() is false
+            || x.def.forcedTraits.NullOrEmpty() is false).ToList().ForEach(x => dummyPawn.genes.RemoveGene(x));
             dummyPawn.story.backstoriesCache = null;
             dummyPawn.Notify_DisabledWorkTypesChanged();
             if (this.skills != null)
@@ -292,6 +296,11 @@ namespace AlteredCarbon
                 {
                     if (trait.sourceGene is null && trait.suppressedByGene is null)
                     {
+                        var extension = sourceStack.GetModExtension<StackSavingOptionsModExtension>();
+                        if (extension != null && extension.ignoresTraits != null && extension.ignoresTraits.Contains(trait.def.defName))
+                        {
+                            continue;
+                        }
                         traits.Add(new Trait(trait.def, trait.degree));
                     }
                 }
@@ -359,13 +368,15 @@ namespace AlteredCarbon
             {
                 foreach (var skill in pawn.skills.skills)
                 {
+                    var gene = pawn.genes.GenesListForReading.FirstOrDefault(x => x.def.passionMod != null && x.def.passionMod.skill == skill.def);
+                    var originPassion = gene?.passionPreAdd ?? skill.passion;
                     skills.Add(new SkillRecord
                     {
                         def = skill.def,
                         levelInt = skill.levelInt,
                         xpSinceLastLevel = skill.xpSinceLastLevel,
                         xpSinceMidnight = skill.xpSinceMidnight,
-                        passion = skill.passion,
+                        passion = originPassion,
                     });
                 }
             }
@@ -1556,6 +1567,7 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref editTime, "editTime");
             Scribe_Values.Look(ref stackDegradation, "stackDegradation");
             Scribe_Values.Look(ref stackDegradationToAdd, "stackDegradationToAdd");
+            Scribe_Values.Look(ref dummyGender, "dummyGender");
 
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
