@@ -4,7 +4,7 @@
 	<ThingDef ParentName="BodyPartBase">
 		<defName>AC_CortexOverseer</defName>
 		<label>cortex overseer</label>
-		<description>todo.</description>
+		<description>A decommissioned and outlawed ultratech implant once heavily used to control prisoners and slaves. Once installed it fuses to the persons spine, making it impossible to remove. It contains a simple, yet powerful explosive that can be remotely triggered to instantly kill the person it is installed in.</description>
 		<descriptionHyperlinks>
 			<RecipeDef>AC_InstallCortexOverseer</RecipeDef>
 		</descriptionHyperlinks>
@@ -15,11 +15,11 @@
 			<drawSize>0.80</drawSize>
 			<color>(189,169,118)</color>
 		</graphicData>
-		<thingSetMakerTags>
-			<li>RewardStandardLowFreq</li>
-		</thingSetMakerTags>
+		<tradeTags>
+			<li>VFED_Contraband</li>
+		</tradeTags>
 		<statBases>
-			<MarketValue>1500</MarketValue>
+			<MarketValue>2500</MarketValue>
 		</statBases>
 		<thingCategories>
 			<li>BodyPartsBionic</li>

@@ -268,6 +268,6 @@
 	<AC.CannotInstallFilledStackInChildren>Cannot install a filled stack into children.</AC.CannotInstallFilledStackInChildren>
 	<AC.CannotInstallAlreadyHaveStack>Cannot install stack: Already has a stack installed.</AC.CannotInstallAlreadyHaveStack>
 	<AC.Detonate>Detonate</AC.Detonate>
-	<AC.DetonateDesc>todo</AC.DetonateDesc>
+	<AC.DetonateDesc>Trigger the installed cortex overseer to explode and kill the person it is installed in.</AC.DetonateDesc>
 	<AC.Deactivated>deactivated</AC.Deactivated>
 </LanguageData>
