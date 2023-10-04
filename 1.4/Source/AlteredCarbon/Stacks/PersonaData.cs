@@ -750,7 +750,8 @@ namespace AlteredCarbon
             return null;
         }
 
-        public void OverwritePawn(Pawn pawn, StackSavingOptionsModExtension extension, bool overwriteOriginalPawn = true, bool copyFromOrigPawn = true)
+        public void OverwritePawn(Pawn pawn, StackSavingOptionsModExtension extension, bool overwriteOriginalPawn = true, 
+            bool copyFromOrigPawn = true)
         {
             if (copyFromOrigPawn && hostPawn != null)
             {
@@ -770,64 +771,10 @@ namespace AlteredCarbon
             {
                 pawn.Faction.leader = pawn;
             }
-            if (pawn.CanThink())
-            {
-                for (int num = pawn.needs.mood.thoughts.memories.Memories.Count - 1; num >= 0; num--)
-                {
-                    pawn.needs.mood.thoughts.memories.RemoveMemory(pawn.needs.mood.thoughts.memories.Memories[num]);
-                }
-            }
-            
-            if (thoughts != null)
-            {
-                if (OriginalGender == pawn.gender)
-                {
-                    thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGender);
-                    thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGenderDouble);
-                    thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGenderPregnant);
-                }
-                if (ModCompatibility.AlienRacesIsActive && OriginalRace == pawn.kindDef.race)
-                {
-                    thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongRace);
-                }
-                if (OriginalXenotypeDef != null && OriginalXenotypeDef == pawn.genes.xenotype 
-                    || OriginalXenotypeName.NullOrEmpty() is false && OriginalXenotypeName == pawn.genes.xenotypeName)
-                {
-                    thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongXenotype);
-                }
 
-                if (pawn.CanThink() && thoughts.Any())
-                {
-                    foreach (Thought_Memory thought in thoughts)
-                    {
-                        if (thought is Thought_MemorySocial && thought.otherPawn == null)
-                        {
-                            continue;
-                        }
-                        pawn.needs.mood.thoughts.memories.TryGainMemory(thought, thought.otherPawn);
-                    }
-                }
-            }
-            if (extension != null)
-            {
-                pawn.story.traits.allTraits.RemoveAll(x => !extension.ignoresTraits.Contains(x.def.defName));
-            }
-            else
-            {
-                pawn.story.traits.allTraits.Clear();
-            }
-            if (traits != null)
-            {
-                foreach (Trait trait in traits)
-                {
-                    if (extension != null && extension.ignoresTraits != null && extension.ignoresTraits.Contains(trait.def.defName))
-                    {
-                        continue;
-                    }
-                    pawn.story.traits.GainTrait(trait);
-                }
-            }
-            
+            OverwriteThoughts(pawn);
+            OverwriteTraits(pawn, extension);
+
             pawn.mindState = new Pawn_MindState(pawn);
             foreach (var rel in pawn.relations.directRelations)
             {
@@ -841,111 +788,21 @@ namespace AlteredCarbon
                 nextMarriageNameChange = nextMarriageNameChange,
                 hidePawnRelations = hidePawnRelations
             };
+
             if (overwriteOriginalPawn)
             {
-                var allPotentialRelatedPawns = new HashSet<Pawn>();
-                allPotentialRelatedPawns.AddRange(PawnsFinder.AllMapsWorldAndTemporary_AliveOrDead);
-                if (relations != null)
-                {
-                    for (var i = relations.Count - 1; i >= 0; i--)
-                    {
-                        var rel = relations[i];
-                        if (rel != null && rel.otherPawn != null)
-                        {
-                            allPotentialRelatedPawns.Add(rel.otherPawn);
-                        }
-                    }
-                }
-
-                if (relatedPawns != null)
-                {
-                    for (var i = relatedPawns.Count - 1; i >= 0; i--)
-                    {
-                        var relatedPawn = relatedPawns[i];
-                        if (relatedPawn != null)
-                        {
-                            allPotentialRelatedPawns.Add(relatedPawn);
-                        }
-                    }
-                }
-                allPotentialRelatedPawns = allPotentialRelatedPawns.Where(x => x.RaceProps.Humanlike).ToHashSet();
-                var oldOrigPawn = this.hostPawn;
-                if (oldOrigPawn is null)
-                {
-                    oldOrigPawn = allPotentialRelatedPawns.FirstOrDefault(x => x.Dead && x.thingIDNumber == pawnID);
-                    if (debug) Log.Message("Found orig pawn: " + oldOrigPawn + " + " + string.Join(", ", oldOrigPawn?.relations?.DirectRelations?.Select(x => x?.def + " - " + x?.otherPawn?.GetFullName()) ?? new List<string>()));
-                    if (oldOrigPawn is null)
-                    {
-                        oldOrigPawn = allPotentialRelatedPawns.FirstOrDefault(x => x.Dead && IsPresetPawn(x) && x != pawn);
-                        if (debug) Log.Message("2 Found orig pawn: " + oldOrigPawn + " + " + string.Join(", ", oldOrigPawn?.relations?.DirectRelations.Select(x => x?.def + " - " + x?.otherPawn?.GetFullName()) ?? new List<string>()));
-                    }
-                }
-
-                if (oldOrigPawn?.relations != null)
-                {
-                    var potentiallyRelatedPawns = oldOrigPawn.relations.PotentiallyRelatedPawns.ToList();
-                    for (var i = potentiallyRelatedPawns.Count - 1; i >= 0; i--)
-                    {
-                        var relatedPawn = potentiallyRelatedPawns[i];
-                        if (relatedPawn != null)
-                        {
-                            allPotentialRelatedPawns.Add(relatedPawn);
-                        }
-                    }
-                }
-
-                if (oldOrigPawn != null)
-                {
-                    allPotentialRelatedPawns.Remove(oldOrigPawn);
-                }
-                foreach (var potentiallyRelatedPawn in allPotentialRelatedPawns)
-                {
-                    ReplaceSocialReferences(potentiallyRelatedPawn, pawn, oldOrigPawn);
-                }
-
-                if (oldOrigPawn != null)
-                {
-                    ReplaceTales(pawn, oldOrigPawn);
-                }
-
-                if (oldOrigPawn?.relations.DirectRelations != null)
-                {
-                    if (debug) Log.Message("OverwritePawn: oldOrigPawn.relations.DirectRelations: " + string.Join(", ", oldOrigPawn.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
-                    for (var i = oldOrigPawn.relations.DirectRelations.Count - 1; i >= 0; i--)
-                    {
-                        var oldDirectRelation = oldOrigPawn.relations.DirectRelations[i];
-                        oldOrigPawn.relations.directRelations.Remove(oldDirectRelation);
-                        if (pawn.relations.directRelations.Any(x => x.def == oldDirectRelation.def && x.otherPawn == oldDirectRelation.otherPawn) is false)
-                        {
-                            var rel = new DirectPawnRelation(oldDirectRelation.def, oldDirectRelation.otherPawn,
-                                oldDirectRelation.startTicks);
-                            pawn.relations.directRelations.Add(rel);
-                            if (debug) Log.Message("OverwritePawn: Adding rel: " + rel + " - " + oldDirectRelation.otherPawn.GetFullName());
-                        }
-                        oldDirectRelation.otherPawn.relations.pawnsWithDirectRelationsWithMe.Remove(oldOrigPawn);
-                        oldDirectRelation.otherPawn.relations.pawnsWithDirectRelationsWithMe.Add(pawn);
-                        if (debug) Log.Message("OverwritePawn: Adding pawnsWithDirectRelationsWithMe: " + pawn.GetFullName());
-                    }
-                    oldOrigPawn.relations = new Pawn_RelationsTracker(oldOrigPawn);
-                }
-
-                if (pawn.needs?.mood?.thoughts != null)
-                {
-                    pawn.needs.mood.thoughts.situational.Notify_SituationalThoughtsDirty();
-                }
-
-                if (ModsConfig.RoyaltyActive)
-                {
-                    AssignRoyaltyData(pawn);
-                }
-
-                if (ModsConfig.IdeologyActive)
-                {
-                    AssignIdeologyData(pawn);
-                }
-
+                OverwriteRelationships(pawn);
                 this.hostPawn = pawn;
                 this.pawnID = this.hostPawn.thingIDNumber;
+            }
+
+            if (ModsConfig.RoyaltyActive)
+            {
+                AssignRoyaltyData(pawn);
+            }
+            if (ModsConfig.IdeologyActive)
+            {
+                AssignIdeologyData(pawn);
             }
 
             var oldAbilities = pawn.abilities?.abilities.Select(x => x.def).ToList();
@@ -956,7 +813,7 @@ namespace AlteredCarbon
                 {
                     if (IsNaturalAbility(pawn, ability))
                     {
-                        pawn.abilities.GainAbility(ability); 
+                        pawn.abilities.GainAbility(ability);
                     }
                     else if (IsPsycastAbility(ability))
                     {
@@ -967,7 +824,7 @@ namespace AlteredCarbon
             var compAbilities = pawn.GetComp<VFECore.Abilities.CompAbilities>();
             if (compAbilities?.LearnedAbilities != null)
             {
-                compAbilities.LearnedAbilities.RemoveAll(x => IsNaturalAbility(pawn, x.def) is false && IsPsycastAbility(x.def) is false); 
+                compAbilities.LearnedAbilities.RemoveAll(x => IsNaturalAbility(pawn, x.def) is false && IsPsycastAbility(x.def) is false);
             }
             pawn.psychicEntropy = new Pawn_PsychicEntropyTracker(pawn);
             if (this.sourceStack == AC_DefOf.AC_FilledArchoStack)
@@ -986,12 +843,12 @@ namespace AlteredCarbon
                     var levelOffset = this.psylinkLevel.Value - hediff_Psylink.level;
                     hediff_Psylink.level = (int)Mathf.Clamp(hediff_Psylink.level + levelOffset, hediff_Psylink.def.minSeverity, hediff_Psylink.def.maxSeverity);
                 }
-            
+
                 pawn.psychicEntropy.currentEntropy = currentEntropy;
                 pawn.psychicEntropy.currentPsyfocus = currentPsyfocus;
                 pawn.psychicEntropy.limitEntropyAmount = limitEntropyAmount;
                 pawn.psychicEntropy.targetPsyfocus = targetPsyfocus;
-            
+
                 if (abilities.NullOrEmpty() is false)
                 {
                     foreach (var def in abilities)
@@ -1017,7 +874,7 @@ namespace AlteredCarbon
                     }
                 }
             }
-            
+
             pawn.skills.skills.Clear();
             if (skills != null)
             {
@@ -1037,7 +894,7 @@ namespace AlteredCarbon
             pawn.story.childhood = childhood;
             pawn.story.adulthood = adulthood;
             pawn.story.title = title;
-          
+
             if (pawn.guest is null)
             {
                 pawn.guest = new Pawn_GuestTracker(pawn);
@@ -1065,7 +922,7 @@ namespace AlteredCarbon
             pawn.guest.everEnslaved = everEnslaved;
             pawn.guest.recruitable = recruitable;
             pawn.guest.getRescuedThoughtOnUndownedBecauseOfPlayer = getRescuedThoughtOnUndownedBecauseOfPlayer;
-            
+
             if (pawn.records is null)
             {
                 pawn.records = new Pawn_RecordsTracker(pawn);
@@ -1076,7 +933,7 @@ namespace AlteredCarbon
                 pawn.records.battleActive = battleActive;
                 pawn.records.battleExitTick = battleExitTick;
             }
-            
+
             if (pawn.playerSettings is null)
             {
                 pawn.playerSettings = new Pawn_PlayerSettings(pawn);
@@ -1122,7 +979,7 @@ namespace AlteredCarbon
                 ModCompatibility.SetSyrTraitsSexuality(pawn, sexuality);
                 ModCompatibility.SetSyrTraitsRomanceFactor(pawn, romanceFactor);
             }
-            
+
             if (ModCompatibility.PsychologyIsActive && psychologyData != null)
             {
                 ModCompatibility.SetPsychologyData(pawn, psychologyData);
@@ -1134,6 +991,158 @@ namespace AlteredCarbon
             if (ModCompatibility.VanillaSkillsExpandedIsActive && expertiseRecords != null)
             {
                 ModCompatibility.SetExpertises(pawn, expertiseRecords);
+            }
+        }
+
+        private void OverwriteTraits(Pawn pawn, StackSavingOptionsModExtension extension)
+        {
+            if (extension != null)
+            {
+                pawn.story.traits.allTraits.RemoveAll(x => !extension.ignoresTraits.Contains(x.def.defName));
+            }
+            else
+            {
+                pawn.story.traits.allTraits.Clear();
+            }
+            if (traits != null)
+            {
+                foreach (Trait trait in traits)
+                {
+                    if (extension != null && extension.ignoresTraits != null && extension.ignoresTraits.Contains(trait.def.defName))
+                    {
+                        continue;
+                    }
+                    pawn.story.traits.GainTrait(trait);
+                }
+            }
+        }
+
+        private void OverwriteThoughts(Pawn pawn)
+        {
+            if (pawn.CanThink())
+            {
+                for (int num = pawn.needs.mood.thoughts.memories.Memories.Count - 1; num >= 0; num--)
+                {
+                    pawn.needs.mood.thoughts.memories.RemoveMemory(pawn.needs.mood.thoughts.memories.Memories[num]);
+                }
+
+                if (thoughts != null)
+                {
+                    if (OriginalGender == pawn.gender)
+                    {
+                        thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGender);
+                        thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGenderDouble);
+                        thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGenderPregnant);
+                    }
+                    if (ModCompatibility.AlienRacesIsActive && OriginalRace == pawn.kindDef.race)
+                    {
+                        thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongRace);
+                    }
+                    if (OriginalXenotypeDef != null && OriginalXenotypeDef == pawn.genes.xenotype
+                        || OriginalXenotypeName.NullOrEmpty() is false && OriginalXenotypeName == pawn.genes.xenotypeName)
+                    {
+                        thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongXenotype);
+                    }
+
+                    foreach (Thought_Memory thought in thoughts)
+                    {
+                        if (thought is Thought_MemorySocial && thought.otherPawn == null)
+                        {
+                            continue;
+                        }
+                        pawn.needs.mood.thoughts.memories.TryGainMemory(thought, thought.otherPawn);
+                    }
+                }
+                pawn.needs.mood.thoughts.situational.Notify_SituationalThoughtsDirty();
+            }
+        }
+
+        private void OverwriteRelationships(Pawn pawn)
+        {
+            var allPotentialRelatedPawns = new HashSet<Pawn>();
+            allPotentialRelatedPawns.AddRange(PawnsFinder.AllMapsWorldAndTemporary_AliveOrDead);
+            if (relations != null)
+            {
+                for (var i = relations.Count - 1; i >= 0; i--)
+                {
+                    var rel = relations[i];
+                    if (rel != null && rel.otherPawn != null)
+                    {
+                        allPotentialRelatedPawns.Add(rel.otherPawn);
+                    }
+                }
+            }
+
+            if (relatedPawns != null)
+            {
+                for (var i = relatedPawns.Count - 1; i >= 0; i--)
+                {
+                    var relatedPawn = relatedPawns[i];
+                    if (relatedPawn != null)
+                    {
+                        allPotentialRelatedPawns.Add(relatedPawn);
+                    }
+                }
+            }
+            allPotentialRelatedPawns = allPotentialRelatedPawns.Where(x => x.RaceProps.Humanlike).ToHashSet();
+            var oldOrigPawn = this.hostPawn;
+            if (oldOrigPawn is null)
+            {
+                oldOrigPawn = allPotentialRelatedPawns.FirstOrDefault(x => x.Dead && x.thingIDNumber == pawnID);
+                if (debug) Log.Message("Found orig pawn: " + oldOrigPawn + " + " + string.Join(", ", oldOrigPawn?.relations?.DirectRelations?.Select(x => x?.def + " - " + x?.otherPawn?.GetFullName()) ?? new List<string>()));
+                if (oldOrigPawn is null)
+                {
+                    oldOrigPawn = allPotentialRelatedPawns.FirstOrDefault(x => x.Dead && IsPresetPawn(x) && x != pawn);
+                    if (debug) Log.Message("2 Found orig pawn: " + oldOrigPawn + " + " + string.Join(", ", oldOrigPawn?.relations?.DirectRelations.Select(x => x?.def + " - " + x?.otherPawn?.GetFullName()) ?? new List<string>()));
+                }
+            }
+
+            if (oldOrigPawn?.relations != null)
+            {
+                var potentiallyRelatedPawns = oldOrigPawn.relations.PotentiallyRelatedPawns.ToList();
+                for (var i = potentiallyRelatedPawns.Count - 1; i >= 0; i--)
+                {
+                    var relatedPawn = potentiallyRelatedPawns[i];
+                    if (relatedPawn != null)
+                    {
+                        allPotentialRelatedPawns.Add(relatedPawn);
+                    }
+                }
+            }
+
+            if (oldOrigPawn != null)
+            {
+                allPotentialRelatedPawns.Remove(oldOrigPawn);
+            }
+            foreach (var potentiallyRelatedPawn in allPotentialRelatedPawns)
+            {
+                ReplaceSocialReferences(potentiallyRelatedPawn, pawn, oldOrigPawn);
+            }
+
+            if (oldOrigPawn != null)
+            {
+                ReplaceTales(pawn, oldOrigPawn);
+            }
+
+            if (oldOrigPawn?.relations.DirectRelations != null)
+            {
+                if (debug) Log.Message("OverwritePawn: oldOrigPawn.relations.DirectRelations: " + string.Join(", ", oldOrigPawn.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
+                for (var i = oldOrigPawn.relations.DirectRelations.Count - 1; i >= 0; i--)
+                {
+                    var oldDirectRelation = oldOrigPawn.relations.DirectRelations[i];
+                    oldOrigPawn.relations.directRelations.Remove(oldDirectRelation);
+                    if (pawn.relations.directRelations.Any(x => x.def == oldDirectRelation.def && x.otherPawn == oldDirectRelation.otherPawn) is false)
+                    {
+                        var rel = new DirectPawnRelation(oldDirectRelation.def, oldDirectRelation.otherPawn,
+                            oldDirectRelation.startTicks);
+                        pawn.relations.directRelations.Add(rel);
+                        if (debug) Log.Message("OverwritePawn: Adding rel: " + rel + " - " + oldDirectRelation.otherPawn.GetFullName());
+                    }
+                    oldDirectRelation.otherPawn.relations.pawnsWithDirectRelationsWithMe.Remove(oldOrigPawn);
+                    oldDirectRelation.otherPawn.relations.pawnsWithDirectRelationsWithMe.Add(pawn);
+                    if (debug) Log.Message("OverwritePawn: Adding pawnsWithDirectRelationsWithMe: " + pawn.GetFullName());
+                }
+                oldOrigPawn.relations = new Pawn_RelationsTracker(oldOrigPawn);
             }
         }
 

@@ -158,10 +158,7 @@ namespace AlteredCarbon
                 {
                     PawnKindDef pawnKind = DefDatabase<PawnKindDef>.AllDefs.Where(x => x.RaceProps.Humanlike).RandomElement();
                     Faction faction = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction).RandomElement();
-                    Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnKind, faction, allowedXenotypes: new List<XenotypeDef>
-                    {
-                        DefDatabase<XenotypeDef>.GetNamed("Genie")
-                    }));
+                    Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnKind, faction));
                     PersonaData.CopyFromPawn(pawn, this.def, copyRaceGenderInfo: true);
                     PersonaData.stackGroupID = AlteredCarbonManager.Instance.GetStackGroupID(this);
                     AlteredCarbonManager.Instance.RegisterStack(this);
