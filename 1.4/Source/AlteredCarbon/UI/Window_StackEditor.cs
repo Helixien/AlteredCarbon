@@ -65,12 +65,14 @@ namespace AlteredCarbon
         public static float stackDegradationOffsetPerUnwaveringLoyalChange = 0.25f;
         private float LeftPanelWidth => 450;
         public override Vector2 InitialSize => new Vector2(900, Mathf.Min(UI.screenHeight, 975));
+        public bool stackRecruitable;
         public Window_StackEditor(Building_DecryptionBench decryptionBench, CorticalStack corticalStack)
         {
             this.decryptionBench = decryptionBench;
             this.corticalStack = corticalStack;
             personaData = new PersonaData();
             personaData.CopyDataFrom(corticalStack.PersonaData);
+            stackRecruitable = personaData.recruitable;
 
             this.allChildhoodBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading
                 .Where(x => x.slot == BackstorySlot.Childhood).ToList();
@@ -328,7 +330,7 @@ namespace AlteredCarbon
                 iconColor: (Faction t) => t.def.DefaultColor, labelGetterPostfix: (Faction t) => t != Faction.OfPlayer ? (", " + 
                 t.GoodwillWith(Faction.OfPlayer).ToString().Colorize(ColoredText.GetFactionRelationColor(t))) : "");
             
-            if (personaDataCopy.recruitable is false)
+            if (stackRecruitable is false)
             {
                 var unwaveringLoyal = personaData.recruitable;
                 var removeUnwaveringLoyalTrait = "AC.RemoveUnwaveringLoyalTrait".Translate();

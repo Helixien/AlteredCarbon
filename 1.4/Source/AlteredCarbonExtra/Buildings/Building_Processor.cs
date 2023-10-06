@@ -116,14 +116,16 @@ namespace AlteredCarbon
         protected void DoWork(int durationTicks)
         {
             ticksDone++;
-            if (progressBarEffecter == null)
+            DoProgressBar(ticksDone / (float)durationTicks);
+            DoSustainer();
+            if (ticksDone >= durationTicks)
             {
-                progressBarEffecter = EffecterDefOf.ProgressBar.Spawn();
+                FinishJob();
             }
-            progressBarEffecter.EffectTick(this, TargetInfo.Invalid);
-            MoteProgressBar mote = ((SubEffecter_ProgressBar)progressBarEffecter.children[0]).mote;
-            mote.progress = ticksDone / (float)durationTicks;
-            mote.yOffset += 1;
+        }
+
+        private void DoSustainer()
+        {
             if (sustainerWorking == null || sustainerWorking.Ended)
             {
                 sustainerWorking = SustainerDef.TrySpawnSustainer(SoundInfo.InMap(this, MaintenanceType.PerTick));
@@ -132,11 +134,29 @@ namespace AlteredCarbon
             {
                 sustainerWorking.Maintain();
             }
-            if (ticksDone >= durationTicks)
-            {
-                FinishJob();
-            }
         }
+
+        private void DoProgressBar(float progress)
+        {
+            if (progressBarEffecter == null)
+            {
+                progressBarEffecter = EffecterDefOf.ProgressBar.Spawn();
+            }
+            MoteProgressBar mote = ((SubEffecter_ProgressBar)progressBarEffecter.children[0]).mote;
+            if (mote.DestroyedOrNull())
+            {
+                progressBarEffecter = EffecterDefOf.ProgressBar.Spawn();
+                progressBarEffecter.EffectTick(this, TargetInfo.Invalid);
+                mote = ((SubEffecter_ProgressBar)progressBarEffecter.children[0]).mote;
+            }
+            else
+            {
+                progressBarEffecter.EffectTick(this, TargetInfo.Invalid);
+            }
+            mote.yOffset += 1;
+            mote.progress = progress;
+        }
+
         public abstract void StartJob();
         protected abstract void FinishJob();
         protected virtual void JobCleanup()
