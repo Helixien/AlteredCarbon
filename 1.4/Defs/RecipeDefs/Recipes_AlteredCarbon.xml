@@ -18,7 +18,7 @@
 						<li>ComponentSpacer</li>
 					</thingDefs>
 				</filter>
-				<count>6</count>
+				<count>3</count>
 			</li>
 			<li>
 				<filter>
@@ -26,7 +26,7 @@
 						<li>Plasteel</li>
 					</thingDefs>
 				</filter>
-				<count>15</count>
+				<count>10</count>
 			</li>
 		</ingredients>
 		<fixedIngredientFilter>

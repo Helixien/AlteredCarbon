@@ -112,8 +112,8 @@
 			<Crafting>5</Crafting>
 		</skillRequirements>
 		<products>
-			<ComponentSpacer>2</ComponentSpacer>
-			<Plasteel>7</Plasteel>
+			<ComponentSpacer>1</ComponentSpacer>
+			<Plasteel>5</Plasteel>
 		</products>
 	</RecipeDef>
 	<RecipeDef ParentName="VFEU_DestroyCorticalStacksBase">
