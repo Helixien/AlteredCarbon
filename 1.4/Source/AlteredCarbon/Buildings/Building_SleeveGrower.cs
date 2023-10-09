@@ -341,7 +341,11 @@ namespace AlteredCarbon
                 {
                     Messages.Message("AC.CorticalStackMustBeRemovedFirst".Translate(), MessageTypeDefOf.CautionInput);
                 }
-                else
+                else if (corpse.InnerPawn.health.hediffSet.HasHead is false)
+                {
+                    Messages.Message("AC.CannotRepurposeCorspeWithoutHead".Translate(), MessageTypeDefOf.CautionInput);
+                } 
+                else 
                 {
                     Reset();
                     this.corpseToRepurpose = corpse;

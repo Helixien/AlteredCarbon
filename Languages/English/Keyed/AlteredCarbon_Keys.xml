@@ -106,6 +106,7 @@
 	<AC.CancelRepurposingCorpse>Cancel repurposing corpse</AC.CancelRepurposingCorpse>
 	<AC.CancelRepurposingCorpseDesc>Cancel repurposing corpse into a empty sleeve.</AC.CancelRepurposingCorpseDesc>
 	<AC.CorticalStackMustBeRemovedFirst>Cortical stack must be removed first.</AC.CorticalStackMustBeRemovedFirst>
+	<AC.CannotRepurposeCorspeWithoutHead>Cannot repurpose corpse with missing head.</AC.CannotRepurposeCorspeWithoutHead>
 	<AC.SleeveDesignCouldntBeFullyLoaded>Saved Sleeve Design could not be fully loaded. Missing required xenogerm!</AC.SleeveDesignCouldntBeFullyLoaded>
 	<AC.PawnBodyCouldntBeFullyCopied>A {PAWN_nameDef} body couldn't be copied fully. The following xenogenes were skipped: {1}</AC.PawnBodyCouldntBeFullyCopied>
 	<AC.StartGrowing>Start growing</AC.StartGrowing>
