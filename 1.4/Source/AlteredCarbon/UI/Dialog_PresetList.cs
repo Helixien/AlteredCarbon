@@ -31,9 +31,17 @@ namespace AlteredCarbon
 
         protected override void DoPresetInteraction(string name)
         {
+            if (parent.convertXenogenesToEndogenes)
+            {
+                parent.ConvertConvertedEndogenesToXenogenes();
+            }
             ACUtils.presets[name] = new SleevePreset { sleeve = parent.curSleeve };
             Messages.Message("SavedAs".Translate(name), MessageTypeDefOf.SilentInput, false);
             ACUtils.SavePresets();
+            if (parent.convertXenogenesToEndogenes)
+            {
+                parent.ConvertXenogenesToEndogenes();
+            }
             Close();
         }
     }

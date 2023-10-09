@@ -176,13 +176,12 @@ namespace AlteredCarbon
                     ticks = ageBiologicalTicks = hostPawn.ageTracker.AgeBiologicalTicks;
                 }
                 dummyPawn = ACUtils.CreateEmptyPawn(hostPawn?.kindDef ?? kindDef ?? PawnKindDefOf.Colonist,
-                    faction, OriginalRace ?? ThingDefOf.Human, ticks, OriginalXenotypeDef != null 
+                    faction, OriginalRace ?? ThingDefOf.Human, ticks, OriginalXenotypeDef != null
                     ? OriginalXenotypeDef : XenotypeDefOf.Baseliner);
                 dummyPawn.gender = dummyGender ?? originalGender;
                 dummyPawns.Add(dummyPawn);
             }
-
-            OverwritePawn(dummyPawn, null, overwriteOriginalPawn: false, copyFromOrigPawn: hostPawn != null 
+            OverwritePawn(dummyPawn, null, overwriteOriginalPawn: false, copyFromOrigPawn: hostPawn != null
                 && hostPawn.Dead is false && hostPawn.IsEmptySleeve() is false);
             if (hostPawn != null)
             {
@@ -190,9 +189,18 @@ namespace AlteredCarbon
                 ACUtils.CopyBody(hostPawn, dummyPawn, copyAgeInfo: true, copyGenesFully: true);
                 dummyPawn.RefreshGraphic();
             }
+            DummyPawnCleanup();
+            AssignDummyPawnReferences();
+        }
+
+        private void DummyPawnCleanup()
+        {
+            dummyPawn.abilities = new Pawn_AbilityTracker(dummyPawn);
 
             dummyPawn.genes.GenesListForReading.Where(x => x.def.aptitudes.NullOrEmpty() is false
-            || x.def.forcedTraits.NullOrEmpty() is false).ToList().ForEach(x => dummyPawn.genes.RemoveGene(x));
+            || x.def.forcedTraits.NullOrEmpty() is false || x.def.passionMod is not null).ToList()
+                .ForEach(x => dummyPawn.genes.RemoveGene(x));
+            dummyPawn.genes.endogenes.Add(new Gene());
             dummyPawn.story.backstoriesCache = null;
             dummyPawn.Notify_DisabledWorkTypesChanged();
             if (this.skills != null)
@@ -207,7 +215,6 @@ namespace AlteredCarbon
             {
                 dummyPawn.health.healthState = PawnHealthState.Dead;
             }
-            AssignDummyPawnReferences();
         }
 
         public TaggedString PawnNameColored => TitleShort?.CapitalizeFirst().NullOrEmpty() ?? false
@@ -282,8 +289,8 @@ namespace AlteredCarbon
             foodRestriction = pawn.foodRestriction?.CurrentFoodRestriction;
             outfit = pawn.outfits?.CurrentOutfit;
             drugPolicy = pawn.drugs?.CurrentPolicy;
-            times = pawn.timetable?.times.ListFullCopy();
-            thoughts = pawn.needs?.mood?.thoughts?.memories?.Memories.ListFullCopy();
+            times = pawn.timetable?.times.CopyList();
+            thoughts = pawn.needs?.mood?.thoughts?.memories?.Memories.CopyList();
             faction = pawn.Faction;
             if (pawn.Faction?.leader == pawn)
             {
@@ -316,7 +323,7 @@ namespace AlteredCarbon
                 nextMarriageNameChange = pawn.relations.nextMarriageNameChange;
                 hidePawnRelations = pawn.relations.hidePawnRelations;
 
-                relations = pawn.relations.DirectRelations?.ListFullCopy() ?? new List<DirectPawnRelation>();
+                relations = pawn.relations.DirectRelations.CopyList();
                 if (debug)
                 {
                     Log.Message("CopyFromPawn: relations: " + string.Join(", ", relations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
@@ -330,7 +337,7 @@ namespace AlteredCarbon
                 }
 
 
-                relatedPawns = pawn.relations.PotentiallyRelatedPawns?.ToList() ?? new List<Pawn>();
+                relatedPawns = pawn.relations.PotentiallyRelatedPawns.ToList();
                 if (debug)
                 {
                     Log.Message("CopyFromPawn: relatedPawns: " + string.Join(", ", relatedPawns.Select(x => x.GetFullName())));
@@ -608,8 +615,8 @@ namespace AlteredCarbon
             foodRestriction = other.foodRestriction;
             outfit = other.outfit;
             drugPolicy = other.drugPolicy;
-            times = other.times;
-            thoughts = other.thoughts;
+            times = other.times.CopyList();
+            thoughts = other.thoughts.CopyList();
             faction = other.faction;
             isFactionLeader = other.isFactionLeader;
             traits = new List<Trait>();
@@ -620,13 +627,13 @@ namespace AlteredCarbon
                     traits.Add(new Trait(trait.def, trait.degree));
                 }
             }
-            relations = other.relations;
+            relations = other.relations.CopyList();
             everSeenByPlayer = other.everSeenByPlayer;
             canGetRescuedThought = other.canGetRescuedThought;
             relativeInvolvedInRescueQuest = other.relativeInvolvedInRescueQuest;
             nextMarriageNameChange = other.nextMarriageNameChange;
             hidePawnRelations = other.hidePawnRelations;
-            relatedPawns = other.relatedPawns;
+            relatedPawns = other.relatedPawns.CopyList();
             skills = new List<SkillRecord>();
             if (other.skills != null)
             {
@@ -645,10 +652,10 @@ namespace AlteredCarbon
             childhood = other.childhood;
             adulthood = other.adulthood;
             title = other.title;
-            priorities = other.priorities;
+            priorities = other.priorities.CopyDict();
             psylinkLevel = other.psylinkLevel;
-            abilities = other.abilities;
-            VEAbilities = other.VEAbilities;
+            abilities = other.abilities.CopyList();
+            VEAbilities = other.VEAbilities.CopyList();
             VPE_PsycastAbilityImplant = other.VPE_PsycastAbilityImplant;
 
             currentEntropy = other.currentEntropy;
@@ -687,10 +694,10 @@ namespace AlteredCarbon
 
             if (ModsConfig.RoyaltyActive)
             {
-                royalTitles = other.royalTitles;
-                favor = other.favor;
-                heirs = other.heirs;
-                bondedThings = other.bondedThings;
+                royalTitles = other.royalTitles.CopyList();
+                favor = other.favor.CopyDict();
+                heirs = other.heirs.CopyDict();
+                bondedThings = other.bondedThings.CopyList();
                 factionPermits = other.factionPermits;
             }
             if (ModsConfig.IdeologyActive)
@@ -957,7 +964,7 @@ namespace AlteredCarbon
 
             if (times != null && times.Count == 24)
             {
-                pawn.timetable.times = times;
+                pawn.timetable.times = times.CopyList();
             }
 
             pawn.workSettings = new Pawn_WorkSettings(pawn);
@@ -1012,7 +1019,7 @@ namespace AlteredCarbon
                     {
                         continue;
                     }
-                    pawn.story.traits.GainTrait(trait);
+                    pawn.story.traits.GainTrait(new Trait(trait.def, trait.degree));
                 }
             }
         }
@@ -1244,7 +1251,7 @@ namespace AlteredCarbon
             }
             if (factionPermits != null)
             {
-                pawn.royalty.factionPermits = factionPermits;
+                pawn.royalty.factionPermits = factionPermits.CopyList();
             }
         }
 

@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using Verse;
@@ -19,9 +18,9 @@ namespace AlteredCarbon
         private PawnKindDef currentPawnKindDef;
         private readonly Building_SleeveGrower sleeveGrower;
         private Xenogerm curXenogerm;
-        private bool convertXenogenesToEndegones;
-        private List<Gene> convertedGenes = new List<Gene>();
-
+        public bool convertXenogenesToEndogenes;
+        public List<Gene> convertedGenes = new List<Gene>();
+        private List<Gene> xenogermGenes = new List<Gene>();
         private bool allowMales = true;
         private bool allowFemales = true;
 
@@ -136,7 +135,6 @@ namespace AlteredCarbon
             CreateSleeve(gender.Value);
         }
 
-
         public override void DoWindowContents(Rect inRect)
         {
             Text.Font = GameFont.Medium;
@@ -186,10 +184,17 @@ namespace AlteredCarbon
 
             if (Widgets.ButtonText(highlightRect, curXenogerm != null ? curXenogerm.LabelCap : "-"))
             {
-                Find.WindowStack.Add(new Dialog_SelectXenogermForSleeve(curSleeve, sleeveGrower.Map, curXenogerm, delegate (Xenogerm x)
+                Find.WindowStack.Add(new Dialog_SelectXenogermForSleeve(curSleeve, sleeveGrower.Map, curXenogerm, 
+                    delegate (Xenogerm x)
                 {
                     curXenogerm = x;
+                    var curGenes = curSleeve.genes.Endogenes.CopyList();
                     GeneUtility.ImplantXenogermItem(curSleeve, curXenogerm);
+                    xenogermGenes = curSleeve.genes.GenesListForReading.Where(x => curGenes.Contains(x) is false).ToList();
+                    foreach (var gene in xenogermGenes)
+                    {
+                        GeneUtils.ApplyGene(gene.def, curSleeve, true);
+                    }
                     if (curSleeve.genes.CustomXenotype != null)
                     {
                         curSleeve.genes.CustomXenotype.inheritable = true;
@@ -215,8 +220,8 @@ namespace AlteredCarbon
                     }, floatMenu: false);
             }
 
-            var genes = curSleeve.genes?.GenesListForReading;
             bool geneOptionsDrawn = false;
+            var genes = curSleeve.genes.GenesListForReading;
             foreach (var category in ACUtils.genesByCategories)
             {
                 var groupedGenes = genes.Where(x => x.def.exclusionTags.NullOrEmpty() is false
@@ -233,7 +238,7 @@ namespace AlteredCarbon
                     DoSelectionButtons(ref firstColumnPos, category.Key.SplitCamelCase().FirstCharToUpper(), ref index,
                         (GeneDef x) => x.LabelCap, groupedGenes, delegate (GeneDef x)
                         {
-                            GeneUtils.ApplyGene(x, curSleeve, curSleeve.IsXenogene(x));
+                            GeneUtils.ApplyGene(x, curSleeve, IsXenogene(x));
                             RecheckEverything();
                             indexesPerCategory[category.Key] = groupedGenes.IndexOf(x);
                         }, floatMenu: false);
@@ -247,21 +252,17 @@ namespace AlteredCarbon
                     var size = Text.CalcSize(label);
                     labelRect = GetLabelRect(label, ref firstColumnPos, size.x + 15);
                     Widgets.Label(labelRect, label);
-                    bool oldValue = convertXenogenesToEndegones;
-                    Widgets.Checkbox(new Vector2(labelRect.xMax, labelRect.y), ref convertXenogenesToEndegones);
-                    if (oldValue != convertXenogenesToEndegones)
+                    bool oldValue = convertXenogenesToEndogenes;
+                    Widgets.Checkbox(new Vector2(labelRect.xMax, labelRect.y), ref convertXenogenesToEndogenes);
+                    if (oldValue != convertXenogenesToEndogenes)
                     {
-                        if (convertXenogenesToEndegones)
+                        if (convertXenogenesToEndogenes)
                         {
-                            convertedGenes = genes.Where(x => curSleeve.genes.Xenogenes.Contains(x) 
-                                && x.def.displayCategory != GeneCategoryDefOf.Archite).ToList();
-                            curSleeve.genes.endogenes.AddRange(convertedGenes);
-                            curSleeve.genes.xenogenes.RemoveAll(x => convertedGenes.Contains(x));
+                            ConvertXenogenesToEndogenes();
                         }
                         else
                         {
-                            curSleeve.genes.endogenes.RemoveAll(x => convertedGenes.Contains(x));
-                            curSleeve.genes.xenogenes.AddRange(convertedGenes);
+                            ConvertConvertedEndogenesToXenogenes();
                         }
                         RecheckEverything();
                     }
@@ -283,26 +284,20 @@ namespace AlteredCarbon
                     }
 
                     curSleeve.story.skinColorOverride = curSleeve.story.skinColorBase = null;
-                    var gene = GeneUtils.ApplyGene(selected.Key, curSleeve, curSleeve.IsXenogene(selected.Key));
+                    var gene = GeneUtils.ApplyGene(selected.Key, curSleeve, IsXenogene(selected.Key));
                     if (gene != null)
                     {
                         if (selected.Key.endogeneCategory == EndogeneCategory.Melanin)
                         {
-                            var melaninGene = curSleeve.genes.GenesListForReading
-                                .FirstOrDefault(x => x.def.endogeneCategory == EndogeneCategory.Melanin);
-                            if (melaninGene != null && gene != melaninGene)
-                            {
-                                curSleeve.genes.RemoveGene(melaninGene);
-                            }
+                            OverrideOrRemove(gene, curSleeve.genes.GenesListForReading
+                                .Where(x => x != gene && x.def.endogeneCategory == EndogeneCategory.Melanin).ToList());
                         }
-                        foreach (var otherGene in curSleeve.genes.GenesListForReading)
-                        {
-                            if (otherGene != gene && (otherGene.def.skinColorOverride != null || otherGene.def.skinColorBase != null))
-                            {
-                                otherGene.OverrideBy(gene);
-                            }
-                        }
+
+                        OverrideOrRemove(gene, curSleeve.genes.GenesListForReading
+                            .Where(x => x != gene && (x.def.skinColorOverride != null 
+                            || x.def.skinColorBase != null)).ToList());
                     }
+
                     RecheckEverything();
                 });
 
@@ -313,7 +308,7 @@ namespace AlteredCarbon
                 {
                     if (selected.Key != null)
                     {
-                        GeneUtils.ApplyGene(selected.Key, curSleeve, curSleeve.IsXenogene(selected.Key));
+                        GeneUtils.ApplyGene(selected.Key, curSleeve, IsXenogene(selected.Key));
                     }
                     else
                     {
@@ -331,7 +326,7 @@ namespace AlteredCarbon
                     {
                         if (x.Key != null)
                         {
-                            GeneUtils.ApplyGene(x.Key, curSleeve, curSleeve.IsXenogene(x.Key));
+                            GeneUtils.ApplyGene(x.Key, curSleeve, IsXenogene(x.Key));
                         }
                         else
                         {
@@ -349,7 +344,7 @@ namespace AlteredCarbon
                     {
                         if (x.Key != null)
                         {
-                            GeneUtils.ApplyGene(x.Key, curSleeve, curSleeve.IsXenogene(x.Key));
+                            GeneUtils.ApplyGene(x.Key, curSleeve, IsXenogene(x.Key));
                         }
                         else
                         {
@@ -369,17 +364,12 @@ namespace AlteredCarbon
                         {
                             ModCompatibility.SetHairColorFirst(curSleeve, selected.Value);
                         }
-                        var gene = GeneUtils.ApplyGene(selected.Key, curSleeve, curSleeve.IsXenogene(selected.Key));
+                        var gene = GeneUtils.ApplyGene(selected.Key, curSleeve, IsXenogene(selected.Key));
                         if (gene != null)
                         {
-                            var hairGene = curSleeve.genes.GenesListForReading
-                                .FirstOrDefault(x => selected.Key.endogeneCategory == x.def.endogeneCategory);
-                            if (hairGene != null && gene != hairGene)
-                            {
-                                curSleeve.genes.RemoveGene(hairGene);
-                            }
+                            OverrideOrRemove(gene, curSleeve.genes.GenesListForReading
+                                .Where(x => x != gene && selected.Key.endogeneCategory == x.def.endogeneCategory).ToList());
                         }
-
                         RecheckEverything();
                     });
 
@@ -443,31 +433,6 @@ namespace AlteredCarbon
             }
 
             secondColumnPos.y = pawnBox.yMax + 15;
-
-            //List<Hediff> hediffs = HealthCardUtility.VisibleHediffGroupsInOrder(curSleeve, false).SelectMany(group => group).ToList();
-            //Rect healthBoxLabel = GetLabelRect(ref secondColumnPos, 150, 32);
-            //Text.Font = GameFont.Medium;
-            //Widgets.Label(healthBoxLabel, "AC.SleeveHealthPreview".Translate().CapitalizeFirst());
-            //Rect healthBox = new Rect(pawnBox.x - 15, healthBoxLabel.yMax, pawnBox.width + 30, (hediffs.Count * 25f) + 10);
-            //Widgets.DrawHighlight(healthBox);
-            //GUI.color = HealthUtility.GoodConditionColor;
-            //Listing_Standard diffListing = new Listing_Standard();
-            //diffListing.Begin(healthBox.ContractedBy(5));
-            //Text.Anchor = TextAnchor.MiddleLeft;
-            //for (int ii = 0; ii < hediffs.Count; ++ii)
-            //{
-            //    diffListing.Label(hediffs[ii].LabelCap);
-            //}
-            //diffListing.End();
-            //
-            //GUI.color = Color.white;
-            //if (Mouse.IsOver(healthBox))
-            //{
-            //    Widgets.DrawHighlight(healthBox);
-            //    TooltipHandler.TipRegion(healthBox, new TipSignal(() => GetHediffToolTip(hediffs, curSleeve), 1147682));
-            //}
-            //secondColumnPos.y = healthBox.yMax + 15;
-
             Text.Font = GameFont.Small;
             if (genes == null || genes.Count == 0)
             {
@@ -546,6 +511,53 @@ namespace AlteredCarbon
             Text.Anchor = TextAnchor.UpperLeft;
         }
 
+        public void ConvertConvertedEndogenesToXenogenes()
+        {
+            curSleeve.genes.endogenes.RemoveAll(x => convertedGenes.Contains(x));
+            curSleeve.genes.xenogenes.AddRange(convertedGenes);
+        }
+
+        public void ConvertXenogenesToEndogenes()
+        {
+            convertedGenes = curSleeve.genes.GenesListForReading.Where(x => curSleeve.genes.Xenogenes.Contains(x)
+                && x.def.displayCategory != GeneCategoryDefOf.Archite).ToList();
+            curSleeve.genes.endogenes.AddRange(convertedGenes);
+            curSleeve.genes.xenogenes.RemoveAll(x => convertedGenes.Contains(x));
+        }
+
+        private void OverrideOrRemove(Gene newGene, List<Gene> oldGenes)
+        {
+            foreach (var oldGene in oldGenes)
+            {
+                if (curSleeve.genes.Endogenes.Contains(oldGene))
+                {
+                    curSleeve.genes.RemoveGene(oldGene);
+                }
+            }
+
+            foreach (var oldGene in oldGenes)
+            {
+                if (curSleeve.genes.HasGene(oldGene.def))
+                {
+                    oldGene.OverrideBy(newGene);
+                }
+            }
+            newGene.overriddenByGene = null;
+            GeneUtils.ApplyGene(newGene.def, curSleeve, false);
+        }
+
+        public bool IsXenogene(GeneDef gene)
+        {
+            if (convertXenogenesToEndogenes)
+            {
+                return false;
+            }
+            if (curSleeve.genes.HasEndogene(gene))
+            {
+                return false;
+            }
+            return xenogermGenes.Any(x => x.def == gene);
+        }
         public string GetQualityLabel(int sleeveQualityIndex)
         {
             return ((QualityCategory)sleeveQualityIndex).GetLabel().CapitalizeFirst();
@@ -554,7 +566,7 @@ namespace AlteredCarbon
         public void UpdateGrowCost()
         {
             ticksToGrow = 900000;
-            if (convertXenogenesToEndegones)
+            if (convertXenogenesToEndogenes)
             {
                 ticksToGrow *= 2;
             }
@@ -605,16 +617,6 @@ namespace AlteredCarbon
                 return QualityCategory.Normal.GetLabel().CapitalizeFirst();
             }
         }
-
-        //public static string GetHediffToolTip(IEnumerable<Hediff> diffs, Pawn pawn)
-        //{
-        //    string str = "";
-        //    foreach (Hediff hediff in diffs)
-        //    {
-        //        str += hediff.GetTooltip(pawn, false) + "\n";
-        //    }
-        //    return str;
-        //}
 
         public void RecheckEverything()
         {
@@ -769,7 +771,6 @@ namespace AlteredCarbon
                 {
                     continue;
                 }
-                Log.Message("Allows: " + geneDef);
                 if (geneDef.skinColorBase != null && geneDef.endogeneCategory == EndogeneCategory.Melanin)
                 {
                     skinColors[geneDef] = geneDef.skinColorBase.Value;
@@ -804,7 +805,6 @@ namespace AlteredCarbon
                 {
                     continue;
                 }
-                Log.Message("Allows: " + geneDef);
                 if (geneDef.hairColorOverride != null)
                 {
                     hairColors[geneDef] = geneDef.hairColorOverride.Value;
@@ -926,12 +926,16 @@ namespace AlteredCarbon
             curSleeve.ageTracker.AgeChronologicalTicks = (long)Mathf.FloorToInt(lastAdultAge * 3600000f);
             curSleeve.Rotation = Rot4.South;
             convertedGenes = new List<Gene>();
+            PawnGenerator.GenerateGenes(curSleeve, curSleeve.genes.xenotype, 
+                new PawnGenerationRequest(currentPawnKindDef, Faction.OfPlayer));
+            curSleeve.story.hairDef = PawnStyleItemChooser.RandomHairFor(curSleeve);
             ApplyGeneQuality();
             RecheckEverything();
             if (curSleeve.genes.CustomXenotype != null)
             {
                 curSleeve.genes.CustomXenotype.inheritable = true;
             }
+            curSleeve.kindDef = Faction.OfPlayer.def.basicMemberKind;
         }
     }
 }

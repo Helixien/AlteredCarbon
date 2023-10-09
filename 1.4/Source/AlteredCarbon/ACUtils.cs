@@ -155,9 +155,9 @@ namespace AlteredCarbon
                     for (var i = 0; i < gene.exclusionTags.Count; i++)
                     {
                         var tag = gene.exclusionTags[i];
-                        if (tag == "SkinColorOverride")
+                        if (tag == "SkinColorOverride" || tag == "SkinColor" || tag == "HairColor")
                         {
-                            tag = "SkinColor";
+                            continue;
                         }
                         if (genesByCategories.TryGetValue(tag, out var list) is false)
                         {
@@ -386,7 +386,6 @@ namespace AlteredCarbon
             bool copyHealth = false)
         {
             dest.gender = source.gender;
-            dest.kindDef = source.kindDef;
             if (ModCompatibility.AlienRacesIsActive)
             {
                 ModCompatibility.CopyBodyAddons(source, dest);
@@ -490,14 +489,7 @@ namespace AlteredCarbon
             }
         }
 
-        public static bool IsXenogene(this Pawn pawn, GeneDef gene)
-        {
-            if (pawn.genes.HasEndogene(gene))
-            {
-                return false;
-            }
-            return true;
-        }
+
         public static void AddTakeEmptySleeveJob(Pawn pawn, Pawn pawnTarget, bool failMessage)
         {
             Building_Bed building_Bed3 = RestUtility.FindBedFor(pawnTarget, pawn, checkSocialProperness: false);
@@ -794,6 +786,18 @@ namespace AlteredCarbon
                 predicate = (x => x.Key.IsNullValue() || x.Value.IsNullValue());
             }
             dict.RemoveAll(predicate);
+        }
+
+        public static List<T> CopyList<T>(this List<T> list)
+        {
+            if (list is null) return new List<T>();
+            return list.ToList();
+        }
+
+        public static Dictionary<K, V> CopyDict<K, V>(this Dictionary<K, V> dict)
+        {
+            if (dict is null) return new Dictionary<K, V>();
+            return dict.ToDictionary(x => x.Key, x => x.Value);
         }
 
         public static bool IsNullValue<T>(this T obj)

@@ -524,9 +524,21 @@ namespace AlteredCarbon
 
                 if (incubatorState == IncubatorState.Growing || incubatorState == IncubatorState.ToBeCanceled)
                 {
-                    if (compRefuelable.HasFuel && powerTrader.PowerOn)
+                    bool hasFuel = compRefuelable.HasFuel;
+                    bool hasPower = powerTrader.PowerOn;
+                    if (hasFuel)
                     {
-                        isRunningOutFuel = isRunningOutPower = false;
+                        isRunningOutFuel = false;
+                        runningOutFuelInTicks = 0;
+                    }
+                    if (hasPower)
+                    {
+                        isRunningOutPower = false;
+                        runningOutPowerInTicks = 0;
+                    }
+
+                    if (hasFuel && hasPower)
+                    {
                         DoWork();
                     }
 

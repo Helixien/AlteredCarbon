@@ -16,7 +16,7 @@ namespace AlteredCarbon
         {
             base.Notify_IterationCompleted(billDoer, ingredients);
             var stack = ingredients.OfType<CorticalStack>().FirstOrDefault();
-            SoundDefOf.Execute_Cut.PlayOneShot(stack);
+            AC_DefOf.Message_NegativeEvent.PlayOneShot(stack);
             if (stack.PersonaData.faction != null && billDoer != null && billDoer.Faction != null && billDoer.Faction != stack.Faction)
             {
                 stack.EmptyStack(billDoer, true);
