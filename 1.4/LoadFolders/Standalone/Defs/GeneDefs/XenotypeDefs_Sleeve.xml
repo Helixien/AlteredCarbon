@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<XenotypeDef>
+		<defName>VFEU_Sleeveliner</defName>
+		<label>sleeveliner</label>
+		<description>A incubated human with no or major significant genetic modifications.</description>
+		<iconPath>UI/Icons/Xenotypes/Baseliner</iconPath>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+	</XenotypeDef>
+</Defs>
