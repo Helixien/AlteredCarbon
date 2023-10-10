@@ -10,7 +10,7 @@ namespace AlteredCarbon
     {
         public static void Postfix(ref bool __result, ITab_Pawn_Health __instance)
         {
-            if (!__result && __instance.PawnForHealth.IsEmptySleeve()) 
+            if (!__result && __instance.PawnForHealth.Dead is false && __instance.PawnForHealth.IsEmptySleeve()) 
             {
                 __result = true;
             }

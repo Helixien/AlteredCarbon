@@ -118,6 +118,7 @@ namespace AlteredCarbon
         static ACUtils()
         {
             generalSettings = AlteredCarbonMod.modContentPack.Patches.OfType<AlteredCarbonSettingsWorker_General>().First();
+            sleeveGrowingSettings = AlteredCarbonMod.modContentPack.Patches.OfType<AlteredCarbonSettingsWorker_SleeveGrowing>().First();
             rewriteStacksSettings = AlteredCarbonMod.modContentPack.Patches.OfType<AlteredCarbonSettingsWorker_RewriteStack>().First();
             harmony = new Harmony("Altered.Carbon");
             harmony.PatchAll();
@@ -398,10 +399,13 @@ namespace AlteredCarbon
 
             if (copyGenesPartially || copyGenesFully)
             {
-                var genes = dest.genes.GenesListForReading;
+                var genes = dest.genes.GenesListForReading.ToList();
                 foreach (var oldGene in genes)
                 {
-                    dest.genes.RemoveGene(oldGene);
+                    if (oldGene != null)
+                    {
+                        dest.genes.RemoveGene(oldGene);
+                    }
                 }
             }
 
@@ -698,7 +702,7 @@ namespace AlteredCarbon
 
         public static bool IsEmptySleeve(this Pawn pawn)
         {
-            return pawn.Dead is false && AlteredCarbonManager.Instance.emptySleeves.Contains(pawn);
+            return AlteredCarbonManager.Instance.emptySleeves.Contains(pawn);
         }
         public static void DisableKillEffects(this Pawn pawn)
         {

@@ -200,7 +200,13 @@ namespace AlteredCarbon
             dummyPawn.genes.GenesListForReading.Where(x => x.def.aptitudes.NullOrEmpty() is false
             || x.def.forcedTraits.NullOrEmpty() is false || x.def.passionMod is not null).ToList()
                 .ForEach(x => dummyPawn.genes.RemoveGene(x));
-            dummyPawn.genes.endogenes.Add(new Gene());
+            if (dummyPawn.genes.GenesListForReading.Any() is false)
+            {
+                dummyPawn.genes.endogenes.Add(new Gene
+                {
+                    def = new GeneDef()
+                });
+            }
             dummyPawn.story.backstoriesCache = null;
             dummyPawn.Notify_DisabledWorkTypesChanged();
             if (this.skills != null)

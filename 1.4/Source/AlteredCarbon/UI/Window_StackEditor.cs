@@ -40,17 +40,17 @@ namespace AlteredCarbon
         private List<Ideo> allIdeos;
         private List<TraitDef> allTraits;
 
-        public static int editTimeOffsetPerNameChange = 2000;
-        public static int editTimeOffsetPerGenderChange = 5000;
-        public static int editTimeOffsetPerSkillLevelChange = 250;
-        public static int editTimeOffsetPerSkillPassionChange = 1000;
-        public static int editTimeOffsetPerTraitChange = 1200;
-        public static int editTimeOffsetPerChildhoodChange = 5000;
-        public static int editTimeOffsetPerAdulthoodChange = 5000;
-        public static int editTimeOffsetPerIdeologyChange = 2500;
-        public static int editTimeOffsetPerCertaintyChange = 50;
-        public static int editTimeOffsetPerFactionChange = 2500;
-        public static int editTimeOffsetPerUnwaveringLoyalChange = 1200;
+        public static int editTimeOffsetPerNameChange = 4000;
+        public static int editTimeOffsetPerGenderChange = 10000;
+        public static int editTimeOffsetPerSkillLevelChange = 500;
+        public static int editTimeOffsetPerSkillPassionChange = 2000;
+        public static int editTimeOffsetPerTraitChange = 2400;
+        public static int editTimeOffsetPerChildhoodChange = 10000;
+        public static int editTimeOffsetPerAdulthoodChange = 10000;
+        public static int editTimeOffsetPerIdeologyChange = 5000;
+        public static int editTimeOffsetPerCertaintyChange = 10;
+        public static int editTimeOffsetPerFactionChange = 5000;
+        public static int editTimeOffsetPerUnwaveringLoyalChange = 2400;
 
         public static float stackDegradationOffsetPerNameChange = 0.25f;
         public static float stackDegradationOffsetPerGenderChange = 0.5f;
