@@ -80,11 +80,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlteredCarbonSettingsWorkerBase.cs" />
     <Compile Include="AlteredCarbonSettingsWorker_RewriteStack.cs" />
+    <Compile Include="AlteredCarbonSettingsWorker_SleeveGrowing.cs" />
     <Compile Include="Buildings\Building_DecryptionBench.cs" />
     <Compile Include="Buildings\Building_Incubator.cs" />
     <Compile Include="HarmonyPatches\CharacterCardUtility_DrawCharacterCard_Patch.cs" />
+    <Compile Include="HarmonyPatches\CharacterCardUtility_LifestageAndXenotypeOptions_Patch.cs" />
     <Compile Include="HarmonyPatches\TransferableUIUtility_DoExtraIcons_Patch.cs" />
     <Compile Include="HarmonyPatches\CompRottable_CompInspectStringExtra_Patch.cs" />
     <Compile Include="HarmonyPatches\ContainingSelectionUtility_CanSelect_Patch.cs" />

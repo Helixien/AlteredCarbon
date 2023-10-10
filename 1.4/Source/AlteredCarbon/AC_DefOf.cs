@@ -97,5 +97,6 @@ namespace AlteredCarbon
         [MayRequireVREAndroidMod] public static ThoughtDef VFEU_NewShell, VFEU_NewShellDouble, VFEU_WantsShell, VFEU_WrongShellGender, VFEU_WrongShellGenderDouble;
         [MayRequireVREAndroidMod] public static TraitDef VFEU_Shellwalker;
         public static SoundDef Message_NegativeEvent;
+        public static XenotypeDef VFEU_Sleeveliner;
     }
 }

@@ -114,6 +114,11 @@ namespace AlteredCarbon
                 {
                     Messages.Message("AC.PawnBodyCouldntBeFullyCopied".Translate(pawnToClone.Named("PAWN"), string.Join(", ", xenogenes.Select(x => x.label))), MessageTypeDefOf.CautionInput);
                 }
+                else
+                {
+                    curSleeve.genes.xenotypeName = curXenogerm.xenotypeName;
+                    curSleeve.genes.iconDef = curXenogerm.iconDef;
+                }
             }
             RecheckEverything();
             InitUI();
@@ -190,6 +195,8 @@ namespace AlteredCarbon
                     curXenogerm = x;
                     var curGenes = curSleeve.genes.Endogenes.CopyList();
                     GeneUtility.ImplantXenogermItem(curSleeve, curXenogerm);
+                    curSleeve.genes.xenotypeName = curXenogerm.xenotypeName;
+                    curSleeve.genes.iconDef = curXenogerm.iconDef;
                     xenogermGenes = curSleeve.genes.GenesListForReading.Where(x => curGenes.Contains(x) is false).ToList();
                     foreach (var gene in xenogermGenes)
                     {
@@ -326,7 +333,7 @@ namespace AlteredCarbon
                     {
                         if (x.Key != null)
                         {
-                            GeneUtils.ApplyGene(x.Key, curSleeve, IsXenogene(x.Key));
+                            GeneUtils.ApplyGene(x.Key, curSleeve, false);
                         }
                         else
                         {
@@ -344,7 +351,7 @@ namespace AlteredCarbon
                     {
                         if (x.Key != null)
                         {
-                            GeneUtils.ApplyGene(x.Key, curSleeve, IsXenogene(x.Key));
+                            GeneUtils.ApplyGene(x.Key, curSleeve, false);
                         }
                         else
                         {
@@ -364,7 +371,7 @@ namespace AlteredCarbon
                         {
                             ModCompatibility.SetHairColorFirst(curSleeve, selected.Value);
                         }
-                        var gene = GeneUtils.ApplyGene(selected.Key, curSleeve, IsXenogene(selected.Key));
+                        var gene = GeneUtils.ApplyGene(selected.Key, curSleeve, false);
                         if (gene != null)
                         {
                             OverrideOrRemove(gene, curSleeve.genes.GenesListForReading
@@ -574,8 +581,8 @@ namespace AlteredCarbon
             ticksToGrow += sleeveQualitiesTimeCost[ACUtils.sleeveQualities[sleeveQualityIndex]];
             ticksToGrow += sleeveBeautiesTimeCost[beautyDegrees[sleeveBeautyIndex]];
             growCost = 12 * (ticksToGrow / GenDate.TicksPerDay);
-            ticksToGrow = (int)(ticksToGrow * ACUtils.generalSettings.sleeveGrowingTimeMultiplier);
-            growCost = (int)(growCost * ACUtils.generalSettings.sleeveGrowingCostMultiplier);
+            ticksToGrow = (int)(ticksToGrow * ACUtils.sleeveGrowingSettings.sleeveGrowingTimeMultiplier);
+            growCost = (int)(growCost * ACUtils.sleeveGrowingSettings.sleeveGrowingCostMultiplier);
         }
 
         public void ApplyGeneQuality()
@@ -913,7 +920,8 @@ namespace AlteredCarbon
                     gender = Gender.Male;
                 }
             }
-            curSleeve = ACUtils.CreateEmptyPawn(currentPawnKindDef, Faction.OfPlayer, currentPawnKindDef.race, (long)Mathf.FloorToInt(18f * 3600000f), XenotypeDefOf.Baseliner);
+            curSleeve = ACUtils.CreateEmptyPawn(currentPawnKindDef, Faction.OfPlayer, currentPawnKindDef.race,
+                (long)Mathf.FloorToInt(18f * 3600000f), AC_DefOf.VFEU_Sleeveliner);
             curSleeve.gender = gender;
             curSleeve.MakeEmptySleeve(keepNaturalAbilities: true, keepPsycastAbilities: true);
             var lastAdultAgeDef = curSleeve.RaceProps.lifeStageAges.LastOrDefault((LifeStageAge lifeStageAge) => lifeStageAge.def.developmentalStage.Adult());

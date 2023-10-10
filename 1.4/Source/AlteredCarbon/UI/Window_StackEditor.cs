@@ -649,7 +649,7 @@ namespace AlteredCarbon
             string time = ToStringTicksToHours(GetEditTime());
             Widgets.Label(editTime, "AC.TotalTimeToRewrite".Translate(time));
             editTime.y += Text.LineHeight + 5;
-            if (ACUtils.generalRewriteStacks.enableStackDegradation)
+            if (ACUtils.rewriteStacksSettings.enableStackDegradation)
             {
                 string stackDegradation = Mathf.Min(1f, this.personaData.stackDegradation + GetDegradation()).ToStringPercent();
                 Text.Font = GameFont.Small;
@@ -700,7 +700,7 @@ namespace AlteredCarbon
             if (Widgets.ButtonText(acceptButtonRect, "AC.StartRewriting".Translate()))
             {
                 personaData.editTime = GetEditTime();
-                if (ACUtils.generalRewriteStacks.enableStackDegradation)
+                if (ACUtils.rewriteStacksSettings.enableStackDegradation)
                 {
                     personaData.stackDegradationToAdd = GetDegradation();
                 }
@@ -779,7 +779,7 @@ namespace AlteredCarbon
             {
                 time += editTimeOffsetPerUnwaveringLoyalChange;
             }
-            return (int)(time * ACUtils.generalRewriteStacks.stackRewriteEditTimeValueMultiplier);
+            return (int)(time * ACUtils.rewriteStacksSettings.stackRewriteEditTimeValueMultiplier);
         }
 
         private float GetDegradation()
@@ -852,7 +852,7 @@ namespace AlteredCarbon
             {
                 degradation += stackDegradationOffsetPerUnwaveringLoyalChange;
             }
-            return degradation * ACUtils.generalRewriteStacks.stackRewriteDegradationValueMultiplier;
+            return degradation * ACUtils.rewriteStacksSettings.stackRewriteDegradationValueMultiplier;
         }
 
         private void ResetAll()

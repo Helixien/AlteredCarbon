@@ -25,7 +25,8 @@ namespace AlteredCarbon
     {
         public static Harmony harmony;
         public static AlteredCarbonSettingsWorker_General generalSettings;
-        public static AlteredCarbonSettingsWorker_RewriteStack generalRewriteStacks;
+        public static AlteredCarbonSettingsWorker_SleeveGrowing sleeveGrowingSettings;
+        public static AlteredCarbonSettingsWorker_RewriteStack rewriteStacksSettings;
         public static Dictionary<string, SleevePreset> presets = new Dictionary<string, SleevePreset>();
 
         public static HashSet<ThingDef> unstackableRaces;
@@ -117,7 +118,7 @@ namespace AlteredCarbon
         static ACUtils()
         {
             generalSettings = AlteredCarbonMod.modContentPack.Patches.OfType<AlteredCarbonSettingsWorker_General>().First();
-            generalRewriteStacks = AlteredCarbonMod.modContentPack.Patches.OfType<AlteredCarbonSettingsWorker_RewriteStack>().First();
+            rewriteStacksSettings = AlteredCarbonMod.modContentPack.Patches.OfType<AlteredCarbonSettingsWorker_RewriteStack>().First();
             harmony = new Harmony("Altered.Carbon");
             harmony.PatchAll();
             var field = typeof(OverlayDrawer).GetField("NeedsPowerMat", BindingFlags.Static | BindingFlags.NonPublic);

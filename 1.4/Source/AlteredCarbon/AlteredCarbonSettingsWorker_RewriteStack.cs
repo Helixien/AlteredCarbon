@@ -4,7 +4,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
-    public class AlteredCarbonSettingsWorker_RewriteStack : AlteredCarbonSettingsWorkerBase
+    public class AlteredCarbonSettingsWorker_RewriteStack : PatchOperationWorker
     {
         public bool enableStackDegradation = true;
         public bool enableArchostackRewriting = false;
@@ -22,7 +22,6 @@ namespace AlteredCarbon
 
         public override void DoSettings(ModSettingsContainer container, Listing_Standard list)
         {
-            scrollHeight = 0;
             DoCheckbox(list, "AC.EnableStackDegradation".Translate(), ref enableStackDegradation, "AC.EnableStackDegradationDesc".Translate());
             DoSlider(list, "AC.StackRewriteEditTimeValueMultiplier".Translate(), ref stackRewriteEditTimeValueMultiplier,
                 stackRewriteEditTimeValueMultiplier.ToStringPercent(), 0f, 5f, "AC.StackRewriteEditTimeValueMultiplierDesc".Translate());
@@ -48,11 +47,6 @@ namespace AlteredCarbon
             enableArchostackRewriting = false;
             stackRewriteDegradationValueMultiplier = 1f;
             stackRewriteEditTimeValueMultiplier = 1f;
-        }
-
-        public override int SettingsHeight()
-        {
-            return (int)scrollHeight;
         }
     }
 }
