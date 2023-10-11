@@ -16,12 +16,12 @@ namespace AlteredCarbon
     {
         public int runningOutFuelInTicks;
         public bool isRunningOutFuel;
-        protected CompRefuelable compRefuelable;
+        //protected CompRefuelable compRefuelable;
         protected CompPowerTrader compPower;
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             base.SpawnSetup(map, respawningAfterLoad);
-            this.compRefuelable = base.GetComp<CompRefuelable>();
+            //this.compRefuelable = base.GetComp<CompRefuelable>();
             this.compPower = base.GetComp<CompPowerTrader>();
         }
 
@@ -73,36 +73,37 @@ namespace AlteredCarbon
             base.Tick();
             if (this.CurOccupants.Any())
             {
-                compRefuelable.ConsumeFuel(2f / 60000f);
+                //compRefuelable.ConsumeFuel(2f / 60000f);
                 compPower.PowerOutput = 0f - compPower.Props.PowerConsumption;
             }
             else
             {
                 compPower.PowerOutput = 0f - compPower.Props.idlePowerDraw;
             }
-            if (!compRefuelable.HasFuel && !isRunningOutFuel)
-            {
-                Messages.Message("AC.IsRunningOutFuel".Translate(), this, MessageTypeDefOf.NegativeEvent);
-                this.isRunningOutFuel = true;
-            }
-            if (!compRefuelable.HasFuel)
-            {
-                runningOutFuelInTicks++;
-            }
-            else
-            {
-                runningOutFuelInTicks = 0;
-                this.isRunningOutFuel = false;
-            }
-			if (runningOutFuelInTicks > 60000 && this.IsHashIntervalTick(2500))
-			{
-                foreach (var occupant in this.CurOccupants)
-				{
-                    occupant.TakeDamage(new DamageInfo(AC_DefOf.VFEU_Deterioration, 5, armorPenetration: 1));
-				}
-            }
 
-			if (this.compRefuelable.HasFuel)
+            //if (!compRefuelable.HasFuel && !isRunningOutFuel)
+            //{
+            //    Messages.Message("AC.IsRunningOutFuel".Translate(), this, MessageTypeDefOf.NegativeEvent);
+            //    this.isRunningOutFuel = true;
+            //}
+            //if (!compRefuelable.HasFuel)
+            //{
+            //    runningOutFuelInTicks++;
+            //}
+            //else
+            //{
+            //    runningOutFuelInTicks = 0;
+            //    this.isRunningOutFuel = false;
+            //}
+			//if (runningOutFuelInTicks > 60000 && this.IsHashIntervalTick(2500))
+			//{
+            //    foreach (var occupant in this.CurOccupants)
+			//	{
+            //        occupant.TakeDamage(new DamageInfo(AC_DefOf.VFEU_Deterioration, 5, armorPenetration: 1));
+			//	}
+            //}
+
+			//if (this.compRefuelable.HasFuel)
 			{
                 foreach (var occupant in this.CurOccupants)
                 {
