@@ -296,7 +296,11 @@ namespace AlteredCarbon
                 Bill_InstallStack bill_Medical = new Bill_InstallStack(recipe, this);
                 medPawn.BillStack.AddBill(bill_Medical);
                 bill_Medical.Part = recipe.Worker.GetPartsToApplyOn(medPawn, recipe).First();
-
+                var compForbiddable = this.GetComp<CompForbiddable>();
+                if (compForbiddable.Forbidden)
+                {
+                    compForbiddable.Forbidden = false;
+                }
                 if (recipe.conceptLearned != null)
                 {
                     PlayerKnowledgeDatabase.KnowledgeDemonstrated(recipe.conceptLearned, KnowledgeAmount.Total);

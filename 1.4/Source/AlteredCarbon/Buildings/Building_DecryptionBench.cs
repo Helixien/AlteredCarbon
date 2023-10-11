@@ -24,10 +24,7 @@ namespace AlteredCarbon
                 activateSound = SoundDefOf.Tick_Tiny,
                 action = delegate ()
                 {
-                    Find.Targeter.BeginTargeting(ForFilledStack(includeArchoStack: false), delegate (LocalTargetInfo x)
-                    {
-                        InstallWipeStackBill(x);
-                    });
+                    BeginTargetingForWipingStack();
                 },
             };
             if (powerComp.PowerOn is false)
@@ -97,6 +94,17 @@ namespace AlteredCarbon
             }
         }
 
+        private void BeginTargetingForWipingStack()
+        {
+            Find.Targeter.BeginTargeting(ForFilledStack(includeArchoStack: false), delegate (LocalTargetInfo x)
+            {
+                InstallWipeStackBill(x);
+                if (Event.current.shift)
+                {
+                    BeginTargetingForWipingStack();
+                }
+            });
+        }
 
         public bool CanAddOperationOn(CorticalStack corticalStack)
         {
