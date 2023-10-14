@@ -11,9 +11,9 @@
 	<!-- ================================ Gene - Purple Orange Hair ====================== -->
 	<GeneDef ParentName="GeneHairColorBase">
 		<defName>AC_Hair_Purple</defName>
-		<label>bright-red hair</label>
+		<label>dark purple hair</label>
 		<hairColorOverride>(94, 39, 161)</hairColorOverride>
-		<selectionWeight>0.05</selectionWeight>
+		<selectionWeight>0.02</selectionWeight>
 		<displayOrderInCategory>90</displayOrderInCategory>
 	</GeneDef>
 </Defs>
