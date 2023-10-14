@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using HarmonyLib;
+using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -106,6 +107,7 @@ namespace AlteredCarbon
             {
                 ApplyGeneQuality();
             }
+            initialEndogenes = curSleeve.genes.Endogenes.ToList();
             var xenogenes = pawnToClone.genes.Xenogenes.Select(x => x.def).ToList();
             if (xenogenes.Any() )
             {
@@ -536,7 +538,7 @@ namespace AlteredCarbon
         {
             foreach (var oldGene in oldGenes)
             {
-                if (curSleeve.genes.Endogenes.Contains(oldGene))
+                if (curSleeve.genes.Endogenes.Contains(oldGene) && initialEndogenes.Contains(oldGene) is false)
                 {
                     curSleeve.genes.RemoveGene(oldGene);
                 }
@@ -944,6 +946,9 @@ namespace AlteredCarbon
                 curSleeve.genes.CustomXenotype.inheritable = true;
             }
             curSleeve.kindDef = Faction.OfPlayer.def.basicMemberKind;
+            initialEndogenes = curSleeve.genes.Endogenes.ToList();
         }
+
+        public List<Gene> initialEndogenes = new List<Gene>();
     }
 }

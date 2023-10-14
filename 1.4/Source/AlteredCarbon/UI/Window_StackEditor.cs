@@ -75,11 +75,13 @@ namespace AlteredCarbon
             stackRecruitable = personaData.recruitable;
 
             this.allChildhoodBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading
-                .Where(x => x.slot == BackstorySlot.Childhood).ToList();
+                .Where(x => x.slot == BackstorySlot.Childhood && (x.spawnCategories?.Any(x => x == "ColonyAndroid" 
+                || x == "AwakenedAndroid") is false)).ToList();
             if (personaData.adulthood != null)
             {
                 this.allAdulthoodBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading
-                .Where(x => x.slot == BackstorySlot.Adulthood).ToList();
+                .Where(x => x.slot == BackstorySlot.Adulthood && (x.spawnCategories?.Any(x => x == "ColonyAndroid"
+                || x == "AwakenedAndroid") is false)).ToList();
             }
             allFactions = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction && x.Hidden is false).ToList();
             allIdeos = Find.IdeoManager.IdeosListForReading;
