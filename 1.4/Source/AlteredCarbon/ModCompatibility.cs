@@ -242,7 +242,7 @@ namespace AlteredCarbon
 
 		public static void CopyPrivateParts(Pawn source, Pawn to)
 		{
-            foreach (var hediff in source.health.hediffSet.hediffs)
+            foreach (var hediff in source.health.hediffSet.hediffs.ToList())
             {
 				if (hediff is rjw.Hediff_PartBaseNatural part)
 				{
