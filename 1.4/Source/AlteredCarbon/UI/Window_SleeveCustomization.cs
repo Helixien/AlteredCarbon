@@ -524,14 +524,34 @@ namespace AlteredCarbon
         {
             curSleeve.genes.endogenes.RemoveAll(x => convertedGenes.Contains(x));
             curSleeve.genes.xenogenes.AddRange(convertedGenes);
+            curSleeve.genes.cachedGenes = null;
+            foreach (var gene in curSleeve.genes.Endogenes)
+            {
+                var otherGene = curSleeve.genes.Xenogenes.FirstOrDefault(x => gene.def == x.def);
+                if (otherGene != null && otherGene.Active)
+                {
+                    gene.overriddenByGene = otherGene;
+                }
+            }
         }
 
         public void ConvertXenogenesToEndogenes()
         {
             convertedGenes = curSleeve.genes.GenesListForReading.Where(x => curSleeve.genes.Xenogenes.Contains(x)
                 && x.def.displayCategory != GeneCategoryDefOf.Archite).ToList();
-            curSleeve.genes.endogenes.AddRange(convertedGenes);
+            curSleeve.genes.endogenes.AddRange(convertedGenes.Where(x => curSleeve.genes.HasEndogene(x.def) is false));
             curSleeve.genes.xenogenes.RemoveAll(x => convertedGenes.Contains(x));
+            curSleeve.genes.cachedGenes = null;
+            foreach (var gene in curSleeve.genes.GenesListForReading)
+            {
+                if (gene.overriddenByGene != null)
+                {
+                    if (curSleeve.genes.GenesListForReading.Contains(gene.overriddenByGene) is false)
+                    {
+                        gene.overriddenByGene = null;
+                    }
+                }
+            }
         }
 
         private void OverrideOrRemove(Gene newGene, List<Gene> oldGenes)

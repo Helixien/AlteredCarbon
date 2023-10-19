@@ -1240,7 +1240,7 @@ namespace AlteredCarbon
             {
                 foreach (KeyValuePair<Faction, int> fav in favor)
                 {
-                    pawn.royalty.SetFavor(fav.Key, fav.Value);
+                    pawn.royalty.SetFavor(fav.Key, fav.Value, false);
                 }
             }
 
