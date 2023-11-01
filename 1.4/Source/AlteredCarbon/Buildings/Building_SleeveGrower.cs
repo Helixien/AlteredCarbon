@@ -106,8 +106,15 @@ namespace AlteredCarbon
                 }
                 else
                 {
-                    InnerPawn.Rotation = Rotation;
-                    InnerPawn.DrawAt(newPos + PawnDrawOffset, flip);
+                    try
+                    {
+                        InnerPawn.Rotation = Rotation;
+                        InnerPawn.DrawAt(newPos + PawnDrawOffset, flip);
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Error("Error drawing " + InnerPawn + " - " + e.ToString());
+                    }
                 }
             }
 
