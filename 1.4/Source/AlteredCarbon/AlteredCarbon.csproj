@@ -85,6 +85,7 @@
     <Compile Include="Buildings\Building_DecryptionBench.cs" />
     <Compile Include="Buildings\Building_Incubator.cs" />
     <Compile Include="HarmonyPatches\Alert_ColonistLeftUnburied_IsCorpseOfColonist_Patch.cs" />
+    <Compile Include="HarmonyPatches\Apparel_Notify_PawnKilled_Patch.cs" />
     <Compile Include="HarmonyPatches\CharacterCardUtility_DrawCharacterCard_Patch.cs" />
     <Compile Include="HarmonyPatches\CharacterCardUtility_LifestageAndXenotypeOptions_Patch.cs" />
     <Compile Include="HarmonyPatches\TransferableUIUtility_DoExtraIcons_Patch.cs" />

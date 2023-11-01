@@ -13,11 +13,13 @@ namespace AlteredCarbon
     {
         public bool enableStackSpawning = true;
         public bool enableTechprintRequirement = true;
+        public bool sleeveDeathDoesNotCauseGearTainting = true;
 
         public override void ExposeData()
         {
             Scribe_Values.Look(ref enableStackSpawning, "enableStackSpawning", true);
             Scribe_Values.Look(ref enableTechprintRequirement, "enableTechprintRequirement", true);
+            Scribe_Values.Look(ref sleeveDeathDoesNotCauseGearTainting, "sleeveDeathDoesNotCauseGearTainting", true);
         }
 
         public override void CopyFrom(PatchOperationWorker savedWorker)
@@ -25,18 +27,21 @@ namespace AlteredCarbon
             var copy = savedWorker as AlteredCarbonSettingsWorker_General;
             this.enableStackSpawning = copy.enableStackSpawning;
             this.enableTechprintRequirement = copy.enableTechprintRequirement;
+            this.sleeveDeathDoesNotCauseGearTainting = copy.sleeveDeathDoesNotCauseGearTainting;
         }
 
         public override void DoSettings(ModSettingsContainer container, Listing_Standard list)
         {
             DoCheckbox(list, "AC.EnableStackSpawning".Translate(), ref enableStackSpawning, "AC.EnableStackSpawningDesc".Translate());
             DoCheckbox(list, "AC.EnableTechprintRequirement".Translate(), ref enableTechprintRequirement, "AC.EnableTechprintRequirementDesc".Translate());
+            DoCheckbox(list, "AC.SleeveDeathDoesNotCauseGearTainting".Translate(), ref sleeveDeathDoesNotCauseGearTainting, null);
         }
 
         public override void Reset()
         {
             enableStackSpawning = true;
             enableTechprintRequirement = true;
+            sleeveDeathDoesNotCauseGearTainting = true;
         }
 
         public override void ApplySettings()
