@@ -148,7 +148,7 @@ namespace AlteredCarbon
             {
 				foreach (var power in powerTracker.AllPowers)
 				{
-					if (power.abilities.Contains(abilityDef))
+					if (power?.abilities?.Contains(abilityDef) ?? false)
 					{
 						return true;
 					}
