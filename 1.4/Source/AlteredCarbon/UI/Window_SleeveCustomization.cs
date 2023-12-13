@@ -287,12 +287,13 @@ namespace AlteredCarbon
             DoColorButtons(ref firstColumnPos, "AC.SkinColour".Translate(), GetPermittedSkinColors(), (KeyValuePair<GeneDef, Color> x) => x.Value,
                 delegate (KeyValuePair<GeneDef, Color> selected)
                 {
+                    curSleeve.story.skinColorOverride = curSleeve.story.skinColorBase = null;
                     if (ModCompatibility.AlienRacesIsActive)
                     {
                         ModCompatibility.SetSkinColorFirst(curSleeve, selected.Value);
+                        ModCompatibility.SetSkinColorSecond(curSleeve, selected.Value);
                     }
 
-                    curSleeve.story.skinColorOverride = curSleeve.story.skinColorBase = null;
                     var gene = GeneUtils.ApplyGene(selected.Key, curSleeve, IsXenogene(selected.Key));
                     if (gene != null)
                     {
@@ -303,7 +304,7 @@ namespace AlteredCarbon
                         }
 
                         OverrideOrRemove(gene, curSleeve.genes.GenesListForReading
-                            .Where(x => x != gene && (x.def.skinColorOverride != null 
+                            .Where(x => x != gene && (x.def.skinColorOverride != null
                             || x.def.skinColorBase != null)).ToList());
                     }
 
