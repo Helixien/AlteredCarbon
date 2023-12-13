@@ -372,6 +372,7 @@ namespace AlteredCarbon
                         if (ModCompatibility.AlienRacesIsActive)
                         {
                             ModCompatibility.SetHairColorFirst(curSleeve, selected.Value);
+                            ModCompatibility.SetHairColorSecond(curSleeve, selected.Value);
                         }
                         var gene = GeneUtils.ApplyGene(selected.Key, curSleeve, false);
                         if (gene != null)
@@ -379,6 +380,7 @@ namespace AlteredCarbon
                             OverrideOrRemove(gene, curSleeve.genes.GenesListForReading
                                 .Where(x => x != gene && selected.Key.endogeneCategory == x.def.endogeneCategory).ToList());
                         }
+                        curSleeve.story.HairColor = selected.Value;
                         RecheckEverything();
                     });
 
@@ -956,9 +958,12 @@ namespace AlteredCarbon
             curSleeve.ageTracker.AgeChronologicalTicks = (long)Mathf.FloorToInt(lastAdultAge * 3600000f);
             curSleeve.Rotation = Rot4.South;
             convertedGenes = new List<Gene>();
-            PawnGenerator.GenerateGenes(curSleeve, curSleeve.genes.xenotype, 
-                new PawnGenerationRequest(currentPawnKindDef, Faction.OfPlayer));
-            curSleeve.story.hairDef = PawnStyleItemChooser.RandomHairFor(curSleeve);
+            if (curSleeve.genes.xenotype is not null)
+            {
+                PawnGenerator.GenerateGenes(curSleeve, curSleeve.genes.xenotype,
+                    new PawnGenerationRequest(currentPawnKindDef, Faction.OfPlayer));
+            }
+            curSleeve.story.hairDef ??= PawnStyleItemChooser.RandomHairFor(curSleeve);
             ApplyGeneQuality();
             RecheckEverything();
             if (curSleeve.genes.CustomXenotype != null)

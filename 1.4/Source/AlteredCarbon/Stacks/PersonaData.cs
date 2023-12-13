@@ -179,8 +179,8 @@ namespace AlteredCarbon
                     faction, OriginalRace ?? ThingDefOf.Human, ticks, OriginalXenotypeDef != null
                     ? OriginalXenotypeDef : XenotypeDefOf.Baseliner);
                 dummyPawn.gender = dummyGender ?? originalGender;
-                dummyPawns.Add(dummyPawn);
             }
+            dummyPawns.Add(dummyPawn);
             OverwritePawn(dummyPawn, null, overwriteOriginalPawn: false, copyFromOrigPawn: hostPawn != null
                 && hostPawn.Dead is false && hostPawn.IsEmptySleeve() is false);
             if (hostPawn != null)
@@ -818,123 +818,15 @@ namespace AlteredCarbon
                 AssignIdeologyData(pawn);
             }
 
-            var oldAbilities = pawn.abilities?.abilities.Select(x => x.def).ToList();
-            pawn.abilities = new Pawn_AbilityTracker(pawn);
-            if (oldAbilities != null)
-            {
-                foreach (var ability in oldAbilities)
-                {
-                    if (IsNaturalAbility(pawn, ability))
-                    {
-                        pawn.abilities.GainAbility(ability);
-                    }
-                    else if (IsPsycastAbility(ability))
-                    {
-                        pawn.abilities.GainAbility(ability);
-                    }
-                }
-            }
-            var compAbilities = pawn.GetComp<VFECore.Abilities.CompAbilities>();
-            if (compAbilities?.LearnedAbilities != null)
-            {
-                compAbilities.LearnedAbilities.RemoveAll(x => IsNaturalAbility(pawn, x.def) is false && IsPsycastAbility(x.def) is false);
-            }
-            pawn.psychicEntropy = new Pawn_PsychicEntropyTracker(pawn);
-            if (this.sourceStack == AC_DefOf.AC_FilledArchoStack)
-            {
-                var hediff_Psylink = pawn.GetMainPsylinkSource() as Hediff_Psylink;
-                if (this.psylinkLevel.HasValue)
-                {
-                    if (hediff_Psylink == null)
-                    {
-                        Hediff_Psylink_TryGiveAbilityOfLevel_Patch.suppress = true;
-                        hediff_Psylink = HediffMaker.MakeHediff(HediffDefOf.PsychicAmplifier, pawn,
-                            pawn.health.hediffSet.GetBrain()) as Hediff_Psylink;
-                        pawn.health.AddHediff(hediff_Psylink);
-                        Hediff_Psylink_TryGiveAbilityOfLevel_Patch.suppress = false;
-                    }
-                    var levelOffset = this.psylinkLevel.Value - hediff_Psylink.level;
-                    hediff_Psylink.level = (int)Mathf.Clamp(hediff_Psylink.level + levelOffset, hediff_Psylink.def.minSeverity, hediff_Psylink.def.maxSeverity);
-                }
+            AssignAbilities(pawn);
+            AssignSkills(pawn);
 
-                pawn.psychicEntropy.currentEntropy = currentEntropy;
-                pawn.psychicEntropy.currentPsyfocus = currentPsyfocus;
-                pawn.psychicEntropy.limitEntropyAmount = limitEntropyAmount;
-                pawn.psychicEntropy.targetPsyfocus = targetPsyfocus;
-
-                if (abilities.NullOrEmpty() is false)
-                {
-                    foreach (var def in abilities)
-                    {
-                        pawn.abilities.GainAbility(def);
-                    }
-                }
-
-                if (VPE_PsycastAbilityImplant?.def != null)
-                {
-                    pawn.health.hediffSet.hediffs.RemoveAll(x => x.def.defName == "VPE_PsycastAbilityImplant");
-                    pawn.health.AddHediff(VPE_PsycastAbilityImplant);
-                    Traverse.Create(VPE_PsycastAbilityImplant).Field("psylink").SetValue(hediff_Psylink);
-                }
-                if (VEAbilities.NullOrEmpty() is false)
-                {
-                    if (compAbilities != null)
-                    {
-                        foreach (var ability in VEAbilities)
-                        {
-                            compAbilities.GiveAbility(ability);
-                        }
-                    }
-                }
-            }
-
-            pawn.skills.skills.Clear();
-            if (skills != null)
-            {
-                foreach (SkillRecord skill in skills)
-                {
-                    SkillRecord newSkill = new SkillRecord(pawn, skill.def)
-                    {
-                        passion = skill.passion,
-                        levelInt = skill.levelInt,
-                        xpSinceLastLevel = skill.xpSinceLastLevel,
-                        xpSinceMidnight = skill.xpSinceMidnight
-                    };
-                    pawn.skills.skills.Add(newSkill);
-                }
-            }
             pawn.story.backstoriesCache = null;
             pawn.story.childhood = childhood;
             pawn.story.adulthood = adulthood;
             pawn.story.title = title;
 
-            if (pawn.guest is null)
-            {
-                pawn.guest = new Pawn_GuestTracker(pawn);
-            }
-            pawn.guest.guestStatusInt = guestStatusInt;
-            pawn.guest.interactionMode = interactionMode;
-            if (pawn.guest.interactionMode is null)
-                pawn.guest.interactionMode = PrisonerInteractionModeDefOf.NoInteraction;
-
-            pawn.guest.slaveInteractionMode = slaveInteractionMode;
-            pawn.guest.hostFactionInt = hostFactionInt;
-            pawn.guest.joinStatus = joinStatus;
-            pawn.guest.slaveFactionInt = slaveFactionInt;
-            pawn.guest.lastRecruiterName = lastRecruiterName;
-            pawn.guest.lastRecruiterOpinion = lastRecruiterOpinion;
-            pawn.guest.hasOpinionOfLastRecruiter = hasOpinionOfLastRecruiter;
-            pawn.guest.Released = releasedInt;
-            pawn.guest.ticksWhenAllowedToEscapeAgain = ticksWhenAllowedToEscapeAgain;
-            pawn.guest.spotToWaitInsteadOfEscaping = spotToWaitInsteadOfEscaping;
-            pawn.guest.lastPrisonBreakTicks = lastPrisonBreakTicks;
-            pawn.guest.everParticipatedInPrisonBreak = everParticipatedInPrisonBreak;
-            pawn.guest.resistance = resistance;
-            pawn.guest.will = will;
-            pawn.guest.ideoForConversion = ideoForConversion;
-            pawn.guest.everEnslaved = everEnslaved;
-            pawn.guest.recruitable = recruitable;
-            pawn.guest.getRescuedThoughtOnUndownedBecauseOfPlayer = getRescuedThoughtOnUndownedBecauseOfPlayer;
+            SetGuestData(pawn);
 
             if (pawn.records is null)
             {
@@ -1004,6 +896,129 @@ namespace AlteredCarbon
             if (ModCompatibility.VanillaSkillsExpandedIsActive && expertiseRecords != null)
             {
                 ModCompatibility.SetExpertises(pawn, expertiseRecords);
+            }
+        }
+
+        private void SetGuestData(Pawn pawn)
+        {
+            if (pawn.guest is null)
+            {
+                pawn.guest = new Pawn_GuestTracker(pawn);
+            }
+            pawn.guest.guestStatusInt = guestStatusInt;
+            pawn.guest.interactionMode = interactionMode;
+            if (pawn.guest.interactionMode is null)
+                pawn.guest.interactionMode = PrisonerInteractionModeDefOf.NoInteraction;
+
+            pawn.guest.slaveInteractionMode = slaveInteractionMode;
+            pawn.guest.hostFactionInt = hostFactionInt;
+            pawn.guest.joinStatus = joinStatus;
+            pawn.guest.slaveFactionInt = slaveFactionInt;
+            pawn.guest.lastRecruiterName = lastRecruiterName;
+            pawn.guest.lastRecruiterOpinion = lastRecruiterOpinion;
+            pawn.guest.hasOpinionOfLastRecruiter = hasOpinionOfLastRecruiter;
+            pawn.guest.Released = releasedInt;
+            pawn.guest.ticksWhenAllowedToEscapeAgain = ticksWhenAllowedToEscapeAgain;
+            pawn.guest.spotToWaitInsteadOfEscaping = spotToWaitInsteadOfEscaping;
+            pawn.guest.lastPrisonBreakTicks = lastPrisonBreakTicks;
+            pawn.guest.everParticipatedInPrisonBreak = everParticipatedInPrisonBreak;
+            pawn.guest.resistance = resistance;
+            pawn.guest.will = will;
+            pawn.guest.ideoForConversion = ideoForConversion;
+            pawn.guest.everEnslaved = everEnslaved;
+            pawn.guest.recruitable = recruitable;
+            pawn.guest.getRescuedThoughtOnUndownedBecauseOfPlayer = getRescuedThoughtOnUndownedBecauseOfPlayer;
+        }
+
+        private void AssignSkills(Pawn pawn)
+        {
+            pawn.skills.skills.Clear();
+            if (skills != null)
+            {
+                foreach (SkillRecord skill in skills)
+                {
+                    SkillRecord newSkill = new SkillRecord(pawn, skill.def)
+                    {
+                        passion = skill.passion,
+                        levelInt = skill.levelInt,
+                        xpSinceLastLevel = skill.xpSinceLastLevel,
+                        xpSinceMidnight = skill.xpSinceMidnight
+                    };
+                    pawn.skills.skills.Add(newSkill);
+                }
+            }
+        }
+
+        private void AssignAbilities(Pawn pawn)
+        {
+            var oldAbilities = pawn.abilities?.abilities.Select(x => x.def).ToList();
+            pawn.abilities = new Pawn_AbilityTracker(pawn);
+            if (oldAbilities != null)
+            {
+                foreach (var ability in oldAbilities)
+                {
+                    if (IsNaturalAbility(pawn, ability))
+                    {
+                        pawn.abilities.GainAbility(ability);
+                    }
+                    else if (IsPsycastAbility(ability))
+                    {
+                        pawn.abilities.GainAbility(ability);
+                    }
+                }
+            }
+            var compAbilities = pawn.GetComp<VFECore.Abilities.CompAbilities>();
+            if (compAbilities?.LearnedAbilities != null)
+            {
+                compAbilities.LearnedAbilities.RemoveAll(x => IsNaturalAbility(pawn, x.def) is false && IsPsycastAbility(x.def) is false);
+            }
+            pawn.psychicEntropy = new Pawn_PsychicEntropyTracker(pawn);
+            if (this.sourceStack == AC_DefOf.AC_FilledArchoStack)
+            {
+                var hediff_Psylink = pawn.GetMainPsylinkSource() as Hediff_Psylink;
+                if (this.psylinkLevel.HasValue)
+                {
+                    if (hediff_Psylink == null)
+                    {
+                        Hediff_Psylink_TryGiveAbilityOfLevel_Patch.suppress = true;
+                        hediff_Psylink = HediffMaker.MakeHediff(HediffDefOf.PsychicAmplifier, pawn,
+                            pawn.health.hediffSet.GetBrain()) as Hediff_Psylink;
+                        pawn.health.AddHediff(hediff_Psylink);
+                        Hediff_Psylink_TryGiveAbilityOfLevel_Patch.suppress = false;
+                    }
+                    var levelOffset = this.psylinkLevel.Value - hediff_Psylink.level;
+                    hediff_Psylink.level = (int)Mathf.Clamp(hediff_Psylink.level + levelOffset, hediff_Psylink.def.minSeverity, hediff_Psylink.def.maxSeverity);
+                }
+
+                pawn.psychicEntropy.currentEntropy = currentEntropy;
+                pawn.psychicEntropy.currentPsyfocus = currentPsyfocus;
+                pawn.psychicEntropy.limitEntropyAmount = limitEntropyAmount;
+                pawn.psychicEntropy.targetPsyfocus = targetPsyfocus;
+
+                if (abilities.NullOrEmpty() is false)
+                {
+                    foreach (var def in abilities)
+                    {
+                        pawn.abilities.GainAbility(def);
+                    }
+                }
+
+                if (VPE_PsycastAbilityImplant?.def != null)
+                {
+                    pawn.health.hediffSet.hediffs.RemoveAll(x => x.def.defName == "VPE_PsycastAbilityImplant");
+                    pawn.health.AddHediff(VPE_PsycastAbilityImplant);
+                    Traverse.Create(VPE_PsycastAbilityImplant).Field("psylink").SetValue(hediff_Psylink);
+                }
+                if (VEAbilities.NullOrEmpty() is false)
+                {
+                    if (compAbilities != null)
+                    {
+                        foreach (var ability in VEAbilities)
+                        {
+                            compAbilities.GiveAbility(ability);
+                        }
+                    }
+                }
             }
         }
 
@@ -1590,7 +1605,7 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref stackDegradation, "stackDegradation");
             Scribe_Values.Look(ref stackDegradationToAdd, "stackDegradationToAdd");
             Scribe_Values.Look(ref dummyGender, "dummyGender");
-
+            Scribe_Deep.Look(ref dummyPawn, "dummyPawn");
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 times.CleanupList();

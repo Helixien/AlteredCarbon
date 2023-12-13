@@ -253,7 +253,7 @@ namespace AlteredCarbon
             }
             if (pawn.DevelopmentalStage != DevelopmentalStage.Adult)
             {
-                if (corticalStack.IsFilledStack)
+                if (corticalStack != null && corticalStack.IsFilledStack)
                 {
                     if (throwMessages)
                     {

@@ -15,7 +15,7 @@
 		<label>allow stranger stacks</label>
 		<description>Allow the stacks of strangers.</description>
 		<parentCategory>VFEU_BodyPartsUltra</parentCategory>
-		<allowedByDefault>false</allowedByDefault>
+		<allowedByDefault>true</allowedByDefault>
 		<saveKey>allowStacksStranger</saveKey>
 		<workerClass>AlteredCarbon.SpecialThingFilterWorker_StacksStranger</workerClass>
 	</SpecialThingFilterDef>
@@ -24,7 +24,7 @@
 		<label>allow hostile stacks</label>
 		<description>Allow the stacks of hostiles and enemies.</description>
 		<parentCategory>VFEU_BodyPartsUltra</parentCategory>
-		<allowedByDefault>false</allowedByDefault>
+		<allowedByDefault>true</allowedByDefault>
 		<saveKey>allowStacksHostile</saveKey>
 		<workerClass>AlteredCarbon.SpecialThingFilterWorker_StacksHostile</workerClass>
 	</SpecialThingFilterDef>

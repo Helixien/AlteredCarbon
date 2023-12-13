@@ -17,7 +17,6 @@ namespace AlteredCarbon
                     {
                         __instance.wornByCorpseInt = false;
                     }
-                    Log.Message(__instance + " - " + __instance.Wearer + " - " + __instance.Wearer?.IsEmptySleeve() + " - " + __instance.Wearer.Dead);
                 }
             }
 
