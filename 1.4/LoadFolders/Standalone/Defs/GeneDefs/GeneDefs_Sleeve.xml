@@ -22,6 +22,7 @@
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_Awful</iconPath>
 		<displayOrderInCategory>0</displayOrderInCategory>
 		<biostatCpx>-4</biostatCpx>
+		<biostatMet>-4</biostatMet>
 		<statFactors>
 			<LifespanFactor>0.5</LifespanFactor>
 			<CancerRate>5</CancerRate>
@@ -31,10 +32,10 @@
 			<Fertility>-0.5</Fertility>
 			<IncomingDamageFactor>0.4</IncomingDamageFactor>
 			<ToxicEnvironmentResistance>-0.4</ToxicEnvironmentResistance>
-			<GlobalLearningFactor>-0.4</GlobalLearningFactor>
-			<InjuryHealingFactor>-0.4</InjuryHealingFactor>
-			<ImmunityGainSpeed>-0.2</ImmunityGainSpeed>
-			<MeleeDamageFactor>-0.2</MeleeDamageFactor>
+			<GlobalLearningFactor>-0.1</GlobalLearningFactor>
+			<InjuryHealingFactor>-0.1</InjuryHealingFactor>
+			<ImmunityGainSpeed>-0.1</ImmunityGainSpeed>
+			<MeleeDamageFactor>-0.1</MeleeDamageFactor>
 		</statOffsets>
 	</GeneDef>
 	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
@@ -44,6 +45,7 @@
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Poor</iconPath>
 		<displayOrderInCategory>5</displayOrderInCategory>
 		<biostatCpx>-2</biostatCpx>
+		<biostatMet>-2</biostatMet>
 		<statFactors>
 			<LifespanFactor>0.75</LifespanFactor>
 			<CancerRate>2.5</CancerRate>
@@ -53,10 +55,10 @@
 			<Fertility>-0.25</Fertility>
 			<IncomingDamageFactor>0.2</IncomingDamageFactor>
 			<ToxicEnvironmentResistance>-0.2</ToxicEnvironmentResistance>
-			<GlobalLearningFactor>-0.2</GlobalLearningFactor>
-			<InjuryHealingFactor>-0.2</InjuryHealingFactor>
-			<ImmunityGainSpeed>-0.1</ImmunityGainSpeed>
-			<MeleeDamageFactor>-0.1</MeleeDamageFactor>
+			<GlobalLearningFactor>-0.05</GlobalLearningFactor>
+			<InjuryHealingFactor>-0.05</InjuryHealingFactor>
+			<ImmunityGainSpeed>-0.05</ImmunityGainSpeed>
+			<MeleeDamageFactor>-0.05</MeleeDamageFactor>
 		</statOffsets>
 	</GeneDef>
 	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
@@ -65,7 +67,7 @@
 		<description>Carriers of this gene had their bodies grown in a vat. Enough effort was put into it to result in normal quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Normal</iconPath>
 		<displayOrderInCategory>10</displayOrderInCategory>
-		<biostatCpx>1</biostatCpx>
+		<biostatCpx>0</biostatCpx>
 	</GeneDef>
 	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
 		<defName>VFEU_SleeveQuality_Good</defName>
@@ -73,7 +75,8 @@
 		<description>Carriers of this gene had their bodies grown in a vat. Above average effort was put into it, resulting in good quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Good</iconPath>
 		<displayOrderInCategory>15</displayOrderInCategory>
-		<biostatCpx>4</biostatCpx>
+		<biostatCpx>2</biostatCpx>
+		<biostatMet>2</biostatMet>
 		<statFactors>
 			<LifespanFactor>1.25</LifespanFactor>
 			<CancerRate>-0.1</CancerRate>
@@ -81,12 +84,10 @@
 		<statOffsets>
 			<MarketValue>250</MarketValue>
 			<Fertility>0.1</Fertility>
-			<IncomingDamageFactor>-0.2</IncomingDamageFactor>
-			<ToxicEnvironmentResistance>0.2</ToxicEnvironmentResistance>
-			<GlobalLearningFactor>0.2</GlobalLearningFactor>
-			<InjuryHealingFactor>0.2</InjuryHealingFactor>
-			<ImmunityGainSpeed>0.1</ImmunityGainSpeed>
-			<MeleeDamageFactor>0.1</MeleeDamageFactor>
+			<GlobalLearningFactor>0.05</GlobalLearningFactor>
+			<InjuryHealingFactor>0.05</InjuryHealingFactor>
+			<ImmunityGainSpeed>0.05</ImmunityGainSpeed>
+			<MeleeDamageFactor>0.05</MeleeDamageFactor>
 		</statOffsets>
 	</GeneDef>
 	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
@@ -95,7 +96,8 @@
 		<description>Carriers of this gene had their bodies grown in a vat. A good amount of effort was put into it, resulting in excellent quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Excellent</iconPath>
 		<displayOrderInCategory>20</displayOrderInCategory>
-		<biostatCpx>6</biostatCpx>
+		<biostatCpx>3</biostatCpx>
+		<biostatMet>3</biostatMet>
 		<statFactors>
 			<LifespanFactor>1.5</LifespanFactor>
 			<CancerRate>-0.2</CancerRate>
@@ -103,12 +105,11 @@
 		<statOffsets>
 			<MarketValue>500</MarketValue>
 			<Fertility>0.2</Fertility>
-			<IncomingDamageFactor>-0.3</IncomingDamageFactor>
-			<ToxicEnvironmentResistance>0.3</ToxicEnvironmentResistance>
-			<GlobalLearningFactor>0.3</GlobalLearningFactor>
-			<InjuryHealingFactor>0.3</InjuryHealingFactor>
-			<ImmunityGainSpeed>0.2</ImmunityGainSpeed>
-			<MeleeDamageFactor>0.2</MeleeDamageFactor>
+			<ToxicEnvironmentResistance>0.1</ToxicEnvironmentResistance>
+			<GlobalLearningFactor>0.1</GlobalLearningFactor>
+			<InjuryHealingFactor>0.1</InjuryHealingFactor>
+			<ImmunityGainSpeed>0.1</ImmunityGainSpeed>
+			<MeleeDamageFactor>0.1</MeleeDamageFactor>
 		</statOffsets>
 	</GeneDef>
 	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
@@ -117,21 +118,21 @@
 		<description>Carriers of this gene had their bodies grown in a vat. A lot of effort was put into it, resulting in masterwork quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Masterwork</iconPath>
 		<displayOrderInCategory>25</displayOrderInCategory>
-		<biostatCpx>8</biostatCpx>
+		<biostatCpx>4</biostatCpx>
+		<biostatMet>4</biostatMet>
 		<statFactors>
 			<LifespanFactor>2</LifespanFactor>
 			<CancerRate>-0.3</CancerRate>
 		</statFactors>
 		<statOffsets>
 			<MarketValue>750</MarketValue>
-			<Fertility>0.3</Fertility>
-			<IncomingDamageFactor>-0.4</IncomingDamageFactor>
-			<ToxicEnvironmentResistance>0.4</ToxicEnvironmentResistance>
-			<GlobalLearningFactor>0.4</GlobalLearningFactor>
-			<InjuryHealingFactor>0.4</InjuryHealingFactor>
-			<ImmunityGainSpeed>0.3</ImmunityGainSpeed>
-			<MeleeDamageFactor>0.3</MeleeDamageFactor>
-			<MoveSpeed>0.3</MoveSpeed>
+			<Fertility>0.25</Fertility>
+			<ToxicEnvironmentResistance>0.15</ToxicEnvironmentResistance>
+			<GlobalLearningFactor>0.15</GlobalLearningFactor>
+			<InjuryHealingFactor>0.15</InjuryHealingFactor>
+			<ImmunityGainSpeed>0.15</ImmunityGainSpeed>
+			<MeleeDamageFactor>0.15</MeleeDamageFactor>
+			<MoveSpeed>0.1</MoveSpeed>
 		</statOffsets>
 	</GeneDef>
 	<GeneDef ParentName="VFEU_SleeveQualityGeneBase">
@@ -140,21 +141,22 @@
 		<description>Carriers of this gene had their bodies grown in a vat. An extreme amount of effort was put into it, resulting in legendary quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Legendary</iconPath>
 		<displayOrderInCategory>30</displayOrderInCategory>
-		<biostatCpx>10</biostatCpx>
+		<biostatCpx>8</biostatCpx>
+		<biostatMet>8</biostatMet>
 		<statFactors>
 			<LifespanFactor>3</LifespanFactor>
 			<CancerRate>-0.5</CancerRate>
 		</statFactors>
 		<statOffsets>
 			<MarketValue>1500</MarketValue>
-			<Fertility>0.5</Fertility>
-			<IncomingDamageFactor>-0.5</IncomingDamageFactor>
-			<ToxicEnvironmentResistance>0.5</ToxicEnvironmentResistance>
-			<GlobalLearningFactor>0.5</GlobalLearningFactor>
-			<InjuryHealingFactor>0.5</InjuryHealingFactor>
-			<ImmunityGainSpeed>0.4</ImmunityGainSpeed>
-			<MeleeDamageFactor>0.4</MeleeDamageFactor>
-			<MoveSpeed>0.4</MoveSpeed>
+			<Fertility>0.3</Fertility>
+			<IncomingDamageFactor>-0.1</IncomingDamageFactor>
+			<ToxicEnvironmentResistance>0.2</ToxicEnvironmentResistance>
+			<GlobalLearningFactor>0.2</GlobalLearningFactor>
+			<InjuryHealingFactor>0.2</InjuryHealingFactor>
+			<ImmunityGainSpeed>0.2</ImmunityGainSpeed>
+			<MeleeDamageFactor>0.2</MeleeDamageFactor>
+			<MoveSpeed>0.2</MoveSpeed>
 		</statOffsets>
 	</GeneDef>
 </Defs>
