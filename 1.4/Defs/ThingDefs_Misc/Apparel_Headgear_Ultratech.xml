@@ -59,6 +59,55 @@
 			<li Class="CompProperties_Biocodable"/>
 		</comps>
 	</ThingDef>
+	<!-- ================================ Overseer Armour - Helmet ====================== -->
+	<ThingDef ParentName="AC_HuntersHelmet">
+		<defName>AC_Apparel_OverseerHelmet</defName>
+		<label>overseer helmet</label>
+		<description>text.todo</description>
+		<graphicData>
+			<texPath>Things/Pawn/Humanlike/Apparel/OverseerArmor/OverseerHelmet</texPath>
+		</graphicData>
+		<statBases>
+			<WorkToMake>1800</WorkToMake>
+			<MaxHitPoints>125</MaxHitPoints>
+			<Mass>1.4</Mass>
+			<Flammability>0.4</Flammability>
+			<ArmorRating_Sharp>1.1</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.45</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.5</ArmorRating_Heat>
+			<Insulation_Cold>7</Insulation_Cold>
+			<Insulation_Heat>3</Insulation_Heat>
+			<EquipDelay>2.4</EquipDelay>
+			<VEF_RangedCooldownFactor>0.75</VEF_RangedCooldownFactor>
+		</statBases>
+		<recipeMaker>
+			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+			<researchPrerequisite>AC_AdvancedPoweredArmor</researchPrerequisite>
+			<workSkill>Crafting</workSkill>
+			<skillRequirements>
+				<Crafting>7</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>FabricationBench</li>
+			</recipeUsers>
+			<displayPriority>104</displayPriority>
+		</recipeMaker>
+		<costList>
+			<ComponentSpacer>2</ComponentSpacer>
+			<Plasteel>20</Plasteel>
+		</costList>
+		<equippedStatOffsets>
+			<AimingDelayFactor>-0.25</AimingDelayFactor>
+			<ShootingAccuracyPawn>8</ShootingAccuracyPawn>
+		</equippedStatOffsets>
+		<apparel>
+			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/OverseerArmor/OverseerHelmet</wornGraphicPath>
+			<tags>
+				<li>SpacerMilitary</li>
+				<li>UltraMilitary</li>
+			</tags>
+		</apparel>
+	</ThingDef>
 	<!-- ================================ Protector Armour - Helmet ====================== -->
 	<ThingDef ParentName="AC_HuntersHelmet">
 		<defName>VFEU_Apparel_ProtectorHelmet</defName>
