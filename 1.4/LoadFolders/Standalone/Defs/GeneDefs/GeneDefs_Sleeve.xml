@@ -96,8 +96,8 @@
 		<description>Carriers of this gene had their bodies grown in a vat. A good amount of effort was put into it, resulting in excellent quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Excellent</iconPath>
 		<displayOrderInCategory>20</displayOrderInCategory>
-		<biostatCpx>3</biostatCpx>
-		<biostatMet>3</biostatMet>
+		<biostatCpx>4</biostatCpx>
+		<biostatMet>4</biostatMet>
 		<statFactors>
 			<LifespanFactor>1.5</LifespanFactor>
 			<CancerRate>-0.2</CancerRate>
@@ -118,8 +118,8 @@
 		<description>Carriers of this gene had their bodies grown in a vat. A lot of effort was put into it, resulting in masterwork quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Masterwork</iconPath>
 		<displayOrderInCategory>25</displayOrderInCategory>
-		<biostatCpx>6</biostatCpx>
-		<biostatMet>6</biostatMet>
+		<biostatCpx>8</biostatCpx>
+		<biostatMet>8</biostatMet>
 		<statFactors>
 			<LifespanFactor>2</LifespanFactor>
 			<CancerRate>-0.3</CancerRate>
@@ -141,8 +141,8 @@
 		<description>Carriers of this gene had their bodies grown in a vat. An extreme amount of effort was put into it, resulting in legendary quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Legendary</iconPath>
 		<displayOrderInCategory>30</displayOrderInCategory>
-		<biostatCpx>10</biostatCpx>
-		<biostatMet>10</biostatMet>
+		<biostatCpx>12</biostatCpx>
+		<biostatMet>12</biostatMet>
 		<statFactors>
 			<LifespanFactor>3</LifespanFactor>
 			<CancerRate>-0.5</CancerRate>

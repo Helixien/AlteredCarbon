@@ -235,6 +235,9 @@
 			</tags>
 			<developmentalStageFilter>Child, Adult</developmentalStageFilter>
 		</apparel>
+		<tradeTags>
+			<li>Armor</li>
+		</tradeTags>
 		<colorGenerator Class="ColorGenerator_Options">
 			<options>
 				<li>
