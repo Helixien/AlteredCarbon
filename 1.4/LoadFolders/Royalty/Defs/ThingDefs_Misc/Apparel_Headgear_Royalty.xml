@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<!-- ================================ Dragoon Armour - Helmet ====================== -->
+	<ThingDef ParentName="AC_HuntersHelmet">
+		<defName>AC_Apparel_DragoonHelmet</defName>
+		<label>dragoon helmet</label>
+		<description>A powered armor helmet, built to provide the best protection available for humanity. Every helmet is manufactured at a specialized facility, which effectively prints the entirety as one piece, molecule by molecule. The result is levels of protection unmatched by military hardware, as the production costs are staggering and unsustainable for mass production.\n\nIncludes a package of a classifier AI, to analyze terrain composition and guide the user, effectively eliminating terrain movement penalties.</description>
+		<graphicData>
+			<texPath>Things/Pawn/Humanlike/Apparel/DragoonArmor/DragoonHelmet</texPath>
+		</graphicData>
+		<statBases>
+			<WorkToMake>28250</WorkToMake>
+			<MaxHitPoints>200</MaxHitPoints>
+			<Mass>3.5</Mass>
+			<Flammability>0.4</Flammability>
+			<ArmorRating_Sharp>1.18</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.52</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.62</ArmorRating_Heat>
+			<Insulation_Cold>5</Insulation_Cold>
+			<Insulation_Heat>4</Insulation_Heat>
+			<EquipDelay>7</EquipDelay>
+		</statBases>
+		<recipeMaker>
+			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+			<researchPrerequisite>AC_AdvancedPoweredArmor</researchPrerequisite>
+			<workSkill>Crafting</workSkill>
+			<skillRequirements>
+				<Crafting>10</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>FabricationBench</li>
+			</recipeUsers>
+			<displayPriority>106</displayPriority>
+		</recipeMaker>
+		<costList>
+			<ComponentSpacer>2</ComponentSpacer>
+			<Plasteel>65</Plasteel>
+		</costList>
+		<equippedStatOffsets>
+			<MoveSpeed>-0.35</MoveSpeed>
+		</equippedStatOffsets>
+		<apparel>
+			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/DragoonArmor/DragoonHelmet</wornGraphicPath>
+			<tags>
+				<li>SpacerMilitary</li>
+				<li>UltraMilitary</li>
+			</tags>
+		</apparel>
+	</ThingDef>
+</Defs>

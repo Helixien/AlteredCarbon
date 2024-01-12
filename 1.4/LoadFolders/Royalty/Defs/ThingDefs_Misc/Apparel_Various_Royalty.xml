@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Dragoon Armour ====================== -->
+	<ThingDef ParentName="AC_HuntersArmourBase">
+		<defName>AC_Apparel_DragoonArmor</defName>
+		<label>dragoon armor</label>
+		<description>A suit of powered armor, built to provide the best protection available for humanity. Every suit is manufactured at a specialized facility, which effectively prints the entirety as one piece, molecule by molecule. The result is levels of protection unmatched by military hardware, as the production costs are staggering and unsustainable for mass production.\n\nIncludes a package of pain inhibitors to ensure the user can fulfill their objective until their dying breath. The intent of the armor is to ensure their benefactor’s survival, as opposed to the user.\n\nThis model includes kinetic assistors and stability modules that allow the user to leap an impressive distance. The module reduces the protective capabilities in exchange for this function.</description>
+		<graphicData>
+			<texPath>Things/Pawn/Humanlike/Apparel/DragoonArmor/DragoonArmor</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>76500</WorkToMake>
+			<MaxHitPoints>450</MaxHitPoints>
+			<Mass>18</Mass>
+			<Flammability>0.4</Flammability>
+			<ArmorRating_Sharp>1.25</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.65</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.62</ArmorRating_Heat>
+			<Insulation_Cold>38</Insulation_Cold>
+			<Insulation_Heat>16</Insulation_Heat>
+			<EquipDelay>20</EquipDelay>
+			<JumpRange>23.9</JumpRange>
+		</statBases>
+		<recipeMaker>
+			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+			<researchPrerequisite>AC_AdvancedPoweredArmor</researchPrerequisite>
+			<workSkill>Crafting</workSkill>
+			<skillRequirements>
+				<Crafting>10</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>FabricationBench</li>
+			</recipeUsers>
+			<displayPriority>106</displayPriority>
+		</recipeMaker>
+		<costList>
+			<ComponentSpacer>8</ComponentSpacer>
+			<Plasteel>165</Plasteel>
+			<Uranium>75</Uranium>
+		</costList>
+		<equippedStatOffsets>
+			<MoveSpeed>-0.7</MoveSpeed>
+		</equippedStatOffsets>
+		<apparel>
+			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/DragoonArmor/DragoonArmor</wornGraphicPath>
+			<tags>
+				<li>SpacerMilitary</li>
+				<li>UltraMilitary</li>
+			</tags>
+		</apparel>
+		<verbs>
+			<li>
+				<verbClass>Verb_Jump</verbClass>
+				<label>jump</label>
+				<commandIcon>UI/Gizmos/Ability_DragoonJump</commandIcon>
+				<violent>false</violent>
+				<hasStandardCommand>true</hasStandardCommand>
+				<onlyManualCast>True</onlyManualCast>
+				<forceNormalTimeSpeed>false</forceNormalTimeSpeed>
+				<warmupTime>0.4</warmupTime>
+				<warmupEffecter>JumpWarmupEffect</warmupEffecter>
+				<flightEffecterDef>JumpFlightEffect</flightEffecterDef>
+				<requireLineOfSight>true</requireLineOfSight>
+				<targetParams>
+					<canTargetLocations>true</canTargetLocations>
+					<canTargetPawns>false</canTargetPawns>
+					<canTargetBuildings>false</canTargetBuildings>
+				</targetParams>
+			</li>
+		</verbs>
+		<comps>
+			<li Class="CompProperties_Reloadable">
+				<maxCharges>10</maxCharges>
+				<ammoDef>Neutroamine</ammoDef>
+				<ammoCountPerCharge>10</ammoCountPerCharge>
+				<baseReloadTicks>50</baseReloadTicks>
+				<soundReload>Standard_Reload</soundReload>
+				<hotKey>Misc4</hotKey>
+				<chargeNoun>dragoon jump</chargeNoun>
+				<displayGizmoWhileUndrafted>false</displayGizmoWhileUndrafted>
+			</li>
+			<li Class="VFECore.CompProperties_ApparelHediffs">
+				<hediffDefnames>
+					<li>AC_PainProtection</li>
+				</hediffDefnames>
+			</li>
+		</comps>
+	</ThingDef>
+</Defs>
