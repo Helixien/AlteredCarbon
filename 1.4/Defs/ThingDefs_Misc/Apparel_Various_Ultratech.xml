@@ -76,7 +76,7 @@
 			<ArmorRating_Sharp>1.12</ArmorRating_Sharp>
 			<ArmorRating_Blunt>0.54</ArmorRating_Blunt>
 			<ArmorRating_Heat>0.62</ArmorRating_Heat>
-			<Insulation_Cold>36</Insulation_Cold>
+			<Insulation_Cold>32</Insulation_Cold>
 			<Insulation_Heat>12</Insulation_Heat>
 			<EquipDelay>12</EquipDelay>
 		</statBases>
@@ -129,9 +129,9 @@
 			<MaxHitPoints>450</MaxHitPoints>
 			<Mass>18</Mass>
 			<Flammability>0.4</Flammability>
-			<ArmorRating_Sharp>1.14</ArmorRating_Sharp>
-			<ArmorRating_Blunt>0.53</ArmorRating_Blunt>
-			<ArmorRating_Heat>0.51</ArmorRating_Heat>
+			<ArmorRating_Sharp>1.15</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.55</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.50</ArmorRating_Heat>
 			<Insulation_Cold>32</Insulation_Cold>
 			<Insulation_Heat>11</Insulation_Heat>
 			<EquipDelay>18</EquipDelay>
@@ -268,7 +268,7 @@
 				<showOnHostiles>true</showOnHostiles>
 				<showOnNeutralInCombat>true</showOnNeutralInCombat>
 				<shieldTexPath>Other/ShieldBubble</shieldTexPath>
-				<EnergyShieldRechargeRate>0.2</EnergyShieldRechargeRate>
+				<EnergyShieldRechargeRate>0.12</EnergyShieldRechargeRate>
 				<EnergyShieldEnergyMax>250</EnergyShieldEnergyMax>
 				<minShieldSize>1.4</minShieldSize>
 				<maxShieldSize>1.8</maxShieldSize>

@@ -146,9 +146,9 @@
 		</colorGenerator>
 		<comps>
 			<li Class="CompProperties_Reloadable">
-				<maxCharges>15</maxCharges>
+				<maxCharges>16</maxCharges>
 				<ammoDef>Neutroamine</ammoDef>
-				<ammoCountPerCharge>5</ammoCountPerCharge>
+				<ammoCountPerCharge>2</ammoCountPerCharge>
 				<baseReloadTicks>60</baseReloadTicks>
 				<soundReload>Standard_Reload</soundReload>
 				<hotKey>Misc4</hotKey>
