@@ -5,7 +5,7 @@
 		<defName>AC_Bullet_ChargeIncursionarShotgun</defName>
 		<label>charge shotgun blast</label>
 		<graphicData>
-			<texPath>Things/Projectile/Bullet_Charge_Shotgun</texPath>
+			<texPath>Things/Projectile/Bullet_Charge_Blast</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<shaderType>TransparentPostLight</shaderType>
 			<drawSize>1.2</drawSize>
@@ -13,7 +13,7 @@
 		<projectile>
 			<damageDef>Bullet</damageDef>
 			<damageAmountBase>17</damageAmountBase>
-			<armorPenetrationBase>0.42</armorPenetrationBase>
+			<armorPenetrationBase>0.45</armorPenetrationBase>
 			<stoppingPower>2.8</stoppingPower>
 			<speed>60</speed>
 		</projectile>
@@ -29,7 +29,7 @@
 			<damageDef>Bullet</damageDef>
 			<damageAmountBase>14</damageAmountBase>
 			<armorPenetrationBase>0.32</armorPenetrationBase>
-			<speed>70</speed>
+			<speed>72</speed>
 		</projectile>
 	</ThingDef>
 	<!-- ================================ Gun ====================== -->
@@ -87,7 +87,7 @@
 				<warmupTime>1.0</warmupTime>
 				<range>29.9</range>
 				<ticksBetweenBurstShots>10</ticksBetweenBurstShots>
-				<burstShotCount>2</burstShotCount>
+				<burstShotCount>3</burstShotCount>
 				<soundCast>Shot_ChargeRifle</soundCast>
 				<soundCastTail>GunTail_Medium</soundCastTail>
 				<muzzleFlashScale>9</muzzleFlashScale>
@@ -97,10 +97,10 @@
 				<hasStandardCommand>true</hasStandardCommand>
 				<label>Shotgun mode (Charged blast)</label>
 				<defaultProjectile>AC_Bullet_ChargeIncursionarShotgun</defaultProjectile>
-				<warmupTime>0.9</warmupTime>
+				<warmupTime>1.2</warmupTime>
 				<range>17.9</range>
-				<burstShotCount>1</burstShotCount>
-				<soundCast>Shot_ChargeRifle</soundCast>
+				<burstShotCount>2</burstShotCount>
+				<soundCast>AC_Shot_ChargeShotgun</soundCast>
 				<soundCastTail>GunTail_Heavy</soundCastTail>
 				<muzzleFlashScale>9</muzzleFlashScale>
 			</li>
