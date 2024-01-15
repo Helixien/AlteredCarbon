@@ -706,7 +706,6 @@ namespace AlteredCarbon
         }
         public static void DisableKillEffects(this Pawn pawn)
         {
-            pawn.forceNoDeathNotification = true;
             Pawn_DoKillSideEffects.disableKillEffect = pawn;
             Faction_Notify_LeaderDied_Patch.disableKillEffect = pawn;
             PawnDiedOrDownedThoughtsUtility_AppendThoughts_ForHumanlike_Patch.disableKillEffect = pawn;
@@ -737,7 +736,7 @@ namespace AlteredCarbon
         public static bool HasStackInsideOrOutside(this Pawn pawn)
         {
             return AlteredCarbonManager.Instance.StacksIndex.ContainsKey(pawn.thingIDNumber)
-                || AlteredCarbonManager.Instance.PawnsWithStacks.Contains(pawn);
+                || AlteredCarbonManager.Instance.PawnsWithStacks.Contains(pawn) || pawn.HasCorticalStack();
         }
 
         public static bool UsesSleeve(this Pawn pawn)

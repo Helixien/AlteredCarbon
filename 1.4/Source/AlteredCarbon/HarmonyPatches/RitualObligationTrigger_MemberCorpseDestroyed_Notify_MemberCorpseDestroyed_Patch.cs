@@ -10,15 +10,14 @@ namespace AlteredCarbon
     {
         public static bool Prefix(RitualObligationTrigger_MemberCorpseDestroyed __instance, Pawn p)
         {
-            if (p is Pawn pawn && pawn.IsEmptySleeve())
+            if (p.IsEmptySleeve() || AlteredCarbonManager.Instance.StacksIndex.ContainsKey(p.thingIDNumber))
             {
                 return false;
             }
-            Precept_Ritual precept_Ritual = (Precept_Ritual)(p.ideo?.Ideo?.GetPrecept(PreceptDefOf.Funeral));
-            if (precept_Ritual != null)
+            if (__instance.ritual != null)
             {
-                precept_Ritual.completedObligations ??= new List<RitualObligation>();
-                precept_Ritual.completedObligations.RemoveAll(x => x is null);
+                __instance.ritual.completedObligations ??= new List<RitualObligation>();
+                __instance.ritual.completedObligations.RemoveAll(x => x is null);
             }
             return true;
         }
