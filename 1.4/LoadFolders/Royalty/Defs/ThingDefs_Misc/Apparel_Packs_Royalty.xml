@@ -3,7 +3,7 @@
 	<!-- ================================ Jump Wings ====================== -->
 	<ThingDef ParentName="ApparelBase">
 		<defName>AC_Apparel_WingJump</defName>
-		<label>jump wings</label>
+		<label>glide pack</label>
 		<description>A single-person set of mechanical wings for short-ranged flight. With its artificial polymer muscles and guidance assistant, the jump wing allows anyone to leap distances at high speed, while staying completely silent. It must be recharged after several uses.\n\nSome spacer tech militaries have melee combat specialists who use jump wings for covert infiltration or black ops missions.</description>
 		<techLevel>Spacer</techLevel>
 		<verbs>
