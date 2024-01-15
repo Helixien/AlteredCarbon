@@ -88,6 +88,9 @@
     <Compile Include="HarmonyPatches\Apparel_Notify_PawnKilled_Patch.cs" />
     <Compile Include="HarmonyPatches\CharacterCardUtility_DrawCharacterCard_Patch.cs" />
     <Compile Include="HarmonyPatches\CharacterCardUtility_LifestageAndXenotypeOptions_Patch.cs" />
+    <Compile Include="HarmonyPatches\CompBiocodable_UnCode_Patch.cs" />
+    <Compile Include="HarmonyPatches\ModCompat\GeneRipper_Building_GeneRipper_KillOccupant_Patch.cs" />
+    <Compile Include="HarmonyPatches\Precept_Role_ValidatePawn_Patch.cs" />
     <Compile Include="HarmonyPatches\TransferableUIUtility_DoExtraIcons_Patch.cs" />
     <Compile Include="HarmonyPatches\CompRottable_CompInspectStringExtra_Patch.cs" />
     <Compile Include="HarmonyPatches\ContainingSelectionUtility_CanSelect_Patch.cs" />

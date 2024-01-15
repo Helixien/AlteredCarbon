@@ -5,7 +5,6 @@ using HarmonyLib;
 using RimWorld;
 using RimWorld.Planet;
 using Verse;
-using VFECore.Abilities;
 
 namespace AlteredCarbon
 {
@@ -59,7 +58,7 @@ namespace AlteredCarbon
             this.Part = pawn.GetNeck();
             base.PostAdd(dinfo);
 
-            foreach (var hediff in pawn.health.hediffSet.hediffs)
+            foreach (var hediff in pawn.health.hediffSet.hediffs.ToList())
             {
                 if (hediff != this && hediff is Hediff_CorticalStack otherStack)
                 {
@@ -133,7 +132,8 @@ namespace AlteredCarbon
             }
         }
         public bool preventSpawningStack;
-        public void SpawnStack(bool destroyPawn = false, ThingPlaceMode placeMode = ThingPlaceMode.Near, Caravan caravan = null, bool psycastEffect = false)
+        public void SpawnStack(bool destroyPawn = false, ThingPlaceMode placeMode = ThingPlaceMode.Near, 
+            Caravan caravan = null, bool psycastEffect = false, Map mapToSpawn = null)
         {
             if (preventSpawningStack)
             {
@@ -146,9 +146,10 @@ namespace AlteredCarbon
                 var corticalStack = ThingMaker.MakeThing(stackDef) as CorticalStack;
                 corticalStack.PersonaData.CopyFromPawn(this.pawn, stackDef);
                 corticalStack.PersonaData.CopyOriginalData(PersonaData);
-                if (this.pawn.MapHeld != null)
+                mapToSpawn ??= this.pawn.MapHeld;
+                if (mapToSpawn != null)
                 {
-                    GenPlace.TryPlaceThing(corticalStack, this.pawn.PositionHeld, this.pawn.MapHeld, placeMode);
+                    GenPlace.TryPlaceThing(corticalStack, this.pawn.PositionHeld, (Map)mapToSpawn, placeMode);
                     if (psycastEffect)
                     {
                         FleckMaker.Static(corticalStack.Position, corticalStack.Map, AC_DefOf.PsycastAreaEffect, 3f);
@@ -157,6 +158,10 @@ namespace AlteredCarbon
                 else if (caravan != null)
                 {
                     CaravanInventoryUtility.GiveThing(caravan, corticalStack);
+                }
+                else
+                {
+                    Log.Error("Failed to spawn cortical stack from " + pawn);
                 }
                 var degradationHediff = pawn.health.hediffSet.GetFirstHediff<Hediff_StackDegradation>();
                 if (degradationHediff != null)
@@ -191,13 +196,9 @@ namespace AlteredCarbon
         {
             public static Pawn curPawn;
 
-            public static void Prefix(HediffSet __instance)
-            {
-                curPawn = __instance.pawn;
-            }
             public static void Postfix(HediffSet __instance)
             {
-                curPawn = null;
+                curPawn = __instance.pawn;
             }
         }
         public override void ExposeData()
@@ -210,6 +211,7 @@ namespace AlteredCarbon
                 CreateSkipAbilityIfMissing();
             }
             var curPawn = this.pawn ?? HediffSet_ExposeData_Patch.curPawn;
+            HediffSet_ExposeData_Patch.curPawn = null;
             if (skipAbility != null)
             {
                 skipAbility.holder = curPawn;

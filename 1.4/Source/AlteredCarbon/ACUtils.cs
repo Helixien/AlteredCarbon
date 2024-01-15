@@ -706,6 +706,7 @@ namespace AlteredCarbon
         }
         public static void DisableKillEffects(this Pawn pawn)
         {
+            pawn.forceNoDeathNotification = true;
             Pawn_DoKillSideEffects.disableKillEffect = pawn;
             Faction_Notify_LeaderDied_Patch.disableKillEffect = pawn;
             PawnDiedOrDownedThoughtsUtility_AppendThoughts_ForHumanlike_Patch.disableKillEffect = pawn;

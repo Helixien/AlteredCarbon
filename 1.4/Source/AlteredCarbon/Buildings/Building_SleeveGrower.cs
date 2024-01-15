@@ -365,14 +365,13 @@ namespace AlteredCarbon
         public void PutCorpseForRepurposing(Corpse corpse)
         {
             Reset();
-            var copyPawn = ACUtils.ClonePawn(corpse.InnerPawn);
-            copyPawn.health.healthState = PawnHealthState.Dead;
-            Find.WorldPawns.AddPawn(copyPawn);
-            var newCorpse = copyPawn.MakeCorpse(null, null);
-            newCorpse.timeOfDeath = corpse.timeOfDeath;
-            newCorpse.TryGetComp<CompRottable>().RotProgress = initialRotTime = corpse.TryGetComp<CompRottable>().RotProgress;
-            TryAcceptThing(newCorpse);
-            corpse.Destroy();
+            var clone = ACUtils.ClonePawn(corpse.InnerPawn);
+            clone.health.healthState = PawnHealthState.Dead;
+            Find.WorldPawns.AddPawn(clone);
+            initialRotTime = corpse.TryGetComp<CompRottable>().RotProgress;
+            corpse.innerContainer.Clear();
+            corpse.InnerPawn = clone;
+            TryAcceptThing(corpse);
             var totalTicksToGrow = 60000f;
             var totalCostToGrow = 25f;
             var missingParts = InnerPawn.GetMissingParts();
@@ -386,7 +385,7 @@ namespace AlteredCarbon
             var brainTraumas = InnerPawn.health.hediffSet.hediffs.Where(x => x.def == AC_DefOf.AC_BrainTrauma || x.def == AC_DefOf.TraumaSavant);
             totalTicksToGrow += brainTraumas.Count() * 2500;
             totalCostToGrow += brainTraumas.Count() * 10;
-            if (newCorpse.GetRotStage() == RotStage.Rotting)
+            if (corpse.GetRotStage() == RotStage.Rotting)
             {
                 totalTicksToGrow *= 2f;
                 totalCostToGrow *= 2f;

@@ -18,6 +18,10 @@ namespace AlteredCarbon
         {
             if (ACUtils.generalSettings.enableStackSpawning)
             {
+                if (ModCompatibility.VanillaRacesExpandedAndroidIsActive && ModCompatibility.IsAndroid(pawn))
+                {
+                    return;
+                }
                 if (pawn.HasCorticalStack() is false && Rand.Chance(chanceToSpawnWithStack / 100f))
                 {
                     var neckRecord = pawn.GetNeck();
