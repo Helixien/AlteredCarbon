@@ -15,27 +15,42 @@ namespace AlteredCarbon
             var comp = __result?.HediffCompSource as HediffComp_MeleeWeapon;
             if (comp is null)
             {
-                var verbs = new List<VerbEntry>();
-                foreach (var hediff in __instance.health.hediffSet.hediffs)
+                var verb = GetMeleeWeaponVerb(__instance, target);
+                if (verb != null)
                 {
-                    comp = hediff.TryGetComp<HediffComp_MeleeWeapon>();
-                    if (comp != null)
+                    __result = verb;
+                }
+            }
+        }
+
+        public static Verb GetMeleeWeaponVerb(Pawn __instance, Thing target)
+        {
+            var verbs = new List<VerbEntry>();
+            foreach (var hediff in __instance.health.hediffSet.hediffs)
+            {
+                var comp = hediff.TryGetComp<HediffComp_MeleeWeapon>();
+                if (comp != null)
+                {
+                    foreach (var verb in comp.VerbTracker.AllVerbs)
                     {
-                        foreach (var verb in comp.VerbTracker.AllVerbs)
+                        if (__instance.IsUsable(target, verb))
                         {
-                            if (verb.IsStillUsableBy(__instance) && (target is null || verb.IsUsableOn(target) && verb.CanHitTarget(target)))
-                            {
-                                verbs.Add(new VerbEntry(verb, __instance));
-                            }
+                            verbs.Add(new VerbEntry(verb, __instance));
                         }
                     }
                 }
-
-                if (verbs.TryRandomElementByWeight((VerbEntry ve) => ve.GetSelectionWeight(target), out var result))
-                {
-                    __result = result.verb;
-                }
             }
+
+            if (verbs.TryRandomElementByWeight((VerbEntry ve) => ve.GetSelectionWeight(target), out var result))
+            {
+                return result.verb;
+            }
+            return null;
+        }
+
+        public static bool IsUsable(this Pawn __instance, Thing target, Verb verb)
+        {
+            return verb.IsStillUsableBy(__instance) && (target is null || verb.IsUsableOn(target) && verb.CanHitTarget(target));
         }
     }
 }
