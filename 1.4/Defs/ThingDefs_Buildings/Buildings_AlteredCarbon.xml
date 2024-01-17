@@ -1,5 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
+	<!-- ================================ Incubator Addons Base ====================== -->
+	<ThingDef ParentName="BuildingBase" Name="AC_SleeveIncubatorLinkableBase" Abstract="True">
+		<drawerType>MapMeshAndRealTime</drawerType>
+		<drawGUIOverlay>true</drawGUIOverlay>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>22</pathCost>
+		<blockWind>false</blockWind>
+		<fillPercent>0.5</fillPercent>
+		<canOverlapZones>false</canOverlapZones>
+		<neverMultiSelect>false</neverMultiSelect>
+		<rotatable>false</rotatable>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
+		<comps>
+			<li Class="CompProperties_Flickable"/>
+		</comps>
+	</ThingDef>
+	<!-- ================================ Incubator Addons - Genome  ====================== -->
+	<ThingDef ParentName="AC_SleeveIncubatorLinkableBase">
+		<defName>AC_GenomeRevitalizer</defName>
+		<label>genome revitalizer</label>
+		<description>A large structure that performs reactionary measures to adverse effects during the growth process of a sleeve. When linked to an incubator, it fully takes over the task of monitoring the sleeves genome, working more efficiently than the incubator could on its own, reducing the amount of time needed to grow a sleeve by 3 days. No more than 2 can be linked to one incubator at the same time.\n\nAn add-on to the sleeve incubator, this device needs to be placed in close proximity to it and will cut reduce growth time by 25%.</description>
+		<graphicData>
+			<texPath>Things/Building/Misc/GenomeRevitalizer</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shadowData>
+				<volume>(2.9,0.3,2.9)</volume>
+			</shadowData>
+			<drawSize>(3, 3)</drawSize>
+		</graphicData>
+		<statBases>
+			<MaxHitPoints>250</MaxHitPoints>
+			<Mass>30</Mass>
+		</statBases>
+		<size>(3,3)</size>
+		<costList>
+			<Plasteel>75</Plasteel>
+			<ComponentIndustrial>2</ComponentIndustrial>
+			<ComponentSpacer>6</ComponentSpacer>
+		</costList>
+		<building>
+			<destroySound>BuildingDestroyed_Metal_Small</destroySound>
+		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>450</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Facility">
+				<maxSimultaneous>2</maxSimultaneous>
+				<maxDistance>16</maxDistance>
+			</li>
+		</comps>
+	</ThingDef>
 	<!-- ================================ Stack Array ====================== -->
 	<ThingDef ParentName="BuildingBase">
 		<defName>AC_StackArray</defName>
