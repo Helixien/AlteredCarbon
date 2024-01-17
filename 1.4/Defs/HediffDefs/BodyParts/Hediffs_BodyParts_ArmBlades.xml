@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-
+	<!-- ================================ Arm-Blade - Default ====================== -->
 	<HediffDef ParentName="ImplantHediffBase">
 		<defName>AC_ArmBlade</defName>
 		<label>arm blade</label>
 		<labelNoun>an arm blade</labelNoun>
-		<description>An advanced artificial combat focused arm. A razor-sharp, retractable blade powered by silenced nano-motors replace the radius and ulna. When extended the blade allows for devastating attacks, offering unparalleled swiftness and precision. When retracted neuromuscular synchronisation makes them appear and function similarly to a bionic arm.</description>
-		<descriptionHyperlinks><ThingDef>AC_ArmBlade</ThingDef></descriptionHyperlinks>
+		<description>An installed advanced artificial combat focused arm. A razor-sharp, retractable blade powered by silenced nano-motors replace the radius and ulna. When extended the blade allows for devastating attacks, offering unparalleled swiftness and precision. When retracted neuromuscular synchronisation makes them appear and function similarly to a bionic arm.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_ArmBlade</ThingDef>
+		</descriptionHyperlinks>
 		<spawnThingOnRemoved>AC_ArmBlade</spawnThingOnRemoved>
 		<comps>
 			<li Class="AlteredCarbon.HediffCompProperties_MeleeWeapon">
@@ -44,12 +46,13 @@
 			</li>
 		</comps>
 	</HediffDef>
-
 	<ThingDef ParentName="BodyPartProstheticBase">
 		<defName>AC_ArmBlade</defName>
 		<label>arm blade</label>
 		<description>An advanced artificial combat focused arm. A razor-sharp, retractable blade powered by silenced nano-motors replace the radius and ulna. When extended the blade allows for devastating attacks, offering unparalleled swiftness and precision. When retracted neuromuscular synchronisation makes them appear and function similarly to a bionic arm.</description>
-		<descriptionHyperlinks><RecipeDef>AC_InstallArmBlade</RecipeDef></descriptionHyperlinks>
+		<descriptionHyperlinks>
+			<RecipeDef>AC_InstallArmBlade</RecipeDef>
+		</descriptionHyperlinks>
 		<thingSetMakerTags>
 			<li>RewardStandardLowFreq</li>
 		</thingSetMakerTags>
@@ -61,7 +64,6 @@
 			<li>Advanced</li>
 		</techHediffsTags>
 	</ThingDef>
-
 	<RecipeDef ParentName="SurgeryInstallImplantBase">
 		<defName>AC_InstallArmBlade</defName>
 		<label>install arm blade</label>
@@ -87,19 +89,19 @@
 			</thingDefs>
 		</fixedIngredientFilter>
 		<appliedOnFixedBodyParts>
-			<li>Shoulder</li>
+			<li>Arm</li>
 		</appliedOnFixedBodyParts>
 		<addsHediff>AC_ArmBlade</addsHediff>
 	</RecipeDef>
-
+	<!-- ================================ Arm-Blade - Mono ====================== -->
 	<HediffDef ParentName="ImplantHediffBase" MayRequire="Ludeon.Rimworld.Royalty">
 		<defName>AC_MonoArmBlade</defName>
 		<label>mono arm blade</label>
 		<labelNoun>an mono arm blade</labelNoun>
-		<description>An advanced artificial combat focused arm. A razor-sharp, retractable blade powered by silenced nano-motors replace the radius and ulna. When extended the blade allows for devastating attacks, offering unparalleled swiftness, precision and armour penetration. When retracted neuromuscular synchronisation makes them appear and function similarly to a bionic arm.
-
-This variation uses a crystal-metallic blade infused with mechanites that maintain a mono-molecular cutting edge. It cuts through even thick armour with ease, and its light weight permits fast attacks.</description>
-		<descriptionHyperlinks><ThingDef>AC_MonoArmBlade</ThingDef></descriptionHyperlinks>
+		<description>An installed advanced artificial combat focused arm. A razor-sharp, retractable blade powered by silenced nano-motors replace the radius and ulna. When extended the blade allows for devastating attacks, offering unparalleled swiftness, precision and armour penetration. When retracted neuromuscular synchronisation makes them appear and function similarly to a bionic arm.\n\nThis variation uses a crystal-metallic blade infused with mechanites that maintain a mono-molecular cutting edge. It cuts through even thick armour with ease, and its light weight permits fast attacks.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_MonoArmBlade</ThingDef>
+		</descriptionHyperlinks>
 		<spawnThingOnRemoved>AC_MonoArmBlade</spawnThingOnRemoved>
 		<comps>
 			<li Class="AlteredCarbon.HediffCompProperties_MeleeWeapon">
@@ -137,14 +139,13 @@ This variation uses a crystal-metallic blade infused with mechanites that mainta
 			</li>
 		</comps>
 	</HediffDef>
-
 	<ThingDef ParentName="BodyPartProstheticBase" MayRequire="Ludeon.Rimworld.Royalty">
 		<defName>AC_MonoArmBlade</defName>
 		<label>mono arm blade</label>
-		<description>An advanced artificial combat focused arm. A razor-sharp, retractable blade powered by silenced nano-motors replace the radius and ulna. When extended the blade allows for devastating attacks, offering unparalleled swiftness, precision and armour penetration. When retracted neuromuscular synchronisation makes them appear and function similarly to a bionic arm.
-
-This variation uses a crystal-metallic blade infused with mechanites that maintain a mono-molecular cutting edge. It cuts through even thick armour with ease, and its light weight permits fast attacks.</description>
-		<descriptionHyperlinks><RecipeDef>AC_InstallMonoArmBlade</RecipeDef></descriptionHyperlinks>
+		<description>An advanced artificial combat focused arm. A razor-sharp, retractable blade powered by silenced nano-motors replace the radius and ulna. When extended the blade allows for devastating attacks, offering unparalleled swiftness, precision and armour penetration. When retracted neuromuscular synchronisation makes them appear and function similarly to a bionic arm.\n\nThis variation uses a crystal-metallic blade infused with mechanites that maintain a mono-molecular cutting edge. It cuts through even thick armour with ease, and its light weight permits fast attacks.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>AC_InstallMonoArmBlade</RecipeDef>
+		</descriptionHyperlinks>
 		<thingSetMakerTags>
 			<li>RewardStandardLowFreq</li>
 		</thingSetMakerTags>
@@ -156,7 +157,6 @@ This variation uses a crystal-metallic blade infused with mechanites that mainta
 			<li>Advanced</li>
 		</techHediffsTags>
 	</ThingDef>
-
 	<RecipeDef ParentName="SurgeryInstallImplantBase" MayRequire="Ludeon.Rimworld.Royalty">
 		<defName>AC_InstallMonoArmBlade</defName>
 		<label>install mono arm blade</label>
@@ -182,20 +182,19 @@ This variation uses a crystal-metallic blade infused with mechanites that mainta
 			</thingDefs>
 		</fixedIngredientFilter>
 		<appliedOnFixedBodyParts>
-			<li>Shoulder</li>
+			<li>Arm</li>
 		</appliedOnFixedBodyParts>
 		<addsHediff>AC_MonoArmBlade</addsHediff>
 	</RecipeDef>
-
-
+	<!-- ================================ Arm-Blade - Plasma ====================== -->
 	<HediffDef ParentName="ImplantHediffBase" MayRequire="Ludeon.Rimworld.Royalty">
 		<defName>AC_PlasmaArmBlade</defName>
 		<label>plasma arm blade</label>
 		<labelNoun>an plasma arm blade</labelNoun>
-		<description>An advanced artificial combat focused arm. A razor-sharp, retractable blade powered by silenced nano-motors replace the radius and ulna. When extended the blade allows for devastating attacks, offering unparalleled swiftness, precision and armour penetration. When retracted neuromuscular synchronisation makes them appear and function similarly to a bionic arm.
-
-This variation uses a metal-cored blade with a cutting edge. Plasma is wrapped around the core, held in place by an energy field. Targets are both sliced by the metal core, as well as burned or ignited by the plasma sheath.</description>
-		<descriptionHyperlinks><ThingDef>AC_PlasmaArmBlade</ThingDef></descriptionHyperlinks>
+		<description>An installed advanced artificial combat focused arm. A razor-sharp, retractable blade powered by silenced nano-motors replace the radius and ulna. When extended the blade allows for devastating attacks, offering unparalleled swiftness, precision and armour penetration. When retracted neuromuscular synchronisation makes them appear and function similarly to a bionic arm.\n\nThis variation uses a metal-cored blade with a cutting edge. Plasma is wrapped around the core, held in place by an energy field. Targets are both sliced by the metal core, as well as burned or ignited by the plasma sheath.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_PlasmaArmBlade</ThingDef>
+		</descriptionHyperlinks>
 		<spawnThingOnRemoved>AC_PlasmaArmBlade</spawnThingOnRemoved>
 		<comps>
 			<li Class="AlteredCarbon.HediffCompProperties_MeleeWeapon">
@@ -242,21 +241,18 @@ This variation uses a metal-cored blade with a cutting edge. Plasma is wrapped a
 								<chance>0.5</chance>
 							</li>
 						</extraMeleeDamages>
-
 					</li>
-
 				</tools>
 			</li>
 		</comps>
 	</HediffDef>
-
 	<ThingDef ParentName="BodyPartProstheticBase" MayRequire="Ludeon.Rimworld.Royalty">
 		<defName>AC_PlasmaArmBlade</defName>
 		<label>plasma arm blade</label>
-		<description>An advanced artificial combat focused arm. A razor-sharp, retractable blade powered by silenced nano-motors replace the radius and ulna. When extended the blade allows for devastating attacks, offering unparalleled swiftness, precision and armour penetration. When retracted neuromuscular synchronisation makes them appear and function similarly to a bionic arm.
-
-This variation uses a metal-cored blade with a cutting edge. Plasma is wrapped around the core, held in place by an energy field. Targets are both sliced by the metal core, as well as burned or ignited by the plasma sheath.</description>
-		<descriptionHyperlinks><RecipeDef>AC_InstallPlasmaArmBlade</RecipeDef></descriptionHyperlinks>
+		<description>An advanced artificial combat focused arm. A razor-sharp, retractable blade powered by silenced nano-motors replace the radius and ulna. When extended the blade allows for devastating attacks, offering unparalleled swiftness, precision and armour penetration. When retracted neuromuscular synchronisation makes them appear and function similarly to a bionic arm.\n\nThis variation uses a metal-cored blade with a cutting edge. Plasma is wrapped around the core, held in place by an energy field. Targets are both sliced by the metal core, as well as burned or ignited by the plasma sheath.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>AC_InstallPlasmaArmBlade</RecipeDef>
+		</descriptionHyperlinks>
 		<thingSetMakerTags>
 			<li>RewardStandardLowFreq</li>
 		</thingSetMakerTags>
@@ -268,7 +264,6 @@ This variation uses a metal-cored blade with a cutting edge. Plasma is wrapped a
 			<li>Advanced</li>
 		</techHediffsTags>
 	</ThingDef>
-
 	<RecipeDef ParentName="SurgeryInstallImplantBase" MayRequire="Ludeon.Rimworld.Royalty">
 		<defName>AC_InstallPlasmaArmBlade</defName>
 		<label>install plasma arm blade</label>
@@ -294,20 +289,19 @@ This variation uses a metal-cored blade with a cutting edge. Plasma is wrapped a
 			</thingDefs>
 		</fixedIngredientFilter>
 		<appliedOnFixedBodyParts>
-			<li>Shoulder</li>
+			<li>Arm</li>
 		</appliedOnFixedBodyParts>
 		<addsHediff>AC_PlasmaArmBlade</addsHediff>
 	</RecipeDef>
-
-
+	<!-- ================================ Arm-Blade - Tox ====================== -->
 	<HediffDef ParentName="ImplantHediffBase" MayRequire="OskarPotocki.VFE.Empire">
 		<defName>AC_ToxArmBlade</defName>
 		<label>tox arm blade</label>
 		<labelNoun>an tox arm blade</labelNoun>
-		<description>An advanced artificial combat focused arm. A razor-sharp, retractable blade powered by silenced nano-motors replace the radius and ulna. When extended the blade allows for devastating attacks, offering unparalleled swiftness, precision and armour penetration. When retracted neuromuscular synchronisation makes them appear and function similarly to a bionic arm.
-
-This variation uses an acidifier fluid and toxic vapour dispensers along its blade that only lasts a few seconds.</description>
-		<descriptionHyperlinks><ThingDef>AC_ToxArmBlade</ThingDef></descriptionHyperlinks>
+		<description>An installed advanced artificial combat focused arm. A razor-sharp, retractable blade powered by silenced nano-motors replace the radius and ulna. When extended the blade allows for devastating attacks, offering unparalleled swiftness, precision and armour penetration. When retracted neuromuscular synchronisation makes them appear and function similarly to a bionic arm.\n\nThis variation uses an acidifier fluid and toxic vapour dispensers along its blade that only lasts a few seconds.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_ToxArmBlade</ThingDef>
+		</descriptionHyperlinks>
 		<spawnThingOnRemoved>AC_ToxArmBlade</spawnThingOnRemoved>
 		<comps>
 			<li Class="AlteredCarbon.HediffCompProperties_MeleeWeapon">
@@ -341,21 +335,17 @@ This variation uses an acidifier fluid and toxic vapour dispensers along its bla
 						<soundMeleeHit>MeleeHit_BionicSlash</soundMeleeHit>
 						<soundMeleeMiss>MeleeMiss_BionicSlash</soundMeleeMiss>
 					</li>
-
-
-
 				</tools>
 			</li>
 		</comps>
 	</HediffDef>
-
 	<ThingDef ParentName="BodyPartProstheticBase" MayRequire="OskarPotocki.VFE.Empire">
 		<defName>AC_ToxArmBlade</defName>
 		<label>tox arm blade</label>
-		<description>An advanced artificial combat focused arm. A razor-sharp, retractable blade powered by silenced nano-motors replace the radius and ulna. When extended the blade allows for devastating attacks, offering unparalleled swiftness, precision and armour penetration. When retracted neuromuscular synchronisation makes them appear and function similarly to a bionic arm.
-
-This variation uses an acidifier fluid and toxic vapour dispensers along its blade that only lasts a few seconds.</description>
-		<descriptionHyperlinks><RecipeDef>AC_InstallToxArmBlade</RecipeDef></descriptionHyperlinks>
+		<description>An advanced artificial combat focused arm. A razor-sharp, retractable blade powered by silenced nano-motors replace the radius and ulna. When extended the blade allows for devastating attacks, offering unparalleled swiftness, precision and armour penetration. When retracted neuromuscular synchronisation makes them appear and function similarly to a bionic arm.\n\nThis variation uses an acidifier fluid and toxic vapour dispensers along its blade that only lasts a few seconds.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>AC_InstallToxArmBlade</RecipeDef>
+		</descriptionHyperlinks>
 		<thingSetMakerTags>
 			<li>RewardStandardLowFreq</li>
 		</thingSetMakerTags>
@@ -367,7 +357,6 @@ This variation uses an acidifier fluid and toxic vapour dispensers along its bla
 			<li>Advanced</li>
 		</techHediffsTags>
 	</ThingDef>
-
 	<RecipeDef ParentName="SurgeryInstallImplantBase" MayRequire="OskarPotocki.VFE.Empire">
 		<defName>AC_InstallToxArmBlade</defName>
 		<label>install tox arm blade</label>
@@ -393,7 +382,7 @@ This variation uses an acidifier fluid and toxic vapour dispensers along its bla
 			</thingDefs>
 		</fixedIngredientFilter>
 		<appliedOnFixedBodyParts>
-			<li>Shoulder</li>
+			<li>Arm</li>
 		</appliedOnFixedBodyParts>
 		<addsHediff>AC_ToxArmBlade</addsHediff>
 	</RecipeDef>
