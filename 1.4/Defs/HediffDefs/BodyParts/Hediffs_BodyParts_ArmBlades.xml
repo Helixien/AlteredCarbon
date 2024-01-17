@@ -9,13 +9,15 @@
 		<descriptionHyperlinks>
 			<ThingDef>AC_ArmBlade</ThingDef>
 		</descriptionHyperlinks>
-		<spawnThingOnRemoved>AC_ArmBlade</spawnThingOnRemoved>
+		<addedPartProps>
+			<solid>true</solid>
+		</addedPartProps>
 		<comps>
 			<li Class="AlteredCarbon.HediffCompProperties_MeleeWeapon">
 				<weaponGraphicData>
 					<texPath>AbilityEffects/ArmBlade/ArmBlade</texPath>
 					<graphicClass>Graphic_Single</graphicClass>
-					<drawSize>(1, 1)</drawSize>
+					<drawSize>3</drawSize>
 				</weaponGraphicData>
 				<tools>
 					<li>
@@ -45,6 +47,7 @@
 				</tools>
 			</li>
 		</comps>
+		<spawnThingOnRemoved>AC_ArmBlade</spawnThingOnRemoved>
 	</HediffDef>
 	<ThingDef ParentName="BodyPartProstheticBase">
 		<defName>AC_ArmBlade</defName>
@@ -89,7 +92,7 @@
 			</thingDefs>
 		</fixedIngredientFilter>
 		<appliedOnFixedBodyParts>
-			<li>Arm</li>
+			<li>Shoulder</li>
 		</appliedOnFixedBodyParts>
 		<addsHediff>AC_ArmBlade</addsHediff>
 	</RecipeDef>
@@ -102,13 +105,16 @@
 		<descriptionHyperlinks>
 			<ThingDef>AC_MonoArmBlade</ThingDef>
 		</descriptionHyperlinks>
-		<spawnThingOnRemoved>AC_MonoArmBlade</spawnThingOnRemoved>
+		<addedPartProps>
+			<solid>true</solid>
+		</addedPartProps>
+
 		<comps>
 			<li Class="AlteredCarbon.HediffCompProperties_MeleeWeapon">
 				<weaponGraphicData>
 					<texPath>AbilityEffects/ArmBlade/ArmBlade_Mono</texPath>
 					<graphicClass>Graphic_Single</graphicClass>
-					<drawSize>(1, 1)</drawSize>
+					<drawSize>(2, 2)</drawSize>
 				</weaponGraphicData>
 				<tools>
 					<li>
@@ -138,6 +144,7 @@
 				</tools>
 			</li>
 		</comps>
+				<spawnThingOnRemoved>AC_MonoArmBlade</spawnThingOnRemoved>
 	</HediffDef>
 	<ThingDef ParentName="BodyPartProstheticBase" MayRequire="Ludeon.Rimworld.Royalty">
 		<defName>AC_MonoArmBlade</defName>
@@ -182,7 +189,7 @@
 			</thingDefs>
 		</fixedIngredientFilter>
 		<appliedOnFixedBodyParts>
-			<li>Arm</li>
+			<li>Shoulder</li>
 		</appliedOnFixedBodyParts>
 		<addsHediff>AC_MonoArmBlade</addsHediff>
 	</RecipeDef>
@@ -195,13 +202,16 @@
 		<descriptionHyperlinks>
 			<ThingDef>AC_PlasmaArmBlade</ThingDef>
 		</descriptionHyperlinks>
-		<spawnThingOnRemoved>AC_PlasmaArmBlade</spawnThingOnRemoved>
+				<addedPartProps>
+			<solid>true</solid>
+		</addedPartProps>
+
 		<comps>
 			<li Class="AlteredCarbon.HediffCompProperties_MeleeWeapon">
 				<weaponGraphicData>
 					<texPath>AbilityEffects/ArmBlade/ArmBlade_Plasma</texPath>
 					<graphicClass>Graphic_Single</graphicClass>
-					<drawSize>(1, 1)</drawSize>
+					<drawSize>(2, 2)</drawSize>
 				</weaponGraphicData>
 				<tools>
 					<li>
@@ -245,6 +255,7 @@
 				</tools>
 			</li>
 		</comps>
+				<spawnThingOnRemoved>AC_PlasmaArmBlade</spawnThingOnRemoved>
 	</HediffDef>
 	<ThingDef ParentName="BodyPartProstheticBase" MayRequire="Ludeon.Rimworld.Royalty">
 		<defName>AC_PlasmaArmBlade</defName>
@@ -289,7 +300,7 @@
 			</thingDefs>
 		</fixedIngredientFilter>
 		<appliedOnFixedBodyParts>
-			<li>Arm</li>
+			<li>Shoulder</li>
 		</appliedOnFixedBodyParts>
 		<addsHediff>AC_PlasmaArmBlade</addsHediff>
 	</RecipeDef>
@@ -302,13 +313,16 @@
 		<descriptionHyperlinks>
 			<ThingDef>AC_ToxArmBlade</ThingDef>
 		</descriptionHyperlinks>
-		<spawnThingOnRemoved>AC_ToxArmBlade</spawnThingOnRemoved>
+				<addedPartProps>
+			<solid>true</solid>
+		</addedPartProps>
+
 		<comps>
 			<li Class="AlteredCarbon.HediffCompProperties_MeleeWeapon">
 				<weaponGraphicData>
 					<texPath>AbilityEffects/ArmBlade/ArmBlade_Tox</texPath>
 					<graphicClass>Graphic_Single</graphicClass>
-					<drawSize>(1, 1)</drawSize>
+					<drawSize>(2, 2)</drawSize>
 				</weaponGraphicData>
 				<tools>
 					<li>
@@ -338,6 +352,7 @@
 				</tools>
 			</li>
 		</comps>
+				<spawnThingOnRemoved>AC_ToxArmBlade</spawnThingOnRemoved>
 	</HediffDef>
 	<ThingDef ParentName="BodyPartProstheticBase" MayRequire="OskarPotocki.VFE.Empire">
 		<defName>AC_ToxArmBlade</defName>
@@ -382,7 +397,7 @@
 			</thingDefs>
 		</fixedIngredientFilter>
 		<appliedOnFixedBodyParts>
-			<li>Arm</li>
+			<li>Shoulder</li>
 		</appliedOnFixedBodyParts>
 		<addsHediff>AC_ToxArmBlade</addsHediff>
 	</RecipeDef>
