@@ -17,7 +17,7 @@
 				<weaponGraphicData>
 					<texPath>AbilityEffects/ArmBlade/ArmBlade</texPath>
 					<graphicClass>Graphic_Single</graphicClass>
-					<drawSize>(3, 3)</drawSize>
+					<drawSize>(1, 1)</drawSize>
 				</weaponGraphicData>
 				<tools>
 					<li>
@@ -115,7 +115,7 @@
 				<weaponGraphicData>
 					<texPath>AbilityEffects/ArmBlade/ArmBlade_Mono</texPath>
 					<graphicClass>Graphic_Single</graphicClass>
-					<drawSize>(2, 2)</drawSize>
+					<drawSize>(1, 1)</drawSize>
 				</weaponGraphicData>
 				<tools>
 					<li>
@@ -213,7 +213,7 @@
 				<weaponGraphicData>
 					<texPath>AbilityEffects/ArmBlade/ArmBlade_Plasma</texPath>
 					<graphicClass>Graphic_Single</graphicClass>
-					<drawSize>(2, 2)</drawSize>
+					<drawSize>(1, 1)</drawSize>
 				</weaponGraphicData>
 				<tools>
 					<li>
@@ -325,7 +325,7 @@
 				<weaponGraphicData>
 					<texPath>AbilityEffects/ArmBlade/ArmBlade_Tox</texPath>
 					<graphicClass>Graphic_Single</graphicClass>
-					<drawSize>(2, 2)</drawSize>
+					<drawSize>(1, 1)</drawSize>
 				</weaponGraphicData>
 				<tools>
 					<li>
