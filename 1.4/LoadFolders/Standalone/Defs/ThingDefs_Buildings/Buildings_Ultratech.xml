@@ -88,6 +88,11 @@
 				<glowRadius>5</glowRadius>
 				<glowColor>(96,161,153,0)</glowColor>
 			</li>
+			<li Class="CompProperties_AffectedByFacilities">
+				<linkableFacilities>
+					<li>AC_GenomeRevitalizer</li>
+				</linkableFacilities>
+			</li>
 		</comps>
 	</ThingDef>
 	<!-- ================================ Sleeve Casket	====================== -->

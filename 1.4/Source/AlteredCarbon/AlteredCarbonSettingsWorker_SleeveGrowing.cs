@@ -8,7 +8,6 @@ namespace AlteredCarbon
     {
         public float sleeveGrowingTimeMultiplier = 1f;
         public float sleeveGrowingCostMultiplier = 1f;
-
         public override void ExposeData()
         {
             Scribe_Values.Look(ref sleeveGrowingTimeMultiplier, "sleeveGrowingTimeMultiplier", 1f);

@@ -16,11 +16,23 @@ namespace AlteredCarbon
         public Xenogerm xenogermToConsume;
         public Corpse corpseToRepurpose;
         public BodyTypeDef targetBodyType;
+        public int targetSleeveAge;
         public bool innerPawnIsDead;
         public float initialRotTime;
         public override int OpenTicks => 300;
+        public override int TotalTicksToGrow
+        {
+            get
+            {
+                var baseValue = base.TotalTicksToGrow;
+                var genomeRevitalizers = GenomeRevitalizers;
+                return (int)(baseValue * (1f - (genomeRevitalizers.Count * 0.2f)));
+            }
+        }
         public Pawn InnerPawn => innerContainer.OfType<Pawn>().FirstOrDefault() ?? innerContainer.OfType<Corpse>().FirstOrDefault()?.InnerPawn;
         protected override bool InnerThingIsDead => innerPawnIsDead;
+        private CompAffectedByFacilities compAffectedByFacilities;
+        public List<Thing> GenomeRevitalizers => compAffectedByFacilities.LinkedFacilitiesListForReading.Where(x => x.def == AC_DefOf.AC_GenomeRevitalizer && x.TryGetComp<CompPowerTrader>().PowerOn).ToList();
 
         public override Thing InnerThing => InnerPawn;
         public Thing StoredPawnOrCorpse => (Thing)innerContainer.OfType<Pawn>().FirstOrDefault() ?? innerContainer.OfType<Corpse>().FirstOrDefault();
@@ -81,6 +93,12 @@ namespace AlteredCarbon
                 drawOffset.z += 0.1f;
                 return drawOffset;
             }
+        }
+
+        public override void SpawnSetup(Map map, bool respawningAfterLoad)
+        {
+            base.SpawnSetup(map, respawningAfterLoad);
+            this.compAffectedByFacilities = this.GetComp<CompAffectedByFacilities>();
         }
 
         public override void DrawAt(Vector3 drawLoc, bool flip = false)
@@ -395,17 +413,18 @@ namespace AlteredCarbon
 
         public void StartRepurpose(int totalTicksToGrow, float totalGrowthCost)
         {
-            this.totalTicksToGrow = totalTicksToGrow;
+            this.TotalTicksToGrow = totalTicksToGrow;
             this.totalGrowthCost = totalGrowthCost;
             InnerPawn.Rotation = Rot4.South;
         }
-        public void StartGrowth(Pawn newSleeve, Xenogerm xenogerm, int totalTicksToGrow, int totalGrowthCost)
+        public void StartGrowth(Pawn newSleeve, Xenogerm xenogerm, int totalTicksToGrow, int totalGrowthCost, int targetAge)
         {
             Reset();
             targetBodyType = newSleeve.story.bodyType;
+            targetSleeveAge = targetAge;
             xenogermToConsume = xenogerm;
             TryAcceptThing(newSleeve);
-            this.totalTicksToGrow = totalTicksToGrow;
+            this.TotalTicksToGrow = totalTicksToGrow;
             this.totalGrowthCost = totalGrowthCost;
             incubatorState = IncubatorState.ToBeActivated;
             InnerPawn.Rotation = Rot4.South;
@@ -418,7 +437,7 @@ namespace AlteredCarbon
             runningOutPowerInTicks = 0;
             runningOutFuelInTicks = 0;
             totalGrowthCost = 0;
-            totalTicksToGrow = 0;
+            TotalTicksToGrow = 0;
             targetBodyType = null;
             xenogermToConsume = null; 
             corpseToRepurpose = null;
@@ -426,12 +445,12 @@ namespace AlteredCarbon
         }
         public void AddGrowth()
         {
-            curTicksToGrow += totalTicksToGrow / 100;
+            curTicksToGrow += TotalTicksToGrow / 100;
         }
 
         public void FinishGrowth()
         {
-            curTicksToGrow = totalTicksToGrow;
+            curTicksToGrow = TotalTicksToGrow;
             AdjustAge();
             incubatorState = IncubatorState.Inactive;
             var pawn = InnerPawn;
@@ -593,9 +612,9 @@ namespace AlteredCarbon
             {
                 runningOutPowerInTicks = 0;
             }
-            float fuelCost = totalGrowthCost / totalTicksToGrow;
+            float fuelCost = totalGrowthCost / TotalTicksToGrow;
             compRefuelable.ConsumeFuel(fuelCost);
-            if (curTicksToGrow < totalTicksToGrow)
+            if (curTicksToGrow < TotalTicksToGrow)
             {
                 curTicksToGrow++;
                 DoWorkEffects();
@@ -650,7 +669,7 @@ namespace AlteredCarbon
         private void AdjustHealth()
         {
             var growthProgress = GrowthProgress;
-            var remainingTime = totalTicksToGrow - curTicksToGrow;
+            var remainingTime = TotalTicksToGrow - curTicksToGrow;
             var corpse = innerContainer.OfType<Corpse>().FirstOrDefault();
             if (corpse != null)
             {
@@ -719,8 +738,7 @@ namespace AlteredCarbon
         {
             if (InnerPawn.Dead) return;
             var growthProgress = GrowthProgress;
-            var lastAdultAge = InnerPawn.RaceProps.lifeStageAges.LastOrDefault((LifeStageAge lifeStageAge) => lifeStageAge.def.developmentalStage.Adult())?.minAge ?? 0f;
-            InnerPawn.ageTracker.AgeBiologicalTicks = (long)(Mathf.FloorToInt(lastAdultAge * 3600000f) * growthProgress);
+            InnerPawn.ageTracker.AgeBiologicalTicks = (long)(Mathf.FloorToInt(targetSleeveAge * 3600000f) * growthProgress);
             InnerPawn.ageTracker.AgeChronologicalTicks = InnerPawn.ageTracker.AgeBiologicalTicks;
             var bodyType = GetActualBodyType();
             if (bodyType != InnerPawn.story.bodyType)
@@ -756,6 +774,7 @@ namespace AlteredCarbon
             Scribe_References.Look(ref xenogermToConsume, "xenogermToConsume");
             Scribe_References.Look(ref corpseToRepurpose, "corpseToRepurpose");
             Scribe_Defs.Look(ref targetBodyType, "targetBodyType");
+            Scribe_Values.Look(ref targetSleeveAge, "targetSleeveAge", 18);
         }
     }
 }

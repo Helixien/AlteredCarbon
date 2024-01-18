@@ -111,6 +111,8 @@
 	<AC.PawnBodyCouldntBeFullyCopied>A {PAWN_nameDef} body couldn't be copied fully. The following xenogenes were skipped: {1}</AC.PawnBodyCouldntBeFullyCopied>
 	<AC.StartGrowing>Start growing</AC.StartGrowing>
 	<AC.FinishedGrowingSleeve>Sleeve Incubator: Finished growing sleeve!</AC.FinishedGrowingSleeve>
+	<AC.SleeveAge>Age:</AC.SleeveAge>
+	<AC.YearsOld>{0} years old</AC.YearsOld>
 	<!-- ================================ Stack Array ====================== -->
 	<AC.Backup>Backup</AC.Backup>
 	<AC.BackedUpStacksInArray>Cortical Stack backups saved in arrays: {0}</AC.BackedUpStacksInArray>

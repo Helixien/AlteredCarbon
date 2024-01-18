@@ -98,5 +98,6 @@ namespace AlteredCarbon
         [MayRequireVREAndroidMod] public static TraitDef VFEU_Shellwalker;
         public static SoundDef Message_NegativeEvent;
         public static XenotypeDef VFEU_Sleeveliner;
+        public static ThingDef AC_GenomeRevitalizer;
     }
 }

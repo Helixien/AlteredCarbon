@@ -13,6 +13,7 @@
 		<neverMultiSelect>false</neverMultiSelect>
 		<rotatable>false</rotatable>
 		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<designationCategory>Biotech</designationCategory>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
 		</placeWorkers>

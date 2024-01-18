@@ -22,10 +22,14 @@ namespace AlteredCarbon
 			innerContainer = new ThingOwner<Thing>(this, oneStackOnly: false);
 		}
 
-		public int totalTicksToGrow = 0;
+		private int totalTicksToGrow = 0;
 		public int curTicksToGrow = 0;
-
-		public float totalGrowthCost = 0;
+		public virtual int TotalTicksToGrow
+		{
+			get { return totalTicksToGrow; }
+			set { totalGrowthCost = value; }
+		}
+        public float totalGrowthCost = 0;
 		public IncubatorState incubatorState;
 		protected CompPowerTrader powerTrader;
 		protected CompBreakdownable breakdownable;
@@ -119,7 +123,7 @@ namespace AlteredCarbon
 		public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
 		{
 			if (innerContainer.Any() && (mode == DestroyMode.Deconstruct || mode == DestroyMode.KillFinalize) && incubatorState == IncubatorState.Inactive
-				&& curTicksToGrow == totalTicksToGrow && !InnerThingIsDead)
+				&& curTicksToGrow == TotalTicksToGrow && !InnerThingIsDead)
 			{
 				if (mode != DestroyMode.Deconstruct)
 				{
@@ -157,7 +161,7 @@ namespace AlteredCarbon
 			}
 		}
 		public virtual Thing InnerThing => innerContainer.FirstOrDefault();
-		public float GrowthProgress => curTicksToGrow / (float)totalTicksToGrow;
+		public float GrowthProgress => curTicksToGrow / (float)TotalTicksToGrow;
 		public virtual int OpenTicks => -1;
 		public bool Accepts(Thing thing)
 		{

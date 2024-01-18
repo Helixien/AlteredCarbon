@@ -24,7 +24,7 @@ namespace AlteredCarbon
         private List<Gene> xenogermGenes = new List<Gene>();
         private bool allowMales = true;
         private bool allowFemales = true;
-
+        private int sleeveAge = 18;
         // UI variables
         private readonly float leftOffset = 20;
         private readonly float pawnSpacingFromEdge = 5;
@@ -182,9 +182,19 @@ namespace AlteredCarbon
                 SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                 CreateSleeve(Gender.Female);
             }
-
-            var label = "SelectXenogerm".Translate() + ":";
+            var label = "AC.SleeveAge".Translate();
             Rect labelRect = GetLabelRect(label, ref firstColumnPos);
+            Widgets.Label(labelRect, label);
+            var oldAgeValue = sleeveAge;
+            var ageSliderRect = new Rect(labelRect.xMax, labelRect.y, (buttonWidth * 2) + (buttonOffsetFromButton * 2), 24);
+            sleeveAge = (int)Widgets.HorizontalSlider_NewTemp(ageSliderRect, sleeveAge, 14f, 100f, label: "AC.YearsOld".Translate(sleeveAge.ToString()));
+            if (sleeveAge != oldAgeValue)
+            {
+                curSleeve.ageTracker.AgeBiologicalTicks = (long)Mathf.FloorToInt(sleeveAge * 3600000f);
+                curSleeve.ageTracker.AgeChronologicalTicks = curSleeve.ageTracker.AgeBiologicalTicks;
+            }
+            label = "SelectXenogerm".Translate() + ":";
+            labelRect = GetLabelRect(label, ref firstColumnPos);
             Widgets.Label(labelRect, label);
             Rect highlightRect = new Rect(labelRect.xMax + buttonOffsetFromText, labelRect.y, (buttonWidth * 2) + buttonOffsetFromButton,
                 buttonHeight);
@@ -487,7 +497,8 @@ namespace AlteredCarbon
             Rect timeToGrowRect = GetLabelRect(ref firstColumnPos, 300, 32);
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleLeft;
-            Widgets.Label(timeToGrowRect, "AC.TimeToGrow".Translate(GenDate.ToStringTicksToDays(ticksToGrow)));
+            sleeveGrower.totalGrowthCost = ticksToGrow;
+            Widgets.Label(timeToGrowRect, "AC.TimeToGrow".Translate(GenDate.ToStringTicksToDays(sleeveGrower.TotalTicksToGrow)));
             Text.Font = GameFont.Small;
             Rect growCostRect = GetLabelRect(ref firstColumnPos, inRect.width, 32);
             Widgets.Label(growCostRect, "  " + "AC.GrowCost".Translate(growCost));
@@ -516,7 +527,7 @@ namespace AlteredCarbon
             Rect acceptRect = new Rect(cancelRect.xMax + 15, cancelRect.y, cancelRect.width, cancelRect.height);
             if (Widgets.ButtonText(acceptRect, "AC.StartGrowing".Translate().CapitalizeFirst()))
             {
-                sleeveGrower.StartGrowth(curSleeve, curXenogerm, ticksToGrow, growCost);
+                sleeveGrower.StartGrowth(curSleeve, curXenogerm, ticksToGrow, growCost, sleeveAge);
                 Close();
             }
 
@@ -949,14 +960,8 @@ namespace AlteredCarbon
                 (long)Mathf.FloorToInt(18f * 3600000f), AC_DefOf.VFEU_Sleeveliner);
             curSleeve.gender = gender;
             curSleeve.MakeEmptySleeve(keepNaturalAbilities: true, keepPsycastAbilities: true);
-            var lastAdultAgeDef = curSleeve.RaceProps.lifeStageAges.LastOrDefault((LifeStageAge lifeStageAge) => lifeStageAge.def.developmentalStage.Adult());
-            var lastAdultAge = lastAdultAgeDef?.minAge ?? 18f;
-            if (lastAdultAge == float.MaxValue)
-            {
-                lastAdultAge = 18f;
-            }
-            curSleeve.ageTracker.AgeBiologicalTicks = (long)Mathf.FloorToInt(lastAdultAge * 3600000f);
-            curSleeve.ageTracker.AgeChronologicalTicks = (long)Mathf.FloorToInt(lastAdultAge * 3600000f);
+            curSleeve.ageTracker.AgeBiologicalTicks = (long)Mathf.FloorToInt(18 * 3600000f);
+            curSleeve.ageTracker.AgeChronologicalTicks = (long)Mathf.FloorToInt(18 * 3600000f);
             curSleeve.Rotation = Rot4.South;
             convertedGenes = new List<Gene>();
             if (curSleeve.genes.xenotype is not null)
