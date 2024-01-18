@@ -143,7 +143,7 @@
 		<graphicData>
 			<texPath>Things/Building/Misc/StackArray/StackArray</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
-			<drawSize>(3.5,1.5)</drawSize>
+			<drawSize>(3,3)</drawSize>
 			<shaderType>CutoutComplex</shaderType>
 			<damageData>
 				<cornerTL>Damage/Corner</cornerTL>
@@ -152,7 +152,7 @@
 				<cornerBR>Damage/Corner</cornerBR>
 			</damageData>
 		</graphicData>
-		<size>(3,1)</size>
+		<size>(3,3)</size>
 		<statBases>
 			<MaxHitPoints>800</MaxHitPoints>
 			<WorkToBuild>18000</WorkToBuild>
@@ -241,7 +241,7 @@
 		<graphicData>
 			<texPath>Things/Building/Misc/HackingWorkbench/HackingWorkbench</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
-			<drawSize>(3,1)</drawSize>
+			<drawSize>(3.5,1.5)</drawSize>
 			<damageData>
 				<cornerTL>Damage/Corner</cornerTL>
 				<cornerTR>Damage/Corner</cornerTR>
