@@ -272,4 +272,5 @@
 	<AC.Detonate>Detonate</AC.Detonate>
 	<AC.DetonateDesc>Trigger the installed cortex overseer to explode and kill the person it is installed in.</AC.DetonateDesc>
 	<AC.Deactivated>deactivated</AC.Deactivated>
+	<AC.RequiresArtificalParentPart>requires artifical parent part</AC.RequiresArtificalParentPart>
 </LanguageData>

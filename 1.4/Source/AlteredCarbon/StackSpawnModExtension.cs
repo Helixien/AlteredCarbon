@@ -22,6 +22,7 @@ namespace AlteredCarbon
                 {
                     return;
                 }
+                Log.Message("Adding stack: " + pawn);
                 if (pawn.HasCorticalStack() is false && Rand.Chance(chanceToSpawnWithStack / 100f))
                 {
                     var neckRecord = pawn.GetNeck();

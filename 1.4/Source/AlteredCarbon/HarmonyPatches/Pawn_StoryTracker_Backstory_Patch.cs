@@ -20,11 +20,14 @@ namespace AlteredCarbon
         {
             if (PawnGenerator.IsBeingGenerated(__instance.pawn))
             {
-                var extension = value?.GetModExtension<StackSpawnModExtension>();
-                if (extension != null)
+                LongEventHandler.toExecuteWhenFinished.Add(delegate
                 {
-                    extension.TryAddStack(__instance.pawn);
-                }
+                    var extension = value?.GetModExtension<StackSpawnModExtension>();
+                    if (extension != null)
+                    {
+                        extension.TryAddStack(__instance.pawn);
+                    }
+                });
             }
         }
     }

@@ -13,7 +13,7 @@
 				<weaponGraphicData>
 					<texPath>AbilityEffects/ArmBlade/ArmBlade</texPath>
 					<graphicClass>Graphic_Single</graphicClass>
-					<drawSize>(1, 1)</drawSize>
+					<drawSize>(3, 3)</drawSize>
 				</weaponGraphicData>
 				<tools>
 					<li>
@@ -66,6 +66,7 @@
 		<defName>AC_InstallArmBlade</defName>
 		<label>install arm blade</label>
 		<description>Install an arm blade.</description>
+		<workerClass>AlteredCarbon.Recipe_InstallImplantAddon</workerClass>
 		<descriptionHyperlinks>
 			<ThingDef>AC_ArmBlade</ThingDef>
 			<HediffDef>AC_ArmBlade</HediffDef>
@@ -87,7 +88,7 @@
 			</thingDefs>
 		</fixedIngredientFilter>
 		<appliedOnFixedBodyParts>
-			<li>Shoulder</li>
+			<li>Arm</li>
 		</appliedOnFixedBodyParts>
 		<addsHediff>AC_ArmBlade</addsHediff>
 	</RecipeDef>
@@ -161,6 +162,7 @@ This variation uses a crystal-metallic blade infused with mechanites that mainta
 		<defName>AC_InstallMonoArmBlade</defName>
 		<label>install mono arm blade</label>
 		<description>Install a mono arm blade.</description>
+		<workerClass>AlteredCarbon.Recipe_InstallImplantAddon</workerClass>
 		<descriptionHyperlinks>
 			<ThingDef>AC_MonoArmBlade</ThingDef>
 			<HediffDef>AC_MonoArmBlade</HediffDef>
@@ -182,7 +184,7 @@ This variation uses a crystal-metallic blade infused with mechanites that mainta
 			</thingDefs>
 		</fixedIngredientFilter>
 		<appliedOnFixedBodyParts>
-			<li>Shoulder</li>
+			<li>Arm</li>
 		</appliedOnFixedBodyParts>
 		<addsHediff>AC_MonoArmBlade</addsHediff>
 	</RecipeDef>
@@ -273,6 +275,7 @@ This variation uses a metal-cored blade with a cutting edge. Plasma is wrapped a
 		<defName>AC_InstallPlasmaArmBlade</defName>
 		<label>install plasma arm blade</label>
 		<description>Install a plasma arm blade.</description>
+		<workerClass>AlteredCarbon.Recipe_InstallImplantAddon</workerClass>
 		<descriptionHyperlinks>
 			<ThingDef>AC_PlasmaArmBlade</ThingDef>
 			<HediffDef>AC_PlasmaArmBlade</HediffDef>
@@ -294,7 +297,7 @@ This variation uses a metal-cored blade with a cutting edge. Plasma is wrapped a
 			</thingDefs>
 		</fixedIngredientFilter>
 		<appliedOnFixedBodyParts>
-			<li>Shoulder</li>
+			<li>Arm</li>
 		</appliedOnFixedBodyParts>
 		<addsHediff>AC_PlasmaArmBlade</addsHediff>
 	</RecipeDef>
@@ -372,6 +375,7 @@ This variation uses an acidifier fluid and toxic vapour dispensers along its bla
 		<defName>AC_InstallToxArmBlade</defName>
 		<label>install tox arm blade</label>
 		<description>Install a tox arm blade.</description>
+		<workerClass>AlteredCarbon.Recipe_InstallImplantAddon</workerClass>
 		<descriptionHyperlinks>
 			<ThingDef>AC_ToxArmBlade</ThingDef>
 			<HediffDef>AC_ToxArmBlade</HediffDef>
@@ -393,7 +397,7 @@ This variation uses an acidifier fluid and toxic vapour dispensers along its bla
 			</thingDefs>
 		</fixedIngredientFilter>
 		<appliedOnFixedBodyParts>
-			<li>Shoulder</li>
+			<li>Arm</li>
 		</appliedOnFixedBodyParts>
 		<addsHediff>AC_ToxArmBlade</addsHediff>
 	</RecipeDef>

@@ -7,13 +7,12 @@ namespace AlteredCarbon
     [HarmonyPatch(typeof(PawnRenderer), "DrawEquipment")]
     public static class PawnRenderer_EquipmentRender_Patch
     {
-        public static void Postfix(PawnRenderer __instance, Pawn ___pawn)
+        public static bool Prefix(PawnRenderer __instance, Pawn ___pawn)
         {
             Pawn pawn = ___pawn;
-            if (!pawn.Dead && pawn.RaceProps.Humanlike && pawn.Spawned && ((pawn.stances.curStance is Stance_Busy stanceBusy && !stanceBusy.neverAimWeapon
-                        && stanceBusy.focusTarg.IsValid) || __instance.CarryWeaponOpenly()))
+            if (!pawn.Dead && pawn.RaceProps.Humanlike && pawn.Spawned)
             {
-                var verb = pawn.CurrentEffectiveVerb;
+                var verb = GetVerb(__instance, pawn);
                 if (verb?.HediffCompSource is HediffComp_MeleeWeapon hediffComp)
                 {
                     var graphic = hediffComp.Graphic;
@@ -67,10 +66,26 @@ namespace AlteredCarbon
                     }
 
                     num %= 360f;
-                    Graphics.DrawMesh(material: graphic.MatSingle, mesh: mesh, position: drawLoc, rotation: Quaternion.AngleAxis(num, Vector3.up), layer: 0);
-
+                    Matrix4x4 matrix = Matrix4x4.TRS(s: new Vector3(graphic.drawSize.x, 0f, graphic.drawSize.y), pos: drawLoc, q: Quaternion.AngleAxis(num, Vector3.up));
+                    Graphics.DrawMesh(mesh, matrix, graphic.MatSingle, 0);
+                    return false;
                 }
             }
+            return true;
+        }
+
+        private static Verb GetVerb(PawnRenderer __instance, Pawn pawn)
+        {
+            if (pawn.stances.curStance is Stance_Busy stanceBusy
+                            && !stanceBusy.neverAimWeapon && stanceBusy.focusTarg.IsValid)
+            {
+                return stanceBusy.verb;
+            }
+            else if (pawn.equipment.PrimaryEq is null && __instance.CarryWeaponOpenly())
+            {
+                return pawn.meleeVerbs.curMeleeVerb;
+            }
+            return null;
         }
     }
 }
