@@ -21,7 +21,44 @@
 			<li Class="CompProperties_Flickable"/>
 		</comps>
 	</ThingDef>
-	<!-- ================================ Incubator Addons - Genome  ====================== -->
+	<!-- ================================ Incubator Addons - Neutroamine Injector Pump ====================== -->
+	<ThingDef ParentName="AC_SleeveIncubatorLinkableBase">
+		<defName>AC_NeutroamineInjectorPump</defName>
+		<label>neutroamine injector pump</label>
+		<description>A small element that links to a sleeve incubator and allows for it to more efficiently pump neutroamine during the growth process of a sleeve, reducing the needed neutroamine by 3 percent. No more than 5 can be linked to one incubator at the same time.\n\nAn add-on to gene-tailoring pod, this device needs to be placed in close proximity to it and will cut one day from the injection time.An add-on to the sleeve incubator, this device needs to be placed in close proximity to it and will cut reduce growth time by 25%.</description>
+		<graphicData>
+			<texPath>Things/Building/Misc/NeutroamineInjectorPump</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shadowData>
+				<volume>(0.9,0.2,0.9)</volume>
+			</shadowData>
+			<drawSize>(1, 1)</drawSize>
+		</graphicData>
+		<statBases>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>10</Mass>
+		</statBases>
+		<size>(1,1)</size>
+		<costList>
+			<Plasteel>25</Plasteel>
+			<ComponentIndustrial>4</ComponentIndustrial>
+			<ComponentSpacer>1</ComponentSpacer>
+		</costList>
+		<building>
+			<destroySound>BuildingDestroyed_Metal_Small</destroySound>
+		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>75</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Facility">
+				<maxSimultaneous>5</maxSimultaneous>
+				<maxDistance>16</maxDistance>
+			</li>
+		</comps>
+	</ThingDef>
+	<!-- ================================ Incubator Addons - Genome Revitalizer ====================== -->
 	<ThingDef ParentName="AC_SleeveIncubatorLinkableBase">
 		<defName>AC_GenomeRevitalizer</defName>
 		<label>genome revitalizer</label>
@@ -51,6 +88,43 @@
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
 				<basePowerConsumption>450</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Facility">
+				<maxSimultaneous>2</maxSimultaneous>
+				<maxDistance>16</maxDistance>
+			</li>
+		</comps>
+	</ThingDef>
+	<!-- ================================ Incubator Addons - Neutroamine Dialyzer  ====================== -->
+	<ThingDef ParentName="AC_SleeveIncubatorLinkableBase">
+		<defName>AC_NeutroamineDialyzer</defName>
+		<label>neutroamine dialyzer</label>
+		<description>A structure designed to filter neutroamine that is compromised or breaking down out of the incubators loop. Once cleaned and stabilised it is reintroduced to the incubator. By doing so it significantly lowers the amount of wasted neutroamine in the growth process. On average it reduces the amount of neutroamine needed  by 8 percent. No more than 2 can be linked to one incubator at the same time.\n\nAn add-on to the sleeve incubator, this device needs to be placed in close proximity to it and will cut reduce growth time by 10%.</description>
+		<graphicData>
+			<texPath>Things/Building/Misc/NeutroamineDialyzer</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shadowData>
+				<volume>(1.9,0.3,1.9)</volume>
+			</shadowData>
+			<drawSize>(2, 2)</drawSize>
+		</graphicData>
+		<statBases>
+			<MaxHitPoints>150</MaxHitPoints>
+			<Mass>35</Mass>
+		</statBases>
+		<size>(2,2)</size>
+		<costList>
+			<Plasteel>60</Plasteel>
+			<ComponentIndustrial>5</ComponentIndustrial>
+			<ComponentSpacer>8</ComponentSpacer>
+		</costList>
+		<building>
+			<destroySound>BuildingDestroyed_Metal_Medium</destroySound>
+		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>375</basePowerConsumption>
 			</li>
 			<li Class="CompProperties_Facility">
 				<maxSimultaneous>2</maxSimultaneous>
