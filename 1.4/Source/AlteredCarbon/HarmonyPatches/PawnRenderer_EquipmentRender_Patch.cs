@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using UnityEngine;
 using Verse;
+using Verse.AI;
 
 namespace AlteredCarbon
 {
@@ -12,7 +13,7 @@ namespace AlteredCarbon
             Pawn pawn = ___pawn;
             if (!pawn.Dead && pawn.RaceProps.Humanlike && pawn.Spawned)
             {
-                var verb = GetVerb(__instance, pawn);
+                var verb = GetCurrentVerb(__instance, pawn);
                 if (verb?.HediffCompSource is HediffComp_MeleeWeapon hediffComp)
                 {
                     var graphic = hediffComp.Graphic;
@@ -74,16 +75,24 @@ namespace AlteredCarbon
             return true;
         }
 
-        private static Verb GetVerb(PawnRenderer __instance, Pawn pawn)
+        private static Verb GetCurrentVerb(PawnRenderer __instance, Pawn pawn)
         {
             if (pawn.stances.curStance is Stance_Busy stanceBusy
                             && !stanceBusy.neverAimWeapon && stanceBusy.focusTarg.IsValid)
             {
                 return stanceBusy.verb;
             }
-            else if (pawn.equipment.PrimaryEq is null && __instance.CarryWeaponOpenly())
+            if (__instance.CarryWeaponOpenly())
             {
-                return pawn.meleeVerbs.curMeleeVerb;
+                var verb = pawn.jobs.curJob?.verbToUse;
+                if (verb != null)
+                {
+                    return verb;
+                }
+                if (pawn.jobs.curDriver is JobDriver_AttackMelee || pawn.equipment.PrimaryEq is null)
+                {
+                    return pawn.meleeVerbs.curMeleeVerb;
+                }
             }
             return null;
         }
