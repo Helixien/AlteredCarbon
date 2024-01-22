@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 	<!-- ================================ Jump Wings ====================== -->
 	<ThingDef ParentName="ApparelBase">
@@ -6,25 +6,6 @@
 		<label>glide pack</label>
 		<description>A single-person set of mechanical wings for short-ranged flight. With its artificial polymer muscles and guidance assistant, the jump wing allows anyone to leap distances at high speed, while staying completely silent. It must be recharged after several uses.\n\nSome spacer tech militaries have melee combat specialists who use jump wings for covert infiltration or black ops missions.</description>
 		<techLevel>Spacer</techLevel>
-		<verbs>
-			<li>
-				<verbClass>Verb_Jump</verbClass>
-				<label>jump</label>
-				<violent>false</violent>
-				<hasStandardCommand>true</hasStandardCommand>
-				<onlyManualCast>True</onlyManualCast>
-				<forceNormalTimeSpeed>false</forceNormalTimeSpeed>
-				<warmupTime>0.6</warmupTime>
-				<warmupEffecter>AC_JumpWingsLaunch</warmupEffecter>
-				<requireLineOfSight>true</requireLineOfSight>
-				<soundLanding>AC_JumpWingsLand</soundLanding>
-				<targetParams>
-					<canTargetLocations>true</canTargetLocations>
-					<canTargetPawns>false</canTargetPawns>
-					<canTargetBuildings>false</canTargetBuildings>
-				</targetParams>
-			</li>
-		</verbs>
 		<recipeMaker>
 			<unfinishedThingDef>UnfinishedPack</unfinishedThingDef>
 			<researchPrerequisite>JumpPack</researchPrerequisite>
@@ -145,15 +126,10 @@
 			</options>
 		</colorGenerator>
 		<comps>
-			<li Class="CompProperties_Reloadable">
-				<maxCharges>16</maxCharges>
-				<ammoDef>Neutroamine</ammoDef>
-				<ammoCountPerCharge>2</ammoCountPerCharge>
-				<baseReloadTicks>60</baseReloadTicks>
-				<soundReload>Standard_Reload</soundReload>
-				<hotKey>Misc4</hotKey>
-				<chargeNoun>jump</chargeNoun>
-				<displayGizmoWhileUndrafted>false</displayGizmoWhileUndrafted>
+			<li Class="AlteredCarbon.CompProperties_ApparelAbilities">
+				<abilityDefs>
+					<li>AC_WingJumpAbility</li>
+				</abilityDefs>
 			</li>
 			<li Class="CompProperties_Biocodable"/>
 		</comps>
@@ -162,4 +138,30 @@
 		</thingSetMakerTags>
 		<allowedArchonexusCount>1</allowedArchonexusCount>
 	</ThingDef>
+
+	<AbilityDef>
+		<defName>AC_WingJumpAbility</defName>
+		<label>wing jump</label>
+		<description>text.todo.</description>
+		<iconPath>Things/Pawn/Humanlike/Apparel/JumpWings/JumpWings</iconPath>
+		<cooldownTicksRange>60</cooldownTicksRange>
+		<hostile>false</hostile>
+		<verbProperties>
+			<verbClass>Verb_CastAbilityJump</verbClass>
+			<label>jump</label>
+			<violent>false</violent>
+			<forceNormalTimeSpeed>false</forceNormalTimeSpeed>
+			<range>19.9</range>
+			<warmupTime>0.6</warmupTime>
+			<warmupEffecter>AC_JumpWingsLaunch</warmupEffecter>
+			<requireLineOfSight>true</requireLineOfSight>
+			<soundLanding>AC_JumpWingsLand</soundLanding>
+			<targetParams>
+				<canTargetLocations>true</canTargetLocations>
+				<canTargetPawns>false</canTargetPawns>
+				<canTargetBuildings>false</canTargetBuildings>
+			</targetParams>
+		</verbProperties>
+		<jobDef>CastJump</jobDef>
+	</AbilityDef>
 </Defs>

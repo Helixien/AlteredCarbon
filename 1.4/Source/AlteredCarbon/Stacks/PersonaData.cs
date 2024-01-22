@@ -49,10 +49,10 @@ namespace AlteredCarbon
         public bool hidePawnRelations;
 
         private Dictionary<WorkTypeDef, int> priorities;
-        private GuestStatus guestStatusInt;
+        public GuestStatus guestStatusInt;
         private PrisonerInteractionModeDef interactionMode;
         private SlaveInteractionModeDef slaveInteractionMode;
-        private Faction hostFactionInt;
+        public Faction hostFactionInt;
         private JoinStatus joinStatus;
         private Faction slaveFactionInt;
         private string lastRecruiterName;

@@ -497,11 +497,10 @@ namespace AlteredCarbon
             Rect timeToGrowRect = GetLabelRect(ref firstColumnPos, 300, 32);
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleLeft;
-            sleeveGrower.totalGrowthCost = ticksToGrow;
-            Widgets.Label(timeToGrowRect, "AC.TimeToGrow".Translate(GenDate.ToStringTicksToDays(sleeveGrower.TotalTicksToGrow)));
+            Widgets.Label(timeToGrowRect, "AC.TimeToGrow".Translate(GenDate.ToStringTicksToDays(sleeveGrower.GetTicksToGrow(ticksToGrow))));
             Text.Font = GameFont.Small;
             Rect growCostRect = GetLabelRect(ref firstColumnPos, inRect.width, 32);
-            Widgets.Label(growCostRect, "  " + "AC.GrowCost".Translate(growCost));
+            Widgets.Label(growCostRect, "  " + "AC.GrowCost".Translate(sleeveGrower.GetGrowCost(growCost)));
             Widgets.DrawHighlight(new Rect(growCostRect.x, growCostRect.y, inRect.width - 50, growCostRect.height));
             Text.Anchor = TextAnchor.UpperLeft;
 

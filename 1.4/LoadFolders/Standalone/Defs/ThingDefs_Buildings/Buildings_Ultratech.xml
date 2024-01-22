@@ -91,6 +91,8 @@
 			<li Class="CompProperties_AffectedByFacilities">
 				<linkableFacilities>
 					<li>AC_GenomeRevitalizer</li>
+					<li>AC_NeutroamineDialyzer</li>
+					<li>AC_NeutroaminePump</li>
 				</linkableFacilities>
 			</li>
 		</comps>

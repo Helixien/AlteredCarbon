@@ -35,10 +35,13 @@ namespace AlteredCarbon
         private GraphicData hostileGraphicData;
         private GraphicData friendlyGraphicData;
         private GraphicData strangerGraphicData;
+        private GraphicData slaveGraphicData;
 
         private Graphic hostileGraphic;
         private Graphic friendlyGraphic;
         private Graphic strangerGraphic;
+        private Graphic slaveGraphic;
+
         public override Graphic Graphic
         {
             get
@@ -46,44 +49,25 @@ namespace AlteredCarbon
                 PersonaData personaData = PersonaData;
                 if (personaData.ContainsInnerPersona)
                 {
-                    if (personaData.faction == Faction.OfPlayer)
+                    if (personaData.guestStatusInt == GuestStatus.Slave)
                     {
-                        if (friendlyGraphic is null)
-                        {
-                            if (friendlyGraphicData is null)
-                            {
-                                var path = this.IsArchoStack ? "Things/Item/ArchoStacks/FriendlyArchoStack" : "Things/Item/Stacks/FriendlyStack";
-                                friendlyGraphicData = GetGraphicDataWithOtherPath(path);
-                            }
-                            friendlyGraphic = friendlyGraphicData.GraphicColoredFor(this);
-                        }
-                        return friendlyGraphic;
+                        return GetStackGraphic(ref slaveGraphic, ref slaveGraphicData, 
+                            "Things/Item/ArchoStacks/SlaveArchoStack", "Things/Item/Stacks/SlaveStack");
+                    }
+                    else if (personaData.faction == Faction.OfPlayer)
+                    {
+                        return GetStackGraphic(ref friendlyGraphic, ref friendlyGraphicData,
+                            "Things/Item/ArchoStacks/FriendlyArchoStack", "Things/Item/Stacks/FriendlyStack");
                     }
                     else if (personaData.faction is null || !personaData.faction.HostileTo(Faction.OfPlayer))
                     {
-                        if (strangerGraphic is null)
-                        {
-                            if (strangerGraphicData is null)
-                            {
-                                var path = this.IsArchoStack ? "Things/Item/ArchoStacks/NeutralArchoStack" : "Things/Item/Stacks/NeutralStack";
-                                strangerGraphicData = GetGraphicDataWithOtherPath(path);
-                            }
-                            strangerGraphic = strangerGraphicData.GraphicColoredFor(this);
-                        }
-                        return strangerGraphic;
+                        return GetStackGraphic(ref strangerGraphic, ref strangerGraphicData,
+                            "Things/Item/ArchoStacks/NeutralArchoStack", "Things/Item/Stacks/NeutralStack");
                     }
                     else
                     {
-                        if (hostileGraphic is null)
-                        {
-                            if (hostileGraphicData is null)
-                            {
-                                var path = this.IsArchoStack ? "Things/Item/ArchoStacks/HostileArchoStack" : "Things/Item/Stacks/HostileStack";
-                                hostileGraphicData = GetGraphicDataWithOtherPath(path);
-                            }
-                            hostileGraphic = hostileGraphicData.GraphicColoredFor(this);
-                        }
-                        return hostileGraphic;
+                        return GetStackGraphic(ref hostileGraphic, ref hostileGraphicData,
+                            "Things/Item/ArchoStacks/HostileArchoStack", "Things/Item/Stacks/HostileStack");
                     }
                 }
                 else
@@ -91,6 +75,20 @@ namespace AlteredCarbon
                     return base.Graphic;
                 }
             }
+        }
+
+        private Graphic GetStackGraphic(ref Graphic graphic, ref GraphicData graphicData, string archoStackTexPath, string stackTexPath)
+        {
+            if (graphic is null)
+            {
+                if (graphicData is null)
+                {
+                    var path = this.IsArchoStack ? archoStackTexPath : stackTexPath;
+                    graphicData = GetGraphicDataWithOtherPath(path);
+                }
+                graphic = graphicData.GraphicColoredFor(this);
+            }
+            return graphic;
         }
 
         private GraphicData GetGraphicDataWithOtherPath(string texPath)

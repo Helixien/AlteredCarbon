@@ -22,15 +22,21 @@ namespace AlteredCarbon
 			innerContainer = new ThingOwner<Thing>(this, oneStackOnly: false);
 		}
 
-		private int totalTicksToGrow = 0;
 		public int curTicksToGrow = 0;
+		private int totalTicksToGrow = 0;
 		public virtual int TotalTicksToGrow
 		{
 			get { return totalTicksToGrow; }
-			set { totalGrowthCost = value; }
+			set { totalTicksToGrow = value; }
 		}
-        public float totalGrowthCost = 0;
-		public IncubatorState incubatorState;
+        private float totalGrowthCost = 0;
+        public virtual float TotalGrowthCost
+        {
+            get { return totalGrowthCost; }
+            set { totalGrowthCost = value; }
+        }
+
+        public IncubatorState incubatorState;
 		protected CompPowerTrader powerTrader;
 		protected CompBreakdownable breakdownable;
 		protected CompRefuelable compRefuelable;

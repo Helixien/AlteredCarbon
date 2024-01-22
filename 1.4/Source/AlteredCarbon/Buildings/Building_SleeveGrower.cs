@@ -20,19 +20,12 @@ namespace AlteredCarbon
         public bool innerPawnIsDead;
         public float initialRotTime;
         public override int OpenTicks => 300;
-        public override int TotalTicksToGrow
-        {
-            get
-            {
-                var baseValue = base.TotalTicksToGrow;
-                var genomeRevitalizers = GenomeRevitalizers;
-                return (int)(baseValue * (1f - (genomeRevitalizers.Count * 0.2f)));
-            }
-        }
+        public override int TotalTicksToGrow => GetTicksToGrow(base.TotalTicksToGrow);
+        public override float TotalGrowthCost => GetGrowCost(base.TotalGrowthCost);
+
         public Pawn InnerPawn => innerContainer.OfType<Pawn>().FirstOrDefault() ?? innerContainer.OfType<Corpse>().FirstOrDefault()?.InnerPawn;
         protected override bool InnerThingIsDead => innerPawnIsDead;
         private CompAffectedByFacilities compAffectedByFacilities;
-        public List<Thing> GenomeRevitalizers => compAffectedByFacilities.LinkedFacilitiesListForReading.Where(x => x.def == AC_DefOf.AC_GenomeRevitalizer && x.TryGetComp<CompPowerTrader>().PowerOn).ToList();
 
         public override Thing InnerThing => InnerPawn;
         public Thing StoredPawnOrCorpse => (Thing)innerContainer.OfType<Pawn>().FirstOrDefault() ?? innerContainer.OfType<Corpse>().FirstOrDefault();
@@ -93,6 +86,27 @@ namespace AlteredCarbon
                 drawOffset.z += 0.1f;
                 return drawOffset;
             }
+        }
+
+        public int GetTicksToGrow(int baseValue)
+        {
+            return (int)(baseValue * FacilityMultiplier(AC_DefOf.AC_GenomeRevitalizer, 0.2f));
+        }
+
+        public float GetGrowCost(float baseValue)
+        {
+            return baseValue * FacilityMultiplier(AC_DefOf.AC_NeutroamineDialyzer, 0.1f) 
+                * FacilityMultiplier(AC_DefOf.AC_NeutroaminePump, 0.03f);
+        }
+
+        private float FacilityMultiplier(ThingDef facility, float baseMultiplier)
+        {
+            return (1f - (GetFacilities(facility).Count * baseMultiplier));
+        }
+
+        private List<Thing> GetFacilities(ThingDef facilityDef)
+        {
+            return compAffectedByFacilities.LinkedFacilitiesListForReading.Where(x => x.def == facilityDef && x.TryGetComp<CompPowerTrader>().PowerOn).ToList();
         }
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
@@ -414,7 +428,7 @@ namespace AlteredCarbon
         public void StartRepurpose(int totalTicksToGrow, float totalGrowthCost)
         {
             this.TotalTicksToGrow = totalTicksToGrow;
-            this.totalGrowthCost = totalGrowthCost;
+            this.TotalGrowthCost = totalGrowthCost;
             InnerPawn.Rotation = Rot4.South;
         }
         public void StartGrowth(Pawn newSleeve, Xenogerm xenogerm, int totalTicksToGrow, int totalGrowthCost, int targetAge)
@@ -425,7 +439,7 @@ namespace AlteredCarbon
             xenogermToConsume = xenogerm;
             TryAcceptThing(newSleeve);
             this.TotalTicksToGrow = totalTicksToGrow;
-            this.totalGrowthCost = totalGrowthCost;
+            this.TotalGrowthCost = totalGrowthCost;
             incubatorState = IncubatorState.ToBeActivated;
             InnerPawn.Rotation = Rot4.South;
         }
@@ -436,7 +450,7 @@ namespace AlteredCarbon
             innerPawnIsDead = false;
             runningOutPowerInTicks = 0;
             runningOutFuelInTicks = 0;
-            totalGrowthCost = 0;
+            TotalGrowthCost = 0;
             TotalTicksToGrow = 0;
             targetBodyType = null;
             xenogermToConsume = null; 
@@ -612,7 +626,7 @@ namespace AlteredCarbon
             {
                 runningOutPowerInTicks = 0;
             }
-            float fuelCost = totalGrowthCost / TotalTicksToGrow;
+            float fuelCost = TotalGrowthCost / TotalTicksToGrow;
             compRefuelable.ConsumeFuel(fuelCost);
             if (curTicksToGrow < TotalTicksToGrow)
             {
