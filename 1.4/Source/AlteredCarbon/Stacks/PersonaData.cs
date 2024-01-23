@@ -216,8 +216,8 @@ namespace AlteredCarbon
         }
 
         public TaggedString PawnNameColored => TitleShort?.CapitalizeFirst().NullOrEmpty() ?? false
-                    ? (TaggedString)(name?.ToStringShort.Colorize(GetFactionRelationColor(faction)))
-                    : (TaggedString)(name?.ToStringShort.Colorize(GetFactionRelationColor(faction)) + ", " + TitleShort?.CapitalizeFirst());
+                    ? (TaggedString)(name?.ToStringShort.Colorize(PawnNameColorUtility.PawnNameColorOf(GetDummyPawn)))
+                    : (TaggedString)(name?.ToStringShort.Colorize(PawnNameColorUtility.PawnNameColorOf(GetDummyPawn))) + ", " + TitleShort?.CapitalizeFirst();
         public string TitleShort
         {
             get
@@ -249,6 +249,8 @@ namespace AlteredCarbon
             {
                 return Color.white;
             }
+            return faction.Color;
+
             if (faction.IsPlayer)
             {
                 return faction.Color;

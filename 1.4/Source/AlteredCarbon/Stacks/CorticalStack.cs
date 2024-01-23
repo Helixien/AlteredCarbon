@@ -118,11 +118,24 @@ namespace AlteredCarbon
             };
         }
 
-        public override string Label
+        //public override string Label
+        //{
+        //    get
+        //    {
+        //        var label = base.Label;
+        //        if (this.IsFilledStack)
+        //        {
+        //            label += " (" + this.PersonaData.PawnNameColored.ToStringSafe() + ")";
+        //        }
+        //        return label;
+        //    }
+        //}
+
+        public override string LabelNoCount
         {
             get
             {
-                var label = base.Label;
+                var label = base.LabelNoCount;
                 if (this.IsFilledStack)
                 {
                     label += " (" + this.PersonaData.PawnNameColored.ToStringSafe() + ")";
@@ -130,6 +143,7 @@ namespace AlteredCarbon
                 return label;
             }
         }
+
         public override void Tick()
         {
             base.Tick();

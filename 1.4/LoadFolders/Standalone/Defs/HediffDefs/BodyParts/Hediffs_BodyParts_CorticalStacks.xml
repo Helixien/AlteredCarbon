@@ -103,7 +103,6 @@
 		<tradeNeverStack>false</tradeNeverStack>
 		<tickerType>Normal</tickerType>
 		<tradeTags Inherit="False"/>
-		<tradeability>None</tradeability>
 		<inspectorTabs>
 			<li>ITab_Pawn_Character</li>
 		</inspectorTabs>

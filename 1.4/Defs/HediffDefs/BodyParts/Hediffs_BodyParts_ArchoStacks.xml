@@ -65,6 +65,5 @@
 			<texPath>Things/Item/ArchoStacks/FriendlyArchoStack</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
-		<tradeability>None</tradeability>
 	</ThingDef>
 </Defs>

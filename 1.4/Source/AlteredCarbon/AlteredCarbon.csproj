@@ -90,10 +90,14 @@
     <Compile Include="HarmonyPatches\CharacterCardUtility_DrawCharacterCard_Patch.cs" />
     <Compile Include="HarmonyPatches\CharacterCardUtility_LifestageAndXenotypeOptions_Patch.cs" />
     <Compile Include="HarmonyPatches\CompBiocodable_UnCode_Patch.cs" />
+    <Compile Include="HarmonyPatches\FactionGiftUtility_GetBaseGoodwillChange_Patch.cs" />
+    <Compile Include="HarmonyPatches\FactionGiftUtility_GetGoodwillChange_Patch1.cs" />
+    <Compile Include="HarmonyPatches\FactionGiftUtility_GetGoodwillChange_Patch2.cs" />
     <Compile Include="HarmonyPatches\ModCompat\GeneRipper_Building_GeneRipper_KillOccupant_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_MeleeVerbs_TryGetMeleeVerb_Patch.cs" />
     <Compile Include="HarmonyPatches\HediffSet_GetHediffsVerbs_Patch.cs" />
     <Compile Include="HarmonyPatches\Precept_Role_ValidatePawn_Patch.cs" />
+    <Compile Include="HarmonyPatches\TradeUtility_PlayerSellableNow_Patch.cs" />
     <Compile Include="HarmonyPatches\TransferableUIUtility_DoExtraIcons_Patch.cs" />
     <Compile Include="HarmonyPatches\CompRottable_CompInspectStringExtra_Patch.cs" />
     <Compile Include="HarmonyPatches\ContainingSelectionUtility_CanSelect_Patch.cs" />
@@ -108,6 +112,7 @@
     <Compile Include="HarmonyPatches\RitualObligationTrigger_MemberCorpseDestroyed_Notify_MemberCorpseDestroyed_Patch.cs" />
     <Compile Include="HarmonyPatches\Toils_Recipe_CalculateIngredients_Patch.cs" />
     <Compile Include="HarmonyPatches\TraitSet_GainTrait_Patch.cs" />
+    <Compile Include="HarmonyPatches\TransferableUtility_CanStack_Patch.cs" />
     <Compile Include="HediffComp_MeleeWeapon.cs" />
     <Compile Include="Jobs\JobDriver_TakeEmptySleeve.cs" />
     <Compile Include="HarmonyPatches\PawnRenderer_LayingFacing_Patch.cs" />
