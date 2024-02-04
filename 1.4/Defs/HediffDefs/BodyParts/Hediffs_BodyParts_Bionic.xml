@@ -1,72 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <Defs>
-<!-- AC_VoiceSynthesizer -->
-  <HediffDef ParentName="ImplantHediffBase">
-    <defName>AC_VoiceSynthesizer</defName>
-    <label>voice synthesizer</label>
-    <labelNoun>a voice synthesizer</labelNoun>
-    <description>An installed voice synthesizer.</description>
-    <descriptionHyperlinks><ThingDef>AC_VoiceSynthesizer</ThingDef></descriptionHyperlinks>
-    <spawnThingOnRemoved>AC_VoiceSynthesizer</spawnThingOnRemoved>
-    <addedPartProps>
-      <partEfficiency>1.1</partEfficiency>
-    </addedPartProps>
-  </HediffDef>
+    <!-- AC_VoiceSynthesizer -->
+    <HediffDef ParentName="ImplantHediffBase">
+        <defName>AC_VoiceSynthesizer</defName>
+        <label>voice synthesizer</label>
+        <labelNoun>a voice synthesizer</labelNoun>
+        <description>An installed voice synthesizer.</description>
+        <descriptionHyperlinks>
+            <ThingDef>AC_VoiceSynthesizer</ThingDef>
+        </descriptionHyperlinks>
+        <spawnThingOnRemoved>AC_VoiceSynthesizer</spawnThingOnRemoved>
+        <addedPartProps>
+            <partEfficiency>1.1</partEfficiency>
+        </addedPartProps>
+    </HediffDef>
 
-  <ThingDef ParentName="BodyPartProstheticBase">
-    <defName>AC_VoiceSynthesizer</defName>
-    <label>voice synthesizer</label>
-    <description>An ultratech vocal synthesiser, designed for seamless vocal transformation. Embedded with adaptive sound modulation, it allows the user to alter their voice at will, ranging from subtle inflections to entirely different personas.</description>
-    <descriptionHyperlinks><RecipeDef>AC_InstallVoiceSynthesizer</RecipeDef></descriptionHyperlinks>
-    <thingSetMakerTags><li>RewardStandardLowFreq</li></thingSetMakerTags>
-    <costList>
-      <Plasteel>15</Plasteel>
-      <ComponentSpacer>3</ComponentSpacer>
-    </costList>
-    <recipeMaker>
-      <researchPrerequisite>FleshShaping</researchPrerequisite>
-    </recipeMaker>
-  </ThingDef>
+    <ThingDef ParentName="BodyPartProstheticBase">
+        <defName>AC_VoiceSynthesizer</defName>
+        <label>voice synthesizer</label>
+        <description>An ultratech vocal synthesiser, designed for seamless vocal transformation. Embedded with adaptive sound modulation, it allows the user to alter their voice at will, ranging from subtle inflections to entirely different personas.</description>
+        <descriptionHyperlinks>
+            <RecipeDef>AC_InstallVoiceSynthesizer</RecipeDef>
+        </descriptionHyperlinks>
+        <thingSetMakerTags>
+            <li>RewardStandardLowFreq</li>
+        </thingSetMakerTags>
+        <costList>
+            <Plasteel>15</Plasteel>
+            <ComponentSpacer>3</ComponentSpacer>
+        </costList>
+        <recipeMaker>
+            <researchPrerequisite>FleshShaping</researchPrerequisite>
+        </recipeMaker>
+    </ThingDef>
 
-  <RecipeDef ParentName="SurgeryInstallImplantBase">
-    <defName>AC_InstallVoiceSynthesizer</defName>
-    <label>install voice synthesizer</label>
-    <description>Install a voice synthesizer.</description>
-    <descriptionHyperlinks>
-      <ThingDef>AC_VoiceSynthesizer</ThingDef>
-      <HediffDef>AC_VoiceSynthesizer</HediffDef>
-    </descriptionHyperlinks>
-    <jobString>Installing voice synthesizer.</jobString>
-    <ingredients>
-      <li>
-        <filter>
-          <thingDefs>
-            <li>AC_VoiceSynthesizer</li>
-          </thingDefs>
-        </filter>
-        <count>1</count>
-      </li>
-    </ingredients>
-    <fixedIngredientFilter>
-      <thingDefs>
-        <li>AC_VoiceSynthesizer</li>
-      </thingDefs>
-    </fixedIngredientFilter>
-    <appliedOnFixedBodyParts>
-      <li>Neck</li>
-    </appliedOnFixedBodyParts>
-    <addsHediff>AC_VoiceSynthesizer</addsHediff>
-  </RecipeDef>
-  
-  <RecipeDef ParentName="SurgeryRemoveImplantBase">
-    <defName>AC_RemoveVoiceSynthesizer</defName>
-    <label>remove voice synthesizer</label>
-    <description>Remove voice synthesizer.</description>
-    <descriptionHyperlinks>
-      <ThingDef>AC_VoiceSynthesizer</ThingDef>
-      <HediffDef>AC_VoiceSynthesizer</HediffDef>
-    </descriptionHyperlinks>
-    <jobString>Removing voice synthesizer.</jobString>
-    <removesHediff>AC_VoiceSynthesizer</removesHediff>
-  </RecipeDef>
+    <RecipeDef ParentName="SurgeryInstallImplantBase">
+        <defName>AC_InstallVoiceSynthesizer</defName>
+        <label>install voice synthesizer</label>
+        <description>Install a voice synthesizer.</description>
+        <descriptionHyperlinks>
+            <ThingDef>AC_VoiceSynthesizer</ThingDef>
+            <HediffDef>AC_VoiceSynthesizer</HediffDef>
+        </descriptionHyperlinks>
+        <jobString>Installing voice synthesizer.</jobString>
+        <ingredients>
+            <li>
+                <filter>
+                    <thingDefs>
+                        <li>AC_VoiceSynthesizer</li>
+                    </thingDefs>
+                </filter>
+                <count>1</count>
+            </li>
+        </ingredients>
+        <fixedIngredientFilter>
+            <thingDefs>
+                <li>AC_VoiceSynthesizer</li>
+            </thingDefs>
+        </fixedIngredientFilter>
+        <appliedOnFixedBodyParts>
+            <li>Neck</li>
+        </appliedOnFixedBodyParts>
+        <addsHediff>AC_VoiceSynthesizer</addsHediff>
+    </RecipeDef>
+
+    <RecipeDef ParentName="SurgeryRemoveImplantBase">
+        <defName>AC_RemoveVoiceSynthesizer</defName>
+        <label>remove voice synthesizer</label>
+        <description>Remove voice synthesizer.</description>
+        <descriptionHyperlinks>
+            <ThingDef>AC_VoiceSynthesizer</ThingDef>
+            <HediffDef>AC_VoiceSynthesizer</HediffDef>
+        </descriptionHyperlinks>
+        <jobString>Removing voice synthesizer.</jobString>
+        <removesHediff>AC_VoiceSynthesizer</removesHediff>
+    </RecipeDef>
 </Defs>
