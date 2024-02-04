@@ -31,7 +31,7 @@
             <ComponentSpacer>3</ComponentSpacer>
         </costList>
         <recipeMaker>
-            <researchPrerequisite>FleshShaping</researchPrerequisite>
+            <researchPrerequisite>Bionics</researchPrerequisite>
         </recipeMaker>
     </ThingDef>
 
