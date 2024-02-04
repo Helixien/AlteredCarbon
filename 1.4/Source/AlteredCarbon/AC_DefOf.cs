@@ -101,5 +101,6 @@ namespace AlteredCarbon
         public static ThingDef AC_GenomeRevitalizer, AC_NeutroamineDialyzer, AC_NeutroaminePump;
 
         public static HediffDef AC_VoiceSynthesizer;
+        public static HediffDef AC_MentalFuse;
     }
 }

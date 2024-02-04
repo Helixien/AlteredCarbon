@@ -76,4 +76,84 @@
         <jobString>Removing voice synthesizer.</jobString>
         <removesHediff>AC_VoiceSynthesizer</removesHediff>
     </RecipeDef>
+
+
+    <!-- AC_MentalFuse -->
+    <HediffDef ParentName="ImplantHediffBase">
+        <defName>AC_MentalFuse</defName>
+        <label>mental fuse</label>
+        <labelNoun>a mental fuse</labelNoun>
+        <description>An installed mental fuse.</description>
+        <descriptionHyperlinks>
+            <ThingDef>AC_MentalFuse</ThingDef>
+        </descriptionHyperlinks>
+        <spawnThingOnRemoved>AC_MentalFuse</spawnThingOnRemoved>
+        <comps>
+            <li Class="HediffCompProperties_ReactOnDamage">
+                <damageDefIncoming>EMP</damageDefIncoming>
+                <createHediff>BrainShock</createHediff>
+            </li>
+        </comps>
+    </HediffDef>
+
+    <ThingDef ParentName="BodyPartProstheticBase">
+        <defName>AC_MentalFuse</defName>
+        <label>mental fuse</label>
+        <description>A brain implant that monitors the user's neural activity and acts as a safeguard against mental breakdowns. If a mental breakdown is detected it will “reboot” the brain, leading to split second unconsciousness and a potential wipe of the users short term memories./n/n While Mental Fuses ensure mental fortitude under even the most extreme conditions, it comes at the cost of a slight numbness to the world around them. Heavy usage has been reported to be dangerous and can lead to permanent brain damage.</description>
+        <descriptionHyperlinks>
+            <RecipeDef>AC_InstallMentalFuse</RecipeDef>
+        </descriptionHyperlinks>
+        <thingSetMakerTags>
+            <li>RewardStandardLowFreq</li>
+        </thingSetMakerTags>
+        <costList>
+            <Plasteel>15</Plasteel>
+            <ComponentSpacer>3</ComponentSpacer>
+        </costList>
+        <recipeMaker>
+            <researchPrerequisite>Bionics</researchPrerequisite>
+        </recipeMaker>
+    </ThingDef>
+
+    <RecipeDef ParentName="SurgeryInstallImplantBase">
+        <defName>AC_InstallMentalFuse</defName>
+        <label>install mental fuse</label>
+        <description>Install a mental fuse.</description>
+        <descriptionHyperlinks>
+            <ThingDef>AC_MentalFuse</ThingDef>
+            <HediffDef>AC_MentalFuse</HediffDef>
+        </descriptionHyperlinks>
+        <jobString>Installing mental fuse.</jobString>
+        <ingredients>
+            <li>
+                <filter>
+                    <thingDefs>
+                        <li>AC_MentalFuse</li>
+                    </thingDefs>
+                </filter>
+                <count>1</count>
+            </li>
+        </ingredients>
+        <fixedIngredientFilter>
+            <thingDefs>
+                <li>AC_MentalFuse</li>
+            </thingDefs>
+        </fixedIngredientFilter>
+        <appliedOnFixedBodyParts>
+            <li>Brain</li>
+        </appliedOnFixedBodyParts>
+        <addsHediff>AC_MentalFuse</addsHediff>
+    </RecipeDef>
+
+    <RecipeDef ParentName="SurgeryRemoveImplantBase">
+        <defName>AC_RemoveMentalFuse</defName>
+        <label>remove mental fuse</label>
+        <description>Remove mental fuse.</description>
+        <descriptionHyperlinks>
+            <ThingDef>AC_MentalFuse</ThingDef>
+            <HediffDef>AC_MentalFuse</HediffDef>
+        </descriptionHyperlinks>
+        <jobString>Removing mental fuse.</jobString>
+        <removesHediff>AC_MentalFuse</removesHediff>
+    </RecipeDef>
 </Defs>
