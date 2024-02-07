@@ -752,8 +752,8 @@ namespace AlteredCarbon
         {
             if (InnerPawn.Dead) return;
             var growthProgress = GrowthProgress;
-            InnerPawn.ageTracker.AgeBiologicalTicks = (long)(Mathf.FloorToInt(targetSleeveAge * 3600000f) * growthProgress);
-            InnerPawn.ageTracker.AgeChronologicalTicks = InnerPawn.ageTracker.AgeBiologicalTicks;
+            InnerPawn.ageTracker.ageBiologicalTicksInt = (long)(Mathf.FloorToInt(targetSleeveAge * 3600000f) * growthProgress);
+            InnerPawn.ageTracker.AgeChronologicalTicks = InnerPawn.ageTracker.ageBiologicalTicksInt;
             var bodyType = GetActualBodyType();
             if (bodyType != InnerPawn.story.bodyType)
             {

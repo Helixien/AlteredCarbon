@@ -331,7 +331,7 @@ namespace AlteredCarbon
             PawnComponentsUtility.CreateInitialComponents(pawn);
             if (ageBiologicalTicks != default)
             {
-                pawn.ageTracker.AgeBiologicalTicks = ageBiologicalTicks;
+                pawn.ageTracker.ageBiologicalTicksInt = ageBiologicalTicks;
             }
             if (xenotypeDef != null)
             {
