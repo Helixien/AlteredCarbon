@@ -1646,6 +1646,10 @@ namespace AlteredCarbon
                 {
                     Log.Error("[Altered Carbon] Error loading " + pawnID + " for " + hostPawn);
                 }
+                if (dummyPawn != null)
+                {
+                    dummyPawns.Add(dummyPawn);
+                }
             }
         }
 

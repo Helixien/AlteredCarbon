@@ -190,8 +190,8 @@ namespace AlteredCarbon
             sleeveAge = (int)Widgets.HorizontalSlider_NewTemp(ageSliderRect, sleeveAge, 14f, 100f, label: "AC.YearsOld".Translate(sleeveAge.ToString()));
             if (sleeveAge != oldAgeValue)
             {
-                curSleeve.ageTracker.ageBiologicalTicksInt = (long)Mathf.FloorToInt(sleeveAge * 3600000f);
-                curSleeve.ageTracker.AgeChronologicalTicks = curSleeve.ageTracker.ageBiologicalTicksInt;
+                curSleeve.ageTracker.AgeBiologicalTicks = (long)Mathf.FloorToInt(sleeveAge * 3600000f);
+                curSleeve.ageTracker.AgeChronologicalTicks = curSleeve.ageTracker.AgeBiologicalTicks;
             }
             label = "SelectXenogerm".Translate() + ":";
             labelRect = GetLabelRect(label, ref firstColumnPos);
@@ -959,7 +959,7 @@ namespace AlteredCarbon
                 (long)Mathf.FloorToInt(18f * 3600000f), AC_DefOf.VFEU_Sleeveliner);
             curSleeve.gender = gender;
             curSleeve.MakeEmptySleeve(keepNaturalAbilities: true, keepPsycastAbilities: true);
-            curSleeve.ageTracker.ageBiologicalTicksInt = (long)Mathf.FloorToInt(18 * 3600000f);
+            curSleeve.ageTracker.AgeBiologicalTicks = (long)Mathf.FloorToInt(18 * 3600000f);
             curSleeve.ageTracker.AgeChronologicalTicks = (long)Mathf.FloorToInt(18 * 3600000f);
             curSleeve.Rotation = Rot4.South;
             convertedGenes = new List<Gene>();

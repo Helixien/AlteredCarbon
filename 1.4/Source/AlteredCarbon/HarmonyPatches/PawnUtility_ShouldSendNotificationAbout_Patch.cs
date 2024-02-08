@@ -9,7 +9,7 @@ namespace AlteredCarbon
     {
         public static bool Prefix(Pawn p)
         {
-            if (p.IsEmptySleeve())
+            if (p.IsEmptySleeve() || PersonaData.dummyPawns.Contains(p))
             {
                 return false;
             }
