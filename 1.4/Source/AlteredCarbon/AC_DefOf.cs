@@ -102,5 +102,6 @@ namespace AlteredCarbon
 
         public static HediffDef AC_VoiceSynthesizer;
         public static HediffDef AC_MentalFuse;
+        public static HediffDef AC_DreamcatcherImplant;
     }
 }
