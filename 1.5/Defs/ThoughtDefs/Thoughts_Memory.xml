@@ -9,6 +9,9 @@
 			<li>Masochist</li>
 			<li>AC_FreeMind</li>
 		</nullifyingTraits>
+		<nullifyingPrecepts>
+			<li MayRequire="Ludeon.RimWorld.Ideology">AC_XenoSleeving_DontCare</li>
+		</nullifyingPrecepts>
 		<stages>
 			<li>
 				<label>different sleeve xenotype</label>
@@ -28,6 +31,9 @@
 			<li>Asexual</li>
 			<li>AC_FreeMind</li>
 		</nullifyingTraits>
+		<nullifyingPrecepts>
+			<li MayRequire="Ludeon.RimWorld.Ideology">AC_CrossSleeving_DontCare</li>
+		</nullifyingPrecepts>
 		<stages>
 			<li>
 				<label>different sleeve gender</label>
@@ -46,6 +52,9 @@
 			<li>Asexual</li>
 			<li>AC_FreeMind</li>
 		</nullifyingTraits>
+		<nullifyingPrecepts>
+			<li MayRequire="Ludeon.RimWorld.Ideology">AC_CrossSleeving_DontCare</li>
+		</nullifyingPrecepts>
 		<stages>
 			<li>
 				<label>different sleeve gender</label>
@@ -64,6 +73,9 @@
 			<li>Asexual</li>
 			<li>AC_FreeMind</li>
 		</nullifyingTraits>
+		<nullifyingPrecepts>
+			<li MayRequire="Ludeon.RimWorld.Ideology">AC_CrossSleeving_DontCare</li>
+		</nullifyingPrecepts>
 		<stages>
 			<li>
 				<label>AC_WrongGenderPregnant</label>
@@ -118,6 +130,9 @@
 			<li>Asexual</li>
 			<li>AC_FreeMind</li>
 		</nullifyingTraits>
+		<nullifyingPrecepts>
+			<li MayRequire="Ludeon.RimWorld.Ideology">AC_CrossSleeving_DontCare</li>
+		</nullifyingPrecepts>
 		<stages>
 			<li>
 				<label>A man’s body</label>
@@ -136,6 +151,9 @@
 			<li>Asexual</li>
 			<li>AC_FreeMind</li>
 		</nullifyingTraits>
+		<nullifyingPrecepts>
+			<li MayRequire="Ludeon.RimWorld.Ideology">AC_CrossSleeving_DontCare</li>
+		</nullifyingPrecepts>
 		<stages>
 			<li>
 				<label>A woman's body</label>

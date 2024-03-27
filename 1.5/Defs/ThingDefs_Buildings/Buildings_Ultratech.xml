@@ -1,5 +1,493 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
+	<!-- ================================ Incubator Addons Base ====================== -->
+	<ThingDef ParentName="BuildingBase" Name="AC_SleeveIncubatorLinkableBase" Abstract="True">
+		<drawerType>MapMeshAndRealTime</drawerType>
+		<drawGUIOverlay>true</drawGUIOverlay>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>22</pathCost>
+		<blockWind>false</blockWind>
+		<fillPercent>0.5</fillPercent>
+		<canOverlapZones>false</canOverlapZones>
+		<neverMultiSelect>false</neverMultiSelect>
+		<rotatable>false</rotatable>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<designationCategory>Biotech</designationCategory>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
+		<comps>
+			<li Class="CompProperties_Flickable"/>
+		</comps>
+	</ThingDef>
+	<!-- ================================ Incubator Addons - Neutroamine Injector Pump ====================== -->
+	<ThingDef ParentName="AC_SleeveIncubatorLinkableBase">
+		<defName>AC_NeutroaminePump</defName>
+		<label>neutroamine injector pump</label>
+		<description>A small element that links to a sleeve incubator and allows for it to more efficiently pump neutroamine during the growth process of a sleeve, reducing the needed neutroamine.\n\nAn add-on to gene-tailoring pod, this device needs to be placed in close proximity to it and will cut one day from the injection time.An add-on to the sleeve incubator, this device needs to be placed in close proximity to it and will cut reduce growth time by 25%.</description>
+		<graphicData>
+			<texPath>Things/Building/Misc/NeutroamineInjectorPump</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shadowData>
+				<volume>(0.9,0.2,0.9)</volume>
+			</shadowData>
+			<drawSize>(1, 1)</drawSize>
+		</graphicData>
+		<statBases>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>10</Mass>
+		</statBases>
+		<size>(1,1)</size>
+		<costList>
+			<Plasteel>25</Plasteel>
+			<ComponentIndustrial>2</ComponentIndustrial>
+			<ComponentSpacer>2</ComponentSpacer>
+		</costList>
+		<building>
+			<destroySound>BuildingDestroyed_Metal_Small</destroySound>
+		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>75</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Facility">
+				<maxSimultaneous>5</maxSimultaneous>
+				<maxDistance>16</maxDistance>
+			</li>
+		</comps>
+	</ThingDef>
+	<!-- ================================ Incubator Addons - Genome Revitalizer ====================== -->
+	<ThingDef ParentName="AC_SleeveIncubatorLinkableBase">
+		<defName>AC_GenomeRevitalizer</defName>
+		<label>genome revitalizer</label>
+		<description>A large structure that performs reactionary  measures to adverse effects during the growth  process of a sleeve. When linked to an incubator, it fully takes over the task of monitoring the sleeves genome, working more efficiently than the  incubator could on its own, reducing the amount of time needed to grow a sleeve.\n\nAn add-on to the sleeve incubator, this device needs to be placed in close proximity to it and will cut reduce growth time by 25%.</description>
+		<graphicData>
+			<texPath>Things/Building/Misc/GenomeRevitalizer</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shadowData>
+				<volume>(2.9,0.3,2.9)</volume>
+			</shadowData>
+			<drawSize>(3, 3)</drawSize>
+		</graphicData>
+		<statBases>
+			<MaxHitPoints>250</MaxHitPoints>
+			<Mass>30</Mass>
+		</statBases>
+		<size>(3,3)</size>
+		<costList>
+			<Plasteel>75</Plasteel>
+			<ComponentIndustrial>2</ComponentIndustrial>
+			<ComponentSpacer>6</ComponentSpacer>
+		</costList>
+		<building>
+			<destroySound>BuildingDestroyed_Metal_Small</destroySound>
+		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>450</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Facility">
+				<maxSimultaneous>2</maxSimultaneous>
+				<maxDistance>16</maxDistance>
+			</li>
+		</comps>
+	</ThingDef>
+	<!-- ================================ Incubator Addons - Neutroamine Dialyzer  ====================== -->
+	<ThingDef ParentName="AC_SleeveIncubatorLinkableBase">
+		<defName>AC_NeutroamineDialyzer</defName>
+		<label>neutroamine dialyzer</label>
+		<description>A structure designed to filter neutroamine that is compromised or breaking down out of the incubators loop. Once cleaned and stabilised it is reintroduced to the incubator. By doing so it significantly lowers the amount of wasted neutroamine in the growth process.\n\nAn add-on to the sleeve incubator, this device needs to be placed in close proximity to it and will cut reduce growth time by 10%.</description>
+		<graphicData>
+			<texPath>Things/Building/Misc/NeutroamineDialyzer</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shadowData>
+				<volume>(1.9,0.3,1.9)</volume>
+			</shadowData>
+			<drawSize>(2, 2)</drawSize>
+		</graphicData>
+		<statBases>
+			<MaxHitPoints>150</MaxHitPoints>
+			<Mass>35</Mass>
+		</statBases>
+		<size>(2,2)</size>
+		<costList>
+			<Plasteel>60</Plasteel>
+			<ComponentIndustrial>5</ComponentIndustrial>
+			<ComponentSpacer>8</ComponentSpacer>
+		</costList>
+		<building>
+			<destroySound>BuildingDestroyed_Metal_Medium</destroySound>
+		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>375</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Facility">
+				<maxSimultaneous>2</maxSimultaneous>
+				<maxDistance>16</maxDistance>
+			</li>
+		</comps>
+	</ThingDef>
+	<!-- ================================ Stack Array ====================== -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>AC_StackArray</defName>
+		<label>stack array</label>
+		<description>A quantum computing array, designed to store cortical stacks and make backups of them that can be restored if needed. Cortical stacks can be duplicated, when placed inside the array. Backups are synced between arrays, allowing for multiple ones to be built. \n\nStack Arrays will make an automatic backup of any colony cortical stacks that are installed on the local map every 24 hours. Backups are restored to empty cortical stacks if the original stack is destroyed.</description>
+		<thingClass>AlteredCarbon.Building_StackStorage</thingClass>
+		<tickerType>Normal</tickerType>
+		<drawerType>RealtimeOnly</drawerType>
+		<graphicData>
+			<texPath>Things/Building/Misc/StackArray/StackArray</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(3,3)</drawSize>
+			<shaderType>CutoutComplex</shaderType>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<size>(3,3)</size>
+		<statBases>
+			<MaxHitPoints>800</MaxHitPoints>
+			<WorkToBuild>18000</WorkToBuild>
+			<Flammability>1.0</Flammability>
+			<Cleanliness>1</Cleanliness>
+		</statBases>
+		<researchPrerequisites>
+			<li>AC_CorticalCrafting</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+		<costList>
+			<Steel>250</Steel>
+			<Plasteel>150</Plasteel>
+			<ComponentSpacer>6</ComponentSpacer>
+		</costList>
+		<descriptionHyperlinks>
+			<ThingDef>AC_FilledCorticalStack</ThingDef>
+			<ThingDef>AC_FilledArchoStack</ThingDef>
+		</descriptionHyperlinks>
+		<altitudeLayer>BuildingOnTop</altitudeLayer>
+		<neverMultiSelect>true</neverMultiSelect>
+		<designationCategory>Biotech</designationCategory>
+		<hasInteractionCell>True</hasInteractionCell>
+		<interactionCellOffset>(0,0,2)</interactionCellOffset>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<rotatable>true</rotatable>
+		<passability>PassThroughOnly</passability>
+		<pathCost>100</pathCost>
+		<castEdgeShadows>true</castEdgeShadows>
+		<canOverlapZones>false</canOverlapZones>
+		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+		<constructEffect>ConstructMetal</constructEffect>
+		<blockWind>true</blockWind>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<uiIconPath>Things/Building/Misc/StackArray/StackArrayUI_Icon</uiIconPath>
+		<uiIconScale>1.1</uiIconScale>
+		<building>
+			<ai_chillDestination>false</ai_chillDestination>
+			<destroySound>BuildingDestroyed_Metal_Big</destroySound>
+			<preventDeteriorationOnTop>true</preventDeteriorationOnTop>
+			<ignoreStoredThingsBeauty>true</ignoreStoredThingsBeauty>
+			<soundAmbient>AC_StackArray_Ambience</soundAmbient>
+			<fixedStorageSettings>
+				<filter>
+					<thingDefs>
+						<li>AC_FilledCorticalStack</li>
+					</thingDefs>
+				</filter>
+			</fixedStorageSettings>
+			<defaultStorageSettings>
+				<priority>Important</priority>
+				<filter>
+					<thingDefs>
+						<li>AC_FilledCorticalStack</li>
+					</thingDefs>
+				</filter>
+			</defaultStorageSettings>
+			<buildingTags>
+				<li>Biotech</li>
+			</buildingTags>
+		</building>
+		<inspectorTabs>
+			<li>AlteredCarbon.ITab_StackStorageContents</li>
+			<li>AlteredCarbon.ITab_StackBackupContents</li>
+		</inspectorTabs>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<shortCircuitInRain>true</shortCircuitInRain>
+				<basePowerConsumption>4000</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>5</glowRadius>
+				<glowColor>(0,181,240,0)</glowColor>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+	</ThingDef>
+	<!-- ================================ Decryption Bench ====================== -->
+	<ThingDef ParentName="BenchBase">
+		<defName>AC_DecryptionBench</defName>
+		<label>decryption bench</label>
+		<description>A sophisticated workbench that allows the user to connect to cortical stacks in order to alter the contained information, such as changing allegiance, or even wipe them clean. Can also strip the biocoding from items.\n\nAs the process is quite aggressive, there is a risk of the decryption process destroying the item.</description>
+		<thingClass>AlteredCarbon.Building_DecryptionBench</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Misc/HackingWorkbench/HackingWorkbench</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(3.5,1.5)</drawSize>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<size>(3,1)</size>
+		<castEdgeShadows>true</castEdgeShadows>
+		<staticSunShadowHeight>0.20</staticSunShadowHeight>
+		<designationCategory>Biotech</designationCategory>
+		<thingCategories>
+			<li>BuildingsMisc</li>
+		</thingCategories>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+		<researchPrerequisites>
+			<li>AC_Hacking</li>
+		</researchPrerequisites>
+		<costList>
+			<Steel>80</Steel>
+			<Plasteel>10</Plasteel>
+			<ComponentSpacer>2</ComponentSpacer>
+		</costList>
+		<statBases>
+			<Mass>20</Mass>
+			<MaxHitPoints>180</MaxHitPoints>
+			<WorkToBuild>5000</WorkToBuild>
+			<Flammability>0.5</Flammability>
+		</statBases>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<fillPercent>0.5</fillPercent>
+		<pathCost>42</pathCost>
+		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+		<hasInteractionCell>true</hasInteractionCell>
+		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+		<surfaceType>Item</surfaceType>
+		<building>
+			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+			<ai_chillDestination>false</ai_chillDestination>
+			<buildingTags>
+				<li>Biotech</li>
+			</buildingTags>
+		</building>
+		<recipes>
+			<li>AC_WipeFilledCorticalStack</li>
+			<li>AC_HackBiocodedThings</li>
+		</recipes>
+		<inspectorTabs>
+			<li>ITab_Bills</li>
+		</inspectorTabs>
+		<placeWorkers>
+			<li>PlaceWorker_PreventInteractionSpotOverlap</li>
+		</placeWorkers>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>350</basePowerConsumption>
+				<shortCircuitInRain>true</shortCircuitInRain>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+	</ThingDef>
+	<!-- ================================ Gene Centrifuge ====================== -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>AC_GeneCentrifuge</defName>
+		<label>gene centrifuge</label>
+		<description>A complex centrifugal system capable of separating desirable genetic elements by exploiting minute molecular differences. In effect, this building can separate a desired gene from the rest of a genepack. After the process, two gene packs will be spawned, with the selected gene in one and the remaining genes in the other.</description>
+		<thingClass>AlteredCarbon.Building_GeneCentrifuge</thingClass>
+		<tickerType>Normal</tickerType>
+		<passability>PassThroughOnly</passability>
+		<fillPercent>0.4</fillPercent>
+		<pathCost>14</pathCost>
+		<rotatable>false</rotatable>
+		<graphicData>
+			<texPath>Things/Building/Misc/GeneCentrifuge</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(2, 2)</drawSize>
+		</graphicData>
+		<size>(2, 2)</size>
+		<canOverlapZones>false</canOverlapZones>
+		<defaultPlacingRot>North</defaultPlacingRot>
+		<designationCategory>Biotech</designationCategory>
+		<researchPrerequisites>
+			<li>GeneProcessor</li>
+		</researchPrerequisites>
+		<descriptionHyperlinks>
+			<ThingDef>Genepack</ThingDef>
+		</descriptionHyperlinks>
+		<statBases>
+			<MaxHitPoints>350</MaxHitPoints>
+			<WorkToBuild>9000</WorkToBuild>
+			<Mass>85</Mass>
+			<Flammability>0.5</Flammability>
+		</statBases>
+		<costList>
+			<Steel>100</Steel>
+			<Plasteel>25</Plasteel>
+			<ComponentIndustrial>2</ComponentIndustrial>
+		</costList>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+		<building>
+			<!--<soundAmbient>AC_GeneCentrifuge_Ambience</soundAmbient>-->
+			<buildingTags>
+				<li>Biotech</li>
+			</buildingTags>
+		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>200</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+		</comps>
+	</ThingDef>
+	<!-- ================================ Gene Vault ====================== -->
+	<ThingDef ParentName="GeneBuildingBase">
+		<defName>AC_GeneVault</defName>
+		<label>gene vault</label>
+		<description>A combination gene processor combined with two advanced gene banks. This building, when placed near a gene assembler, increases the maximum genetic complexity of the xenogerms you can assemble, as well as access a plethora of stored genepacks during their creation.\n\nWhen powered, gene vaults prevent genepacks from deteriorating and will slow repair deterioration.</description>
+		<graphicData>
+			<texPath>Things/Building/Misc/GeneVault/GeneVault</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(3, 2)</drawSize>
+		</graphicData>
+		<size>(3, 2)</size>
+		<descriptionHyperlinks>
+			<ThingDef>Genepack</ThingDef>
+			<ThingDef>GeneBank</ThingDef>
+			<ThingDef>GeneAssembler</ThingDef>
+		</descriptionHyperlinks>
+		<passability>PassThroughOnly</passability>
+		<castEdgeShadows>true</castEdgeShadows>
+		<fillPercent>0.4</fillPercent>
+		<pathCost>14</pathCost>
+		<tickerType>Rare</tickerType>
+		<canOverlapZones>false</canOverlapZones>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<designationCategory>Biotech</designationCategory>
+		<researchPrerequisites Inherit="False">
+			<li>Xenogermination</li>
+		</researchPrerequisites>
+		<statBases>
+			<MaxHitPoints>800</MaxHitPoints>
+			<WorkToBuild>15000</WorkToBuild>
+			<Mass>85</Mass>
+			<Flammability>0.5</Flammability>
+			<GeneticComplexityIncrease>2</GeneticComplexityIncrease>
+		</statBases>
+		<costList>
+			<Steel>200</Steel>
+			<Plasteel>50</Plasteel>
+			<ComponentIndustrial>4</ComponentIndustrial>
+		</costList>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+		<inspectorTabs>
+			<li>ITab_ContentsGenepackHolder</li>
+		</inspectorTabs>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>150</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_GenepackContainer">
+				<maxCapacity>12</maxCapacity>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Facility">
+				<maxSimultaneous>50</maxSimultaneous>
+				<maxDistance>12.9</maxDistance>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+		</comps>
+	</ThingDef>
+	<!-- ================================ Xenogerm Duplicator ====================== -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>AC_XenoGermDuplicator</defName>
+		<label>xenogerm duplicator</label>
+		<description>A deceptively simple machine that synthesises genetic material in order to mass manufacture an exact copy of an existing xenogerms. This building can duplicate any existing xenogerm, including any present archite genes, as long as it is supplied with the required amount of archite capsules.</description>
+		<thingClass>AlteredCarbon.Building_XenogermDuplicator</thingClass>
+		<tickerType>Normal</tickerType>
+		<passability>PassThroughOnly</passability>
+		<fillPercent>0.4</fillPercent>
+		<pathCost>14</pathCost>
+		<rotatable>false</rotatable>
+		<graphicData>
+			<texPath>Things/Building/Misc/XenoGermDuplicator</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(4, 4)</drawSize>
+		</graphicData>
+		<size>(2, 2)</size>
+		<canOverlapZones>false</canOverlapZones>
+		<defaultPlacingRot>North</defaultPlacingRot>
+		<designationCategory>Biotech</designationCategory>
+		<researchPrerequisites Inherit="False">
+			<li>GeneProcessor</li>
+		</researchPrerequisites>
+		<descriptionHyperlinks>
+			<ThingDef>Xenogerm</ThingDef>
+		</descriptionHyperlinks>
+		<statBases>
+			<MaxHitPoints>350</MaxHitPoints>
+			<WorkToBuild>9000</WorkToBuild>
+			<Mass>85</Mass>
+			<Flammability>0.5</Flammability>
+		</statBases>
+		<costList>
+			<Steel>120</Steel>
+			<Plasteel>45</Plasteel>
+			<ComponentIndustrial>5</ComponentIndustrial>
+		</costList>
+		<constructionSkillPrerequisite>10</constructionSkillPrerequisite>
+		<building>
+			<buildingTags>
+				<li>Biotech</li>
+			</buildingTags>
+		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>200</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Refuelable">
+				<fuelLabel>Archite capsules</fuelLabel>
+				<fuelGizmoLabel>Archite capsules</fuelGizmoLabel>
+				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+				<targetFuelLevelConfigurable>false</targetFuelLevelConfigurable>
+				<fuelCapacity>25</fuelCapacity>
+				<fuelFilter>
+					<thingDefs>
+						<li>ArchiteCapsule</li>
+					</thingDefs>
+				</fuelFilter>
+				<initialFuelPercent>0</initialFuelPercent>
+				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+				<showFuelGizmo>true</showFuelGizmo>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+		</comps>
+	</ThingDef>
 	<!-- ================================ Sleeve Incubator ====================== -->
 	<ThingDef ParentName="BuildingBase">
 		<defName>AC_SleeveIncubator</defName>
@@ -30,6 +518,9 @@
 		<canOverlapZones>false</canOverlapZones>
 		<neverMultiSelect>true</neverMultiSelect>
 		<constructionSkillPrerequisite>10</constructionSkillPrerequisite>
+		<researchPrerequisites>
+			<li>AC_Sleeving</li>
+		</researchPrerequisites>
 		<costList>
 			<Steel>250</Steel>
 			<Plasteel>50</Plasteel>
@@ -119,6 +610,9 @@
 		<passability>PassThroughOnly</passability>
 		<size>(1,2)</size>
 		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+		<researchPrerequisites>
+			<li>AC_Sleeving</li>
+		</researchPrerequisites>
 		<costList>
 			<Steel>100</Steel>
 			<Plasteel>15</Plasteel>
@@ -163,7 +657,7 @@
 				<basePowerConsumption>75</basePowerConsumption>
 				<idlePowerDraw>15</idlePowerDraw>
 			</li>
-<!--			<li Class="CompProperties_Refuelable">
+			<!--			<li Class="CompProperties_Refuelable">
 				<fuelLabel>Neutroamine</fuelLabel>
 				<fuelGizmoLabel>Neutroamine</fuelGizmoLabel>
 				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
