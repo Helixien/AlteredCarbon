@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Sleeve Incubator ====================== -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>AC_SleeveIncubator</defName>
+		<label>sleeve incubator</label>
+		<description>An exceedingly complex vat of nutrients that is capable of gestating sleeves, empty shells without a mind of their own. Neutroamine is used in order to grow the body through its different stages and the incubator must remains powered throughout this process. Should it lose power for extended periods, the gestation process will fail. \n\nSimple, low grade sleeves can be churned out quite quickly for minimal resources. However, more complex and sophisticated sleeves take longer and require more nutrients to ensure the body is properly formed. \n\nOnce the sleeve has finished growing, it should be extracted and cared for as it is incapable of independent movement or thought, including feeding itself.</description>
+		<thingClass>AlteredCarbon.Building_SleeveGrower</thingClass>
+		<passability>PassThroughOnly</passability>
+		<castEdgeShadows>true</castEdgeShadows>
+		<fillPercent>0.4</fillPercent>
+		<graphicData>
+			<texPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorBottom</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(7,7)</drawSize>
+		</graphicData>
+		<uiIconPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorUI_Icon</uiIconPath>
+		<uiIconScale>1.1</uiIconScale>
+		<descriptionHyperlinks>
+			<ThingDef>AC_SleeveCasket</ThingDef>
+			<ThingDef>GeneAssembler</ThingDef>
+			<ThingDef>Xenogerm</ThingDef>
+		</descriptionHyperlinks>
+		<designationCategory>Biotech</designationCategory>
+		<tickerType>Normal</tickerType>
+		<size>(3,3)</size>
+		<hasInteractionCell>true</hasInteractionCell>
+		<interactionCellOffset>(0,0,2)</interactionCellOffset>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<canOverlapZones>false</canOverlapZones>
+		<neverMultiSelect>true</neverMultiSelect>
+		<constructionSkillPrerequisite>10</constructionSkillPrerequisite>
+		<costList>
+			<Steel>250</Steel>
+			<Plasteel>50</Plasteel>
+			<ComponentSpacer>3</ComponentSpacer>
+		</costList>
+		<statBases>
+			<MarketValue>3580</MarketValue>
+			<WorkToBuild>24000</WorkToBuild>
+			<MaxHitPoints>800</MaxHitPoints>
+			<Flammability>0.5</Flammability>
+			<Mass>60</Mass>
+		</statBases>
+		<pathCost>70</pathCost>
+		<blockWind>true</blockWind>
+		<drawerType>RealtimeOnly</drawerType>
+		<containedPawnsSelectable>true</containedPawnsSelectable>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<placeWorkers>
+			<li>PlaceWorker_FuelingPort</li>
+		</placeWorkers>
+		<building>
+			<destroySound>BuildingDestroyed_Metal_Big</destroySound>
+			<ai_chillDestination>false</ai_chillDestination>
+			<soundAmbient>AC_SleeveIncubator_Ambience</soundAmbient>
+			<buildingTags>
+				<li>Biotech</li>
+			</buildingTags>
+		</building>
+		<comps>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Forbiddable"/>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<shortCircuitInRain>true</shortCircuitInRain>
+				<basePowerConsumption>350</basePowerConsumption>
+				<idlePowerDraw>50</idlePowerDraw>
+			</li>
+			<li Class="CompProperties_Refuelable">
+				<fuelLabel>Neutroamine</fuelLabel>
+				<fuelGizmoLabel>Neutroamine</fuelGizmoLabel>
+				<outOfFuelMessage>Cannot grow: Needs neutroamine</outOfFuelMessage>
+				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+				<targetFuelLevelConfigurable>false</targetFuelLevelConfigurable>
+				<fuelCapacity>500</fuelCapacity>
+				<fuelFilter>
+					<thingDefs>
+						<li>Neutroamine</li>
+					</thingDefs>
+				</fuelFilter>
+				<initialFuelPercent>0</initialFuelPercent>
+				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+				<showFuelGizmo>true</showFuelGizmo>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>5</glowRadius>
+				<glowColor>(96,161,153,0)</glowColor>
+			</li>
+			<li Class="CompProperties_AffectedByFacilities">
+				<linkableFacilities>
+					<li>AC_GenomeRevitalizer</li>
+					<li>AC_NeutroamineDialyzer</li>
+					<li>AC_NeutroaminePump</li>
+				</linkableFacilities>
+			</li>
+		</comps>
+	</ThingDef>
+	<!-- ================================ Sleeve Casket	====================== -->
+	<ThingDef ParentName="FurnitureBase">
+		<defName>AC_SleeveCasket</defName>
+		<label>sleeve casket</label>
+		<description>An open sarcophagus designed to keep a sleeve in a state of suspended animation while still allowing medical access, such as installing implants or bionics.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_SleeveIncubator</ThingDef>
+			<ThingDef>Xenogerm</ThingDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Building/Furniture/Bed/SleeveCasket</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
+			<drawSize>(2,2)</drawSize>
+		</graphicData>
+		<thingClass>AlteredCarbon.Building_SleeveCasket</thingClass>
+		<designationCategory>Biotech</designationCategory>
+		<tickerType>Normal</tickerType>
+		<drawerType>RealtimeOnly</drawerType>
+		<passability>PassThroughOnly</passability>
+		<size>(1,2)</size>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+		<costList>
+			<Steel>100</Steel>
+			<Plasteel>15</Plasteel>
+			<ComponentSpacer>2</ComponentSpacer>
+		</costList>
+		<statBases>
+			<MarketValue>1520</MarketValue>
+			<MaxHitPoints>250</MaxHitPoints>
+			<WorkToBuild>6000</WorkToBuild>
+			<Mass>50</Mass>
+			<Flammability>0.5</Flammability>
+			<BedRestEffectiveness>1.2</BedRestEffectiveness>
+			<Comfort>0.4</Comfort>
+			<ImmunityGainSpeedFactor>1.22</ImmunityGainSpeedFactor>
+			<MedicalTendQualityOffset>0.10</MedicalTendQualityOffset>
+			<SurgerySuccessChanceFactor>1.5</SurgerySuccessChanceFactor>
+		</statBases>
+		<altitudeLayer>Building</altitudeLayer>
+		<castEdgeShadows>True</castEdgeShadows>
+		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+		<drawGUIOverlay>true</drawGUIOverlay>
+		<canOverlapZones>false</canOverlapZones>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<building>
+			<bed_showSleeperBody>false</bed_showSleeperBody>
+			<buildingSizeCategory>Small</buildingSizeCategory>
+			<bed_humanlike>true</bed_humanlike>
+			<bed_healPerDay>2</bed_healPerDay>
+			<bed_defaultMedical>true</bed_defaultMedical>
+			<ai_chillDestination>false</ai_chillDestination>
+			<buildingTags>
+				<li>Biotech</li>
+			</buildingTags>
+		</building>
+		<fillPercent>0.5</fillPercent>
+		<pathCost>42</pathCost>
+		<uiIconScale>1.0</uiIconScale>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<shortCircuitInRain>true</shortCircuitInRain>
+				<basePowerConsumption>75</basePowerConsumption>
+				<idlePowerDraw>15</idlePowerDraw>
+			</li>
+<!--			<li Class="CompProperties_Refuelable">
+				<fuelLabel>Neutroamine</fuelLabel>
+				<fuelGizmoLabel>Neutroamine</fuelGizmoLabel>
+				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+				<targetFuelLevelConfigurable>false</targetFuelLevelConfigurable>
+				<fuelCapacity>100.0</fuelCapacity>
+				<fuelFilter>
+					<thingDefs>
+						<li>Neutroamine</li>
+					</thingDefs>
+				</fuelFilter>
+				<initialFuelPercent>25</initialFuelPercent>
+				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+				<showFuelGizmo>true</showFuelGizmo>
+			</li>-->
+			<li Class="CompProperties_AssignableToPawn">
+				<drawAssignmentOverlay>false</drawAssignmentOverlay>
+				<compClass>CompAssignableToPawn_Bed</compClass>
+			</li>
+			<li Class="CompProperties_AffectedByFacilities">
+				<linkableFacilities>
+					<li>VitalsMonitor</li>
+					<li MayRequire="Ludeon.RimWorld.Ideology">SleepAccelerator</li>
+					<li MayRequire="VanillaExpanded.VFEMedical">Facility_VitalsCentre</li>
+					<li MayRequire="VanillaExpanded.VFEMedical">Facility_IVDrip</li>
+				</linkableFacilities>
+			</li>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsMisc</li>
+		</thingCategories>
+	</ThingDef>
+</Defs>

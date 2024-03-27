@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Duplicating - Original ====================== -->
+	<PawnRelationDef>
+		<defName>AC_Original</defName>
+		<label>original</label>
+		<importance>185</importance>
+		<diedThought>AC_MyOriginalDied</diedThought>
+		<killedThought>AC_KilledMyOriginal</killedThought>
+		<lostThought>AC_MyOriginalLostMale</lostThought>
+		<lostThoughtFemale>AC_MyOriginalLostFemale</lostThoughtFemale>
+		<soldThoughts>
+			<li>SoldMyLovedOne</li>
+		</soldThoughts>
+		<opinionOffset>30</opinionOffset>
+		<generationChanceFactor>0</generationChanceFactor>
+		<romanceChanceFactor>0.01</romanceChanceFactor>
+		<incestOpinionOffset>-50</incestOpinionOffset>
+		<implied>false</implied>
+		<familyByBloodRelation>true</familyByBloodRelation>
+	</PawnRelationDef>
+	<!-- ================================ Duplicating - Copy ====================== -->
+	<PawnRelationDef>
+		<defName>AC_Copy</defName>
+		<label>copy</label>
+		<importance>185</importance>
+		<diedThought>AC_MyCopyDied</diedThought>
+		<killedThought>AC_KilledMyCopy</killedThought>
+		<lostThought>AC_MyCopyLostMale</lostThought>
+		<lostThoughtFemale>AC_MyCopyLostFemale</lostThoughtFemale>
+		<soldThoughts>
+			<li>SoldMyLovedOne</li>
+		</soldThoughts>
+		<opinionOffset>30</opinionOffset>
+		<generationChanceFactor>0</generationChanceFactor>
+		<romanceChanceFactor>0.01</romanceChanceFactor>
+		<incestOpinionOffset>-50</incestOpinionOffset>
+		<implied>false</implied>
+		<familyByBloodRelation>true</familyByBloodRelation>
+	</PawnRelationDef>
+</Defs>

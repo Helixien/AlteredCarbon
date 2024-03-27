@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7AA8C8E3-D3ED-4AB5-A597-834A453DE555}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AlteredCarbon</RootNamespace>
+    <AssemblyName>AlteredCarbon</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <LangVersion>Latest</LangVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\LoadFolders\Standalone\Assemblies\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0ModSettingsFramework">
+      <HintPath>..\..\..\..\VanillaExpandedFramework\1.4\Assemblies\0ModSettingsFramework.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AlienRace">
+      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\839005762\1.4\Assemblies\AlienRace.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="BadHygiene">
+      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\836308268\1.4\Assemblies\BadHygiene.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Psychology">
+      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\2016263135\1.4\Assemblies\Psychology.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RJW">
+      <HintPath>..\..\..\..\rjw-master\1.4\Assemblies\RJW.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SyrTraits">
+      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\1497105115\1.4\Assemblies\SyrTraits.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="VFEAncients">
+      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\2654846754\1.4\Assemblies\VFEAncients.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="VFECore">
+      <HintPath>..\..\..\..\VanillaExpandedFramework\1.4\Assemblies\VFECore.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="VREAndroids">
+      <HintPath>..\..\..\..\VanillaRacesExpanded-Android\1.4\Assemblies\VREAndroids.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="VSE">
+      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\2854967442\1.4\Assemblies\VSE.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlteredCarbonSettingsWorker_RewriteStack.cs" />
+    <Compile Include="AlteredCarbonSettingsWorker_SleeveGrowing.cs" />
+    <Compile Include="Buildings\Building_DecryptionBench.cs" />
+    <Compile Include="Buildings\Building_Incubator.cs" />
+    <Compile Include="CompApparelAbilities.cs" />
+    <Compile Include="HarmonyPatches\Alert_ColonistLeftUnburied_IsCorpseOfColonist_Patch.cs" />
+    <Compile Include="HarmonyPatches\Apparel_Notify_PawnKilled_Patch.cs" />
+    <Compile Include="HarmonyPatches\CharacterCardUtility_DrawCharacterCard_Patch.cs" />
+    <Compile Include="HarmonyPatches\CharacterCardUtility_LifestageAndXenotypeOptions_Patch.cs" />
+    <Compile Include="HarmonyPatches\CompBiocodable_UnCode_Patch.cs" />
+    <Compile Include="HarmonyPatches\FactionGiftUtility_GetBaseGoodwillChange_Patch.cs" />
+    <Compile Include="HarmonyPatches\FactionGiftUtility_GetGoodwillChange_Patch1.cs" />
+    <Compile Include="HarmonyPatches\FactionGiftUtility_GetGoodwillChange_Patch2.cs" />
+    <Compile Include="HarmonyPatches\ModCompat\GeneRipper_Building_GeneRipper_KillOccupant_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_MeleeVerbs_TryGetMeleeVerb_Patch.cs" />
+    <Compile Include="HarmonyPatches\HediffSet_GetHediffsVerbs_Patch.cs" />
+    <Compile Include="HarmonyPatches\Precept_Role_ValidatePawn_Patch.cs" />
+    <Compile Include="HarmonyPatches\TradeUtility_PlayerSellableNow_Patch.cs" />
+    <Compile Include="HarmonyPatches\TransferableUIUtility_DoExtraIcons_Patch.cs" />
+    <Compile Include="HarmonyPatches\CompRottable_CompInspectStringExtra_Patch.cs" />
+    <Compile Include="HarmonyPatches\ContainingSelectionUtility_CanSelect_Patch.cs" />
+    <Compile Include="HarmonyPatches\Dialog_BillConfig_DoWindowContents_Patch.cs" />
+    <Compile Include="HarmonyPatches\Dialog_InfoCard_DoWindowContents_Patch.cs" />
+    <Compile Include="HarmonyPatches\ITab_Pawn_Health_ShouldAllowOperations_Patch.cs" />
+    <Compile Include="HarmonyPatches\PawnRenderer_RenderPawnAt_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_AdoptableBy_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_NeedsTracker_ShouldHaveNeed_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_RelationsTracker_OpinionOf_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_StoryTracker_Backstory_Patch.cs" />
+    <Compile Include="HarmonyPatches\RitualObligationTrigger_MemberCorpseDestroyed_Notify_MemberCorpseDestroyed_Patch.cs" />
+    <Compile Include="HarmonyPatches\Toils_Recipe_CalculateIngredients_Patch.cs" />
+    <Compile Include="HarmonyPatches\TraitSet_GainTrait_Patch.cs" />
+    <Compile Include="HarmonyPatches\TransferableUtility_CanStack_Patch.cs" />
+    <Compile Include="HediffComp_MeleeWeapon.cs" />
+    <Compile Include="Jobs\JobDriver_TakeEmptySleeve.cs" />
+    <Compile Include="HarmonyPatches\PawnRenderer_LayingFacing_Patch.cs" />
+    <Compile Include="HarmonyPatches\PawnUtility_ShouldSendNotificationAbout_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_DoKillSideEffects.cs" />
+    <Compile Include="HarmonyPatches\Pawn_GuestTracker_Notify_PawnUndowned_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_IdeoTracker_ExposeData_Patch.cs" />
+    <Compile Include="HarmonyPatches\PawnRenderer_EquipmentRender_Patch.cs" />
+    <Compile Include="Recipes\Bill_RewriteStack.cs" />
+    <Compile Include="HarmonyPatches\JobDriver_DoBill_MakeNewToils_Patch.cs" />
+    <Compile Include="Recipes\Recipe_OperateOnCorticalStack.cs" />
+    <Compile Include="SleevePreset.cs" />
+    <Compile Include="Stacks\RJWData.cs" />
+    <Compile Include="Stacks\Thought_StackDegradation.cs" />
+    <Compile Include="UI\Alert_ColonistStackNeedsExtracting.cs" />
+    <Compile Include="UI\Command_ActionOnStack.cs" />
+    <Compile Include="HarmonyPatches\Building_GeneExtractor_CanAcceptPawn_Patch.cs" />
+    <Compile Include="HarmonyPatches\ChildcareUtility_SwaddleBaby_Patch.cs" />
+    <Compile Include="HarmonyPatches\ColonistBarColonistDrawer_HandleClicks_Patch.cs" />
+    <Compile Include="HarmonyPatches\BedPatches\CompAssignableToPawn_PlayerCanSeeAssignments_Patch.cs" />
+    <Compile Include="HarmonyPatches\Corpse_Destroy_Patch.cs" />
+    <Compile Include="HarmonyPatches\Faction_Notify_LeaderDied_Patch.cs" />
+    <Compile Include="HarmonyPatches\BedPatches\FeedPatientUtility_ShouldBeFed_Patch.cs" />
+    <Compile Include="HarmonyPatches\Fire_DoFireDamage_Patch.cs" />
+    <Compile Include="HarmonyPatches\HediffComp_DissolveGearOnDeath_Notify_PawnDied_Patch.cs" />
+    <Compile Include="HarmonyPatches\Hediff_PostAdd_Patch.cs" />
+    <Compile Include="HarmonyPatches\Hediff_Psylink_TryGiveAbilityOfLevel_Patch.cs" />
+    <Compile Include="HarmonyPatches\Ideo_Notify_MemberDied_Patch.cs" />
+    <Compile Include="HarmonyPatches\Ideo_RecacheColonistBelieverCount_Patch.cs" />
+    <Compile Include="HarmonyPatches\ITab_Pawn_Character_PawnToShowInfoAbout_Patch.cs" />
+    <Compile Include="HarmonyPatches\LetterStack_ReceiveLetter_Patch.cs" />
+    <Compile Include="HarmonyPatches\LookTargets_Patch.cs" />
+    <Compile Include="HarmonyPatches\BestowingPatches\LordJob_BestowingCeremony_FinishCeremony_Patch.cs" />
+    <Compile Include="HarmonyPatches\Messages_Message_Patch.cs" />
+    <Compile Include="HarmonyPatches\PawnDiedOrDownedThoughtsUtility_AppendThoughts_ForHumanlike_Patch.cs" />
+    <Compile Include="HarmonyPatches\PawnDiedOrDownedThoughtsUtility_AppendThoughts_Relations_Patch.cs" />
+    <Compile Include="HarmonyPatches\PawnDiedOrDownedThoughtsUtility_TryGiveThoughts_Patch.cs" />
+    <Compile Include="HarmonyPatches\PawnNameColorUtility_PawnNameColorOf_Patch.cs" />
+    <Compile Include="HarmonyPatches\PawnsFinder_AllMapsCaravansAndTravelingTransportPods_Alive_FreeColonists_NoCryptosleep_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_Destroy_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_Kill_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_RoyaltyTracker_Notify_PawnKilled_Patch.cs" />
+    <Compile Include="HarmonyPatches\PawnGenerator_GeneratePawn_Patch.cs" />
+    <Compile Include="HarmonyPatches\BillPatches\RecipeDef_AvailableOnNow_Patch.cs" />
+    <Compile Include="HarmonyPatches\BedPatches\RestUtility_IsValidBedFor_Patch.cs" />
+    <Compile Include="HarmonyPatches\BedPatches\RestUtility_FindBedFor_Patch.cs" />
+    <Compile Include="HarmonyPatches\BestowingPatches\Reward_BestowingCeremony_StackElements_Patch.cs" />
+    <Compile Include="HarmonyPatches\RitualObligationTrigger_MemberDied_Notify_MemberDied_Patch.cs" />
+    <Compile Include="HarmonyPatches\SocialCardUtility_GetPawnSituationLabel_Patch.cs" />
+    <Compile Include="Recipes\Bill_OperateOnStack.cs" />
+    <Compile Include="Stacks\Ability_ArchoStackSkip.cs" />
+    <Compile Include="Stacks\Hediff_StackDegradation.cs" />
+    <Compile Include="Stacks\ScenPart_CorticalStack.cs" />
+    <Compile Include="UI\Dialog_PresetList.cs" />
+    <Compile Include="UI\Dialog_SelectXenogermForSleeve.cs" />
+    <Compile Include="UI\GeneUtility.cs" />
+    <Compile Include="UI\HotSwappableAttribute.cs" />
+    <Compile Include="UI\Window_BodyPartPicker.cs" />
+    <Compile Include="Designators\Designator_ExtractStack.cs" />
+    <Compile Include="HarmonyPatches\ReverseDesignatorDatabase_InitDesignators_Patch.cs" />
+    <Compile Include="Jobs\JobDriver_CancelIncubatingProcess.cs" />
+    <Compile Include="Jobs\JobDriver_StartIncubatingProcess.cs" />
+    <Compile Include="Jobs\WorkGiver_ExtractStack.cs" />
+    <Compile Include="Jobs\WorkGiver_CancelIncubatingProcess.cs" />
+    <Compile Include="Jobs\WorkGiver_StartIncubatingProcess.cs" />
+    <Compile Include="ModCompatibility.cs" />
+    <Compile Include="AC_DefOf.cs" />
+    <Compile Include="AlteredCarbonMod.cs" />
+    <Compile Include="AlteredCarbonSettingsWorker_General.cs" />
+    <Compile Include="HarmonyPatches\Pawn_HealthTracker_Notify_Resurrected_Patch.cs" />
+    <Compile Include="HarmonyPatches\PawnRenderer_RenderPawnInternal_Patch.cs" />
+    <Compile Include="HarmonyPatches\BedPatches\BedPatches.cs" />
+    <Compile Include="HarmonyPatches\BillPatches\Bill_IsFixedOrAllowedIngredient_Patch.cs" />
+    <Compile Include="HarmonyPatches\SituationalThoughtHandler_CheckRecalculateMoodThoughts_Patch.cs" />
+    <Compile Include="Recipes\Recipe_WipeFilledCorticalStack.cs" />
+    <Compile Include="Recipes\SpecialThingFilterWorker_StacksHostile.cs" />
+    <Compile Include="Recipes\SpecialThingFilterWorker_StacksColonist.cs" />
+    <Compile Include="Recipes\Bill_InstallStack.cs" />
+    <Compile Include="Recipes\SpecialThingFilterWorker_StacksStranger.cs" />
+    <Compile Include="Buildings\Building_SleeveCasket.cs" />
+    <Compile Include="Jobs\JobDriver_ReleaseSleeve.cs" />
+    <Compile Include="HarmonyPatches\Pawn_HealthTracker_CheckForStateChange_Patch.cs" />
+    <Compile Include="Buildings\Building_SleeveGrower.cs" />
+    <Compile Include="UI\Window_SelectItem.cs" />
+    <Compile Include="UI\Window_SleeveCustomization.cs" />
+    <Compile Include="ExcludeRacesModExtension.cs" />
+    <Compile Include="Stacks\PsychologyData.cs" />
+    <Compile Include="Stacks\PersonaData.cs" />
+    <Compile Include="Stacks\StackGroupData.cs" />
+    <Compile Include="Thoughts\ThoughtWorker_WomansBody.cs" />
+    <Compile Include="Thoughts\ThoughtWorker_MansBody.cs" />
+    <Compile Include="HarmonyPatches\CompRottable_Stage_Patch.cs" />
+    <Compile Include="HarmonyPatches\ColonistBarColonistDrawer_DrawColonist_Patch.cs" />
+    <Compile Include="Jobs\JobDriver_ExtractStack.cs" />
+    <Compile Include="HarmonyPatches\FloatMenuMakerMap_AddHumanlikeOrders_Patch.cs" />
+    <Compile Include="Stacks\CorticalStack.cs" />
+    <Compile Include="HarmonyPatches\BestowingPatches\QuestPart_BestowingCeremony_MakeLord_Patch.cs" />
+    <Compile Include="Stacks\StackSavingOptionsModExtension.cs" />
+    <Compile Include="StackSpawnModExtension.cs" />
+    <Compile Include="Recipes\Recipe_RemoveCorticalStack.cs" />
+    <Compile Include="Recipes\Recipe_InstallCorticalStack.cs" />
+    <Compile Include="Stacks\Hediff_CorticalStack.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AlteredCarbonManager.cs" />
+    <Compile Include="ACUtils.cs" />
+    <Compile Include="UI\UIHelpers.cs" />
+    <Compile Include="UI\Window_ColorPicker.cs" />
+    <Compile Include="UI\Window_StackEditor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Krafs.Publicizer">
+      <Version>2.2.1</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Krafs.Rimworld.Ref">
+      <Version>1.4.3641</Version>
+    </PackageReference>
+    <PackageReference Include="Lib.Harmony">
+      <Version>2.2.2</Version>
+      <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <Publicize Include="Assembly-CSharp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

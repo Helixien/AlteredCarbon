@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Cortical Stack Degradation ====================== -->
+	<HediffDef>
+		<defName>AC_StackDegradation</defName>
+		<label>degradation</label>
+		<labelNoun>stack degradation</labelNoun>
+		<hediffClass>AlteredCarbon.Hediff_StackDegradation</hediffClass>
+		<description>Cortical stack degradation caused by an unauthorized, aggressive rewrite.</description>
+		<isBad>false</isBad>
+		<defaultLabelColor>(1, 0, 0)</defaultLabelColor>
+	</HediffDef>
+	<!-- ================================ Degradation - Brain Trauma ====================== -->
+	<HediffDef>
+		<defName>AC_BrainTrauma</defName>
+		<label>brain trauma</label>
+		<labelNoun>a brain trauma</labelNoun>
+		<description>A brain injury resulting in loss of communication, forgetfulness, and involuntary motor functions.</description>
+		<hediffClass>HediffWithComps</hediffClass>
+		<cureAllAtOnceIfCuredByItem>true</cureAllAtOnceIfCuredByItem>
+		<stages>
+			<li>
+				<partIgnoreMissingHP>true</partIgnoreMissingHP>
+				<!-- to avoid penalties from brain injuries, so manipulation is 100%+ -->
+				<opinionOfOthersFactor>0</opinionOfOthersFactor>
+				<partEfficiencyOffset>-0.15</partEfficiencyOffset>
+				<forgetMemoryThoughtMtbDays>14</forgetMemoryThoughtMtbDays>
+				<capMods>
+					<li>
+						<capacity>Talking</capacity>
+						<setMax>0</setMax>
+					</li>
+					<li>
+						<capacity>Hearing</capacity>
+						<setMax>0</setMax>
+					</li>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>0.5</offset>
+					</li>
+				</capMods>
+			</li>
+		</stages>
+	</HediffDef>
+	
+	<HediffDef>
+		<defName>AC_PainProtection</defName>
+		<label>pain protection</label>
+		<labelNoun>pain protection</labelNoun>
+		<description>pain protection</description>
+		<hediffClass>HediffWithComps</hediffClass>
+		<stages>
+			<li>
+				<painFactor>0</painFactor>
+			</li>
+		</stages>
+	</HediffDef>
+</Defs>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<!-- ================================ New Style ====================== -->
+	<StyleCategoryDef>
+		<defName>AC_Ultrist</defName>
+		<label>ultrist</label>
+		<iconPath>UI/StyleCategories/Ultrist</iconPath>
+		<soundOngoingRitual>RitualSustainer_Techist</soundOngoingRitual>
+		<ritualVisualEffectDef>Techist</ritualVisualEffectDef>
+		<thingDefStyles>
+			<!-- ================================ Vanilla ====================== -->
+			<li>
+				<thingDef>Gun_Autopistol</thingDef>
+				<styleDef>AC_Ultrist_AutoPistol</styleDef>
+			</li>
+			<li>
+				<thingDef>Gun_Revolver</thingDef>
+				<styleDef>AC_Ultrist_Revolver</styleDef>
+			</li>
+			<li>
+				<thingDef>AC_Gun_Autorevolver</thingDef>
+				<styleDef>AC_Ultrist_Autorevolver</styleDef>
+			</li>
+			<li>
+				<thingDef>Gun_BoltActionRifle</thingDef>
+				<styleDef>AC_Ultrist_BoltActionRifle</styleDef>
+			</li>
+			<li>
+				<thingDef>Gun_PumpShotgun</thingDef>
+				<styleDef>AC_Ultrist_PumpShotgun</styleDef>
+			</li>
+			<li>
+				<thingDef>Gun_AssaultRifle</thingDef>
+				<styleDef>AC_Ultrist_AssaultRifle</styleDef>
+			</li>
+			<li>
+				<thingDef>Gun_HeavySMG</thingDef>
+				<styleDef>AC_Ultrist_HeavySMG</styleDef>
+			</li>
+			<li>
+				<thingDef>Gun_SniperRifle</thingDef>
+				<styleDef>AC_Ultrist_SniperRifle</styleDef>
+			</li>
+			<li>
+				<thingDef>Gun_ChargeRifle</thingDef>
+				<styleDef>AC_Ultrist_ChargeRifle</styleDef>
+			</li>
+			<!-- ================================ Modded ====================== -->
+			<li MayRequire="VanillaExpanded.VWEL">
+				<thingDef>VWEL_Gun_LaserRifle</thingDef>
+				<styleDef>VWEL_Ultrist_LaserRifle</styleDef>
+			</li>
+			<li MayRequire="VanillaExpanded.VWEC">
+				<thingDef>VWE_Gun_GaussRifle</thingDef>
+				<styleDef>VWEC_Ultrist_GaussRifle</styleDef>
+			</li>
+		</thingDefStyles>
+	</StyleCategoryDef>
+</Defs>

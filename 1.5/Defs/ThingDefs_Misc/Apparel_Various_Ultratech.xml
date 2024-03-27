@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Base ====================== -->
+	<ThingDef Name="AC_HuntersArmourBase" ParentName="ApparelBase" Abstract="True">
+		<techLevel>Ultra</techLevel>
+		<tickerType>Normal</tickerType>
+		<generateCommonality>0.8</generateCommonality>
+		<equippedStatOffsets>
+			<SlaveSuppressionOffset MayRequire="Ludeon.RimWorld.Ideology">-0.3</SlaveSuppressionOffset>
+		</equippedStatOffsets>
+		<thingCategories>
+			<li>ApparelArmor</li>
+		</thingCategories>
+		<tradeTags>
+			<li>HiTechArmor</li>
+		</tradeTags>
+		<apparel>
+			<bodyPartGroups>
+				<li>Torso</li>
+				<li>Neck</li>
+				<li>Shoulders</li>
+				<li>Arms</li>
+				<li>Legs</li>
+			</bodyPartGroups>
+			<layers>
+				<li>Middle</li>
+				<li>Shell</li>
+			</layers>
+			<defaultOutfitTags>
+				<li>Soldier</li>
+			</defaultOutfitTags>
+			<useDeflectMetalEffect>true</useDeflectMetalEffect>
+		</apparel>
+		<thingSetMakerTags>
+			<li>RewardStandardLowFreq</li>
+		</thingSetMakerTags>
+		<colorGenerator Class="ColorGenerator_Options">
+			<options>
+				<li>
+					<weight>10</weight>
+					<only>(0.9,0.9,0.9)</only>
+				</li>
+				<li>
+					<weight>10</weight>
+					<only>(0.33,0.33,0.33)</only>
+				</li>
+				<li>
+					<weight>10</weight>
+					<only>(0.65,0.65,0.65)</only>
+				</li>
+				<li>
+					<weight>6</weight>
+					<min>(0.3,0.3,0.3)</min>
+					<max>(0.5,0.5,0.5)</max>
+				</li>
+			</options>
+		</colorGenerator>
+		<comps>
+			<li Class="CompProperties_Biocodable"/>
+		</comps>
+	</ThingDef>
+	<!-- ================================ Protector Armour ====================== -->
+	<ThingDef ParentName="AC_HuntersArmourBase">
+		<defName>AC_Apparel_ProtectorArmor</defName>
+		<label>protector armor</label>
+		<description>A suit of protector-issue power armor. Improved protection over standard marine power armor, offered by molecular plasteel integration thoughout the suit as well as on-board processors to assist movement and dampen pain receptors.</description>
+		<graphicData>
+			<texPath>Things/Pawn/Humanlike/Apparel/ProtectorArmor/ProtectorArmor</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>55000</WorkToMake>
+			<MaxHitPoints>320</MaxHitPoints>
+			<Mass>10</Mass>
+			<Flammability>0.4</Flammability>
+			<ArmorRating_Sharp>1.12</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.54</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.62</ArmorRating_Heat>
+			<Insulation_Cold>32</Insulation_Cold>
+			<Insulation_Heat>12</Insulation_Heat>
+			<EquipDelay>12</EquipDelay>
+		</statBases>
+		<recipeMaker>
+			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+			<researchPrerequisite>AC_AdvancedPoweredArmor</researchPrerequisite>
+			<workSkill>Crafting</workSkill>
+			<skillRequirements>
+				<Crafting>7</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>FabricationBench</li>
+			</recipeUsers>
+			<displayPriority>105</displayPriority>
+		</recipeMaker>
+		<costList>
+			<ComponentSpacer>3</ComponentSpacer>
+			<Plasteel>90</Plasteel>
+			<Uranium>12</Uranium>
+		</costList>
+		<equippedStatOffsets>
+			<MoveSpeed>-0.35</MoveSpeed>
+		</equippedStatOffsets>
+		<apparel>
+			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/ProtectorArmor/ProtectorArmor</wornGraphicPath>
+			<tags>
+				<li>SpacerMilitary</li>
+				<li>UltraMilitary</li>
+			</tags>
+		</apparel>
+		<comps>
+			<li Class="VFECore.CompProperties_ApparelHediffs">
+				<hediffDefnames>
+					<li>AC_PainProtection</li>
+				</hediffDefnames>
+			</li>
+		</comps>
+	</ThingDef>
+	<!-- ================================ Fusilier Armour ====================== -->
+	<ThingDef ParentName="AC_HuntersArmourBase">
+		<defName>AC_Apparel_FusilierArmor</defName>
+		<label>fusilier armor</label>
+		<description>A suit of powered armor, built to provide the best protection available for humanity. Every suit is manufactured at a specialized facility, which effectively prints the entirety as one piece, molecule by molecule. The result is levels of protection unmatched by military hardware, as the production costs are staggering and unsustainable for mass production.\n\nIncludes a package of pain inhibitors to ensure the user can fulfill their objective until their dying breath. The intent of the armor is to ensure their benefactor’s survival, as opposed to the user.\n\nThis model includes a powerful smokepop dispenser to obfuscate the user’s location. Primarily used by infiltration and ambush units, the extra bulk from smokepop synthesizers provides minimal protective improvements.</description>
+		<graphicData>
+			<texPath>Things/Pawn/Humanlike/Apparel/FusilierArmor/FusilierArmor</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>76500</WorkToMake>
+			<MaxHitPoints>450</MaxHitPoints>
+			<Mass>18</Mass>
+			<Flammability>0.4</Flammability>
+			<ArmorRating_Sharp>1.15</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.55</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.50</ArmorRating_Heat>
+			<Insulation_Cold>32</Insulation_Cold>
+			<Insulation_Heat>11</Insulation_Heat>
+			<EquipDelay>18</EquipDelay>
+		</statBases>
+		<recipeMaker>
+			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+			<researchPrerequisite>AC_AdvancedPoweredArmor</researchPrerequisite>
+			<workSkill>Crafting</workSkill>
+			<skillRequirements>
+				<Crafting>10</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>FabricationBench</li>
+			</recipeUsers>
+			<displayPriority>107</displayPriority>
+		</recipeMaker>
+		<costList>
+			<ComponentSpacer>8</ComponentSpacer>
+			<Plasteel>160</Plasteel>
+			<Uranium>80</Uranium>
+		</costList>
+		<equippedStatOffsets>
+			<MoveSpeed>-0.85</MoveSpeed>
+		</equippedStatOffsets>
+		<apparel>
+			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/FusilierArmor/FusilierArmor</wornGraphicPath>
+			<tags>
+				<li>SpacerMilitary</li>
+				<li>UltraMilitary</li>
+			</tags>
+		</apparel>
+		<comps>
+			<li Class="VFECore.CompProperties_ApparelHediffs">
+				<hediffDefnames>
+					<li>AC_PainProtection</li>
+				</hediffDefnames>
+			</li>
+			<li Class="VFECore.Abilities.CompProperties_AbilitiesApparel">
+				<abilities>
+					<li>AC_FusilierSmokepop</li>
+				</abilities>
+			</li>
+		</comps>
+	</ThingDef>
+</Defs>

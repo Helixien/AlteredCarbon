@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Shell related traits ====================== -->
+	<TraitDef>
+		<defName>AC_Shellwalker</defName>
+		<commonality>0.1</commonality>
+		<degreeDatas>
+			<li>
+				<label>shellwalker</label>
+				<description>{PAWN_nameDef} prefers shells over sleeves. {PAWN_pronoun} doesn’t care how often {PAWN_pronoun} switches shells or what shell {PAWN_pronoun} is currently riding, but will be unhappy in a sleeve.</description>
+			</li>
+		</degreeDatas>
+	</TraitDef>
+</Defs>

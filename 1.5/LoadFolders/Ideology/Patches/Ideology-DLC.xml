@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<Operation Class="PatchOperationSequence">
+		<operations>
+			<!-- ================================ Add style to culture ====================== -->
+			<li Class="PatchOperationConditional">
+				<xpath>/Defs/CultureDef[defName="Astropolitan"]/thingStyleCategories</xpath>
+				<nomatch Class="PatchOperationAdd">
+					<xpath>/Defs/CultureDef[defName="Astropolitan"]</xpath>
+					<value>
+						<thingStyleCategories>
+							<li MayRequire="Ludeon.RimWorld.Ideology">
+								<category>AC_Ultrist</category>
+								<priority>3</priority>
+							</li>
+						</thingStyleCategories>
+					</value>
+				</nomatch>
+				<match Class="PatchOperationAdd">
+					<xpath>/Defs/CultureDef[defName="Astropolitan"]/thingStyleCategories</xpath>
+					<value>
+						<li MayRequire="Ludeon.RimWorld.Ideology">
+							<category>AC_Ultrist</category>
+							<priority>3</priority>
+						</li>
+					</value>
+				</match>
+			</li>
+		</operations>
+	</Operation>
+</Patch>

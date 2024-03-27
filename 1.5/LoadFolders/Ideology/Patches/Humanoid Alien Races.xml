@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Humanoid Alien Races</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/ThoughtDef[defName="AC_WrongRace"]</xpath>
+					<value>
+						<nullifyingPrecepts>
+							<li MayRequire="Ludeon.RimWorld.Ideology">AC_RaceSleeving_DontCare</li>
+						</nullifyingPrecepts>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+</Patch>

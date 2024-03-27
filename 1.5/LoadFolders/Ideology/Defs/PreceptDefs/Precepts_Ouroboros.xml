@@ -1,0 +1,825 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<!-- ================================ Issues ====================== -->
+	<IssueDef>
+		<defName>AC_Stacking</defName>
+		<label>stacking</label>
+		<iconPath>UI/Issues/Stacking</iconPath>
+	</IssueDef>
+	<IssueDef>
+		<defName>AC_Sleeving</defName>
+		<label>sleeving</label>
+		<iconPath>UI/Issues/Sleeving</iconPath>
+	</IssueDef>
+	<IssueDef>
+		<defName>AC_CrossSleeving</defName>
+		<label>cross-sleeving</label>
+		<iconPath>UI/Issues/CrossSleeving</iconPath>
+	</IssueDef>
+	<IssueDef>
+		<defName>AC_StackDuplicating</defName>
+		<label>duplicating</label>
+		<iconPath>UI/Issues/Duplicating</iconPath>
+	</IssueDef>
+	<IssueDef>
+		<defName>AC_XenoSleeving</defName>
+		<label>xeno-sleeving</label>
+		<iconPath>UI/Issues/XenoSleeving</iconPath>
+	</IssueDef>
+	<IssueDef MayRequire="erdelf.HumanoidAlienRaces">
+		<defName>AC_RaceSleeving</defName>
+		<label>race-sleeving</label>
+		<iconPath>UI/Issues/RaceSleeving</iconPath>
+	</IssueDef>
+	<!-- ================================ Precepts - Stacking Central ====================== -->
+	<PreceptDef>
+		<defName>AC_Stacking_Central</defName>
+		<issue>AC_Stacking</issue>
+		<label>central</label>
+		<description>Without a cortical stack we put ourselves at the risk of death. To live without one is unthinkable.</description>
+		<impact>High</impact>
+		<displayOrderInImpact>1000</displayOrderInImpact>
+		<requiredMemes>
+			<li>AC_Ouroboros</li>
+		</requiredMemes>
+		<conflictingMemes>
+			<li>FleshPurity</li>
+		</conflictingMemes>
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Central_Stack</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Central_ArchoStack</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Central_NoStack</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Central_Stack_Social</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Central_NoStack_Social</thought>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="AlteredCarbon.StackSpawnModExtension">
+				<chanceToSpawnWithStack>95</chanceToSpawnWithStack>
+			</li>
+		</modExtensions>
+	</PreceptDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Central_Stack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Stack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>cortical stack installed</label>
+				<description>I have a stack as any human should. The world is right, and I am as I should be.</description>
+				<baseMoodEffect>4</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Central_ArchoStack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_ArchoStack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>archo stack installed</label>
+				<description>I have a stack as any human should. The world is right, and I am as I should be.</description>
+				<baseMoodEffect>8</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Central_NoStack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_NoStack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>no stack installed</label>
+				<description>I have no stack installed in me. This is wrong!</description>
+				<baseMoodEffect>-15</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Central_Stack_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Stack_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>installed stack</label>
+				<baseOpinionOffset>5</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Central_NoStack_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_NoStack_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>no installed stack</label>
+				<baseOpinionOffset>-10</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ Precepts - Stacking Preferred ====================== -->
+	<PreceptDef>
+		<defName>AC_Stacking_Preferred</defName>
+		<issue>AC_Stacking</issue>
+		<label>preferred</label>
+		<description>Having a cortical stack is the new standard. Without it, one may die at any moment.</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>0</displayOrderInIssue>
+		<displayOrderInImpact>-100</displayOrderInImpact>
+		<associatedMemes>
+			<li>AC_Ouroboros</li>
+			<li>Transhumanist</li>
+		</associatedMemes>
+		<conflictingMemes>
+			<li>FleshPurity</li>
+		</conflictingMemes>
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Preferred_Stack</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Preferred_ArchoStack</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Preferred_NoStack</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Preferred_Stack_Social</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Preferred_NoStack_Social</thought>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="AlteredCarbon.StackSpawnModExtension">
+				<chanceToSpawnWithStack>75</chanceToSpawnWithStack>
+			</li>
+		</modExtensions>
+	</PreceptDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Preferred_Stack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Stack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>cortical stack installed</label>
+				<description>I have a stack installed. Death shall not take me this easily now.</description>
+				<baseMoodEffect>2</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Preferred_ArchoStack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_ArchoStack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>archo stack installed</label>
+				<description>I have a stack installed. Death shall not take me this easily now.</description>
+				<baseMoodEffect>4</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Preferred_NoStack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_NoStack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>no stack installed</label>
+				<description>I would feel a lot safer with a stack inside my neck.</description>
+				<baseMoodEffect>-5</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Preferred_Stack_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Stack_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>installed stack</label>
+				<baseOpinionOffset>2</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Preferred_NoStack_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_NoStack_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>no installed stack</label>
+				<baseOpinionOffset>-5</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ Precepts - Stacking Despised ====================== -->
+	<PreceptDef>
+		<defName>AC_Stacking_Despised</defName>
+		<issue>AC_Stacking</issue>
+		<label>despised</label>
+		<description>A cortical stacks violate the purity of the human consciousness and should never be used.</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>20</displayOrderInIssue>
+		<displayOrderInImpact>200</displayOrderInImpact>
+		<associatedMemes>
+			<li>FleshPurity</li>
+		</associatedMemes>
+<!--		TODO: determine how to add customEffectDescriptions similar to GeneDefs-->
+<!--		<customEffectDescriptions>
+			<li>All those who have an installed stack are deemed guilty</li>
+		</customEffectDescriptions>-->
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Despised_Stack</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Despised_ArchoStack</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Stacking_Despised_Stack_Social</thought>
+			</li>
+		</comps>
+	</PreceptDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Despised_Stack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Stack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>cortical stack installed</label>
+				<description>I have a stack installed. It's an abhorrent offense against everything I believe!</description>
+				<baseMoodEffect>-15</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Despised_ArchoStack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_ArchoStack</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+
+				<label>archo stack installed</label>
+				<description>I have a stack installed. It's an abhorrent offense against everything I believe!</description>
+				<baseMoodEffect>-30</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Stacking_Despised_Stack_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Stack_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>installed stack</label>
+				<baseOpinionOffset>-20</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ Precepts - Sleeving Demanded====================== -->
+	<PreceptDef>
+		<defName>AC_Sleeving_Demanded</defName>
+		<issue>AC_Sleeving</issue>
+		<label>demanded</label>
+		<description>Why settle for what nature gave us? One must use a sleeve of their own design and choosing to be their true selves!</description>
+		<impact>High</impact>
+		<displayOrderInImpact>1000</displayOrderInImpact>
+		<requiredMemes>
+			<li>AC_Ouroboros</li>
+		</requiredMemes>
+		<conflictingMemes>
+			<li>FleshPurity</li>
+		</conflictingMemes>
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Sleeving_Demanded_Sleeved</thought>
+				<tooltipShowMoodRange>true</tooltipShowMoodRange>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Sleeving_Demanded_Sleeved_Social</thought>
+				<tooltipShowMoodRange>true</tooltipShowMoodRange>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Sleeving_Demanded_Sleeveless_Social</thought>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="AlteredCarbon.StackSpawnModExtension">
+				<chanceToSpawnSleeveQuality>85</chanceToSpawnSleeveQuality>
+			</li>
+		</modExtensions>
+	</PreceptDef>
+	<ThoughtDef>
+		<defName>AC_Sleeving_Demanded_Sleeved</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Sleeved</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>awful sleeve</label>
+				<description>My sleeve is of awful quality.</description>
+				<baseMoodEffect>-10</baseMoodEffect>
+			</li>
+			<li>
+				<label>poor sleeve</label>
+				<description>My sleeve is of poor quality.</description>
+				<baseMoodEffect>-5</baseMoodEffect>
+			</li>
+			<li>
+				<label>normal sleeve</label>
+				<visible>false</visible>
+			</li>
+			<li>
+				<label>good sleeve</label>
+				<description>My sleeve is of good quality.</description>
+				<baseMoodEffect>3</baseMoodEffect>
+			</li>
+			<li>
+				<label>excellent sleeve</label>
+				<description>My sleeve is of excellent quality.</description>
+				<baseMoodEffect>5</baseMoodEffect>
+			</li>
+			<li>
+				<label>masterwork sleeve</label>
+				<description>My sleeve is of masterwork quality.</description>
+				<baseMoodEffect>7</baseMoodEffect>
+			</li>
+			<li>
+				<label>legendary sleeve</label>
+				<description>My sleeve is of legendary quality.</description>
+				<baseMoodEffect>10</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Sleeving_Demanded_Sleeved_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Sleeved_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>awful sleeve</label>
+				<baseOpinionOffset>-25</baseOpinionOffset>
+			</li>
+			<li>
+				<label>poor sleeve</label>
+				<baseOpinionOffset>-15</baseOpinionOffset>
+			</li>
+			<li>
+				<label>normal sleeve</label>
+				<visible>false</visible>
+				<baseOpinionOffset>0</baseOpinionOffset>
+			</li>
+			<li>
+				<label>good sleeve</label>
+				<baseOpinionOffset>5</baseOpinionOffset>
+			</li>
+			<li>
+				<label>excellent sleeve</label>
+				<baseOpinionOffset>10</baseOpinionOffset>
+			</li>
+			<li>
+				<label>masterwork sleeve</label>
+				<baseOpinionOffset>15</baseOpinionOffset>
+			</li>
+			<li>
+				<label>legendary sleeve</label>
+				<baseOpinionOffset>20</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Sleeving_Demanded_Sleeveless_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Sleeveless_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>sleeveless</label>
+				<baseOpinionOffset>-30</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ Precepts - Sleeving Preferred ===================== -->
+	<PreceptDef>
+		<defName>AC_Sleeving_Preferred</defName>
+		<issue>AC_Sleeving</issue>
+		<label>preferred</label>
+		<description>Our birth bodies are flawed and often obsolete. Using a sleeve is therefore understandable.</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>0</displayOrderInIssue>
+		<displayOrderInImpact>-100</displayOrderInImpact>
+		<associatedMemes>
+			<li>AC_Ouroboros</li>
+			<li>Transhumanist</li>
+		</associatedMemes>
+		<conflictingMemes>
+			<li>FleshPurity</li>
+		</conflictingMemes>
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Sleeving_Preferred_Sleeved</thought>
+				<tooltipShowMoodRange>true</tooltipShowMoodRange>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="AlteredCarbon.StackSpawnModExtension">
+				<chanceToSpawnSleeveQuality>55</chanceToSpawnSleeveQuality>
+			</li>
+		</modExtensions>
+	</PreceptDef>
+	<ThoughtDef>
+		<defName>AC_Sleeving_Preferred_Sleeved</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Sleeved</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>awful sleeve</label>
+				<description>My sleeve is of awful quality.</description>
+				<baseMoodEffect>-5</baseMoodEffect>
+			</li>
+			<li>
+				<label>poor sleeve</label>
+				<description>My sleeve is of poor quality.</description>
+				<baseMoodEffect>-3</baseMoodEffect>
+			</li>
+			<li>
+				<label>normal quality sleeve</label>
+				<visible>false</visible>
+			</li>
+			<li>
+				<label>good sleeve</label>
+				<description>My sleeve is of good quality.</description>
+				<baseMoodEffect>1</baseMoodEffect>
+			</li>
+			<li>
+				<label>excellent sleeve</label>
+				<description>My sleeve is of excellent quality.</description>
+				<baseMoodEffect>2</baseMoodEffect>
+			</li>
+			<li>
+				<label>masterwork sleeve</label>
+				<description>My sleeve is of masterwork quality.</description>
+				<baseMoodEffect>3</baseMoodEffect>
+			</li>
+			<li>
+				<label>legendary sleeve</label>
+				<description>My sleeve is of legendary quality.</description>
+				<baseMoodEffect>5</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ Precepts - Sleeving Despised ===================== -->
+	<PreceptDef>
+		<defName>AC_Sleeving_Despised</defName>
+		<issue>AC_Sleeving</issue>
+		<label>despised</label>
+		<description>To use a sleeve violates nature and the miracle of life itself. They should never be used.</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>20</displayOrderInIssue>
+		<displayOrderInImpact>200</displayOrderInImpact>
+		<associatedMemes>
+			<li>FleshPurity</li>
+		</associatedMemes>
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Sleeving_Despised_Sleeved</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Sleeving_Despised_Sleeved_Social</thought>
+			</li>
+		</comps>
+	</PreceptDef>
+	<ThoughtDef>
+		<defName>AC_Sleeving_Despised_Sleeved</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Sleeved</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>sleeved</label>
+				<description>I am forced to live in a body that was not given to me by nature. This is horrible and against my believes.</description>
+				<baseMoodEffect>-20</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Sleeving_Despised_Sleeved_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_Sleeved_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>uses sleeve</label>
+				<baseOpinionOffset>-30</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ Precept - Cross Sleeving Don't Care ====================== -->
+	<PreceptDef>
+		<defName>AC_CrossSleeving_DontCare</defName>
+		<issue>AC_CrossSleeving</issue>
+		<label>don't care</label>
+		<description>Male and female are just two sides of the same coin, switching between them is nothing bothersome.</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>10</displayOrderInIssue>
+		<associatedMemes>
+			<li>Transhumanist</li>
+			<li>AC_Ouroboros</li>
+		</associatedMemes>
+	</PreceptDef>
+	<!-- ================================ Precept - Cross Sleeving Despised ====================== -->	
+	<PreceptDef>
+		<defName>AC_CrossSleeving_Despised</defName>
+		<issue>AC_CrossSleeving</issue>
+		<label>despised</label>
+		<description>One's gender at birth is sacred and should not be switched between.</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>20</displayOrderInIssue>
+		<displayOrderInImpact>200</displayOrderInImpact>
+		<associatedMemes>
+			<li>FleshPurity</li>
+		</associatedMemes>
+		<conflictingMemes>
+			<li>AC_Ouroboros</li>
+			<li>Transhumanist</li>
+		</conflictingMemes>
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Sleeving_Despised_CrossSleeving</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_Sleeving_Despised_CrossSleeving_Social</thought>
+			</li>
+		</comps>
+	</PreceptDef>
+	<ThoughtDef>
+		<defName>AC_Sleeving_Despised_CrossSleeving</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_CrossSleeving</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>cross sleeved</label>
+				<description>I am forced to live in a body of the opposite gender. This is horrible and against my believes.</description>
+				<baseMoodEffect>-20</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_Sleeving_Despised_CrossSleeving_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_CrossSleeving_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>cross sleeved</label>
+				<baseOpinionOffset>-25</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ Precepts - Duplicating - Enlightened ====================== -->
+	<PreceptDef>
+		<defName>AC_StackDuplicating_Enlightened</defName>
+		<issue>AC_StackDuplicating</issue>
+		<label>enlightened</label>
+		<description>To make more versions of oneself means to allow for more of one's goals to be achieved. It is a noble thing to do.</description>
+		<impact>High</impact>
+		<requiredMemes>
+			<li>AC_Ouroboros</li>
+		</requiredMemes>
+		<conflictingMemes>
+			<li>FleshPurity</li>
+		</conflictingMemes>
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_StackDuplicating_Enlightened_ForOriginal_Social</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_StackDuplicating_Enlightened_ForCopy_Social</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_StackDuplicating_Enlightened_Social</thought>
+			</li>
+		</comps>
+	</PreceptDef>
+	<ThoughtDef>
+		<defName>AC_StackDuplicating_Enlightened_ForOriginal_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_StackDuplicating_ForOriginal_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>enlightened duplicate</label>
+				<baseOpinionOffset>5</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_StackDuplicating_Enlightened_ForCopy_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_StackDuplicating_ForCopy_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>enlightened original</label>
+				<baseOpinionOffset>10</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_StackDuplicating_Enlightened_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_StackDuplicating_HasDuplicates_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>has copy</label>
+				<baseOpinionOffset>5</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ Precepts - Duplicating - Don't care ====================== -->
+	<PreceptDef>
+		<defName>AC_StackDuplicating_DontCare</defName>
+		<issue>AC_StackDuplicating</issue>
+		<label>don't care</label>
+		<description>We are all just collections of memories and experiences. Making a copy of that is nothing bothersome.</description>
+		<associatedMemes>
+			<li>AC_Ouroboros</li>
+			<li>Transhumanist</li>
+		</associatedMemes>
+		<conflictingMemes>
+			<li>FleshPurity</li>
+		</conflictingMemes>
+	</PreceptDef>
+	<!-- ================================ Precepts - Duplicating - Horrible ===================== -->
+	<PreceptDef>
+		<defName>AC_StackDuplicating_Horrible</defName>
+		<issue>AC_StackDuplicating</issue>
+		<label>horrible</label>
+		<description>To make a copy of oneself is a horrendous crime against not only nature, but the copy that is created.</description>
+		<associatedMemes>
+			<li>FleshPurity</li>
+		</associatedMemes>
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_StackDuplicating_Horrible_ForOriginal_Social</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_StackDuplicating_Horrible_ForCopy_Social</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_StackDuplicating_Horrible_Social</thought>
+			</li>
+		</comps>
+	</PreceptDef>
+	<ThoughtDef>
+		<defName>AC_StackDuplicating_Horrible_ForOriginal_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_StackDuplicating_ForOriginal_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>souless duplicate</label>
+				<baseOpinionOffset>-5</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_StackDuplicating_Horrible_ForCopy_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_StackDuplicating_ForCopy_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>shattered soul</label>
+				<baseOpinionOffset>-10</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_StackDuplicating_Horrible_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_StackDuplicating_HasDuplicates_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>has copy</label>
+				<baseOpinionOffset>-5</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ Precepts - Xeno-Sleeving Despised ====================== -->
+	<PreceptDef>
+		<defName>AC_XenoSleeving_DontCare</defName>
+		<issue>AC_XenoSleeving</issue>
+		<label>don't care</label>
+		<description>Small differences in our bodies are irrelevant, at our core we are all human.</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>10</displayOrderInIssue>
+		<associatedMemes>
+			<li>Transhumanist</li>
+			<li>AC_Ouroboros</li>
+		</associatedMemes>
+	</PreceptDef>
+	<!-- ================================ Precepts - Xeno-Sleeving Despised ====================== -->
+	<PreceptDef>
+		<defName>AC_XenoSleeving_Despised</defName>
+		<issue>AC_XenoSleeving</issue>
+		<label>despised</label>
+		<description>One's xenotype is sacred and switching to one of a different type is despicable.</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>10</displayOrderInIssue>
+		<associatedMemes>
+			<li>Transhumanist</li>
+			<li>AC_Ouroboros</li>
+		</associatedMemes>
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_XenoSleeving_Despised_Xenosleeved</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_XenoSleeving_Despised_Xenosleeved_Social</thought>
+			</li>
+		</comps>
+	</PreceptDef>
+	<ThoughtDef>
+		<defName>AC_XenoSleeving_Despised_Xenosleeved</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_XenoSleeving</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>xeno sleeved</label>
+				<description>My body does not reflect my natural born one.</description>
+				<baseMoodEffect>-5</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_XenoSleeving_Despised_Xenosleeved_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_XenoSleeving_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>xeno sleeved</label>
+				<baseOpinionOffset>-10</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ Precepts - Race-Sleeving Despised ====================== -->
+	<PreceptDef MayRequire="erdelf.HumanoidAlienRaces">
+		<defName>AC_RaceSleeving_DontCare</defName>
+		<issue>AC_RaceSleeving</issue>
+		<label>don't care</label>
+		<description>Even bigger biological changes are irrelevant, we are all sentient beings at the end..</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>10</displayOrderInIssue>
+		<associatedMemes>
+			<li>Transhumanist</li>
+			<li>AC_Ouroboros</li>
+		</associatedMemes>
+	</PreceptDef>
+	<!-- ================================ Precepts - Race-Sleeving Despised ====================== -->
+	<PreceptDef MayRequire="erdelf.HumanoidAlienRaces">
+		<defName>AC_RaceSleeving_Despised</defName>
+		<issue>AC_RaceSleeving</issue>
+		<label>despised</label>
+		<description>One's race is sacred and abandoning it is despicable.</description>
+		<impact>Low</impact>
+		<displayOrderInIssue>10</displayOrderInIssue>
+		<associatedMemes>
+			<li>Transhumanist</li>
+			<li>AC_Ouroboros</li>
+		</associatedMemes>
+		<comps>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_RaceSleeving_Despised_Racesleeved</thought>
+			</li>
+			<li Class="PreceptComp_SituationalThought">
+				<thought>AC_RaceSleeving_Despised_Racesleeved_Social</thought>
+			</li>
+		</comps>
+	</PreceptDef>
+	<ThoughtDef MayRequire="erdelf.HumanoidAlienRaces">
+		<defName>AC_RaceSleeving_Despised_Racesleeved</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_RaceSleeving</workerClass>
+		<thoughtClass>Thought_Situational</thoughtClass>
+		<stages>
+			<li>
+				<label>race sleeved</label>
+				<description>My body does not reflect my natural born one.</description>
+				<baseMoodEffect>-5</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef MayRequire="erdelf.HumanoidAlienRaces">
+		<defName>AC_RaceSleeving_Despised_Racesleeved_Social</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_RaceSleeving_Social</workerClass>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<stages>
+			<li>
+				<label>race sleeved</label>
+				<baseOpinionOffset>-10</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+</Defs>

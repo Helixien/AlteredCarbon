@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<PlaceDef>
+		<defName>AC_TiqqunStation</defName>
+		<tags>
+			<li>OriginSpacer</li>
+			<li>Origin_AlteredCarbon</li>
+		</tags>
+		<placeRules>
+			<include>
+				<li>PlaceMakerCommon</li>
+			</include>
+			<rulesStrings>
+				<!-- An orbital trade hub that acts as a meeting place for the rich and powerful. -->
+				<li>place_name->Tiqqun Station</li>
+				<li>place_adjective->Tiqqin</li>
+				<li>place_summary->glitter-tech orbital station</li>
+				<li>place_community->commerce center</li>
+				<li>place_community->convention center</li>
+				<li>place_community->residential ring</li>
+				<li>place_community->bordello district</li>
+				<li>place_community->augmentation clinic</li>
+				<li>place_powerCenter->central control core</li>
+				<li>place_job->sanguophage negotiator</li>
+				<li>place_job->trade guild head</li>
+				<li>place_job->supervisor</li>
+				<li>place_job->assistant</li>
+				<li>place_job->courtesan</li>
+				<li>place_job->shuttle pilot</li>
+				<li>place_job->luciferium distributor</li>
+				<li>place_job->security guard</li>
+				<li>place_personalWeapon->taser</li>
+				<li>place_personalWeapon->coil gun</li>
+				<li>place_personalWeapon->charge pistol</li>
+				<li>place_personalWeapon->baton</li>
+				<li>place_massWeapon->[anEMPAttack]</li>
+				<li>place_massWeapon->a deadly bioweapon</li>
+				<li>place_massWeapon->a structural disintegration bacterium</li>
+				<li>place_massWeapon->a smuggled orbital bombardment targeter</li>
+				<li>place_foeLeader->pirate boss</li>
+				<li>place_foeLeader->crime loard</li>
+				<li>place_foeSoldiers->gangster</li>
+			</rulesStrings>
+		</placeRules>
+	</PlaceDef>
+<!--	<PlaceDef>
+		<defName>AC_Edina</defName>
+		<tags>
+			<li>OriginSpacer</li>
+		</tags>
+		<placeRules>
+			<include>
+				<li>PlaceMakerCommon</li>
+			</include>
+			<rulesStrings>
+				<!{1}** A tidal-locked line glitterworld with three moons. **{1}>
+				<li>place_name->Edina</li>
+				<li>place_adjective->Edinian</li>
+				<li>place_summary->line world</li>
+				<li>place_community->augmentation clinic</li>
+				<li>place_community->hyper-yacht</li>
+				<li>place_community->zero-g stadium</li>
+				<li>place_powerCenter->space elevator complex</li>
+				<li>place_job->tourist guide</li>
+				<li>place_job->zero-g performer</li>
+				<li>place_job->luciferium distributor</li>
+				<li>place_job->virtual celebrity</li>
+				<li>place_job->shuttle pilot</li>
+				<li>place_personalWeapon->vibro-knife</li>
+				<li>place_personalWeapon->charge pistol</li>
+				<li>place_massWeapon->a structural disintegration bacterium</li>
+				<li>place_massWeapon->a smuggled orbital bombardment targeter</li>
+				<li>place_foeLeader->entertainment mogul</li>
+				<li>place_foeSoldiers->enforcers</li>
+			</rulesStrings>
+		</placeRules>
+	</PlaceDef>-->
+</Defs>

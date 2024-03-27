@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<!-- ================================ Base ====================== -->
+	<ThingStyleDef Name="AC_WeaponStyle" Abstract="True">
+		<graphicData>
+			<onGroundRandomRotateAngle>35</onGroundRandomRotateAngle>
+		</graphicData>
+	</ThingStyleDef>
+	<!-- ================================ Vanilla Weapons ====================== -->
+	<ThingStyleDef ParentName="AC_WeaponStyle">
+		<defName>AC_Ultrist_AutoPistol</defName>
+		<graphicData>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/AutoPistol</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+	<ThingStyleDef ParentName="AC_WeaponStyle">
+		<defName>AC_Ultrist_Revolver</defName>
+		<graphicData>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/Revolver</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+	<ThingStyleDef ParentName="AC_WeaponStyle">
+		<defName>AC_Ultrist_Autorevolver</defName>
+		<graphicData>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/Autorevolver</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+	<ThingStyleDef ParentName="AC_WeaponStyle">
+		<defName>AC_Ultrist_BoltActionRifle</defName>
+		<graphicData>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/BoltActionRifle</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+	<ThingStyleDef ParentName="AC_WeaponStyle">
+		<defName>AC_Ultrist_PumpShotgun</defName>
+		<graphicData>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/Shotgun</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+	<ThingStyleDef ParentName="AC_WeaponStyle">
+		<defName>AC_Ultrist_AssaultRifle</defName>
+		<graphicData>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/AssaultRifle</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+	<ThingStyleDef ParentName="AC_WeaponStyle">
+		<defName>AC_Ultrist_HeavySMG</defName>
+		<graphicData>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/HeavySMG</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+	<ThingStyleDef ParentName="AC_WeaponStyle">
+		<defName>AC_Ultrist_SniperRifle</defName>
+		<graphicData>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/SniperRifle</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+	<ThingStyleDef ParentName="AC_WeaponStyle">
+		<defName>AC_Ultrist_ChargeRifle</defName>
+		<graphicData>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/ChargeRifle</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+	<!-- ================================ Modded weapons ====================== -->
+	<ThingStyleDef ParentName="AC_WeaponStyle" MayRequire="VanillaExpanded.VWEL">
+		<defName>VWEL_Ultrist_LaserRifle</defName>
+		<graphicData>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/LaserRifle</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+	<ThingStyleDef ParentName="AC_WeaponStyle" MayRequire="VanillaExpanded.VWEC">
+		<defName>VWEC_Ultrist_GaussRifle</defName>
+		<graphicData>
+			<texPath>Styles/Ultrist/Things/Item/Equipment/WeaponRanged/GaussRifle</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingStyleDef>
+</Defs>

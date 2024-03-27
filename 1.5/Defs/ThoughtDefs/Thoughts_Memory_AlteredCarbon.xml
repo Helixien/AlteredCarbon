@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Duplication Thoughts - Lovers ====================== -->
+	<ThoughtDef>
+		<defName>AC_JustCopy</defName>
+		<durationDays>60</durationDays>
+		<stackLimit>1</stackLimit>
+		<nullifyingTraits>
+			<li>Transhumanist</li>
+			<li>Psychopath</li>
+		</nullifyingTraits>
+		<nullifyingPrecepts>
+			<li MayRequire="Ludeon.RimWorld.Ideology">AC_StackDuplicating_DontCare</li>
+			<li MayRequire="Ludeon.RimWorld.Ideology">AC_StackDuplicating_Enlightened</li>
+		</nullifyingPrecepts>
+		<stages>
+			<li>
+				<label>Just a copy</label>
+				<description>I am nothing more than a copy... What even am I?</description>
+				<baseMoodEffect>-15</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_LostMySpouse</defName>
+		<durationDays>30</durationDays>
+		<stackLimit>1</stackLimit>
+		<stages>
+			<li>
+				<label>Lost my spouse</label>
+				<description>My spouse stayed with my original, but I still love them. This isn't fair...</description>
+				<baseMoodEffect>-10</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_LostMyFiance</defName>
+		<durationDays>30</durationDays>
+		<stackLimit>1</stackLimit>
+		<stages>
+			<li>
+				<label>Lost my fiance</label>
+				<description>My fiance stayed with my original but I still love them. This isn't fair...</description>
+				<baseMoodEffect>-10</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_LostMyLover</defName>
+		<durationDays>30</durationDays>
+		<stackLimit>1</stackLimit>
+		<stages>
+			<li>
+				<label>Lost my lover</label>
+				<description>My lover stayed with my original, but I still love them. This isn't fair...</description>
+				<baseMoodEffect>-10</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ Duplication Thoughts - Original Died or Lost ====================== -->
+	<ThoughtDef ParentName="DeathMemoryFamily">
+		<defName>AC_MyOriginalDied</defName>
+		<nullifyingTraits>
+			<li>Psychopath</li>
+			<li>Bloodlust</li>
+		</nullifyingTraits>
+		<stages>
+			<li>
+				<label>my original copy {0} died</label>
+				<description>My original copy is dead. I am alone again.</description>
+				<baseMoodEffect>-15</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef ParentName="LostMemoryFamily">
+		<defName>AC_MyOriginalLostMale</defName>
+		<stages>
+			<li>
+				<label>my original copy {0} is missing</label>
+				<description>My original copy has gone missing. I hope he will get back to us someday.</description>
+				<baseMoodEffect>-14</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef ParentName="LostMemoryFamily">
+		<defName>AC_MyOriginalLostFemale</defName>
+		<stages>
+			<li>
+				<label>my original copy {0} is missing</label>
+				<description>My original copy has gone missing. I hope she will get back to us someday.</description>
+				<baseMoodEffect>-14</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_KilledMyOriginal</defName>
+		<thoughtClass>Thought_MemorySocial</thoughtClass>
+		<durationDays>120</durationDays>
+		<stackLimit>300</stackLimit>
+		<stackLimitForSameOtherPawn>10</stackLimitForSameOtherPawn>
+		<stages>
+			<li>
+				<label>killed my original</label>
+				<baseOpinionOffset>-80</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ Duplication Thoughts - Copy Died or Lost ====================== -->
+	<ThoughtDef ParentName="DeathMemoryFamily">
+		<defName>AC_MyCopyDied</defName>
+		<nullifyingTraits>
+			<li>Psychopath</li>
+			<li>Bloodlust</li>
+		</nullifyingTraits>
+		<stages>
+			<li>
+				<label>my copy {0} died</label>
+				<description>My copy is dead. I am alone again.</description>
+				<baseMoodEffect>-15</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef ParentName="LostMemoryFamily">
+		<defName>AC_MyCopyLostMale</defName>
+		<stages>
+			<li>
+				<label>my copy {0} is missing</label>
+				<description>My copy has gone missing. I hope he will get back to us someday.</description>
+				<baseMoodEffect>-14</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef ParentName="LostMemoryFamily">
+		<defName>AC_MyCopyLostFemale</defName>
+		<stages>
+			<li>
+				<label>my copy {0} is missing</label>
+				<description>My copy has gone missing. I hope she will get back to us someday.</description>
+				<baseMoodEffect>-14</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<ThoughtDef>
+		<defName>AC_KilledMyCopy</defName>
+		<thoughtClass>Thought_MemorySocial</thoughtClass>
+		<durationDays>120</durationDays>
+		<stackLimit>300</stackLimit>
+		<stackLimitForSameOtherPawn>10</stackLimitForSameOtherPawn>
+		<stages>
+			<li>
+				<label>killed my copy</label>
+				<baseOpinionOffset>-80</baseOpinionOffset>
+			</li>
+		</stages>
+	</ThoughtDef>
+</Defs>

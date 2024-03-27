@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<!-- ================================ Bullets ====================== -->
+	<ThingDef ParentName="BaseBullet">
+		<defName>AC_Bullet_ChargeIncursionarShotgun</defName>
+		<label>charge shotgun blast</label>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Charge_Blast</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>TransparentPostLight</shaderType>
+			<drawSize>1.2</drawSize>
+		</graphicData>
+		<projectile>
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>17</damageAmountBase>
+			<armorPenetrationBase>0.45</armorPenetrationBase>
+			<stoppingPower>2.8</stoppingPower>
+			<speed>60</speed>
+		</projectile>
+	</ThingDef>
+	<ThingDef ParentName="BaseBullet">
+		<defName>AC_Bullet_ChargeIncursionarRifle</defName>
+		<label>charge shot</label>
+		<graphicData>
+			<texPath>Things/Projectile/Charge_Small</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile>
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>14</damageAmountBase>
+			<armorPenetrationBase>0.32</armorPenetrationBase>
+			<speed>72</speed>
+		</projectile>
+	</ThingDef>
+	<!-- ================================ Gun ====================== -->
+	<ThingDef ParentName="BaseHumanMakeableGun">
+		<defName>AC_Gun_ChargeIncursionar</defName>
+		<label>charge incursionar</label>
+		<description>A multi-purpose charged-shot incursionar rifle with two shooting modes. Pulse-charge technology charges each shot with unstable energy as it leaves the barrel. Released on impact, the charged energy greatly increases the damage done. Shotgun mode will eliminate any close targets with a powerful,charge blast, whilst Rifle mode allows users to engage enemies at long range.</description>
+		<techLevel>Spacer</techLevel>
+		<graphicData>
+			<texPath>Things/Item/Equipment/WeaponRanged/ChargeIncursionar</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<soundInteract>Interact_ChargeRifle</soundInteract>
+		<statBases>
+			<WorkToMake>55000</WorkToMake>
+			<Mass>5.2</Mass>
+			<AccuracyTouch>0.7</AccuracyTouch>
+			<AccuracyShort>0.62</AccuracyShort>
+			<AccuracyMedium>0.52</AccuracyMedium>
+			<AccuracyLong>0.45</AccuracyLong>
+			<RangedWeapon_Cooldown>1.85</RangedWeapon_Cooldown>
+		</statBases>
+		<recipeMaker>
+			<researchPrerequisite>ChargedShot</researchPrerequisite>
+			<skillRequirements>
+				<Crafting>8</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>FabricationBench</li>
+			</recipeUsers>
+			<displayPriority>200</displayPriority>
+		</recipeMaker>
+		<costList>
+			<Plasteel>70</Plasteel>
+			<ComponentSpacer>3</ComponentSpacer>
+		</costList>
+		<thingSetMakerTags>
+			<li>RewardStandardQualitySuper</li>
+		</thingSetMakerTags>
+		<weaponTags>
+			<li>SpacerGun</li>
+		</weaponTags>
+		<tradeTags>
+			<li>WeaponRanged</li>
+		</tradeTags>
+		<weaponClasses>
+			<li>RangedLight</li>
+		</weaponClasses>
+		<verbs>
+			<li>
+				<verbClass>Verb_Shoot</verbClass>
+				<hasStandardCommand>true</hasStandardCommand>
+				<label>Rifle mode (Charged shot)</label>
+				<defaultProjectile>AC_Bullet_ChargeIncursionarRifle</defaultProjectile>
+				<warmupTime>1.0</warmupTime>
+				<range>29.9</range>
+				<ticksBetweenBurstShots>10</ticksBetweenBurstShots>
+				<burstShotCount>3</burstShotCount>
+				<soundCast>Shot_ChargeRifle</soundCast>
+				<soundCastTail>GunTail_Medium</soundCastTail>
+				<muzzleFlashScale>9</muzzleFlashScale>
+			</li>
+			<li>
+				<verbClass>Verb_Shoot</verbClass>
+				<hasStandardCommand>true</hasStandardCommand>
+				<label>Shotgun mode (Charged blast)</label>
+				<defaultProjectile>AC_Bullet_ChargeIncursionarShotgun</defaultProjectile>
+				<warmupTime>1.2</warmupTime>
+				<range>17.9</range>
+				<burstShotCount>2</burstShotCount>
+				<soundCast>AC_Shot_ChargeShotgun</soundCast>
+				<soundCastTail>GunTail_Heavy</soundCastTail>
+				<muzzleFlashScale>9</muzzleFlashScale>
+			</li>
+		</verbs>
+		<tools>
+			<li>
+				<label>stock</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>9</power>
+				<cooldownTime>2</cooldownTime>
+			</li>
+			<li>
+				<label>barrel</label>
+				<capacities>
+					<li>Blunt</li>
+					<li>Poke</li>
+				</capacities>
+				<power>9</power>
+				<cooldownTime>2</cooldownTime>
+			</li>
+		</tools>
+		<comps>
+			<li Class="MVCF.Comps.CompProperties_VerbProps">
+				<compClass>MVCF.Comps.Comp_VerbProps</compClass>
+				<verbProps>
+					<li>
+						<label>Rifle mode (Charged shot)</label>
+						<canBeToggled>false</canBeToggled>
+						<comps>
+							<li Class="MVCF.VerbComps.VerbCompProperties_Switch">
+								<switchIcon>UI/Gizmos/ChargeIncursionarRifle</switchIcon>
+								<startEnabled>true</startEnabled>
+							</li>
+						</comps>
+					</li>
+					<li>
+						<label>Shotgun mode (Charged blast)</label>
+						<canBeToggled>false</canBeToggled>
+						<comps>
+							<li Class="MVCF.VerbComps.VerbCompProperties_Switch">
+								<switchIcon>UI/Gizmos/ChargeIncursionarShotgun</switchIcon>
+							</li>
+						</comps>
+					</li>
+				</verbProps>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="VFED.ContrabandExtension" MayRequire="OskarPotocki.VFE.Deserters">
+				<category>VFED_Deserter</category>
+				<intelCost>14</intelCost>
+			</li>
+		</modExtensions>
+	</ThingDef>
+</Defs>

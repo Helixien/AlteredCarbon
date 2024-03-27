@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<MemeDef>
+		<defName>AC_Ouroboros</defName>
+		<label>ouroboros</label>
+		<description>We are the beginning and the end, for we are beyond death. We shall live forever, from now on to the death of the universe.</description>
+		<iconPath>UI/Memes/Ouroboros</iconPath>
+		<groupDef>Misc</groupDef>
+		<impact>2</impact>
+		<requireOne>
+			<li>
+				<li MayRequire="VanillaExpanded.VMemesE">VME_Death_Troubling</li>
+			</li>
+			<li>
+				<li>AC_Stacking_Central</li>
+				<li>AC_Stacking_Preferred</li>
+			</li>
+			<li>
+				<li>AC_Sleeving_Demanded</li>
+				<li>AC_Sleeving_Preferred</li>
+			</li>
+			<li>
+				<li>AC_CrossSleeving_DontCare</li>
+			</li>
+			<li>
+				<li>AC_StackDuplicating_Enlightened</li>
+				<li>AC_StackDuplicating_DontCare</li>
+			</li>
+		</requireOne>
+		<generalRules>
+			<rulesStrings>
+				<li>memeAdjective->immortal</li>
+				<li>memeAdjective->endless</li>
+				<li>memeAdjective->ethernal</li>
+				<li>memeAdjective->unfading</li>
+				<li>memeAdjective->perpetual</li>
+				<li>memeAdjective->perdurable</li>
+				<li>memeLeaderNoun->constant</li>
+				<li>memeConcept->eternalism</li>
+				<li>memeConcept->immortality</li>
+				<li>memeConcept->deathlessness</li>
+				<li>memeConcept->enhancement</li>
+				<li>memeLeaderAdjective->undying</li>
+				<li>memeLeaderAdjective->everlasting</li>
+				<li>memeMoralist->installer</li>
+				<li>memeMoralist->preserver</li>
+				<li>memeMoralist->forerunner</li>
+				<li>memeMoralist->eternalist</li>
+			</rulesStrings>
+		</generalRules>
+		<descriptionMaker>
+			<rules>
+				<rulesStrings>
+					<!-- theist myth -->
+					<li>creation(tag=meme_Ouroboros)        ->[deity0_name] granted us the knowledge of how to cheat death, that we may live forever and explore the universe to our hearts content.</li>
+					<li>episode(uses=1,tag=meme_Ouroboros)  ->Human bio-engineers created sleeves of immense quality, which pleased [deity0_objective].</li>
+					<li>episode(uses=1,tag=meme_Ouroboros)  ->as [deity0_name] hoped, humanity abandoned the old structures of male and female.</li>
+					<!-- ideological lesson -->
+					<li>lessonIntro(tag=meme_Ouroboros)         ->humanity's great future is one without death, where bodies are nothing more than vessels for our incredible intellect.</li>
+					<li>lesson(tag=meme_Ouroboros)              ->for death is nothing more than a hindrance on our road to biological perfection</li>
+				</rulesStrings>
+			</rules>
+		</descriptionMaker>
+		<requiredRituals/>
+		<symbolPacks>
+			<li>
+				<ideoName>Technologism</ideoName>
+				<theme>technology</theme>
+				<adjective>technologistic</adjective>
+				<member>technologist</member>
+			</li>
+			<li>
+				<ideoName>Progressism</ideoName>
+				<theme>progress</theme>
+				<adjective>progressist</adjective>
+				<member>progressor</member>
+			</li>
+			<li>
+				<ideoName>Automatism</ideoName>
+				<theme>automata</theme>
+				<adjective>automatist</adjective>
+				<member>automator</member>
+			</li>
+			<li>
+				<ideoName>Augmentism</ideoName>
+				<theme>augmentation</theme>
+				<adjective>augmentist</adjective>
+				<member>augmentor</member>
+			</li>
+		</symbolPacks>
+		<preferredWeaponClasses>
+			<noble>Ultratech</noble>
+			<despised>Neolithic</despised>
+		</preferredWeaponClasses>
+		<addDesignators>
+			<li>SleepAccelerator</li>
+			<li>NeuralSupercharger</li>
+		</addDesignators>
+		<thingStyleCategories>
+			<li>
+				<category>AC_Ultrist</category>
+				<priority>2</priority>
+			</li>
+			<li>
+				<category>Techist</category>
+				<priority>4</priority>
+			</li>
+		</thingStyleCategories>
+		<agreeableTraits>
+			<li>Transhumanist</li>
+			<li>AC_FreeMind</li>
+			<li>AC_Sleever</li>
+		</agreeableTraits>
+		<disagreeableTraits>
+			<li>BodyPurist</li>
+		</disagreeableTraits>
+	</MemeDef>
+</Defs>

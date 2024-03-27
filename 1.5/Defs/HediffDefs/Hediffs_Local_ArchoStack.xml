@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Archostack ====================== -->
+	<HediffDef ParentName="ImplantHediffBase">
+		<defName>AC_ArchoStack</defName>
+		<label>archo stack</label>
+		<labelNoun>a archo stack</labelNoun>
+		<hediffClass>AlteredCarbon.Hediff_CorticalStack</hediffClass>
+		<description>An installed archo stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_FilledArchoStack</ThingDef>
+		</descriptionHyperlinks>
+		<spawnThingOnRemoved>AC_FilledArchoStack</spawnThingOnRemoved>
+		<isBad>false</isBad>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1.25</partEfficiency>
+			<betterThanNatural>true</betterThanNatural>
+		</addedPartProps>
+	</HediffDef>
+</Defs>

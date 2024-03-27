@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Duplicate Stack ====================== -->
+	<WorkGiverDef>
+		<defName>AC_DuplicateStacks</defName>
+		<label>duplicate stacks</label>
+		<giverClass>AlteredCarbon.WorkGiver_DuplicateStacks</giverClass>
+		<workType>Research</workType>
+		<verb>duplicate</verb>
+		<gerund>duplicating</gerund>
+		<priorityInType>999</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+	<!-- ================================ Banking stacks ====================== -->
+	<WorkGiverDef>
+		<defName>AC_HaulStacksToStorage</defName>
+		<label>haul stacks</label>
+		<giverClass>AlteredCarbon.WorkGiver_HaulStacks</giverClass>
+		<workType>Hauling</workType>
+		<verb>bank</verb>
+		<gerund>banking</gerund>
+		<priorityInType>1000</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+	<!-- ================================ Create stack from backup ====================== -->
+	<WorkGiverDef>
+		<defName>AC_CreateStackFromBackup</defName>
+		<label>restore stack from backup</label>
+		<giverClass>AlteredCarbon.WorkGiver_CreateStackFromBackup</giverClass>
+		<workType>Research</workType>
+		<verb>restore stack from backup</verb>
+		<gerund>restoring stack from backup</gerund>
+		<priorityInType>999</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+	<!-- ================================ Inserting genepack ====================== -->
+	<WorkGiverDef>
+		<defName>AC_InsertGenepack</defName>
+		<label>insert genepack into gene centrifuge</label>
+		<giverClass>AlteredCarbon.WorkGiver_InsertGenepack</giverClass>
+		<workType>Hauling</workType>
+		<verb>insert into gene centrifuge</verb>
+		<gerund>inserting into gene centrifuge</gerund>
+		<priorityInType>1000</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+	<!-- ================================ Inserting xenogerm ====================== -->
+	<WorkGiverDef>
+		<defName>AC_InsertXenogerm</defName>
+		<label>insert xenogerm into xenogerm duplicator</label>
+		<giverClass>AlteredCarbon.WorkGiver_InsertXenogerm</giverClass>
+		<workType>Hauling</workType>
+		<verb>insert into xenogerm duplicator</verb>
+		<gerund>inserting into xenogerm duplicator</gerund>
+		<priorityInType>1000</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+	<!-- ================================ Hauling corpse to sleeve grower ====================== -->
+	<WorkGiverDef>
+		<defName>AC_HaulCorpseToSleeveGrower</defName>
+		<label>haul corpse to sleeve grower</label>
+		<giverClass>AlteredCarbon.WorkGiver_HaulCorpseToSleeveGrower</giverClass>
+		<workType>Hauling</workType>
+		<verb>haul corpse to</verb>
+		<gerund>hauling corpse to</gerund>
+		<priorityInType>1000</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+	<!-- ================================ Cancel body repurposing ====================== -->
+	<WorkGiverDef>
+		<defName>AC_CancelRepurposingBody</defName>
+		<label>cancel repurposing body</label>
+		<giverClass>AlteredCarbon.WorkGiver_CancelRepurposingBody</giverClass>
+		<workType>BasicWorker</workType>
+		<priorityInType>50</priorityInType>
+		<verb>cancel repurposing body</verb>
+		<gerund>canceling repurposing body at</gerund>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+		<prioritizeSustains>true</prioritizeSustains>
+	</WorkGiverDef>
+</Defs>

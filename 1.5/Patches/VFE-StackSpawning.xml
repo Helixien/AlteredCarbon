@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<!-- ================================ Vikings ====================== -->
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Vanilla Factions Expanded - Vikings</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/PawnKindDef[defName="VFEV_VikingHero" or defName="VFEV_VikingLegend"]</xpath>
+					<value>
+						<li Class="AlteredCarbon.StackSpawnModExtension">
+							<chanceToSpawnWithStack>45</chanceToSpawnWithStack>
+						</li>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+	<!-- ================================ Empire ====================== -->
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Vanilla Factions Expanded - Empire</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/PawnKindDef[@Name="VFEE_DeserterBase"]</xpath>
+					<value>
+						<li Class="AlteredCarbon.StackSpawnModExtension">
+							<chanceToSpawnWithStack>15</chanceToSpawnWithStack>
+						</li>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+	<!-- ================================ Pirates ====================== -->
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Vanilla Factions Expanded - Pirates</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/PawnKindDef[@Name="VFEP_JunkersBase" or @Name="VFEP_MercenariesBase"]</xpath>
+					<value>
+						<li Class="AlteredCarbon.StackSpawnModExtension">
+							<chanceToSpawnWithStack>7</chanceToSpawnWithStack>
+						</li>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+	<!-- ================================ Ancients ====================== -->
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Vanilla Factions Expanded - Ancients</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+				<li Class="PatchOperationAddModExtension">
+					<xpath>/Defs/PawnKindDef[defName="VFEA_AncientSoldierOneAbility" or defName="VFEA_AncientSoldierTwoAbilities"]</xpath>
+					<value>
+						<li Class="AlteredCarbon.StackSpawnModExtension">
+							<chanceToSpawnWithStack>25</chanceToSpawnWithStack>
+						</li>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+</Patch>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Fusilier Armor Ability ====================== -->
+	<VFECore.Abilities.AbilityDef>
+		<defName>AC_FusilierSmokepop</defName>
+		<label>Smokepop</label>
+		<description>Deploy a cloud of protective smoke, covering your escape. Does not consume fuel, but requires time to recharge.</description>
+		<abilityClass>VFECore.Abilities.Ability_Explode</abilityClass>
+		<targetMode>Self</targetMode>
+		<iconPath>UI/Ability_FusilierSmoke</iconPath>
+		<cooldownTime>12500</cooldownTime>
+		<castTime>0</castTime>
+		<modExtensions>
+			<li Class="VFECore.Abilities.AbilityExtension_Explosion">
+				<explosionDamageDef>Smoke</explosionDamageDef>
+				<explosionRadius>7</explosionRadius>
+				<onCaster>true</onCaster>
+				<postExplosionGasType>BlindSmoke</postExplosionGasType>
+				<postExplosionSpawnChance>1</postExplosionSpawnChance>
+			</li>
+		</modExtensions>
+	</VFECore.Abilities.AbilityDef>
+</Defs>

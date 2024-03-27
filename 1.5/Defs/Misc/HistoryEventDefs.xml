@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<!-- ================================ Used Archostack ====================== -->
+	<HistoryEventDef>
+		<defName>AC_UsedArchoStack</defName>
+		<label>killed faction member with archo stack</label>
+	</HistoryEventDef>
+	<!-- ================================ Rewrote Stack ====================== -->
+	<HistoryEventDef>
+		<defName>AC_RewroteStack</defName>
+		<label>rewrote stack of faction member</label>
+	</HistoryEventDef>
+</Defs>

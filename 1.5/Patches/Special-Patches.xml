@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<Operation Class="AlteredCarbon.AlteredCarbonSettingsWorker_General">
+		<id>AlteredCarbon_ModSettings_General</id>
+		<order>0</order>
+		<category>AC_General</category>
+		<showTooltipAsTinyText>false</showTooltipAsTinyText>
+	</Operation>
+	
+	<Operation Class="AlteredCarbon.AlteredCarbonSettingsWorker_SleeveGrowing">
+		<id>AlteredCarbon_ModSettings_SleeveGrowing</id>
+		<category>AC_SleeveGrowing</category>
+		<showTooltipAsTinyText>false</showTooltipAsTinyText>
+	</Operation>
+	
+	<Operation Class="AlteredCarbon.AlteredCarbonSettingsWorker_RewriteStack">
+		<id>AlteredCarbon_ModSettings_StackRewriting</id>
+		<category>AC_StackRewriting</category>
+		<showTooltipAsTinyText>false</showTooltipAsTinyText>
+	</Operation>
+</Patch>

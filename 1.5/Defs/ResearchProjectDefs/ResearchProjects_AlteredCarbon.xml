@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Hacking Research ====================== -->
+	<ResearchProjectDef>
+		<defName>AC_Hacking</defName>
+		<label>hacking</label>
+		<description>Build workbenches to decrypt and alter the contents of filled cortical stacks, as well as strip biocoding.</description>
+		<baseCost>1200</baseCost>
+		<researchViewX>15.00</researchViewX>
+		<researchViewY>1.50</researchViewY>
+		<techLevel>Ultra</techLevel>
+		<prerequisites>
+			<li>MicroelectronicsBasics</li>
+		</prerequisites>
+		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
+		<requiredResearchFacilities>
+			<li>MultiAnalyzer</li>
+		</requiredResearchFacilities>
+	</ResearchProjectDef>
+	<!-- ================================ Advanced Powered Armor ====================== -->
+	<ResearchProjectDef>
+		<defName>AC_AdvancedPoweredArmor</defName>
+		<label>advanced armor</label>
+		<description>Build advanced powered armor, designed to  provide the best protection available for humanity. Note that these also require advanced components.</description>
+		<baseCost>8500</baseCost>
+		<techLevel>Ultra</techLevel>
+		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
+		<requiredResearchFacilities>
+			<li>MultiAnalyzer</li>
+		</requiredResearchFacilities>
+		<researchViewX>16.00</researchViewX>
+		<researchViewY>0.00</researchViewY>
+		<prerequisites>
+			<li>PoweredArmor</li>
+		</prerequisites>
+	</ResearchProjectDef>
+	<!-- ================================ Altered Carbon - Research Abstract	====================== -->
+	<ResearchProjectDef Name="AC_ResearchBase" Abstract="True">
+		<techLevel>Ultra</techLevel>
+		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
+		<requiredResearchFacilities>
+			<li>MultiAnalyzer</li>
+		</requiredResearchFacilities>
+	</ResearchProjectDef>
+	<!-- ================================ Sleeve Production	====================== -->
+	<ResearchProjectDef ParentName="AC_ResearchBase">
+		<defName>AC_Sleeving</defName>
+		<label>sleeving</label>
+		<description>Build facilities that gestate empty sleeves, ready for cortical stack implantation.</description>
+		<baseCost>3000</baseCost>
+		<researchViewX>12.00</researchViewX>
+		<researchViewY>2.90</researchViewY>
+		<prerequisites>
+			<li>MicroelectronicsBasics</li>
+		</prerequisites>
+	</ResearchProjectDef>
+	<!-- ================================ Cortical Stack crafting ====================== -->
+	<ResearchProjectDef ParentName="AC_ResearchBase">
+		<defName>AC_CorticalCrafting</defName>
+		<label>cortical stacks</label>
+		<description>Fabricate advanced ultratech cortical stacks from advanced components and other materials.</description>
+		<baseCost>4000</baseCost>
+		<researchViewX>17.00</researchViewX>
+		<researchViewY>0.00</researchViewY>
+		<prerequisites>
+			<li>AdvancedFabrication</li>
+		</prerequisites>
+	</ResearchProjectDef>
+	<!-- ================================ Rewrite Cortical Stack ====================== -->
+	<ResearchProjectDef ParentName="AC_ResearchBase">
+		<defName>AC_RewriteCorticalStack</defName>
+		<label>cortical modification</label>
+		<description>Modify the data on cortical stacks using exploits in the software of cortical stacks.</description>
+		<baseCost>5000</baseCost>
+		<researchViewX>18.00</researchViewX>
+		<researchViewY>0.00</researchViewY>
+		<prerequisites>
+			<li>AC_CorticalCrafting</li>
+		</prerequisites>
+	</ResearchProjectDef>
+</Defs>

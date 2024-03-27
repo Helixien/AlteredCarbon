@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<Operation Class="PatchOperationSequence">
+		<!-- ================================ Patches in new stuff into the base game ====================== -->
+		<operations>
+			<!-- ================================ Patches in stack crafting recipe ====================== -->
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[defName="FabricationBench"]/recipes</xpath>
+				<value>
+					<li>AC_MakeEmptyCorticalStack</li>
+				</value>
+			</li>
+			<!-- ================================ Change Neutroamine draw size ====================== -->
+			<li Class="PatchOperationReplace">
+				<xpath>/Defs/ThingDef[defName="Neutroamine"]/graphicData/drawSize</xpath>
+				<value>
+					<drawSize>0.80</drawSize>
+				</value>
+			</li>
+			<!-- ================================ Spawn Pawns with Stacks ====================== -->
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="Pirate"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>3</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="Grenadier_Destructive" or defName="Grenadier_Smoke" or defName="Mercenary_Gunner" or efName="Mercenary_Gunner_Acidifier" or defName="Mercenary_Sniper" or defName="Mercenary_Sniper_Acidifier" or defName="Mercenary_Slasher" or defName="Mercenary_Slasher_Acidifier" or defName="Mercenary_Heavy"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>7</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="Mercenary_Elite" or defName="Mercenary_Elite_Acidifier"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>20</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="PirateBoss"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>40</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="Town_Guard" or defName="Town_Trader" or defName="Town_Councilman"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>2</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="SpaceRefugee" or defName="SpaceRefugee_Clothed"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>5</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="AncientSoldier" or defName="StrangerInBlack"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>25</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+</Patch>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Duplicate Stack ====================== -->
+	<JobDef>
+		<defName>AC_DuplicateStack</defName>
+		<driverClass>AlteredCarbon.JobDriver_DuplicateStack</driverClass>
+		<reportString>duplicating cortical stack</reportString>
+	</JobDef>
+	<!-- ================================ Create Stack from Backup ====================== -->
+	<JobDef>
+		<defName>AC_CreateStackFromBackup</defName>
+		<driverClass>AlteredCarbon.JobDriver_CreateStackFromBackup</driverClass>
+		<reportString>restoring cortical stack from backup</reportString>
+	</JobDef>
+	<!-- ================================ Hauling Stacks ====================== -->
+	<JobDef>
+		<defName>AC_HaulingStacks</defName>
+		<driverClass>AlteredCarbon.JobDriver_HaulStackToStackArray</driverClass>
+		<reportString>hauling TargetA to TargetB.</reportString>
+		<allowOpportunisticPrefix>true</allowOpportunisticPrefix>
+	</JobDef>
+	<!-- ================================ Inserting things into processors ====================== -->
+	<JobDef>
+		<defName>AC_InsertingThingIntoProcessor</defName>
+		<driverClass>AlteredCarbon.JobDriver_InsertIntoProcessor</driverClass>
+		<reportString>inserting TargetA to TargetB.</reportString>
+		<allowOpportunisticPrefix>true</allowOpportunisticPrefix>
+	</JobDef>
+	<!-- ================================ Hauling corpse to sleeve grower ====================== -->
+	<JobDef>
+		<defName>AC_HaulCorpseToSleeveGrower</defName>
+		<driverClass>AlteredCarbon.JobDriver_HaulCorpseToSleeveGrower</driverClass>
+		<reportString>hauling TargetA to TargetB.</reportString>
+		<allowOpportunisticPrefix>true</allowOpportunisticPrefix>
+	</JobDef>
+	<!-- ================================ Cancel body repurposing ====================== -->
+	<JobDef>
+		<defName>AC_CancelRepurposingBody</defName>
+		<driverClass>AlteredCarbon.JobDriver_CancelRepurposingBody</driverClass>
+		<reportString>canceling body repurposing on sleeve grower</reportString>
+	</JobDef>
+</Defs>

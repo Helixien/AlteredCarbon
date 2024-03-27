@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Advanced Shield Belt ====================== -->
+	<ThingDef ParentName="ApparelBase">
+		<defName>AC_CuirassierBelt</defName>
+		<label>cuirassier belt</label>
+		<description>An advanced ultratech projectile-repulsion device. It will attempt to stop incoming projectiles or shrapnel, but does nothing against melee attacks or heat. This model does not prevents the wearer from firing out, but still shuts down instantly if hit by EMP.</description>
+		<thingClass>Apparel</thingClass>
+		<graphicData>
+			<texPath>Things/Pawn/Humanlike/Apparel/CuirassierBelt/CuirassierBelt</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
+		</graphicData>
+		<tickerType>Normal</tickerType>
+		<techLevel>Ultra</techLevel>
+		<statBases>
+			<Mass>4</Mass>
+			<WorkToMake>35000</WorkToMake>
+			<Flammability>0.4</Flammability>
+			<EquipDelay>3</EquipDelay>
+		</statBases>
+		<thingSetMakerTags>
+			<li>RewardSpecial</li>
+		</thingSetMakerTags>
+		<costList>
+			<ComponentSpacer>2</ComponentSpacer>
+			<Steel>50</Steel>
+			<Plasteel>20</Plasteel>
+		</costList>
+		<recipeMaker>
+			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+			<researchPrerequisite>AC_AdvancedPoweredArmor</researchPrerequisite>
+			<skillRequirements>
+				<Crafting>12</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>FabricationBench</li>
+			</recipeUsers>
+			<displayPriority>108</displayPriority>
+		</recipeMaker>
+		<thingCategories>
+			<li>ApparelUtility</li>
+		</thingCategories>
+		<apparel>
+			<countsAsClothingForNudity>false</countsAsClothingForNudity>
+			<careIfWornByCorpse>false</careIfWornByCorpse>
+			<careIfDamaged>false</careIfDamaged>
+			<wearPerDay>0</wearPerDay>
+			<bodyPartGroups>
+				<li>Waist</li>
+			</bodyPartGroups>
+			<layers>
+				<li>Belt</li>
+			</layers>
+			<tags>
+				<li>SpacerMilitary</li>
+				<li>UltraMilitary</li>
+			</tags>
+			<developmentalStageFilter>Child, Adult</developmentalStageFilter>
+		</apparel>
+		<tradeTags>
+			<li>Armor</li>
+		</tradeTags>
+		<colorGenerator Class="ColorGenerator_Options">
+			<options>
+				<li>
+					<weight>10</weight>
+					<only>(0.33,0.33,0.33,1)</only>
+				</li>
+				<li>
+					<weight>10</weight>
+					<only>(0.65,0.65,0.65,1)</only>
+				</li>
+				<li>
+					<weight>6</weight>
+					<min>(0.3,0.3,0.3,1)</min>
+					<max>(0.5,0.5,0.5,1)</max>
+				</li>
+				<li>
+					<weight>10</weight>
+					<only>(0.9,0.9,0.9,1)</only>
+				</li>
+			</options>
+		</colorGenerator>
+		<comps>
+			<li Class="VFECore.CompProperties_ShieldBubble">
+				<compClass>VFECore.CompShieldBubble</compClass>
+				<blockRangedAttack>true</blockRangedAttack>
+				<blockMeleeAttack>false</blockMeleeAttack>
+				<showWhenDrafted>true</showWhenDrafted>
+				<showOnHostiles>true</showOnHostiles>
+				<showOnNeutralInCombat>true</showOnNeutralInCombat>
+				<shieldTexPath>Other/ShieldBubble</shieldTexPath>
+				<EnergyShieldRechargeRate>0.12</EnergyShieldRechargeRate>
+				<EnergyShieldEnergyMax>250</EnergyShieldEnergyMax>
+				<minShieldSize>1.4</minShieldSize>
+				<maxShieldSize>1.8</maxShieldSize>
+				<disableRotation>true</disableRotation>
+			</li>
+		</comps>
+	</ThingDef>
+</Defs>

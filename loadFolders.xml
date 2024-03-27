@@ -7,4 +7,11 @@
 		<li IfModActive="Ludeon.RimWorld.Ideology">1.4/LoadFolders/Ideology</li>
 		<li IfModActive="vanillaracesexpanded.android">1.4/LoadFolders/VanillaRacesExpanded-Android</li>
 	</v1.4>
+	<v1.5>
+		<li>/</li>
+		<li>1.5</li>
+		<li IfModActive="Ludeon.RimWorld.Royalty">1.5/LoadFolders/Royalty</li>
+		<li IfModActive="Ludeon.RimWorld.Ideology">1.5/LoadFolders/Ideology</li>
+		<li IfModActive="vanillaracesexpanded.android">1.5/LoadFolders/VanillaRacesExpanded-Android</li>
+	</v1.5>
 </loadFolders>

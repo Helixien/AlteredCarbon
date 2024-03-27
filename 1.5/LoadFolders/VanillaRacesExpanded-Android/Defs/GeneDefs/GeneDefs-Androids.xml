@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<VREAndroids.AndroidGeneDef ParentName="VREA_HardwareBase">
+		<defName>AC_CorticalModule</defName>
+		<label>cortical module</label>
+		<description>Androids have a cortical module for interfacing for common cortical stacks. They can be used as shells for shellwalkers.</description>
+		<iconPath>UI/Icons/Genes/Hardware/Gene_CorticalModule</iconPath>
+		<displayOrderInCategory>10</displayOrderInCategory>
+		<biostatCpx>1</biostatCpx>
+		<isCoreComponent>false</isCoreComponent>
+	</VREAndroids.AndroidGeneDef>
+</Defs>

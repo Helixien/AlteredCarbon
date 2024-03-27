@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<Operation Class="PatchOperationSequence">
+		<operations>
+			<!-- ================================ Add faction tag to research ====================== -->
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ResearchProjectDef[@Name="AC_ResearchBase"]</xpath>
+				<value>
+					<techprintCount>1</techprintCount>
+					<techprintCommonality>1.2</techprintCommonality>
+					<heldByFactionCategoryTags>
+						<li>Empire</li>
+					</heldByFactionCategoryTags>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ResearchProjectDef[defName="AC_Sleeving"]</xpath>
+				<value>
+					<techprintMarketValue>1500</techprintMarketValue>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ResearchProjectDef[defName="AC_CorticalCrafting"]</xpath>
+				<value>
+					<techprintMarketValue>1500</techprintMarketValue>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ResearchProjectDef[defName="AC_RewriteCorticalStack"]</xpath>
+				<value>
+					<techprintMarketValue>2000</techprintMarketValue>
+				</value>
+			</li>
+			<!-- ================================ Spawn Pawns with Stacks ====================== -->
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[@Name="EmpireCommonerBase"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>15</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[@Name="ImperialFighterBase"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>45</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[@Name="RoyalBase"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>45</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[@Name="RoyalUpperBase"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>75</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[deName="Empire_Royal_Stellarch" or defName="Empire_Royal_Bestower" or defName="Empire_Royal_Consul"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>100</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<!-- ================================ Add Stacks to Deserter Quest ====================== -->
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/QuestScriptDef[defName="Intro_Deserter"]/root[@Class="QuestNode_Sequence"]/nodes/li[@Class="QuestNode_SetItemStashContents"]/items</xpath>
+				<value>
+					<li>VFEU_EmptyCorticalStack</li>
+					<li>VFEU_EmptyCorticalStack</li>
+				</value>
+			</li>
+			<!-- ================================ Add Stacks to traders ====================== -->
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Empire_Caravan_TributeCollector"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_BuySingleDef">
+						<thingDef>VFEU_EmptyCorticalStack</thingDef>
+					</li>
+					<li Class="StockGenerator_BuySingleDef">
+						<thingDef>AC_EmptyArchoStack</thingDef>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Empire_Caravan_TraderGeneral"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_BuySingleDef">
+						<thingDef>VFEU_EmptyCorticalStack</thingDef>
+					</li>
+					<li Class="StockGenerator_BuySingleDef">
+						<thingDef>AC_EmptyArchoStack</thingDef>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Orbital_Empire"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_BuySingleDef">
+						<thingDef>VFEU_EmptyCorticalStack</thingDef>
+					</li>
+					<li Class="StockGenerator_BuySingleDef">
+						<thingDef>AC_EmptyArchoStack</thingDef>
+					</li>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+</Patch>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+	<!-- ================================ Archostack Skip ====================== -->
+	<VFECore.Abilities.AbilityDef>
+		<defName>AC_ArchoStackSkip</defName>
+		<label>stack skip</label>
+		<description>Skip the archo stack into the targets body, taking control over it. Kills the target and the sleeve the archostack is currently in. This is useful if the current sleeve is near death.</description>
+		<iconPath>UI/Icons/StackSkip</iconPath>
+		<abilityClass>AlteredCarbon.Ability_ArchoStackSkip</abilityClass>
+		<cooldownTime>420000</cooldownTime>
+		<chance>0</chance>
+		<range>25</range>
+		<castTime>150</castTime>
+		<showUndrafted>true</showUndrafted>
+		<needsTicking>true</needsTicking>
+		<targetingParameters>
+			<canTargetLocations>False</canTargetLocations>
+			<canTargetBuildings>False</canTargetBuildings>
+			<canTargetHumans>True</canTargetHumans>
+			<canTargetMechs>False</canTargetMechs>
+			<canTargetAnimals>False</canTargetAnimals>
+		</targetingParameters>
+		<castFleck>PsycastPsychicEffect</castFleck>
+		<fleckOnTarget>PsycastPsychicEffect</fleckOnTarget>
+		<modExtensions>
+			<li Class="VFECore.Abilities.AbilityExtension_FleckOnTarget" MayRequire="Ludeon.RimWorld.Royalty">
+				<sound>Psycast_Skip_Exit</sound>
+				<preCastTicks>5</preCastTicks>
+			</li>
+			<li Class="VFECore.Abilities.AbilityExtension_EffecterOnTarget" MayRequire="Ludeon.RimWorld.Royalty">
+				<effecterDef>Skip_Exit</effecterDef>
+				<maintainForTicks>60</maintainForTicks>
+				<scale>3</scale>
+			</li>
+			<li Class="VFECore.Abilities.AbilityExtension_Stun">
+				<stunTicks>70~120</stunTicks>
+			</li>
+		</modExtensions>
+	</VFECore.Abilities.AbilityDef>
+</Defs>

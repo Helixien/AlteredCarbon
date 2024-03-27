@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<!-- Categories -->
+	<IdeoPresetDef>
+		<defName>AC_Immortal_Illusory</defName>
+		<label>immortal-illusory</label>
+		<description>The human mind is eternal and our bodies are nothing more than vessels. We must use technology to extend our lives until the death of the universe itself.\n\nUnlocks the research specialist role.</description>
+		<categoryDef>Strong</categoryDef>
+		<memes>
+			<li>AC_Ouroboros</li>
+			<li>Transhumanist</li>
+		</memes>
+	</IdeoPresetDef>
+</Defs>

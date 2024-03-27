@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<!-- ================ Tweak Archite metabolism - Metabolic Efficiency ================ -->
+	<Operation Class="ModSettingsFramework.PatchOperationSliderFloat">
+		<label>Tweak Archite metabolism efficiency</label>
+		<tooltip>Adjust the base metabolism efficiency. Default: 6</tooltip>
+		<id>AC_ArchiteMetabolismEfficiency</id>
+		<category>AC_General</category>
+		<order>2</order>
+		<xpath>Defs/GeneDef[defName="ArchiteMetabolism"]/biostatMet</xpath>
+		<range>6~30</range>
+		<defaultValue>6</defaultValue>
+	</Operation>
+	<!-- ================ Tweak Archite metabolism - Archite Capsules ================ -->
+	<Operation Class="ModSettingsFramework.PatchOperationSliderFloat">
+		<label>Tweak Archite metabolism capsules cost</label>
+		<tooltip>Adjust the base archite capsules cost. Default: 2</tooltip>
+		<id>AC_ArchiteMetabolismCost</id>
+		<category>AC_General</category>
+		<order>99</order>
+		<xpath>Defs/GeneDef[defName="ArchiteMetabolism"]/biostatArc</xpath>
+		<range>0~15</range>
+		<defaultValue>2</defaultValue>
+	</Operation>
+</Patch>
