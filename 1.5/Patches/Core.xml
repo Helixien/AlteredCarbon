@@ -74,6 +74,26 @@
 					</li>
 				</value>
 			</li>
+			<!-- ================================ Add extract designator ====================== -->
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/DesignationCategoryDef[defName="Orders"]/specialDesignatorClasses</xpath>
+				<value>
+					<li>AlteredCarbon.Designator_ExtractStack</li>
+				</value>
+			</li>
+			<!-- ================================ Patches in stack recipe ====================== -->
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[defName="CraftingSpot"]/recipes</xpath>
+				<value>
+					<li>AC_SmashCorticalStacks</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[defName="TableMachining"]/recipes</xpath>
+				<value>
+					<li>AC_ShredCorticalStacks</li>
+				</value>
+			</li>
 		</operations>
 	</Operation>
 </Patch>

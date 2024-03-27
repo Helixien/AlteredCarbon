@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Android Tiers</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+				<!-- ================================ Makes race not able to have stakcs ====================== -->
+				<li Class="PatchOperationConditional">
+					<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="Android1Tier" or defName="Android2Tier" or defName="Android3Tier" or defName="Android4Tier" or defName="Android5Tier" or defName="M7Mech"]/modExtensions</xpath>
+					<nomatch Class="PatchOperationAddModExtension">
+						<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="Android1Tier" or defName="Android2Tier" or defName="Android3Tier" or defName="Android4Tier" or defName="Android5Tier" or defName="M7Mech"]</xpath>
+						<value>
+							<li Class="AlteredCarbon.ExcludeRacesModExtension">
+								<canBeGrown>false</canBeGrown>
+								<acceptsStacks>false</acceptsStacks>
+							</li>
+						</value>
+					</nomatch>
+					<match Class="PatchOperationAdd">
+						<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="Android1Tier" or defName="Android2Tier" or defName="Android3Tier" or defName="Android4Tier" or defName="Android5Tier" or defName="M7Mech"]/modExtensions</xpath>
+						<value>
+							<li Class="AlteredCarbon.ExcludeRacesModExtension">
+								<canBeGrown>false</canBeGrown>
+								<acceptsStacks>false</acceptsStacks>
+							</li>
+						</value>
+					</match>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Android Tiers Reforged</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+				<!-- ================================ Makes race not able to have stakcs ====================== -->
+				<li Class="PatchOperationConditional">
+					<xpath>/Defs/AlienRace.ThingDef_AlienRace[@Name="ATR_BaseMechanicalPawn"]/modExtensions</xpath>
+					<nomatch Class="PatchOperationAddModExtension">
+						<xpath>/Defs/AlienRace.ThingDef_AlienRace[@Name="ATR_BaseMechanicalPawn"]</xpath>
+						<value>
+							<li Class="AlteredCarbon.ExcludeRacesModExtension">
+								<canBeGrown>false</canBeGrown>
+								<acceptsStacks>false</acceptsStacks>
+							</li>
+						</value>
+					</nomatch>
+					<match Class="PatchOperationAdd">
+						<xpath>/Defs/AlienRace.ThingDef_AlienRace[@Name="ATR_BaseMechanicalPawn"]/modExtensions</xpath>
+						<value>
+							<li Class="AlteredCarbon.ExcludeRacesModExtension">
+								<canBeGrown>false</canBeGrown>
+								<acceptsStacks>false</acceptsStacks>
+							</li>
+						</value>
+					</match>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Android tiers - TX Series</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+				<!-- ================================ Makes race not able to have stakcs ====================== -->
+				<li Class="PatchOperationConditional">
+					<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="ATPP_Android2TX" or defName="ATPP_Android2ITX" or defName="ATPP_Android2KTX" or defName="ATPP_Android2KITX" or defName="ATPP_Android3TX" or defName="ATPP_Android3ITX" or defName="ATPP_Android4TX" or defName="ATPP_Android4ITX"]/modExtensions</xpath>
+					<nomatch Class="PatchOperationAddModExtension">
+						<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="ATPP_Android2TX" or defName="ATPP_Android2ITX" or defName="ATPP_Android2KTX" or defName="ATPP_Android2KITX" or defName="ATPP_Android3TX" or defName="ATPP_Android3ITX" or defName="ATPP_Android4TX" or defName="ATPP_Android4ITX"]</xpath>
+						<value>
+							<li Class="AlteredCarbon.ExcludeRacesModExtension">
+								<canBeGrown>false</canBeGrown>
+								<acceptsStacks>false</acceptsStacks>
+							</li>
+						</value>
+					</nomatch>
+					<match Class="PatchOperationAdd">
+						<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="ATPP_Android2TX" or defName="ATPP_Android2ITX" or defName="ATPP_Android2KTX" or defName="ATPP_Android2KITX" or defName="ATPP_Android3TX" or defName="ATPP_Android3ITX" or defName="ATPP_Android4TX" or defName="ATPP_Android4ITX"]/modExtensions</xpath>
+						<value>
+							<li Class="AlteredCarbon.ExcludeRacesModExtension">
+								<canBeGrown>false</canBeGrown>
+								<acceptsStacks>false</acceptsStacks>
+							</li>
+						</value>
+					</match>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Android tiers - TX Series (Continued)</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+				<!-- ================================ Makes race not able to have stakcs ====================== -->
+				<li Class="PatchOperationConditional">
+					<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="ATPP_Android2TX" or defName="ATPP_Android2ITX" or defName="ATPP_Android2KTX" or defName="ATPP_Android2KITX" or defName="ATPP_Android3TX" or defName="ATPP_Android3ITX" or defName="ATPP_Android4TX" or defName="ATPP_Android4ITX"]/modExtensions</xpath>
+					<nomatch Class="PatchOperationAddModExtension">
+						<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="ATPP_Android2TX" or defName="ATPP_Android2ITX" or defName="ATPP_Android2KTX" or defName="ATPP_Android2KITX" or defName="ATPP_Android3TX" or defName="ATPP_Android3ITX" or defName="ATPP_Android4TX" or defName="ATPP_Android4ITX"]</xpath>
+						<value>
+							<li Class="AlteredCarbon.ExcludeRacesModExtension">
+								<canBeGrown>false</canBeGrown>
+								<acceptsStacks>false</acceptsStacks>
+							</li>
+						</value>
+					</nomatch>
+					<match Class="PatchOperationAdd">
+						<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="ATPP_Android2TX" or defName="ATPP_Android2ITX" or defName="ATPP_Android2KTX" or defName="ATPP_Android2KITX" or defName="ATPP_Android3TX" or defName="ATPP_Android3ITX" or defName="ATPP_Android4TX" or defName="ATPP_Android4ITX"]/modExtensions</xpath>
+						<value>
+							<li Class="AlteredCarbon.ExcludeRacesModExtension">
+								<canBeGrown>false</canBeGrown>
+								<acceptsStacks>false</acceptsStacks>
+							</li>
+						</value>
+					</match>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+</Patch>
