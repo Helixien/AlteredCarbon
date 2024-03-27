@@ -170,7 +170,6 @@
 			<li>AC_RewriteCorticalStack</li>
 		</researchPrerequisites>
 	</RecipeDef>
-	
 	<!-- ================================ Hacking Biocoded things ====================== -->
 	<RecipeDef ParentName="AC_RecipeHacking">
 		<defName>AC_HackBiocodedThings</defName>
@@ -198,6 +197,59 @@
 		</fixedIngredientFilter>
 		<skillRequirements>
 			<Intellectual>10</Intellectual>
+		</skillRequirements>
+	</RecipeDef>
+	<!-- ================================ Hacking Base ====================== -->
+	<RecipeDef Name="AC_RecipeHacking" Abstract="True">
+		<workSpeedStat>ResearchSpeed</workSpeedStat>
+		<effectWorking>AC_Hacking</effectWorking>
+		<soundWorking>AC_Interact_Hacking</soundWorking>
+	</RecipeDef>
+	<!-- ================================ Hacking - Wipe filled cortical stacks ====================== -->
+	<RecipeDef ParentName="AC_RecipeHacking">
+		<defName>AC_WipeFilledCorticalStack</defName>
+		<label>wipe cortical stack</label>
+		<description>Wipe a cortical stack and remove the pawn stored on it.</description>
+		<jobString>wiping cortical stack.</jobString>
+		<workerClass>AlteredCarbon.Recipe_WipeFilledCorticalStack</workerClass>
+		<workAmount>12500</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AC_FilledCorticalStack</li>
+					</thingDefs>
+					<specialFiltersToAllow>
+						<li>AC_AllowStacksColonist</li>
+						<li>AC_AllowStacksStranger</li>
+						<li>AC_AllowStacksHostile</li>
+					</specialFiltersToAllow>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AC_FilledCorticalStack</li>
+			</thingDefs>
+			<specialFiltersToAllow>
+				<li>AC_AllowStacksColonist</li>
+				<li>AC_AllowStacksStranger</li>
+				<li>AC_AllowStacksHostile</li>
+			</specialFiltersToAllow>
+		</fixedIngredientFilter>
+		<defaultIngredientFilter>
+			<thingDefs>
+				<li>AC_FilledCorticalStack</li>
+			</thingDefs>
+			<specialFiltersToAllow>
+				<li>AC_AllowStacksColonist</li>
+				<li>AC_AllowStacksStranger</li>
+				<li>AC_AllowStacksHostile</li>
+			</specialFiltersToAllow>
+		</defaultIngredientFilter>
+		<skillRequirements>
+			<Intellectual>8</Intellectual>
 		</skillRequirements>
 	</RecipeDef>
 </Defs>

@@ -108,47 +108,79 @@
 			</li>
 		</comps>
 	</HediffDef>
-	<!-- ================================ Sleeve Quality Base - LEFTOVER ====================== -->
-	<HediffDef Name="AC_SleeveQualityBase" Abstract="True">
-		<description>LEFTOVER! This hediff is no longer used and only in the game for the sake of compatibility with old saves.</description>
-		<hediffClass>HediffWithComps</hediffClass>
-		<initialSeverity>0.001</initialSeverity>
+	<!-- ================================ Cortical Stack Degradation ====================== -->
+	<HediffDef>
+		<defName>AC_StackDegradation</defName>
+		<label>degradation</label>
+		<labelNoun>stack degradation</labelNoun>
+		<hediffClass>AlteredCarbon.Hediff_StackDegradation</hediffClass>
+		<description>Cortical stack degradation caused by an unauthorized, aggressive rewrite.</description>
 		<isBad>false</isBad>
-		<makesSickThought>false</makesSickThought>
+		<defaultLabelColor>(1, 0, 0)</defaultLabelColor>
+	</HediffDef>
+	<!-- ================================ Degradation - Brain Trauma ====================== -->
+	<HediffDef>
+		<defName>AC_BrainTrauma</defName>
+		<label>brain trauma</label>
+		<labelNoun>a brain trauma</labelNoun>
+		<description>A brain injury resulting in loss of communication, forgetfulness, and involuntary motor functions.</description>
+		<hediffClass>HediffWithComps</hediffClass>
+		<cureAllAtOnceIfCuredByItem>true</cureAllAtOnceIfCuredByItem>
 		<stages>
 			<li>
-				<label>DEV</label>
-				<becomeVisible>false</becomeVisible>
+				<partIgnoreMissingHP>true</partIgnoreMissingHP>
+				<!-- to avoid penalties from brain injuries, so manipulation is 100%+ -->
+				<opinionOfOthersFactor>0</opinionOfOthersFactor>
+				<partEfficiencyOffset>-0.15</partEfficiencyOffset>
+				<forgetMemoryThoughtMtbDays>14</forgetMemoryThoughtMtbDays>
+				<capMods>
+					<li>
+						<capacity>Talking</capacity>
+						<setMax>0</setMax>
+					</li>
+					<li>
+						<capacity>Hearing</capacity>
+						<setMax>0</setMax>
+					</li>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>0.5</offset>
+					</li>
+				</capMods>
 			</li>
 		</stages>
 	</HediffDef>
-	<!-- ================================ Sleeve Qualitys ====================== -->
-	<HediffDef ParentName="AC_SleeveQualityBase">
-		<defName>AC_Sleeve_Quality_Awful</defName>
-		<label>awful quality sleeve</label>
+	<!-- ================================ Armour Pain Protection ====================== -->
+	<HediffDef>
+		<defName>AC_PainProtection</defName>
+		<label>pain protection</label>
+		<labelNoun>pain protection</labelNoun>
+		<description>pain protection</description>
+		<hediffClass>HediffWithComps</hediffClass>
+		<stages>
+			<li>
+				<painFactor>0</painFactor>
+			</li>
+		</stages>
 	</HediffDef>
-	<HediffDef ParentName="AC_SleeveQualityBase">
-		<defName>AC_Sleeve_Quality_Poor</defName>
-		<label>poor quality sleeve</label>
-	</HediffDef>
-	<HediffDef ParentName="AC_SleeveQualityBase">
-		<defName>AC_Sleeve_Quality_Normal</defName>
-		<label>normal quality sleeve</label>
-	</HediffDef>
-	<HediffDef ParentName="AC_SleeveQualityBase">
-		<defName>AC_Sleeve_Quality_Good</defName>
-		<label>good quality sleeve</label>
-	</HediffDef>
-	<HediffDef ParentName="AC_SleeveQualityBase">
-		<defName>AC_Sleeve_Quality_Excellent</defName>
-		<label>excellent quality sleeve</label>
-	</HediffDef>
-	<HediffDef ParentName="AC_SleeveQualityBase">
-		<defName>AC_Sleeve_Quality_Masterwork</defName>
-		<label>masterwork quality sleeve</label>
-	</HediffDef>
-	<HediffDef ParentName="AC_SleeveQualityBase">
-		<defName>AC_Sleeve_Quality_Legendary</defName>
-		<label>legendary quality sleeve</label>
+	<!-- ================================ Deterioration Hediff ====================== -->
+	<HediffDef ParentName="InjuryBase">
+		<defName>AC_Deterioration</defName>
+		<label>deterioration</label>
+		<labelNoun>a deterioration</labelNoun>
+		<description>A deterioration.</description>
+		<tendable>false</tendable>
+		<comps>
+			<li Class="HediffCompProperties_Infecter">
+				<infectionChance>0.30</infectionChance>
+			</li>
+		</comps>
+		<injuryProps>
+			<painPerSeverity>0.01875</painPerSeverity>
+			<averagePainPerSeverityPermanent>0.00625</averagePainPerSeverityPermanent>
+			<canMerge>true</canMerge>
+			<destroyedLabel>deteriorated</destroyedLabel>
+			<destroyedOutLabel>deteriorated</destroyedOutLabel>
+		</injuryProps>
 	</HediffDef>
 </Defs>
