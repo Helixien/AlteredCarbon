@@ -99,5 +99,9 @@ namespace AlteredCarbon
         public static SoundDef Message_NegativeEvent;
         public static XenotypeDef VFEU_Sleeveliner;
         public static ThingDef AC_GenomeRevitalizer, AC_NeutroamineDialyzer, AC_NeutroaminePump;
+
+        public static HediffDef AC_VoiceSynthesizer;
+        public static HediffDef AC_MentalFuse;
+        public static HediffDef AC_DreamcatcherImplant;
     }
 }

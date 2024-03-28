@@ -93,10 +93,15 @@
     <Compile Include="HarmonyPatches\FactionGiftUtility_GetBaseGoodwillChange_Patch.cs" />
     <Compile Include="HarmonyPatches\FactionGiftUtility_GetGoodwillChange_Patch1.cs" />
     <Compile Include="HarmonyPatches\FactionGiftUtility_GetGoodwillChange_Patch2.cs" />
+    <Compile Include="HarmonyPatches\MemoryThoughtHandler_TryGainMemory_Patch.cs" />
+    <Compile Include="HarmonyPatches\MentalBreakWorker_TryStart_Patch.cs" />
     <Compile Include="HarmonyPatches\ModCompat\GeneRipper_Building_GeneRipper_KillOccupant_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_MeleeVerbs_TryGetMeleeVerb_Patch.cs" />
     <Compile Include="HarmonyPatches\HediffSet_GetHediffsVerbs_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_RelationsTracker_SecondaryRomanceChanceFactor_Patch.cs" />
     <Compile Include="HarmonyPatches\Precept_Role_ValidatePawn_Patch.cs" />
+    <Compile Include="HarmonyPatches\RestUtility_WakeUp_Patch.cs" />
+    <Compile Include="HarmonyPatches\ThoughtWorker_AnnoyingVoice_CurrentSocialStateInternal_Patch.cs" />
     <Compile Include="HarmonyPatches\TradeUtility_PlayerSellableNow_Patch.cs" />
     <Compile Include="HarmonyPatches\TransferableUIUtility_DoExtraIcons_Patch.cs" />
     <Compile Include="HarmonyPatches\CompRottable_CompInspectStringExtra_Patch.cs" />
