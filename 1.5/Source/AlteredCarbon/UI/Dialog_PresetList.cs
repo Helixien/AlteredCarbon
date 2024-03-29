@@ -12,11 +12,11 @@ namespace AlteredCarbon
         public Dialog_PresetList_Load(Window_SleeveCustomization parent) : base(parent)
         {
             interactButLabel = "LoadGameButton".Translate();
-            ACUtils.LoadPresets();
+            AC_Utils.LoadPresets();
         }
         protected override void DoPresetInteraction(string name)
         {
-            parent.LoadSleeve(ACUtils.presets[name]);
+            parent.LoadSleeve(AC_Utils.presets[name]);
             Close();
         }
     }
@@ -35,9 +35,9 @@ namespace AlteredCarbon
             {
                 parent.ConvertConvertedEndogenesToXenogenes();
             }
-            ACUtils.presets[name] = new SleevePreset { sleeve = parent.curSleeve };
+            AC_Utils.presets[name] = new SleevePreset { sleeve = parent.curSleeve };
             Messages.Message("SavedAs".Translate(name), MessageTypeDefOf.SilentInput, false);
-            ACUtils.SavePresets();
+            AC_Utils.SavePresets();
             if (parent.convertXenogenesToEndogenes)
             {
                 parent.ConvertXenogenesToEndogenes();
@@ -96,7 +96,7 @@ namespace AlteredCarbon
         {
             var vector = new Vector2(inRect.width - 16f, 40f);
             var y = vector.y;
-            var presets = ACUtils.presets;
+            var presets = AC_Utils.presets;
             var height = presets.Count * y;
             var viewRect = new Rect(0f, 0f, inRect.width - 16f, height);
             var num = inRect.height - CloseButSize.y - bottomAreaHeight - 18f;
@@ -121,10 +121,10 @@ namespace AlteredCarbon
 
                     GUI.BeginGroup(rect);
                     var rect2 = new Rect(rect.width - 36f, (rect.height - 36f) / 2f, 36f, 36f);
-                    if (Widgets.ButtonImage(rect2, TexButton.DeleteX, Color.white, GenUI.SubtleMouseoverColor))
+                    if (Widgets.ButtonImage(rect2, TexButton.Delete, Color.white, GenUI.SubtleMouseoverColor))
                     {
                         Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("ConfirmDelete".Translate(preset),
-                            delegate { ACUtils.presets.Remove(preset); }, true));
+                            delegate { AC_Utils.presets.Remove(preset); }, true));
                     }
 
                     Text.Font = GameFont.Small;

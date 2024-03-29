@@ -15,7 +15,7 @@ namespace AlteredCarbon
             var faction = stack.PersonaData.faction;
             if (faction != null && faction != Faction.OfPlayer) 
             {
-                Faction.OfPlayer.TryAffectGoodwillWith(faction, -15, canSendMessage: true, !faction.temporary, AC_Extra_DefOf.AC_RewroteStack);
+                Faction.OfPlayer.TryAffectGoodwillWith(faction, -15, canSendMessage: true, !faction.temporary, AC_DefOf.AC_RewroteStack);
 
             }
             stack.PersonaData = stack.personaDataRewritten;
@@ -23,7 +23,7 @@ namespace AlteredCarbon
             stack.personaDataRewritten.stackDegradationToAdd = 0;
             stack.PersonaData.stackDegradation = Mathf.Clamp01(stack.PersonaData.stackDegradation);
             stack.personaDataRewritten = null;
-            stack.Map.mapDrawer.MapMeshDirty(stack.Position, MapMeshFlag.Things);
+            stack.Map.mapDrawer.MapMeshDirty(stack.Position, MapMeshFlagDefOf.Things);
         }
     }
 }

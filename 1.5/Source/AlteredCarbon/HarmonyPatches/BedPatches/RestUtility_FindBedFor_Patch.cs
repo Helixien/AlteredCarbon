@@ -15,14 +15,14 @@ namespace AlteredCarbon
         {
             if (sleeper.IsEmptySleeve())
             {
-                RestUtility.bedDefsBestToWorst_RestEffectiveness.Insert(0, AC_DefOf.VFEU_SleeveCasket);
-                RestUtility.bedDefsBestToWorst_Medical.Insert(0, AC_DefOf.VFEU_SleeveCasket);
+                RestUtility.bedDefsBestToWorst_RestEffectiveness.Insert(0, AC_DefOf.AC_SleeveCasket);
+                RestUtility.bedDefsBestToWorst_Medical.Insert(0, AC_DefOf.AC_SleeveCasket);
             }
         }
         public static void Postfix()
         {
-            RestUtility.bedDefsBestToWorst_RestEffectiveness.RemoveAll(x => x == AC_DefOf.VFEU_SleeveCasket);
-            RestUtility.bedDefsBestToWorst_Medical.RemoveAll(x => x == AC_DefOf.VFEU_SleeveCasket);
+            RestUtility.bedDefsBestToWorst_RestEffectiveness.RemoveAll(x => x == AC_DefOf.AC_SleeveCasket);
+            RestUtility.bedDefsBestToWorst_Medical.RemoveAll(x => x == AC_DefOf.AC_SleeveCasket);
         }
     }
 

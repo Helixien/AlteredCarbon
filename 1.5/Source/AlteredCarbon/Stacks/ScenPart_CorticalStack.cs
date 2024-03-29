@@ -8,7 +8,7 @@ namespace AlteredCarbon;
 [HotSwappable]
 public class ScenPart_CorticalStack : ScenPart_PawnModifier
 {
-    private HediffDef stackHediff = AC_DefOf.VFEU_CorticalStack;
+    private HediffDef stackHediff = AC_DefOf.AC_CorticalStack;
 
 
     public override string Summary(Scenario scen)
@@ -44,7 +44,7 @@ public class ScenPart_CorticalStack : ScenPart_PawnModifier
 
     private IEnumerable<HediffDef> PossibleHediffs()
     {
-        yield return AC_DefOf.VFEU_CorticalStack;
+        yield return AC_DefOf.AC_CorticalStack;
         yield return AC_DefOf.AC_ArchoStack;
     }
 
@@ -74,7 +74,7 @@ public class ScenPart_CorticalStack : ScenPart_PawnModifier
     public override void Randomize()
     {
         base.Randomize();
-        this.stackHediff = AC_DefOf.VFEU_CorticalStack;
+        this.stackHediff = AC_DefOf.AC_CorticalStack;
         this.context = PawnGenerationContext.PlayerStarter;
     }
 

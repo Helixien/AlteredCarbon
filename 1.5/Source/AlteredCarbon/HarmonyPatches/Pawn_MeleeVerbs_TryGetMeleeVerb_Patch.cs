@@ -112,7 +112,7 @@ namespace AlteredCarbon
                     {
                         if (__instance.IsUsable(target, verb))
                         {
-                            verbs.Add(new VerbEntry(verb, __instance));
+                            verbs.Add(new VerbEntry(verb, __instance, comp.VerbTracker.AllVerbs, 1));
                         }
                     }
                 }
@@ -132,7 +132,7 @@ namespace AlteredCarbon
             {
                 if (__instance.IsUsable(target, verb))
                 {
-                    verbs.Add(new VerbEntry(verb, __instance));
+                    verbs.Add(new VerbEntry(verb, __instance, comp.VerbTracker.AllVerbs, 1));
                 }
             }
 

@@ -195,7 +195,7 @@ namespace AlteredCarbon
                     if (hediffDef != null)
                     {
                         pawn.health.RestorePart(data.Key);
-                        var hediff = ACUtils.MakeHediff(hediffDef, pawn, data.Key);
+                        var hediff = AC_Utils.MakeHediff(hediffDef, pawn, data.Key);
                         var stages = hediffDef.stages;
                         if (stages != null)
                         {

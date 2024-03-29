@@ -21,7 +21,7 @@ namespace AlteredCarbon
             this.curBillDoer = billDoer;
         }
 
-        public override float GetWorkAmount(UnfinishedThing uft = null)
+        public override float GetWorkAmount(Thing thing = null)
         {
             var time = (float)this.corticalStack.personaDataRewritten.editTime;
             if (this.curBillDoer != null)

@@ -21,7 +21,7 @@ namespace AlteredCarbon
         public GeneDef geneToSeparate;
         public Genepack StoredGenepack => this.innerContainer.OfType<Genepack>().FirstOrDefault();
 
-        public override SoundDef SustainerDef => AC_Extra_DefOf.AC_GeneCentrifuge_Ambience;
+        public override SoundDef SustainerDef => AC_DefOf.AC_GeneCentrifuge_Ambience;
 
         public override IEnumerable<Gizmo> GetGizmos()
         {
@@ -38,7 +38,7 @@ namespace AlteredCarbon
                     icon = InsertGenePack,
                     action = delegate
                     {
-                        var allGenePacks = ACUtilsExtra.allGenepacks.SelectMany(def => this.Map.listerThings.ThingsOfDef(def)
+                        var allGenePacks = AC_Utils.allGenepacks.SelectMany(def => this.Map.listerThings.ThingsOfDef(def)
                             .Cast<Genepack>().Where(x => x.GeneSet.GenesListForReading.Count > 1));
                         var floatList = new List<FloatMenuOption>();
                         foreach (var genepack in allGenePacks)

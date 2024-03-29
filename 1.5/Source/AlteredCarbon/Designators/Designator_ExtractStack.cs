@@ -10,7 +10,7 @@ namespace AlteredCarbon
 	{
 		public override int DraggableDimensions => 2;
 
-		public override DesignationDef Designation => AC_DefOf.VFEU_ExtractStackDesignation;
+		public override DesignationDef Designation => AC_DefOf.AC_ExtractStackDesignation;
 
 		public Designator_ExtractStack()
 		{

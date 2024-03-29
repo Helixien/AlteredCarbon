@@ -42,7 +42,7 @@ namespace AlteredCarbon
                 TaleRecorder.RecordTale(TaleDefOf.DidSurgery, billDoer, pawn);
                 var hediff = pawn.health.hediffSet.hediffs.OfType<Hediff_CortexOverseer>().First();
                 hediff.activated = false;
-                pawn.needs.mood.thoughts.memories.TryGainMemory(AC_Extra_DefOf.AC_CortexOverseerFreed);
+                pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_CortexOverseerFreed);
             }
             if (flag)
             {

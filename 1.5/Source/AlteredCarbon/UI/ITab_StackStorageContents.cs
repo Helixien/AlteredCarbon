@@ -87,7 +87,7 @@ namespace AlteredCarbon
                 Find.Targeter.BeginTargeting(corticalStack.ForPawn(), delegate (LocalTargetInfo x)
                 {
                     Building_StackStorage.innerContainer.TryDrop(corticalStack, Building_StackStorage.InteractionCell, Building_StackStorage.Map, ThingPlaceMode.Near, 1, out Thing droppedThing);
-                    corticalStack.InstallStackRecipe(x.Pawn, ACUtils.stackRecipesByDef[corticalStack.def].recipe);
+                    corticalStack.InstallStackRecipe(x.Pawn, AC_Utils.stackRecipesByDef[corticalStack.def].recipe);
                 });
             }
             rect1.width -= 54f;

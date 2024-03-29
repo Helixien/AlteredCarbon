@@ -9,7 +9,7 @@ namespace AlteredCarbon
     {
         public static void Prefix(Hediff __instance, DamageInfo? dinfo)
         {
-            if (__instance.Part?.def == BodyPartDefOf.Neck && __instance is Hediff_MissingPart 
+            if (__instance.Part?.def == AC_DefOf.Neck && __instance is Hediff_MissingPart 
                 && __instance.pawn.HasCorticalStack(out var hediff))
             {
                 if (Rand.Chance(0.25f))

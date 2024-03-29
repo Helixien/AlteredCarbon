@@ -2,7 +2,7 @@
 <Defs>
 	<!-- ================================ Sleeve Backstory Child ====================== -->
 	<VFECore.VEBackstoryDef>
-		<defName>VFEU_VatGrownChild</defName>
+		<defName>AC_VatGrownChild</defName>
 		<title>Vat-Grown Sleeve</title>
 		<titleShort>Vat-Grown Sleeve</titleShort>
 		<baseDesc>This body was grown in a vat. Having no consciousness inside, it is effectively braindead and only serves as a sleeve for someone's cortical stack.</baseDesc>
@@ -30,7 +30,7 @@
 	</VFECore.VEBackstoryDef>
 	<!-- ================================ Sleeve Backstory Adult ====================== -->
 	<VFECore.VEBackstoryDef>
-		<defName>VFEU_VatGrownAdult</defName>
+		<defName>AC_VatGrownAdult</defName>
 		<title>Vat-Grown Sleeve</title>
 		<titleShort>Vat-Grown Sleeve</titleShort>
 		<baseDesc>This body was grown in a vat. Having no consciousness inside, it is effectively braindead and only serves as a sleeve for someone's cortical stack.</baseDesc>

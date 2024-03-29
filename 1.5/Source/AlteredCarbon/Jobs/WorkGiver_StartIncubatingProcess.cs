@@ -11,7 +11,7 @@ namespace AlteredCarbon
 		public override PathEndMode PathEndMode => PathEndMode.InteractionCell;
 		public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)
 		{
-			foreach (var thing in pawn.Map.listerThings.ThingsOfDef(AC_DefOf.VFEU_SleeveIncubator))
+			foreach (var thing in pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_SleeveIncubator))
             {
 				yield return thing;
             }
@@ -43,9 +43,9 @@ namespace AlteredCarbon
 				{
 					return null;
 				}
-                return JobMaker.MakeJob(AC_DefOf.VFEU_StartIncubatingProcess, t, grower.xenogermToConsume);
+                return JobMaker.MakeJob(AC_DefOf.AC_StartIncubatingProcess, t, grower.xenogermToConsume);
             }
-            return JobMaker.MakeJob(AC_DefOf.VFEU_StartIncubatingProcess, t);
+            return JobMaker.MakeJob(AC_DefOf.AC_StartIncubatingProcess, t);
 		}
 	}
 }

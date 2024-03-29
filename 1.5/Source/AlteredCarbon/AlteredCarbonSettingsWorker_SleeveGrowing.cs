@@ -38,7 +38,7 @@ namespace AlteredCarbon
         public override void ApplySettings()
         {
             base.ApplySettings();
-            ACUtils.ApplySettings();
+            AC_Utils.ApplySettings();
         }
     }
 }

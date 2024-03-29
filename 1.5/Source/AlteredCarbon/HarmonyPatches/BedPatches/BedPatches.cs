@@ -21,7 +21,7 @@ namespace AlteredCarbon
 				MethodInfo method2 = type.GetMethod("NeedInterval");
 				try
                 {
-					ACUtils.harmony.Patch(method2, new HarmonyMethod(method), null, null);
+					AC_Utils.harmony.Patch(method2, new HarmonyMethod(method), null, null);
 				}
 				catch
 				{

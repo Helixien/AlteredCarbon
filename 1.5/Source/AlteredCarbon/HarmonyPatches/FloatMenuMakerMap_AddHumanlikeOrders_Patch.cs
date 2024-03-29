@@ -30,14 +30,14 @@ namespace AlteredCarbon
                         option.Label = "AC.TakeToSleeveCasketOrMedicalBed".Translate();
                         option.action = delegate
                         {
-                            ACUtils.AddTakeEmptySleeveJob(pawn, pawnTarget, true);
+                            AC_Utils.AddTakeEmptySleeveJob(pawn, pawnTarget, true);
                         };
                     }
                 }
             }
             foreach (LocalTargetInfo localTargetInfo in GenUI.TargetsAt(clickPos, UninstallStack(pawn), true))
             {
-                JobDef jobDef = AC_DefOf.VFEU_ExtractStack;
+                JobDef jobDef = AC_DefOf.AC_ExtractStack;
                 Action action = delegate ()
                 {
                     Job job = JobMaker.MakeJob(jobDef, localTargetInfo);

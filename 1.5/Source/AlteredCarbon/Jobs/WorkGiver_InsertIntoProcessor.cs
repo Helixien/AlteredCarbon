@@ -9,13 +9,13 @@ namespace AlteredCarbon
     public class WorkGiver_InsertXenogerm : WorkGiver_InsertIntoProcessor
     {
         public override IEnumerable<ThingDef> TargetThings => Gen.YieldSingle(ThingDefOf.Xenogerm);
-        public override ThingDef ProcessorDef => AC_Extra_DefOf.AC_XenoGermDuplicator;
+        public override ThingDef ProcessorDef => AC_DefOf.AC_XenoGermDuplicator;
     }
 
     public class WorkGiver_InsertGenepack : WorkGiver_InsertIntoProcessor
     {
-        public override IEnumerable<ThingDef> TargetThings => ACUtilsExtra.allGenepacks;
-        public override ThingDef ProcessorDef => AC_Extra_DefOf.AC_GeneCentrifuge;
+        public override IEnumerable<ThingDef> TargetThings => AC_Utils.allGenepacks;
+        public override ThingDef ProcessorDef => AC_DefOf.AC_GeneCentrifuge;
     }
 
     [HotSwappable]
@@ -45,7 +45,7 @@ namespace AlteredCarbon
         {
             var processor = GenClosest.ClosestThing_Global_Reachable(pawn.Position, pawn.Map, GetProcessors(pawn, t), 
                 PathEndMode.Touch, TraverseParms.For(pawn));
-            var job = JobMaker.MakeJob(AC_Extra_DefOf.AC_InsertingThingIntoProcessor, t, processor);
+            var job = JobMaker.MakeJob(AC_DefOf.AC_InsertingThingIntoProcessor, t, processor);
             job.count = 1;
             return job;
         }

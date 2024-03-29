@@ -12,6 +12,6 @@ public class ThoughtWorker_Precept_Sleeved_Social : ThoughtWorker_Precept_Social
             return false;
         }
         
-        return ThoughtState.ActiveAtStage(ACUtils.sleeveQualities.IndexOf(otherPawn.GetSleeveQuality()));
+        return ThoughtState.ActiveAtStage(AC_Utils.sleeveQualities.IndexOf(otherPawn.GetSleeveQuality()));
     }
 }

@@ -284,7 +284,7 @@ namespace AlteredCarbon
             backstoryFilters.Add(NoDisabledWorkTypes);
             (string, bool) NoSkillPenalties(BackstoryDef backstoryDef)
             {
-                return ("AC.NoSkillPenalties".Translate(), backstoryDef.skillGains is null || backstoryDef.skillGains.Any(x => x.Value < 0) is false);
+                return ("AC.NoSkillPenalties".Translate(), backstoryDef.skillGains is null || backstoryDef.skillGains.Any(x => x.amount < 0) is false);
             }
             backstoryFilters.Add(NoSkillPenalties);
 
@@ -362,7 +362,7 @@ namespace AlteredCarbon
             Text.Anchor = TextAnchor.UpperLeft;
             var buttonOffset = 5f;
             Rect centaintySliderRect = new Rect(labelRect.xMax + buttonOffset, labelRect.y, (buttonWidth * 2) + buttonOffsetFromButton, buttonHeight);
-            personaData.certainty = Widgets.HorizontalSlider_NewTemp(centaintySliderRect, personaData.certainty, 0, 1f, true, personaData.certainty.ToStringPercent());
+            personaData.certainty = Widgets.HorizontalSlider(centaintySliderRect, personaData.certainty, 0, 1f, true, personaData.certainty.ToStringPercent());
             var explanation = "AC.ChangingPawnIdeologyWarning".Translate();
             Text.Font = GameFont.Tiny;
             GUI.color = Color.grey;
@@ -516,20 +516,20 @@ namespace AlteredCarbon
             float num = 0;
             foreach (BackstoryDef item in pawn.story.AllBackstories.Where((BackstoryDef bs) => bs != null))
             {
-                foreach (KeyValuePair<SkillDef, int> skillGain in item.skillGains)
+                foreach (var skillGain in item.skillGains)
                 {
-                    if (skillGain.Key == sk)
+                    if (skillGain.skill == sk)
                     {
-                        num += (float)skillGain.Value * Rand.Range(1f, 1.4f);
+                        num += (float)skillGain.amount * Rand.Range(1f, 1.4f);
                     }
                 }
             }
             for (int i = 0; i < pawn.story.traits.allTraits.Count; i++)
             {
-                int value = 0;
-                if (!pawn.story.traits.allTraits[i].Suppressed && pawn.story.traits.allTraits[i].CurrentData.skillGains.TryGetValue(sk, out value))
+                if (!pawn.story.traits.allTraits[i].Suppressed 
+                    && pawn.story.traits.allTraits[i].CurrentData.skillGains.FirstOrDefault(x => x.skill == sk) is SkillGain skillGain)
                 {
-                    num += (float)value;
+                    num += (float)skillGain.amount;
                 }
             }
             return Mathf.Clamp(Mathf.RoundToInt(num), 0, 20);
@@ -596,7 +596,7 @@ namespace AlteredCarbon
                 (string, bool) NoSkillPenalties(Trait trait)
                 {
                     return ("AC.NoSkillPenalties".Translate(), trait.def.DataAtDegree(trait.degree).skillGains is null
-                        || trait.def.DataAtDegree(trait.degree).skillGains.Any(x => x.Value < 0) is false);
+                        || trait.def.DataAtDegree(trait.degree).skillGains.Any(x => x.amount < 0) is false);
                 }
                 traitFilters.Add(NoSkillPenalties);
 
@@ -651,7 +651,7 @@ namespace AlteredCarbon
             string time = ToStringTicksToHours(GetEditTime());
             Widgets.Label(editTime, "AC.TotalTimeToRewrite".Translate(time));
             editTime.y += Text.LineHeight + 5;
-            if (ACUtils.rewriteStacksSettings.enableStackDegradation)
+            if (AC_Utils.rewriteStacksSettings.enableStackDegradation)
             {
                 string stackDegradation = Mathf.Min(1f, this.personaData.stackDegradation + GetDegradation()).ToStringPercent();
                 Text.Font = GameFont.Small;
@@ -702,7 +702,7 @@ namespace AlteredCarbon
             if (Widgets.ButtonText(acceptButtonRect, "AC.StartRewriting".Translate()))
             {
                 personaData.editTime = GetEditTime();
-                if (ACUtils.rewriteStacksSettings.enableStackDegradation)
+                if (AC_Utils.rewriteStacksSettings.enableStackDegradation)
                 {
                     personaData.stackDegradationToAdd = GetDegradation();
                 }
@@ -781,7 +781,7 @@ namespace AlteredCarbon
             {
                 time += editTimeOffsetPerUnwaveringLoyalChange;
             }
-            return (int)(time * ACUtils.rewriteStacksSettings.stackRewriteEditTimeValueMultiplier);
+            return (int)(time * AC_Utils.rewriteStacksSettings.stackRewriteEditTimeValueMultiplier);
         }
 
         private float GetDegradation()
@@ -854,7 +854,7 @@ namespace AlteredCarbon
             {
                 degradation += stackDegradationOffsetPerUnwaveringLoyalChange;
             }
-            return degradation * ACUtils.rewriteStacksSettings.stackRewriteDegradationValueMultiplier;
+            return degradation * AC_Utils.rewriteStacksSettings.stackRewriteDegradationValueMultiplier;
         }
 
         private void ResetAll()

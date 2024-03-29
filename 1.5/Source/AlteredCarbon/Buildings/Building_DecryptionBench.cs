@@ -32,7 +32,7 @@ namespace AlteredCarbon
                 wipeStacks.Disable("NoPower".Translate().CapitalizeFirst());
             }
             yield return wipeStacks;
-            var wipeStacksBills = this.billStack.Bills.Where(x => x.recipe == AC_DefOf.VFEU_WipeFilledCorticalStack).ToList();
+            var wipeStacksBills = this.billStack.Bills.Where(x => x.recipe == AC_DefOf.AC_WipeFilledCorticalStack).ToList();
             if (wipeStacksBills.Any())
             {
                 yield return new Command_Action
@@ -50,47 +50,44 @@ namespace AlteredCarbon
                     }
                 };
             }
-            if (ModCompatibility.HelixienAlteredCarbonIsActive)
+            var rewriteStack = new Command_ActionOnStack(this, ForFilledStack(includeArchoStack: AC_Utils.rewriteStacksSettings.enableArchostackRewriting), InstallRewriteBill)
             {
-                var rewriteStack = new Command_ActionOnStack(this, ForFilledStack(includeArchoStack: ACUtils.rewriteStacksSettings.enableArchostackRewriting), InstallRewriteBill)
+                defaultLabel = "AC.RewriteStack".Translate(),
+                defaultDesc = "AC.RewriteStackDesc".Translate(),
+                icon = ContentFinder<Texture2D>.Get("UI/Icons/EditStack"),
+                activateSound = SoundDefOf.Tick_Tiny,
+                action = delegate ()
                 {
-                    defaultLabel = "AC.RewriteStack".Translate(),
-                    defaultDesc = "AC.RewriteStackDesc".Translate(),
-                    icon = ContentFinder<Texture2D>.Get("UI/Icons/EditStack"),
+                    Find.Targeter.BeginTargeting(ForFilledStack(includeArchoStack: AC_Utils.rewriteStacksSettings.enableArchostackRewriting), delegate (LocalTargetInfo x)
+                    {
+                        InstallRewriteBill(x);
+                    });
+                }
+            };
+            rewriteStack.LockBehindReseach(AC_DefOf.AC_RewriteFilledCorticalStack.researchPrerequisites);
+            if (powerComp.PowerOn is false)
+            {
+                rewriteStack.Disable("NoPower".Translate().CapitalizeFirst());
+            }
+            yield return rewriteStack;
+
+            var rewriteStacksBills = this.billStack.Bills.Where(x => x.recipe == AC_DefOf.AC_RewriteFilledCorticalStack).ToList();
+            if (rewriteStacksBills.Any())
+            {
+                yield return new Command_Action
+                {
+                    defaultLabel = "AC.CancelStackRewrite".Translate(),
+                    defaultDesc = "AC.CancelStackRewriteDesc".Translate(),
                     activateSound = SoundDefOf.Tick_Tiny,
+                    icon = UIHelper.CancelIcon,
                     action = delegate ()
                     {
-                        Find.Targeter.BeginTargeting(ForFilledStack(includeArchoStack: ACUtils.rewriteStacksSettings.enableArchostackRewriting), delegate (LocalTargetInfo x)
+                        foreach (var bill in rewriteStacksBills)
                         {
-                            InstallRewriteBill(x);
-                        });
+                            this.billStack.Delete(bill);
+                        }
                     }
                 };
-                rewriteStack.LockBehindReseach(AC_DefOf.AC_RewriteFilledCorticalStack.researchPrerequisites);
-                if (powerComp.PowerOn is false)
-                {
-                    rewriteStack.Disable("NoPower".Translate().CapitalizeFirst());
-                }
-                yield return rewriteStack;
-
-                var rewriteStacksBills = this.billStack.Bills.Where(x => x.recipe == AC_DefOf.AC_RewriteFilledCorticalStack).ToList();
-                if (rewriteStacksBills.Any())
-                {
-                    yield return new Command_Action
-                    {
-                        defaultLabel = "AC.CancelStackRewrite".Translate(),
-                        defaultDesc = "AC.CancelStackRewriteDesc".Translate(),
-                        activateSound = SoundDefOf.Tick_Tiny,
-                        icon = UIHelper.CancelIcon,
-                        action = delegate ()
-                        {
-                            foreach (var bill in rewriteStacksBills)
-                            {
-                                this.billStack.Delete(bill);
-                            }
-                        }
-                    };
-                }
             }
         }
 
@@ -111,11 +108,11 @@ namespace AlteredCarbon
             var bill = this.billStack.Bills.OfType<Bill_OperateOnStack>().Where(x => x.corticalStack == corticalStack).FirstOrDefault();
             if (bill != null)
             {
-                if (bill.recipe == AC_DefOf.VFEU_WipeFilledCorticalStack)
+                if (bill.recipe == AC_DefOf.AC_WipeFilledCorticalStack)
                 {
                     Messages.Message("AC.AlreadyOrderedToWipeStack".Translate(), MessageTypeDefOf.CautionInput);
                 }
-                else if (ModCompatibility.HelixienAlteredCarbonIsActive && bill.recipe == AC_DefOf.AC_RewriteFilledCorticalStack)
+                else if (bill.recipe == AC_DefOf.AC_RewriteFilledCorticalStack)
                 {
                     Messages.Message("AC.AlreadyOrderedToRewriteStack".Translate(), MessageTypeDefOf.CautionInput);
                 }
@@ -140,7 +137,7 @@ namespace AlteredCarbon
         {
             if (x.Thing is CorticalStack corticalStack && CanAddOperationOn(corticalStack))
             {
-                billStack.AddBill(new Bill_OperateOnStack(corticalStack, AC_DefOf.VFEU_WipeFilledCorticalStack, null));
+                billStack.AddBill(new Bill_OperateOnStack(corticalStack, AC_DefOf.AC_WipeFilledCorticalStack, null));
             }
         }
 

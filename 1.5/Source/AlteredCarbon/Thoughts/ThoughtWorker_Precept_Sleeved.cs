@@ -12,6 +12,6 @@ public class ThoughtWorker_Precept_Sleeved: ThoughtWorker_Precept
             return false;
         }
 
-        return ThoughtState.ActiveAtStage(ACUtils.sleeveQualities.IndexOf(p.GetSleeveQuality()));
+        return ThoughtState.ActiveAtStage(AC_Utils.sleeveQualities.IndexOf(p.GetSleeveQuality()));
     }
 }

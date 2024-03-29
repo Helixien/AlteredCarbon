@@ -10,8 +10,8 @@ using Verse.AI;
 
 namespace AlteredCarbon
 {
-	[HarmonyPatch(typeof(SituationalThoughtHandler), "CheckRecalculateMoodThoughts")]
-	public static class SituationalThoughtHandler_CheckRecalculateMoodThoughts_Patch
+	[HarmonyPatch(typeof(SituationalThoughtHandler), "UpdateAllMoodThoughts")]
+	public static class SituationalThoughtHandler_UpdateAllMoodThoughts_Patch
     {
 		public static bool Prefix(Pawn ___pawn)
 		{

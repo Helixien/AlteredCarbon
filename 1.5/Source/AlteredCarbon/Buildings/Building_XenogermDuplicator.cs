@@ -18,7 +18,7 @@ namespace AlteredCarbon
 
         public Xenogerm xenogermToDuplicate;
         public Xenogerm StoredXenogerm => this.innerContainer.OfType<Xenogerm>().FirstOrDefault();
-        public override SoundDef SustainerDef => AC_Extra_DefOf.AC_XenoGermDuplicator_Ambience;
+        public override SoundDef SustainerDef => AC_DefOf.AC_XenoGermDuplicator_Ambience;
 
         public CompRefuelable compRefuelable;
 

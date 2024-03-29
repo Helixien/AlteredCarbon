@@ -15,18 +15,15 @@ namespace AlteredCarbon
     {
         public static void Postfix(QuestPart_BestowingCeremony __instance, Lord __result)
         {
-            if (ModCompatibility.HelixienAlteredCarbonIsActive)
+            if (__instance.bestower.kindDef == PawnKindDefOf.Empire_Royal_Bestower)
             {
-                if (__instance.bestower.kindDef == PawnKindDefOf.Empire_Royal_Bestower)
+                RoyalTitleDef titleAwardedWhenUpdating = __instance.target.royalty.GetTitleAwardedWhenUpdating(__instance.bestower.Faction,
+                    __instance.target.royalty.GetFavor(__instance.bestower.Faction));
+                if (titleAwardedWhenUpdating != null && (titleAwardedWhenUpdating.defName == "Baron"
+                    || titleAwardedWhenUpdating.defName == "Count"))
                 {
-                    RoyalTitleDef titleAwardedWhenUpdating = __instance.target.royalty.GetTitleAwardedWhenUpdating(__instance.bestower.Faction,
-                        __instance.target.royalty.GetFavor(__instance.bestower.Faction));
-                    if (titleAwardedWhenUpdating != null && (titleAwardedWhenUpdating.defName == "Baron" 
-                        || titleAwardedWhenUpdating.defName == "Count"))
-                    {
-                        ThingOwner<Thing> innerContainer = __instance.bestower.inventory.innerContainer;
-                        innerContainer.TryAdd(ThingMaker.MakeThing(AC_DefOf.VFEU_EmptyCorticalStack), 1);
-                    }
+                    ThingOwner<Thing> innerContainer = __instance.bestower.inventory.innerContainer;
+                    innerContainer.TryAdd(ThingMaker.MakeThing(AC_DefOf.AC_EmptyCorticalStack), 1);
                 }
             }
         }

@@ -36,9 +36,9 @@ namespace AlteredCarbon
                             hediff_MissingPart.IsFresh = true;
                             corpse.InnerPawn.health.AddHediff(hediff_MissingPart);
                         }
-                        if (pawn.Map.designationManager.DesignationOn(corpse)?.def == AC_DefOf.VFEU_ExtractStackDesignation)
+                        if (pawn.Map.designationManager.DesignationOn(corpse)?.def == AC_DefOf.AC_ExtractStackDesignation)
                         {
-                            pawn.Map.designationManager.TryRemoveDesignationOn(corpse, AC_DefOf.VFEU_ExtractStackDesignation);
+                            pawn.Map.designationManager.TryRemoveDesignationOn(corpse, AC_DefOf.AC_ExtractStackDesignation);
                         }
                     }
                 }

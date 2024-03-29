@@ -35,17 +35,17 @@ namespace AlteredCarbon
             }
         }
 
-        static public int ChangePathCostIfNeeded(Pawn pawn, int xCell, int zCell, int cost)
+        static public float ChangePathCostIfNeeded(Pawn pawn, int xCell, int zCell, float cost)
         {
             var cell = new IntVec3(xCell, 0, zCell);
-            if (pawn.Wears(AC_Extra_DefOf.AC_Apparel_DragoonHelmet) && pawn.CanPassOver(cell))
+            if (pawn.Wears(AC_DefOf.AC_Apparel_DragoonHelmet) && pawn.CanPassOver(cell))
             {
                 return pawn.GetPawnBasePathCost(cell);
             }
             return cost;
         }
 
-        public static int GetPawnBasePathCost(this Pawn pawn, IntVec3 c)
+        public static float GetPawnBasePathCost(this Pawn pawn, IntVec3 c)
         {
             if (c.x == pawn.Position.x || c.z == pawn.Position.z)
             {

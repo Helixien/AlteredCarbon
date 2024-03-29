@@ -5,21 +5,18 @@ using Verse.AI;
 
 namespace AlteredCarbon
 {
-    [HarmonyPatch(typeof(PawnRenderer), "DrawEquipment")]
-    public static class PawnRenderer_EquipmentRender_Patch
+    [HarmonyPatch(typeof(PawnRenderUtility), "DrawEquipmentAiming")]
+    public static class PawnRenderUtility_DrawEquipmentAiming_Patch
     {
-        public static bool Prefix(PawnRenderer __instance, Pawn ___pawn)
+        public static bool Prefix(Thing eq, Vector3 drawLoc, float aimAngle)
         {
-            Pawn pawn = ___pawn;
-            if (!pawn.Dead && pawn.RaceProps.Humanlike && pawn.Spawned)
+            Pawn pawn = (eq.ParentHolder as Pawn_EquipmentTracker)?.pawn;
+            if (pawn != null && !pawn.Dead && pawn.RaceProps.Humanlike && pawn.Spawned)
             {
-                var verb = GetCurrentVerb(__instance, pawn);
+                var verb = GetCurrentVerb(pawn);
                 if (verb?.HediffCompSource is HediffComp_MeleeWeapon hediffComp)
                 {
                     var graphic = hediffComp.Graphic;
-                    Vector3 drawLoc = pawn.DrawPos;
-                    float aimAngle = 0f;
-
                     if (pawn.Rotation == Rot4.South)
                     {
                         drawLoc += new Vector3(0f, 0f, -0.22f);
@@ -75,14 +72,14 @@ namespace AlteredCarbon
             return true;
         }
 
-        private static Verb GetCurrentVerb(PawnRenderer __instance, Pawn pawn)
+        private static Verb GetCurrentVerb(Pawn pawn)
         {
             if (pawn.stances.curStance is Stance_Busy stanceBusy
                             && !stanceBusy.neverAimWeapon && stanceBusy.focusTarg.IsValid)
             {
                 return stanceBusy.verb;
             }
-            if (__instance.CarryWeaponOpenly())
+            if (PawnRenderUtility.CarryWeaponOpenly(pawn))
             {
                 var verb = pawn.jobs.curJob?.verbToUse;
                 if (verb != null)

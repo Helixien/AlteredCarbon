@@ -21,13 +21,11 @@ namespace AlteredCarbon
         private static readonly Type raceGroupDef_HelperType;
 
         public static bool DubsBadHygieneActive;
-        public static bool HelixienAlteredCarbonIsActive;
         public static bool VanillaSkillsExpandedIsActive;
         public static bool VanillaFactionsExpandedAncientsIsActive;
         public static bool VanillaRacesExpandedAndroidIsActive;
         static ModCompatibility()
         {
-            HelixienAlteredCarbonIsActive = ModsConfig.IsActive("Hlx.UltratechAlteredCarbon");
             AlienRacesIsActive = ModsConfig.IsActive("erdelf.HumanoidAlienRaces");
             FacialAnimationsIsActive = ModsConfig.IsActive("Nals.FacialAnimation");
             IndividualityIsActive = ModLister.HasActiveModWithName("[SYR] Individuality");
@@ -48,7 +46,7 @@ namespace AlteredCarbon
             VanillaRacesExpandedAndroidIsActive = ModsConfig.IsActive("vanillaracesexpanded.android");
 			if (VanillaRacesExpandedAndroidIsActive)
 			{
-				ACUtils.harmony.Patch(AccessTools.Method("VREAndroids.CharacterCardUtility_DoLeftSection_Patch:Prefix"),
+				AC_Utils.harmony.Patch(AccessTools.Method("VREAndroids.CharacterCardUtility_DoLeftSection_Patch:Prefix"),
 				new HarmonyMethod(AccessTools.Method(typeof(ModCompatibility), "CharacterCardUtility_DoLeftSection_PatchPrefix")));
             }
         }

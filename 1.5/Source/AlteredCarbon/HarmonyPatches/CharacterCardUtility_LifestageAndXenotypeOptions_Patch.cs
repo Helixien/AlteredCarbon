@@ -27,7 +27,7 @@ namespace AlteredCarbon
 
         public static IEnumerable<XenotypeDef> FilterXenotypes(IEnumerable<XenotypeDef> list)
         {
-            return list.Where(x => x != AC_DefOf.VFEU_Sleeveliner);
+            return list.Where(x => x != AC_DefOf.AC_Sleeveliner);
         }
     }
 }

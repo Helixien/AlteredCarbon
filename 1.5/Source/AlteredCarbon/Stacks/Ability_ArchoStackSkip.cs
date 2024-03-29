@@ -16,7 +16,7 @@ namespace AlteredCarbon
             var pawnTarget = target.Pawn;
             if (pawnTarget != null)
             {
-                if (ACUtils.CanImplantStackTo(Hediff_CorticalStack.def, pawnTarget, null, showMessages))
+                if (AC_Utils.CanImplantStackTo(Hediff_CorticalStack.def, pawnTarget, null, showMessages))
                 {
                     return true;
                 }

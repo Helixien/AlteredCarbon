@@ -70,7 +70,7 @@
 			</li>
 		</verbs>
 		<comps>
-			<li Class="CompProperties_Reloadable">
+			<li Class="CompProperties_ApparelReloadable">
 				<maxCharges>10</maxCharges>
 				<ammoDef>Neutroamine</ammoDef>
 				<ammoCountPerCharge>10</ammoCountPerCharge>

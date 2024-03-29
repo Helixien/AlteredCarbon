@@ -226,47 +226,44 @@ namespace AlteredCarbon
                     copySleeveBody.Disable("AC.SleeveGrowerIsOccupied".Translate());
                 }
 
-                if (ModCompatibility.HelixienAlteredCarbonIsActive)
+                var repurposeCorpse = new Command_Action
                 {
-                    var repurposeCorpse = new Command_Action
+                    action = RepurposeCorpse,
+                    defaultLabel = "AC.RepurposeCorpse".Translate(),
+                    defaultDesc = "AC.RepurposeCorpseDesc".Translate(),
+                    hotKey = KeyBindingDefOf.Misc8,
+                    activateSound = SoundDefOf.Tick_Tiny,
+                    icon = ContentFinder<Texture2D>.Get("UI/Icons/ReuseSleeve", true)
+                };
+
+                if (powerTrader.PowerOn is false)
+                {
+                    repurposeCorpse.Disable("NoPower".Translate().CapitalizeFirst());
+                }
+                if (isOccuptied)
+                {
+                    repurposeCorpse.Disable("AC.SleeveGrowerIsOccupied".Translate());
+                }
+                repurposeCorpse.LockBehindReseach(this.def.researchPrerequisites);
+                yield return repurposeCorpse;
+
+                if (this.corpseToRepurpose != null || incubatorState != IncubatorState.ToBeCanceled
+                    && this.InnerPawn != null && this.InnerPawn.Dead)
+                {
+                    Command_Action cancelRepurposeCorpse = new Command_Action
                     {
-                        action = RepurposeCorpse,
-                        defaultLabel = "AC.RepurposeCorpse".Translate(),
-                        defaultDesc = "AC.RepurposeCorpseDesc".Translate(),
+                        action = delegate
+                        {
+                            OrderToCancel();
+                            this.corpseToRepurpose = null;
+                        },
+                        defaultLabel = "AC.CancelRepurposingCorpse".Translate(),
+                        defaultDesc = "AC.CancelRepurposingCorpseDesc".Translate(),
                         hotKey = KeyBindingDefOf.Misc8,
                         activateSound = SoundDefOf.Tick_Tiny,
-                        icon = ContentFinder<Texture2D>.Get("UI/Icons/ReuseSleeve", true)
+                        icon = UIHelper.CancelIcon
                     };
-
-                    if (powerTrader.PowerOn is false)
-                    {
-                        repurposeCorpse.Disable("NoPower".Translate().CapitalizeFirst());
-                    }
-                    if (isOccuptied)
-                    {
-                        repurposeCorpse.Disable("AC.SleeveGrowerIsOccupied".Translate());
-                    }
-                    repurposeCorpse.LockBehindReseach(this.def.researchPrerequisites);
-                    yield return repurposeCorpse;
-
-                    if (this.corpseToRepurpose != null || incubatorState != IncubatorState.ToBeCanceled
-                        && this.InnerPawn != null && this.InnerPawn.Dead)
-                    {
-                        Command_Action cancelRepurposeCorpse = new Command_Action
-                        {
-                            action = delegate
-                            {
-                                OrderToCancel();
-                                this.corpseToRepurpose = null;
-                            },
-                            defaultLabel = "AC.CancelRepurposingCorpse".Translate(),
-                            defaultDesc = "AC.CancelRepurposingCorpseDesc".Translate(),
-                            hotKey = KeyBindingDefOf.Misc8,
-                            activateSound = SoundDefOf.Tick_Tiny,
-                            icon = UIHelper.CancelIcon
-                        };
-                        yield return cancelRepurposeCorpse;
-                    }
+                    yield return cancelRepurposeCorpse;
                 }
 
                 if (isOccuptied)
@@ -397,7 +394,7 @@ namespace AlteredCarbon
         public void PutCorpseForRepurposing(Corpse corpse)
         {
             Reset();
-            var clone = ACUtils.ClonePawn(corpse.InnerPawn);
+            var clone = AC_Utils.ClonePawn(corpse.InnerPawn);
             clone.health.healthState = PawnHealthState.Dead;
             Find.WorldPawns.AddPawn(clone);
             initialRotTime = corpse.TryGetComp<CompRottable>().RotProgress;
@@ -486,7 +483,7 @@ namespace AlteredCarbon
             if (pawn.Dead)
             {
                 pawn.MakeEmptySleeve(keepNaturalAbilities: true, keepPsycastAbilities: true);
-                ResurrectionUtility.Resurrect(pawn);
+                ResurrectionUtility.TryResurrect(pawn);
                 innerContainer.TryAddOrTransfer(pawn);
                 if (Find.WorldPawns.Contains(pawn))
                 {
@@ -505,7 +502,7 @@ namespace AlteredCarbon
             Pawn pawn = OpeningPawn();
             if (pawn != null && sleeve.Dead is false)
             {
-                ACUtils.AddTakeEmptySleeveJob(pawn, sleeve, false);
+                AC_Utils.AddTakeEmptySleeveJob(pawn, sleeve, false);
             }
         }
         private Pawn OpeningPawn()
@@ -537,7 +534,7 @@ namespace AlteredCarbon
             var pawn = InnerPawn;
             PawnComponentsUtility.AddComponentsForSpawn(pawn);
             pawn.filth.GainFilth(ThingDefOf.Filth_Slime);
-            pawn.health.AddHediff(AC_DefOf.VFEU_EmptySleeve);
+            pawn.health.AddHediff(AC_DefOf.AC_EmptySleeve);
             innerContainer.TryDrop(StoredPawnOrCorpse, this.InteractionCell, Map, ThingPlaceMode.Direct, 1, out Thing resultingThing);
         }
 
@@ -646,13 +643,13 @@ namespace AlteredCarbon
             if (this.IsHashIntervalTick(132))
             {
                 var offset = new Vector3(0, 1, -0.5f);
-                MoteMaker.MakeStaticMote(DrawPos + offset, base.MapHeld, AC_DefOf.VFEU_Mote_VatGlow, 1.6f);
+                MoteMaker.MakeStaticMote(DrawPos + offset, base.MapHeld, AC_DefOf.AC_Mote_VatGlow, 1.6f);
             }
 
             if (bubbleEffecter == null || Rand.Chance(0.01f))
             {
                 var offset = new Vector3(0, 0, -0.5f);
-                bubbleEffecter = AC_DefOf.VFEU_Vat_Bubbles.Spawn(this.TrueCenter().ToIntVec3(), base.MapHeld, offset);
+                bubbleEffecter = AC_DefOf.AC_Vat_Bubbles.Spawn(this.TrueCenter().ToIntVec3(), base.MapHeld, offset);
             }
             bubbleEffecter.EffectTick(this, this);
 

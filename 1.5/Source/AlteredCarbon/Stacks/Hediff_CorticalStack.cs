@@ -16,9 +16,9 @@ namespace AlteredCarbon
         {
             get
             {
-                if (this.def == AC_DefOf.VFEU_CorticalStack)
+                if (this.def == AC_DefOf.AC_CorticalStack)
                 {
-                    return AC_DefOf.VFEU_FilledCorticalStack;
+                    return AC_DefOf.AC_FilledCorticalStack;
                 }
                 return AC_DefOf.AC_FilledArchoStack;
             }
@@ -68,7 +68,7 @@ namespace AlteredCarbon
                 }
             }
 
-            var emptySleeveHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_EmptySleeve);
+            var emptySleeveHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_EmptySleeve);
             if (emptySleeveHediff != null)
             {
                 pawn.health.RemoveHediff(emptySleeveHediff);
@@ -94,13 +94,14 @@ namespace AlteredCarbon
         }
 
         public override bool ShouldRemove => false;
-        public override void Notify_PawnDied()
+
+        public override void Notify_PawnDied(DamageInfo? dinfo, Hediff culprit = null)
         {
             if (!PersonaData.ContainsInnerPersona)
             {
                 PersonaData.CopyFromPawn(this.pawn, SourceStack);
             }
-            base.Notify_PawnDied();
+            base.Notify_PawnDied(dinfo, culprit);
         }
 
         public override void Notify_PawnKilled()

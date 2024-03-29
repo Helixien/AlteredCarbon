@@ -29,10 +29,7 @@ namespace AlteredCarbon
                         AlteredCarbonManager.Instance.emptySleeves.Remove(___pawn);
                     }
                     AlteredCarbonManager.Instance.TryAddRelationships(___pawn, stackGroup.Value);
-                    if (ModCompatibility.HelixienAlteredCarbonIsActive)
-                    {
-                        ___pawn.health.AddHediff(AC_DefOf.AC_BrainTrauma, ___pawn.health.hediffSet.GetBrain());
-                    }
+                    ___pawn.health.AddHediff(AC_DefOf.AC_BrainTrauma, ___pawn.health.hediffSet.GetBrain());
                 }
             }
         }

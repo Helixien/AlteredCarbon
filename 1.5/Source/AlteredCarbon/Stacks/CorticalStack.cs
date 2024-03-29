@@ -160,7 +160,7 @@ namespace AlteredCarbon
                 }
             }
         }
-        public bool IsFilledStack => this.def == AC_DefOf.VFEU_FilledCorticalStack || this.def == AC_DefOf.AC_FilledArchoStack;
+        public bool IsFilledStack => this.def == AC_DefOf.AC_FilledCorticalStack || this.def == AC_DefOf.AC_FilledArchoStack;
         public bool IsArchoStack => this.def == AC_DefOf.AC_EmptyArchoStack || this.def == AC_DefOf.AC_FilledArchoStack;
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
@@ -190,7 +190,7 @@ namespace AlteredCarbon
             {
                 Log.Error("Exception spawning " + this + ": " + ex);
             }
-            if (def == AC_DefOf.VFEU_FilledCorticalStack && stackCount != 1)
+            if (def == AC_DefOf.AC_FilledCorticalStack && stackCount != 1)
             {
                 stackCount = 1;
             }
@@ -212,7 +212,7 @@ namespace AlteredCarbon
             {
                 yield return g;
             }
-            if (ACUtils.stackRecipesByDef.TryGetValue(this.def, out var installInfo))
+            if (AC_Utils.stackRecipesByDef.TryGetValue(this.def, out var installInfo))
             {
                 var installStack = new Command_Action
                 {
@@ -224,7 +224,7 @@ namespace AlteredCarbon
                     {
                         Find.Targeter.BeginTargeting(ForPawn(), delegate (LocalTargetInfo x)
                         {
-                            if (ACUtils.CanImplantStackTo(ACUtils.stackRecipesByDef[this.def].recipe.addsHediff, x.Pawn, this, true))
+                            if (AC_Utils.CanImplantStackTo(AC_Utils.stackRecipesByDef[this.def].recipe.addsHediff, x.Pawn, this, true))
                             {
                                 InstallStackRecipe(x.Pawn, installInfo.recipe);
                             }
@@ -250,7 +250,7 @@ namespace AlteredCarbon
 
                             }, delegate (LocalTargetInfo x)
                             {
-                                if (ACUtils.CanImplantStackTo(installInfo.recipe.addsHediff, x.Pawn, this, true))
+                                if (AC_Utils.CanImplantStackTo(installInfo.recipe.addsHediff, x.Pawn, this, true))
                                 {
                                     Recipe_InstallCorticalStack.ApplyCorticalStack(installInfo.recipe, x.Pawn, x.Pawn.GetNeck(), this);
                                     this.Destroy();
@@ -260,22 +260,19 @@ namespace AlteredCarbon
                     };
                 }
             }
-            if (ModCompatibility.HelixienAlteredCarbonIsActive)
+            if (this.IsFilledStack)
             {
-                if (this.IsFilledStack)
+                yield return new Command_Toggle
                 {
-                    yield return new Command_Toggle
+                    defaultLabel = "AC.AutoLoad".Translate(),
+                    defaultDesc = "AC.AutoLoadDesc".Translate(),
+                    icon = ContentFinder<Texture2D>.Get("UI/Icons/AutoLoadStack"),
+                    isActive = () => autoLoad,
+                    toggleAction = delegate
                     {
-                        defaultLabel = "AC.AutoLoad".Translate(),
-                        defaultDesc = "AC.AutoLoadDesc".Translate(),
-                        icon = ContentFinder<Texture2D>.Get("UI/Icons/AutoLoadStack"),
-                        isActive = () => autoLoad,
-                        toggleAction = delegate
-                        {
-                            autoLoad = !autoLoad;
-                        }
-                    };
-                }
+                        autoLoad = !autoLoad;
+                    }
+                };
             }
         }
 
@@ -287,7 +284,7 @@ namespace AlteredCarbon
                 {
                     Messages.Message("AC.PawnStackCannotDowngrade".Translate(medPawn.Named("PAWN")), MessageTypeDefOf.CautionInput);
                 }
-                else if (stackHediff.def == AC_DefOf.VFEU_CorticalStack)
+                else if (stackHediff.def == AC_DefOf.AC_CorticalStack)
                 {
                     Messages.Message("AC.PawnAlreadyHasStack".Translate(medPawn.Named("PAWN")), MessageTypeDefOf.CautionInput);
                 }

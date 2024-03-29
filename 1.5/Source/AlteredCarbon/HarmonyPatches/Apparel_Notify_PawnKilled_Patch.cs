@@ -13,7 +13,7 @@ namespace AlteredCarbon
             {
                 if (__instance.Wearer.HasStackInsideOrOutside() || __instance.Wearer.IsEmptySleeve())
                 {
-                    if (ACUtils.generalSettings.sleeveDeathDoesNotCauseGearTainting)
+                    if (AC_Utils.generalSettings.sleeveDeathDoesNotCauseGearTainting)
                     {
                         __instance.wornByCorpseInt = false;
                     }

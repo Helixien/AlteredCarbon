@@ -123,7 +123,7 @@ namespace AlteredCarbon
                     duplicateStacks.Disable("NoPower".Translate());
                 }
                 yield return duplicateStacks;
-                duplicateStacks.LockBehindReseach(new List<ResearchProjectDef> { AC_Extra_DefOf.AC_RewriteCorticalStack });
+                duplicateStacks.LockBehindReseach(new List<ResearchProjectDef> { AC_DefOf.AC_RewriteCorticalStack });
                 if (this.stackToDuplicate != null)
                 {
                     yield return new Command_Action
@@ -218,7 +218,7 @@ namespace AlteredCarbon
             float successChance = 1f - Mathf.Abs((doer.skills.GetSkill(SkillDefOf.Intellectual).Level / 2f) - 11f) / 10f;
             if (Rand.Chance(successChance))
             {
-                var stackCopyTo = (CorticalStack)ThingMaker.MakeThing(AC_DefOf.VFEU_FilledCorticalStack);
+                var stackCopyTo = (CorticalStack)ThingMaker.MakeThing(AC_DefOf.AC_FilledCorticalStack);
                 this.innerContainer.TryAdd(stackCopyTo);
                 stackCopyTo.PersonaData.CopyDataFrom(stackToDuplicate.PersonaData, true);
                 AlteredCarbonManager.Instance.RegisterStack(stackCopyTo);
@@ -232,7 +232,7 @@ namespace AlteredCarbon
         }
         public void PerformStackBackup(Hediff_CorticalStack hediff_CorticalStack)
         {
-            var stackCopyTo = (CorticalStack)ThingMaker.MakeThing(AC_DefOf.VFEU_FilledCorticalStack);
+            var stackCopyTo = (CorticalStack)ThingMaker.MakeThing(AC_DefOf.AC_FilledCorticalStack);
             this.innerContainer.TryAdd(stackCopyTo);
             stackCopyTo.PersonaData.CopyDataFrom(hediff_CorticalStack.PersonaData);
             AlteredCarbonManager.Instance.RegisterStack(stackCopyTo);

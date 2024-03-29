@@ -10,18 +10,18 @@ namespace AlteredCarbon
     {
 		private static bool Prefix(RecipeDef __instance, Thing thing, ref bool __result)
 		{
-			if (ACUtils.installEmptyStacksRecipes.Contains(__instance) && thing is Pawn pawn)
+			if (AC_Utils.installEmptyStacksRecipes.Contains(__instance) && thing is Pawn pawn)
 			{
-				if (ACUtils.CanImplantStackTo(__instance.addsHediff, pawn) is false || pawn.IsEmptySleeve())
+				if (AC_Utils.CanImplantStackTo(__instance.addsHediff, pawn) is false || pawn.IsEmptySleeve())
 				{
 					__result = false;
 					return false;
 				}
 			}
 
-			else if (ACUtils.installFilledStacksRecipes.Contains(__instance) && thing is Pawn pawn2)
+			else if (AC_Utils.installFilledStacksRecipes.Contains(__instance) && thing is Pawn pawn2)
             {
-				if (ACUtils.CanImplantStackTo(__instance.addsHediff, pawn2) is false)
+				if (AC_Utils.CanImplantStackTo(__instance.addsHediff, pawn2) is false)
 				{
 					__result = false;
 					return false;

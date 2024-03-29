@@ -27,7 +27,7 @@ namespace AlteredCarbon
         public static void ApplyGene(Gene gene, Pawn pawn)
         {
             OverrideAllConflicting(gene, pawn);
-            if (gene.def.graphicData != null && gene.def.graphicData.skinIsHairColor)
+            if (gene.def.skinIsHairColor)
             {
                 pawn.story.skinColorOverride = pawn.story.HairColor;
             }
@@ -85,9 +85,9 @@ namespace AlteredCarbon
                 {
                     pawn.style.beardDef = PawnStyleItemChooser.RandomBeardFor(pawn);
                 }
-                if (gene.def.graphicData?.fur != null)
+                if (gene.def.fur != null)
                 {
-                    pawn.story.furDef = gene.def.graphicData.fur;
+                    pawn.story.furDef = gene.def.fur;
                 }
 
 
@@ -97,7 +97,7 @@ namespace AlteredCarbon
                 }
                 pawn.needs?.AddOrRemoveNeedsAsAppropriate();
                 pawn.health.hediffSet.DirtyCache();
-                pawn.skills?.Notify_GenesChanged();
+                pawn.skills?.DirtyAptitudes();
                 pawn.Notify_DisabledWorkTypesChanged();
             }
         }

@@ -24,7 +24,7 @@ namespace AlteredCarbon
             });
             ToilEffects.WithProgressBarToilDelay(copyStack, TargetIndex.A, false, -0.5f);
             ToilFailConditions.FailOnDespawnedNullOrForbidden<Toil>(copyStack, TargetIndex.A);
-            yield return copyStack.WithEffect(AC_Extra_DefOf.VFEU_Hacking, TargetIndex.A);
+            yield return copyStack.WithEffect(AC_DefOf.AC_Hacking, TargetIndex.A);
 
             yield return new Toil
             {

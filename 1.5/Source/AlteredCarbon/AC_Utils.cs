@@ -21,7 +21,7 @@ namespace AlteredCarbon
     }
     [HotSwappable]
     [StaticConstructorOnStartup]
-    public static class ACUtils
+    public static class AC_Utils
     {
         public static Harmony harmony;
         public static AlteredCarbonSettingsWorker_General generalSettings;
@@ -33,35 +33,35 @@ namespace AlteredCarbon
         public static Dictionary<string, List<GeneDef>> genesByCategories = new Dictionary<string, List<GeneDef>>();
         public static Dictionary<ThingDef, ThingDef> stacksPairs = new Dictionary<ThingDef, ThingDef>
         {
-            { AC_DefOf.VFEU_FilledCorticalStack, AC_DefOf.VFEU_EmptyCorticalStack },
+            { AC_DefOf.AC_FilledCorticalStack, AC_DefOf.AC_EmptyCorticalStack },
         };
         
         public static readonly List<GeneDef> sleeveQualities = new List<GeneDef>
         {
-            AC_DefOf.VFEU_SleeveQuality_Awful,
-            AC_DefOf.VFEU_SleeveQuality_Poor,
-            AC_DefOf.VFEU_SleeveQuality_Normal,
-            AC_DefOf.VFEU_SleeveQuality_Good,
-            AC_DefOf.VFEU_SleeveQuality_Excellent,
-            AC_DefOf.VFEU_SleeveQuality_Masterwork,
-            AC_DefOf.VFEU_SleeveQuality_Legendary
+            AC_DefOf.AC_SleeveQuality_Awful,
+            AC_DefOf.AC_SleeveQuality_Poor,
+            AC_DefOf.AC_SleeveQuality_Normal,
+            AC_DefOf.AC_SleeveQuality_Good,
+            AC_DefOf.AC_SleeveQuality_Excellent,
+            AC_DefOf.AC_SleeveQuality_Masterwork,
+            AC_DefOf.AC_SleeveQuality_Legendary
         };
 
         public static Dictionary<ThingDef, StackInstallInfo> stackRecipesByDef = new Dictionary<ThingDef, StackInstallInfo>
         {
             {
-                AC_DefOf.VFEU_FilledCorticalStack, new StackInstallInfo
+                AC_DefOf.AC_FilledCorticalStack, new StackInstallInfo
                 {
-                    recipe = AC_DefOf.VFEU_InstallCorticalStack,
+                    recipe = AC_DefOf.AC_InstallCorticalStack,
                     installLabel = "AC.InstallStack".Translate(),
                     installDesc = "AC.InstallStackDesc".Translate(),
                     installIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallStack")
                 }
             },
             {
-                AC_DefOf.VFEU_EmptyCorticalStack, new StackInstallInfo
+                AC_DefOf.AC_EmptyCorticalStack, new StackInstallInfo
                 {
-                    recipe = AC_DefOf.VFEU_InstallEmptyCorticalStack,
+                    recipe = AC_DefOf.AC_InstallEmptyCorticalStack,
                     installLabel = "AC.InstallStack".Translate(),
                     installDesc = "AC.InstallEmptyStackDesc".Translate(),
                     installIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallStack")
@@ -70,12 +70,73 @@ namespace AlteredCarbon
         };
         public static HashSet<RecipeDef> installEmptyStacksRecipes = new HashSet<RecipeDef>
         {
-            AC_DefOf.VFEU_InstallEmptyCorticalStack
+            AC_DefOf.AC_InstallEmptyCorticalStack
         };
         public static HashSet<RecipeDef> installFilledStacksRecipes = new HashSet<RecipeDef>
         {
-            AC_DefOf.VFEU_InstallCorticalStack
+            AC_DefOf.AC_InstallCorticalStack
         };
+
+        public static List<ThingDef> allGenepacks = new List<ThingDef>();
+
+        public static bool Wears(this Pawn pawn, ThingDef thingDef)
+        {
+            if (pawn?.apparel?.WornApparel != null)
+            {
+                foreach (var apparel in pawn.apparel.WornApparel)
+                {
+                    if (apparel.def == thingDef)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public static bool IsUltraTechBuilding(this ThingDef def)
+        {
+            if (typeof(Building).IsAssignableFrom(def.thingClass))
+            {
+                if (def.researchPrerequisites != null && def.researchPrerequisites.Any(x => HasRequisite(x, AC_DefOf.Xenogermination)))
+                {
+                    return true;
+                }
+                return def == AC_DefOf.AC_SleeveIncubator
+                    || def == AC_DefOf.AC_SleeveCasket || def == AC_DefOf.AC_SleeveCasket
+                    || def == AC_DefOf.AC_StackArray
+                    || def == AC_DefOf.AC_DecryptionBench;
+            }
+            return false;
+        }
+
+        public static bool HasRequisite(ResearchProjectDef proj, ResearchProjectDef requirement)
+        {
+            if (proj == requirement)
+            {
+                return true;
+            }
+            else if (proj.prerequisites != null)
+            {
+                foreach (var research in proj.prerequisites)
+                {
+                    if (HasRequisite(research, requirement))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public static List<List<T>> ChunkBy<T>(this List<T> source, int chunkSize)
+        {
+            return source
+                .Select((x, i) => new { Index = i, Value = x })
+                .GroupBy(x => x.Index / chunkSize)
+                .Select(x => x.Select(v => v.Value).ToList())
+                .ToList();
+        }
 
         public static bool CanThink(this Pawn pawn)
         {
@@ -84,7 +145,7 @@ namespace AlteredCarbon
 
         public static BodyPartRecord GetNeck(this Pawn pawn)
         {
-            return pawn.health.hediffSet.GetNotMissingParts().FirstOrDefault(x => x.def == BodyPartDefOf.Neck);
+            return pawn.health.hediffSet.GetNotMissingParts().FirstOrDefault(x => x.def == AC_DefOf.Neck);
         }
 
 
@@ -115,7 +176,7 @@ namespace AlteredCarbon
             //    catch { }
             //}
         }
-        static ACUtils()
+        static AC_Utils()
         {
             generalSettings = AlteredCarbonMod.modContentPack.Patches.OfType<AlteredCarbonSettingsWorker_General>().First();
             sleeveGrowingSettings = AlteredCarbonMod.modContentPack.Patches.OfType<AlteredCarbonSettingsWorker_SleeveGrowing>().First();
@@ -125,26 +186,23 @@ namespace AlteredCarbon
             var field = typeof(OverlayDrawer).GetField("NeedsPowerMat", BindingFlags.Static | BindingFlags.NonPublic);
             field.SetValue(null, MaterialPool.MatFrom("UI/Overlays/NeedsPower", ShaderDatabase.MetaOverlay));
             AddHarmonyLogging();
-            if (ModCompatibility.HelixienAlteredCarbonIsActive)
+            stackRecipesByDef[AC_DefOf.AC_FilledArchoStack] = new StackInstallInfo
             {
-                stackRecipesByDef[AC_DefOf.AC_FilledArchoStack] = new StackInstallInfo
-                {
-                    recipe = AC_DefOf.AC_InstallArchoStack,
-                    installLabel = "AC.InstallArchoStack".Translate(),
-                    installDesc = "AC.InstallArchoStackDesc".Translate(),
-                    installIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallArchoStack")
-                };
-                stackRecipesByDef[AC_DefOf.AC_EmptyArchoStack] = new StackInstallInfo
-                {
-                    recipe = AC_DefOf.AC_InstallEmptyArchoStack,
-                    installLabel = "AC.InstallArchoStack".Translate(),
-                    installDesc = "AC.InstallEmptyArchoStackDesc".Translate(),
-                    installIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallArchoStack")
-                };
-                stacksPairs[AC_DefOf.AC_FilledArchoStack] = AC_DefOf.AC_EmptyArchoStack;
-                installEmptyStacksRecipes.Add(AC_DefOf.AC_InstallEmptyArchoStack);
-                installFilledStacksRecipes.Add(AC_DefOf.AC_InstallArchoStack);
-            }
+                recipe = AC_DefOf.AC_InstallArchoStack,
+                installLabel = "AC.InstallArchoStack".Translate(),
+                installDesc = "AC.InstallArchoStackDesc".Translate(),
+                installIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallArchoStack")
+            };
+            stackRecipesByDef[AC_DefOf.AC_EmptyArchoStack] = new StackInstallInfo
+            {
+                recipe = AC_DefOf.AC_InstallEmptyArchoStack,
+                installLabel = "AC.InstallArchoStack".Translate(),
+                installDesc = "AC.InstallEmptyArchoStackDesc".Translate(),
+                installIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallArchoStack")
+            };
+            stacksPairs[AC_DefOf.AC_FilledArchoStack] = AC_DefOf.AC_EmptyArchoStack;
+            installEmptyStacksRecipes.Add(AC_DefOf.AC_InstallEmptyArchoStack);
+            installFilledStacksRecipes.Add(AC_DefOf.AC_InstallArchoStack);
             unstackableRaces = GetUnstackableRaces();
             foreach (var gene in DefDatabase<GeneDef>.AllDefs)
             {
@@ -174,18 +232,53 @@ namespace AlteredCarbon
             {
                 foreach (IngredientCount li in info.recipe.ingredients)
                 {
-                    li.filter.SetAllow(AC_DefOf.VFEU_AllowStacksColonist, true);
-                    li.filter.SetAllow(AC_DefOf.VFEU_AllowStacksStranger, true);
-                    li.filter.SetAllow(AC_DefOf.VFEU_AllowStacksHostile, true);
+                    li.filter.SetAllow(AC_DefOf.AC_AllowStacksColonist, true);
+                    li.filter.SetAllow(AC_DefOf.AC_AllowStacksStranger, true);
+                    li.filter.SetAllow(AC_DefOf.AC_AllowStacksHostile, true);
                 }
 
-                info.recipe.fixedIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksColonist, true);
-                info.recipe.fixedIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksStranger, true);
-                info.recipe.fixedIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksHostile, true);
+                info.recipe.fixedIngredientFilter.SetAllow(AC_DefOf.AC_AllowStacksColonist, true);
+                info.recipe.fixedIngredientFilter.SetAllow(AC_DefOf.AC_AllowStacksStranger, true);
+                info.recipe.fixedIngredientFilter.SetAllow(AC_DefOf.AC_AllowStacksHostile, true);
 
-                info.recipe.defaultIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksColonist, true);
-                info.recipe.defaultIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksStranger, true);
-                info.recipe.defaultIngredientFilter.SetAllow(AC_DefOf.VFEU_AllowStacksHostile, true);
+                info.recipe.defaultIngredientFilter.SetAllow(AC_DefOf.AC_AllowStacksColonist, true);
+                info.recipe.defaultIngredientFilter.SetAllow(AC_DefOf.AC_AllowStacksStranger, true);
+                info.recipe.defaultIngredientFilter.SetAllow(AC_DefOf.AC_AllowStacksHostile, true);
+            }
+            foreach (var def in DefDatabase<ThingDef>.AllDefs)
+            {
+                if (def.thingClass != null && typeof(Genepack).IsAssignableFrom(def.thingClass))
+                {
+                    allGenepacks.Add(def);
+                }
+            }
+
+            foreach (IngredientCount li in AC_DefOf.AC_HackBiocodedThings.ingredients)
+            {
+                li.filter = new ThingFilterBiocodable();
+                li.filter.thingDefs ??= new List<ThingDef>();
+                foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs.Where(x => x.comps != null
+                    && x.HasAssignableCompFrom(typeof(CompBiocodable))))
+                {
+                    li.filter.SetAllow(thingDef, true);
+                    li.filter.thingDefs.Add(thingDef);
+                }
+            }
+            AC_DefOf.AC_HackBiocodedThings.fixedIngredientFilter = new ThingFilterBiocodable();
+            AC_DefOf.AC_HackBiocodedThings.fixedIngredientFilter.thingDefs ??= new List<ThingDef>();
+            foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs.Where(x => x.comps != null && x.HasAssignableCompFrom(typeof(CompBiocodable))))
+            {
+                AC_DefOf.AC_HackBiocodedThings.fixedIngredientFilter.thingDefs.Add(thingDef);
+                AC_DefOf.AC_HackBiocodedThings.fixedIngredientFilter.SetAllow(thingDef, true);
+            }
+
+
+            AC_DefOf.AC_HackBiocodedThings.defaultIngredientFilter = new ThingFilterBiocodable();
+            AC_DefOf.AC_HackBiocodedThings.defaultIngredientFilter.thingDefs ??= new List<ThingDef>();
+            foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs.Where(x => x.comps != null && x.HasAssignableCompFrom(typeof(CompBiocodable))))
+            {
+                AC_DefOf.AC_HackBiocodedThings.defaultIngredientFilter.thingDefs.Add(thingDef);
+                AC_DefOf.AC_HackBiocodedThings.defaultIngredientFilter.SetAllow(thingDef, true);
             }
 
             ApplySettings();
@@ -193,7 +286,7 @@ namespace AlteredCarbon
 
         public static void ApplySettings()
         {
-            if (ACUtils.generalSettings.enableTechprintRequirement is false)
+            if (AC_Utils.generalSettings.enableTechprintRequirement is false)
             {
                 foreach (var researchProjectDef in DefDatabase<ResearchProjectDef>.AllDefs)
                 {
@@ -291,7 +384,7 @@ namespace AlteredCarbon
             {
                 return AC_DefOf.AC_EmptyArchoStack;
             }
-            return AC_DefOf.VFEU_EmptyCorticalStack;
+            return AC_DefOf.AC_EmptyCorticalStack;
         }
 
         public static ThingDef GetFilledStackVariant(this CorticalStack corticalStack)
@@ -300,7 +393,7 @@ namespace AlteredCarbon
             {
                 return AC_DefOf.AC_FilledArchoStack;
             }
-            return AC_DefOf.VFEU_FilledCorticalStack;
+            return AC_DefOf.AC_FilledCorticalStack;
         }
         public static void RefreshGraphic(this Pawn pawn)
         {
@@ -308,9 +401,8 @@ namespace AlteredCarbon
             {
                 try
                 {
-                    pawn.Drawer.renderer.graphics.nakedGraphic = null;
                     pawn.Drawer.renderer.WoundOverlays.ClearCache();
-                    pawn.Drawer.renderer.graphics.ResolveAllGraphics();
+                    pawn.Drawer.renderer.SetAllGraphicsDirty();
                     PortraitsCache.SetDirty(pawn);
                     PortraitsCache.PortraitsCacheUpdate();
                     GlobalTextureAtlasManager.TryMarkPawnFrameSetDirty(pawn);
@@ -541,7 +633,7 @@ namespace AlteredCarbon
         public static void SavePresets()
         {
             Scribe.saver.InitSaving(PawnTemplatesPath, "PawnTemplates");
-            Scribe_Collections.Look(ref ACUtils.presets, "presets", LookMode.Value, LookMode.Deep);
+            Scribe_Collections.Look(ref AC_Utils.presets, "presets", LookMode.Value, LookMode.Deep);
             Scribe.saver.FinalizeSaving();
         }
 
@@ -551,7 +643,7 @@ namespace AlteredCarbon
             if (info.Exists)
             {
                 Scribe.loader.InitLoading(PawnTemplatesPath);
-                Scribe_Collections.Look(ref ACUtils.presets, "presets", LookMode.Value, LookMode.Deep);
+                Scribe_Collections.Look(ref AC_Utils.presets, "presets", LookMode.Value, LookMode.Deep);
                 Scribe.loader.FinalizeLoading();
             }
         }
@@ -645,8 +737,8 @@ namespace AlteredCarbon
             pawn.playerSettings.medCare = MedicalCareCategory.Best;
             pawn.workSettings.EnableAndInitialize();
             pawn.skills.Notify_SkillDisablesChanged();
-            pawn.story.Childhood = AC_DefOf.VFEU_VatGrownChild;
-            pawn.story.Adulthood = AC_DefOf.VFEU_VatGrownAdult;
+            pawn.story.Childhood = AC_DefOf.AC_VatGrownChild;
+            pawn.story.Adulthood = AC_DefOf.AC_VatGrownAdult;
             pawn.story.favoriteColor = null;
             if (ModsConfig.IdeologyActive)
             {
@@ -663,7 +755,7 @@ namespace AlteredCarbon
         {
             if (pawn?.health?.hediffSet != null)
             {
-                if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.VFEU_CorticalStack) is Hediff_CorticalStack hediff)
+                if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_CorticalStack) is Hediff_CorticalStack hediff)
                 {
                     hediff_CorticalStack = hediff;
                     return true;

@@ -99,7 +99,7 @@ namespace AlteredCarbon
 			//{
             //    foreach (var occupant in this.CurOccupants)
 			//	{
-            //        occupant.TakeDamage(new DamageInfo(AC_DefOf.VFEU_Deterioration, 5, armorPenetration: 1));
+            //        occupant.TakeDamage(new DamageInfo(AC_DefOf.AC_Deterioration, 5, armorPenetration: 1));
 			//	}
             //}
 

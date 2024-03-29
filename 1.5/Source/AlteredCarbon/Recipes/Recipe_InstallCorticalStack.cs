@@ -23,7 +23,7 @@ namespace AlteredCarbon
         public override bool AvailableOnNow(Thing thing, BodyPartRecord part = null)
         {
             var pawn = thing as Pawn;
-            if (ACUtils.CanImplantStackTo(this.recipe.addsHediff, pawn))
+            if (AC_Utils.CanImplantStackTo(this.recipe.addsHediff, pawn))
             {
                 return base.AvailableOnNow(thing, part);
             }
@@ -77,7 +77,7 @@ namespace AlteredCarbon
                 TaleRecorder.RecordTale(TaleDefOf.DidSurgery, billDoer, pawn);
                 if (pawn.HasCorticalStack(out var stackHediff))
                 {
-                    var emptyStack = ACUtils.stacksPairs[stackHediff.SourceStack];
+                    var emptyStack = AC_Utils.stacksPairs[stackHediff.SourceStack];
                     var stack = ThingMaker.MakeThing(emptyStack);
                     GenPlace.TryPlaceThing(stack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
                     stackHediff.preventKill = true;
@@ -122,13 +122,13 @@ namespace AlteredCarbon
 
             if (ModsConfig.IdeologyActive)
             {
-                Find.HistoryEventsManager.RecordEvent(new HistoryEvent(AC_DefOf.VFEU_InstalledCorticalStack, pawn.Named(HistoryEventArgsNames.Doer)));
+                Find.HistoryEventsManager.RecordEvent(new HistoryEvent(AC_DefOf.AC_InstalledCorticalStack, pawn.Named(HistoryEventArgsNames.Doer)));
             }
         }
 
         public static void ApplyMindEffects(Pawn pawn, Hediff_CorticalStack hediff)
         {
-            if (ACUtils.rewriteStacksSettings.enableStackDegradation && ModCompatibility.HelixienAlteredCarbonIsActive && hediff.PersonaData.stackDegradation > 0)
+            if (AC_Utils.rewriteStacksSettings.enableStackDegradation && hediff.PersonaData.stackDegradation > 0)
             {
                 var stackDegradationHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_StackDegradation) as Hediff_StackDegradation;
                 if (stackDegradationHediff is null)
@@ -153,47 +153,47 @@ namespace AlteredCarbon
             {
                 if (pawn.story.traits.HasTrait(TraitDefOf.BodyPurist))
                 {
-                    pawn.needs.mood.thoughts.memories.TryGainMemory(isAndroid ? AC_DefOf.VFEU_WrongShellGenderDouble : AC_DefOf.VFEU_WrongGenderDouble);
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(isAndroid ? AC_DefOf.AC_WrongShellGenderDouble : AC_DefOf.AC_WrongGenderDouble);
                 }
                 else
                 {
-                    pawn.needs.mood.thoughts.memories.TryGainMemory(isAndroid ? AC_DefOf.VFEU_WrongShellGender : AC_DefOf.VFEU_WrongGender);
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(isAndroid ? AC_DefOf.AC_WrongShellGender : AC_DefOf.AC_WrongGender);
                 }
             }
 
             if (ModCompatibility.AlienRacesIsActive && hediff.PersonaData.OriginalRace != null && pawn.kindDef.race != hediff.PersonaData.OriginalRace)
             {
-                pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongRace);
+                pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_WrongRace);
             }
             if (pawn.SleeveMatchesOriginalXenotype(hediff.PersonaData))
             {
-                pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongXenotype);
+                pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_WrongXenotype);
             }
 
-            var naturalMood = pawn.story.traits.GetTrait(TraitDefOf.NaturalMood);
-            var nerves = pawn.story.traits.GetTrait(TraitDefOf.Nerves);
+            var naturalMood = pawn.story.traits.GetTrait(AC_DefOf.NaturalMood);
+            var nerves = pawn.story.traits.GetTrait(AC_DefOf.Nerves);
             if ((naturalMood != null && naturalMood.Degree == -2)
                     || pawn.story.traits.HasTrait(TraitDefOf.BodyPurist)
                     || (nerves != null && nerves.Degree == -2))
             {
-                pawn.needs.mood.thoughts.memories.TryGainMemory(isAndroid ? AC_DefOf.VFEU_NewShellDouble : AC_DefOf.VFEU_NewSleeveDouble);
+                pawn.needs.mood.thoughts.memories.TryGainMemory(isAndroid ? AC_DefOf.AC_NewShellDouble : AC_DefOf.AC_NewSleeveDouble);
             }
             else
             {
-                pawn.needs.mood.thoughts.memories.TryGainMemory(isAndroid ? AC_DefOf.VFEU_NewShell : AC_DefOf.VFEU_NewSleeve);
+                pawn.needs.mood.thoughts.memories.TryGainMemory(isAndroid ? AC_DefOf.AC_NewShell : AC_DefOf.AC_NewSleeve);
             }
 
             if (ModCompatibility.VanillaRacesExpandedAndroidIsActive)
             {
-                if (pawn.story.traits.HasTrait(AC_DefOf.VFEU_Shellwalker) && isAndroid is false)
+                if (pawn.story.traits.HasTrait(AC_DefOf.AC_Shellwalker) && isAndroid is false)
                 {
-                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WantsShell);
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_WantsShell);
                 }
             }
 
             if (hediff.PersonaData.diedFromCombat.HasValue && hediff.PersonaData.diedFromCombat.Value)
             {
-                pawn.health.AddHediff(HediffMaker.MakeHediff(AC_DefOf.VFEU_SleeveShock, pawn));
+                pawn.health.AddHediff(HediffMaker.MakeHediff(AC_DefOf.AC_SleeveShock, pawn));
                 hediff.PersonaData.diedFromCombat = null;
             }
             pawn.needs.AddOrRemoveNeedsAsAppropriate();

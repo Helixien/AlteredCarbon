@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using LudeonTK;
 using RimWorld;
 using System;
 using System.Collections.Generic;
@@ -49,13 +50,13 @@ namespace AlteredCarbon
 
         public static Dictionary<GeneDef, int> sleeveQualitiesTimeCost = new Dictionary<GeneDef, int>
         {
-            {AC_DefOf.VFEU_SleeveQuality_Awful, 0 },
-            {AC_DefOf.VFEU_SleeveQuality_Poor, GenDate.TicksPerDay * 2 },
-            {AC_DefOf.VFEU_SleeveQuality_Normal, GenDate.TicksPerDay * 3 },
-            {AC_DefOf.VFEU_SleeveQuality_Good, GenDate.TicksPerDay * 5 },
-            {AC_DefOf.VFEU_SleeveQuality_Excellent, GenDate.TicksPerDay * 10 },
-            {AC_DefOf.VFEU_SleeveQuality_Masterwork, GenDate.TicksPerDay * 15 },
-            {AC_DefOf.VFEU_SleeveQuality_Legendary, GenDate.TicksPerDay * 30 },
+            {AC_DefOf.AC_SleeveQuality_Awful, 0 },
+            {AC_DefOf.AC_SleeveQuality_Poor, GenDate.TicksPerDay * 2 },
+            {AC_DefOf.AC_SleeveQuality_Normal, GenDate.TicksPerDay * 3 },
+            {AC_DefOf.AC_SleeveQuality_Good, GenDate.TicksPerDay * 5 },
+            {AC_DefOf.AC_SleeveQuality_Excellent, GenDate.TicksPerDay * 10 },
+            {AC_DefOf.AC_SleeveQuality_Masterwork, GenDate.TicksPerDay * 15 },
+            {AC_DefOf.AC_SleeveQuality_Legendary, GenDate.TicksPerDay * 30 },
         };
 
         public static Dictionary<int, int> sleeveBeautiesTimeCost = new Dictionary<int, int>
@@ -102,8 +103,8 @@ namespace AlteredCarbon
         {
             this.sleeveGrower = sleeveGrower;
             Init(pawnToClone.kindDef, pawnToClone.gender);
-            ACUtils.CopyBody(pawnToClone, curSleeve, copyGenesPartially: true);
-            if (pawnToClone.genes.GenesListForReading.Any(x => ACUtils.sleeveQualities.Contains(x.def)) is false)
+            AC_Utils.CopyBody(pawnToClone, curSleeve, copyGenesPartially: true);
+            if (pawnToClone.genes.GenesListForReading.Any(x => AC_Utils.sleeveQualities.Contains(x.def)) is false)
             {
                 ApplyGeneQuality();
             }
@@ -187,7 +188,7 @@ namespace AlteredCarbon
             Widgets.Label(labelRect, label);
             var oldAgeValue = sleeveAge;
             var ageSliderRect = new Rect(labelRect.xMax, labelRect.y, (buttonWidth * 2) + (buttonOffsetFromButton * 2), 24);
-            sleeveAge = (int)Widgets.HorizontalSlider_NewTemp(ageSliderRect, sleeveAge, 14f, 100f, label: "AC.YearsOld".Translate(sleeveAge.ToString()));
+            sleeveAge = (int)Widgets.HorizontalSlider(ageSliderRect, sleeveAge, 14f, 100f, label: "AC.YearsOld".Translate(sleeveAge.ToString()));
             if (sleeveAge != oldAgeValue)
             {
                 curSleeve.ageTracker.AgeBiologicalTicks = (long)Mathf.FloorToInt(sleeveAge * 3600000f);
@@ -241,7 +242,7 @@ namespace AlteredCarbon
 
             bool geneOptionsDrawn = false;
             var genes = curSleeve.genes.GenesListForReading;
-            foreach (var category in ACUtils.genesByCategories)
+            foreach (var category in AC_Utils.genesByCategories)
             {
                 var groupedGenes = genes.Where(x => x.def.exclusionTags.NullOrEmpty() is false
                 && x.def.exclusionTags.Contains(category.Key)).Select(x => x.def).ToList();
@@ -265,26 +266,23 @@ namespace AlteredCarbon
             }
             if (curXenogerm != null)
             {
-                if (ModCompatibility.HelixienAlteredCarbonIsActive)
+                label = "AC.ConvertGenesToGermline".Translate();
+                var size = Text.CalcSize(label);
+                labelRect = GetLabelRect(label, ref firstColumnPos, size.x + 15);
+                Widgets.Label(labelRect, label);
+                bool oldValue = convertXenogenesToEndogenes;
+                Widgets.Checkbox(new Vector2(labelRect.xMax, labelRect.y), ref convertXenogenesToEndogenes);
+                if (oldValue != convertXenogenesToEndogenes)
                 {
-                    label = "AC.ConvertGenesToGermline".Translate();
-                    var size = Text.CalcSize(label);
-                    labelRect = GetLabelRect(label, ref firstColumnPos, size.x + 15);
-                    Widgets.Label(labelRect, label);
-                    bool oldValue = convertXenogenesToEndogenes;
-                    Widgets.Checkbox(new Vector2(labelRect.xMax, labelRect.y), ref convertXenogenesToEndogenes);
-                    if (oldValue != convertXenogenesToEndogenes)
+                    if (convertXenogenesToEndogenes)
                     {
-                        if (convertXenogenesToEndogenes)
-                        {
-                            ConvertXenogenesToEndogenes();
-                        }
-                        else
-                        {
-                            ConvertConvertedEndogenesToXenogenes();
-                        }
-                        RecheckEverything();
+                        ConvertXenogenesToEndogenes();
                     }
+                    else
+                    {
+                        ConvertConvertedEndogenesToXenogenes();
+                    }
+                    RecheckEverything();
                 }
 
                 if (geneOptionsDrawn)
@@ -413,9 +411,9 @@ namespace AlteredCarbon
                 }, floatMenu: false);
 
             DoSelectionButtons(ref firstColumnPos, "AC.SleeveQuality".Translate(), ref sleeveQualityIndex,
-                (GeneDef x) => GetQualityLabel(ACUtils.sleeveQualities.IndexOf(x)), ACUtils.sleeveQualities, delegate (GeneDef x)
+                (GeneDef x) => GetQualityLabel(AC_Utils.sleeveQualities.IndexOf(x)), AC_Utils.sleeveQualities, delegate (GeneDef x)
                 {
-                    sleeveQualityIndex = ACUtils.sleeveQualities.IndexOf(x);
+                    sleeveQualityIndex = AC_Utils.sleeveQualities.IndexOf(x);
                     ApplyGeneQuality();
                     UpdateGrowCost();
                 }, floatMenu: true);
@@ -613,16 +611,16 @@ namespace AlteredCarbon
                 ticksToGrow *= 2;
             }
 
-            ticksToGrow += sleeveQualitiesTimeCost[ACUtils.sleeveQualities[sleeveQualityIndex]];
+            ticksToGrow += sleeveQualitiesTimeCost[AC_Utils.sleeveQualities[sleeveQualityIndex]];
             ticksToGrow += sleeveBeautiesTimeCost[beautyDegrees[sleeveBeautyIndex]];
             growCost = 12 * (ticksToGrow / GenDate.TicksPerDay);
-            ticksToGrow = (int)(ticksToGrow * ACUtils.sleeveGrowingSettings.sleeveGrowingTimeMultiplier);
-            growCost = (int)(growCost * ACUtils.sleeveGrowingSettings.sleeveGrowingCostMultiplier);
+            ticksToGrow = (int)(ticksToGrow * AC_Utils.sleeveGrowingSettings.sleeveGrowingTimeMultiplier);
+            growCost = (int)(growCost * AC_Utils.sleeveGrowingSettings.sleeveGrowingCostMultiplier);
         }
 
         public void ApplyGeneQuality()
         {
-            foreach (var geneQuality in ACUtils.sleeveQualities)
+            foreach (var geneQuality in AC_Utils.sleeveQualities)
             {
                 var gene = curSleeve.genes.GetGene(geneQuality);
                 if (gene != null)
@@ -630,20 +628,20 @@ namespace AlteredCarbon
                     curSleeve.genes.RemoveGene(gene);
                 }
             }
-            geneQuality = ACUtils.sleeveQualities[sleeveQualityIndex];
+            geneQuality = AC_Utils.sleeveQualities[sleeveQualityIndex];
             curSleeve.genes.AddGene(geneQuality, false);
         }
 
         public void ApplyBeauty()
         {
-            Trait trait = curSleeve.story.traits.GetTrait(TraitDefOf.Beauty);
+            Trait trait = curSleeve.story.traits.GetTrait(AC_DefOf.Beauty);
             if (trait != null)
             {
                 curSleeve.story.traits.RemoveTrait(trait);
             }
             if (beautyDegrees[sleeveBeautyIndex] != 0)
             {
-                curSleeve.story.traits.GainTrait(new Trait(TraitDefOf.Beauty, beautyDegrees[sleeveBeautyIndex]));
+                curSleeve.story.traits.GainTrait(new Trait(AC_DefOf.Beauty, beautyDegrees[sleeveBeautyIndex]));
             }
         }
 
@@ -651,7 +649,7 @@ namespace AlteredCarbon
         {
             if (index != 0)
             {
-                Trait beauty = new Trait(TraitDefOf.Beauty, index);
+                Trait beauty = new Trait(AC_DefOf.Beauty, index);
                 return beauty.LabelCap;
             }
             else
@@ -755,7 +753,7 @@ namespace AlteredCarbon
 
         private static List<HeadTypeDef> invalidHeads = new List<HeadTypeDef>
         {
-            HeadTypeDefOf.Skull, HeadTypeDefOf.Stump
+            HeadTypeDefOf.Skull, AC_DefOf.Stump
         };
         public List<KeyValuePair<GeneDef, HeadTypeDef>> GetPermittedHeads(bool geneActiveCheck = false)
         {
@@ -932,11 +930,11 @@ namespace AlteredCarbon
                 femaleBodyTypeIndex = GetPermittedBodyTypes().Select(x => x.Value).ToList().IndexOf(curSleeve.story.bodyType);
             }
 
-            foreach (var gene in ACUtils.sleeveQualities)
+            foreach (var gene in AC_Utils.sleeveQualities)
             {
                 if (curSleeve.genes.GetGene(gene) != null)
                 {
-                    sleeveQualityIndex = ACUtils.sleeveQualities.IndexOf(gene);
+                    sleeveQualityIndex = AC_Utils.sleeveQualities.IndexOf(gene);
                 }
             }
         }
@@ -955,8 +953,8 @@ namespace AlteredCarbon
                     gender = Gender.Male;
                 }
             }
-            curSleeve = ACUtils.CreateEmptyPawn(currentPawnKindDef, Faction.OfPlayer, currentPawnKindDef.race,
-                (long)Mathf.FloorToInt(18f * 3600000f), AC_DefOf.VFEU_Sleeveliner);
+            curSleeve = AC_Utils.CreateEmptyPawn(currentPawnKindDef, Faction.OfPlayer, currentPawnKindDef.race,
+                (long)Mathf.FloorToInt(18f * 3600000f), AC_DefOf.AC_Sleeveliner);
             curSleeve.gender = gender;
             curSleeve.MakeEmptySleeve(keepNaturalAbilities: true, keepPsycastAbilities: true);
             curSleeve.ageTracker.AgeBiologicalTicks = (long)Mathf.FloorToInt(18 * 3600000f);

@@ -26,8 +26,8 @@ namespace AlteredCarbon
         public long ageBiologicalTicks;
         public long ageChronologicalTicks;
         private List<TimeAssignmentDef> times;
-        private FoodRestriction foodRestriction;
-        private Outfit outfit;
+        private FoodPolicy foodPolicy;
+        private ApparelPolicy apparelPolicy;
         private DrugPolicy drugPolicy;
         public Faction faction;
         public bool isFactionLeader;
@@ -175,7 +175,7 @@ namespace AlteredCarbon
                 {
                     ticks = ageBiologicalTicks = hostPawn.ageTracker.AgeBiologicalTicks;
                 }
-                dummyPawn = ACUtils.CreateEmptyPawn(hostPawn?.kindDef ?? kindDef ?? PawnKindDefOf.Colonist,
+                dummyPawn = AC_Utils.CreateEmptyPawn(hostPawn?.kindDef ?? kindDef ?? PawnKindDefOf.Colonist,
                     faction, OriginalRace ?? ThingDefOf.Human, ticks, OriginalXenotypeDef != null
                     ? OriginalXenotypeDef : XenotypeDefOf.Baseliner);
                 dummyPawn.gender = dummyGender ?? originalGender;
@@ -186,7 +186,7 @@ namespace AlteredCarbon
             if (hostPawn != null)
             {
                 dummyGender = hostPawn.gender;
-                ACUtils.CopyBody(hostPawn, dummyPawn, copyAgeInfo: true, copyGenesFully: true);
+                AC_Utils.CopyBody(hostPawn, dummyPawn, copyAgeInfo: true, copyGenesFully: true);
                 dummyPawn.RefreshGraphic();
             }
             DummyPawnCleanup();
@@ -271,13 +271,13 @@ namespace AlteredCarbon
         public void CopyFromPawn(Pawn pawn, ThingDef sourceStack, bool copyRaceGenderInfo = false)
         {
             this.hostPawn = pawn;
-            this.sourceStack = sourceStack ?? AC_DefOf.VFEU_FilledCorticalStack;
+            this.sourceStack = sourceStack ?? AC_DefOf.AC_FilledCorticalStack;
             name = GetNameCopy(pawn.Name);
             this.kindDef = pawn.kindDef;
             if (pawn.playerSettings != null)
             {
                 hostilityMode = (int)pawn.playerSettings.hostilityResponse;
-                areaRestriction = pawn.playerSettings.AreaRestriction;
+                areaRestriction = pawn.playerSettings.AreaRestrictionInPawnCurrentMap;
                 medicalCareCategory = pawn.playerSettings.medCare;
                 selfTend = pawn.playerSettings.selfTend;
             }
@@ -286,8 +286,8 @@ namespace AlteredCarbon
                 ageChronologicalTicks = pawn.ageTracker.AgeChronologicalTicks;
                 ageBiologicalTicks = pawn.ageTracker.AgeBiologicalTicks;
             }
-            foodRestriction = pawn.foodRestriction?.CurrentFoodRestriction;
-            outfit = pawn.outfits?.CurrentOutfit;
+            foodPolicy = pawn.foodRestriction?.CurrentFoodPolicy;
+            apparelPolicy = pawn.outfits?.curApparelPolicy;
             drugPolicy = pawn.drugs?.CurrentPolicy;
             times = pawn.timetable?.times.CopyList();
             thoughts = pawn.needs?.mood?.thoughts?.memories?.Memories.CopyList();
@@ -589,13 +589,10 @@ namespace AlteredCarbon
                 expertiseRecords = ModCompatibility.GetExpertises(pawn);
             }
 
-            if (ModCompatibility.HelixienAlteredCarbonIsActive)
+            var stackDegradationHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_StackDegradation) as Hediff_StackDegradation;
+            if (stackDegradationHediff != null)
             {
-                var stackDegradationHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_StackDegradation) as Hediff_StackDegradation;
-                if (stackDegradationHediff != null)
-                {
-                    this.stackDegradation = stackDegradationHediff.stackDegradation;
-                }
+                this.stackDegradation = stackDegradationHediff.stackDegradation;
             }
             AssignDummyPawnReferences();
         }
@@ -611,8 +608,8 @@ namespace AlteredCarbon
             ageBiologicalTicks = other.ageBiologicalTicks;
             medicalCareCategory = other.medicalCareCategory;
             selfTend = other.selfTend;
-            foodRestriction = other.foodRestriction;
-            outfit = other.outfit;
+            foodPolicy = other.foodPolicy;
+            apparelPolicy = other.apparelPolicy;
             drugPolicy = other.drugPolicy;
             times = other.times.CopyList();
             thoughts = other.thoughts.CopyList();
@@ -866,15 +863,15 @@ namespace AlteredCarbon
                 pawn.playerSettings = new Pawn_PlayerSettings(pawn);
             }
             pawn.playerSettings.hostilityResponse = (HostilityResponseMode)hostilityMode;
-            pawn.playerSettings.AreaRestriction = areaRestriction;
+            pawn.playerSettings.AreaRestrictionInPawnCurrentMap = areaRestriction;
             pawn.playerSettings.medCare = medicalCareCategory;
             pawn.playerSettings.selfTend = selfTend;
             pawn.foodRestriction = new Pawn_FoodRestrictionTracker(pawn);
-            pawn.foodRestriction.CurrentFoodRestriction = foodRestriction;
+            pawn.foodRestriction.CurrentFoodPolicy = foodPolicy;
             pawn.outfits = new Pawn_OutfitTracker(pawn);
             try
             {
-                pawn.outfits.CurrentOutfit = outfit;
+                pawn.outfits.curApparelPolicy = apparelPolicy;
             }
             catch { }
             pawn.drugs = new Pawn_DrugPolicyTracker(pawn);
@@ -911,7 +908,7 @@ namespace AlteredCarbon
             pawn.guest.guestStatusInt = guestStatusInt;
             pawn.guest.interactionMode = interactionMode;
             if (pawn.guest.interactionMode is null)
-                pawn.guest.interactionMode = PrisonerInteractionModeDefOf.NoInteraction;
+                pawn.guest.interactionMode = PrisonerInteractionModeDefOf.MaintainOnly;
 
             pawn.guest.slaveInteractionMode = slaveInteractionMode;
             pawn.guest.hostFactionInt = hostFactionInt;
@@ -1062,18 +1059,18 @@ namespace AlteredCarbon
                 {
                     if (OriginalGender == pawn.gender)
                     {
-                        thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGender);
-                        thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGenderDouble);
-                        thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongGenderPregnant);
+                        thoughts.RemoveAll(x => x.def == AC_DefOf.AC_WrongGender);
+                        thoughts.RemoveAll(x => x.def == AC_DefOf.AC_WrongGenderDouble);
+                        thoughts.RemoveAll(x => x.def == AC_DefOf.AC_WrongGenderPregnant);
                     }
                     if (ModCompatibility.AlienRacesIsActive && OriginalRace == pawn.kindDef.race)
                     {
-                        thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongRace);
+                        thoughts.RemoveAll(x => x.def == AC_DefOf.AC_WrongRace);
                     }
                     if (OriginalXenotypeDef != null && OriginalXenotypeDef == pawn.genes.xenotype
                         || OriginalXenotypeName.NullOrEmpty() is false && OriginalXenotypeName == pawn.genes.xenotypeName)
                     {
-                        thoughts.RemoveAll(x => x.def == AC_DefOf.VFEU_WrongXenotype);
+                        thoughts.RemoveAll(x => x.def == AC_DefOf.AC_WrongXenotype);
                     }
 
                     foreach (Thought_Memory thought in thoughts)
@@ -1504,8 +1501,8 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref ageChronologicalTicks, "ageChronologicalTicks", 0, false);
             Scribe_Defs.Look(ref originalRace, "race");
             Scribe_Defs.Look(ref kindDef, "kindDef");
-            Scribe_References.Look(ref outfit, "outfit", false);
-            Scribe_References.Look(ref foodRestriction, "foodPolicy", false);
+            Scribe_References.Look(ref apparelPolicy, "outfit", false);
+            Scribe_References.Look(ref foodPolicy, "foodPolicy", false);
             Scribe_References.Look(ref drugPolicy, "drugPolicy", false);
 
             Scribe_Collections.Look(ref times, "times", LookMode.Def);

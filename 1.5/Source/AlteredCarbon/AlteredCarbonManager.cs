@@ -34,7 +34,7 @@ namespace AlteredCarbon
             pawnsWithStacks ??= new HashSet<Pawn>();
             emptySleeves ??= new HashSet<Pawn>();
             deadPawns ??= new HashSet<Pawn>();
-            ResetStackLimitIfNeeded(AC_DefOf.VFEU_FilledCorticalStack);
+            ResetStackLimitIfNeeded(AC_DefOf.AC_FilledCorticalStack);
             if (AC_DefOf.AC_FilledArchoStack != null)
             {
                 ResetStackLimitIfNeeded(AC_DefOf.AC_FilledArchoStack);
@@ -53,29 +53,26 @@ namespace AlteredCarbon
         }
         public void TryAddRelationships(Pawn pawn, StackGroupData stackData)
         {
-            if (ModCompatibility.HelixienAlteredCarbonIsActive)
+            stackData.AssignRelationships(pawn);
+            if (pawn.IsCopy() && pawn.CanThink())
             {
-                stackData.AssignRelationships(pawn);
-                if (pawn.IsCopy() && pawn.CanThink())
+                pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_JustCopy);
+                Pawn otherPawn = pawn.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Spouse);
+                if (pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Spouse, otherPawn))
                 {
-                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_JustCopy);
-                    Pawn otherPawn = pawn.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Spouse);
-                    if (pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Spouse, otherPawn))
-                    {
-                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_LostMySpouse, otherPawn);
-                    }
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_LostMySpouse, otherPawn);
+                }
 
-                    otherPawn = pawn.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Fiance);
-                    if (pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Fiance, otherPawn))
-                    {
-                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_LostMyFiance, otherPawn);
-                    }
+                otherPawn = pawn.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Fiance);
+                if (pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Fiance, otherPawn))
+                {
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_LostMyFiance, otherPawn);
+                }
 
-                    otherPawn = pawn.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Lover);
-                    if (pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Lover, otherPawn))
-                    {
-                        pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_LostMyLover, otherPawn);
-                    }
+                otherPawn = pawn.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Lover);
+                if (pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Lover, otherPawn))
+                {
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_LostMyLover, otherPawn);
                 }
             }
         }

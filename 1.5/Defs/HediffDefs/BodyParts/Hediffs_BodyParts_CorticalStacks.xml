@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<ThingDef Name="VFEU_StackBase" ParentName="BodyPartArchotechBase" Abstract="True">
+	<ThingDef Name="AC_StackBase" ParentName="BodyPartArchotechBase" Abstract="True">
 		<techLevel>Ultra</techLevel>
 		<thingCategories Inherit="False">
-			<li>VFEU_BodyPartsUltra</li>
+			<li>AC_BodyPartsUltra</li>
 		</thingCategories>
 		<graphicData>
 			<texPath>Things/Item/Health/HealthItem</texPath>
@@ -57,12 +57,12 @@
 			</li>
 		</modExtensions>
 	</ThingDef>
-	<ThingDef ParentName="VFEU_StackBase">
-		<defName>VFEU_EmptyCorticalStack</defName>
+	<ThingDef ParentName="AC_StackBase">
+		<defName>AC_EmptyCorticalStack</defName>
 		<label>empty cortical stack</label>
 		<description>An empty, ultra tech implant which can store a human consciousness. Being implanted directly into a person's neck, blunt force trauma and bullets to the head and neck should be avoided at all cost. Extremely rare and hard to make.</description>
 		<descriptionHyperlinks>
-			<RecipeDef>VFEU_InstallCorticalStack</RecipeDef>
+			<RecipeDef>AC_InstallCorticalStack</RecipeDef>
 		</descriptionHyperlinks>
 		<graphicData>
 			<texPath>Things/Item/Stacks/EmptyStack</texPath>
@@ -79,18 +79,18 @@
 			<li>RewardStandardLowFreq</li>
 		</thingSetMakerTags>
 		<tradeTags Inherit="False">
-			<li>VFEU_StacksUltra</li>
+			<li>AC_StacksUltra</li>
 			<li MayRequire="Ludeon.RimWorld.Royalty">ImplantEmpireRoyal</li>
 			<li>ExoticMisc</li>
 			<li>BuyableFromHunterCorp</li>
 		</tradeTags>
 	</ThingDef>
-	<ThingDef ParentName="VFEU_StackBase">
-		<defName>VFEU_FilledCorticalStack</defName>
+	<ThingDef ParentName="AC_StackBase">
+		<defName>AC_FilledCorticalStack</defName>
 		<label>cortical stack</label>
 		<description>An ultra tech implant with a human consciousness stored on it. Can be implanted into an empty sleeve or random body to bring back the person stored on the cortical stack.</description>
 		<descriptionHyperlinks>
-			<RecipeDef>VFEU_InstallCorticalStack</RecipeDef>
+			<RecipeDef>AC_InstallCorticalStack</RecipeDef>
 		</descriptionHyperlinks>
 		<graphicData>
 			<texPath>Things/Item/Stacks/FriendlyStack</texPath>

@@ -8,6 +8,8 @@ namespace AlteredCarbon
     {
         typeof(Letter),
         typeof(string),
+        typeof(int),
+        typeof(bool)
     })]
     internal static class LetterStack_ReceiveLetter_Patch
     {
@@ -18,7 +20,7 @@ namespace AlteredCarbon
             {
                 if (hediff.PersonaData.OriginalGender != pawn.gender) 
                 {
-                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.VFEU_WrongGenderPregnant);
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_WrongGenderPregnant);
                 }
             }
         }

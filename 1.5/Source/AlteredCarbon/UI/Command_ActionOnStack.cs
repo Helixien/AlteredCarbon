@@ -26,7 +26,7 @@ namespace AlteredCarbon
             {
                 Find.Targeter.StopTargeting();
                 var stacks = decryptionBench.Map.listerThings
-                    .ThingsOfDef(AC_DefOf.VFEU_FilledCorticalStack).OfType<CorticalStack>().Where(x => x.PersonaData.ContainsInnerPersona).ToList();
+                    .ThingsOfDef(AC_DefOf.AC_FilledCorticalStack).OfType<CorticalStack>().Where(x => x.PersonaData.ContainsInnerPersona).ToList();
                 foreach (CorticalStack corticalStack in stacks)
                 {
                     if (targetParameters is null || targetParameters.CanTarget(corticalStack))

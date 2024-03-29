@@ -116,7 +116,7 @@ namespace AlteredCarbon
                 UnfinishedThing unfinishedThing = curJob.GetTarget(TargetIndex.B).Thing as UnfinishedThing;
                 float workLeft = ((JobDriver_DoBill)actor.jobs.curDriver).workLeft;
                 Bill_Mech bill_Mech;
-                float num = (((bill_Mech = curJob.bill as Bill_Mech) != null && bill_Mech.State == FormingCycleState.Formed) ? 300f : curJob.bill.GetWorkAmount(unfinishedThing));
+                float num = (((bill_Mech = curJob.bill as Bill_Mech) != null && bill_Mech.State == FormingState.Formed) ? 300f : curJob.bill.GetWorkAmount(unfinishedThing));
                 return 1f - workLeft / num;
             });
             toil.FailOn((Func<bool>)delegate

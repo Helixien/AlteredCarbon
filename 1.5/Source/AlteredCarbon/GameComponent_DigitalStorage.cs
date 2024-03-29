@@ -29,7 +29,7 @@ namespace AlteredCarbon
         {
             foreach (var map in Find.Maps)
             {
-                if (map.listerThings.ThingsOfDef(AC_Extra_DefOf.AC_StackArray).Any(x => x.Faction == Faction.OfPlayer))
+                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_StackArray).Any(x => x.Faction == Faction.OfPlayer))
                 {
                     return;
                 }
@@ -60,12 +60,12 @@ namespace AlteredCarbon
         {
             foreach (var map in Find.Maps)
             {
-                if (map.listerThings.ThingsOfDef(AC_DefOf.VFEU_FilledCorticalStack).Cast<CorticalStack>()
+                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_FilledCorticalStack).Cast<CorticalStack>()
                     .Any(x => x.PersonaData.IsPresetPawn(personaData) && x.Spawned && !x.Destroyed))
                 {
                     return true;
                 }
-                if (map.listerThings.ThingsOfDef(AC_Extra_DefOf.AC_StackArray).Cast<Building_StackStorage>()
+                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_StackArray).Cast<Building_StackStorage>()
                     .Any(x => x.StoredStacks.Any(y => y.PersonaData.IsPresetPawn(personaData))))
                 {
                     return true;
@@ -97,7 +97,7 @@ namespace AlteredCarbon
 
         public void PerformStackRestoration(Pawn doer)
         {
-            var stackRestoreTo = (CorticalStack)ThingMaker.MakeThing(AC_DefOf.VFEU_FilledCorticalStack);
+            var stackRestoreTo = (CorticalStack)ThingMaker.MakeThing(AC_DefOf.AC_FilledCorticalStack);
             var personaDataToRestore = FirstPersonaStackToRestore;
             stackRestoreTo.PersonaData.CopyDataFrom(personaDataToRestore, true);
             AlteredCarbonManager.Instance.RegisterStack(stackRestoreTo);
@@ -150,7 +150,7 @@ namespace AlteredCarbon
             {
                 foreach (var map in Find.Maps)
                 {
-                    foreach (var storage in map.listerThings.ThingsOfDef(AC_Extra_DefOf.AC_StackArray)
+                    foreach (var storage in map.listerThings.ThingsOfDef(AC_DefOf.AC_StackArray)
                         .Where(x => x.Faction == Faction.OfPlayer).OfType<Building_StackStorage>())
                     {
                         if (storage.backupIsEnabled && storage.compPower.PowerOn)
