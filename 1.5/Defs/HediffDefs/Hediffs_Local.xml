@@ -1,23 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<!-- ================================ Cortical Stack Hediff	====================== -->
-	<HediffDef ParentName="ImplantHediffBase">
-		<defName>AC_CorticalStack</defName>
-		<label>cortical stack</label>
-		<labelNoun>a cortical stack</labelNoun>
-		<hediffClass>AlteredCarbon.Hediff_CorticalStack</hediffClass>
-		<description>An installed cortical stack.</description>
-		<descriptionHyperlinks>
-			<ThingDef>AC_FilledCorticalStack</ThingDef>
-		</descriptionHyperlinks>
-		<spawnThingOnRemoved>AC_FilledCorticalStack</spawnThingOnRemoved>
-		<isBad>false</isBad>
-		<addedPartProps>
-			<solid>true</solid>
-			<partEfficiency>1.25</partEfficiency>
-			<betterThanNatural>true</betterThanNatural>
-		</addedPartProps>
-	</HediffDef>
 	<!-- ================================ Sleeve Base ====================== -->
 	<HediffDef Name="AC_SleeveBase" Abstract="True">
 		<hediffClass>HediffWithComps</hediffClass>
