@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 	<!-- ================================ Cortical Stack - Base ====================== -->
-	<ThingDef Name="AC_CorticalStackBase" ParentName="BodyPartArchotechBase" Abstract="True">
+	<ThingDef Name="AC_StackBase" ParentName="BodyPartArchotechBase" Abstract="True">
 		<techLevel>Ultra</techLevel>
 		<uiIconForStackCount>1</uiIconForStackCount>
 		<tradeNeverStack>false</tradeNeverStack>
 		<useHitPoints>true</useHitPoints>
 		<statBases>
-			<Mass>0.3</Mass>
-			<DeteriorationRate>0</DeteriorationRate>
+			<Mass>0.4</Mass>
+			<DeteriorationRate>0.3</DeteriorationRate>
 			<MaxHitPoints>125</MaxHitPoints>
 			<Flammability>0</Flammability>
-			<MarketValue>1000</MarketValue>
+			<MarketValue>950</MarketValue>
 		</statBases>
 		<thingCategories Inherit="False">
 			<li>AC_BodyPartsUltra</li>
@@ -29,36 +29,15 @@
 					<li>Tough</li>
 					<li>PsychicSensitivity</li>
 					<li>Delicate</li>
-					<li MayRequire="VanillaExpanded.VanillaExpanded.VPsycastsE">VPE_Thrall</li>
-					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_IronStomach</li>
-					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_BigBoned</li>
-					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_Dunce</li>
-					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_Squeamish</li>
-					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_ThickSkinned</li>
-					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_ThinSkinned</li>
-					<li MayRequire="OskarPotocki.VFE.Pirates">VFEP_WarcasketTrait</li>
-					<li MayRequire="OskarPotocki.VFE.Pirates">VFEP_Shellcasket</li>
-					<li MayRequire="sarg.alphagenes">AG_Beauty</li>
-					<li MayRequire="syrchalis.individuality">SYR_Agile</li>
-					<li MayRequire="syrchalis.individuality">SYR_KeenEye</li>
-					<li MayRequire="syrchalis.individuality">SYR_StrongBack</li>
-					<li MayRequire="Sierra.RTGT">RT_Nearsighted</li>
-					<li MayRequire="Sierra.RTGT">RT_Farsighted</li>
-					<li MayRequire="Sierra.RTGT">RT_Muscular</li>
-					<li MayRequire="Sierra.RTGT">RT_Frail</li>
-					<li MayRequire="Sierra.RTGT">RT_Hardy</li>
-					<li MayRequire="Sierra.RTGT">RT_Feeble</li>
-					<li MayRequire="Sierra.RTGT">RT_Healthy</li>
-					<li MayRequire="Sierra.RTGT">RT_ChronicallyIll</li>
 				</ignoresTraits>
 			</li>
 		</modExtensions>
 	</ThingDef>
 	<!-- ================================ Empty Cortical Stack ====================== -->
-	<ThingDef ParentName="AC_CorticalStackBase">
+	<ThingDef ParentName="AC_StackBase">
 		<defName>AC_EmptyCorticalStack</defName>
 		<label>empty cortical stack</label>
-		<description>An empty, ultra tech implant which can store a human consciousness. Being implanted directly into a person's neck, blunt force trauma and bullets to the head and neck should be avoided at all cost. Extremely rare and hard to make.</description>
+		<description>An ultratech cortical implant which can store a human consciousness, commonly referred to as a persona. Once implanted directly into a person's spine in the neck it will download their consciousness and safely store it. While the death of an organic or inorganic body is no longer a concern, being a fragile piece of technology, blunt force trauma and bullets to the neck area should be avoided at all cost./n/nExtremely rare, heavily restricted and hard to produce, these implants are rare on non-ultratech worlds.</description>
 		<thingClass>AlteredCarbon.CorticalStack</thingClass>
 		<graphicData>
 			<texPath>Things/Item/Stacks/EmptyStack</texPath>
@@ -67,7 +46,7 @@
 		<descriptionHyperlinks>
 			<RecipeDef>AC_InstallCorticalStack</RecipeDef>
 		</descriptionHyperlinks>
-		<stackLimit>25</stackLimit>
+		<stackLimit>10</stackLimit>
 		<costList>
 			<Plasteel>15</Plasteel>
 			<ComponentSpacer>4</ComponentSpacer>
@@ -83,10 +62,10 @@
 		</tradeTags>
 	</ThingDef>
 	<!-- ================================ Filled Cortical Stack ====================== -->
-	<ThingDef ParentName="AC_CorticalStackBase">
+	<ThingDef ParentName="AC_StackBase">
 		<defName>AC_FilledCorticalStack</defName>
 		<label>cortical stack</label>
-		<description>An ultra tech implant with a human consciousness stored on it. Can be implanted into an empty sleeve or random body to bring back the person stored on the cortical stack.</description>
+		<description>An ultratech cortical implant with a human consciousness stored on it, commonly referred to as a persona. Can be implanted directly into a person's or sleeve’s spine in the neck to bring back the person stored on the stack.</description>
 		<thingClass>AlteredCarbon.CorticalStack</thingClass>
 		<graphicData>
 			<texPath>Things/Item/Stacks/FriendlyStack</texPath>
@@ -97,7 +76,7 @@
 		</descriptionHyperlinks>
 		<tickerType>Normal</tickerType>
 		<uiIconForStackCount>1</uiIconForStackCount>
-		<healthAffectsPrice>false</healthAffectsPrice>
+		<healthAffectsPrice>true</healthAffectsPrice>
 		<stackLimit>1</stackLimit>
 		<tradeNeverStack>false</tradeNeverStack>
 		<tradeTags Inherit="False"/>
@@ -106,15 +85,12 @@
 		</inspectorTabs>
 	</ThingDef>
 	<!-- ================================ Archotech Stack Base ====================== -->
-	<ThingDef Name="AC_ArchotechStackBase" ParentName="BodyPartArchotechBase" Abstract="True">
+	<ThingDef Name="AC_ArchotechStackBase" ParentName="AC_StackBase" Abstract="True">
 		<techLevel>Archotech</techLevel>
-		<uiIconForStackCount>1</uiIconForStackCount>
-		<tradeNeverStack>false</tradeNeverStack>
-		<useHitPoints>false</useHitPoints>
-		<destroyable>false</destroyable>
 		<statBases>
-			<Mass>0.3</Mass>
+			<Mass>0.2</Mass>
 			<DeteriorationRate>0</DeteriorationRate>
+			<MaxHitPoints>350</MaxHitPoints>
 			<Flammability>0</Flammability>
 			<MarketValue>3500</MarketValue>
 		</statBases>
@@ -122,9 +98,9 @@
 			<li>AC_BodyPartsUltra</li>
 		</thingCategories>
 		<techHediffsTags Inherit="False">
-			<li>Archostack</li>
+			<li>Archotechstack</li>
 		</techHediffsTags>
-		<modExtensions>
+		<modExtensions Inherit="False">
 			<li Class="AlteredCarbon.StackSavingOptionsModExtension">
 				<ignoresTraits>
 					<li>Beauty</li>
@@ -132,71 +108,49 @@
 					<li>AnnoyingVoice</li>
 					<li>CreepyBreathing</li>
 					<li>Tough</li>
-					<li>PsychicSensitivity</li>
 					<li>Delicate</li>
-					<li MayRequire="VanillaExpanded.VanillaExpanded.VPsycastsE">VPE_Thrall</li>
-					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_IronStomach</li>
-					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_BigBoned</li>
-					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_Dunce</li>
-					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_Squeamish</li>
-					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_ThickSkinned</li>
-					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_ThinSkinned</li>
-					<li MayRequire="OskarPotocki.VFE.Pirates">VFEP_WarcasketTrait</li>
-					<li MayRequire="OskarPotocki.VFE.Pirates">VFEP_Shellcasket</li>
-					<li MayRequire="sarg.alphagenes">AG_Beauty</li>
-					<li MayRequire="syrchalis.individuality">SYR_Agile</li>
-					<li MayRequire="syrchalis.individuality">SYR_KeenEye</li>
-					<li MayRequire="syrchalis.individuality">SYR_StrongBack</li>
-					<li MayRequire="Sierra.RTGT">RT_Nearsighted</li>
-					<li MayRequire="Sierra.RTGT">RT_Farsighted</li>
-					<li MayRequire="Sierra.RTGT">RT_Muscular</li>
-					<li MayRequire="Sierra.RTGT">RT_Frail</li>
-					<li MayRequire="Sierra.RTGT">RT_Hardy</li>
-					<li MayRequire="Sierra.RTGT">RT_Feeble</li>
-					<li MayRequire="Sierra.RTGT">RT_Healthy</li>
-					<li MayRequire="Sierra.RTGT">RT_ChronicallyIll</li>
 				</ignoresTraits>
 			</li>
 		</modExtensions>
 	</ThingDef>
 	<!-- ================================ Empty Archotech Stack ====================== -->
 	<ThingDef ParentName="AC_ArchotechStackBase">
-		<defName>AC_EmptyArchoStack</defName>
+		<defName>AC_EmptyArchotecgStack</defName>
 		<label>empty archotech stack</label>
-		<description>An empty, archotech implant which can store a human consciousness, which are implanted directly into the host's neck. Considerably more robust than its ultra tech derivatives, they are impossible to manufacture and can only be found by chance.</description>
+		<description>An cortical implant built by an archotech which can store a human consciousness, commonly referred to as a persona. Once implanted directly into a person's spine in the neck it will download their consciousness and safely store it. Unlike common cortical implants, it is far more robust, will carry psylinks between bodies and if needed, act on its own to protect whoevers consciousness is stored inside it. Its internal workings are a mystery to all human minds, even those lucky or cursed enough to become its new inhabitant.</description>
 		<thingClass>AlteredCarbon.CorticalStack</thingClass>
 		<graphicData>
 			<texPath>Things/Item/ArchoStacks/ArchopStackEmpty</texPath>
 			<graphicClass>Graphic_StackCount</graphicClass>
 		</graphicData>
 		<descriptionHyperlinks>
-			<RecipeDef>AC_InstallEmptyArchoStack</RecipeDef>
+			<RecipeDef>AC_InstallEmptyArchotechStack</RecipeDef>
 		</descriptionHyperlinks>
-		<stackLimit>25</stackLimit>
+		<stackLimit>10</stackLimit>
 		<thingSetMakerTags>
 			<li>RewardStandardLowFreq</li>
 		</thingSetMakerTags>
 		<tradeTags Inherit="False">
-			<li>AC_ArchoStacksArchotech</li>
+			<li>AC_ArchotechStacks</li>
 			<li>ExoticMisc</li>
 		</tradeTags>
 	</ThingDef>
 	<!-- ================================ Filled Archotech Stack ====================== -->
 	<ThingDef ParentName="AC_ArchotechStackBase">
-		<defName>AC_FilledArchoStack</defName>
+		<defName>AC_FilledArchotechStack</defName>
 		<label>archo stack</label>
-		<description>An archo tech implant with a human consciousness stored on it. Can be implanted into an empty sleeve or random body to bring back the person stored on the cortical stack.</description>
+		<description>An archotech cortical implant with a human consciousness stored on it, commonly referred to as a persona. Can be implanted directly into a person's or sleeve’s spine in the neck to bring back the person stored on the stack.</description>
 		<thingClass>AlteredCarbon.CorticalStack</thingClass>
 		<graphicData>
 			<texPath>Things/Item/ArchoStacks/FriendlyArchoStack</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<descriptionHyperlinks>
-			<RecipeDef>AC_InstallArchoStack</RecipeDef>
+			<RecipeDef>AC_InstallArchotechStack</RecipeDef>
 		</descriptionHyperlinks>
 		<tickerType>Normal</tickerType>
 		<stackLimit>1</stackLimit>
-		<healthAffectsPrice>false</healthAffectsPrice>
+		<healthAffectsPrice>true</healthAffectsPrice>
 		<uiIconForStackCount>1</uiIconForStackCount>
 		<tradeNeverStack>false</tradeNeverStack>
 		<tradeTags Inherit="False"/>

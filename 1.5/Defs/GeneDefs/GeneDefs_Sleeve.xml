@@ -18,7 +18,7 @@
 	<GeneDef ParentName="AC_SleeveQualityGeneBase">
 		<defName>AC_SleeveQuality_Awful</defName>
 		<label>awful quality</label>
-		<description>Carriers of this gene had their bodies grown in a vat. As little effort as possible was put into it, resulting in awful quality.</description>
+		<description>Carriers of this gene had their bodies gestated in a vat. As little effort as possible was put into it, resulting in awful quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_Awful</iconPath>
 		<displayOrderInCategory>0</displayOrderInCategory>
 		<biostatCpx>-4</biostatCpx>
@@ -41,7 +41,7 @@
 	<GeneDef ParentName="AC_SleeveQualityGeneBase">
 		<defName>AC_SleeveQuality_Poor</defName>
 		<label>poor quality</label>
-		<description>Carriers of this gene had their bodies grown in a vat. Little effort was put into it, resulting in poor quality.</description>
+		<description>Carriers of this gene had their bodies gestated in a vat. Little effort was put into it, resulting in poor quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Poor</iconPath>
 		<displayOrderInCategory>5</displayOrderInCategory>
 		<biostatCpx>-2</biostatCpx>
@@ -64,7 +64,7 @@
 	<GeneDef ParentName="AC_SleeveQualityGeneBase">
 		<defName>AC_SleeveQuality_Normal</defName>
 		<label>normal quality</label>
-		<description>Carriers of this gene had their bodies grown in a vat. Enough effort was put into it to result in normal quality.</description>
+		<description>Carriers of this gene had their bodies gestated in a vat. Enough effort was put into it to result in normal quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Normal</iconPath>
 		<displayOrderInCategory>10</displayOrderInCategory>
 		<biostatCpx>0</biostatCpx>
@@ -72,7 +72,7 @@
 	<GeneDef ParentName="AC_SleeveQualityGeneBase">
 		<defName>AC_SleeveQuality_Good</defName>
 		<label>good quality</label>
-		<description>Carriers of this gene had their bodies grown in a vat. Above average effort was put into it, resulting in good quality.</description>
+		<description>Carriers of this gene had their bodies gestated in a vat. Above average effort was put into it, resulting in good quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Good</iconPath>
 		<displayOrderInCategory>15</displayOrderInCategory>
 		<biostatCpx>2</biostatCpx>
@@ -93,7 +93,7 @@
 	<GeneDef ParentName="AC_SleeveQualityGeneBase">
 		<defName>AC_SleeveQuality_Excellent</defName>
 		<label>excellent quality</label>
-		<description>Carriers of this gene had their bodies grown in a vat. A good amount of effort was put into it, resulting in excellent quality.</description>
+		<description>Carriers of this gene had their bodies gestated in a vat. A good amount of effort was put into it, resulting in excellent quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Excellent</iconPath>
 		<displayOrderInCategory>20</displayOrderInCategory>
 		<biostatCpx>4</biostatCpx>
@@ -115,7 +115,7 @@
 	<GeneDef ParentName="AC_SleeveQualityGeneBase">
 		<defName>AC_SleeveQuality_Masterwork</defName>
 		<label>masterwork quality</label>
-		<description>Carriers of this gene had their bodies grown in a vat. A lot of effort was put into it, resulting in masterwork quality.</description>
+		<description>Carriers of this gene had their bodies gestated in a vat. A lot of effort was put into it, resulting in masterwork quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Masterwork</iconPath>
 		<displayOrderInCategory>25</displayOrderInCategory>
 		<biostatCpx>8</biostatCpx>
@@ -138,7 +138,7 @@
 	<GeneDef ParentName="AC_SleeveQualityGeneBase">
 		<defName>AC_SleeveQuality_Legendary</defName>
 		<label>legendary quality</label>
-		<description>Carriers of this gene had their bodies grown in a vat. An extreme amount of effort was put into it, resulting in legendary quality.</description>
+		<description>Carriers of this gene had their bodies gestated in a vat. An extreme amount of effort was put into it, resulting in legendary quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Legendary</iconPath>
 		<displayOrderInCategory>30</displayOrderInCategory>
 		<biostatCpx>12</biostatCpx>
