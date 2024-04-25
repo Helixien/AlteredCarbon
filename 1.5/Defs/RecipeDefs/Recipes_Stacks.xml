@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Persona Stacks - Install Empty ====================== -->
+	<RecipeDef ParentName="SurgeryInstallImplantBase">
+		<defName>AC_InstallEmptyPersonaStack</defName>
+		<label>install empty persona stack</label>
+		<description>Install an empty persona stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_EmptyPersonaStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_InstallPersonaStack</workerClass>
+		<jobString>Installing persona stack.</jobString>
+		<uiIconThing>AC_EmptyPersonaStack</uiIconThing>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AC_EmptyPersonaStack</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AC_EmptyPersonaStack</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Neck</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>AC_PersonaStack</addsHediff>
+	</RecipeDef>
+	<!-- ================================ Persona Stacks - Install Filled ====================== -->
+	<RecipeDef ParentName="SurgeryInstallImplantBase">
+		<defName>AC_InstallPersonaStack</defName>
+		<label>install filled persona stack</label>
+		<description>Install a persona stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_FilledPersonaStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_InstallFilledPersonaStack</workerClass>
+		<jobString>Installing persona stack.</jobString>
+		<uiIconThing>AC_FilledPersonaStack</uiIconThing>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AC_FilledPersonaStack</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AC_FilledPersonaStack</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Neck</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>AC_PersonaStack</addsHediff>
+	</RecipeDef>
+	<!-- ================================ Persona Stacks - Remove ====================== -->
+	<RecipeDef ParentName="SurgeryRemoveImplantBase">
+		<defName>AC_RemovePersonaStack</defName>
+		<label>remove persona stack</label>
+		<description>Remove persona stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_FilledPersonaStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_RemovePersonaStack</workerClass>
+		<jobString>Removing persona stack.</jobString>
+		<uiIconThing>AC_FilledPersonaStack</uiIconThing>
+		<removesHediff>AC_PersonaStack</removesHediff>
+	</RecipeDef>
+	<!-- ================================ Parroter Stacks - Install ====================== -->
+	<RecipeDef ParentName="SurgeryInstallImplantBase">
+		<defName>AC_InstallParroterStack</defName>
+		<label>install parroter stack</label>
+		<description>Install a parroter stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_ParroterStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_InstallParroterStack</workerClass>
+		<jobString>Installing parroter stack.</jobString>
+		<uiIconThing>AC_ParroterStack</uiIconThing>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AC_ParroterStack</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AC_ParroterStack</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Neck</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>AC_ParroterStack</addsHediff>
+	</RecipeDef>
+	<!-- ================================ Parroter Stacks - Remove ====================== -->
+	<RecipeDef ParentName="SurgeryRemoveImplantBase">
+		<defName>AC_RemoveParroterStack</defName>
+		<label>remove parroter stack</label>
+		<description>Remove parroter stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_FilledParroterStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_RemoveParroterStack</workerClass>
+		<jobString>Removing parroter stack.</jobString>
+		<uiIconThing>AC_FilledParroterStack</uiIconThing>
+		<removesHediff>AC_ParroterStack</removesHediff>
+	</RecipeDef>
+</Defs>

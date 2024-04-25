@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-	<!-- ================================ Special Filters for Cortical Stacks====================== -->
+	<!-- ================================ Special Filters for Persona Stacks====================== -->
 	<SpecialThingFilterDef>
 		<defName>AC_AllowStacksColonist</defName>
 		<label>allow colonist stacks</label>
