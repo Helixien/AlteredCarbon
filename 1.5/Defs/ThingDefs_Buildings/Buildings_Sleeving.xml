@@ -5,6 +5,12 @@
 		<defName>AC_SleeveGestator</defName>
 		<label>sleeve gestator</label>
 		<description>text.todo</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_SleeveCasket</ThingDef>
+			<!-- Biotech -->
+			<ThingDef>GeneAssembler</ThingDef>
+			<ThingDef>Xenogerm</ThingDef>
+		</descriptionHyperlinks>
 		<thingClass>AlteredCarbon.Building_SleeveGestator</thingClass>
 		<graphicData>
 			<texPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorBottom</texPath>
@@ -15,17 +21,11 @@
 		<uiIconPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorUI_Icon</uiIconPath>
 		<uiIconScale>1.1</uiIconScale>
 		<defaultPlacingRot>South</defaultPlacingRot>
-		<descriptionHyperlinks>
-			<ThingDef>AC_SleeveCasket</ThingDef>
-			<!-- Biotech -->
-			<ThingDef>GeneAssembler</ThingDef>
-			<ThingDef>Xenogerm</ThingDef>
-		</descriptionHyperlinks>
 		<designationCategory>Biotech</designationCategory>
 		<statBases>
-			<Mass>180</Mass>
-			<WorkToBuild>24000</WorkToBuild>
-			<MaxHitPoints>800</MaxHitPoints>
+			<Mass>30</Mass>
+			<WorkToBuild>12000</WorkToBuild>
+			<MaxHitPoints>300</MaxHitPoints>
 			<Flammability>0.5</Flammability>
 		</statBases>
 		<building>
@@ -43,9 +43,9 @@
 		<costList>
 			<Steel>250</Steel>
 			<Plasteel>50</Plasteel>
-			<ComponentSpacer>3</ComponentSpacer>
+			<ComponentSpacer>6</ComponentSpacer>
 		</costList>
-		<pathCost>70</pathCost>
+		<pathCost>90</pathCost>
 		<blockWind>true</blockWind>
 		<canOverlapZones>false</canOverlapZones>
 		<neverMultiSelect>true</neverMultiSelect>
@@ -61,15 +61,15 @@
 		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
 		<passability>PassThroughOnly</passability>
 		<castEdgeShadows>true</castEdgeShadows>
-		<fillPercent>0.8</fillPercent>
+		<fillPercent>0.5</fillPercent>
 		<comps>
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Forbiddable"/>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
 				<shortCircuitInRain>true</shortCircuitInRain>
-				<basePowerConsumption>350</basePowerConsumption>
-				<idlePowerDraw>50</idlePowerDraw>
+				<basePowerConsumption>450</basePowerConsumption>
+				<idlePowerDraw>75</idlePowerDraw>
 			</li>
 			<li Class="CompProperties_Refuelable">
 				<fuelLabel>Neutroamine</fuelLabel>
