@@ -31,7 +31,7 @@
 	</ThingDef>
 	<!-- ================================ Empty Archotech Stack ====================== -->
 	<ThingDef ParentName="AC_ArchotechStackBase">
-		<defName>AC_EmptyArchotecgStack</defName>
+		<defName>AC_EmptyArchotechStack</defName>
 		<label>empty archotech stack</label>
 		<description>An cortical implant built by an archotech which can store a human consciousness, commonly referred to as a persona. Once implanted directly into a person's spine in the neck it will download their consciousness and safely store it. Unlike common cortical implants, it is far more robust, will carry psylinks between bodies and if needed, act on its own to protect whoevers consciousness is stored inside it. Its internal workings are a mystery to all human minds, even those lucky or cursed enough to become its new inhabitant.</description>
 		<thingClass>AlteredCarbon.CorticalStack</thingClass>
