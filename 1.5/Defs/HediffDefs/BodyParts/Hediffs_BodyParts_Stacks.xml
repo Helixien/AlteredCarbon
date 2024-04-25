@@ -29,6 +29,7 @@
 					<li>Tough</li>
 					<li>PsychicSensitivity</li>
 					<li>Delicate</li>
+					<li MayRequire="Ludeon.RimWorld.Anomaly">BodyMastery</li>
 					<li MayRequire="VanillaExpanded.VanillaExpanded.VPsycastsE">VPE_Thrall</li>
 					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_IronStomach</li>
 					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_BigBoned</li>
