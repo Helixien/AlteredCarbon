@@ -2,10 +2,10 @@
 <Defs>
 	<!-- ================================ Sleeve Gestator  ====================== -->
 	<ThingDef ParentName="BuildingBase">
-		<defName>AC_SleeveGestator </defName>
+		<defName>AC_SleeveGestator</defName>
 		<label>sleeve gestator</label>
-		<description>An exceedingly complex vat of nutrients that is capable of gestating sleeves, empty shells without a mind of their own. Neutroamine is used in order to grow the body through its different stages and the incubator must remains powered throughout this process. Should it lose power for extended periods, the gestation process will fail. \n\nSimple, low grade sleeves can be churned out quite quickly for minimal resources. However, more complex and sophisticated sleeves take longer and require more nutrients to ensure the body is properly formed. \n\nOnce the sleeve has finished growing, it should be extracted and cared for as it is incapable of independent movement or thought, including feeding itself.</description>
-		<thingClass>AlteredCarbon.Building_SleeveGrower</thingClass>
+		<description>text.todo</description>
+		<thingClass>AlteredCarbon.Building_SleeveGestator</thingClass>
 		<graphicData>
 			<texPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorBottom</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
@@ -17,20 +17,16 @@
 		<defaultPlacingRot>South</defaultPlacingRot>
 		<descriptionHyperlinks>
 			<ThingDef>AC_SleeveCasket</ThingDef>
-			<ThingDef>AC_NeutroaminePump</ThingDef>
-			<ThingDef>AC_GenomeRevitalizer</ThingDef>
-			<ThingDef>AC_NeutroamineDialyzer</ThingDef>
 			<!-- Biotech -->
 			<ThingDef>GeneAssembler</ThingDef>
 			<ThingDef>Xenogerm</ThingDef>
 		</descriptionHyperlinks>
 		<designationCategory>Biotech</designationCategory>
 		<statBases>
-			<MarketValue>3580</MarketValue>
+			<Mass>180</Mass>
 			<WorkToBuild>24000</WorkToBuild>
 			<MaxHitPoints>800</MaxHitPoints>
 			<Flammability>0.5</Flammability>
-			<Mass>60</Mass>
 		</statBases>
 		<building>
 			<destroySound>BuildingDestroyed_Metal_Big</destroySound>
@@ -42,7 +38,7 @@
 		</building>
 		<constructionSkillPrerequisite>10</constructionSkillPrerequisite>
 		<researchPrerequisites>
-			<li>AC_Sleeving</li>
+			<li>AC_SleeveGestation</li>
 		</researchPrerequisites>
 		<costList>
 			<Steel>250</Steel>
@@ -95,227 +91,6 @@
 				<glowRadius>5</glowRadius>
 				<glowColor>(96,161,153,0)</glowColor>
 			</li>
-			<li Class="CompProperties_AffectedByFacilities">
-				<linkableFacilities>
-					<li>AC_GenomeRevitalizer</li>
-					<li>AC_NeutroamineDialyzer</li>
-					<li>AC_NeutroaminePump</li>
-				</linkableFacilities>
-			</li>
-		</comps>
-	</ThingDef>
-	<!-- ================================ Sleeve Gestator Addons - Base ====================== -->
-	<ThingDef ParentName="BuildingBase" Name="AC_SleeveGestatorLinkableBase" Abstract="True">
-		<drawerType>MapMeshAndRealTime</drawerType>
-		<passability>PassThroughOnly</passability>
-		<pathCost>25</pathCost>
-		<blockWind>false</blockWind>
-		<fillPercent>0.4</fillPercent>
-		<canOverlapZones>false</canOverlapZones>
-		<rotatable>false</rotatable>
-		<designationCategory>Biotech</designationCategory>
-		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
-		<constructionSkillPrerequisite>10</constructionSkillPrerequisite>
-		<researchPrerequisites>
-			<li>AC_AdvancedSleeving</li>
-		</researchPrerequisites>
-		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
-		<placeWorkers>
-			<li>PlaceWorker_ShowFacilitiesConnections</li>
-		</placeWorkers>
-		<comps>
-			<li Class="CompProperties_Flickable"/>
-		</comps>
-	</ThingDef>
-	<!-- ================================ Sleeve Gestator Addons - Neutroamine Injector Pump ====================== -->
-	<ThingDef ParentName="AC_SleeveGestatorLinkableBase">
-		<defName>AC_NeutroaminePump</defName>
-		<label>neutroamine injector pump</label>
-		<description>text.todo</description>
-		<graphicData>
-			<texPath>Things/Building/Misc/NeutroamineInjectorPump</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-			<shadowData>
-				<volume>(0.9,0.2,0.9)</volume>
-			</shadowData>
-			<drawSize>(1, 1)</drawSize>
-		</graphicData>
-		<size>(1,1)</size>
-		<statBases>
-			<MaxHitPoints>50</MaxHitPoints>
-			<Mass>10</Mass>
-		</statBases>
-		<building>
-			<destroySound>BuildingDestroyed_Metal_Small</destroySound>
-		</building>
-		<costList>
-			<Plasteel>25</Plasteel>
-			<ComponentIndustrial>2</ComponentIndustrial>
-			<ComponentSpacer>2</ComponentSpacer>
-		</costList>
-		<comps>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerTrader</compClass>
-				<basePowerConsumption>75</basePowerConsumption>
-			</li>
-			<li Class="CompProperties_Facility">
-				<maxSimultaneous>4</maxSimultaneous>
-				<maxDistance>12</maxDistance>
-			</li>
-		</comps>
-	</ThingDef>
-	<!-- ================================ Sleeve Gestator Addons - Genome Revitalizer ====================== -->
-	<ThingDef ParentName="AC_SleeveGestatorLinkableBase">
-		<defName>AC_GenomeRevitalizer</defName>
-		<label>genome revitalizer</label>
-		<description>text.todo</description>
-		<graphicData>
-			<texPath>Things/Building/Misc/GenomeRevitalizer</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-			<shadowData>
-				<volume>(2.9,0.3,2.9)</volume>
-			</shadowData>
-			<drawSize>(3, 3)</drawSize>
-		</graphicData>
-		<size>(3,3)</size>
-		<statBases>
-			<MaxHitPoints>250</MaxHitPoints>
-			<Mass>30</Mass>
-		</statBases>
-		<building>
-			<destroySound>BuildingDestroyed_Metal_Small</destroySound>
-		</building>
-		<costList>
-			<Plasteel>75</Plasteel>
-			<ComponentIndustrial>2</ComponentIndustrial>
-			<ComponentSpacer>6</ComponentSpacer>
-		</costList>
-		<comps>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerTrader</compClass>
-				<basePowerConsumption>450</basePowerConsumption>
-			</li>
-			<li Class="CompProperties_Facility">
-				<maxSimultaneous>2</maxSimultaneous>
-				<maxDistance>16</maxDistance>
-			</li>
-		</comps>
-	</ThingDef>
-	<!-- ================================ Sleeve Gestator Addons - Neutroamine Dialyzer  ====================== -->
-	<ThingDef ParentName="AC_SleeveGestatorLinkableBase">
-		<defName>AC_NeutroamineDialyzer</defName>
-		<label>neutroamine dialyzer</label>
-		<description>text.todo</description>
-		<graphicData>
-			<texPath>Things/Building/Misc/NeutroamineDialyzer</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-			<shadowData>
-				<volume>(1.9,0.3,1.9)</volume>
-			</shadowData>
-			<drawSize>(2, 2)</drawSize>
-		</graphicData>
-		<size>(2,2)</size>
-		<statBases>
-			<MaxHitPoints>150</MaxHitPoints>
-			<Mass>35</Mass>
-		</statBases>
-		<building>
-			<destroySound>BuildingDestroyed_Metal_Medium</destroySound>
-		</building>
-		<costList>
-			<Plasteel>60</Plasteel>
-			<ComponentIndustrial>5</ComponentIndustrial>
-			<ComponentSpacer>8</ComponentSpacer>
-		</costList>
-		<comps>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerTrader</compClass>
-				<basePowerConsumption>375</basePowerConsumption>
-			</li>
-			<li Class="CompProperties_Facility">
-				<maxSimultaneous>2</maxSimultaneous>
-				<maxDistance>16</maxDistance>
-			</li>
-		</comps>
-	</ThingDef>
-	<!-- ================================ Sleeve Casket	====================== -->
-	<ThingDef ParentName="FurnitureBase">
-		<defName>AC_SleeveCasket</defName>
-		<label>sleeve casket</label>
-		<description>An open sarcophagus designed to keep a sleeve in a state of suspended animation while still allowing medical access, such as installing implants or bionics.</description>
-		<thingClass>AlteredCarbon.Building_SleeveCasket</thingClass>
-		<graphicData>
-			<texPath>Things/Building/Furniture/Bed/SleeveCasket</texPath>
-			<graphicClass>Graphic_Multi</graphicClass>
-			<shaderType>CutoutComplex</shaderType>
-			<drawSize>(2,2)</drawSize>
-		</graphicData>
-		<size>(1,2)</size>
-		<uiIconScale>1.0</uiIconScale>
-		<defaultPlacingRot>South</defaultPlacingRot>
-		<descriptionHyperlinks>
-			<ThingDef>AC_SleeveGestator</ThingDef>
-			<ThingDef>AC_FilledCorticalStack</ThingDef>
-		</descriptionHyperlinks>
-		<designationCategory>Biotech</designationCategory>
-		<statBases>
-			<MarketValue>1520</MarketValue>
-			<MaxHitPoints>250</MaxHitPoints>
-			<WorkToBuild>6000</WorkToBuild>
-			<Mass>50</Mass>
-			<Flammability>0.5</Flammability>
-			<BedRestEffectiveness>1.2</BedRestEffectiveness>
-			<Comfort>0.1</Comfort>
-			<ImmunityGainSpeedFactor>1.25</ImmunityGainSpeedFactor>
-			<MedicalTendQualityOffset>0.10</MedicalTendQualityOffset>
-			<SurgerySuccessChanceFactor>1.5</SurgerySuccessChanceFactor>
-		</statBases>
-		<building>
-			<bed_showSleeperBody>false</bed_showSleeperBody>
-			<buildingSizeCategory>Small</buildingSizeCategory>
-			<bed_humanlike>true</bed_humanlike>
-			<bed_healPerDay>2</bed_healPerDay>
-			<bed_defaultMedical>true</bed_defaultMedical>
-			<ai_chillDestination>false</ai_chillDestination>
-			<buildingTags>
-				<li>Biotech</li>
-			</buildingTags>
-		</building>
-		<constructionSkillPrerequisite>10</constructionSkillPrerequisite>
-		<researchPrerequisites>
-			<li>AC_Sleeving</li>
-		</researchPrerequisites>
-		<costList>
-			<Steel>100</Steel>
-			<Plasteel>15</Plasteel>
-			<ComponentSpacer>2</ComponentSpacer>
-		</costList>
-		<pathCost>35</pathCost>
-		<canOverlapZones>false</canOverlapZones>
-		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
-		<tickerType>Normal</tickerType>
-		<drawerType>RealtimeOnly</drawerType>
-		<passability>PassThroughOnly</passability>
-		<castEdgeShadows>True</castEdgeShadows>
-		<fillPercent>0.5</fillPercent>
-		<minifiedDef>MinifiedThing</minifiedDef>
-		<thingCategories>
-			<li>BuildingsMisc</li>
-		</thingCategories>
-		<comps>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerTrader</compClass>
-				<shortCircuitInRain>true</shortCircuitInRain>
-				<basePowerConsumption>75</basePowerConsumption>
-				<idlePowerDraw>15</idlePowerDraw>
-			</li>
-			<li Class="CompProperties_AffectedByFacilities">
-				<linkableFacilities>
-					<li>VitalsMonitor</li>
-					<li MayRequire="Ludeon.RimWorld.Ideology">SleepAccelerator</li>
-				</linkableFacilities>
-			</li>
-			<li Class="CompProperties_Breakdownable"/>
 		</comps>
 	</ThingDef>
 </Defs>
