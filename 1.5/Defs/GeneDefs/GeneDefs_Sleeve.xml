@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<!-- ================================ Sleeve Quality Base ====================== -->
+	<GeneDef Name="AC_SleeveQualityGeneBase" Abstract="True">
+		<displayCategory>AC_SleeveQuality</displayCategory>
+		<exclusionTags>
+			<li>SleeveQuality</li>
+		</exclusionTags>
+		<canGenerateInGeneSet>false</canGenerateInGeneSet>
+		<modExtensions>
+			<li Class="VanillaGenesExpanded.GeneExtension">
+				<backgroundPathEndogenes>UI/Icons/Genes/AC_GeneBackground_Endogene</backgroundPathEndogenes>
+				<backgroundPathXenogenes>UI/Icons/Genes/AC_GeneBackground_Xenogene</backgroundPathXenogenes>
+			</li>
+		</modExtensions>
+	</GeneDef>
+	<!-- ================================ Sleeve Quality Genes ====================== -->
+	<GeneDef ParentName="AC_SleeveQualityGeneBase">
+		<defName>AC_SleeveQuality_Awful</defName>
+		<label>awful quality</label>
+		<description>Carriers of this gene had their bodies gestated in a vat. As little effort as possible was put into it, resulting in awful quality.</description>
+		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_Awful</iconPath>
+		<displayOrderInCategory>0</displayOrderInCategory>
+		<biostatCpx>-4</biostatCpx>
+		<biostatMet>-4</biostatMet>
+		<statFactors>
+			<LifespanFactor>0.5</LifespanFactor>
+			<CancerRate>5</CancerRate>
+		</statFactors>
+		<statOffsets>
+			<MarketValue>-500</MarketValue>
+			<Fertility>-0.5</Fertility>
+			<IncomingDamageFactor>0.4</IncomingDamageFactor>
+			<ToxicEnvironmentResistance>-0.4</ToxicEnvironmentResistance>
+			<GlobalLearningFactor>-0.1</GlobalLearningFactor>
+			<InjuryHealingFactor>-0.1</InjuryHealingFactor>
+			<ImmunityGainSpeed>-0.1</ImmunityGainSpeed>
+			<MeleeDamageFactor>-0.1</MeleeDamageFactor>
+		</statOffsets>
+	</GeneDef>
+	<GeneDef ParentName="AC_SleeveQualityGeneBase">
+		<defName>AC_SleeveQuality_Poor</defName>
+		<label>poor quality</label>
+		<description>Carriers of this gene had their bodies gestated in a vat. Little effort was put into it, resulting in poor quality.</description>
+		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Poor</iconPath>
+		<displayOrderInCategory>5</displayOrderInCategory>
+		<biostatCpx>-2</biostatCpx>
+		<biostatMet>-2</biostatMet>
+		<statFactors>
+			<LifespanFactor>0.75</LifespanFactor>
+			<CancerRate>2.5</CancerRate>
+		</statFactors>
+		<statOffsets>
+			<MarketValue>-250</MarketValue>
+			<Fertility>-0.25</Fertility>
+			<IncomingDamageFactor>0.2</IncomingDamageFactor>
+			<ToxicEnvironmentResistance>-0.2</ToxicEnvironmentResistance>
+			<GlobalLearningFactor>-0.05</GlobalLearningFactor>
+			<InjuryHealingFactor>-0.05</InjuryHealingFactor>
+			<ImmunityGainSpeed>-0.05</ImmunityGainSpeed>
+			<MeleeDamageFactor>-0.05</MeleeDamageFactor>
+		</statOffsets>
+	</GeneDef>
+	<GeneDef ParentName="AC_SleeveQualityGeneBase">
+		<defName>AC_SleeveQuality_Normal</defName>
+		<label>normal quality</label>
+		<description>Carriers of this gene had their bodies gestated in a vat. Enough effort was put into it to result in normal quality.</description>
+		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Normal</iconPath>
+		<displayOrderInCategory>10</displayOrderInCategory>
+		<biostatCpx>0</biostatCpx>
+	</GeneDef>
+	<GeneDef ParentName="AC_SleeveQualityGeneBase">
+		<defName>AC_SleeveQuality_Good</defName>
+		<label>good quality</label>
+		<description>Carriers of this gene had their bodies gestated in a vat. Above average effort was put into it, resulting in good quality.</description>
+		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Good</iconPath>
+		<displayOrderInCategory>15</displayOrderInCategory>
+		<biostatCpx>2</biostatCpx>
+		<biostatMet>2</biostatMet>
+		<statFactors>
+			<LifespanFactor>1.25</LifespanFactor>
+			<CancerRate>-0.1</CancerRate>
+		</statFactors>
+		<statOffsets>
+			<MarketValue>250</MarketValue>
+			<Fertility>0.1</Fertility>
+			<GlobalLearningFactor>0.05</GlobalLearningFactor>
+			<InjuryHealingFactor>0.05</InjuryHealingFactor>
+			<ImmunityGainSpeed>0.05</ImmunityGainSpeed>
+			<MeleeDamageFactor>0.05</MeleeDamageFactor>
+		</statOffsets>
+	</GeneDef>
+	<GeneDef ParentName="AC_SleeveQualityGeneBase">
+		<defName>AC_SleeveQuality_Excellent</defName>
+		<label>excellent quality</label>
+		<description>Carriers of this gene had their bodies gestated in a vat. A good amount of effort was put into it, resulting in excellent quality.</description>
+		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Excellent</iconPath>
+		<displayOrderInCategory>20</displayOrderInCategory>
+		<biostatCpx>4</biostatCpx>
+		<biostatMet>4</biostatMet>
+		<statFactors>
+			<LifespanFactor>1.5</LifespanFactor>
+			<CancerRate>-0.2</CancerRate>
+		</statFactors>
+		<statOffsets>
+			<MarketValue>500</MarketValue>
+			<Fertility>0.2</Fertility>
+			<ToxicEnvironmentResistance>0.1</ToxicEnvironmentResistance>
+			<GlobalLearningFactor>0.1</GlobalLearningFactor>
+			<InjuryHealingFactor>0.1</InjuryHealingFactor>
+			<ImmunityGainSpeed>0.1</ImmunityGainSpeed>
+			<MeleeDamageFactor>0.1</MeleeDamageFactor>
+		</statOffsets>
+	</GeneDef>
+	<GeneDef ParentName="AC_SleeveQualityGeneBase">
+		<defName>AC_SleeveQuality_Masterwork</defName>
+		<label>masterwork quality</label>
+		<description>Carriers of this gene had their bodies gestated in a vat. A lot of effort was put into it, resulting in masterwork quality.</description>
+		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Masterwork</iconPath>
+		<displayOrderInCategory>25</displayOrderInCategory>
+		<biostatCpx>8</biostatCpx>
+		<biostatMet>8</biostatMet>
+		<statFactors>
+			<LifespanFactor>2</LifespanFactor>
+			<CancerRate>-0.3</CancerRate>
+		</statFactors>
+		<statOffsets>
+			<MarketValue>750</MarketValue>
+			<Fertility>0.25</Fertility>
+			<ToxicEnvironmentResistance>0.15</ToxicEnvironmentResistance>
+			<GlobalLearningFactor>0.15</GlobalLearningFactor>
+			<InjuryHealingFactor>0.15</InjuryHealingFactor>
+			<ImmunityGainSpeed>0.15</ImmunityGainSpeed>
+			<MeleeDamageFactor>0.15</MeleeDamageFactor>
+			<MoveSpeed>0.1</MoveSpeed>
+		</statOffsets>
+	</GeneDef>
+	<GeneDef ParentName="AC_SleeveQualityGeneBase">
+		<defName>AC_SleeveQuality_Legendary</defName>
+		<label>legendary quality</label>
+		<description>Carriers of this gene had their bodies gestated in a vat. An extreme amount of effort was put into it, resulting in legendary quality.</description>
+		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Legendary</iconPath>
+		<displayOrderInCategory>30</displayOrderInCategory>
+		<biostatCpx>12</biostatCpx>
+		<biostatMet>12</biostatMet>
+		<statFactors>
+			<LifespanFactor>3</LifespanFactor>
+			<CancerRate>-0.5</CancerRate>
+		</statFactors>
+		<statOffsets>
+			<MarketValue>1500</MarketValue>
+			<Fertility>0.3</Fertility>
+			<IncomingDamageFactor>-0.1</IncomingDamageFactor>
+			<ToxicEnvironmentResistance>0.2</ToxicEnvironmentResistance>
+			<GlobalLearningFactor>0.2</GlobalLearningFactor>
+			<InjuryHealingFactor>0.2</InjuryHealingFactor>
+			<ImmunityGainSpeed>0.2</ImmunityGainSpeed>
+			<MeleeDamageFactor>0.2</MeleeDamageFactor>
+			<MoveSpeed>0.2</MoveSpeed>
+		</statOffsets>
+	</GeneDef>
+</Defs>

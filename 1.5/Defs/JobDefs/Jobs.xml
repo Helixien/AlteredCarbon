@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Hauling corpse to sleeve grower ====================== -->
+	<JobDef>
+		<defName>AC_HaulCorpseToSleeveGrower</defName>
+		<driverClass>AlteredCarbon.JobDriver_HaulCorpseToSleeveGrower</driverClass>
+		<reportString>hauling TargetA to TargetB.</reportString>
+		<allowOpportunisticPrefix>true</allowOpportunisticPrefix>
+	</JobDef>
+	<!-- ================================ Cancel body repurposing ====================== -->
+	<JobDef>
+		<defName>AC_CancelRepurposingBody</defName>
+		<driverClass>AlteredCarbon.JobDriver_CancelRepurposingBody</driverClass>
+		<reportString>canceling body repurposing on sleeve grower</reportString>
+	</JobDef>
+	<!-- ================================ Cortical Stack Jobs ====================== -->
+	<JobDef>
+		<defName>AC_ExtractStack</defName>
+		<driverClass>AlteredCarbon.JobDriver_ExtractStack</driverClass>
+		<reportString>extracts cortical stack from target</reportString>
+	</JobDef>
+	<!-- ================================ Sleeve Jobs ====================== -->
+	<JobDef>
+		<defName>AC_ReleaseSleeve</defName>
+		<driverClass>AlteredCarbon.JobDriver_ReleaseSleeve</driverClass>
+		<reportString>releasing sleeve</reportString>
+	</JobDef>
+	<JobDef>
+		<defName>AC_StartIncubatingProcess</defName>
+		<driverClass>AlteredCarbon.JobDriver_StartIncubatingProcess</driverClass>
+		<reportString>starting growth process on incubator</reportString>
+	</JobDef>
+	<JobDef>
+		<defName>AC_CancelIncubatingProcess</defName>
+		<driverClass>AlteredCarbon.JobDriver_CancelIncubatingProcess</driverClass>
+		<reportString>canceling growth process on incubator</reportString>
+	</JobDef>
+	<JobDef>
+		<defName>AC_TakeEmptySleeve</defName>
+		<driverClass>AlteredCarbon.JobDriver_TakeEmptySleeve</driverClass>
+		<reportString>taking empty sleeve.</reportString>
+		<casualInterruptible>false</casualInterruptible>
+		<carryThingAfterJob>true</carryThingAfterJob>
+		<dropThingBeforeJob>false</dropThingBeforeJob>
+	</JobDef>
+</Defs>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Inserting xenogerm ====================== -->
+	<WorkGiverDef>
+		<defName>AC_InsertXenogerm</defName>
+		<label>insert xenogerm into xenogerm duplicator</label>
+		<giverClass>AlteredCarbon.WorkGiver_InsertXenogerm</giverClass>
+		<workType>Hauling</workType>
+		<verb>insert into xenogerm duplicator</verb>
+		<gerund>inserting into xenogerm duplicator</gerund>
+		<priorityInType>1000</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+	<!-- ================================ Hauling corpse to sleeve grower ====================== -->
+	<WorkGiverDef>
+		<defName>AC_HaulCorpseToSleeveGrower</defName>
+		<label>haul corpse to sleeve grower</label>
+		<giverClass>AlteredCarbon.WorkGiver_HaulCorpseToSleeveGrower</giverClass>
+		<workType>Hauling</workType>
+		<verb>haul corpse to</verb>
+		<gerund>hauling corpse to</gerund>
+		<priorityInType>1000</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+	<!-- ================================ Cancel body repurposing ====================== -->
+	<WorkGiverDef>
+		<defName>AC_CancelRepurposingBody</defName>
+		<label>cancel repurposing body</label>
+		<giverClass>AlteredCarbon.WorkGiver_CancelRepurposingBody</giverClass>
+		<workType>BasicWorker</workType>
+		<priorityInType>50</priorityInType>
+		<verb>cancel repurposing body</verb>
+		<gerund>canceling repurposing body at</gerund>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+		<prioritizeSustains>true</prioritizeSustains>
+	</WorkGiverDef>
+	<!-- ================================ Extract Stacks ====================== -->
+	<WorkGiverDef>
+		<defName>AC_ExtractStack</defName>
+		<label>extracting cortical stack</label>
+		<giverClass>AlteredCarbon.WorkGiver_ExtractStack</giverClass>
+		<workType>Hauling</workType>
+		<verb>extract cortical stack</verb>
+		<gerund>extracting cortical stack</gerund>
+		<priorityInType>20</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+	<!-- ================================ Sleeve growing ====================== -->
+	<WorkGiverDef>
+		<defName>AC_StartIncubatingProcess</defName>
+		<label>start growing process</label>
+		<giverClass>AlteredCarbon.WorkGiver_StartIncubatingProcess</giverClass>
+		<workType>BasicWorker</workType>
+		<priorityInType>50</priorityInType>
+		<verb>start growing process</verb>
+		<gerund>starting growth process at</gerund>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+		<prioritizeSustains>true</prioritizeSustains>
+	</WorkGiverDef>
+	<WorkGiverDef>
+		<defName>AC_CancelIncubatingProcess</defName>
+		<label>cancel growing process</label>
+		<giverClass>AlteredCarbon.WorkGiver_CancelIncubatingProcess</giverClass>
+		<workType>BasicWorker</workType>
+		<priorityInType>50</priorityInType>
+		<verb>cancel growing process</verb>
+		<gerund>canceling growth process at</gerund>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+		<prioritizeSustains>true</prioritizeSustains>
+	</WorkGiverDef>
+</Defs>

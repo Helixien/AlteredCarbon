@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Altered Carbon - Research Abstract	====================== -->
+	<ResearchProjectDef Name="AC_ResearchBase" Abstract="True">
+		<techLevel>Ultra</techLevel>
+		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
+		<requiredResearchFacilities>
+			<li>MultiAnalyzer</li>
+		</requiredResearchFacilities>
+	</ResearchProjectDef>
+	<!-- ================================ Sleeve Production	====================== -->
+	<ResearchProjectDef ParentName="AC_ResearchBase">
+		<defName>AC_Sleeving</defName>
+		<label>sleeving</label>
+		<description>Build facilities that gestate empty sleeves, ready for cortical stack implantation.</description>
+		<baseCost>3000</baseCost>
+		<researchViewX>12.00</researchViewX>
+		<researchViewY>2.90</researchViewY>
+		<prerequisites>
+			<li>MicroelectronicsBasics</li>
+		</prerequisites>
+	</ResearchProjectDef>
+	<ResearchProjectDef ParentName="AC_ResearchBase">
+		<defName>AC_AdvancedSleeving</defName>
+		<label>sleeving</label>
+		<description>Build add-on facilities to improve the growth efficiency of sleeve gestators.</description>
+		<baseCost>3500</baseCost>
+		<researchViewX>13.00</researchViewX>
+		<researchViewY>2.90</researchViewY>
+		<prerequisites>
+			<li>AC_Sleeving</li>
+		</prerequisites>
+	</ResearchProjectDef>
+</Defs>

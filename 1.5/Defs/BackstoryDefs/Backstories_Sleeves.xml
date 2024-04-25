@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+	<!-- ================================ Sleeve Backstory Child ====================== -->
+	<VFECore.VEBackstoryDef>
+		<defName>AC_VatGrownChild</defName>
+		<title>Gestated Sleeve</title>
+		<titleShort>Gestated Sleeve</titleShort>
+		<baseDesc>This body was gestated in a vat. Having no consciousness inside, it is effectively braindead and only serves as a sleeve for someone's cortical stack.</baseDesc>
+		<slot>Childhood</slot>
+		<workDisables>
+			<li>Animals</li>
+			<li>Artistic</li>
+			<li>Caring</li>
+			<li>Cleaning</li>
+			<li>Cooking</li>
+			<li>Crafting</li>
+			<li>Firefighting</li>
+			<li>Hauling</li>
+			<li>Intellectual</li>
+			<li>ManualDumb</li>
+			<li>ManualSkilled</li>
+			<li>Mining</li>
+			<li>PlantWork</li>
+			<li>Social</li>
+		</workDisables>
+		<spawnCategories>
+			<li>NullCheck</li>
+		</spawnCategories>
+		<shuffleable>false</shuffleable>
+	</VFECore.VEBackstoryDef>
+	<!-- ================================ Sleeve Backstory Adult ====================== -->
+	<VFECore.VEBackstoryDef>
+		<defName>AC_VatGrownAdult</defName>
+		<title>Gestated Sleeve</title>
+		<titleShort>Gestated Sleeve</titleShort>
+		<baseDesc>This body was gestated in a vat. Having no consciousness inside, it is effectively braindead and only serves as a sleeve for someone's cortical stack.</baseDesc>
+		<slot>Adulthood</slot>
+		<workDisables>
+			<li>Animals</li>
+			<li>Artistic</li>
+			<li>Caring</li>
+			<li>Cleaning</li>
+			<li>Cooking</li>
+			<li>Crafting</li>
+			<li>Firefighting</li>
+			<li>Hauling</li>
+			<li>Intellectual</li>
+			<li>ManualDumb</li>
+			<li>ManualSkilled</li>
+			<li>Mining</li>
+			<li>PlantWork</li>
+			<li>Social</li>
+		</workDisables>
+		<spawnCategories>
+			<li>NullCheck</li>
+		</spawnCategories>
+		<shuffleable>false</shuffleable>
+	</VFECore.VEBackstoryDef>
+</Defs>

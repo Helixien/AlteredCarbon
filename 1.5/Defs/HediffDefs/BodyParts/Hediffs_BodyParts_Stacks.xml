@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Cortical Stack - Base ====================== -->
+	<ThingDef Name="AC_StackBase" ParentName="BodyPartArchotechBase" Abstract="True">
+		<techLevel>Ultra</techLevel>
+		<uiIconForStackCount>1</uiIconForStackCount>
+		<tradeNeverStack>false</tradeNeverStack>
+		<useHitPoints>true</useHitPoints>
+		<statBases>
+			<Mass>0.4</Mass>
+			<DeteriorationRate>0.3</DeteriorationRate>
+			<MaxHitPoints>125</MaxHitPoints>
+			<Flammability>0</Flammability>
+			<MarketValue>950</MarketValue>
+		</statBases>
+		<thingCategories Inherit="False">
+			<li>AC_BodyPartsUltra</li>
+		</thingCategories>
+		<techHediffsTags Inherit="False">
+			<li>Ultra</li>
+		</techHediffsTags>
+		<modExtensions>
+			<li Class="AlteredCarbon.StackSavingOptionsModExtension">
+				<ignoresTraits>
+					<li>Beauty</li>
+					<li>Immunity</li>
+					<li>AnnoyingVoice</li>
+					<li>CreepyBreathing</li>
+					<li>Tough</li>
+					<li>PsychicSensitivity</li>
+					<li>Delicate</li>
+				</ignoresTraits>
+			</li>
+		</modExtensions>
+	</ThingDef>
+	<!-- ================================ Empty Cortical Stack ====================== -->
+	<ThingDef ParentName="AC_StackBase">
+		<defName>AC_EmptyCorticalStack</defName>
+		<label>empty cortical stack</label>
+		<description>An ultratech cortical implant which can store a human consciousness, commonly referred to as a persona. Once implanted directly into a person's spine in the neck it will download their consciousness and safely store it. While the death of an organic or inorganic body is no longer a concern, being a fragile piece of technology, blunt force trauma and bullets to the neck area should be avoided at all cost./n/nExtremely rare, heavily restricted and hard to produce, these implants are rare on non-ultratech worlds.</description>
+		<thingClass>AlteredCarbon.CorticalStack</thingClass>
+		<graphicData>
+			<texPath>Things/Item/Stacks/EmptyStack</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<descriptionHyperlinks>
+			<RecipeDef>AC_InstallCorticalStack</RecipeDef>
+		</descriptionHyperlinks>
+		<stackLimit>10</stackLimit>
+		<costList>
+			<Plasteel>15</Plasteel>
+			<ComponentSpacer>4</ComponentSpacer>
+		</costList>
+		<thingSetMakerTags>
+			<li>RewardStandardLowFreq</li>
+		</thingSetMakerTags>
+		<tradeTags Inherit="False">
+			<li>AC_StacksUltra</li>
+			<li MayRequire="Ludeon.RimWorld.Royalty">ImplantEmpireRoyal</li>
+			<li>ExoticMisc</li>
+			<li>BuyableFromHunterCorp</li>
+		</tradeTags>
+	</ThingDef>
+	<!-- ================================ Filled Cortical Stack ====================== -->
+	<ThingDef ParentName="AC_StackBase">
+		<defName>AC_FilledCorticalStack</defName>
+		<label>cortical stack</label>
+		<description>An ultratech cortical implant with a human consciousness stored on it, commonly referred to as a persona. Can be implanted directly into a person's or sleeve’s spine in the neck to bring back the person stored on the stack.</description>
+		<thingClass>AlteredCarbon.CorticalStack</thingClass>
+		<graphicData>
+			<texPath>Things/Item/Stacks/FriendlyStack</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<descriptionHyperlinks>
+			<RecipeDef>AC_InstallCorticalStack</RecipeDef>
+		</descriptionHyperlinks>
+		<tickerType>Normal</tickerType>
+		<uiIconForStackCount>1</uiIconForStackCount>
+		<healthAffectsPrice>true</healthAffectsPrice>
+		<stackLimit>1</stackLimit>
+		<tradeNeverStack>false</tradeNeverStack>
+		<tradeTags Inherit="False"/>
+		<inspectorTabs>
+			<li>ITab_Pawn_Character</li>
+		</inspectorTabs>
+	</ThingDef>
+</Defs>
