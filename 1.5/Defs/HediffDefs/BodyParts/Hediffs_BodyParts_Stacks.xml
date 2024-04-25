@@ -19,6 +19,12 @@
 		<techHediffsTags Inherit="False">
 			<li>Ultra</li>
 		</techHediffsTags>
+		<comps>
+			<li Class="HediffCompProperties_ReactOnDamage">
+				<damageDefIncoming>EMP</damageDefIncoming>
+				<createHediff>BrainShock</createHediff>
+			</li>
+		</comps>
 		<modExtensions>
 			<li Class="AlteredCarbon.StackSavingOptionsModExtension">
 				<ignoresTraits>
@@ -136,6 +142,24 @@
 			<li>ITab_Pawn_Character</li>
 		</inspectorTabs>
 	</ThingDef>
+	<!-- ================================ Persona Stack Hediff ====================== -->
+	<HediffDef ParentName="ImplantHediffBase">
+		<defName>AC_PersonaStack</defName>
+		<label>persona stack</label>
+		<labelNoun>a persona stack</labelNoun>
+		<hediffClass>AlteredCarbon.Hediff_PersonaStack</hediffClass>
+		<description>An installed persona stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_FilledPersonaStack</ThingDef>
+		</descriptionHyperlinks>
+		<spawnThingOnRemoved>AC_FilledPersonaStack</spawnThingOnRemoved>
+		<isBad>false</isBad>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1.25</partEfficiency>
+			<betterThanNatural>true</betterThanNatural>
+		</addedPartProps>
+	</HediffDef>
 	<!-- ================================ Persona Stacks - Install Filled ====================== -->
 	<RecipeDef ParentName="SurgeryInstallImplantBase">
 		<defName>AC_InstallPersonaStack</defName>
@@ -206,6 +230,24 @@
 		</tradeTags>
 		<modExtensions Inherit="False"/>
 	</ThingDef>
+	<!-- ================================ Parroter Stack Hediff	====================== -->
+	<HediffDef ParentName="ImplantHediffBase">
+		<defName>AC_ParroterStack</defName>
+		<label>parroter stack</label>
+		<labelNoun>a parroter stack</labelNoun>
+		<hediffClass>AlteredCarbon.Hediff_ParroterStack</hediffClass>
+		<description>An installed parroter stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_ParroterStack</ThingDef>
+		</descriptionHyperlinks>
+		<spawnThingOnRemoved>AC_ParroterStack</spawnThingOnRemoved>
+		<isBad>false</isBad>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1</partEfficiency>
+			<betterThanNatural>true</betterThanNatural>
+		</addedPartProps>
+	</HediffDef>
 	<!-- ================================ Parroter Stacks - Install ====================== -->
 	<RecipeDef ParentName="SurgeryInstallImplantBase">
 		<defName>AC_InstallParroterStack</defName>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Voice Synthesizer ====================== -->
+	<ThingDef ParentName="BodyPartProstheticBase">
+		<defName>AC_VoiceSynthesizer</defName>
+		<label>voice synthesizer</label>
+		<description>An ultratech vocal synthesiser, designed for seamless vocal transformation. Embedded with adaptive sound modulation, it allows the user to alter their voice at will, ranging from subtle inflections to entirely different personas.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>AC_InstallVoiceSynthesizer</RecipeDef>
+		</descriptionHyperlinks>
+		<thingSetMakerTags>
+			<li>RewardStandardLowFreq</li>
+		</thingSetMakerTags>
+		<costList>
+			<Plasteel>15</Plasteel>
+			<ComponentSpacer>3</ComponentSpacer>
+		</costList>
+		<recipeMaker>
+			<researchPrerequisite>Bionics</researchPrerequisite>
+		</recipeMaker>
+	</ThingDef>
+	<!-- ================================ Voice Synthesizer Hediff ====================== -->
+	<HediffDef ParentName="ImplantHediffBase">
+		<defName>AC_VoiceSynthesizer</defName>
+		<label>voice synthesizer</label>
+		<labelNoun>a voice synthesizer</labelNoun>
+		<description>An installed voice synthesizer.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_VoiceSynthesizer</ThingDef>
+		</descriptionHyperlinks>
+		<spawnThingOnRemoved>AC_VoiceSynthesizer</spawnThingOnRemoved>
+		<addedPartProps>
+			<partEfficiency>1.1</partEfficiency>
+		</addedPartProps>
+	</HediffDef>
+	<!-- ================================ Voice Synthesizer - Install ====================== -->
+	<RecipeDef ParentName="SurgeryInstallImplantBase">
+		<defName>AC_InstallVoiceSynthesizer</defName>
+		<label>install voice synthesizer</label>
+		<description>Install a voice synthesizer.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_VoiceSynthesizer</ThingDef>
+			<HediffDef>AC_VoiceSynthesizer</HediffDef>
+		</descriptionHyperlinks>
+		<jobString>Installing voice synthesizer.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AC_VoiceSynthesizer</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AC_VoiceSynthesizer</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Neck</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>AC_VoiceSynthesizer</addsHediff>
+	</RecipeDef>
+	<!-- ================================ Voice Synthesizer - Remove ====================== -->
+	<RecipeDef ParentName="SurgeryRemoveImplantBase">
+		<defName>AC_RemoveVoiceSynthesizer</defName>
+		<label>remove voice synthesizer</label>
+		<description>Remove voice synthesizer.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_VoiceSynthesizer</ThingDef>
+			<HediffDef>AC_VoiceSynthesizer</HediffDef>
+		</descriptionHyperlinks>
+		<jobString>Removing voice synthesizer.</jobString>
+		<removesHediff>AC_VoiceSynthesizer</removesHediff>
+	</RecipeDef>
+	<!-- ================================ Mental Fuse ====================== -->
+	<ThingDef ParentName="BodyPartProstheticBase">
+		<defName>AC_MentalFuse</defName>
+		<label>mental fuse</label>
+		<description>A brain implant that monitors the user's neural activity and acts as a safeguard against mental breakdowns. If a mental breakdown is detected it will “reboot” the brain, leading to split second unconsciousness and a potential wipe of the users short term memories./n/n While Mental Fuses ensure mental fortitude under even the most extreme conditions, it comes at the cost of a slight numbness to the world around them. Heavy usage has been reported to be dangerous and can lead to permanent brain damage.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>AC_InstallMentalFuse</RecipeDef>
+		</descriptionHyperlinks>
+		<thingSetMakerTags>
+			<li>RewardStandardLowFreq</li>
+		</thingSetMakerTags>
+		<costList>
+			<Plasteel>15</Plasteel>
+			<ComponentSpacer>3</ComponentSpacer>
+		</costList>
+		<recipeMaker>
+			<researchPrerequisite>Bionics</researchPrerequisite>
+		</recipeMaker>
+	</ThingDef>
+	<!-- ================================ Mental Fuse Hediff ====================== -->
+	<HediffDef ParentName="ImplantHediffBase">
+		<defName>AC_MentalFuse</defName>
+		<label>mental fuse</label>
+		<labelNoun>a mental fuse</labelNoun>
+		<description>An installed mental fuse.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_MentalFuse</ThingDef>
+		</descriptionHyperlinks>
+		<spawnThingOnRemoved>AC_MentalFuse</spawnThingOnRemoved>
+		<comps>
+			<li Class="HediffCompProperties_ReactOnDamage">
+				<damageDefIncoming>EMP</damageDefIncoming>
+				<createHediff>BrainShock</createHediff>
+			</li>
+		</comps>
+	</HediffDef>
+	<!-- ================================ Mental Fuse - Install ====================== -->
+	<RecipeDef ParentName="SurgeryInstallImplantBase">
+		<defName>AC_InstallMentalFuse</defName>
+		<label>install mental fuse</label>
+		<description>Install a mental fuse.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_MentalFuse</ThingDef>
+			<HediffDef>AC_MentalFuse</HediffDef>
+		</descriptionHyperlinks>
+		<jobString>Installing mental fuse.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AC_MentalFuse</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AC_MentalFuse</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Brain</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>AC_MentalFuse</addsHediff>
+	</RecipeDef>
+	<!-- ================================ Mental Fuse - Remove ====================== -->
+	<RecipeDef ParentName="SurgeryRemoveImplantBase">
+		<defName>AC_RemoveMentalFuse</defName>
+		<label>remove mental fuse</label>
+		<description>Remove mental fuse.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_MentalFuse</ThingDef>
+			<HediffDef>AC_MentalFuse</HediffDef>
+		</descriptionHyperlinks>
+		<jobString>Removing mental fuse.</jobString>
+		<removesHediff>AC_MentalFuse</removesHediff>
+	</RecipeDef>
+	<!-- ================================ Dreamcatcher ====================== -->
+	<ThingDef ParentName="BodyPartProstheticBase">
+		<defName>AC_DreamcatcherImplant</defName>
+		<label>dreamcatcher implant</label>
+		<description>A brain implant that stimulates and improves the brain's ability to consolidate memories. It automatically activates during the REM phases of sleep, analysing new memories and boosting positive ones, while slightly suppressing negative memories. A pleasant side effect for the user is that nearly all their dreams will be positive, near therapeutic, leading to an overall higher mental wellbeing.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>AC_InstallDreamcatcherImplant</RecipeDef>
+		</descriptionHyperlinks>
+		<thingSetMakerTags>
+			<li>RewardStandardLowFreq</li>
+		</thingSetMakerTags>
+		<costList>
+			<Plasteel>15</Plasteel>
+			<ComponentSpacer>3</ComponentSpacer>
+		</costList>
+		<recipeMaker>
+			<researchPrerequisite>Bionics</researchPrerequisite>
+		</recipeMaker>
+	</ThingDef>
+	<!-- ================================ Dreamcatcher Hediff ====================== -->
+	<HediffDef ParentName="ImplantHediffBase">
+		<defName>AC_DreamcatcherImplant</defName>
+		<label>dreamcatcher implant</label>
+		<labelNoun>a dreamcatcher implant</labelNoun>
+		<description>An installed dreamcatcher implant.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_DreamcatcherImplant</ThingDef>
+		</descriptionHyperlinks>
+		<spawnThingOnRemoved>AC_DreamcatcherImplant</spawnThingOnRemoved>
+		<comps>
+			<li Class="HediffCompProperties_ReactOnDamage">
+				<damageDefIncoming>EMP</damageDefIncoming>
+				<createHediff>BrainShock</createHediff>
+			</li>
+		</comps>
+	</HediffDef>
+	<!-- ================================ Dreamcatcher - Install ====================== -->
+	<RecipeDef ParentName="SurgeryInstallImplantBase">
+		<defName>AC_InstallDreamcatcherImplant</defName>
+		<label>install dreamcatcher implant</label>
+		<description>Install a dreamcatcher implant.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_DreamcatcherImplant</ThingDef>
+			<HediffDef>AC_DreamcatcherImplant</HediffDef>
+		</descriptionHyperlinks>
+		<jobString>Installing dreamcatcher implant.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AC_DreamcatcherImplant</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AC_DreamcatcherImplant</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Brain</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>AC_DreamcatcherImplant</addsHediff>
+	</RecipeDef>
+	<!-- ================================ Dreamcatcher - Remove ====================== -->
+	<RecipeDef ParentName="SurgeryRemoveImplantBase">
+		<defName>AC_RemoveDreamcatcherImplant</defName>
+		<label>remove dreamcatcher implant</label>
+		<description>Remove dreamcatcher implant.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_DreamcatcherImplant</ThingDef>
+			<HediffDef>AC_DreamcatcherImplant</HediffDef>
+		</descriptionHyperlinks>
+		<jobString>Removing dreamcatcher implant.</jobString>
+		<removesHediff>AC_DreamcatcherImplant</removesHediff>
+	</RecipeDef>
+</Defs>
