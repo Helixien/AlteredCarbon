@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<!-- ================================ Cortical Stack - Base ====================== -->
+	<!-- ================================ Persona Stack - Base ====================== -->
 	<ThingDef Name="AC_StackBase" ParentName="BodyPartArchotechBase" Abstract="True">
 		<techLevel>Ultra</techLevel>
 		<uiIconForStackCount>1</uiIconForStackCount>
