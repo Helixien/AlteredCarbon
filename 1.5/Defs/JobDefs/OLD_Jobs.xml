@@ -19,11 +19,4 @@
 		<reportString>hauling TargetA to TargetB.</reportString>
 		<allowOpportunisticPrefix>true</allowOpportunisticPrefix>
 	</JobDef>
-	<!-- ================================ Inserting things into processors ====================== -->
-	<JobDef>
-		<defName>AC_InsertingThingIntoProcessor</defName>
-		<driverClass>AlteredCarbon.JobDriver_InsertIntoProcessor</driverClass>
-		<reportString>inserting TargetA to TargetB.</reportString>
-		<allowOpportunisticPrefix>true</allowOpportunisticPrefix>
-	</JobDef>
 </Defs>

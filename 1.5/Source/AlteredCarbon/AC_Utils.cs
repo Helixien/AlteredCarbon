@@ -77,8 +77,6 @@ namespace AlteredCarbon
             AC_DefOf.AC_InstallCorticalStack
         };
 
-        public static List<ThingDef> allGenepacks = new List<ThingDef>();
-
         public static bool Wears(this Pawn pawn, ThingDef thingDef)
         {
             if (pawn?.apparel?.WornApparel != null)
@@ -127,15 +125,6 @@ namespace AlteredCarbon
                 }
             }
             return false;
-        }
-
-        public static List<List<T>> ChunkBy<T>(this List<T> source, int chunkSize)
-        {
-            return source
-                .Select((x, i) => new { Index = i, Value = x })
-                .GroupBy(x => x.Index / chunkSize)
-                .Select(x => x.Select(v => v.Value).ToList())
-                .ToList();
         }
 
         public static bool CanThink(this Pawn pawn)
@@ -244,13 +233,6 @@ namespace AlteredCarbon
                 info.recipe.defaultIngredientFilter.SetAllow(AC_DefOf.AC_AllowStacksColonist, true);
                 info.recipe.defaultIngredientFilter.SetAllow(AC_DefOf.AC_AllowStacksStranger, true);
                 info.recipe.defaultIngredientFilter.SetAllow(AC_DefOf.AC_AllowStacksHostile, true);
-            }
-            foreach (var def in DefDatabase<ThingDef>.AllDefs)
-            {
-                if (def.thingClass != null && typeof(Genepack).IsAssignableFrom(def.thingClass))
-                {
-                    allGenepacks.Add(def);
-                }
             }
 
             foreach (IngredientCount li in AC_DefOf.AC_HackBiocodedThings.ingredients)

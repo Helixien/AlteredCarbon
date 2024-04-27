@@ -102,12 +102,8 @@ namespace AlteredCarbon
         public static JobDef AC_HaulingStacks;
         public static ResearchProjectDef Xenogermination;
         public static JobDef AC_InsertingThingIntoProcessor;
-        public static ThingDef AC_GeneCentrifuge;
-        public static SoundDef AC_GeneCentrifuge_Ambience;
         public static JobDef AC_HaulCorpseToSleeveGrower;
         public static JobDef AC_CancelRepurposingBody;
-        public static ThingDef AC_XenoGermDuplicator;
-        public static SoundDef AC_XenoGermDuplicator_Ambience;
         public static ResearchProjectDef AC_RewriteCorticalStack;
         public static EffecterDef AC_Hacking;
 
