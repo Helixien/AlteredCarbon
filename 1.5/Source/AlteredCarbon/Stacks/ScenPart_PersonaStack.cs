@@ -45,7 +45,7 @@ public class ScenPart_PersonaStack : ScenPart_PawnModifier
     private IEnumerable<HediffDef> PossibleHediffs()
     {
         yield return AC_DefOf.AC_PersonaStack;
-        yield return AC_DefOf.AC_ArchoStack;
+        yield return AC_DefOf.AC_ArchotechStack;
     }
 
     public override bool TryMerge(ScenPart other)

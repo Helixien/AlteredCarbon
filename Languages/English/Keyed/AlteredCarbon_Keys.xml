@@ -4,9 +4,9 @@
 	<AC.InstallStack>Implant persona stack</AC.InstallStack>
 	<AC.InstallStackDesc>Select a pawn or empty sleeve to implant the persona stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallStackDesc>
 	<AC.InstallEmptyStackDesc>Select a pawn to implant the empty persona stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallEmptyStackDesc>
-	<AC.InstallArchoStack>Implant archo stack</AC.InstallArchoStack>
-	<AC.InstallArchoStackDesc>Select a pawn or empty sleeve to implant the archo stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallArchoStackDesc>
-	<AC.InstallEmptyArchoStackDesc>Select a pawn to implant the empty archo stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallEmptyArchoStackDesc>
+	<AC.InstallArchotechStack>Implant archotech stack</AC.InstallArchotechStack>
+	<AC.InstallArchotechStackDesc>Select a pawn or empty sleeve to implant the archotech stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallArchotechStackDesc>
+	<AC.InstallEmptyArchotechStackDesc>Select a pawn to implant the empty archotech stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallEmptyArchotechStackDesc>
 	<AC.DesignatorExtractStack>Extract stack</AC.DesignatorExtractStack>
 	<AC.DesignatorExtractStackDesc>Extract persona stacks from dead bodies</AC.DesignatorExtractStackDesc>
 	<AC.MessageMustDesignateHasStack>The body should have a persona stack</AC.MessageMustDesignateHasStack>
@@ -33,8 +33,8 @@
 	<AC.AutoLoadDesc>If active, haulers will automatically store this stack in a stack array.</AC.AutoLoadDesc>
 	<AC.SleeveWithStack>Sleeve with stack installed inside.</AC.SleeveWithStack>
 	<AC.PawnAlreadyHasStack>{PAWN_nameDef} already has a persona stack installed!</AC.PawnAlreadyHasStack>
-	<AC.PawnAlreadyHasArchoStack>{PAWN_nameDef} already has an archo stack installed!</AC.PawnAlreadyHasArchoStack>
-	<AC.PawnStackCannotDowngrade>{PAWN_nameDef} already has an archo stack installed!</AC.PawnStackCannotDowngrade>
+	<AC.PawnAlreadyHasArchotechStack>{PAWN_nameDef} already has an archotech stack installed!</AC.PawnAlreadyHasArchotechStack>
+	<AC.PawnStackCannotDowngrade>{PAWN_nameDef} already has an archotech stack installed!</AC.PawnStackCannotDowngrade>
 	<AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>Cannot install persona stack - neck is missing or another implant installed in the neck.</AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>
 	<!-- ================================ Sleeves ====================== -->
 	<AC.EmptySleeve>Empty sleeve</AC.EmptySleeve>
@@ -150,7 +150,7 @@
 	<AC.AllowColonistStacks>*Allow colonist persona stacks</AC.AllowColonistStacks>
 	<AC.AllowStrangerStacks>*Allow stranger persona stacks</AC.AllowStrangerStacks>
 	<AC.AllowHostileStacks>*Allow hostile persona stacks</AC.AllowHostileStacks>
-	<AC.AllowArchoStacks>*Allow archo stacks</AC.AllowArchoStacks>
+	<AC.AllowArchotechStacks>*Allow archotech stacks</AC.AllowArchotechStacks>
 	<AC.SuccessfullyDuplicatedStack>{PAWN_nameDef} successfully duplicated persona stack.</AC.SuccessfullyDuplicatedStack>
 	<AC.FailedToDuplicatedStack>{PAWN_nameDef} failed to duplicate persona stack.</AC.FailedToDuplicatedStack>
 	<AC.EjectAll>Eject all</AC.EjectAll>

@@ -35,9 +35,9 @@ namespace AlteredCarbon
             emptySleeves ??= new HashSet<Pawn>();
             deadPawns ??= new HashSet<Pawn>();
             ResetStackLimitIfNeeded(AC_DefOf.AC_FilledPersonaStack);
-            if (AC_DefOf.AC_FilledArchoStack != null)
+            if (AC_DefOf.AC_FilledArchotechStack != null)
             {
-                ResetStackLimitIfNeeded(AC_DefOf.AC_FilledArchoStack);
+                ResetStackLimitIfNeeded(AC_DefOf.AC_FilledArchotechStack);
             }
         }
         public override void StartedNewGame()

@@ -29,7 +29,7 @@ namespace AlteredCarbon
             DoAllowOption(ref num, labelWidth, "AC.AllowColonistStacks", ref Building_StackStorage.allowColonistPersonaStacks);
             DoAllowOption(ref num, labelWidth, "AC.AllowStrangerStacks", ref Building_StackStorage.allowStrangerPersonaStacks);
             DoAllowOption(ref num, labelWidth, "AC.AllowHostileStacks", ref Building_StackStorage.allowHostilePersonaStacks);
-            DoAllowOption(ref num, labelWidth, "AC.AllowArchoStacks", ref Building_StackStorage.allowArchoStacks);
+            DoAllowOption(ref num, labelWidth, "AC.AllowArchotechStacks", ref Building_StackStorage.allowArchotechStacks);
 
             System.Collections.Generic.List<PersonaStack> storedStacks = Building_StackStorage.StoredStacks.ToList();
             Widgets.ListSeparator(ref num, viewRect.width - 15, "AC.PersonaStacksInArray".Translate(storedStacks.Count(), Building_StackStorage.MaxFilledStackCapacity));
@@ -80,7 +80,7 @@ namespace AlteredCarbon
             Rect installStackRect = rect2;
             installStackRect.x -= 28;
 
-            TooltipHandler.TipRegion(installStackRect, personaStack.IsArchoStack ? "AC.InstallArchoStack".Translate() : "AC.InstallStack".Translate());
+            TooltipHandler.TipRegion(installStackRect, personaStack.IsArchotechStack ? "AC.InstallArchotechStack".Translate() : "AC.InstallStack".Translate());
             if (Widgets.ButtonImage(installStackRect, ContentFinder<Texture2D>.Get("UI/Icons/Install", true)))
             {
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();

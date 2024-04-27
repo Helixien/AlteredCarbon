@@ -2,8 +2,8 @@
 <Defs>
 	<!-- ================================ Used Archostack ====================== -->
 	<HistoryEventDef>
-		<defName>AC_UsedArchoStack</defName>
-		<label>killed faction member with archo stack</label>
+		<defName>AC_UsedArchotechStack</defName>
+		<label>killed faction member with archotech stack</label>
 	</HistoryEventDef>
 	<!-- ================================ Rewrote Stack ====================== -->
 	<HistoryEventDef>

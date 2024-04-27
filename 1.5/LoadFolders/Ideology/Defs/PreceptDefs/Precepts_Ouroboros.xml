@@ -50,7 +50,7 @@
 				<thought>AC_Stacking_Central_Stack</thought>
 			</li>
 			<li Class="PreceptComp_SituationalThought">
-				<thought>AC_Stacking_Central_ArchoStack</thought>
+				<thought>AC_Stacking_Central_ArchotechStack</thought>
 			</li>
 			<li Class="PreceptComp_SituationalThought">
 				<thought>AC_Stacking_Central_NoStack</thought>
@@ -81,12 +81,12 @@
 		</stages>
 	</ThoughtDef>
 	<ThoughtDef>
-		<defName>AC_Stacking_Central_ArchoStack</defName>
-		<workerClass>AlteredCarbon.ThoughtWorker_Precept_ArchoStack</workerClass>
+		<defName>AC_Stacking_Central_ArchotechStack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_ArchotechStack</workerClass>
 		<thoughtClass>Thought_Situational</thoughtClass>
 		<stages>
 			<li>
-				<label>archo stack installed</label>
+				<label>archotech stack installed</label>
 				<description>I have a stack as any human should. The world is right, and I am as I should be.</description>
 				<baseMoodEffect>8</baseMoodEffect>
 			</li>
@@ -147,7 +147,7 @@
 				<thought>AC_Stacking_Preferred_Stack</thought>
 			</li>
 			<li Class="PreceptComp_SituationalThought">
-				<thought>AC_Stacking_Preferred_ArchoStack</thought>
+				<thought>AC_Stacking_Preferred_ArchotechStack</thought>
 			</li>
 			<li Class="PreceptComp_SituationalThought">
 				<thought>AC_Stacking_Preferred_NoStack</thought>
@@ -178,12 +178,12 @@
 		</stages>
 	</ThoughtDef>
 	<ThoughtDef>
-		<defName>AC_Stacking_Preferred_ArchoStack</defName>
-		<workerClass>AlteredCarbon.ThoughtWorker_Precept_ArchoStack</workerClass>
+		<defName>AC_Stacking_Preferred_ArchotechStack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_ArchotechStack</workerClass>
 		<thoughtClass>Thought_Situational</thoughtClass>
 		<stages>
 			<li>
-				<label>archo stack installed</label>
+				<label>archotech stack installed</label>
 				<description>I have a stack installed. Death shall not take me this easily now.</description>
 				<baseMoodEffect>4</baseMoodEffect>
 			</li>
@@ -244,7 +244,7 @@
 				<thought>AC_Stacking_Despised_Stack</thought>
 			</li>
 			<li Class="PreceptComp_SituationalThought">
-				<thought>AC_Stacking_Despised_ArchoStack</thought>
+				<thought>AC_Stacking_Despised_ArchotechStack</thought>
 			</li>
 			<li Class="PreceptComp_SituationalThought">
 				<thought>AC_Stacking_Despised_Stack_Social</thought>
@@ -264,13 +264,13 @@
 		</stages>
 	</ThoughtDef>
 	<ThoughtDef>
-		<defName>AC_Stacking_Despised_ArchoStack</defName>
-		<workerClass>AlteredCarbon.ThoughtWorker_Precept_ArchoStack</workerClass>
+		<defName>AC_Stacking_Despised_ArchotechStack</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_Precept_ArchotechStack</workerClass>
 		<thoughtClass>Thought_Situational</thoughtClass>
 		<stages>
 			<li>
 
-				<label>archo stack installed</label>
+				<label>archotech stack installed</label>
 				<description>I have a stack installed. It's an abhorrent offense against everything I believe!</description>
 				<baseMoodEffect>-30</baseMoodEffect>
 			</li>

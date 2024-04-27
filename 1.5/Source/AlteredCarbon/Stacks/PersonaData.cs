@@ -401,7 +401,7 @@ namespace AlteredCarbon
                     priorities[w] = pawn.workSettings.GetPriority(w);
                 }
             }
-            if (this.sourceStack == AC_DefOf.AC_FilledArchoStack)
+            if (this.sourceStack == AC_DefOf.AC_FilledArchotechStack)
             {
                 if (pawn.HasPsylink)
                 {
@@ -973,7 +973,7 @@ namespace AlteredCarbon
                 compAbilities.LearnedAbilities.RemoveAll(x => IsNaturalAbility(pawn, x.def) is false && IsPsycastAbility(x.def) is false);
             }
             pawn.psychicEntropy = new Pawn_PsychicEntropyTracker(pawn);
-            if (this.sourceStack == AC_DefOf.AC_FilledArchoStack)
+            if (this.sourceStack == AC_DefOf.AC_FilledArchotechStack)
             {
                 var hediff_Psylink = pawn.GetMainPsylinkSource() as Hediff_Psylink;
                 if (this.psylinkLevel.HasValue)

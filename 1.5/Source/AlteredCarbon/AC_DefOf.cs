@@ -27,16 +27,16 @@ namespace AlteredCarbon
         public static ThoughtDef AC_LostMyLover;
         public static PawnRelationDef AC_Original;
         public static PawnRelationDef AC_Copy;
-        public static ThingDef AC_FilledArchoStack;
-        public static ThingDef AC_EmptyArchoStack;
-        public static HediffDef AC_ArchoStack;
-        public static RecipeDef AC_InstallArchoStack;
-        public static RecipeDef AC_InstallEmptyArchoStack;
-        public static VFECore.Abilities.AbilityDef AC_ArchoStackSkip;
+        public static ThingDef AC_FilledArchotechStack;
+        public static ThingDef AC_EmptyArchotechStack;
+        public static HediffDef AC_ArchotechStack;
+        public static RecipeDef AC_InstallArchotechStack;
+        public static RecipeDef AC_InstallEmptyArchotechStack;
+        public static VFECore.Abilities.AbilityDef AC_ArchotechStackSkip;
         public static HediffDef AC_StackDegradation;
         public static HediffDef AC_BrainTrauma;
         public static RecipeDef AC_RewriteFilledPersonaStack;
-        public static HistoryEventDef AC_UsedArchoStack;
+        public static HistoryEventDef AC_UsedArchotechStack;
         public static ThoughtDef AC_StackDegradationThought;
         [MayRequireIdeology] public static HistoryEventDef AC_InstalledPersonaStack;
 

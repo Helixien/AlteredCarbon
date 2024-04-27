@@ -16,7 +16,7 @@ namespace AlteredCarbon
             {
                 yield return g;
             }
-            var wipeStacks = new Command_ActionOnStack(this, ForFilledStack(includeArchoStack: false), InstallWipeStackBill)
+            var wipeStacks = new Command_ActionOnStack(this, ForFilledStack(includeArchotechStack: false), InstallWipeStackBill)
             {
                 defaultLabel = "AC.WipeStack".Translate(),
                 defaultDesc = "AC.WipeStackDesc".Translate(),
@@ -50,7 +50,7 @@ namespace AlteredCarbon
                     }
                 };
             }
-            var rewriteStack = new Command_ActionOnStack(this, ForFilledStack(includeArchoStack: AC_Utils.rewriteStacksSettings.enableArchostackRewriting), InstallRewriteBill)
+            var rewriteStack = new Command_ActionOnStack(this, ForFilledStack(includeArchotechStack: AC_Utils.rewriteStacksSettings.enableArchostackRewriting), InstallRewriteBill)
             {
                 defaultLabel = "AC.RewriteStack".Translate(),
                 defaultDesc = "AC.RewriteStackDesc".Translate(),
@@ -58,7 +58,7 @@ namespace AlteredCarbon
                 activateSound = SoundDefOf.Tick_Tiny,
                 action = delegate ()
                 {
-                    Find.Targeter.BeginTargeting(ForFilledStack(includeArchoStack: AC_Utils.rewriteStacksSettings.enableArchostackRewriting), delegate (LocalTargetInfo x)
+                    Find.Targeter.BeginTargeting(ForFilledStack(includeArchotechStack: AC_Utils.rewriteStacksSettings.enableArchostackRewriting), delegate (LocalTargetInfo x)
                     {
                         InstallRewriteBill(x);
                     });
@@ -93,7 +93,7 @@ namespace AlteredCarbon
 
         private void BeginTargetingForWipingStack()
         {
-            Find.Targeter.BeginTargeting(ForFilledStack(includeArchoStack: false), delegate (LocalTargetInfo x)
+            Find.Targeter.BeginTargeting(ForFilledStack(includeArchotechStack: false), delegate (LocalTargetInfo x)
             {
                 InstallWipeStackBill(x);
                 if (Event.current.shift)
@@ -121,14 +121,14 @@ namespace AlteredCarbon
             return true;
         }
 
-        private TargetingParameters ForFilledStack(bool includeArchoStack)
+        private TargetingParameters ForFilledStack(bool includeArchotechStack)
         {
             TargetingParameters targetingParameters = new TargetingParameters
             {
                 canTargetItems = true,
                 mapObjectTargetsMustBeAutoAttackable = false,
-                validator = (TargetInfo x) => x.Thing is PersonaStack stack && stack.PersonaData.ContainsInnerPersona && (includeArchoStack ||
-                stack.IsArchoStack is false)
+                validator = (TargetInfo x) => x.Thing is PersonaStack stack && stack.PersonaData.ContainsInnerPersona && (includeArchotechStack ||
+                stack.IsArchotechStack is false)
             };
             return targetingParameters;
         }

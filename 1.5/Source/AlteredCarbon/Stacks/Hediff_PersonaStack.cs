@@ -11,7 +11,7 @@ namespace AlteredCarbon
     [HotSwappable]
     public class Hediff_PersonaStack : Hediff_Implant
     {
-        public Ability_ArchoStackSkip skipAbility;
+        public Ability_ArchotechStackSkip skipAbility;
         public ThingDef SourceStack
         {
             get
@@ -20,7 +20,7 @@ namespace AlteredCarbon
                 {
                     return AC_DefOf.AC_FilledPersonaStack;
                 }
-                return AC_DefOf.AC_FilledArchoStack;
+                return AC_DefOf.AC_FilledArchotechStack;
             }
         }
         private PersonaData personaData;
@@ -43,7 +43,7 @@ namespace AlteredCarbon
 
         public override IEnumerable<Gizmo> GetGizmos()
         {
-            if (this.def == AC_DefOf.AC_ArchoStack)
+            if (this.def == AC_DefOf.AC_ArchotechStack)
             {
                 if (skipAbility.ShowGizmoOnPawn())
                 {
@@ -83,10 +83,10 @@ namespace AlteredCarbon
 
         private void CreateSkipAbilityIfMissing()
         {
-            if (this.def == AC_DefOf.AC_ArchoStack && skipAbility is null)
+            if (this.def == AC_DefOf.AC_ArchotechStack && skipAbility is null)
             {
-                skipAbility = (Ability_ArchoStackSkip)Activator.CreateInstance(AC_DefOf.AC_ArchoStackSkip.abilityClass);
-                skipAbility.def = AC_DefOf.AC_ArchoStackSkip;
+                skipAbility = (Ability_ArchotechStackSkip)Activator.CreateInstance(AC_DefOf.AC_ArchotechStackSkip.abilityClass);
+                skipAbility.def = AC_DefOf.AC_ArchotechStackSkip;
                 skipAbility.holder = this.pawn;
                 skipAbility.pawn = this.pawn;
                 skipAbility.Init();
@@ -122,7 +122,7 @@ namespace AlteredCarbon
                 this.pawn.Kill(null);
             }
 
-            if (this.def == AC_DefOf.AC_ArchoStack)
+            if (this.def == AC_DefOf.AC_ArchotechStack)
             {
                 if (!preventSpawningStack)
                 {

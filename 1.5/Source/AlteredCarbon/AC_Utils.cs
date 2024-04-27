@@ -175,23 +175,23 @@ namespace AlteredCarbon
             var field = typeof(OverlayDrawer).GetField("NeedsPowerMat", BindingFlags.Static | BindingFlags.NonPublic);
             field.SetValue(null, MaterialPool.MatFrom("UI/Overlays/NeedsPower", ShaderDatabase.MetaOverlay));
             AddHarmonyLogging();
-            stackRecipesByDef[AC_DefOf.AC_FilledArchoStack] = new StackInstallInfo
+            stackRecipesByDef[AC_DefOf.AC_FilledArchotechStack] = new StackInstallInfo
             {
-                recipe = AC_DefOf.AC_InstallArchoStack,
-                installLabel = "AC.InstallArchoStack".Translate(),
-                installDesc = "AC.InstallArchoStackDesc".Translate(),
-                installIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallArchoStack")
+                recipe = AC_DefOf.AC_InstallArchotechStack,
+                installLabel = "AC.InstallArchotechStack".Translate(),
+                installDesc = "AC.InstallArchotechStackDesc".Translate(),
+                installIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallArchotechStack")
             };
-            stackRecipesByDef[AC_DefOf.AC_EmptyArchoStack] = new StackInstallInfo
+            stackRecipesByDef[AC_DefOf.AC_EmptyArchotechStack] = new StackInstallInfo
             {
-                recipe = AC_DefOf.AC_InstallEmptyArchoStack,
-                installLabel = "AC.InstallArchoStack".Translate(),
-                installDesc = "AC.InstallEmptyArchoStackDesc".Translate(),
-                installIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallArchoStack")
+                recipe = AC_DefOf.AC_InstallEmptyArchotechStack,
+                installLabel = "AC.InstallArchotechStack".Translate(),
+                installDesc = "AC.InstallEmptyArchotechStackDesc".Translate(),
+                installIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallArchotechStack")
             };
-            stacksPairs[AC_DefOf.AC_FilledArchoStack] = AC_DefOf.AC_EmptyArchoStack;
-            installEmptyStacksRecipes.Add(AC_DefOf.AC_InstallEmptyArchoStack);
-            installFilledStacksRecipes.Add(AC_DefOf.AC_InstallArchoStack);
+            stacksPairs[AC_DefOf.AC_FilledArchotechStack] = AC_DefOf.AC_EmptyArchotechStack;
+            installEmptyStacksRecipes.Add(AC_DefOf.AC_InstallEmptyArchotechStack);
+            installFilledStacksRecipes.Add(AC_DefOf.AC_InstallArchotechStack);
             unstackableRaces = GetUnstackableRaces();
             foreach (var gene in DefDatabase<GeneDef>.AllDefs)
             {
@@ -338,7 +338,7 @@ namespace AlteredCarbon
                 }
             }
             if (pawn.HasPersonaStack(out var stackHediff)
-                && (stackHediff.def == AC_DefOf.AC_ArchoStack || stackToImplant == stackHediff.def))
+                && (stackHediff.def == AC_DefOf.AC_ArchotechStack || stackToImplant == stackHediff.def))
             {
                 if (throwMessages)
                 {
@@ -362,18 +362,18 @@ namespace AlteredCarbon
         }
         public static ThingDef GetEmptyStackVariant(this PersonaStack personaStack)
         {
-            if (personaStack.def == AC_DefOf.AC_FilledArchoStack)
+            if (personaStack.def == AC_DefOf.AC_FilledArchotechStack)
             {
-                return AC_DefOf.AC_EmptyArchoStack;
+                return AC_DefOf.AC_EmptyArchotechStack;
             }
             return AC_DefOf.AC_EmptyPersonaStack;
         }
 
         public static ThingDef GetFilledStackVariant(this PersonaStack personaStack)
         {
-            if (personaStack.def == AC_DefOf.AC_EmptyArchoStack)
+            if (personaStack.def == AC_DefOf.AC_EmptyArchotechStack)
             {
-                return AC_DefOf.AC_FilledArchoStack;
+                return AC_DefOf.AC_FilledArchotechStack;
             }
             return AC_DefOf.AC_FilledPersonaStack;
         }
@@ -742,7 +742,7 @@ namespace AlteredCarbon
                     hediff_PersonaStack = hediff;
                     return true;
                 }
-                else if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_ArchoStack) is Hediff_PersonaStack hediff2)
+                else if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_ArchotechStack) is Hediff_PersonaStack hediff2)
                 {
                     hediff_PersonaStack = hediff2;
                     return true;

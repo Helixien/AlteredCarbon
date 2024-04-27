@@ -12,7 +12,7 @@ namespace AlteredCarbon
     {
         public int chanceToSpawnWithStack;
         public int chanceToSpawnSleeveQuality;
-        public bool spawnArchoStack;
+        public bool spawnArchotechStack;
 
         public void TryAddStack(Pawn pawn)
         {
@@ -25,7 +25,7 @@ namespace AlteredCarbon
                 if (pawn.HasPersonaStack() is false && Rand.Chance(chanceToSpawnWithStack / 100f))
                 {
                     var neckRecord = pawn.GetNeck();
-                    var hediff = HediffMaker.MakeHediff(spawnArchoStack ? AC_DefOf.AC_ArchoStack 
+                    var hediff = HediffMaker.MakeHediff(spawnArchotechStack ? AC_DefOf.AC_ArchotechStack 
                         : AC_DefOf.AC_PersonaStack, pawn, neckRecord) as Hediff_PersonaStack;
                     pawn.health.AddHediff(hediff, neckRecord);
                 }

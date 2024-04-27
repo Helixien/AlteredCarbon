@@ -88,7 +88,7 @@
 						<thingDef>AC_EmptyPersonaStack</thingDef>
 					</li>
 					<li Class="StockGenerator_BuySingleDef">
-						<thingDef>AC_EmptyArchoStack</thingDef>
+						<thingDef>AC_EmptyArchotechStack</thingDef>
 					</li>
 				</value>
 			</li>
@@ -99,7 +99,7 @@
 						<thingDef>AC_EmptyPersonaStack</thingDef>
 					</li>
 					<li Class="StockGenerator_BuySingleDef">
-						<thingDef>AC_EmptyArchoStack</thingDef>
+						<thingDef>AC_EmptyArchotechStack</thingDef>
 					</li>
 				</value>
 			</li>
@@ -110,7 +110,7 @@
 						<thingDef>AC_EmptyPersonaStack</thingDef>
 					</li>
 					<li Class="StockGenerator_BuySingleDef">
-						<thingDef>AC_EmptyArchoStack</thingDef>
+						<thingDef>AC_EmptyArchotechStack</thingDef>
 					</li>
 				</value>
 			</li>

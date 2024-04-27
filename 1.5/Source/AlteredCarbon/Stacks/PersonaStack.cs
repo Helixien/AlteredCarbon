@@ -52,22 +52,22 @@ namespace AlteredCarbon
                     if (personaData.guestStatusInt == GuestStatus.Slave)
                     {
                         return GetStackGraphic(ref slaveGraphic, ref slaveGraphicData, 
-                            "Things/Item/ArchoStacks/SlaveArchoStack", "Things/Item/Stacks/SlaveStack");
+                            "Things/Item/ArchotechStacks/SlaveArchotechStack", "Things/Item/Stacks/SlaveStack");
                     }
                     else if (personaData.faction == Faction.OfPlayer)
                     {
                         return GetStackGraphic(ref friendlyGraphic, ref friendlyGraphicData,
-                            "Things/Item/ArchoStacks/FriendlyArchoStack", "Things/Item/Stacks/FriendlyStack");
+                            "Things/Item/ArchotechStacks/FriendlyArchotechStack", "Things/Item/Stacks/FriendlyStack");
                     }
                     else if (personaData.faction is null || !personaData.faction.HostileTo(Faction.OfPlayer))
                     {
                         return GetStackGraphic(ref strangerGraphic, ref strangerGraphicData,
-                            "Things/Item/ArchoStacks/NeutralArchoStack", "Things/Item/Stacks/NeutralStack");
+                            "Things/Item/ArchotechStacks/NeutralArchotechStack", "Things/Item/Stacks/NeutralStack");
                     }
                     else
                     {
                         return GetStackGraphic(ref hostileGraphic, ref hostileGraphicData,
-                            "Things/Item/ArchoStacks/HostileArchoStack", "Things/Item/Stacks/HostileStack");
+                            "Things/Item/ArchotechStacks/HostileArchotechStack", "Things/Item/Stacks/HostileStack");
                     }
                 }
                 else
@@ -77,13 +77,13 @@ namespace AlteredCarbon
             }
         }
 
-        private Graphic GetStackGraphic(ref Graphic graphic, ref GraphicData graphicData, string archoStackTexPath, string stackTexPath)
+        private Graphic GetStackGraphic(ref Graphic graphic, ref GraphicData graphicData, string archotechStackTexPath, string stackTexPath)
         {
             if (graphic is null)
             {
                 if (graphicData is null)
                 {
-                    var path = this.IsArchoStack ? archoStackTexPath : stackTexPath;
+                    var path = this.IsArchotechStack ? archotechStackTexPath : stackTexPath;
                     graphicData = GetGraphicDataWithOtherPath(path);
                 }
                 graphic = graphicData.GraphicColoredFor(this);
@@ -147,7 +147,7 @@ namespace AlteredCarbon
         public override void Tick()
         {
             base.Tick();
-            if (this.Spawned && this.IsArchoStack)
+            if (this.Spawned && this.IsArchotechStack)
             {
                 var edifice = this.Position.GetEdifice(Map);
                 if (edifice != null && this.Position.Walkable(Map) is false)
@@ -160,8 +160,8 @@ namespace AlteredCarbon
                 }
             }
         }
-        public bool IsFilledStack => this.def == AC_DefOf.AC_FilledPersonaStack || this.def == AC_DefOf.AC_FilledArchoStack;
-        public bool IsArchoStack => this.def == AC_DefOf.AC_EmptyArchoStack || this.def == AC_DefOf.AC_FilledArchoStack;
+        public bool IsFilledStack => this.def == AC_DefOf.AC_FilledPersonaStack || this.def == AC_DefOf.AC_FilledArchotechStack;
+        public bool IsArchotechStack => this.def == AC_DefOf.AC_EmptyArchotechStack || this.def == AC_DefOf.AC_FilledArchotechStack;
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             try
@@ -278,7 +278,7 @@ namespace AlteredCarbon
 
         public void InstallStackRecipe(Pawn medPawn, RecipeDef recipe)
         {
-            if (medPawn.HasPersonaStack(out var stackHediff) && (stackHediff.def == recipe.addsHediff || stackHediff.def == AC_DefOf.AC_ArchoStack))
+            if (medPawn.HasPersonaStack(out var stackHediff) && (stackHediff.def == recipe.addsHediff || stackHediff.def == AC_DefOf.AC_ArchotechStack))
             {
                 if (stackHediff.def != recipe.addsHediff)
                 {
@@ -290,7 +290,7 @@ namespace AlteredCarbon
                 }
                 else
                 {
-                    Messages.Message("AC.PawnAlreadyHasArchoStack".Translate(medPawn.Named("PAWN")), MessageTypeDefOf.CautionInput);
+                    Messages.Message("AC.PawnAlreadyHasArchotechStack".Translate(medPawn.Named("PAWN")), MessageTypeDefOf.CautionInput);
                 }
             }
             else if (recipe.Worker.GetPartsToApplyOn(medPawn, recipe).FirstOrDefault() is null)
@@ -405,7 +405,7 @@ namespace AlteredCarbon
         public bool dontKillThePawn = false;
         public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
         {
-            if (this.IsArchoStack && allowDestroyNonDestroyable is false)
+            if (this.IsArchotechStack && allowDestroyNonDestroyable is false)
             {
                 return;
             }

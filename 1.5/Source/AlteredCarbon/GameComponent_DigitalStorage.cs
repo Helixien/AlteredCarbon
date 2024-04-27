@@ -109,7 +109,7 @@ namespace AlteredCarbon
         public bool CanBackup(Pawn pawn)
         {
             return pawn.Dead is false && pawn.IsColonist && pawn.HasPersonaStack(out var hediff_PersonaStack)
-                && hediff_PersonaStack.def != AC_DefOf.AC_ArchoStack;
+                && hediff_PersonaStack.def != AC_DefOf.AC_ArchotechStack;
         }
 
         public void Backup(Pawn pawn)

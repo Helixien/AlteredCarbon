@@ -8,9 +8,9 @@ using Ability = VFECore.Abilities.Ability;
 namespace AlteredCarbon
 {
     [HotSwappable]
-    public class Ability_ArchoStackSkip : Ability
+    public class Ability_ArchotechStackSkip : Ability
     {
-        public Hediff_PersonaStack Hediff_PersonaStack => pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_ArchoStack) as Hediff_PersonaStack;
+        public Hediff_PersonaStack Hediff_PersonaStack => pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_ArchotechStack) as Hediff_PersonaStack;
         public override bool ValidateTarget(LocalTargetInfo target, bool showMessages = true)
         {
             var pawnTarget = target.Pawn;
@@ -35,7 +35,7 @@ namespace AlteredCarbon
 
                 if (pawnTarget.Faction != null && CasterPawn.Faction != null && pawnTarget.Faction != CasterPawn.Faction)
                 {
-                    pawnTarget.Faction.TryAffectGoodwillWith(CasterPawn.Faction, -80, reason: AC_DefOf.AC_UsedArchoStack, lookTarget: pawnTarget);
+                    pawnTarget.Faction.TryAffectGoodwillWith(CasterPawn.Faction, -80, reason: AC_DefOf.AC_UsedArchotechStack, lookTarget: pawnTarget);
                 }
 
                 if (pawnTarget.HasPersonaStack(out var stackHediff))

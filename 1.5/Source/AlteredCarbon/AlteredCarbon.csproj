@@ -163,7 +163,7 @@
     <Compile Include="HarmonyPatches\RitualObligationTrigger_MemberDied_Notify_MemberDied_Patch.cs" />
     <Compile Include="HarmonyPatches\SocialCardUtility_GetPawnSituationLabel_Patch.cs" />
     <Compile Include="Recipes\Bill_OperateOnStack.cs" />
-    <Compile Include="Stacks\Ability_ArchoStackSkip.cs" />
+    <Compile Include="Stacks\Ability_ArchotechStackSkip.cs" />
     <Compile Include="Stacks\Hediff_StackDegradation.cs" />
     <Compile Include="Stacks\ScenPart_PersonaStack.cs" />
     <Compile Include="UI\Dialog_PresetList.cs" />
@@ -261,7 +261,7 @@
     <Compile Include="UI\Dialog_InfoCardStack.cs" />
     <Compile Include="UI\ITab_StackBackupContents.cs" />
     <Compile Include="UI\ITab_StackStorageContents.cs" />
-    <Compile Include="Thoughts\ThoughtWorker_Precept_ArchoStack.cs" />
+    <Compile Include="Thoughts\ThoughtWorker_Precept_ArchotechStack.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_NoStack.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_NoStack_Social.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_Stack.cs" />

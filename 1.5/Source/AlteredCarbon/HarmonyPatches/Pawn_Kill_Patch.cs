@@ -33,10 +33,10 @@ namespace AlteredCarbon
             if (__instance.HasPersonaStack(out var stackHediff))
             {
                 var caravan = __instance.GetCaravan();
-                bool isArchoStack = stackHediff.def == AC_DefOf.AC_ArchoStack;
+                bool isArchotechStack = stackHediff.def == AC_DefOf.AC_ArchotechStack;
                 if (dinfo.HasValue && dinfo.Value.Def == DamageDefOf.Crush && dinfo.Value.Category == DamageInfo.SourceCategory.Collapse)
                 {
-                    if (isArchoStack)
+                    if (isArchotechStack)
                     {
                         stackHediff.SpawnStack(caravan: caravan);
                     }
@@ -49,7 +49,7 @@ namespace AlteredCarbon
                         stackHediff.PersonaData.diedFromCombat = true;
                     }
 
-                    if (isArchoStack && caravan is null && __instance.GetNeck() is null)
+                    if (isArchotechStack && caravan is null && __instance.GetNeck() is null)
                     {
                         stackHediff.SpawnStack();
                     }

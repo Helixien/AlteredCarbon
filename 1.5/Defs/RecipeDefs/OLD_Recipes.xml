@@ -47,20 +47,20 @@
 	</RecipeDef>
 	<!-- ================================ Archostacks - Install Empty ====================== -->
 	<RecipeDef ParentName="SurgeryInstallImplantBase">
-		<defName>AC_InstallEmptyArchoStack</defName>
-		<label>install empty archo stack</label>
-		<description>Install an empty archo stack.</description>
+		<defName>AC_InstallEmptyArchotechStack</defName>
+		<label>install empty archotech stack</label>
+		<description>Install an empty archotech stack.</description>
 		<descriptionHyperlinks>
-			<ThingDef>AC_EmptyArchoStack</ThingDef>
+			<ThingDef>AC_EmptyArchotechStack</ThingDef>
 		</descriptionHyperlinks>
 		<workerClass>AlteredCarbon.Recipe_InstallPersonaStack</workerClass>
-		<jobString>Installing archo stack.</jobString>
-		<uiIconThing>AC_EmptyArchoStack</uiIconThing>
+		<jobString>Installing archotech stack.</jobString>
+		<uiIconThing>AC_EmptyArchotechStack</uiIconThing>
 		<ingredients>
 			<li>
 				<filter>
 					<thingDefs>
-						<li>AC_EmptyArchoStack</li>
+						<li>AC_EmptyArchotechStack</li>
 					</thingDefs>
 				</filter>
 				<count>1</count>
@@ -68,30 +68,30 @@
 		</ingredients>
 		<fixedIngredientFilter>
 			<thingDefs>
-				<li>AC_EmptyArchoStack</li>
+				<li>AC_EmptyArchotechStack</li>
 			</thingDefs>
 		</fixedIngredientFilter>
 		<appliedOnFixedBodyParts>
 			<li>Neck</li>
 		</appliedOnFixedBodyParts>
-		<addsHediff>AC_ArchoStack</addsHediff>
+		<addsHediff>AC_ArchotechStack</addsHediff>
 	</RecipeDef>
 	<!-- ================================ Archostacks - Install Filled ====================== -->
 	<RecipeDef ParentName="SurgeryInstallImplantBase">
-		<defName>AC_InstallArchoStack</defName>
-		<label>install filled archo stack</label>
-		<description>Install an archo stack.</description>
+		<defName>AC_InstallArchotechStack</defName>
+		<label>install filled archotech stack</label>
+		<description>Install an archotech stack.</description>
 		<descriptionHyperlinks>
-			<ThingDef>AC_FilledArchoStack</ThingDef>
+			<ThingDef>AC_FilledArchotechStack</ThingDef>
 		</descriptionHyperlinks>
 		<workerClass>AlteredCarbon.Recipe_InstallFilledPersonaStack</workerClass>
-		<jobString>Installing archo stack.</jobString>
-		<uiIconThing>AC_FilledArchoStack</uiIconThing>
+		<jobString>Installing archotech stack.</jobString>
+		<uiIconThing>AC_FilledArchotechStack</uiIconThing>
 		<ingredients>
 			<li>
 				<filter>
 					<thingDefs>
-						<li>AC_FilledArchoStack</li>
+						<li>AC_FilledArchotechStack</li>
 					</thingDefs>
 				</filter>
 				<count>1</count>
@@ -99,26 +99,26 @@
 		</ingredients>
 		<fixedIngredientFilter>
 			<thingDefs>
-				<li>AC_FilledArchoStack</li>
+				<li>AC_FilledArchotechStack</li>
 			</thingDefs>
 		</fixedIngredientFilter>
 		<appliedOnFixedBodyParts>
 			<li>Neck</li>
 		</appliedOnFixedBodyParts>
-		<addsHediff>AC_ArchoStack</addsHediff>
+		<addsHediff>AC_ArchotechStack</addsHediff>
 	</RecipeDef>
 	<!-- ================================ Archostacks - Remove ====================== -->
 	<RecipeDef ParentName="SurgeryRemoveImplantBase">
-		<defName>AC_RemoveArchoStack</defName>
-		<label>remove archo stack</label>
-		<description>Remove archo stack.</description>
+		<defName>AC_RemoveArchotechStack</defName>
+		<label>remove archotech stack</label>
+		<description>Remove archotech stack.</description>
 		<descriptionHyperlinks>
-			<ThingDef>AC_FilledArchoStack</ThingDef>
+			<ThingDef>AC_FilledArchotechStack</ThingDef>
 		</descriptionHyperlinks>
 		<workerClass>AlteredCarbon.Recipe_RemovePersonaStack</workerClass>
-		<jobString>Removing archo stack.</jobString>
-		<uiIconThing>AC_FilledArchoStack</uiIconThing>
-		<removesHediff>AC_ArchoStack</removesHediff>
+		<jobString>Removing archotech stack.</jobString>
+		<uiIconThing>AC_FilledArchotechStack</uiIconThing>
+		<removesHediff>AC_ArchotechStack</removesHediff>
 	</RecipeDef>
 	<!-- ================================ Rewrite filled Persona stacks ====================== -->
 	<RecipeDef ParentName="AC_RecipeHacking">
@@ -266,8 +266,8 @@
 						<li>AC_BodyPartsUltra</li>
 					</categories>
 					<disallowedThingDefs>
-						<li MayRequire="hlx.UltratechAlteredCarbon">AC_EmptyArchoStack</li>
-						<li MayRequire="hlx.UltratechAlteredCarbon">AC_FilledArchoStack</li>
+						<li MayRequire="hlx.UltratechAlteredCarbon">AC_EmptyArchotechStack</li>
+						<li MayRequire="hlx.UltratechAlteredCarbon">AC_FilledArchotechStack</li>
 					</disallowedThingDefs>
 				</filter>
 				<count>1</count>

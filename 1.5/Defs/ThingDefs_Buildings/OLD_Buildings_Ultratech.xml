@@ -103,7 +103,7 @@
 		<defaultPlacingRot>South</defaultPlacingRot>
 		<descriptionHyperlinks>
 			<ThingDef>AC_FilledPersonaStack</ThingDef>
-			<ThingDef>AC_FilledArchoStack</ThingDef>
+			<ThingDef>AC_FilledArchotechStack</ThingDef>
 		</descriptionHyperlinks>
 		<designationCategory>Biotech</designationCategory>
 		<statBases>

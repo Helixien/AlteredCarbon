@@ -21,7 +21,7 @@ namespace AlteredCarbon
         public bool allowColonistPersonaStacks = true;
         public bool allowStrangerPersonaStacks = true;
         public bool allowHostilePersonaStacks = true;
-        public bool allowArchoStacks = true;
+        public bool allowArchotechStacks = true;
         public CompPowerTrader compPower;
         public bool backupIsEnabled;
         public bool autoRestoreIsEnabled = true;
@@ -94,7 +94,7 @@ namespace AlteredCarbon
                         var floatList = new List<FloatMenuOption>();
                         foreach (var stack in StoredStacks.Where(x => x.PersonaData.ContainsInnerPersona))
                         {
-                            if (stack.IsArchoStack is false)
+                            if (stack.IsArchotechStack is false)
                             {
                                 var option = new FloatMenuOption(stack.PersonaData.PawnNameColored, delegate ()
                                 {
@@ -264,7 +264,7 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref this.allowColonistPersonaStacks, "allowColonistPersonaStacks", true);
             Scribe_Values.Look(ref this.allowHostilePersonaStacks, "allowHostilePersonaStacks", true);
             Scribe_Values.Look(ref this.allowStrangerPersonaStacks, "allowStrangerPersonaStacks", true);
-            Scribe_Values.Look(ref this.allowArchoStacks, "allowArchoStacks", true);
+            Scribe_Values.Look(ref this.allowArchotechStacks, "allowArchotechStacks", true);
             Scribe_Values.Look(ref this.backupIsEnabled, "backupIsEnabled");
             Scribe_Values.Look(ref this.autoRestoreIsEnabled, "autoRestoreIsEnabled", true);
             Scribe_References.Look(ref this.stackToDuplicate, "stackToDuplicate");
@@ -283,7 +283,7 @@ namespace AlteredCarbon
                 {
                     return false;
                 }
-                if (!this.allowArchoStacks && stack.IsArchoStack)
+                if (!this.allowArchotechStacks && stack.IsArchotechStack)
                 {
                     return false;
                 }

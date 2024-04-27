@@ -10,7 +10,7 @@ namespace AlteredCarbon
         {
             if (__instance.Corpse is null && __instance.HasPersonaStack(out var stackHediff))
             {
-                if (stackHediff.def == AC_DefOf.AC_ArchoStack)
+                if (stackHediff.def == AC_DefOf.AC_ArchotechStack)
                 {
                     stackHediff.preventKill = true;
                     stackHediff.SpawnStack(placeMode: ThingPlaceMode.Direct, psycastEffect: true);
