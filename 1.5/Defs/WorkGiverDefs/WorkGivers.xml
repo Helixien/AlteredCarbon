@@ -69,11 +69,11 @@
 	<!-- ================================ Extract Stacks ====================== -->
 	<WorkGiverDef>
 		<defName>AC_ExtractStack</defName>
-		<label>extracting cortical stack</label>
+		<label>extracting persona stack</label>
 		<giverClass>AlteredCarbon.WorkGiver_ExtractStack</giverClass>
 		<workType>Hauling</workType>
-		<verb>extract cortical stack</verb>
-		<gerund>extracting cortical stack</gerund>
+		<verb>extract persona stack</verb>
+		<gerund>extracting persona stack</gerund>
 		<priorityInType>20</priorityInType>
 		<requiredCapacities>
 			<li>Manipulation</li>

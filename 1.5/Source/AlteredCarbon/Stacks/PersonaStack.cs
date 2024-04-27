@@ -9,7 +9,7 @@ using Verse;
 namespace AlteredCarbon
 {
     [HotSwappable]
-    public class CorticalStack : ThingWithComps
+    public class PersonaStack : ThingWithComps
     {
         public bool autoLoad = true;
 
@@ -160,7 +160,7 @@ namespace AlteredCarbon
                 }
             }
         }
-        public bool IsFilledStack => this.def == AC_DefOf.AC_FilledCorticalStack || this.def == AC_DefOf.AC_FilledArchoStack;
+        public bool IsFilledStack => this.def == AC_DefOf.AC_FilledPersonaStack || this.def == AC_DefOf.AC_FilledArchoStack;
         public bool IsArchoStack => this.def == AC_DefOf.AC_EmptyArchoStack || this.def == AC_DefOf.AC_FilledArchoStack;
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
@@ -190,7 +190,7 @@ namespace AlteredCarbon
             {
                 Log.Error("Exception spawning " + this + ": " + ex);
             }
-            if (def == AC_DefOf.AC_FilledCorticalStack && stackCount != 1)
+            if (def == AC_DefOf.AC_FilledPersonaStack && stackCount != 1)
             {
                 stackCount = 1;
             }
@@ -252,7 +252,7 @@ namespace AlteredCarbon
                             {
                                 if (AC_Utils.CanImplantStackTo(installInfo.recipe.addsHediff, x.Pawn, this, true))
                                 {
-                                    Recipe_InstallCorticalStack.ApplyCorticalStack(installInfo.recipe, x.Pawn, x.Pawn.GetNeck(), this);
+                                    Recipe_InstallPersonaStack.ApplyPersonaStack(installInfo.recipe, x.Pawn, x.Pawn.GetNeck(), this);
                                     this.Destroy();
                                 }
                             });
@@ -278,13 +278,13 @@ namespace AlteredCarbon
 
         public void InstallStackRecipe(Pawn medPawn, RecipeDef recipe)
         {
-            if (medPawn.HasCorticalStack(out var stackHediff) && (stackHediff.def == recipe.addsHediff || stackHediff.def == AC_DefOf.AC_ArchoStack))
+            if (medPawn.HasPersonaStack(out var stackHediff) && (stackHediff.def == recipe.addsHediff || stackHediff.def == AC_DefOf.AC_ArchoStack))
             {
                 if (stackHediff.def != recipe.addsHediff)
                 {
                     Messages.Message("AC.PawnStackCannotDowngrade".Translate(medPawn.Named("PAWN")), MessageTypeDefOf.CautionInput);
                 }
-                else if (stackHediff.def == AC_DefOf.AC_CorticalStack)
+                else if (stackHediff.def == AC_DefOf.AC_PersonaStack)
                 {
                     Messages.Message("AC.PawnAlreadyHasStack".Translate(medPawn.Named("PAWN")), MessageTypeDefOf.CautionInput);
                 }

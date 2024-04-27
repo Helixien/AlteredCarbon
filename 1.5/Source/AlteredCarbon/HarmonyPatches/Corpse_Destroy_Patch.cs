@@ -8,7 +8,7 @@ namespace AlteredCarbon
     {
         public static void Prefix(Corpse __instance)
         {
-            if (__instance.InnerPawn.HasCorticalStack(out var stackHediff))
+            if (__instance.InnerPawn.HasPersonaStack(out var stackHediff))
             {
                 if (stackHediff.def == AC_DefOf.AC_ArchoStack)
                 {

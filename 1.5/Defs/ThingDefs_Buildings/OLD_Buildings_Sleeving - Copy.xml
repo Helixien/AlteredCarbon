@@ -151,7 +151,7 @@
 		<defaultPlacingRot>South</defaultPlacingRot>
 		<descriptionHyperlinks>
 			<ThingDef>AC_SleeveGestator</ThingDef>
-			<ThingDef>AC_FilledCorticalStack</ThingDef>
+			<ThingDef>AC_FilledPersonaStack</ThingDef>
 		</descriptionHyperlinks>
 		<designationCategory>Biotech</designationCategory>
 		<statBases>

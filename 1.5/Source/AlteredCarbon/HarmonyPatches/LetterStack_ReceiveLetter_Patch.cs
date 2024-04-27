@@ -16,7 +16,7 @@ namespace AlteredCarbon
         private static void Prefix(Letter let)
         {
             if (let.def == AC_DefOf.HumanPregnancy && let.lookTargets.PrimaryTarget.Thing is Pawn pawn && 
-                pawn.HasCorticalStack(out var hediff) && pawn.CanThink())
+                pawn.HasPersonaStack(out var hediff) && pawn.CanThink())
             {
                 if (hediff.PersonaData.OriginalGender != pawn.gender) 
                 {

@@ -25,7 +25,7 @@ namespace AlteredCarbon
                 initAction = delegate ()
                 {
                     Corpse corpse = (Corpse)TargetThingA;
-                    if (corpse.InnerPawn.HasCorticalStack(out var hediff))
+                    if (corpse.InnerPawn.HasPersonaStack(out var hediff))
                     {
                         hediff.SpawnStack(placeMode: ThingPlaceMode.Direct);
                         BodyPartRecord head = corpse.InnerPawn.health.hediffSet.GetNotMissingParts().FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Head);

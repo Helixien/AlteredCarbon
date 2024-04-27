@@ -9,9 +9,9 @@ namespace AlteredCarbon
     {
         public static void Prefix(ref Pawn p)
         {
-            if (p.HasCorticalStack(out var hediff_CorticalStack) && (p.Dead || p.Destroyed))
+            if (p.HasPersonaStack(out var hediff_PersonaStack) && (p.Dead || p.Destroyed))
             {
-                p = hediff_CorticalStack.PersonaData.GetDummyPawn;
+                p = hediff_PersonaStack.PersonaData.GetDummyPawn;
             }
         }
     }

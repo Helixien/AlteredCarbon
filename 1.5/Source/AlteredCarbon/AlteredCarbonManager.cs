@@ -30,11 +30,11 @@ namespace AlteredCarbon
 
         public void PreInit()
         {
-            stacksIndex ??= new Dictionary<int, CorticalStack>();
+            stacksIndex ??= new Dictionary<int, PersonaStack>();
             pawnsWithStacks ??= new HashSet<Pawn>();
             emptySleeves ??= new HashSet<Pawn>();
             deadPawns ??= new HashSet<Pawn>();
-            ResetStackLimitIfNeeded(AC_DefOf.AC_FilledCorticalStack);
+            ResetStackLimitIfNeeded(AC_DefOf.AC_FilledPersonaStack);
             if (AC_DefOf.AC_FilledArchoStack != null)
             {
                 ResetStackLimitIfNeeded(AC_DefOf.AC_FilledArchoStack);
@@ -77,7 +77,7 @@ namespace AlteredCarbon
             }
         }
 
-        public void ReplacePawnWithStack(Pawn pawn, CorticalStack stack)
+        public void ReplacePawnWithStack(Pawn pawn, PersonaStack stack)
         {
             var stackData = stack.PersonaData.StackGroupData;
             if (stackData.originalPawn == pawn)
@@ -92,7 +92,7 @@ namespace AlteredCarbon
             }
         }
 
-        public void ReplaceStackWithPawn(CorticalStack stack, Pawn pawn)
+        public void ReplaceStackWithPawn(PersonaStack stack, Pawn pawn)
         {
             var stackData = stack.PersonaData.StackGroupData;
             if (stackData.originalStack == stack)
@@ -107,7 +107,7 @@ namespace AlteredCarbon
             }
         }
 
-        public void RegisterStack(CorticalStack stack)
+        public void RegisterStack(PersonaStack stack)
         {
             var stackData = stack.PersonaData.StackGroupData;
             if (stack.PersonaData.isCopied)
@@ -123,7 +123,7 @@ namespace AlteredCarbon
 
         public void RegisterPawn(Pawn pawn)
         {
-            if (pawn.HasCorticalStack(out Hediff_CorticalStack hediff))
+            if (pawn.HasPersonaStack(out Hediff_PersonaStack hediff))
             {
                 var stackData = hediff.PersonaData.StackGroupData;
                 if (hediff.PersonaData.isCopied)
@@ -139,7 +139,7 @@ namespace AlteredCarbon
             }
         }
 
-        public void RegisterSleeve(Pawn pawn, CorticalStack stack)
+        public void RegisterSleeve(Pawn pawn, PersonaStack stack)
         {
             pawnsWithStacks.Remove(pawn);
             emptySleeves.Add(pawn);
@@ -148,11 +148,11 @@ namespace AlteredCarbon
             stackData.deadPawns.Add(pawn);
         }
 
-        public int GetStackGroupID(CorticalStack corticalStack)
+        public int GetStackGroupID(PersonaStack personaStack)
         {
-            if (corticalStack.PersonaData.stackGroupID != 0)
+            if (personaStack.PersonaData.stackGroupID != 0)
             {
-                return corticalStack.PersonaData.stackGroupID;
+                return personaStack.PersonaData.stackGroupID;
             }
             return stacksRelationships.Count + 1;
         }
@@ -190,19 +190,19 @@ namespace AlteredCarbon
         public HashSet<Pawn> emptySleeves = new HashSet<Pawn>();
         public HashSet<Pawn> deadPawns = new HashSet<Pawn>();
 
-        private Dictionary<int, CorticalStack> stacksIndex;
-        public Dictionary<int, CorticalStack> StacksIndex
+        private Dictionary<int, PersonaStack> stacksIndex;
+        public Dictionary<int, PersonaStack> StacksIndex
         {
             get
             {
                 if (stacksIndex is null)
                 {
-                    stacksIndex = new Dictionary<int, CorticalStack>();
+                    stacksIndex = new Dictionary<int, PersonaStack>();
                 }
                 return stacksIndex;
             }
         }
         private List<int> pawnKeys = new List<int>();
-        private List<CorticalStack> stacksValues = new List<CorticalStack>();
+        private List<PersonaStack> stacksValues = new List<PersonaStack>();
     }
 }

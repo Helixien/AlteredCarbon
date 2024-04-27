@@ -6,19 +6,19 @@ using Verse;
 namespace AlteredCarbon;
 
 [HotSwappable]
-public class ScenPart_CorticalStack : ScenPart_PawnModifier
+public class ScenPart_PersonaStack : ScenPart_PawnModifier
 {
-    private HediffDef stackHediff = AC_DefOf.AC_CorticalStack;
+    private HediffDef stackHediff = AC_DefOf.AC_PersonaStack;
 
 
     public override string Summary(Scenario scen)
     {
-        return "AC.ScenPart_PawnsHaveCorticalStack".Translate(this.context.ToStringHuman(), this.chance.ToStringPercent(), this.stackHediff.label).CapitalizeFirst();
+        return "AC.ScenPart_PawnsHavePersonaStack".Translate(this.context.ToStringHuman(), this.chance.ToStringPercent(), this.stackHediff.label).CapitalizeFirst();
     }
 
     public override void ModifyPawnPostGenerate(Pawn pawn, bool redressed)
     {
-        if (this.stackHediff != null && !pawn.HasCorticalStack())
+        if (this.stackHediff != null && !pawn.HasPersonaStack())
         {
             pawn.health.AddHediff(this.stackHediff);
         }
@@ -44,13 +44,13 @@ public class ScenPart_CorticalStack : ScenPart_PawnModifier
 
     private IEnumerable<HediffDef> PossibleHediffs()
     {
-        yield return AC_DefOf.AC_CorticalStack;
+        yield return AC_DefOf.AC_PersonaStack;
         yield return AC_DefOf.AC_ArchoStack;
     }
 
     public override bool TryMerge(ScenPart other)
     {
-        ScenPart_CorticalStack otherForcedStack = other as ScenPart_CorticalStack;
+        ScenPart_PersonaStack otherForcedStack = other as ScenPart_PersonaStack;
         if (otherForcedStack != null && this.stackHediff == otherForcedStack.stackHediff)
         {
             this.chance = GenMath.ChanceEitherHappens(this.chance, otherForcedStack.chance);
@@ -67,21 +67,21 @@ public class ScenPart_CorticalStack : ScenPart_PawnModifier
             return true;
         }
 
-        ScenPart_CorticalStack otherForcedStack = other as ScenPart_CorticalStack;
+        ScenPart_PersonaStack otherForcedStack = other as ScenPart_PersonaStack;
         return otherForcedStack == null || this.stackHediff == otherForcedStack.stackHediff;
     }
 
     public override void Randomize()
     {
         base.Randomize();
-        this.stackHediff = AC_DefOf.AC_CorticalStack;
+        this.stackHediff = AC_DefOf.AC_PersonaStack;
         this.context = PawnGenerationContext.PlayerStarter;
     }
 
     public override void ExposeData()
     {
         base.ExposeData();
-        Scribe_Defs.Look<HediffDef>(ref this.stackHediff, "ScenPart_CorticalStackDef");
+        Scribe_Defs.Look<HediffDef>(ref this.stackHediff, "ScenPart_PersonaStackDef");
     }
 
     public override bool HasNullDefs()

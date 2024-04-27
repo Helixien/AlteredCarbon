@@ -13,7 +13,7 @@ namespace AlteredCarbon
         public static Pawn lastPawn;
         public static bool Prefix(ref Pawn __result)
         {
-            if (Find.Selector.SingleSelectedThing is CorticalStack stack && stack.PersonaData.ContainsInnerPersona)
+            if (Find.Selector.SingleSelectedThing is PersonaStack stack && stack.PersonaData.ContainsInnerPersona)
             {
                 if (__result != lastPawn)
                 {

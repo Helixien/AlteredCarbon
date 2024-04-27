@@ -62,7 +62,7 @@ namespace AlteredCarbon
                 canTargetItems = true,
                 mapObjectTargetsMustBeAutoAttackable = false,
                 validator = (TargetInfo targ) => targ.HasThing &&
-                targ.Thing is Corpse corpse && corpse.InnerPawn.HasCorticalStack(out _)
+                targ.Thing is Corpse corpse && corpse.InnerPawn.HasPersonaStack(out _)
             };
         }
     }

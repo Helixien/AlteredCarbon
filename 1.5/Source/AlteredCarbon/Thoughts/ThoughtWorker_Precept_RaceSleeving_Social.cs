@@ -7,6 +7,6 @@ public class ThoughtWorker_Precept_RaceSleeving_Social : ThoughtWorker_Precept_S
 {
     public override ThoughtState ShouldHaveThought(Pawn p, Pawn otherPawn)
     {
-        return otherPawn.HasCorticalStack(out var stack) && (stack.PersonaData.OriginalRace != otherPawn.def);
+        return otherPawn.HasPersonaStack(out var stack) && (stack.PersonaData.OriginalRace != otherPawn.def);
     }
 }

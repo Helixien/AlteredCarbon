@@ -7,7 +7,7 @@
 			<li Class="PatchOperationAdd">
 				<xpath>/Defs/ThingDef[defName="FabricationBench"]/recipes</xpath>
 				<value>
-					<li>AC_MakeEmptyCorticalStack</li>
+					<li>AC_MakeEmptyPersonaStack</li>
 				</value>
 			</li>
 			<!-- ================================ Change Neutroamine draw size ====================== -->
@@ -85,13 +85,13 @@
 			<li Class="PatchOperationAdd">
 				<xpath>/Defs/ThingDef[defName="CraftingSpot"]/recipes</xpath>
 				<value>
-					<li>AC_SmashCorticalStacks</li>
+					<li>AC_SmashPersonaStacks</li>
 				</value>
 			</li>
 			<li Class="PatchOperationAdd">
 				<xpath>/Defs/ThingDef[defName="TableMachining"]/recipes</xpath>
 				<value>
-					<li>AC_ShredCorticalStacks</li>
+					<li>AC_ShredPersonaStacks</li>
 				</value>
 			</li>
 		</operations>

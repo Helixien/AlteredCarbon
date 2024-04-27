@@ -16,7 +16,7 @@ namespace AlteredCarbon
         public static void Postfix(Transferable trad, Rect rect, ref float curX)
         {
             var pawn = trad.AnyThing is Corpse corpse ? corpse.InnerPawn : trad.AnyThing as Pawn;
-            if (pawn != null && pawn.HasCorticalStack())
+            if (pawn != null && pawn.HasPersonaStack())
             {
                 var iconRect = new Rect(curX - BondIconWidth, (rect.height - BondIconWidth) / 2f, BondIconWidth, BondIconWidth);
                 GUI.DrawTexture(iconRect, DrawColonist_Patch.Icon_StackDead);

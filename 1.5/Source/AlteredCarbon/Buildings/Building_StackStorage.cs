@@ -18,14 +18,14 @@ namespace AlteredCarbon
             this.innerContainer = new ThingOwner<Thing>(this, false, LookMode.Deep);
         }
 
-        public bool allowColonistCorticalStacks = true;
-        public bool allowStrangerCorticalStacks = true;
-        public bool allowHostileCorticalStacks = true;
+        public bool allowColonistPersonaStacks = true;
+        public bool allowStrangerPersonaStacks = true;
+        public bool allowHostilePersonaStacks = true;
         public bool allowArchoStacks = true;
         public CompPowerTrader compPower;
         public bool backupIsEnabled;
         public bool autoRestoreIsEnabled = true;
-        public CorticalStack stackToDuplicate;
+        public PersonaStack stackToDuplicate;
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             base.SpawnSetup(map, respawningAfterLoad);
@@ -73,7 +73,7 @@ namespace AlteredCarbon
                 return this.innerContainer.Any();
             }
         }
-        public IEnumerable<CorticalStack> StoredStacks => this.innerContainer.OfType<CorticalStack>();
+        public IEnumerable<PersonaStack> StoredStacks => this.innerContainer.OfType<PersonaStack>();
         public override IEnumerable<Gizmo> GetGizmos()
         {
             foreach (var g in base.GetGizmos())
@@ -123,7 +123,7 @@ namespace AlteredCarbon
                     duplicateStacks.Disable("NoPower".Translate());
                 }
                 yield return duplicateStacks;
-                duplicateStacks.LockBehindReseach(new List<ResearchProjectDef> { AC_DefOf.AC_RewriteCorticalStack });
+                duplicateStacks.LockBehindReseach(new List<ResearchProjectDef> { AC_DefOf.AC_RewritePersonaStack });
                 if (this.stackToDuplicate != null)
                 {
                     yield return new Command_Action
@@ -202,7 +202,7 @@ namespace AlteredCarbon
         public override string GetInspectString()
         {
             var sb = new StringBuilder();
-            sb.AppendLine("AC.CorticalStacksStored".Translate(StoredStacks.Count(), MaxFilledStackCapacity));
+            sb.AppendLine("AC.PersonaStacksStored".Translate(StoredStacks.Count(), MaxFilledStackCapacity));
             if (GameComponent_DigitalStorage.Instance.backedUpStacks.Values.Any())
             {
                 var lastTimeUpdated = GameComponent_DigitalStorage.Instance.backedUpStacks.Select(x => x.Value.lastTimeUpdated).Max();
@@ -218,7 +218,7 @@ namespace AlteredCarbon
             float successChance = 1f - Mathf.Abs((doer.skills.GetSkill(SkillDefOf.Intellectual).Level / 2f) - 11f) / 10f;
             if (Rand.Chance(successChance))
             {
-                var stackCopyTo = (CorticalStack)ThingMaker.MakeThing(AC_DefOf.AC_FilledCorticalStack);
+                var stackCopyTo = (PersonaStack)ThingMaker.MakeThing(AC_DefOf.AC_FilledPersonaStack);
                 this.innerContainer.TryAdd(stackCopyTo);
                 stackCopyTo.PersonaData.CopyDataFrom(stackToDuplicate.PersonaData, true);
                 AlteredCarbonManager.Instance.RegisterStack(stackCopyTo);
@@ -230,11 +230,11 @@ namespace AlteredCarbon
                 Messages.Message("AC.FailedToDuplicatedStack".Translate(doer.Named("PAWN")), this, MessageTypeDefOf.NeutralEvent);
             }
         }
-        public void PerformStackBackup(Hediff_CorticalStack hediff_CorticalStack)
+        public void PerformStackBackup(Hediff_PersonaStack hediff_PersonaStack)
         {
-            var stackCopyTo = (CorticalStack)ThingMaker.MakeThing(AC_DefOf.AC_FilledCorticalStack);
+            var stackCopyTo = (PersonaStack)ThingMaker.MakeThing(AC_DefOf.AC_FilledPersonaStack);
             this.innerContainer.TryAdd(stackCopyTo);
-            stackCopyTo.PersonaData.CopyDataFrom(hediff_CorticalStack.PersonaData);
+            stackCopyTo.PersonaData.CopyDataFrom(hediff_PersonaStack.PersonaData);
             AlteredCarbonManager.Instance.RegisterStack(stackCopyTo);
         }
         public ThingOwner GetDirectlyHeldThings()
@@ -261,9 +261,9 @@ namespace AlteredCarbon
                 this
             });
             Scribe_Values.Look(ref this.contentsKnown, "contentsKnown", false);
-            Scribe_Values.Look(ref this.allowColonistCorticalStacks, "allowColonistCorticalStacks", true);
-            Scribe_Values.Look(ref this.allowHostileCorticalStacks, "allowHostileCorticalStacks", true);
-            Scribe_Values.Look(ref this.allowStrangerCorticalStacks, "allowStrangerCorticalStacks", true);
+            Scribe_Values.Look(ref this.allowColonistPersonaStacks, "allowColonistPersonaStacks", true);
+            Scribe_Values.Look(ref this.allowHostilePersonaStacks, "allowHostilePersonaStacks", true);
+            Scribe_Values.Look(ref this.allowStrangerPersonaStacks, "allowStrangerPersonaStacks", true);
             Scribe_Values.Look(ref this.allowArchoStacks, "allowArchoStacks", true);
             Scribe_Values.Look(ref this.backupIsEnabled, "backupIsEnabled");
             Scribe_Values.Look(ref this.autoRestoreIsEnabled, "autoRestoreIsEnabled", true);
@@ -274,7 +274,7 @@ namespace AlteredCarbon
         {
             Predicate<Thing> validator = delegate (Thing x)
             {
-                var stack = thing as CorticalStack;
+                var stack = thing as PersonaStack;
                 if (stack is null)
                 {
                     return false;
@@ -288,15 +288,15 @@ namespace AlteredCarbon
                     return false;
                 }
 
-                if (this.allowColonistCorticalStacks && stack.PersonaData.faction != null && stack.PersonaData.faction == Faction.OfPlayer)
+                if (this.allowColonistPersonaStacks && stack.PersonaData.faction != null && stack.PersonaData.faction == Faction.OfPlayer)
                 {
                     return true;
                 }
-                if (this.allowHostileCorticalStacks && stack.PersonaData.faction.HostileTo(Faction.OfPlayer))
+                if (this.allowHostilePersonaStacks && stack.PersonaData.faction.HostileTo(Faction.OfPlayer))
                 {
                     return true;
                 }
-                if (this.allowStrangerCorticalStacks && (stack.PersonaData.faction is null || stack.PersonaData.faction != Faction.OfPlayer && !stack.PersonaData.faction.HostileTo(Faction.OfPlayer)))
+                if (this.allowStrangerPersonaStacks && (stack.PersonaData.faction is null || stack.PersonaData.faction != Faction.OfPlayer && !stack.PersonaData.faction.HostileTo(Faction.OfPlayer)))
                 {
                     return true;
                 }

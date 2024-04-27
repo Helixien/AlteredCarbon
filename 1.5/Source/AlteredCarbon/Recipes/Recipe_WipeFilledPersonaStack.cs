@@ -10,12 +10,12 @@ using Verse.Sound;
 
 namespace AlteredCarbon
 {
-    public class Recipe_WipeFilledCorticalStack : Recipe_OperateOnCorticalStack
+    public class Recipe_WipeFilledPersonaStack : Recipe_OperateOnPersonaStack
     {
         public override void Notify_IterationCompleted(Pawn billDoer, List<Thing> ingredients)
         {
             base.Notify_IterationCompleted(billDoer, ingredients);
-            var stack = ingredients.OfType<CorticalStack>().FirstOrDefault();
+            var stack = ingredients.OfType<PersonaStack>().FirstOrDefault();
             AC_DefOf.Message_NegativeEvent.PlayOneShot(stack);
             if (stack.PersonaData.faction != null && billDoer != null && billDoer.Faction != null && billDoer.Faction != stack.Faction)
             {

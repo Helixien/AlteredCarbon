@@ -373,9 +373,9 @@ namespace AlteredCarbon
             Find.Targeter.BeginTargeting(ForCorpse(), delegate (LocalTargetInfo x)
             {
                 var corpse = x.Thing as Corpse;
-                if (corpse.InnerPawn.HasCorticalStack())
+                if (corpse.InnerPawn.HasPersonaStack())
                 {
-                    Messages.Message("AC.CorticalStackMustBeRemovedFirst".Translate(), MessageTypeDefOf.CautionInput);
+                    Messages.Message("AC.PersonaStackMustBeRemovedFirst".Translate(), MessageTypeDefOf.CautionInput);
                 }
                 else if (corpse.InnerPawn.health.hediffSet.HasHead is false)
                 {

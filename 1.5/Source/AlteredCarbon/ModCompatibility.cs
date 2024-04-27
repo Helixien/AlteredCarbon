@@ -53,7 +53,7 @@ namespace AlteredCarbon
 
 		public static bool CharacterCardUtility_DoLeftSection_PatchPrefix(Pawn __0, ref bool __result)
 		{
-			if (__0.HasCorticalStack())
+			if (__0.HasPersonaStack())
 			{
 				__result = true;
                 return false;

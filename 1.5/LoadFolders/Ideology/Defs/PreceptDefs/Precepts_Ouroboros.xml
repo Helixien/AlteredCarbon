@@ -36,7 +36,7 @@
 		<defName>AC_Stacking_Central</defName>
 		<issue>AC_Stacking</issue>
 		<label>central</label>
-		<description>Without a cortical stack we put ourselves at the risk of death. To live without one is unthinkable.</description>
+		<description>Without a persona stack we put ourselves at the risk of death. To live without one is unthinkable.</description>
 		<impact>High</impact>
 		<displayOrderInImpact>1000</displayOrderInImpact>
 		<requiredMemes>
@@ -74,7 +74,7 @@
 		<thoughtClass>Thought_Situational</thoughtClass>
 		<stages>
 			<li>
-				<label>cortical stack installed</label>
+				<label>persona stack installed</label>
 				<description>I have a stack as any human should. The world is right, and I am as I should be.</description>
 				<baseMoodEffect>4</baseMoodEffect>
 			</li>
@@ -131,7 +131,7 @@
 		<defName>AC_Stacking_Preferred</defName>
 		<issue>AC_Stacking</issue>
 		<label>preferred</label>
-		<description>Having a cortical stack is the new standard. Without it, one may die at any moment.</description>
+		<description>Having a persona stack is the new standard. Without it, one may die at any moment.</description>
 		<impact>Low</impact>
 		<displayOrderInIssue>0</displayOrderInIssue>
 		<displayOrderInImpact>-100</displayOrderInImpact>
@@ -171,7 +171,7 @@
 		<thoughtClass>Thought_Situational</thoughtClass>
 		<stages>
 			<li>
-				<label>cortical stack installed</label>
+				<label>persona stack installed</label>
 				<description>I have a stack installed. Death shall not take me this easily now.</description>
 				<baseMoodEffect>2</baseMoodEffect>
 			</li>
@@ -228,7 +228,7 @@
 		<defName>AC_Stacking_Despised</defName>
 		<issue>AC_Stacking</issue>
 		<label>despised</label>
-		<description>A cortical stacks violate the purity of the human consciousness and should never be used.</description>
+		<description>A persona stacks violate the purity of the human consciousness and should never be used.</description>
 		<impact>Low</impact>
 		<displayOrderInIssue>20</displayOrderInIssue>
 		<displayOrderInImpact>200</displayOrderInImpact>
@@ -257,7 +257,7 @@
 		<thoughtClass>Thought_Situational</thoughtClass>
 		<stages>
 			<li>
-				<label>cortical stack installed</label>
+				<label>persona stack installed</label>
 				<description>I have a stack installed. It's an abhorrent offense against everything I believe!</description>
 				<baseMoodEffect>-15</baseMoodEffect>
 			</li>

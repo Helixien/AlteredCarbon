@@ -271,7 +271,7 @@ namespace AlteredCarbon
         public void CopyFromPawn(Pawn pawn, ThingDef sourceStack, bool copyRaceGenderInfo = false)
         {
             this.hostPawn = pawn;
-            this.sourceStack = sourceStack ?? AC_DefOf.AC_FilledCorticalStack;
+            this.sourceStack = sourceStack ?? AC_DefOf.AC_FilledPersonaStack;
             name = GetNameCopy(pawn.Name);
             this.kindDef = pawn.kindDef;
             if (pawn.playerSettings != null)
@@ -470,7 +470,7 @@ namespace AlteredCarbon
 
             if (copyRaceGenderInfo)
             {
-                if (pawn.HasCorticalStack(out var hediff))
+                if (pawn.HasPersonaStack(out var hediff))
                 {
                     var personaData = hediff.PersonaData;
                     OriginalRace = personaData.OriginalRace ?? pawn.def;

@@ -16,8 +16,8 @@ namespace AlteredCarbon
                 ThingOwner directlyHeldThings = pod.GetDirectlyHeldThings();
                 for (int i = 0; i < directlyHeldThings.Count; i++)
                 {
-                    if (directlyHeldThings[i] is CorticalStack corticalStack && corticalStack.PersonaData.ContainsInnerPersona 
-                        && corticalStack.PersonaData.faction == giveTo.Faction)
+                    if (directlyHeldThings[i] is PersonaStack personaStack && personaStack.PersonaData.ContainsInnerPersona 
+                        && personaStack.PersonaData.faction == giveTo.Faction)
                     {
                         __result += 8;
                     }

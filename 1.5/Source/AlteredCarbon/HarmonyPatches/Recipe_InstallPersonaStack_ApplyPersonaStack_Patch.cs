@@ -3,12 +3,12 @@ using Verse;
 
 namespace AlteredCarbon;
 
-[HarmonyPatch(typeof(Recipe_InstallCorticalStack), "ApplyCorticalStack")]
-internal static class Recipe_InstallCorticalStack_ApplyCorticalStack_Patch
+[HarmonyPatch(typeof(Recipe_InstallPersonaStack), "ApplyPersonaStack")]
+internal static class Recipe_InstallPersonaStack_ApplyPersonaStack_Patch
 {
     private static void Postfix(Pawn pawn)
     {
-        if (pawn.HasCorticalStack(out var hediff) && (hediff.PersonaData.ideo?.HasPrecept(AC_DefOf.AC_CrossSleeving_DontCare) ?? false))
+        if (pawn.HasPersonaStack(out var hediff) && (hediff.PersonaData.ideo?.HasPrecept(AC_DefOf.AC_CrossSleeving_DontCare) ?? false))
         {
             hediff.PersonaData.thoughts?.RemoveAll(x => x.def == AC_DefOf.AC_WrongGender);
             hediff.PersonaData.thoughts?.RemoveAll(x => x.def == AC_DefOf.AC_WrongGenderDouble);

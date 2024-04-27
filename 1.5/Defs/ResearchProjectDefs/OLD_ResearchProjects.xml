@@ -4,7 +4,7 @@
 	<ResearchProjectDef>
 		<defName>AC_Hacking</defName>
 		<label>hacking</label>
-		<description>Build workbenches to decrypt and alter the contents of filled cortical stacks, as well as strip biocoding.</description>
+		<description>Build workbenches to decrypt and alter the contents of filled persona stacks, as well as strip biocoding.</description>
 		<baseCost>1200</baseCost>
 		<researchViewX>15.00</researchViewX>
 		<researchViewY>1.50</researchViewY>
@@ -34,11 +34,11 @@
 			<li>PoweredArmor</li>
 		</prerequisites>
 	</ResearchProjectDef>
-	<!-- ================================ Cortical Stack crafting ====================== -->
+	<!-- ================================ Persona Stack crafting ====================== -->
 	<ResearchProjectDef ParentName="AC_ResearchBase">
-		<defName>AC_CorticalCrafting</defName>
-		<label>cortical stacks</label>
-		<description>Fabricate advanced ultratech cortical stacks from advanced components and other materials.</description>
+		<defName>AC_PersonaCrafting</defName>
+		<label>persona stacks</label>
+		<description>Fabricate advanced ultratech persona stacks from advanced components and other materials.</description>
 		<baseCost>4000</baseCost>
 		<researchViewX>17.00</researchViewX>
 		<researchViewY>0.00</researchViewY>
@@ -46,16 +46,16 @@
 			<li>AdvancedFabrication</li>
 		</prerequisites>
 	</ResearchProjectDef>
-	<!-- ================================ Rewrite Cortical Stack ====================== -->
+	<!-- ================================ Rewrite Persona Stack ====================== -->
 	<ResearchProjectDef ParentName="AC_ResearchBase">
-		<defName>AC_RewriteCorticalStack</defName>
-		<label>cortical modification</label>
-		<description>Modify the data on cortical stacks using exploits in the software of cortical stacks.</description>
+		<defName>AC_RewritePersonaStack</defName>
+		<label>persona modification</label>
+		<description>Modify the data on persona stacks using exploits in the software of persona stacks.</description>
 		<baseCost>5000</baseCost>
 		<researchViewX>18.00</researchViewX>
 		<researchViewY>0.00</researchViewY>
 		<prerequisites>
-			<li>AC_CorticalCrafting</li>
+			<li>AC_PersonaCrafting</li>
 		</prerequisites>
 	</ResearchProjectDef>
 </Defs>

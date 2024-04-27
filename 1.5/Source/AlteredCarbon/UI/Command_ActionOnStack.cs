@@ -26,15 +26,15 @@ namespace AlteredCarbon
             {
                 Find.Targeter.StopTargeting();
                 var stacks = decryptionBench.Map.listerThings
-                    .ThingsOfDef(AC_DefOf.AC_FilledCorticalStack).OfType<CorticalStack>().Where(x => x.PersonaData.ContainsInnerPersona).ToList();
-                foreach (CorticalStack corticalStack in stacks)
+                    .ThingsOfDef(AC_DefOf.AC_FilledPersonaStack).OfType<PersonaStack>().Where(x => x.PersonaData.ContainsInnerPersona).ToList();
+                foreach (PersonaStack personaStack in stacks)
                 {
-                    if (targetParameters is null || targetParameters.CanTarget(corticalStack))
+                    if (targetParameters is null || targetParameters.CanTarget(personaStack))
                     {
-                        yield return new FloatMenuOption(corticalStack.PersonaData.PawnNameColored, delegate ()
+                        yield return new FloatMenuOption(personaStack.PersonaData.PawnNameColored, delegate ()
                         {
-                            actionOnStack(corticalStack);
-                        }, iconThing: corticalStack, iconColor: corticalStack.DrawColor);
+                            actionOnStack(personaStack);
+                        }, iconThing: personaStack, iconColor: personaStack.DrawColor);
                     }
                 }
             }

@@ -26,7 +26,7 @@ namespace AlteredCarbon
         };
 
         private Building_DecryptionBench decryptionBench;
-        private CorticalStack corticalStack;
+        private PersonaStack personaStack;
         private PersonaData personaData;
         private PersonaData personaDataCopy;
 
@@ -66,12 +66,12 @@ namespace AlteredCarbon
         private float LeftPanelWidth => 450;
         public override Vector2 InitialSize => new Vector2(900, Mathf.Min(UI.screenHeight, 975));
         public bool stackRecruitable;
-        public Window_StackEditor(Building_DecryptionBench decryptionBench, CorticalStack corticalStack)
+        public Window_StackEditor(Building_DecryptionBench decryptionBench, PersonaStack personaStack)
         {
             this.decryptionBench = decryptionBench;
-            this.corticalStack = corticalStack;
+            this.personaStack = personaStack;
             personaData = new PersonaData();
-            personaData.CopyDataFrom(corticalStack.PersonaData);
+            personaData.CopyDataFrom(personaStack.PersonaData);
             stackRecruitable = personaData.recruitable;
 
             this.allChildhoodBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading
@@ -86,7 +86,7 @@ namespace AlteredCarbon
             allFactions = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction && x.Hidden is false).ToList();
             allIdeos = Find.IdeoManager.IdeosListForReading;
             allTraits = DefDatabase<TraitDef>.AllDefsListForReading;
-            var modExtension = corticalStack.def.GetModExtension<StackSavingOptionsModExtension>();
+            var modExtension = personaStack.def.GetModExtension<StackSavingOptionsModExtension>();
             if (modExtension != null)
             {
                 allTraits.RemoveAll(x => modExtension.ignoresTraits.Contains(x.defName));
@@ -156,11 +156,11 @@ namespace AlteredCarbon
         {
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
-            var title = "AC.RewriteCorticalStack".Translate();
+            var title = "AC.RewritePersonaStack".Translate();
             Widgets.Label(GetLabelRect(title, ref pos, labelWidthOverride: inRect.width - (Margin * 2f)), title);
             Text.Anchor = TextAnchor.UpperLeft;
             pos.y += 15;
-            var explanation = "AC.CorticalStackEditExplanation".Translate();
+            var explanation = "AC.PersonaStackEditExplanation".Translate();
             Text.Font = GameFont.Tiny;
             GUI.color = Color.grey;
             Widgets.Label(GetLabelRect(explanation, ref pos, labelWidthOverride: inRect.width - (Margin * 2f)), explanation);
@@ -706,8 +706,8 @@ namespace AlteredCarbon
                 {
                     personaData.stackDegradationToAdd = GetDegradation();
                 }
-                corticalStack.personaDataRewritten = personaData;
-                decryptionBench.billStack.AddBill(new Bill_RewriteStack(corticalStack, AC_DefOf.AC_RewriteFilledCorticalStack, null));
+                personaStack.personaDataRewritten = personaData;
+                decryptionBench.billStack.AddBill(new Bill_RewriteStack(personaStack, AC_DefOf.AC_RewriteFilledPersonaStack, null));
                 this.Close();
             }
         }

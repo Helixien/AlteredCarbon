@@ -7,7 +7,7 @@ public class ThoughtWorker_Precept_StackDuplicating_HasDuplicates_Social : Thoug
 {
     public override ThoughtState ShouldHaveThought(Pawn p, Pawn otherPawn)
     {
-        return otherPawn.HasCorticalStack(out var stack) && stack.PersonaData.StackGroupData.originalPawn == otherPawn && stack.PersonaData.StackGroupData.copiedPawns.Count > 0;
+        return otherPawn.HasPersonaStack(out var stack) && stack.PersonaData.StackGroupData.originalPawn == otherPawn && stack.PersonaData.StackGroupData.copiedPawns.Count > 0;
     }
 }
 
@@ -15,7 +15,7 @@ public class ThoughtWorker_Precept_StackDuplicating_ForOriginal_Social : Thought
 {
     public override ThoughtState ShouldHaveThought(Pawn p, Pawn otherPawn)
     {
-        return otherPawn.HasCorticalStack(out var otherPawnStack) && otherPawnStack.PersonaData.StackGroupData.originalPawn == p;
+        return otherPawn.HasPersonaStack(out var otherPawnStack) && otherPawnStack.PersonaData.StackGroupData.originalPawn == p;
     }
 }
 
@@ -23,7 +23,7 @@ public class ThoughtWorker_Precept_StackDuplicating_ForCopy_Social : ThoughtWork
 {
     public override ThoughtState ShouldHaveThought(Pawn p, Pawn otherPawn)
     {
-        return otherPawn.HasCorticalStack(out var otherPawnStack) && otherPawnStack.PersonaData.StackGroupData.copiedPawns.Contains(p);
+        return otherPawn.HasPersonaStack(out var otherPawnStack) && otherPawnStack.PersonaData.StackGroupData.copiedPawns.Contains(p);
     }
 }
 

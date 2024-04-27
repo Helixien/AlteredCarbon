@@ -16,21 +16,21 @@ namespace AlteredCarbon
                 __instance.DisableKillEffects();
             }
 
-            if (AlteredCarbonManager.Instance.StacksIndex.TryGetValue(__instance.thingIDNumber, out var corticalStack))
+            if (AlteredCarbonManager.Instance.StacksIndex.TryGetValue(__instance.thingIDNumber, out var personaStack))
             {
                 if (LookTargets_Patch.targets.TryGetValue(__instance, out var targets))
                 {
                     foreach (var target in targets)
                     {
                         target.targets.Remove(__instance);
-                        target.targets.Add(corticalStack);
+                        target.targets.Add(personaStack);
                     }
                 }
             }
         }
         public static void Postfix(Pawn __instance, DamageInfo? dinfo, Hediff exactCulprit = null)
         {
-            if (__instance.HasCorticalStack(out var stackHediff))
+            if (__instance.HasPersonaStack(out var stackHediff))
             {
                 var caravan = __instance.GetCaravan();
                 bool isArchoStack = stackHediff.def == AC_DefOf.AC_ArchoStack;

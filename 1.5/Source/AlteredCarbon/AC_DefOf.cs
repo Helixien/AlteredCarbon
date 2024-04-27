@@ -35,20 +35,20 @@ namespace AlteredCarbon
         public static VFECore.Abilities.AbilityDef AC_ArchoStackSkip;
         public static HediffDef AC_StackDegradation;
         public static HediffDef AC_BrainTrauma;
-        public static RecipeDef AC_RewriteFilledCorticalStack;
+        public static RecipeDef AC_RewriteFilledPersonaStack;
         public static HistoryEventDef AC_UsedArchoStack;
         public static ThoughtDef AC_StackDegradationThought;
-        [MayRequireIdeology] public static HistoryEventDef AC_InstalledCorticalStack;
+        [MayRequireIdeology] public static HistoryEventDef AC_InstalledPersonaStack;
 
         public static VEBackstoryDef AC_VatGrownChild;
         public static VEBackstoryDef AC_VatGrownAdult;
-        public static ThingDef AC_EmptyCorticalStack;
-        public static ThingDef AC_FilledCorticalStack;
+        public static ThingDef AC_EmptyPersonaStack;
+        public static ThingDef AC_FilledPersonaStack;
         public static JobDef AC_ExtractStack;
         public static JobDef AC_StartIncubatingProcess;
         public static JobDef AC_CancelIncubatingProcess;
         public static JobDef AC_TakeEmptySleeve;
-        public static HediffDef AC_CorticalStack;
+        public static HediffDef AC_PersonaStack;
         public static GeneDef AC_SleeveQuality_Awful;
         public static GeneDef AC_SleeveQuality_Poor;
         public static GeneDef AC_SleeveQuality_Normal;
@@ -61,9 +61,9 @@ namespace AlteredCarbon
         public static ThingDef AC_SleeveIncubator;
         public static ThingDef AC_SleeveCasket;
         public static ThingDef AC_DecryptionBench;
-        public static RecipeDef AC_WipeFilledCorticalStack;
-        public static RecipeDef AC_InstallCorticalStack;
-        public static RecipeDef AC_InstallEmptyCorticalStack;
+        public static RecipeDef AC_WipeFilledPersonaStack;
+        public static RecipeDef AC_InstallPersonaStack;
+        public static RecipeDef AC_InstallEmptyPersonaStack;
         public static SpecialThingFilterDef AC_AllowStacksColonist;
         public static SpecialThingFilterDef AC_AllowStacksStranger;
         public static SpecialThingFilterDef AC_AllowStacksHostile;
@@ -86,7 +86,7 @@ namespace AlteredCarbon
         public static RecipeDef CremateCorpse;
         public static RecipeDef ButcherCorpseFlesh;
         public static TraitDef AC_Sleever;
-        [MayRequireVREAndroidMod] public static GeneDef AC_CorticalModule;
+        [MayRequireVREAndroidMod] public static GeneDef AC_PersonaModule;
         [MayRequireVREAndroidMod] public static ThoughtDef AC_NewShell, AC_NewShellDouble, AC_WantsShell, AC_WrongShellGender, AC_WrongShellGenderDouble;
         [MayRequireVREAndroidMod] public static TraitDef AC_Shellwalker;
         public static SoundDef Message_NegativeEvent;
@@ -104,7 +104,7 @@ namespace AlteredCarbon
         public static JobDef AC_InsertingThingIntoProcessor;
         public static JobDef AC_HaulCorpseToSleeveGrower;
         public static JobDef AC_CancelRepurposingBody;
-        public static ResearchProjectDef AC_RewriteCorticalStack;
+        public static ResearchProjectDef AC_RewritePersonaStack;
         public static EffecterDef AC_Hacking;
 
         [MayRequireIdeology] public static PreceptDef AC_Stacking_Despised;

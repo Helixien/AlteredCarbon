@@ -16,7 +16,7 @@ namespace AlteredCarbon
                 __result = "AC.NoSleeve".Translate();
                 return false;
             };
-            if (pawn.Dead && pawn.HasCorticalStack(out _))
+            if (pawn.Dead && pawn.HasPersonaStack(out _))
             {
                 __result = "AC.Sleeve".Translate();
                 return false;

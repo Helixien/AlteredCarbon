@@ -7,7 +7,7 @@ namespace AlteredCarbon
 	{
 		public override ThoughtState CurrentStateInternal(Pawn p)
 		{
-			return p.story.traits.HasTrait(TraitDefOf.DislikesWomen) && p.HasCorticalStack() && p.gender == Gender.Female
+			return p.story.traits.HasTrait(TraitDefOf.DislikesWomen) && p.HasPersonaStack() && p.gender == Gender.Female
 				? ThoughtState.ActiveDefault
 				: ThoughtState.Inactive;
 		}

@@ -25,9 +25,9 @@ namespace AlteredCarbon
                 JobFailReason.Is("AC.CannotCopyNoIntellectual".Translate());
                 return false;
             }
-            Thing emptyCorticalStack = GenClosest.ClosestThingReachable(pawn.Position, pawn.Map,
-                    ThingRequest.ForDef(AC_DefOf.AC_EmptyCorticalStack), PathEndMode.Touch, TraverseParms.For(pawn));
-            if (emptyCorticalStack is null)
+            Thing emptyPersonaStack = GenClosest.ClosestThingReachable(pawn.Position, pawn.Map,
+                    ThingRequest.ForDef(AC_DefOf.AC_EmptyPersonaStack), PathEndMode.Touch, TraverseParms.For(pawn));
+            if (emptyPersonaStack is null)
             {
                 JobFailReason.Is("AC.CannotRestoreBackupNoOtherEmptyStacks".Translate());
                 return false;
@@ -36,9 +36,9 @@ namespace AlteredCarbon
         }
         public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
         {
-            Thing emptyCorticalStack = GenClosest.ClosestThingReachable(pawn.Position, pawn.Map,
-                ThingRequest.ForDef(AC_DefOf.AC_EmptyCorticalStack), PathEndMode.Touch, TraverseParms.For(pawn));
-            Job job = JobMaker.MakeJob(AC_DefOf.AC_CreateStackFromBackup, t, emptyCorticalStack);
+            Thing emptyPersonaStack = GenClosest.ClosestThingReachable(pawn.Position, pawn.Map,
+                ThingRequest.ForDef(AC_DefOf.AC_EmptyPersonaStack), PathEndMode.Touch, TraverseParms.For(pawn));
+            Job job = JobMaker.MakeJob(AC_DefOf.AC_CreateStackFromBackup, t, emptyPersonaStack);
             job.count = 1;
             return job;
         }

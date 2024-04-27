@@ -46,7 +46,7 @@ namespace AlteredCarbon
                 {
                     if (personaData.restoreToEmptyStack)
                     {
-                        if (!AnyCorticalStackExist(personaData) && !AnyPawnExist(personaData))
+                        if (!AnyPersonaStackExist(personaData) && !AnyPawnExist(personaData))
                         {
                             return personaData;
                         }
@@ -56,11 +56,11 @@ namespace AlteredCarbon
             }
         }
 
-        private static bool AnyCorticalStackExist(PersonaData personaData)
+        private static bool AnyPersonaStackExist(PersonaData personaData)
         {
             foreach (var map in Find.Maps)
             {
-                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_FilledCorticalStack).Cast<CorticalStack>()
+                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_FilledPersonaStack).Cast<PersonaStack>()
                     .Any(x => x.PersonaData.IsPresetPawn(personaData) && x.Spawned && !x.Destroyed))
                 {
                     return true;
@@ -77,7 +77,7 @@ namespace AlteredCarbon
         {
             foreach (var pawn in PawnsFinder.AllMapsWorldAndTemporary_AliveOrDead)
             {
-                if (personaData.IsPresetPawn(pawn) && pawn.HasCorticalStack(out _))
+                if (personaData.IsPresetPawn(pawn) && pawn.HasPersonaStack(out _))
                 {
                     return true;
                 }
@@ -97,7 +97,7 @@ namespace AlteredCarbon
 
         public void PerformStackRestoration(Pawn doer)
         {
-            var stackRestoreTo = (CorticalStack)ThingMaker.MakeThing(AC_DefOf.AC_FilledCorticalStack);
+            var stackRestoreTo = (PersonaStack)ThingMaker.MakeThing(AC_DefOf.AC_FilledPersonaStack);
             var personaDataToRestore = FirstPersonaStackToRestore;
             stackRestoreTo.PersonaData.CopyDataFrom(personaDataToRestore, true);
             AlteredCarbonManager.Instance.RegisterStack(stackRestoreTo);
@@ -108,13 +108,13 @@ namespace AlteredCarbon
 
         public bool CanBackup(Pawn pawn)
         {
-            return pawn.Dead is false && pawn.IsColonist && pawn.HasCorticalStack(out var hediff_CorticalStack)
-                && hediff_CorticalStack.def != AC_DefOf.AC_ArchoStack;
+            return pawn.Dead is false && pawn.IsColonist && pawn.HasPersonaStack(out var hediff_PersonaStack)
+                && hediff_PersonaStack.def != AC_DefOf.AC_ArchoStack;
         }
 
         public void Backup(Pawn pawn)
         {
-            if (pawn.HasCorticalStack(out var stackHediff))
+            if (pawn.HasPersonaStack(out var stackHediff))
             {
                 var copy = new PersonaData();
                 copy.CopyFromPawn(pawn, stackHediff.SourceStack, copyRaceGenderInfo: true);

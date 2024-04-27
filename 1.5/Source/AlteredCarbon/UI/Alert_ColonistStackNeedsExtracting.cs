@@ -18,7 +18,7 @@ namespace AlteredCarbon
                 {
                     foreach (var corpse in item.listerThings.ThingsInGroup(ThingRequestGroup.Corpse).OfType<Corpse>())
                     {
-                        if (corpse.InnerPawn.IsColonist && corpse.InnerPawn.HasCorticalStack())
+                        if (corpse.InnerPawn.IsColonist && corpse.InnerPawn.HasPersonaStack())
                         {
                             corpsesWithStacksResult.Add(corpse);
                         }

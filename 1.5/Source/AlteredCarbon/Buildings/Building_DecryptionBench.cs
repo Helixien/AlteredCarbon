@@ -32,7 +32,7 @@ namespace AlteredCarbon
                 wipeStacks.Disable("NoPower".Translate().CapitalizeFirst());
             }
             yield return wipeStacks;
-            var wipeStacksBills = this.billStack.Bills.Where(x => x.recipe == AC_DefOf.AC_WipeFilledCorticalStack).ToList();
+            var wipeStacksBills = this.billStack.Bills.Where(x => x.recipe == AC_DefOf.AC_WipeFilledPersonaStack).ToList();
             if (wipeStacksBills.Any())
             {
                 yield return new Command_Action
@@ -64,14 +64,14 @@ namespace AlteredCarbon
                     });
                 }
             };
-            rewriteStack.LockBehindReseach(AC_DefOf.AC_RewriteFilledCorticalStack.researchPrerequisites);
+            rewriteStack.LockBehindReseach(AC_DefOf.AC_RewriteFilledPersonaStack.researchPrerequisites);
             if (powerComp.PowerOn is false)
             {
                 rewriteStack.Disable("NoPower".Translate().CapitalizeFirst());
             }
             yield return rewriteStack;
 
-            var rewriteStacksBills = this.billStack.Bills.Where(x => x.recipe == AC_DefOf.AC_RewriteFilledCorticalStack).ToList();
+            var rewriteStacksBills = this.billStack.Bills.Where(x => x.recipe == AC_DefOf.AC_RewriteFilledPersonaStack).ToList();
             if (rewriteStacksBills.Any())
             {
                 yield return new Command_Action
@@ -103,16 +103,16 @@ namespace AlteredCarbon
             });
         }
 
-        public bool CanAddOperationOn(CorticalStack corticalStack)
+        public bool CanAddOperationOn(PersonaStack personaStack)
         {
-            var bill = this.billStack.Bills.OfType<Bill_OperateOnStack>().Where(x => x.corticalStack == corticalStack).FirstOrDefault();
+            var bill = this.billStack.Bills.OfType<Bill_OperateOnStack>().Where(x => x.personaStack == personaStack).FirstOrDefault();
             if (bill != null)
             {
-                if (bill.recipe == AC_DefOf.AC_WipeFilledCorticalStack)
+                if (bill.recipe == AC_DefOf.AC_WipeFilledPersonaStack)
                 {
                     Messages.Message("AC.AlreadyOrderedToWipeStack".Translate(), MessageTypeDefOf.CautionInput);
                 }
-                else if (bill.recipe == AC_DefOf.AC_RewriteFilledCorticalStack)
+                else if (bill.recipe == AC_DefOf.AC_RewriteFilledPersonaStack)
                 {
                     Messages.Message("AC.AlreadyOrderedToRewriteStack".Translate(), MessageTypeDefOf.CautionInput);
                 }
@@ -127,7 +127,7 @@ namespace AlteredCarbon
             {
                 canTargetItems = true,
                 mapObjectTargetsMustBeAutoAttackable = false,
-                validator = (TargetInfo x) => x.Thing is CorticalStack stack && stack.PersonaData.ContainsInnerPersona && (includeArchoStack ||
+                validator = (TargetInfo x) => x.Thing is PersonaStack stack && stack.PersonaData.ContainsInnerPersona && (includeArchoStack ||
                 stack.IsArchoStack is false)
             };
             return targetingParameters;
@@ -135,17 +135,17 @@ namespace AlteredCarbon
 
         public void InstallWipeStackBill(LocalTargetInfo x)
         {
-            if (x.Thing is CorticalStack corticalStack && CanAddOperationOn(corticalStack))
+            if (x.Thing is PersonaStack personaStack && CanAddOperationOn(personaStack))
             {
-                billStack.AddBill(new Bill_OperateOnStack(corticalStack, AC_DefOf.AC_WipeFilledCorticalStack, null));
+                billStack.AddBill(new Bill_OperateOnStack(personaStack, AC_DefOf.AC_WipeFilledPersonaStack, null));
             }
         }
 
         private void InstallRewriteBill(LocalTargetInfo x)
         {
-            if (x.Thing is CorticalStack corticalStack && CanAddOperationOn(corticalStack))
+            if (x.Thing is PersonaStack personaStack && CanAddOperationOn(personaStack))
             {
-                Find.WindowStack.Add(new Window_StackEditor(this, corticalStack));
+                Find.WindowStack.Add(new Window_StackEditor(this, personaStack));
             }
         }
 

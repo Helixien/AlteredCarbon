@@ -9,16 +9,16 @@ using Verse;
 namespace AlteredCarbon
 {
     [HotSwappable]
-    public class Hediff_CorticalStack : Hediff_Implant
+    public class Hediff_PersonaStack : Hediff_Implant
     {
         public Ability_ArchoStackSkip skipAbility;
         public ThingDef SourceStack
         {
             get
             {
-                if (this.def == AC_DefOf.AC_CorticalStack)
+                if (this.def == AC_DefOf.AC_PersonaStack)
                 {
-                    return AC_DefOf.AC_FilledCorticalStack;
+                    return AC_DefOf.AC_FilledPersonaStack;
                 }
                 return AC_DefOf.AC_FilledArchoStack;
             }
@@ -60,7 +60,7 @@ namespace AlteredCarbon
 
             foreach (var hediff in pawn.health.hediffSet.hediffs.ToList())
             {
-                if (hediff != this && hediff is Hediff_CorticalStack otherStack)
+                if (hediff != this && hediff is Hediff_PersonaStack otherStack)
                 {
                     otherStack.preventKill = otherStack.preventSpawningStack = true;
                     pawn.health.RemoveHediff(otherStack);
@@ -144,35 +144,35 @@ namespace AlteredCarbon
             try
             {
                 var stackDef = SourceStack;
-                var corticalStack = ThingMaker.MakeThing(stackDef) as CorticalStack;
-                corticalStack.PersonaData.CopyFromPawn(this.pawn, stackDef);
-                corticalStack.PersonaData.CopyOriginalData(PersonaData);
+                var personaStack = ThingMaker.MakeThing(stackDef) as PersonaStack;
+                personaStack.PersonaData.CopyFromPawn(this.pawn, stackDef);
+                personaStack.PersonaData.CopyOriginalData(PersonaData);
                 mapToSpawn ??= this.pawn.MapHeld;
                 if (mapToSpawn != null)
                 {
-                    GenPlace.TryPlaceThing(corticalStack, this.pawn.PositionHeld, (Map)mapToSpawn, placeMode);
+                    GenPlace.TryPlaceThing(personaStack, this.pawn.PositionHeld, (Map)mapToSpawn, placeMode);
                     if (psycastEffect)
                     {
-                        FleckMaker.Static(corticalStack.Position, corticalStack.Map, AC_DefOf.PsycastAreaEffect, 3f);
+                        FleckMaker.Static(personaStack.Position, personaStack.Map, AC_DefOf.PsycastAreaEffect, 3f);
                     }
                 }
                 else if (caravan != null)
                 {
-                    CaravanInventoryUtility.GiveThing(caravan, corticalStack);
+                    CaravanInventoryUtility.GiveThing(caravan, personaStack);
                 }
                 else
                 {
-                    Log.Error("Failed to spawn cortical stack from " + pawn);
+                    Log.Error("Failed to spawn persona stack from " + pawn);
                 }
                 var degradationHediff = pawn.health.hediffSet.GetFirstHediff<Hediff_StackDegradation>();
                 if (degradationHediff != null)
                 {
-                    corticalStack.PersonaData.stackDegradation = degradationHediff.stackDegradation;
+                    personaStack.PersonaData.stackDegradation = degradationHediff.stackDegradation;
                     pawn.health.RemoveHediff(degradationHediff);
                 }
                 pawn.health.RemoveHediff(this);
-                AlteredCarbonManager.Instance.RegisterStack(corticalStack);
-                AlteredCarbonManager.Instance.RegisterSleeve(this.pawn, corticalStack);
+                AlteredCarbonManager.Instance.RegisterStack(personaStack);
+                AlteredCarbonManager.Instance.RegisterSleeve(this.pawn, personaStack);
                 if (destroyPawn)
                 {
                     if (this.pawn.Dead)

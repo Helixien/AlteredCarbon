@@ -8,7 +8,7 @@
 			<operations>
 				<!-- ================================ Adds stuff to the Deserter Store ====================== -->
 				<li Class="PatchOperationAddModExtension">
-					<xpath>Defs/ThingDef[defName="AC_EmptyCorticalStack"]</xpath>
+					<xpath>Defs/ThingDef[defName="AC_EmptyPersonaStack"]</xpath>
 					<value>
 						<li Class="VFED.ContrabandExtension">
 							<category>VFED_Imperial</category>

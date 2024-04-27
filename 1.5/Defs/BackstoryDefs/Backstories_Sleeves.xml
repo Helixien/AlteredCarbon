@@ -5,7 +5,7 @@
 		<defName>AC_VatGrownChild</defName>
 		<title>Gestated Sleeve</title>
 		<titleShort>Gestated Sleeve</titleShort>
-		<baseDesc>This body was gestated in a vat. Having no consciousness inside, it is effectively braindead and only serves as a sleeve for someone's cortical stack.</baseDesc>
+		<baseDesc>This body was gestated in a vat. Having no consciousness inside, it is effectively braindead and only serves as a sleeve for someone's persona stack.</baseDesc>
 		<slot>Childhood</slot>
 		<workDisables>
 			<li>Animals</li>
@@ -33,7 +33,7 @@
 		<defName>AC_VatGrownAdult</defName>
 		<title>Gestated Sleeve</title>
 		<titleShort>Gestated Sleeve</titleShort>
-		<baseDesc>This body was gestated in a vat. Having no consciousness inside, it is effectively braindead and only serves as a sleeve for someone's cortical stack.</baseDesc>
+		<baseDesc>This body was gestated in a vat. Having no consciousness inside, it is effectively braindead and only serves as a sleeve for someone's persona stack.</baseDesc>
 		<slot>Adulthood</slot>
 		<workDisables>
 			<li>Animals</li>

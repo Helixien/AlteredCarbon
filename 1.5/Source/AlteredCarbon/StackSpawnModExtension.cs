@@ -22,15 +22,15 @@ namespace AlteredCarbon
                 {
                     return;
                 }
-                if (pawn.HasCorticalStack() is false && Rand.Chance(chanceToSpawnWithStack / 100f))
+                if (pawn.HasPersonaStack() is false && Rand.Chance(chanceToSpawnWithStack / 100f))
                 {
                     var neckRecord = pawn.GetNeck();
                     var hediff = HediffMaker.MakeHediff(spawnArchoStack ? AC_DefOf.AC_ArchoStack 
-                        : AC_DefOf.AC_CorticalStack, pawn, neckRecord) as Hediff_CorticalStack;
+                        : AC_DefOf.AC_PersonaStack, pawn, neckRecord) as Hediff_PersonaStack;
                     pawn.health.AddHediff(hediff, neckRecord);
                 }
 
-                if (pawn.HasCorticalStack() && Rand.Chance(chanceToSpawnSleeveQuality / 100f))
+                if (pawn.HasPersonaStack() && Rand.Chance(chanceToSpawnSleeveQuality / 100f))
                 {
                     if (pawn.genes.GenesListForReading.Any(x => AC_Utils.sleeveQualities.Contains(x.def)) is false)
                     {

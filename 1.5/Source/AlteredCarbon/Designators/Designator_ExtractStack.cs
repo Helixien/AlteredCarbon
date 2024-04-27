@@ -48,7 +48,7 @@ namespace AlteredCarbon
 			{
 				return false;
 			}
-			return t is Corpse corpse && corpse.InnerPawn.HasCorticalStack(out _)
+			return t is Corpse corpse && corpse.InnerPawn.HasPersonaStack(out _)
 				? (AcceptanceReport)true
 				: (AcceptanceReport)false;
 		}

@@ -9,13 +9,13 @@ namespace AlteredCarbon
     {
         public static void Prefix(Fire __instance, Thing targ)
         {
-            if (targ is Corpse corpse && targ.HitPoints <= 3 && corpse.InnerPawn.HasCorticalStack(out var hediff))
+            if (targ is Corpse corpse && targ.HitPoints <= 3 && corpse.InnerPawn.HasPersonaStack(out var hediff))
             {
                 hediff.SpawnStack(placeMode: ThingPlaceMode.Direct);
                 __instance.Destroy(DestroyMode.Vanish);
             }
             else if (targ is Pawn pawn && pawn.health.summaryHealth.SummaryHealthPercent < 0.001f
-                && pawn.HasCorticalStack(out var hediff2))
+                && pawn.HasPersonaStack(out var hediff2))
             {
                 hediff2.SpawnStack(placeMode: ThingPlaceMode.Direct);
                 __instance.Destroy(DestroyMode.Vanish);

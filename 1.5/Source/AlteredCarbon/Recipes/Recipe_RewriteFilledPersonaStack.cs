@@ -6,12 +6,12 @@ using Verse;
 
 namespace AlteredCarbon
 {
-    public class Recipe_RewriteFilledCorticalStack : Recipe_OperateOnCorticalStack
+    public class Recipe_RewriteFilledPersonaStack : Recipe_OperateOnPersonaStack
     {
         public override void Notify_IterationCompleted(Pawn billDoer, List<Thing> ingredients)
         {
             base.Notify_IterationCompleted(billDoer, ingredients);
-            var stack = ingredients.OfType<CorticalStack>().FirstOrDefault();
+            var stack = ingredients.OfType<PersonaStack>().FirstOrDefault();
             var faction = stack.PersonaData.faction;
             if (faction != null && faction != Faction.OfPlayer) 
             {

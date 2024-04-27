@@ -10,10 +10,10 @@ namespace AlteredCarbon
     public class StackGroupData : IExposable
     {
         public Pawn originalPawn;
-        public CorticalStack originalStack;
+        public PersonaStack originalStack;
 
         public HashSet<Pawn> copiedPawns = new HashSet<Pawn>();
-        public HashSet<CorticalStack> copiedStacks = new HashSet<CorticalStack>();
+        public HashSet<PersonaStack> copiedStacks = new HashSet<PersonaStack>();
         public HashSet<Pawn> deadPawns = new HashSet<Pawn>();
         public void AssignRelationships(Pawn pawn)
         {
@@ -112,7 +112,7 @@ namespace AlteredCarbon
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 copiedPawns ??= new HashSet<Pawn>();
-                copiedStacks ??= new HashSet<CorticalStack>();
+                copiedStacks ??= new HashSet<PersonaStack>();
                 deadPawns ??= new HashSet<Pawn>();
             }
         }

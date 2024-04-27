@@ -1,10 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 	<!-- ================================ Add stacks to all starting pawns ====================== -->
 	<ScenPartDef>
-		<defName>AC_StarterCorticalStacks</defName>
-		<label>starter cortical stack</label>
-		<scenPartClass>AlteredCarbon.ScenPart_CorticalStack</scenPartClass>
+		<defName>AC_StarterPersonaStacks</defName>
+		<label>starter persona stack</label>
+		<scenPartClass>AlteredCarbon.ScenPart_PersonaStack</scenPartClass>
 		<category>PlayerPawnModifier</category>
 		<selectionWeight>1.0</selectionWeight>
 		<summaryPriority>459</summaryPriority>

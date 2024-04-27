@@ -33,8 +33,8 @@
 	<ThingDef ParentName="AC_ArchotechStackBase">
 		<defName>AC_EmptyArchotechStack</defName>
 		<label>empty archotech stack</label>
-		<description>An cortical implant built by an archotech which can store a human consciousness, commonly referred to as a persona. Once implanted directly into a person's spine in the neck it will download their consciousness and safely store it. Unlike common cortical implants, it is far more robust, will carry psylinks between bodies and if needed, act on its own to protect whoevers consciousness is stored inside it. Its internal workings are a mystery to all human minds, even those lucky or cursed enough to become its new inhabitant.</description>
-		<thingClass>AlteredCarbon.CorticalStack</thingClass>
+		<description>An persona implant built by an archotech which can store a human consciousness, commonly referred to as a persona. Once implanted directly into a person's spine in the neck it will download their consciousness and safely store it. Unlike common persona implants, it is far more robust, will carry psylinks between bodies and if needed, act on its own to protect whoevers consciousness is stored inside it. Its internal workings are a mystery to all human minds, even those lucky or cursed enough to become its new inhabitant.</description>
+		<thingClass>AlteredCarbon.PersonaStack</thingClass>
 		<graphicData>
 			<texPath>Things/Item/ArchoStacks/ArchopStackEmpty</texPath>
 			<graphicClass>Graphic_StackCount</graphicClass>
@@ -55,8 +55,8 @@
 	<ThingDef ParentName="AC_ArchotechStackBase">
 		<defName>AC_FilledArchotechStack</defName>
 		<label>archo stack</label>
-		<description>An archotech cortical implant with a human consciousness stored on it, commonly referred to as a persona. Can be implanted directly into a person's or sleeve’s spine in the neck to bring back the person stored on the stack.</description>
-		<thingClass>AlteredCarbon.CorticalStack</thingClass>
+		<description>An archotech persona implant with a human consciousness stored on it, commonly referred to as a persona. Can be implanted directly into a person's or sleeve’s spine in the neck to bring back the person stored on the stack.</description>
+		<thingClass>AlteredCarbon.PersonaStack</thingClass>
 		<graphicData>
 			<texPath>Things/Item/ArchoStacks/FriendlyArchoStack</texPath>
 			<graphicClass>Graphic_Single</graphicClass>

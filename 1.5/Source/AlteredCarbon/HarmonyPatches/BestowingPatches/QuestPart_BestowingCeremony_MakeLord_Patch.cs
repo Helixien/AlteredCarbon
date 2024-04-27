@@ -23,7 +23,7 @@ namespace AlteredCarbon
                     || titleAwardedWhenUpdating.defName == "Count"))
                 {
                     ThingOwner<Thing> innerContainer = __instance.bestower.inventory.innerContainer;
-                    innerContainer.TryAdd(ThingMaker.MakeThing(AC_DefOf.AC_EmptyCorticalStack), 1);
+                    innerContainer.TryAdd(ThingMaker.MakeThing(AC_DefOf.AC_EmptyPersonaStack), 1);
                 }
             }
         }

@@ -48,15 +48,15 @@ namespace AlteredCarbon
 
     public class Bill_InstallStack : Bill_Medical
 	{
-		public CorticalStack stackToInstall;
+		public PersonaStack stackToInstall;
 		public Bill_InstallStack()
 		{
 
 		}
 
-		public Bill_InstallStack(RecipeDef recipe, CorticalStack corticalStack) : base(recipe, null)
+		public Bill_InstallStack(RecipeDef recipe, PersonaStack personaStack) : base(recipe, null)
 		{
-			stackToInstall = corticalStack;
+			stackToInstall = personaStack;
 		}
 		public override string Label => this.stackToInstall.IsFilledStack 
 			? base.Label + " (" + (stackToInstall?.PersonaData?.PawnNameColored ?? "Destroyed".Translate()) + ")" : base.Label;

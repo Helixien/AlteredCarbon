@@ -65,7 +65,7 @@
 	<ThingDef ParentName="AC_StackBase">
 		<defName>AC_EmptyPersonaStack</defName>
 		<label>empty persona stack</label>
-		<description>An ultratech cortical implant which can store a human consciousness, commonly referred to as a persona. Once implanted directly into a person's spine in the neck it will download their consciousness and safely store it. While the death of an organic or inorganic body is no longer a concern, being a fragile piece of technology, blunt force trauma and bullets to the neck area should be avoided at all cost./n/nExtremely rare, heavily restricted and hard to produce, these implants are rare on non-ultratech worlds.</description>
+		<description>An ultratech persona implant which can store a human consciousness, commonly referred to as a persona. Once implanted directly into a person's spine in the neck it will download their consciousness and safely store it. While the death of an organic or inorganic body is no longer a concern, being a fragile piece of technology, blunt force trauma and bullets to the neck area should be avoided at all cost./n/nExtremely rare, heavily restricted and hard to produce, these implants are rare on non-ultratech worlds.</description>
 		<thingClass>AlteredCarbon.PersonaStack</thingClass>
 		<graphicData>
 			<texPath>Things/Item/PersonaStacks/EmptyStack</texPath>
@@ -123,7 +123,7 @@
 	<ThingDef ParentName="AC_StackBase">
 		<defName>AC_FilledPersonaStack</defName>
 		<label>persona stack</label>
-		<description>An ultratech cortical implant with a human consciousness stored on it, commonly referred to as a persona. Can be implanted directly into a person's or sleeve’s spine in the neck to bring back the person stored on the stack.</description>
+		<description>An ultratech persona implant with a human consciousness stored on it, commonly referred to as a persona. Can be implanted directly into a person's or sleeve’s spine in the neck to bring back the person stored on the stack.</description>
 		<thingClass>AlteredCarbon.PersonaStack</thingClass>
 		<graphicData>
 			<texPath>Things/Item/PersonaStacks/FriendlyStack</texPath>

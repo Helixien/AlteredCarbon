@@ -2,7 +2,7 @@
 
 namespace AlteredCarbon
 {
-    public class Recipe_OperateOnCorticalStack : RecipeWorker
+    public class Recipe_OperateOnPersonaStack : RecipeWorker
     {
         public override bool AvailableOnNow(Thing thing, BodyPartRecord part = null)
         {
