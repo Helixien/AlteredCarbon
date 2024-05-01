@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<Operation Class="PatchOperationSequence">
+		<operations>
+			<!-- ================================ Add Hyperlinks ====================== -->
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[defName="GeneAssembler"]/descriptionHyperlinks</xpath>
+				<value>
+					<ThingDef>AC_SleeveGestator</ThingDef>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/ThingDef[defName="Xenogerm"]/descriptionHyperlinks</xpath>
+				<value>
+					<ThingDef>AC_SleeveGestator</ThingDef>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+</Patch>

@@ -5,22 +5,24 @@
 			<li>Altered Carbon: Ultratech Unleashed</li>
 		</mods>
 	</ModSettingsFramework.ModOptionCategoryDef>
-
 	<ModSettingsFramework.ModOptionCategoryDef ParentName="AC_ModOptionsBase">
 		<defName>AC_General</defName>
-		<label>General</label>
+		<label>general</label>
 		<order>0</order>
 	</ModSettingsFramework.ModOptionCategoryDef>
-	
 	<ModSettingsFramework.ModOptionCategoryDef ParentName="AC_ModOptionsBase">
-		<defName>AC_SleeveGrowing</defName>
-		<label>Sleeve Growing</label>
-		<order>1</order>
+		<defName>AC_SleeveGestating</defName>
+		<label>sleeve gestating</label>
+		<order>10</order>
 	</ModSettingsFramework.ModOptionCategoryDef>
-	
 	<ModSettingsFramework.ModOptionCategoryDef ParentName="AC_ModOptionsBase">
 		<defName>AC_StackRewriting</defName>
-		<label>Stack Rewriting</label>
-		<order>2</order>
+		<label>stack rewriting</label>
+		<order>20</order>
+	</ModSettingsFramework.ModOptionCategoryDef>
+	<ModSettingsFramework.ModOptionCategoryDef ParentName="AC_ModOptionsBase">
+		<defName>AC_Textures</defName>
+		<label>Textures</label>
+		<order>995</order>
 	</ModSettingsFramework.ModOptionCategoryDef>
 </Defs>

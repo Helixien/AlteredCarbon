@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+	<Operation Class="AlteredCarbon.AlteredCarbonSettingsWorker_General">
+		<id>AlteredCarbon_ModSettings_General</id>
+		<order>0</order>
+		<category>AC_General</category>
+		<showTooltipAsTinyText>false</showTooltipAsTinyText>
+	</Operation>
+	<!-- ================ Stack Spawning ================ -->
+	<Operation Class="ModSettingsFramework.PatchOperationModOption">
+		<defaultValue>True</defaultValue>
+		<label>Enable stack spawning</label>
+		<tooltip>When enabled, persona stacks will have a low chance to spawn with fitting pawns of different factions. (Default: True)</tooltip>
+		<id>AC_StackSpawning</id>
+		<category>AC_General</category>
+		<order>5</order>
+		<operations>
+			<!-- ================================ Spawns stack on Core pawns ====================== -->
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="Pirate"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>3</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="Grenadier_Destructive" or defName="Grenadier_Smoke" or defName="Mercenary_Gunner" or efName="Mercenary_Gunner_Acidifier" or defName="Mercenary_Sniper" or defName="Mercenary_Sniper_Acidifier" or defName="Mercenary_Slasher" or defName="Mercenary_Slasher_Acidifier" or defName="Mercenary_Heavy"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>7</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="Mercenary_Elite" or defName="Mercenary_Elite_Acidifier"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>20</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="PirateBoss"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>40</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="Town_Guard" or defName="Town_Trader" or defName="Town_Councilman"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>2</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="SpaceRefugee" or defName="SpaceRefugee_Clothed"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>5</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="AncientSoldier" or defName="StrangerInBlack"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>25</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<!-- ================================ Spawns stack on Biotech pawns ====================== -->
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[@Name="MechanitorBase"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>20</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension">
+				<xpath>/Defs/PawnKindDef[defName="SanguophageThrall"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>10</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<!-- ================================ Spawns stack on Royalty pawns ====================== -->
+			<li Class="PatchOperationAddModExtension" MayRequire="Ludeon.RimWorld.Royalty">
+				<xpath>/Defs/PawnKindDef[@Name="EmpireCommonerBase"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>15</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension" MayRequire="Ludeon.RimWorld.Royalty">
+				<xpath>/Defs/PawnKindDef[@Name="ImperialFighterBase"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>45</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension" MayRequire="Ludeon.RimWorld.Royalty">
+				<xpath>/Defs/PawnKindDef[@Name="RoyalBase"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>45</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension" MayRequire="Ludeon.RimWorld.Royalty">
+				<xpath>/Defs/PawnKindDef[@Name="RoyalUpperBase"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>75</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAddModExtension" MayRequire="Ludeon.RimWorld.Royalty">
+				<xpath>/Defs/PawnKindDef[deName="Empire_Royal_Stellarch" or defName="Empire_Royal_Bestower" or defName="Empire_Royal_Consul"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>100</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<!-- ================================ Spawns stack on VFE-Empire and VFE-Deserter pawns ====================== -->
+			<li Class="PatchOperationAddModExtension" MayRequire="OskarPotocki.VFE.Empire">
+				<xpath>/Defs/PawnKindDef[@Name="VFEE_DeserterBase"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>15</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+			<!-- ================================ Spawns stack on VFE-Pirates pawns ====================== -->
+			<li Class="PatchOperationAddModExtension" MayRequire="OskarPotocki.VFE.Pirates">
+				<xpath>/Defs/PawnKindDef[@Name="VFEP_JunkersBase" or @Name="VFEP_MercenariesBase"]</xpath>
+				<value>
+					<li Class="AlteredCarbon.StackSpawnModExtension">
+						<chanceToSpawnWithStack>7</chanceToSpawnWithStack>
+					</li>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+	<!-- ================ Textures ================ -->
+	<Operation Class="ModSettingsFramework.PatchOperationModOption">
+		<defaultValue>False</defaultValue>
+		<label>Alternative Protector Armour</label>
+		<tooltip>Replace the vanilla friendly Protector armour texture with one more in line with the Altered Carbon TV-Show. (Default: False)</tooltip>
+		<id>AC_AlternateProtector</id>
+		<category>AC_Textures</category>
+		<order>10</order>
+		<operations>
+			<li Class="PatchOperationReplace">
+				<xpath>/Defs/ThingDef[defName = "AC_Apparel_ProtectorHelmet"]/graphicData/texPath</xpath>
+				<value>
+					<texPath>Things/Pawn/Humanlike/Apparel/AC_ProtectorArmor/AC_ProtectorHelmet</texPath>
+				</value>
+			</li>
+			<li Class="PatchOperationReplace">
+				<xpath>/Defs/ThingDef[defName = "AC_Apparel_ProtectorHelmet"]/apparel/wornGraphicPath</xpath>
+				<value>
+					<wornGraphicPath>Things/Pawn/Humanlike/Apparel/AC_ProtectorHelmet/AC_ProtectorHelmet</wornGraphicPath>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+	<!-- ================ Sleeve Gastating ================ -->
+	<Operation Class="AlteredCarbon.AlteredCarbonSettingsWorker_SleeveGrowing">
+		<order>20</order>
+		<id>AlteredCarbon_ModSettings_SleeveGrowing</id>
+		<category>AC_SleeveGestating</category>
+		<showTooltipAsTinyText>false</showTooltipAsTinyText>
+	</Operation>
+	<!-- ================ Stack Rewritting ================ -->
+	<Operation Class="AlteredCarbon.AlteredCarbonSettingsWorker_RewriteStack">
+		<order>30</order>
+		<id>AlteredCarbon_ModSettings_StackRewriting</id>
+		<category>AC_StackRewriting</category>
+		<showTooltipAsTinyText>false</showTooltipAsTinyText>
+	</Operation>
+</Patch>
