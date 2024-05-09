@@ -7,17 +7,17 @@
 	</ModSettingsFramework.ModOptionCategoryDef>
 	<ModSettingsFramework.ModOptionCategoryDef ParentName="AC_ModOptionsBase">
 		<defName>AC_General</defName>
-		<label>general</label>
+		<label>General</label>
 		<order>0</order>
 	</ModSettingsFramework.ModOptionCategoryDef>
 	<ModSettingsFramework.ModOptionCategoryDef ParentName="AC_ModOptionsBase">
 		<defName>AC_SleeveGestating</defName>
-		<label>sleeve gestating</label>
+		<label>Sleeve Gestating</label>
 		<order>10</order>
 	</ModSettingsFramework.ModOptionCategoryDef>
 	<ModSettingsFramework.ModOptionCategoryDef ParentName="AC_ModOptionsBase">
 		<defName>AC_StackRewriting</defName>
-		<label>stack rewriting</label>
+		<label>Stack Rewriting</label>
 		<order>20</order>
 	</ModSettingsFramework.ModOptionCategoryDef>
 	<ModSettingsFramework.ModOptionCategoryDef ParentName="AC_ModOptionsBase">

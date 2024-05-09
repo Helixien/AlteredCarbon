@@ -7,18 +7,17 @@
 		<description>text.todo</description>
 		<descriptionHyperlinks>
 			<ThingDef>AC_SleeveCasket</ThingDef>
-			<!-- Biotech -->
 			<ThingDef>GeneAssembler</ThingDef>
 			<ThingDef>Xenogerm</ThingDef>
 		</descriptionHyperlinks>
 		<thingClass>AlteredCarbon.Building_SleeveGestator</thingClass>
 		<graphicData>
-			<texPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorBottom</texPath>
+			<texPath>Things/Building/Misc/SleeveGastator/SleeveGastatorBottom</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<drawSize>(7,7)</drawSize>
 		</graphicData>
 		<size>(3,3)</size>
-		<uiIconPath>Things/Building/Misc/SleeveIncubator/SleeveIncubatorUI_Icon</uiIconPath>
+		<uiIconPath>Things/Building/Misc/SleeveGastator/SleeveGastator_MenuIcon</uiIconPath>
 		<uiIconScale>1.1</uiIconScale>
 		<defaultPlacingRot>South</defaultPlacingRot>
 		<designationCategory>Biotech</designationCategory>
