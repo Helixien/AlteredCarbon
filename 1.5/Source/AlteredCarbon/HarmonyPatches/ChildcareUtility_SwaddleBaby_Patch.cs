@@ -9,7 +9,7 @@ namespace AlteredCarbon
     {
         public static void Postfix(ref bool __result, Pawn baby)
         {
-            if (__result && baby.ParentHolder is Building_SleeveGrower)
+            if (__result && baby.ParentHolder is Building_SleeveGestator)
             {
                 __result = false;
             }

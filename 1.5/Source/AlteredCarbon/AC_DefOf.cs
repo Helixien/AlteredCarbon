@@ -45,8 +45,8 @@ namespace AlteredCarbon
         public static ThingDef AC_EmptyPersonaStack;
         public static ThingDef AC_FilledPersonaStack;
         public static JobDef AC_ExtractStack;
-        public static JobDef AC_StartIncubatingProcess;
-        public static JobDef AC_CancelIncubatingProcess;
+        public static JobDef AC_StartGestationProcess;
+        public static JobDef AC_CancelGestationProcess;
         public static JobDef AC_TakeEmptySleeve;
         public static HediffDef AC_PersonaStack;
         public static GeneDef AC_SleeveQuality_Awful;
@@ -58,7 +58,7 @@ namespace AlteredCarbon
         public static GeneDef AC_SleeveQuality_Legendary;
         public static HediffDef AC_EmptySleeve;
         public static HediffDef AC_SleeveShock;
-        public static ThingDef AC_SleeveIncubator;
+        public static ThingDef AC_SleeveGestator;
         public static ThingDef AC_SleeveCasket;
         public static ThingDef AC_DecryptionBench;
         public static RecipeDef AC_WipeFilledPersonaStack;
@@ -101,8 +101,7 @@ namespace AlteredCarbon
         public static JobDef AC_CreateStackFromBackup;
         public static JobDef AC_HaulingStacks;
         public static ResearchProjectDef Xenogermination;
-        public static JobDef AC_InsertingThingIntoProcessor;
-        public static JobDef AC_HaulCorpseToSleeveGrower;
+        public static JobDef AC_HaulCorpseToGestation;
         public static JobDef AC_CancelRepurposingBody;
         public static ResearchProjectDef AC_RewritePersonaStack;
         public static EffecterDef AC_Hacking;
@@ -113,9 +112,7 @@ namespace AlteredCarbon
         [MayRequireIdeology] public static PreceptDef AC_CrossSleeving_Despised;
         [MayRequireIdeology] public static HistoryEventDef AC_RewroteStack;
 
-        public static ThoughtDef AC_CortexOverseerFreed;
         public static RecipeDef AC_HackBiocodedThings;
-
         public static ThingDef AC_Apparel_DragoonHelmet;
         public static ThingDef AC_Apparel_FusilierHelmet;
     }

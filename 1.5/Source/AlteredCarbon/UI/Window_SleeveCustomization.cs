@@ -18,7 +18,7 @@ namespace AlteredCarbon
         //Variables
         public Pawn curSleeve;
         private PawnKindDef currentPawnKindDef;
-        private readonly Building_SleeveGrower sleeveGrower;
+        private readonly Building_SleeveGestator sleeveGrower;
         private Xenogerm curXenogerm;
         public bool convertXenogenesToEndogenes;
         public List<Gene> convertedGenes = new List<Gene>();
@@ -92,14 +92,14 @@ namespace AlteredCarbon
             }
         }
 
-        public Window_SleeveCustomization(Building_SleeveGrower sleeveGrower)
+        public Window_SleeveCustomization(Building_SleeveGestator sleeveGrower)
         {
             this.sleeveGrower = sleeveGrower;
             Init(PawnKindDefOf.Colonist);
             InitUI();
         }
 
-        public Window_SleeveCustomization(Building_SleeveGrower sleeveGrower, Pawn pawnToClone)
+        public Window_SleeveCustomization(Building_SleeveGestator sleeveGrower, Pawn pawnToClone)
         {
             this.sleeveGrower = sleeveGrower;
             Init(pawnToClone.kindDef, pawnToClone.gender);

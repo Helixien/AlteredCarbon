@@ -23,7 +23,7 @@ namespace AlteredCarbon
             {
                 initAction = delegate ()
                 {
-                    Building_SleeveGrower grower = (Building_SleeveGrower)TargetA.Thing;
+                    Building_SleeveGestator grower = (Building_SleeveGestator)TargetA.Thing;
                     grower.EjectContents();
                 }
             };

@@ -5,7 +5,7 @@ namespace AlteredCarbon
 {
     public class JobDriver_CancelIncubatingProcess : JobDriver
     {
-        public Building_SleeveGrower Building_Incubator => TargetA.Thing as Building_SleeveGrower;
+        public Building_SleeveGestator Building_Incubator => TargetA.Thing as Building_SleeveGestator;
         public override bool TryMakePreToilReservations(bool errorOnFailed)
         {
             return pawn.Reserve(TargetA, job);

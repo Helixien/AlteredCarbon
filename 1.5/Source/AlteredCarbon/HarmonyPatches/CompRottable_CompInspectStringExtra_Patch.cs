@@ -11,7 +11,7 @@ namespace AlteredCarbon
     {
         public static bool Prefix(CompRottable __instance, ref string __result)
         {
-            if (__instance.parent is Corpse && __instance.parent.ParentHolder is Building_SleeveGrower)
+            if (__instance.parent is Corpse && __instance.parent.ParentHolder is Building_SleeveGestator)
             {
                 __result = CompInspectStringExtra(__instance);
                 return false;

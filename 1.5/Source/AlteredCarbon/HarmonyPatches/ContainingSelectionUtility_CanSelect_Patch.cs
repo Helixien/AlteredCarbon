@@ -9,7 +9,7 @@ namespace AlteredCarbon
 	{
 		public static void Postfix(ref bool __result, Thing carriedThing, Thing container)
 		{
-			if (!__result && container is Building_SleeveGrower && carriedThing is Corpse)
+			if (!__result && container is Building_SleeveGestator && carriedThing is Corpse)
 				__result = true;
 		}
 	}

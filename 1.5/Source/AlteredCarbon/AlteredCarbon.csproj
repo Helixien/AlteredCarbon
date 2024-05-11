@@ -38,15 +38,15 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="AlienRace">
-      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\839005762\1.4\Assemblies\AlienRace.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\839005762\1.5\Assemblies\AlienRace.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="BadHygiene">
-      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\836308268\1.4\Assemblies\BadHygiene.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\836308268\1.5\Assemblies\BadHygiene.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Psychology">
-      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\2016263135\1.4\Assemblies\Psychology.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\2016263135\1.5\Assemblies\Psychology.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="RJW">
@@ -63,7 +63,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="VFEAncients">
-      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\2654846754\1.4\Assemblies\VFEAncients.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\2654846754\1.5\Assemblies\VFEAncients.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VFECore">
@@ -75,7 +75,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="VSE">
-      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\2854967442\1.4\Assemblies\VSE.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\2854967442\1.5\Assemblies\VSE.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -84,6 +84,7 @@
     <Compile Include="AlteredCarbonSettingsWorker_SleeveGrowing.cs" />
     <Compile Include="Buildings\Building_DecryptionBench.cs" />
     <Compile Include="Buildings\Building_Incubator.cs" />
+    <Compile Include="Buildings\Building_SleeveGestator.cs" />
     <Compile Include="CompApparelAbilities.cs" />
     <Compile Include="HarmonyPatches\Alert_ColonistLeftUnburied_IsCorpseOfColonist_Patch.cs" />
     <Compile Include="HarmonyPatches\Apparel_Notify_PawnKilled_Patch.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="HarmonyPatches\TraitSet_GainTrait_Patch.cs" />
     <Compile Include="HarmonyPatches\TransferableUtility_CanStack_Patch.cs" />
     <Compile Include="HediffComp_MeleeWeapon.cs" />
+    <Compile Include="Jobs\JobDriver_HaulCorpseToGestation.cs" />
     <Compile Include="Jobs\JobDriver_TakeEmptySleeve.cs" />
     <Compile Include="HarmonyPatches\PawnRenderer_LayingFacing_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnUtility_ShouldSendNotificationAbout_Patch.cs" />
@@ -120,6 +122,7 @@
     <Compile Include="HarmonyPatches\Pawn_GuestTracker_Notify_PawnUndowned_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_IdeoTracker_ExposeData_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnRenderer_EquipmentRender_Patch.cs" />
+    <Compile Include="Jobs\WorkGiver_HaulCorpseToSleeveGrower.cs" />
     <Compile Include="Recipes\Bill_RewriteStack.cs" />
     <Compile Include="HarmonyPatches\JobDriver_DoBill_MakeNewToils_Patch.cs" />
     <Compile Include="Recipes\Recipe_OperateOnPersonaStack.cs" />
@@ -195,7 +198,6 @@
     <Compile Include="Buildings\Building_SleeveCasket.cs" />
     <Compile Include="Jobs\JobDriver_ReleaseSleeve.cs" />
     <Compile Include="HarmonyPatches\Pawn_HealthTracker_CheckForStateChange_Patch.cs" />
-    <Compile Include="Buildings\Building_SleeveGrower.cs" />
     <Compile Include="UI\Window_SelectItem.cs" />
     <Compile Include="UI\Window_SleeveCustomization.cs" />
     <Compile Include="ExcludeRacesModExtension.cs" />
@@ -231,19 +233,12 @@
     <Compile Include="Jobs\JobDriver_CancelRepurposingBody.cs" />
     <Compile Include="Jobs\JobDriver_CreateStackFromBackup.cs" />
     <Compile Include="Jobs\JobDriver_DuplicateStack.cs" />
-    <Compile Include="Jobs\JobDriver_HaulCorpseToSleeveGrower.cs" />
     <Compile Include="Jobs\JobDriver_HaulStackToStackArray.cs" />
     <Compile Include="Jobs\WorkGiver_CancelRepurposingBody.cs" />
     <Compile Include="Jobs\WorkGiver_CreateStackFromBackup.cs" />
     <Compile Include="Jobs\WorkGiver_DuplicateStacks.cs" />
-    <Compile Include="Jobs\WorkGiver_HaulCorpseToSleeveGrower.cs" />
     <Compile Include="Jobs\WorkGiver_HaulStacks.cs" />
-    <Compile Include="Misc\Hediff_CortexOverseer.cs" />
-    <Compile Include="Misc\Recipe_DeactivateCortexOverseer.cs" />
     <Compile Include="Misc\RoomRoleWorker_UltraTech.cs" />
-    <Compile Include="HarmonyPatches\TerrorUtility_GetTerrorLevel_Patch.cs" />
-    <Compile Include="Misc\ThoughtWorker_CortexOverseerInstalled.cs" />
-    <Compile Include="Misc\ThoughtWorker_CortexOverseerDeactivated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recipes\Recipe_HackBiocodedThings.cs" />
     <Compile Include="Recipes\Recipe_RewriteFilledPersonaStack.cs" />

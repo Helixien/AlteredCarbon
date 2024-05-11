@@ -11,7 +11,7 @@ using Verse.Sound;
 namespace AlteredCarbon
 {
     [HotSwappable]
-    public class Building_SleeveGrower : Building_Incubator, IThingHolderWithDrawnPawn
+    public class Building_SleeveGestator : Building_Incubator, IThingHolderWithDrawnPawn
     {
         public Xenogerm xenogermToConsume;
         public Corpse corpseToRepurpose;

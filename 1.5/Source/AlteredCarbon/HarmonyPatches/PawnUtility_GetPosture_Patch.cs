@@ -10,8 +10,8 @@ namespace AlteredCarbon
     {
         public static void Postfix(Pawn p, ref PawnPosture __result)
         {
-            if (__result == PawnPosture.LayingMask && (p.ParentHolder is Corpse corpse && corpse.ParentHolder is Building_SleeveGrower 
-                || p.ParentHolder is Building_SleeveGrower))
+            if (__result == PawnPosture.LayingMask && (p.ParentHolder is Corpse corpse && corpse.ParentHolder is Building_SleeveGestator 
+                || p.ParentHolder is Building_SleeveGestator))
             {
                 __result = PawnPosture.Standing;
             }

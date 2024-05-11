@@ -5,9 +5,9 @@ using Verse.AI;
 
 namespace AlteredCarbon
 {
-    public class JobDriver_HaulCorpseToSleeveGrower : JobDriver_HaulToContainer
+    public class JobDriver_HaulCorpseToGestation : JobDriver_HaulToContainer
     {
-        public Building_SleeveGrower Building_Incubator => TargetA.Thing as Building_SleeveGrower;
+        public Building_SleeveGestator Building_Incubator => TargetA.Thing as Building_SleeveGestator;
         public override bool TryMakePreToilReservations(bool errorOnFailed)
         {
             return TargetB.IsValid ? pawn.Reserve(TargetA, job) && pawn.Reserve(TargetB, job) : pawn.Reserve(TargetA, job);

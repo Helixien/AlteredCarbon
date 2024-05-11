@@ -19,12 +19,6 @@
 		<techHediffsTags Inherit="False">
 			<li>Ultra</li>
 		</techHediffsTags>
-		<comps>
-			<li Class="HediffCompProperties_ReactOnDamage">
-				<damageDefIncoming>EMP</damageDefIncoming>
-				<createHediff>BrainShock</createHediff>
-			</li>
-		</comps>
 		<modExtensions>
 			<li Class="AlteredCarbon.StackSavingOptionsModExtension">
 				<ignoresTraits>
@@ -61,6 +55,15 @@
 			</li>
 		</modExtensions>
 	</ThingDef>
+	
+	<HediffDef Name="AC_ImplantStackBase" Abstract="True" ParentName="ImplantHediffBase">
+		<comps>
+			<li Class="HediffCompProperties_ReactOnDamage">
+				<damageDefIncoming>EMP</damageDefIncoming>
+				<createHediff>BrainShock</createHediff>
+			</li>
+		</comps>
+	</HediffDef>
 	<!-- ================================ Empty Persona Stack ====================== -->
 	<ThingDef ParentName="AC_StackBase">
 		<defName>AC_EmptyPersonaStack</defName>
@@ -143,7 +146,7 @@
 		</inspectorTabs>
 	</ThingDef>
 	<!-- ================================ Persona Stack Hediff ====================== -->
-	<HediffDef ParentName="ImplantHediffBase">
+	<HediffDef ParentName="AC_ImplantStackBase">
 		<defName>AC_PersonaStack</defName>
 		<label>persona stack</label>
 		<labelNoun>a persona stack</labelNoun>
@@ -231,7 +234,7 @@
 		<modExtensions Inherit="False"/>
 	</ThingDef>
 	<!-- ================================ Parroter Stack Hediff	====================== -->
-	<HediffDef ParentName="ImplantHediffBase">
+	<HediffDef ParentName="AC_ImplantStackBase">
 		<defName>AC_ParroterStack</defName>
 		<label>parroter stack</label>
 		<labelNoun>a parroter stack</labelNoun>

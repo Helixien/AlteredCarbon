@@ -11,7 +11,7 @@ namespace AlteredCarbon
 		public override PathEndMode PathEndMode => PathEndMode.InteractionCell;
 		public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)
 		{
-			foreach (var thing in pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_SleeveIncubator))
+			foreach (var thing in pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_SleeveGestator))
             {
 				yield return thing;
             }
@@ -26,7 +26,7 @@ namespace AlteredCarbon
 			{
 				return false;
 			}
-			if (t is Building_SleeveGrower sleeveGrower && sleeveGrower.targetBodyType is null)
+			if (t is Building_SleeveGestator sleeveGrower && sleeveGrower.targetBodyType is null)
 			{
 				return false;
 			}
@@ -35,7 +35,7 @@ namespace AlteredCarbon
 
 		public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
 		{
-			var grower = t as Building_SleeveGrower;
+			var grower = t as Building_SleeveGestator;
 			if (grower.xenogermToConsume != null)
 			{
 				if (grower.xenogermToConsume.Destroyed || grower.xenogermToConsume.Spawned is false 
@@ -43,9 +43,9 @@ namespace AlteredCarbon
 				{
 					return null;
 				}
-                return JobMaker.MakeJob(AC_DefOf.AC_StartIncubatingProcess, t, grower.xenogermToConsume);
+                return JobMaker.MakeJob(AC_DefOf.AC_StartGestationProcess, t, grower.xenogermToConsume);
             }
-            return JobMaker.MakeJob(AC_DefOf.AC_StartIncubatingProcess, t);
+            return JobMaker.MakeJob(AC_DefOf.AC_StartGestationProcess, t);
 		}
 	}
 }

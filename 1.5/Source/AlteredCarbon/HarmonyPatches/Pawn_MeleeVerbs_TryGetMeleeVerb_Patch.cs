@@ -21,8 +21,6 @@ namespace AlteredCarbon
                     if (Find.TickManager.TicksGame >= __instance.curMeleeVerbUpdateTick + 60)
                     {
                         var verb = GetMeleeWeaponVerb(__instance.pawn, __instance.curMeleeVerbTarget, hediffComp);
-                        if (Find.Selector.SelectedPawns.Contains(__instance.pawn))
-                            Log.Message("Changing verb 1: " + verb + " for " + target + " - " + __instance.curMeleeVerbTarget);
                         if (verb != null)
                         {
                             __instance.SetCurMeleeVerb(verb, __instance.curMeleeVerbTarget);
@@ -40,8 +38,6 @@ namespace AlteredCarbon
                     if (target == __instance.curMeleeVerbTarget)
                     {
                         verb = GetMeleeWeaponVerb(__instance.pawn, target, hediffComp);
-                        if (Find.Selector.SelectedPawns.Contains(__instance.pawn))
-                            Log.Message("Changing verb 2: " + verb + " for " + target + " - " + __instance.curMeleeVerbTarget);
                         if (verb != null)
                         {
                             __instance.SetCurMeleeVerb(verb, target);
@@ -51,8 +47,6 @@ namespace AlteredCarbon
                         else
                         {
                             verb = GetMeleeWeaponVerb(__instance.pawn, target);
-                            if (Find.Selector.SelectedPawns.Contains(__instance.pawn))
-                                Log.Message("Changing verb 3: " + verb + " for " + target + " - " + __instance.curMeleeVerbTarget);
                             if (verb != null)
                             {
                                 __instance.SetCurMeleeVerb(verb, target);
@@ -64,8 +58,6 @@ namespace AlteredCarbon
                     else
                     {
                         verb = GetMeleeWeaponVerb(__instance.pawn, target);
-                        if (Find.Selector.SelectedPawns.Contains(__instance.pawn))
-                            Log.Message("Changing verb 4: " + verb + " for " + target + " - " + __instance.curMeleeVerbTarget);
                         if (verb != null)
                         {
                             __instance.SetCurMeleeVerb(verb, target);
@@ -85,9 +77,7 @@ namespace AlteredCarbon
             else
             {
                 var verb = GetMeleeWeaponVerb(__instance.pawn, target);
-                if (Find.Selector.SelectedPawns.Contains(__instance.pawn))
-                    Log.Message("Changing verb 5: " + verb + " for " + target);
-                if (verb != null)
+               if (verb != null)
                 {
                     __instance.SetCurMeleeVerb(verb, target);
                     __result = verb;

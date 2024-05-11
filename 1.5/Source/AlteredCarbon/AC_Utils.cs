@@ -100,7 +100,7 @@ namespace AlteredCarbon
                 {
                     return true;
                 }
-                return def == AC_DefOf.AC_SleeveIncubator
+                return def == AC_DefOf.AC_SleeveGestator
                     || def == AC_DefOf.AC_SleeveCasket || def == AC_DefOf.AC_SleeveCasket
                     || def == AC_DefOf.AC_StackArray
                     || def == AC_DefOf.AC_DecryptionBench;
@@ -262,7 +262,6 @@ namespace AlteredCarbon
                 AC_DefOf.AC_HackBiocodedThings.defaultIngredientFilter.thingDefs.Add(thingDef);
                 AC_DefOf.AC_HackBiocodedThings.defaultIngredientFilter.SetAllow(thingDef, true);
             }
-
             ApplySettings();
         }
 
