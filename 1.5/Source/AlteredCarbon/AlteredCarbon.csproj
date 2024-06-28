@@ -125,8 +125,11 @@
     <Compile Include="Jobs\WorkGiver_HaulCorpseToSleeveGrower.cs" />
     <Compile Include="Recipes\Bill_RewriteStack.cs" />
     <Compile Include="HarmonyPatches\JobDriver_DoBill_MakeNewToils_Patch.cs" />
+    <Compile Include="Recipes\Recipe_InstallParroterStack.cs" />
     <Compile Include="Recipes\Recipe_OperateOnPersonaStack.cs" />
+    <Compile Include="Recipes\Recipe_RemoveParroterStack.cs" />
     <Compile Include="SleevePreset.cs" />
+    <Compile Include="Stacks\Hediff_ParroterStack.cs" />
     <Compile Include="Stacks\RJWData.cs" />
     <Compile Include="Stacks\Thought_StackDegradation.cs" />
     <Compile Include="UI\Alert_ColonistStackNeedsExtracting.cs" />

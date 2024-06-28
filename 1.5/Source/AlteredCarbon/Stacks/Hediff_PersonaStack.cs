@@ -41,6 +41,8 @@ namespace AlteredCarbon
             }
         }
 
+        public Hediff_ParroterStack needleCastingInto;
+
         public override IEnumerable<Gizmo> GetGizmos()
         {
             if (this.def == AC_DefOf.AC_ArchotechStack)
@@ -48,6 +50,20 @@ namespace AlteredCarbon
                 if (skipAbility.ShowGizmoOnPawn())
                 {
                     yield return skipAbility.GetGizmo();
+                }
+            }
+            else
+            {
+                if (pawn.IsColonistPlayerControlled)
+                {
+                    if (needleCastingInto is not null)
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
                 }
             }
             yield break;
@@ -207,6 +223,7 @@ namespace AlteredCarbon
             base.ExposeData();
             Scribe_Deep.Look(ref personaData, "personaData");
             Scribe_Deep.Look(ref skipAbility, "skipAbility");
+            Scribe_References.Look(ref needleCastingInto, "needleCastingInto");
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 CreateSkipAbilityIfMissing();
