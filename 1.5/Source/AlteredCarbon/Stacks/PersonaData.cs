@@ -131,6 +131,11 @@ namespace AlteredCarbon
         private RJWData rjwData;
         // Vanilla Skills Expanded
         private List<IExposable> expertiseRecords;
+
+        // Vanilla Aspiration Expanded
+        private List<Def> aspirations = new List<Def>();
+        private List<int> aspirationsCompletedTicks = new List<int>();
+
         // misc
         public bool? diedFromCombat;
         public bool restoreToEmptyStack = true;
@@ -589,6 +594,12 @@ namespace AlteredCarbon
                 expertiseRecords = ModCompatibility.GetExpertises(pawn);
             }
 
+            if (ModCompatibility.VanillaAspirationsExpandedIsActive)
+            {
+                aspirations = ModCompatibility.GetAspirations(pawn);
+                aspirationsCompletedTicks = ModCompatibility.GetCompletedAspirations(pawn);
+            }
+
             var stackDegradationHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_StackDegradation) as Hediff_StackDegradation;
             if (stackDegradationHediff != null)
             {
@@ -816,9 +827,14 @@ namespace AlteredCarbon
             {
                 ModCompatibility.SetRjwData(pawn, rjwData);
             }
-            if (ModCompatibility.VanillaSkillsExpandedIsActive && expertiseRecords != null)
+            if (ModCompatibility.VanillaSkillsExpandedIsActive)
             {
                 ModCompatibility.SetExpertises(pawn, expertiseRecords);
+            }
+            if (ModCompatibility.VanillaAspirationsExpandedIsActive)
+            {
+                ModCompatibility.SetAspirations(pawn, aspirations);
+                ModCompatibility.SetCompletedAspirations(pawn, aspirationsCompletedTicks);
             }
         }
 
@@ -1590,6 +1606,12 @@ namespace AlteredCarbon
             if (ModCompatibility.VanillaSkillsExpandedIsActive)
             {
                 Scribe_Collections.Look(ref expertiseRecords, "expertiseRecords", LookMode.Deep, hostPawn);
+            }
+
+            if (ModCompatibility.VanillaAspirationsExpandedIsActive)
+            {
+                Scribe_Collections.Look(ref aspirations, "aspirations", LookMode.Def);
+                Scribe_Collections.Look(ref aspirationsCompletedTicks, nameof(aspirationsCompletedTicks), LookMode.Value);
             }
 
             Scribe_Values.Look(ref restoreToEmptyStack, "restoreToEmptyStack", true);

@@ -24,6 +24,8 @@ namespace AlteredCarbon
         public static bool VanillaSkillsExpandedIsActive;
         public static bool VanillaFactionsExpandedAncientsIsActive;
         public static bool VanillaRacesExpandedAndroidIsActive;
+        public static bool VanillaAspirationsExpandedIsActive;
+
         static ModCompatibility()
         {
             AlienRacesIsActive = ModsConfig.IsActive("erdelf.HumanoidAlienRaces");
@@ -49,9 +51,10 @@ namespace AlteredCarbon
 				AC_Utils.harmony.Patch(AccessTools.Method("VREAndroids.CharacterCardUtility_DoLeftSection_Patch:Prefix"),
 				new HarmonyMethod(AccessTools.Method(typeof(ModCompatibility), "CharacterCardUtility_DoLeftSection_PatchPrefix")));
             }
+            VanillaAspirationsExpandedIsActive = ModsConfig.IsActive("VanillaExpanded.VanillaAspirationsExpanded");
         }
 
-		public static bool CharacterCardUtility_DoLeftSection_PatchPrefix(Pawn __0, ref bool __result)
+        public static bool CharacterCardUtility_DoLeftSection_PatchPrefix(Pawn __0, ref bool __result)
 		{
 			if (__0.HasPersonaStack())
 			{
@@ -122,9 +125,64 @@ namespace AlteredCarbon
             if (expertiseTracker != null)
             {
 				expertiseTracker.ClearExpertise();
-				foreach (var expertise in expertises.Cast<VSE.ExpertiseRecord>())
+				if (expertises != null)
 				{
-                    expertiseTracker.AllExpertise.Add(expertise);
+                    foreach (var expertise in expertises.Cast<VSE.ExpertiseRecord>())
+                    {
+                        expertiseTracker.AllExpertise.Add(expertise);
+                    }
+                }
+            }
+        }
+
+        public static List<Def> GetAspirations(Pawn pawn)
+        {
+			var need = pawn.needs.TryGetNeed<VAspirE.Need_Fulfillment>();
+            if (need != null)
+            {
+                return need.Aspirations.Cast<Def>().ToList();
+            }
+            return null;
+        }
+
+        public static void SetAspirations(Pawn pawn, List<Def> aspirations)
+        {
+            var need = pawn.needs.TryGetNeed<VAspirE.Need_Fulfillment>();
+            if (need != null)
+            {
+				need.Aspirations.Clear();
+				if (aspirations != null)
+				{
+                    foreach (var aspiration in aspirations.Cast<VAspirE.AspirationDef>())
+                    {
+                        need.Aspirations.Add(aspiration);
+                    }
+                }
+            }
+        }
+
+        public static List<int> GetCompletedAspirations(Pawn pawn)
+        {
+            var need = pawn.needs.TryGetNeed<VAspirE.Need_Fulfillment>();
+            if (need != null)
+            {
+                return need.completedTicks.ToList();
+            }
+            return null;
+        }
+
+        public static void SetCompletedAspirations(Pawn pawn, List<int> completedTicks)
+        {
+            var need = pawn.needs.TryGetNeed<VAspirE.Need_Fulfillment>();
+            if (need != null)
+            {
+                need.completedTicks.Clear();
+				if (completedTicks != null)
+				{
+                    foreach (var ticks in completedTicks)
+                    {
+                        need.completedTicks.Add(ticks);
+                    }
                 }
             }
         }
