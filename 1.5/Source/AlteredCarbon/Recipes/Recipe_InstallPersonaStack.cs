@@ -193,8 +193,14 @@ namespace AlteredCarbon
 
             if (hediff.PersonaData.diedFromCombat.HasValue && hediff.PersonaData.diedFromCombat.Value)
             {
-                pawn.health.AddHediff(HediffMaker.MakeHediff(AC_DefOf.AC_SleeveShock, pawn));
                 hediff.PersonaData.diedFromCombat = null;
+            }
+
+            if (pawn.story.traits.HasTrait(AC_DefOf.AC_Sleever) is false)
+            {
+                var sleeveShock = HediffMaker.MakeHediff(AC_DefOf.AC_SleeveShock, pawn);
+                sleeveShock.Severity = Rand.Range(0.2f, 1f);
+                pawn.health.AddHediff(sleeveShock);
             }
             pawn.needs.AddOrRemoveNeedsAsAppropriate();
         }
