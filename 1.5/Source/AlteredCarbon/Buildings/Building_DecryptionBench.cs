@@ -20,7 +20,7 @@ namespace AlteredCarbon
             {
                 defaultLabel = "AC.WipeStack".Translate(),
                 defaultDesc = "AC.WipeStackDesc".Translate(),
-                icon = ContentFinder<Texture2D>.Get("UI/Icons/WipeStack"),
+                icon = ContentFinder<Texture2D>.Get("UI/Gizmos/WipeStack"),
                 activateSound = SoundDefOf.Tick_Tiny,
                 action = delegate ()
                 {
@@ -54,7 +54,7 @@ namespace AlteredCarbon
             {
                 defaultLabel = "AC.RewriteStack".Translate(),
                 defaultDesc = "AC.RewriteStackDesc".Translate(),
-                icon = ContentFinder<Texture2D>.Get("UI/Icons/EditStack"),
+                icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EditStack"),
                 activateSound = SoundDefOf.Tick_Tiny,
                 action = delegate ()
                 {

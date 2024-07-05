@@ -182,7 +182,7 @@ namespace AlteredCarbon
                         defaultDesc = "AC.CancelSleeveBodyGrowingDesc".Translate(),
                         hotKey = KeyBindingDefOf.Misc8,
                         activateSound = SoundDefOf.Tick_Tiny,
-                        icon = ContentFinder<Texture2D>.Get("UI/Icons/CancelSleeve")
+                        icon = ContentFinder<Texture2D>.Get("UI/Gizmos/CancelSleeve")
                     };
                     yield return cancelSleeveBody;
                 }
@@ -196,7 +196,7 @@ namespace AlteredCarbon
                     defaultDesc = "AC.CreateSleeveBodyDesc".Translate(),
                     activateSound = SoundDefOf.Tick_Tiny,
                     hotKey = KeyBindingDefOf.Misc8,
-                    icon = ContentFinder<Texture2D>.Get("UI/Icons/CreateSleeve", true)
+                    icon = ContentFinder<Texture2D>.Get("UI/Gizmos/CreateSleeve", true)
                 };
                 createSleeveBody.LockBehindReseach(this.def.researchPrerequisites);
                 yield return createSleeveBody;
@@ -208,7 +208,7 @@ namespace AlteredCarbon
                     defaultDesc = "AC.CloneSleeveDesc".Translate(),
                     hotKey = KeyBindingDefOf.Misc8,
                     activateSound = SoundDefOf.Tick_Tiny,
-                    icon = ContentFinder<Texture2D>.Get("UI/Icons/CloneSleeve", true)
+                    icon = ContentFinder<Texture2D>.Get("UI/Gizmos/CloneSleeve", true)
                 };
                 copySleeveBody.LockBehindReseach(this.def.researchPrerequisites);
                 yield return copySleeveBody;
@@ -232,7 +232,7 @@ namespace AlteredCarbon
                     defaultDesc = "AC.RepurposeCorpseDesc".Translate(),
                     hotKey = KeyBindingDefOf.Misc8,
                     activateSound = SoundDefOf.Tick_Tiny,
-                    icon = ContentFinder<Texture2D>.Get("UI/Icons/ReuseSleeve", true)
+                    icon = ContentFinder<Texture2D>.Get("UI/Gizmos/ReuseSleeve", true)
                 };
 
                 if (powerTrader.PowerOn is false)

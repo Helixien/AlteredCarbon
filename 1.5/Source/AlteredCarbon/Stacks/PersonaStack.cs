@@ -266,7 +266,7 @@ namespace AlteredCarbon
                 {
                     defaultLabel = "AC.AutoLoad".Translate(),
                     defaultDesc = "AC.AutoLoadDesc".Translate(),
-                    icon = ContentFinder<Texture2D>.Get("UI/Icons/AutoLoadStack"),
+                    icon = ContentFinder<Texture2D>.Get("UI/Gizmos/AutoLoadStack"),
                     isActive = () => autoLoad,
                     toggleAction = delegate
                     {

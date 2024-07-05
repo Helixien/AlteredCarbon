@@ -87,7 +87,7 @@ namespace AlteredCarbon
                 {
                     defaultLabel = "AC.DuplicateStack".Translate(),
                     defaultDesc = "AC.DuplicateStackDesc".Translate(),
-                    icon = ContentFinder<Texture2D>.Get("UI/Icons/DuplicateStack"),
+                    icon = ContentFinder<Texture2D>.Get("UI/Gizmos/DuplicateStack"),
                     activateSound = SoundDefOf.Tick_Tiny,
                     action = delegate ()
                     {
@@ -143,7 +143,7 @@ namespace AlteredCarbon
                     var ejectAll = new Command_Action();
                     ejectAll.defaultLabel = "AC.EjectAll".Translate();
                     ejectAll.defaultDesc = "AC.EjectAllDesc".Translate();
-                    ejectAll.icon = ContentFinder<Texture2D>.Get("UI/Icons/EjectAllStacks");
+                    ejectAll.icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EjectAllStacks");
                     ejectAll.action = delegate
                     {
                         EjectContents();
@@ -156,7 +156,7 @@ namespace AlteredCarbon
                 {
                     defaultLabel = "AC.EnableBackup".Translate(),
                     defaultDesc = "AC.EnableBackupDesc".Translate(),
-                    icon = ContentFinder<Texture2D>.Get("UI/Icons/EnableBackup"),
+                    icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EnableBackup"),
                     activateSound = SoundDefOf.Tick_Tiny,
                     toggleAction = delegate ()
                     {
@@ -171,7 +171,7 @@ namespace AlteredCarbon
                     {
                         defaultLabel = "AC.BackupAllStacks".Translate(),
                         defaultDesc = "AC.BackupAllStacksDesc".Translate(),
-                        icon = ContentFinder<Texture2D>.Get("UI/Icons/BackupAllStacks"),
+                        icon = ContentFinder<Texture2D>.Get("UI/Gizmos/BackupAllStacks"),
                         activateSound = SoundDefOf.Tick_Tiny,
                         action = delegate
                         {
@@ -188,7 +188,7 @@ namespace AlteredCarbon
                 {
                     defaultLabel = "AC.EnableAutoRestore".Translate(),
                     defaultDesc = "AC.EnableAutoRestoreDesc".Translate(),
-                    icon = ContentFinder<Texture2D>.Get("UI/Icons/EnableAutoRestore"),
+                    icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EnableAutoRestore"),
                     activateSound = SoundDefOf.Tick_Tiny,
                     toggleAction = delegate ()
                     {
