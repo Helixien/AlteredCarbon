@@ -98,10 +98,6 @@
 		</addDesignators>
 		<thingStyleCategories>
 			<li>
-				<category>AC_Ultrist</category>
-				<priority>2</priority>
-			</li>
-			<li>
 				<category>Techist</category>
 				<priority>4</priority>
 			</li>
