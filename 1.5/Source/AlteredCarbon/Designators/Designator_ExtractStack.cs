@@ -17,7 +17,7 @@ namespace AlteredCarbon
 			defaultLabel = "AC.DesignatorExtractStack".Translate();
 			defaultDesc = "AC.DesignatorExtractStackDesc".Translate();
 			activateSound = SoundDefOf.Tick_Tiny;
-			icon = ContentFinder<Texture2D>.Get("UI/Icons/ExtractStacks");
+			icon = ContentFinder<Texture2D>.Get("UI/Gizmos/ExtractStacks");
 			soundDragSustain = SoundDefOf.Designate_DragStandard;
 			soundDragChanged = SoundDefOf.Designate_DragStandard_Changed;
 			useMouseIcon = true;

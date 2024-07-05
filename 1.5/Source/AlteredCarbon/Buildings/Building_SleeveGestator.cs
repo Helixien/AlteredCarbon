@@ -90,13 +90,12 @@ namespace AlteredCarbon
 
         public int GetTicksToGrow(int baseValue)
         {
-            return (int)(baseValue * FacilityMultiplier(AC_DefOf.AC_GenomeRevitalizer, 0.2f));
+            return (int)(baseValue);
         }
 
         public float GetGrowCost(float baseValue)
         {
-            return baseValue * FacilityMultiplier(AC_DefOf.AC_NeutroamineDialyzer, 0.1f) 
-                * FacilityMultiplier(AC_DefOf.AC_NeutroaminePump, 0.03f);
+            return baseValue;
         }
 
         private float FacilityMultiplier(ThingDef facility, float baseMultiplier)

@@ -288,11 +288,11 @@
 		<label>remove parroter stack</label>
 		<description>Remove parroter stack.</description>
 		<descriptionHyperlinks>
-			<ThingDef>AC_FilledParroterStack</ThingDef>
+			<ThingDef>AC_ParroterStack</ThingDef>
 		</descriptionHyperlinks>
 		<workerClass>AlteredCarbon.Recipe_RemoveParroterStack</workerClass>
 		<jobString>Removing parroter stack.</jobString>
-		<uiIconThing>AC_FilledParroterStack</uiIconThing>
+		<uiIconThing>AC_ParroterStack</uiIconThing>
 		<removesHediff>AC_ParroterStack</removesHediff>
 	</RecipeDef>
 </Defs>

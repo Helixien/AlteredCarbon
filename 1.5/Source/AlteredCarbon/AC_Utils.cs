@@ -55,7 +55,7 @@ namespace AlteredCarbon
                     recipe = AC_DefOf.AC_InstallPersonaStack,
                     installLabel = "AC.InstallStack".Translate(),
                     installDesc = "AC.InstallStackDesc".Translate(),
-                    installIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallStack")
+                    installIcon = ContentFinder<Texture2D>.Get("UI/Gizmos/InstallStack")
                 }
             },
             {
@@ -64,7 +64,7 @@ namespace AlteredCarbon
                     recipe = AC_DefOf.AC_InstallEmptyPersonaStack,
                     installLabel = "AC.InstallStack".Translate(),
                     installDesc = "AC.InstallEmptyStackDesc".Translate(),
-                    installIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallStack")
+                    installIcon = ContentFinder<Texture2D>.Get("UI/Gizmos/InstallStack")
                 }
             }
         };
@@ -180,14 +180,14 @@ namespace AlteredCarbon
                 recipe = AC_DefOf.AC_InstallArchotechStack,
                 installLabel = "AC.InstallArchotechStack".Translate(),
                 installDesc = "AC.InstallArchotechStackDesc".Translate(),
-                installIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallArchotechStack")
+                installIcon = ContentFinder<Texture2D>.Get("UI/Gizmos/InstallArchoStack")
             };
             stackRecipesByDef[AC_DefOf.AC_EmptyArchotechStack] = new StackInstallInfo
             {
                 recipe = AC_DefOf.AC_InstallEmptyArchotechStack,
                 installLabel = "AC.InstallArchotechStack".Translate(),
                 installDesc = "AC.InstallEmptyArchotechStackDesc".Translate(),
-                installIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallArchotechStack")
+                installIcon = ContentFinder<Texture2D>.Get("UI/Gizmos/InstallArchoStack")
             };
             stacksPairs[AC_DefOf.AC_FilledArchotechStack] = AC_DefOf.AC_EmptyArchotechStack;
             installEmptyStacksRecipes.Add(AC_DefOf.AC_InstallEmptyArchotechStack);

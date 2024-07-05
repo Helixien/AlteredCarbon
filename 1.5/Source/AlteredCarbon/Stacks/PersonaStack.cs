@@ -52,22 +52,22 @@ namespace AlteredCarbon
                     if (personaData.guestStatusInt == GuestStatus.Slave)
                     {
                         return GetStackGraphic(ref slaveGraphic, ref slaveGraphicData, 
-                            "Things/Item/ArchotechStacks/SlaveArchotechStack", "Things/Item/Stacks/SlaveStack");
+                            "Things/Item/ArchotechStacks/SlaveArchoStack", "Things/Item/Stacks/SlaveStack");
                     }
                     else if (personaData.faction == Faction.OfPlayer)
                     {
                         return GetStackGraphic(ref friendlyGraphic, ref friendlyGraphicData,
-                            "Things/Item/ArchotechStacks/FriendlyArchotechStack", "Things/Item/Stacks/FriendlyStack");
+                            "Things/Item/ArchotechStacks/FriendlyArchoStack", "Things/Item/Stacks/FriendlyStack");
                     }
                     else if (personaData.faction is null || !personaData.faction.HostileTo(Faction.OfPlayer))
                     {
                         return GetStackGraphic(ref strangerGraphic, ref strangerGraphicData,
-                            "Things/Item/ArchotechStacks/NeutralArchotechStack", "Things/Item/Stacks/NeutralStack");
+                            "Things/Item/ArchotechStacks/NeutralArchoStack", "Things/Item/Stacks/NeutralStack");
                     }
                     else
                     {
                         return GetStackGraphic(ref hostileGraphic, ref hostileGraphicData,
-                            "Things/Item/ArchotechStacks/HostileArchotechStack", "Things/Item/Stacks/HostileStack");
+                            "Things/Item/ArchotechStacks/HostileArchoStack", "Things/Item/Stacks/HostileStack");
                     }
                 }
                 else

@@ -105,7 +105,6 @@
 		<graphicData>
 			<texPath>Things/Building/Furniture/Bed/SleeveCasket</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
-			<shaderType>Graphic_Multi</shaderType>
 			<drawSize>(3,4)</drawSize>
 		</graphicData>
 		<size>(1,2)</size>

@@ -87,7 +87,7 @@
 		<tickerType>Normal</tickerType>
 		<drawerType>RealtimeOnly</drawerType>
 		<graphicData>
-			<texPath>Things/Building/Misc/StackBackupTerminal/StackBackupTerminal</texPath>
+			<texPath>Things/Building/Misc/StackArray/StackBackupTerminal</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<drawSize>(5,5)</drawSize>
 			<shaderType>CutoutComplex</shaderType>
@@ -115,8 +115,8 @@
 			<ComponentSpacer>6</ComponentSpacer>
 		</costList>
 		<descriptionHyperlinks>
-			<ThingDef>VFEU_FilledCorticalStack</ThingDef>
-			<ThingDef>AC_FilledArchoStack</ThingDef>
+			<ThingDef>AC_FilledPersonaStack</ThingDef>
+			<ThingDef>AC_FilledArchotechStack</ThingDef>
 		</descriptionHyperlinks>
 		<altitudeLayer>BuildingOnTop</altitudeLayer>
 		<neverMultiSelect>true</neverMultiSelect>
@@ -133,7 +133,7 @@
 		<constructEffect>ConstructMetal</constructEffect>
 		<blockWind>true</blockWind>
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
-		<uiIconPath>Things/Building/Misc/StackBackupTerminal/StackBackupTerminal_MenuIcon</uiIconPath>
+		<uiIconPath>Things/Building/Misc/StackArray/StackBackupTerminal_MenuIcon</uiIconPath>
 		<uiIconScale>1.1</uiIconScale>
 		<building>
 			<ai_chillDestination>false</ai_chillDestination>
@@ -144,7 +144,7 @@
 			<fixedStorageSettings>
 				<filter>
 					<thingDefs>
-						<li>VFEU_FilledCorticalStack</li>
+						<li>AC_FilledPersonaStack</li>
 					</thingDefs>
 				</filter>
 			</fixedStorageSettings>
@@ -152,7 +152,7 @@
 				<priority>Important</priority>
 				<filter>
 					<thingDefs>
-						<li>VFEU_FilledCorticalStack</li>
+						<li>AC_FilledPersonaStack</li>
 					</thingDefs>
 				</filter>
 			</defaultStorageSettings>

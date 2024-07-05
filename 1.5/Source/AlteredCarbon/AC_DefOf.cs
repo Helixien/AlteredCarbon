@@ -91,7 +91,6 @@ namespace AlteredCarbon
         [MayRequireVREAndroidMod] public static TraitDef AC_Shellwalker;
         public static SoundDef Message_NegativeEvent;
         public static XenotypeDef AC_Sleeveliner;
-        public static ThingDef AC_GenomeRevitalizer, AC_NeutroamineDialyzer, AC_NeutroaminePump;
         public static TraitDef Beauty, NaturalMood, Nerves;
         public static HeadTypeDef Stump;
         public static BodyPartDef Neck;
