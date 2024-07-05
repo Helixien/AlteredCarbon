@@ -6,6 +6,7 @@
 		<uiIconForStackCount>1</uiIconForStackCount>
 		<tradeNeverStack>false</tradeNeverStack>
 		<useHitPoints>true</useHitPoints>
+		<drawGUIOverlay>true</drawGUIOverlay>
 		<statBases>
 			<Mass>0.4</Mass>
 			<DeteriorationRate>0.3</DeteriorationRate>
@@ -55,7 +56,6 @@
 			</li>
 		</modExtensions>
 	</ThingDef>
-	
 	<HediffDef Name="AC_ImplantStackBase" Abstract="True" ParentName="ImplantHediffBase">
 		<comps>
 			<li Class="HediffCompProperties_ReactOnDamage">

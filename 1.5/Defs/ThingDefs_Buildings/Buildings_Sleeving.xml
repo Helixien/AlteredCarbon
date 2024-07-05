@@ -138,7 +138,7 @@
 		</building>
 		<constructionSkillPrerequisite>10</constructionSkillPrerequisite>
 		<researchPrerequisites>
-			<li>AC_Sleeving</li>
+			<li>AC_SleeveGestation</li>
 		</researchPrerequisites>
 		<costList>
 			<Steel>100</Steel>

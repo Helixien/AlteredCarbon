@@ -17,23 +17,7 @@
 			<li>MultiAnalyzer</li>
 		</requiredResearchFacilities>
 	</ResearchProjectDef>
-	<!-- ================================ Advanced Powered Armor ====================== -->
-	<ResearchProjectDef>
-		<defName>AC_AdvancedPoweredArmor</defName>
-		<label>advanced armor</label>
-		<description>Build advanced powered armor, designed to  provide the best protection available for humanity. Note that these also require advanced components.</description>
-		<baseCost>8500</baseCost>
-		<techLevel>Ultra</techLevel>
-		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
-		<requiredResearchFacilities>
-			<li>MultiAnalyzer</li>
-		</requiredResearchFacilities>
-		<researchViewX>16.00</researchViewX>
-		<researchViewY>0.00</researchViewY>
-		<prerequisites>
-			<li>PoweredArmor</li>
-		</prerequisites>
-	</ResearchProjectDef>
+
 	<!-- ================================ Persona Stack crafting ====================== -->
 	<ResearchProjectDef ParentName="AC_ResearchBase">
 		<defName>AC_PersonaCrafting</defName>
