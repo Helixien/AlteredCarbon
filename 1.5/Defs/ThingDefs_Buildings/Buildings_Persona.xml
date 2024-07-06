@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Sleeve Gestator  ====================== -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>AC_SleeveGestator</defName>
+		<label>sleeve gestator</label>
+		<description>text.todo</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_SleeveCasket</ThingDef>
+			<ThingDef>GeneAssembler</ThingDef>
+			<ThingDef>Xenogerm</ThingDef>
+		</descriptionHyperlinks>
+		<thingClass>AlteredCarbon.Building_SleeveGestator</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Misc/SleeveGastator/SleeveGastatorBottom</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(7,7)</drawSize>
+		</graphicData>
+		<size>(3,3)</size>
+		<uiIconPath>Things/Building/Misc/SleeveGastator/SleeveGastator_MenuIcon</uiIconPath>
+		<uiIconScale>1.1</uiIconScale>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<designationCategory>Biotech</designationCategory>
+		<statBases>
+			<Mass>30</Mass>
+			<WorkToBuild>12000</WorkToBuild>
+			<MaxHitPoints>300</MaxHitPoints>
+			<Flammability>0.5</Flammability>
+		</statBases>
+		<building>
+			<destroySound>BuildingDestroyed_Metal_Big</destroySound>
+			<ai_chillDestination>false</ai_chillDestination>
+			<soundAmbient>AC_SleeveGestator_Ambience</soundAmbient>
+			<buildingTags>
+				<li>Biotech</li>
+			</buildingTags>
+		</building>
+		<constructionSkillPrerequisite>10</constructionSkillPrerequisite>
+		<researchPrerequisites>
+			<li>AC_SleeveGestation</li>
+		</researchPrerequisites>
+		<costList>
+			<Steel>250</Steel>
+			<Plasteel>50</Plasteel>
+			<ComponentSpacer>6</ComponentSpacer>
+		</costList>
+		<pathCost>90</pathCost>
+		<blockWind>true</blockWind>
+		<canOverlapZones>false</canOverlapZones>
+		<neverMultiSelect>true</neverMultiSelect>
+		<tickerType>Normal</tickerType>
+		<drawerType>RealtimeOnly</drawerType>
+		<hasInteractionCell>true</hasInteractionCell>
+		<interactionCellOffset>(0,0,2)</interactionCellOffset>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<placeWorkers>
+			<li>PlaceWorker_FuelingPort</li>
+		</placeWorkers>
+		<containedPawnsSelectable>true</containedPawnsSelectable>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<passability>PassThroughOnly</passability>
+		<castEdgeShadows>true</castEdgeShadows>
+		<fillPercent>0.5</fillPercent>
+		<comps>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Forbiddable"/>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<shortCircuitInRain>true</shortCircuitInRain>
+				<basePowerConsumption>450</basePowerConsumption>
+				<idlePowerDraw>75</idlePowerDraw>
+			</li>
+			<li Class="CompProperties_Refuelable">
+				<fuelLabel>Neutroamine</fuelLabel>
+				<fuelGizmoLabel>Neutroamine</fuelGizmoLabel>
+				<outOfFuelMessage>Cannot grow: Needs neutroamine</outOfFuelMessage>
+				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+				<targetFuelLevelConfigurable>false</targetFuelLevelConfigurable>
+				<fuelCapacity>500</fuelCapacity>
+				<fuelFilter>
+					<thingDefs>
+						<li>Neutroamine</li>
+					</thingDefs>
+				</fuelFilter>
+				<initialFuelPercent>0</initialFuelPercent>
+				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+				<showFuelGizmo>true</showFuelGizmo>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>5</glowRadius>
+				<glowColor>(96,161,153,0)</glowColor>
+			</li>
+		</comps>
+	</ThingDef>
+	<!-- ================================ Sleeve Casket  ====================== -->
+	<ThingDef ParentName="FurnitureBase">
+		<defName>AC_SleeveCasket</defName>
+		<label>sleeve casket</label>
+		<description>An open sarcophagus-like suspender designed to keep a sleeve in a state of suspended animation while still allowing medical access, such as installing implants or bionics.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_SleeveGestator</ThingDef>
+			<ThingDef>AC_FilledPersonaStack</ThingDef>
+		</descriptionHyperlinks>
+		<thingClass>AlteredCarbon.Building_SleeveCasket</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Furniture/Bed/SleeveCasket</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(3,4)</drawSize>
+		</graphicData>
+		<size>(1,2)</size>
+		<uiIconPath>Things/Building/Furniture/Bed/SleeveCasket_MenuIcon</uiIconPath>
+		<uiIconScale>1.0</uiIconScale>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<designationCategory>Biotech</designationCategory>
+		<statBases>
+			<MarketValue>1520</MarketValue>
+			<MaxHitPoints>250</MaxHitPoints>
+			<WorkToBuild>6000</WorkToBuild>
+			<Mass>50</Mass>
+			<Flammability>0.5</Flammability>
+			<BedRestEffectiveness>1.2</BedRestEffectiveness>
+			<Comfort>0.1</Comfort>
+			<ImmunityGainSpeedFactor>1.25</ImmunityGainSpeedFactor>
+			<MedicalTendQualityOffset>0.10</MedicalTendQualityOffset>
+			<SurgerySuccessChanceFactor>1.5</SurgerySuccessChanceFactor>
+		</statBases>
+		<building>
+			<bed_showSleeperBody>false</bed_showSleeperBody>
+			<buildingSizeCategory>Small</buildingSizeCategory>
+			<bed_humanlike>true</bed_humanlike>
+			<bed_healPerDay>2</bed_healPerDay>
+			<bed_defaultMedical>true</bed_defaultMedical>
+			<ai_chillDestination>false</ai_chillDestination>
+			<buildingTags>
+				<li>Biotech</li>
+			</buildingTags>
+		</building>
+		<constructionSkillPrerequisite>10</constructionSkillPrerequisite>
+		<researchPrerequisites>
+			<li>AC_SleeveGestation</li>
+		</researchPrerequisites>
+		<costList>
+			<Steel>100</Steel>
+			<Plasteel>15</Plasteel>
+			<Uranium>5</Uranium>
+			<ComponentSpacer>2</ComponentSpacer>
+		</costList>
+		<pathCost>35</pathCost>
+		<canOverlapZones>false</canOverlapZones>
+		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+		<tickerType>Normal</tickerType>
+		<drawerType>RealtimeOnly</drawerType>
+		<passability>PassThroughOnly</passability>
+		<castEdgeShadows>True</castEdgeShadows>
+		<fillPercent>0.5</fillPercent>
+		<thingCategories>
+			<li>BuildingsMisc</li>
+		</thingCategories>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<shortCircuitInRain>true</shortCircuitInRain>
+				<basePowerConsumption>75</basePowerConsumption>
+				<idlePowerDraw>15</idlePowerDraw>
+			</li>
+			<li Class="CompProperties_AffectedByFacilities">
+				<linkableFacilities>
+					<li>VitalsMonitor</li>
+					<li MayRequire="Ludeon.RimWorld.Ideology">SleepAccelerator</li>
+				</linkableFacilities>
+			</li>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+	</ThingDef>
+</Defs>

@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<!--=============== Mind Frame ====================-->
+	<ThingDef ParentName="ResourceBase">
+		<defName>AC_MindFrame</defName>
+		<label>mind frame</label>
+		<description>text.todo.</description>
+		<graphicData>
+			<texPath>Things/Item/MindFrame/FriendlyMindFrame</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<techLevel>Ultra</techLevel>
+		<uiIconForStackCount>1</uiIconForStackCount>
+		<tradeNeverStack>false</tradeNeverStack>
+		<useHitPoints>true</useHitPoints>
+		<drawGUIOverlay>true</drawGUIOverlay>
+		<soundInteract>Metal_Drop</soundInteract>
+		<soundDrop>Metal_Drop</soundDrop>
+		<stackLimit>1</stackLimit>
+		<statBases>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>0.2</Mass>
+			<Flammability>0.2</Flammability>
+			<DeteriorationRate>0.6</DeteriorationRate>
+		</statBases>
+		<thingCategories>
+			<li>ItemsMisc</li>
+		</thingCategories>
+		<tradeability>Sellable</tradeability>
+		<tradeTags>
+			<li>ExoticMisc</li>
+		</tradeTags>
+		<modExtensions>
+			<li Class="AlteredCarbon.MindFrameSavingOptionsModExtension">
+				<ignoresTraits>
+					<li>Beauty</li>
+					<li>Immunity</li>
+					<li>AnnoyingVoice</li>
+					<li>CreepyBreathing</li>
+					<li>Tough</li>
+					<li>PsychicSensitivity</li>
+					<li>Delicate</li>
+					<li MayRequire="Ludeon.RimWorld.Anomaly">BodyMastery</li>
+					<li MayRequire="VanillaExpanded.VanillaExpanded.VPsycastsE">VPE_Thrall</li>
+					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_IronStomach</li>
+					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_BigBoned</li>
+					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_Dunce</li>
+					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_Squeamish</li>
+					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_ThickSkinned</li>
+					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_ThinSkinned</li>
+					<li MayRequire="OskarPotocki.VFE.Pirates">VFEP_WarcasketTrait</li>
+					<li MayRequire="OskarPotocki.VFE.Pirates">VFEP_Shellcasket</li>
+					<li MayRequire="sarg.alphagenes">AG_Beauty</li>
+					<li MayRequire="syrchalis.individuality">SYR_Agile</li>
+					<li MayRequire="syrchalis.individuality">SYR_KeenEye</li>
+					<li MayRequire="syrchalis.individuality">SYR_StrongBack</li>
+					<li MayRequire="Sierra.RTGT">RT_Nearsighted</li>
+					<li MayRequire="Sierra.RTGT">RT_Farsighted</li>
+					<li MayRequire="Sierra.RTGT">RT_Muscular</li>
+					<li MayRequire="Sierra.RTGT">RT_Frail</li>
+					<li MayRequire="Sierra.RTGT">RT_Hardy</li>
+					<li MayRequire="Sierra.RTGT">RT_Feeble</li>
+					<li MayRequire="Sierra.RTGT">RT_Healthy</li>
+					<li MayRequire="Sierra.RTGT">RT_ChronicallyIll</li>
+				</ignoresTraits>
+			</li>
+		</modExtensions>
+	</ThingDef>
+</Defs>
