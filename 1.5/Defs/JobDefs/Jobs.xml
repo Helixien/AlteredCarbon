@@ -45,4 +45,10 @@
 		<allowOpportunisticPrefix>true</allowOpportunisticPrefix>
 		<reportString>canceling body repurposing.</reportString>
 	</JobDef>
+	<JobDef>
+		<defName>AC_ChargeCuirassierBelt</defName>
+		<driverClass>AlteredCarbon.JobDriver_ChargeCuirassierBelt</driverClass>
+		<allowOpportunisticPrefix>true</allowOpportunisticPrefix>
+		<reportString>charging cuirassier belt.</reportString>
+	</JobDef>
 </Defs>

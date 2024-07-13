@@ -29,7 +29,7 @@ namespace AlteredCarbon
         {
             foreach (var map in Find.Maps)
             {
-                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_StackArray).Any(x => x.Faction == Faction.OfPlayer))
+                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).Any(x => x.Faction == Faction.OfPlayer))
                 {
                     return;
                 }
@@ -65,7 +65,7 @@ namespace AlteredCarbon
                 {
                     return true;
                 }
-                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_StackArray).Cast<Building_StackStorage>()
+                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).Cast<Building_StackStorage>()
                     .Any(x => x.StoredStacks.Any(y => y.PersonaData.IsPresetPawn(personaData))))
                 {
                     return true;
@@ -150,7 +150,7 @@ namespace AlteredCarbon
             {
                 foreach (var map in Find.Maps)
                 {
-                    foreach (var storage in map.listerThings.ThingsOfDef(AC_DefOf.AC_StackArray)
+                    foreach (var storage in map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix)
                         .Where(x => x.Faction == Faction.OfPlayer).OfType<Building_StackStorage>())
                     {
                         if (storage.backupIsEnabled && storage.compPower.PowerOn)

@@ -95,7 +95,7 @@ namespace AlteredCarbon
         public static HeadTypeDef Stump;
         public static BodyPartDef Neck;
 
-        public static ThingDef AC_StackArray;
+        public static ThingDef AC_PersonaMatrix;
         public static JobDef AC_DuplicateStack;
         public static JobDef AC_CreateStackFromBackup;
         public static JobDef AC_HaulingStacks;
@@ -114,5 +114,7 @@ namespace AlteredCarbon
         public static RecipeDef AC_HackBiocodedThings;
         public static ThingDef AC_Apparel_DragoonHelmet;
         public static ThingDef AC_Apparel_FusilierHelmet;
+        public static JobDef AC_ChargeCuirassierBelt;
+        public static ThingDef AC_CuirassierBelt;
     }
 }

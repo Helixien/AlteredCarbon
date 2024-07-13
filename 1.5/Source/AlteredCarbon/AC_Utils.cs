@@ -79,12 +79,19 @@ namespace AlteredCarbon
 
         public static bool Wears(this Pawn pawn, ThingDef thingDef)
         {
+            return pawn.Wears(thingDef, out _);
+        }
+
+        public static bool Wears(this Pawn pawn, ThingDef thingDef, out Apparel apparel)
+        {
+            apparel = null;
             if (pawn?.apparel?.WornApparel != null)
             {
-                foreach (var apparel in pawn.apparel.WornApparel)
+                foreach (var other in pawn.apparel.WornApparel)
                 {
-                    if (apparel.def == thingDef)
+                    if (other.def == thingDef)
                     {
+                        apparel = other;
                         return true;
                     }
                 }
@@ -102,7 +109,7 @@ namespace AlteredCarbon
                 }
                 return def == AC_DefOf.AC_SleeveGestator
                     || def == AC_DefOf.AC_SleeveCasket || def == AC_DefOf.AC_SleeveCasket
-                    || def == AC_DefOf.AC_StackArray
+                    || def == AC_DefOf.AC_PersonaMatrix
                     || def == AC_DefOf.AC_DecryptionBench;
             }
             return false;

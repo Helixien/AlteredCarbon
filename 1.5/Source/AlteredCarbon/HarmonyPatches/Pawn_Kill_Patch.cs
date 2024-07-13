@@ -34,7 +34,8 @@ namespace AlteredCarbon
             {
                 var caravan = __instance.GetCaravan();
                 bool isArchotechStack = stackHediff.def == AC_DefOf.AC_ArchotechStack;
-                if (dinfo.HasValue && dinfo.Value.Def == DamageDefOf.Crush && dinfo.Value.Category == DamageInfo.SourceCategory.Collapse)
+                if (dinfo.HasValue && dinfo.Value.Def == DamageDefOf.Crush 
+                    && dinfo.Value.Category == DamageInfo.SourceCategory.Collapse)
                 {
                     if (isArchotechStack)
                     {

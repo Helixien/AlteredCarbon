@@ -38,7 +38,7 @@ namespace AlteredCarbon
 
         private static IEnumerable<Building_StackStorage> GetStackArrays(Pawn hauler, Thing stack)
         {
-            var storages = hauler.Map.listerThings.ThingsOfDef(AC_DefOf.AC_StackArray).Cast<Building_StackStorage>()
+            var storages = hauler.Map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).Cast<Building_StackStorage>()
                 .Where(x => x.HasFreeSpace && x.Accepts(stack) && hauler.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
             return storages;
         }

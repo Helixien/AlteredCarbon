@@ -35,6 +35,31 @@ namespace AlteredCarbon
                     }
                 }
             }
+
+            if (pawn.Wears(AC_DefOf.AC_CuirassierBelt, out var apparel))
+            {
+                foreach (LocalTargetInfo localTargetInfo in GenUI.TargetsAt(clickPos, ForPowerBuilding(), true))
+                {
+                    if (JobDriver_ChargeCuirassierBelt.CanDoWork(pawn, apparel, localTargetInfo.Thing as Building, JobDriver_ChargeCuirassierBelt.MakePowerComp(apparel)))
+                    {
+                        JobDef jobDef = AC_DefOf.AC_ChargeCuirassierBelt;
+                        Action action = delegate ()
+                        {
+                            Job job = JobMaker.MakeJob(jobDef, localTargetInfo, apparel);
+                            pawn.jobs.TryTakeOrderedJob(job, 0);
+                        };
+                        string text = TranslatorFormattedStringExtensions.Translate("AC.ChargeCuirassierBelt",
+                            localTargetInfo.Thing.LabelCap, localTargetInfo);
+                        FloatMenuOption opt = new FloatMenuOption
+                            (text, action, MenuOptionPriority.RescueOrCapture, null, localTargetInfo.Thing, 0f, null, null);
+                        if (opts.Where(x => x.Label == text).Count() == 0)
+                        {
+                            opts.Add(opt);
+                        }
+                    }
+                }
+            }
+
             foreach (LocalTargetInfo localTargetInfo in GenUI.TargetsAt(clickPos, UninstallStack(pawn), true))
             {
                 JobDef jobDef = AC_DefOf.AC_ExtractStack;
@@ -63,6 +88,24 @@ namespace AlteredCarbon
                 mapObjectTargetsMustBeAutoAttackable = false,
                 validator = (TargetInfo targ) => targ.HasThing &&
                 targ.Thing is Corpse corpse && corpse.InnerPawn.HasPersonaStack(out _)
+            };
+        }
+
+        public static TargetingParameters ForPowerBuilding()
+        {
+            return new TargetingParameters
+            {
+                canTargetPawns = false,
+                canTargetItems = false,
+                canTargetBuildings = true,
+                validator = delegate (TargetInfo targ)
+                {
+                    if (!targ.HasThing)
+                    {
+                        return false;
+                    }
+                    return targ.Thing.TryGetComp<CompPower>() is CompPower compPower;
+                }
             };
         }
     }

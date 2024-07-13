@@ -202,6 +202,7 @@
 	<AC.NoFilters>No filters</AC.NoFilters>
 	<AC.IsEmptySleeve>Is empty sleeve</AC.IsEmptySleeve>
 	<AC.OriginalGender>Original gender</AC.OriginalGender>
+	<AC.ChargeCuirassierBelt>Charge cuirassier belt</AC.ChargeCuirassierBelt>
 	<!-- ================================ Decryption Bench ====================== -->
 	<AC.HackStack>Hack stack</AC.HackStack>
 	<AC.HackStackDesc>Convert a stack to the players faction.</AC.HackStackDesc>
