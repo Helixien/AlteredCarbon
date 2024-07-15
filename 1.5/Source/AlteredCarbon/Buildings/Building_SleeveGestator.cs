@@ -73,7 +73,7 @@ namespace AlteredCarbon
             {
                 if (topGraphic == null)
                 {
-                    topGraphic = GraphicDatabase.Get<Graphic_Single>("Things/Building/Misc/SleeveIncubator/SleeveIncubatorTop", ShaderDatabase.CutoutComplex, this.def.graphicData.drawSize, Color.white);
+                    topGraphic = GraphicDatabase.Get<Graphic_Single>("Things/Building/Misc/SleeveGastator/SleeveGastatorTop", ShaderDatabase.CutoutComplex, this.def.graphicData.drawSize, Color.white);
                 }
                 return topGraphic;
             }

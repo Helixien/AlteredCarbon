@@ -52,22 +52,22 @@ namespace AlteredCarbon
                     if (personaData.guestStatusInt == GuestStatus.Slave)
                     {
                         return GetStackGraphic(ref slaveGraphic, ref slaveGraphicData, 
-                            "Things/Item/ArchotechStacks/SlaveArchoStack", "Things/Item/Stacks/SlaveStack");
+                            "Things/Item/ArchoStacks/SlaveArchoStack", "Things/Item/PersonaStacks/SlaveStack");
                     }
                     else if (personaData.faction == Faction.OfPlayer)
                     {
                         return GetStackGraphic(ref friendlyGraphic, ref friendlyGraphicData,
-                            "Things/Item/ArchotechStacks/FriendlyArchoStack", "Things/Item/Stacks/FriendlyStack");
+                            "Things/Item/ArchoStacks/FriendlyArchoStack", "Things/Item/PersonaStacks/FriendlyStack");
                     }
                     else if (personaData.faction is null || !personaData.faction.HostileTo(Faction.OfPlayer))
                     {
                         return GetStackGraphic(ref strangerGraphic, ref strangerGraphicData,
-                            "Things/Item/ArchotechStacks/NeutralArchoStack", "Things/Item/Stacks/NeutralStack");
+                            "Things/Item/ArchoStacks/NeutralArchoStack", "Things/Item/PersonaStacks/NeutralStack");
                     }
                     else
                     {
                         return GetStackGraphic(ref hostileGraphic, ref hostileGraphicData,
-                            "Things/Item/ArchotechStacks/HostileArchoStack", "Things/Item/Stacks/HostileStack");
+                            "Things/Item/ArchoStacks/HostileArchoStack", "Things/Item/PersonaStacks/HostileStack");
                     }
                 }
                 else
@@ -168,7 +168,7 @@ namespace AlteredCarbon
             {
                 if (!respawningAfterLoad && !PersonaData.ContainsInnerPersona && IsFilledStack)
                 {
-                    PawnKindDef pawnKind = DefDatabase<PawnKindDef>.AllDefs.Where(x => x.RaceProps.Humanlike).RandomElement();
+                    PawnKindDef pawnKind = DefDatabase<PawnKindDef>.AllDefs.Where(x => x.RaceProps.Humanlike && x is not CreepJoinerFormKindDef).RandomElement();
                     Faction faction = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction).RandomElement();
                     Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnKind, faction));
                     PersonaData.CopyFromPawn(pawn, this.def, copyRaceGenderInfo: true);
