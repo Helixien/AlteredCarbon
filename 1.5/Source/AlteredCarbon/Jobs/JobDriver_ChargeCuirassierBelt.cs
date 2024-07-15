@@ -1,5 +1,6 @@
 ﻿using RimWorld;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Verse;
 using Verse.AI;
@@ -13,7 +14,7 @@ namespace AlteredCarbon
         public Apparel Apparel => TargetB.Thing as Apparel;
         public CompPowerTrader _apparelPowerComp;
         public CompPowerTrader ApparelPowerComp => _apparelPowerComp ??= MakePowerComp(Apparel);
-        public const int ChargeDuration = 100;
+        public int chargeDuration;
         public static CompPowerTrader MakePowerComp(Apparel apparel)
         {
             var comp = new CompPowerTrader();
@@ -23,6 +24,8 @@ namespace AlteredCarbon
                 basePowerConsumption = 10,
             });
             comp.parent = apparel;
+            comp.powerOnInt = true;
+            comp.SetUpPowerVars();
             return comp;
         }
 
@@ -37,6 +40,11 @@ namespace AlteredCarbon
             {
                 return false;
             }
+            var comp = building?.PowerComp;
+            if (comp is null)
+            {
+                return false;
+            }
             if (building.PowerComp.PowerNet.CanPowerNow(compPowerTrader) is false)
             {
                 return false;
@@ -44,12 +52,20 @@ namespace AlteredCarbon
             return true;
         }
 
+        public override void Notify_Starting()
+        {
+            base.Notify_Starting();
+            var comp = Apparel.GetComp<CompShieldBubble>();
+            chargeDuration = (int)((comp.EnergyMax - comp.Energy) * 10f);
+
+        }
+
         public override IEnumerable<Toil> MakeNewToils()
         {
             this.FailOn(() => CanDoWork(pawn, Apparel, Building, ApparelPowerComp) is false);
             this.FailOnDespawnedNullOrForbidden(TargetIndex.A);
             yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
-            Toil doWork = Toils_General.Wait(ChargeDuration, TargetIndex.A);
+            Toil doWork = Toils_General.Wait(chargeDuration, TargetIndex.A);
             doWork.initAction = () =>
             {
                 AddPowerComp();
@@ -58,7 +74,7 @@ namespace AlteredCarbon
             {
                 pawn.rotationTracker.FaceCell(TargetThingA.Position);
                 var comp = Apparel.GetComp<CompShieldBubble>();
-                comp.Energy = Mathf.Min(comp.EnergyMax, comp.Energy + (comp.EnergyMax / (float)ChargeDuration));
+                comp.Energy = Mathf.Min(comp.EnergyMax, comp.Energy + 0.1f);
                 if (Building.PowerComp.PowerNet.powerComps.Any(x => x.parent == Apparel) is false)
                 {
                     AddPowerComp();
@@ -79,6 +95,12 @@ namespace AlteredCarbon
         private void AddPowerComp()
         {
             Building.PowerComp.PowerNet.powerComps.Add(ApparelPowerComp);
+        }
+
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Values.Look(ref chargeDuration, "chargeDuration");
         }
     }
 }

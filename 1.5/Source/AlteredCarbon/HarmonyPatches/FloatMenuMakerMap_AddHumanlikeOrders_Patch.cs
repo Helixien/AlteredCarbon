@@ -6,9 +6,37 @@ using RimWorld;
 using UnityEngine;
 using Verse;
 using Verse.AI;
+using VFECore;
 
 namespace AlteredCarbon
 {
+    [HarmonyPatch(typeof(JobGiver_Reload), "TryGiveJob")]
+    public static class JobGiver_Reload_TryGiveJob_Patch
+    {
+        public static void Postfix(ref Job __result, Pawn pawn)
+        {
+            if (__result is null && pawn.Wears(AC_DefOf.AC_CuirassierBelt, out var apparel))
+            {
+                var comp = apparel.GetComp<CompShieldBubble>();
+                if (comp.Energy < comp.EnergyMax / 2f)
+                {
+                    var nearbyPowerBuilding = GenClosest.ClosestThingReachable(pawn.Position, pawn.Map,
+                    ThingRequest.ForGroup(ThingRequestGroup.BuildingArtificial), PathEndMode.Touch, 
+                    TraverseParms.For(pawn, Danger.Deadly),
+                    validator: (Thing x) => FloatMenuMakerMap_AddHumanlikeOrders_Patch.CanChargeAt(pawn, x) &&
+                        JobDriver_ChargeCuirassierBelt.CanDoWork(pawn, apparel, x
+                        as Building, JobDriver_ChargeCuirassierBelt.MakePowerComp(apparel)));
+                    if (nearbyPowerBuilding != null)
+                    {
+                        JobDef jobDef = AC_DefOf.AC_ChargeCuirassierBelt;
+                        Job job = JobMaker.MakeJob(jobDef, nearbyPowerBuilding, apparel);
+                        pawn.jobs.TryTakeOrderedJob(job, 0);
+                    }
+                }
+            }
+        }
+    }
+
     [HarmonyPatch(typeof(FloatMenuMakerMap), "AddHumanlikeOrders")]
     public static class FloatMenuMakerMap_AddHumanlikeOrders_Patch
     {
@@ -38,9 +66,10 @@ namespace AlteredCarbon
 
             if (pawn.Wears(AC_DefOf.AC_CuirassierBelt, out var apparel))
             {
-                foreach (LocalTargetInfo localTargetInfo in GenUI.TargetsAt(clickPos, ForPowerBuilding(), true))
+                foreach (LocalTargetInfo localTargetInfo in GenUI.TargetsAt(clickPos, ForPowerBuilding(pawn), true))
                 {
-                    if (JobDriver_ChargeCuirassierBelt.CanDoWork(pawn, apparel, localTargetInfo.Thing as Building, JobDriver_ChargeCuirassierBelt.MakePowerComp(apparel)))
+                    if (JobDriver_ChargeCuirassierBelt.CanDoWork(pawn, apparel, localTargetInfo.Thing 
+                        as Building, JobDriver_ChargeCuirassierBelt.MakePowerComp(apparel)))
                     {
                         JobDef jobDef = AC_DefOf.AC_ChargeCuirassierBelt;
                         Action action = delegate ()
@@ -91,7 +120,7 @@ namespace AlteredCarbon
             };
         }
 
-        public static TargetingParameters ForPowerBuilding()
+        public static TargetingParameters ForPowerBuilding(Pawn pawn)
         {
             return new TargetingParameters
             {
@@ -100,13 +129,18 @@ namespace AlteredCarbon
                 canTargetBuildings = true,
                 validator = delegate (TargetInfo targ)
                 {
-                    if (!targ.HasThing)
-                    {
-                        return false;
-                    }
-                    return targ.Thing.TryGetComp<CompPower>() is CompPower compPower;
+                    return CanChargeAt(pawn, targ);
                 }
             };
+        }
+
+        public static bool CanChargeAt(Pawn pawn, TargetInfo targ)
+        {
+            if (!targ.HasThing || targ.Thing.Faction != pawn.Faction)
+            {
+                return false;
+            }
+            return targ.Thing.TryGetComp<CompPower>() is CompPowerTransmitter or CompPowerBattery;
         }
     }
 }
