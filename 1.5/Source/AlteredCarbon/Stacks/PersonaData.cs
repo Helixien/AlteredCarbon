@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using UnityEngine;
 using Verse;
 using Verse.AI;
@@ -270,6 +271,44 @@ namespace AlteredCarbon
                     return ColoredText.FactionColor_Neutral;
                 default:
                     return faction.Color;
+            }
+        }
+
+        public void AppendInfo(StringBuilder stringBuilder)
+        {
+            if (this.ContainsInnerPersona)
+            {
+                if (this.faction != null)
+                {
+                    stringBuilder.AppendLineTagged("AC.Faction".Translate() + ": " + this.faction.NameColored);
+                }
+                if (ModCompatibility.AlienRacesIsActive && this.OriginalRace != null)
+                {
+                    stringBuilder.AppendLineTagged("AC.Race".Translate() + ": " + this.OriginalRace.LabelCap);
+                }
+                if (this.OriginalXenotypeName != null)
+                {
+                    stringBuilder.AppendLineTagged("AC.Xenotype".Translate() + ": " + this.OriginalXenotypeName);
+                }
+                else if (this.OriginalXenotypeDef != null)
+                {
+                    stringBuilder.AppendLineTagged("AC.Xenotype".Translate() + ": " + this.OriginalXenotypeDef.LabelCap);
+                }
+
+                if (this.childhood != null)
+                {
+                    stringBuilder.Append("AC.Childhood".Translate() + ": " + this.childhood.title.CapitalizeFirst() + "\n");
+                }
+
+                if (this.adulthood != null)
+                {
+                    stringBuilder.Append("AC.Adulthood".Translate() + ": " + this.adulthood.title.CapitalizeFirst() + "\n");
+                }
+                stringBuilder.Append("AC.AgeChronologicalTicks".Translate() + ": " + (int)(this.ageChronologicalTicks / 3600000) + "\n");
+                if (this.stackDegradation > 0)
+                {
+                    stringBuilder.AppendLineTagged("AC.StackDegradation".Translate((TaggedString)(this.stackDegradation.ToStringPercent().Colorize(Color.red))));
+                }
             }
         }
 

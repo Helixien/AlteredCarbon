@@ -10,10 +10,10 @@ using Verse.Sound;
 
 namespace AlteredCarbon
 {
-    public class Building_StackStorage : Building, IThingHolder
+    public class Building_PersonaMatrix : Building, IThingHolder
     {
         public const int MaxFilledStackCapacity = 25;
-        public Building_StackStorage()
+        public Building_PersonaMatrix()
         {
             this.innerContainer = new ThingOwner<Thing>(this, false, LookMode.Deep);
         }

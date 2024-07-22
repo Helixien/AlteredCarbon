@@ -60,9 +60,9 @@ namespace AlteredCarbon
             yield return Toils_Construct.MakeSolidThingFromBlueprintIfNecessary(TargetIndex.B, TargetIndex.C);
             yield return Toils_Haul.DepositHauledThingInContainer(TargetIndex.B, TargetIndex.C, delegate
             {
-                var containerComp = Container as Building_StackStorage;
+                var containerComp = Container as Building_PersonaMatrix;
                 MoteMaker.ThrowText(Container.DrawPos, pawn.Map, "InsertedThing".Translate($"{containerComp.innerContainer.Count} / " +
-                    $"{Building_StackStorage.MaxFilledStackCapacity}"));
+                    $"{Building_PersonaMatrix.MaxFilledStackCapacity}"));
             });
             yield return Toils_Haul.JumpToCarryToNextContainerIfPossible(carryToContainer, TargetIndex.C);
         }

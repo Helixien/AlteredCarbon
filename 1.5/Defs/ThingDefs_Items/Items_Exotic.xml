@@ -5,6 +5,7 @@
 		<defName>AC_MindFrame</defName>
 		<label>mind frame</label>
 		<description>text.todo.</description>
+		<thingClass>AlteredCarbon.MindFrame</thingClass>
 		<graphicData>
 			<texPath>Things/Item/MindFrame/FriendlyMindFrame</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
@@ -26,6 +27,11 @@
 		<thingCategories>
 			<li>ItemsMisc</li>
 		</thingCategories>
+		<inspectorTabs>
+			<li>ITab_Pawn_Character</li>
+			<li>ITab_Pawn_Social</li>
+			<li>ITab_Pawn_Log</li>
+		</inspectorTabs>
 		<tradeability>Sellable</tradeability>
 		<tradeTags>
 			<li>ExoticMisc</li>

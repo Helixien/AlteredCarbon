@@ -86,7 +86,7 @@
   <ItemGroup>
     <Compile Include="AlteredCarbonSettingsWorker_RewriteStack.cs" />
     <Compile Include="AlteredCarbonSettingsWorker_SleeveGrowing.cs" />
-    <Compile Include="Buildings\Building_DecryptionBench.cs" />
+    <Compile Include="Buildings\Building_NeuralEditor.cs" />
     <Compile Include="Buildings\Building_Incubator.cs" />
     <Compile Include="Buildings\Building_SleeveGestator.cs" />
     <Compile Include="CompApparelAbilities.cs" />
@@ -135,6 +135,7 @@
     <Compile Include="Recipes\Recipe_RemoveParroterStack.cs" />
     <Compile Include="SleevePreset.cs" />
     <Compile Include="Stacks\Hediff_ParroterStack.cs" />
+    <Compile Include="Stacks\MindFrame.cs" />
     <Compile Include="Stacks\RJWData.cs" />
     <Compile Include="Stacks\Thought_StackDegradation.cs" />
     <Compile Include="UI\Alert_ColonistStackNeedsExtracting.cs" />
@@ -234,7 +235,7 @@
     <Compile Include="HarmonyPatches\PathFinder_FindPath_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_PathFollower_CostToMoveIntoCell_Patch.cs" />
     <Compile Include="HarmonyPatches\ShotReport_HitReportFor_Patch.cs" />
-    <Compile Include="Buildings\Building_StackStorage.cs" />
+    <Compile Include="Buildings\Building_PersonaMatrix.cs" />
     <Compile Include="GameComponent_DigitalStorage.cs" />
     <Compile Include="HarmonyPatches\PawnUtility_GetPosture_Patch.cs" />
     <Compile Include="HarmonyPatches\Recipe_InstallPersonaStack_ApplyPersonaStack_Patch.cs" />
@@ -277,7 +278,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Krafs.Rimworld.Ref">
-      <Version>1.5.4066</Version>
+      <Version>1.5.4146-beta</Version>
     </PackageReference>
     <PackageReference Include="Lib.Harmony">
       <Version>2.3.3</Version>

@@ -14,7 +14,7 @@ namespace AlteredCarbon
         }
         public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)
         {
-            return pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).Cast<Building_StackStorage>()
+            return pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).Cast<Building_PersonaMatrix>()
                 .Where(x => x.autoRestoreIsEnabled && x.Powered && GameComponent_DigitalStorage.Instance.FirstPersonaStackToRestore != null
                 && pawn.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
         }

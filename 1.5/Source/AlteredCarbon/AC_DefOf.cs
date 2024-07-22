@@ -60,7 +60,7 @@ namespace AlteredCarbon
         public static HediffDef AC_SleeveShock;
         public static ThingDef AC_SleeveGestator;
         public static ThingDef AC_SleeveCasket;
-        public static ThingDef AC_DecryptionBench;
+        public static ThingDef AC_NeuralEditor;
         public static RecipeDef AC_WipeFilledPersonaStack;
         public static RecipeDef AC_InstallPersonaStack;
         public static RecipeDef AC_InstallEmptyPersonaStack;
@@ -116,5 +116,6 @@ namespace AlteredCarbon
         public static ThingDef AC_Apparel_FusilierHelmet;
         public static JobDef AC_ChargeCuirassierBelt;
         public static ThingDef AC_CuirassierBelt;
+        public static ThingDef AC_MindFrame;
     }
 }

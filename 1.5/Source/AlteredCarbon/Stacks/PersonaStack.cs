@@ -93,43 +93,11 @@ namespace AlteredCarbon
 
         private GraphicData GetGraphicDataWithOtherPath(string texPath)
         {
-            return new GraphicData
-            {
-                texPath = texPath,
-                graphicClass = def.graphicData.graphicClass,
-                shadowData = def.graphicData.shadowData,
-                shaderType = def.graphicData.shaderType,
-                shaderParameters = def.graphicData.shaderParameters,
-                onGroundRandomRotateAngle = def.graphicData.onGroundRandomRotateAngle,
-                linkType = def.graphicData.linkType,
-                linkFlags = def.graphicData.linkFlags,
-                flipExtraRotation = def.graphicData.flipExtraRotation,
-                drawSize = def.graphicData.drawSize,
-                drawRotated = !def.graphicData.drawRotated,
-                drawOffsetWest = def.graphicData.drawOffsetWest,
-                drawOffsetSouth = def.graphicData.drawOffsetSouth,
-                drawOffsetNorth = def.graphicData.drawOffsetNorth,
-                drawOffsetEast = def.graphicData.drawOffsetEast,
-                drawOffset = def.graphicData.drawOffset,
-                damageData = def.graphicData.damageData,
-                colorTwo = def.graphicData.colorTwo,
-                color = def.graphicData.color,
-                allowFlip = def.graphicData.allowFlip
-            };
+            var copy = new GraphicData();
+            copy.CopyFrom(def.graphicData);
+            copy.texPath = texPath;
+            return copy;
         }
-
-        //public override string Label
-        //{
-        //    get
-        //    {
-        //        var label = base.Label;
-        //        if (this.IsFilledStack)
-        //        {
-        //            label += " (" + this.PersonaData.PawnNameColored.ToStringSafe() + ")";
-        //        }
-        //        return label;
-        //    }
-        //}
 
         public override string LabelNoCount
         {
@@ -346,43 +314,11 @@ namespace AlteredCarbon
         public override string GetInspectString()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            if (PersonaData.ContainsInnerPersona)
-            {
-                if (PersonaData.faction != null)
-                {
-                    stringBuilder.AppendLineTagged("AC.Faction".Translate() + ": " + PersonaData.faction.NameColored);
-                }
-                if (ModCompatibility.AlienRacesIsActive && PersonaData.OriginalRace != null)
-                {
-                    stringBuilder.AppendLineTagged("AC.Race".Translate() + ": " + PersonaData.OriginalRace.LabelCap);
-                }
-                if (PersonaData.OriginalXenotypeName != null)
-                {
-                    stringBuilder.AppendLineTagged("AC.Xenotype".Translate() + ": " + PersonaData.OriginalXenotypeName);
-                }
-                else if (PersonaData.OriginalXenotypeDef != null)
-                {
-                    stringBuilder.AppendLineTagged("AC.Xenotype".Translate() + ": " + PersonaData.OriginalXenotypeDef.LabelCap);
-                }
-
-                if (PersonaData.childhood != null)
-                {
-                    stringBuilder.Append("AC.Childhood".Translate() + ": " + PersonaData.childhood.title.CapitalizeFirst() + "\n");
-                }
-
-                if (PersonaData.adulthood != null)
-                {
-                    stringBuilder.Append("AC.Adulthood".Translate() + ": " + PersonaData.adulthood.title.CapitalizeFirst() + "\n");
-                }
-                stringBuilder.Append("AC.AgeChronologicalTicks".Translate() + ": " + (int)(PersonaData.ageChronologicalTicks / 3600000) + "\n");
-                if (PersonaData.stackDegradation > 0)
-                {
-                    stringBuilder.AppendLineTagged("AC.StackDegradation".Translate((TaggedString)(PersonaData.stackDegradation.ToStringPercent().Colorize(Color.red))));
-                }
-            }
+            PersonaData.AppendInfo(stringBuilder);
             stringBuilder.Append(base.GetInspectString());
             return stringBuilder.ToString().TrimEndNewlines();
         }
+
         public override void PostApplyDamage(DamageInfo dinfo, float totalDamageDealt)
         {
             base.PostApplyDamage(dinfo, totalDamageDealt);

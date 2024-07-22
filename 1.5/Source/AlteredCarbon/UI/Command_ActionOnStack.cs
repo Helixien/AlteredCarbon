@@ -10,10 +10,10 @@ namespace AlteredCarbon
     [HotSwappable]
     public class Command_ActionOnStack : Command_Action
     {
-        private Building_DecryptionBench decryptionBench;
+        private Building_NeuralEditor decryptionBench;
         private TargetingParameters targetParameters;
         private Action<LocalTargetInfo> actionOnStack;
-        public Command_ActionOnStack(Building_DecryptionBench decryptionBench, TargetingParameters targetParameters, Action<LocalTargetInfo> actionOnStack)
+        public Command_ActionOnStack(Building_NeuralEditor decryptionBench, TargetingParameters targetParameters, Action<LocalTargetInfo> actionOnStack)
         {
             this.decryptionBench = decryptionBench;
             this.targetParameters = targetParameters;

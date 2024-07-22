@@ -11,7 +11,7 @@ namespace AlteredCarbon
     {
         private static readonly Vector2 WinSize = new Vector2(432f, 480f);
         private Vector2 scrollPosition;
-        public Building_StackStorage Building_StackStorage => SelThing as Building_StackStorage;
+        public Building_PersonaMatrix Building_StackStorage => SelThing as Building_PersonaMatrix;
         public ITab_StackStorageContents()
         {
             size = WinSize;
@@ -32,7 +32,7 @@ namespace AlteredCarbon
             DoAllowOption(ref num, labelWidth, "AC.AllowArchotechStacks", ref Building_StackStorage.allowArchotechStacks);
 
             System.Collections.Generic.List<PersonaStack> storedStacks = Building_StackStorage.StoredStacks.ToList();
-            Widgets.ListSeparator(ref num, viewRect.width - 15, "AC.PersonaStacksInArray".Translate(storedStacks.Count(), Building_StackStorage.MaxFilledStackCapacity));
+            Widgets.ListSeparator(ref num, viewRect.width - 15, "AC.PersonaStacksInArray".Translate(storedStacks.Count(), Building_PersonaMatrix.MaxFilledStackCapacity));
             Rect scrollRect = new Rect(0, num, viewRect.width - 16, viewRect.height);
             Rect outerRect = scrollRect;
             outerRect.width += 16;

@@ -5,7 +5,6 @@ using Verse;
 
 namespace AlteredCarbon
 {
-
     [HotSwappable]
     public class GameComponent_DigitalStorage : GameComponent
     {
@@ -65,7 +64,7 @@ namespace AlteredCarbon
                 {
                     return true;
                 }
-                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).Cast<Building_StackStorage>()
+                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).Cast<Building_PersonaMatrix>()
                     .Any(x => x.StoredStacks.Any(y => y.PersonaData.IsPresetPawn(personaData))))
                 {
                     return true;
@@ -151,7 +150,7 @@ namespace AlteredCarbon
                 foreach (var map in Find.Maps)
                 {
                     foreach (var storage in map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix)
-                        .Where(x => x.Faction == Faction.OfPlayer).OfType<Building_StackStorage>())
+                        .Where(x => x.Faction == Faction.OfPlayer).OfType<Building_PersonaMatrix>())
                     {
                         if (storage.backupIsEnabled && storage.compPower.PowerOn)
                         {

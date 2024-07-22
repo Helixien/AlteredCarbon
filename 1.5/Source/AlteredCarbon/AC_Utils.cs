@@ -110,7 +110,7 @@ namespace AlteredCarbon
                 return def == AC_DefOf.AC_SleeveGestator
                     || def == AC_DefOf.AC_SleeveCasket || def == AC_DefOf.AC_SleeveCasket
                     || def == AC_DefOf.AC_PersonaMatrix
-                    || def == AC_DefOf.AC_DecryptionBench;
+                    || def == AC_DefOf.AC_NeuralEditor;
             }
             return false;
         }

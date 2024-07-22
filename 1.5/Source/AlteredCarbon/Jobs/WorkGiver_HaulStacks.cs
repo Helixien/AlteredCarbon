@@ -18,8 +18,8 @@ namespace AlteredCarbon
         {
             var stacks = pawn.Map.listerThings.AllThings.OfType<PersonaStack>().Where(x => x.autoLoad && x.PersonaData.ContainsInnerPersona
             && (pawn.Map.mapPawns.AllPawnsSpawned.Any(y => y.BillStack.Bills.Any(c => c is Bill_InstallStack installStack 
-            && installStack.stackToInstall == x)) is false) && (pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_DecryptionBench)
-            .OfType<Building_DecryptionBench>().Any(y => y.BillStack.Bills.Any(c => c is Bill_OperateOnStack operateOnStack
+            && installStack.stackToInstall == x)) is false) && (pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_NeuralEditor)
+            .OfType<Building_NeuralEditor>().Any(y => y.BillStack.Bills.Any(c => c is Bill_OperateOnStack operateOnStack
                 && operateOnStack.personaStack == x)) is false) && pawn.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
             return stacks;
         }
@@ -36,9 +36,9 @@ namespace AlteredCarbon
             return job;
         }
 
-        private static IEnumerable<Building_StackStorage> GetStackArrays(Pawn hauler, Thing stack)
+        private static IEnumerable<Building_PersonaMatrix> GetStackArrays(Pawn hauler, Thing stack)
         {
-            var storages = hauler.Map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).Cast<Building_StackStorage>()
+            var storages = hauler.Map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).Cast<Building_PersonaMatrix>()
                 .Where(x => x.HasFreeSpace && x.Accepts(stack) && hauler.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
             return storages;
         }

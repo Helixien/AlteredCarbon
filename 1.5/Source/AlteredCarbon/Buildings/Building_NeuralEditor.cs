@@ -8,7 +8,7 @@ using Verse.Sound;
 namespace AlteredCarbon
 {
     [StaticConstructorOnStartup]
-    public class Building_DecryptionBench : Building_WorkTable
+    public class Building_NeuralEditor : Building_WorkTable
     {
         public override IEnumerable<Gizmo> GetGizmos()
         {

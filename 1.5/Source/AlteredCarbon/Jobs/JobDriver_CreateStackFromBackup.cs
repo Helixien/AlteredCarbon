@@ -6,7 +6,7 @@ namespace AlteredCarbon
     public class JobDriver_CreateStackFromBackup : JobDriver
     {
         public const int RestoringDuration = 1000;
-        public Building_StackStorage Building_StackStorage => TargetA.Thing as Building_StackStorage;
+        public Building_PersonaMatrix Building_StackStorage => TargetA.Thing as Building_PersonaMatrix;
         public override bool TryMakePreToilReservations(bool errorOnFailed)
         {
             return pawn.Reserve(TargetA, job);
