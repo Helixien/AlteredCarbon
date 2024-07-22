@@ -106,6 +106,7 @@
     <Compile Include="HarmonyPatches\Precept_Role_ValidatePawn_Patch.cs" />
     <Compile Include="HarmonyPatches\StatWorker_MarketValue_GetExplanationUnfinalized_Patch.cs" />
     <Compile Include="HarmonyPatches\StatWorker_MarketValue_GetValueUnfinalized_Patch.cs" />
+    <Compile Include="HarmonyPatches\SymbolResolver_Interior_AncientTemple_Resolve_Patch.cs" />
     <Compile Include="HarmonyPatches\TradeUtility_PlayerSellableNow_Patch.cs" />
     <Compile Include="HarmonyPatches\TransferableUIUtility_DoExtraIcons_Patch.cs" />
     <Compile Include="HarmonyPatches\CompRottable_CompInspectStringExtra_Patch.cs" />

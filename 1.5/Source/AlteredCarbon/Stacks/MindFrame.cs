@@ -63,12 +63,28 @@ namespace AlteredCarbon
             return graphic;
         }
 
+        public override void PreTraded(TradeAction action, Pawn playerNegotiator, ITrader trader)
+        {
+            base.PreTraded(action, playerNegotiator, trader);
+            if (AC_Utils.generalSettings.enableSoldMindFramesCreatingPawnDuplicates
+                && trader.Faction?.def.techLevel >= TechLevel.Spacer && Rand.Chance(0.15f))
+            {
+                var copy = new PersonaData();
+                copy.CopyDataFrom(PersonaData);
+                copy.faction = trader.Faction;
+                Rand.PushState(copy.GetHashCode());
+                GameComponent_DigitalStorage.Instance.personaStacksToAppearAsWorldPawns[copy] =
+                    (int)(Find.TickManager.TicksGame + (new FloatRange(5f, 30f).RandomInRange * GenDate.TicksPerDay));
+                Rand.PopState();
+            }
+        }
+
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             base.SpawnSetup(map, respawningAfterLoad);
             if (!respawningAfterLoad && PersonaData.ContainsInnerPersona is false)
             {
-                GenerateInnerPersona();
+                GeneratePersona();
             }
         }
 

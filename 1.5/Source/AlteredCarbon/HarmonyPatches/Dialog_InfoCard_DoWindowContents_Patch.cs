@@ -11,7 +11,7 @@ namespace AlteredCarbon
     {
         public static bool Prefix(Dialog_InfoCard __instance, Rect inRect)
         {
-            if (__instance.thing is PersonaStack personaStack && personaStack.IsFilledStack)
+            if (__instance.thing is ThingWithStack personaStack && personaStack.PersonaData.ContainsInnerPersona)
             {
                 DoWindowContents(__instance, inRect);
                 return false;
@@ -58,7 +58,7 @@ namespace AlteredCarbon
             }
             else if (__instance.tab == Dialog_InfoCard.InfoCardTab.Character)
             {
-                var stack = __instance.thing as PersonaStack;
+                var stack = __instance.thing as ThingWithStack;
                 CharacterCardUtility.DrawCharacterCard(cardRect, stack.PersonaData.GetDummyPawn);
             }
         }

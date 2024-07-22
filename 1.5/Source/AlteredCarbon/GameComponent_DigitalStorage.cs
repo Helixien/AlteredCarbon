@@ -23,6 +23,7 @@ namespace AlteredCarbon
         {
             Instance = this;
             backedUpStacks ??= new Dictionary<int, PersonaData>();
+            personaStacksToAppearAsWorldPawns ??= new();
         }
         public void ClearBackedUpStacksIfNoStackStorages()
         {
@@ -36,6 +37,7 @@ namespace AlteredCarbon
             backedUpStacks.Clear();
         }
         public Dictionary<int, PersonaData> backedUpStacks;
+        public Dictionary<PersonaData, int> personaStacksToAppearAsWorldPawns;
         public IEnumerable<PersonaData> StoredBackedUpStacks => this.backedUpStacks.Values;
         public PersonaData FirstPersonaStackToRestore
         {
@@ -88,9 +90,12 @@ namespace AlteredCarbon
             Instance = this;
             base.ExposeData();
             Scribe_Collections.Look(ref this.backedUpStacks, "backedUpStacks", LookMode.Value, LookMode.Deep, ref intKeys, ref personaDataValues);
+            Scribe_Collections.Look(ref this.personaStacksToAppearAsWorldPawns, "personaStacksToAppearAsWorldPawns", 
+                LookMode.Deep, LookMode.Value, ref personaDataValues, ref intKeys);
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 this.backedUpStacks ??= new Dictionary<int, PersonaData>();
+                this.personaStacksToAppearAsWorldPawns ??= new Dictionary<PersonaData, int>();
             }
         }
 
@@ -158,6 +163,16 @@ namespace AlteredCarbon
                             break;
                         }
                     }
+                }
+            }
+            foreach (var data in personaStacksToAppearAsWorldPawns.ToList())
+            {
+                if (Find.TickManager.TicksGame >= data.Value)
+                {
+                    var pawn = data.Key.GetDummyPawn;
+                    Find.WorldPawns.AddPawn(pawn);
+                    personaStacksToAppearAsWorldPawns.Remove(data.Key);
+                    Log.Message(data.Key.GetDummyPawn + " should appear now");
                 }
             }
         }

@@ -265,6 +265,10 @@
 	<AC.ColonistStackNeedsExtracting>Colonist stack needs extracting.</AC.ColonistStackNeedsExtracting>
 	<AC.ColonistStackNeedsExtractingDesc>These colonists are incapacitated on the ground:\n\n{0}\nSend another colonist to rescue them and carry them back to bed.\n\n(To rescue, select another colonist, then right click on the victim and select Rescue.)</AC.ColonistStackNeedsExtractingDesc>
 	<AC.SleeveDeathDoesNotCauseGearTainting>Sleeve death doesn't cause gear to be tainted</AC.SleeveDeathDoesNotCauseGearTainting>
+	<AC.EnableSoldMindFramesCreatingPawnDuplicates>Selling mind frames can create duplicates</AC.EnableSoldMindFramesCreatingPawnDuplicates>
+	<AC.EnableSoldMindFramesCreatingPawnDuplicatesDesc>text.todo</AC.EnableSoldMindFramesCreatingPawnDuplicatesDesc>
+	<AC.EnableMindFramesInAncientDangers>Enable mind frames spawning in ancient dangers</AC.EnableMindFramesInAncientDangers>
+	<AC.EnableMindFramesInAncientDangersDesc>text.todo</AC.EnableMindFramesInAncientDangersDesc>
 	<!-- ================================ Warnings ====================== -->
 	<AC.CannotInstallStackOnAndroidWithoutPersonaModule>Cannot install stacks into androids without a persona module.</AC.CannotInstallStackOnAndroidWithoutPersonaModule>
 	<AC.CannotInstallEmptyStackInEmptySleeve>Cannot install an empty stack into an empty sleeve.</AC.CannotInstallEmptyStackInEmptySleeve>

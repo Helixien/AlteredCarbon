@@ -98,7 +98,7 @@ namespace AlteredCarbon
             {
                 if (!respawningAfterLoad && !PersonaData.ContainsInnerPersona && IsFilledStack)
                 {
-                    GenerateInnerPersona();
+                    GeneratePersona();
                     PersonaData.stackGroupID = AlteredCarbonManager.Instance.GetStackGroupID(this);
                     AlteredCarbonManager.Instance.RegisterStack(this);
                 }

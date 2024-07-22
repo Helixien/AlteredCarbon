@@ -9,7 +9,7 @@ namespace AlteredCarbon
     {
         public static void Postfix(ref bool __result, Thing thing)
         {
-            if (thing is PersonaStack personaStack && personaStack.PersonaData.ContainsInnerPersona)
+            if (thing is ThingWithStack personaStack && personaStack.PersonaData.ContainsInnerPersona)
             {
                 __result = false;
             }

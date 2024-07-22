@@ -52,10 +52,15 @@ namespace AlteredCarbon
             return stringBuilder.ToString().TrimEndNewlines();
         }
 
-        protected void GenerateInnerPersona()
+        public void GeneratePersona()
         {
-            PawnKindDef pawnKind = DefDatabase<PawnKindDef>.AllDefs.Where(x => x.RaceProps.Humanlike && x is not CreepJoinerFormKindDef).RandomElement();
             Faction faction = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction).RandomElement();
+            GeneratePersona(faction);
+        }
+
+        public void GeneratePersona(Faction faction)
+        {
+            PawnKindDef pawnKind = GetPawnKind(faction);
             Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnKind, faction));
             PersonaData.CopyFromPawn(pawn, this.def, copyRaceGenderInfo: true);
             PersonaData.OverwritePawn(pawn, this.def.GetModExtension<StackSavingOptionsModExtension>());
@@ -68,6 +73,24 @@ namespace AlteredCarbon
                     target.targets.Add(this);
                 }
             }
+        }
+
+        private PawnKindDef GetPawnKind(Faction faction)
+        {
+            if (faction != null)
+            {
+                if (faction == Faction.OfAncients)
+                {
+                    return PawnKindDefOf.AncientSoldier;
+                }
+                if (DefDatabase<PawnKindDef>.AllDefs.Where(x => x.defaultFactionType == faction.def
+                    && x.RaceProps.Humanlike && x is not CreepJoinerFormKindDef).TryRandomElement(out var pawnKind))
+                {
+                    return pawnKind;
+                }
+            }
+            return DefDatabase<PawnKindDef>.AllDefs.Where(x => x.RaceProps.Humanlike
+                && x is not CreepJoinerFormKindDef).RandomElement();
         }
 
         public override void ExposeData()
