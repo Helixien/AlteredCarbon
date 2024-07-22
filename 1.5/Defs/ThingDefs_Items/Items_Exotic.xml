@@ -19,6 +19,7 @@
 		<soundDrop>Metal_Drop</soundDrop>
 		<stackLimit>1</stackLimit>
 		<statBases>
+			<MarketValue>500</MarketValue>
 			<MaxHitPoints>50</MaxHitPoints>
 			<Mass>0.2</Mass>
 			<Flammability>0.2</Flammability>
@@ -37,7 +38,7 @@
 			<li>ExoticMisc</li>
 		</tradeTags>
 		<modExtensions>
-			<li Class="AlteredCarbon.MindFrameSavingOptionsModExtension">
+			<li Class="AlteredCarbon.StackSavingOptionsModExtension">
 				<ignoresTraits>
 					<li>Beauty</li>
 					<li>Immunity</li>

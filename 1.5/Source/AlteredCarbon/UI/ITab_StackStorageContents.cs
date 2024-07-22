@@ -11,7 +11,7 @@ namespace AlteredCarbon
     {
         private static readonly Vector2 WinSize = new Vector2(432f, 480f);
         private Vector2 scrollPosition;
-        public Building_PersonaMatrix Building_StackStorage => SelThing as Building_PersonaMatrix;
+        public Building_PersonaMatrix Building_PersonaMatrix => SelThing as Building_PersonaMatrix;
         public ITab_StackStorageContents()
         {
             size = WinSize;
@@ -26,12 +26,12 @@ namespace AlteredCarbon
             GUI.color = Color.white;
             float labelWidth = viewRect.width - 15f;
             float num = 0;
-            DoAllowOption(ref num, labelWidth, "AC.AllowColonistStacks", ref Building_StackStorage.allowColonistPersonaStacks);
-            DoAllowOption(ref num, labelWidth, "AC.AllowStrangerStacks", ref Building_StackStorage.allowStrangerPersonaStacks);
-            DoAllowOption(ref num, labelWidth, "AC.AllowHostileStacks", ref Building_StackStorage.allowHostilePersonaStacks);
-            DoAllowOption(ref num, labelWidth, "AC.AllowArchotechStacks", ref Building_StackStorage.allowArchotechStacks);
+            DoAllowOption(ref num, labelWidth, "AC.AllowColonistStacks", ref Building_PersonaMatrix.allowColonistPersonaStacks);
+            DoAllowOption(ref num, labelWidth, "AC.AllowStrangerStacks", ref Building_PersonaMatrix.allowStrangerPersonaStacks);
+            DoAllowOption(ref num, labelWidth, "AC.AllowHostileStacks", ref Building_PersonaMatrix.allowHostilePersonaStacks);
+            DoAllowOption(ref num, labelWidth, "AC.AllowArchotechStacks", ref Building_PersonaMatrix.allowArchotechStacks);
 
-            System.Collections.Generic.List<PersonaStack> storedStacks = Building_StackStorage.StoredStacks.ToList();
+            System.Collections.Generic.List<PersonaStack> storedStacks = Building_PersonaMatrix.StoredStacks.ToList();
             Widgets.ListSeparator(ref num, viewRect.width - 15, "AC.PersonaStacksInArray".Translate(storedStacks.Count(), Building_PersonaMatrix.MaxFilledStackCapacity));
             Rect scrollRect = new Rect(0, num, viewRect.width - 16, viewRect.height);
             Rect outerRect = scrollRect;
@@ -74,7 +74,7 @@ namespace AlteredCarbon
                 Find.WindowStack.Add(new Dialog_MessageBox("AC.EjectStackConfirmation".Translate(personaStack.def.label + " (" + personaStack.PersonaData.name.ToStringFull + ")"),
                      "Confirm".Translate(), delegate
                      {
-                         Building_StackStorage.innerContainer.TryDrop(personaStack, Building_StackStorage.InteractionCell, Building_StackStorage.Map, ThingPlaceMode.Near, 1, out Thing droppedThing);
+                         Building_PersonaMatrix.innerContainer.TryDrop(personaStack, Building_PersonaMatrix.InteractionCell, Building_PersonaMatrix.Map, ThingPlaceMode.Near, 1, out Thing droppedThing);
                      }, "GoBack".Translate(), null));
             }
             Rect installStackRect = rect2;
@@ -86,7 +86,7 @@ namespace AlteredCarbon
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
                 Find.Targeter.BeginTargeting(personaStack.ForPawn(), delegate (LocalTargetInfo x)
                 {
-                    Building_StackStorage.innerContainer.TryDrop(personaStack, Building_StackStorage.InteractionCell, Building_StackStorage.Map, ThingPlaceMode.Near, 1, out Thing droppedThing);
+                    Building_PersonaMatrix.innerContainer.TryDrop(personaStack, Building_PersonaMatrix.InteractionCell, Building_PersonaMatrix.Map, ThingPlaceMode.Near, 1, out Thing droppedThing);
                     personaStack.InstallStackRecipe(x.Pawn, AC_Utils.stackRecipesByDef[personaStack.def].recipe);
                 });
             }

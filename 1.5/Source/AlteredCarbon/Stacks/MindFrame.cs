@@ -1,5 +1,6 @@
 ﻿using RimWorld;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 using Verse;
@@ -7,37 +8,25 @@ using Verse;
 namespace AlteredCarbon
 {
     [HotSwappable]
-    public class MindFrame : ThingWithComps
+    public class MindFrame : ThingWithStack
     {
-        public PersonaData personaData;
         public int backupCreationDataTicks;
-        public bool autoLoad = true;
 
         public override string LabelNoCount
         {
             get
             {
                 var label = base.LabelNoCount;
-                label += " (" + this.personaData.PawnNameColored.ToStringSafe() + ")";
+                label += " (" + this.PersonaData.PawnNameColored.ToStringSafe() + ")";
                 return label;
             }
         }
-
-
-        private GraphicData hostileGraphicData;
-        private GraphicData friendlyGraphicData;
-        private GraphicData strangerGraphicData;
-        private GraphicData slaveGraphicData;
-
-        private Graphic hostileGraphic;
-        private Graphic friendlyGraphic;
-        private Graphic strangerGraphic;
-        private Graphic slaveGraphic;
 
         public override Graphic Graphic
         {
             get
             {
+                var personaData = PersonaData;
                 if (personaData.guestStatusInt == GuestStatus.Slave)
                 {
                     return GetMindFrameGraphic(ref slaveGraphic, ref slaveGraphicData,
@@ -74,20 +63,13 @@ namespace AlteredCarbon
             return graphic;
         }
 
-        private GraphicData GetGraphicDataWithOtherPath(string texPath)
+        public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
-            var copy = new GraphicData();
-            copy.CopyFrom(def.graphicData);
-            copy.texPath = texPath;
-            return copy;
-        }
-
-        public override string GetInspectString()
-        {
-            StringBuilder stringBuilder = new StringBuilder();
-            personaData.AppendInfo(stringBuilder);
-            stringBuilder.Append(base.GetInspectString());
-            return stringBuilder.ToString().TrimEndNewlines();
+            base.SpawnSetup(map, respawningAfterLoad);
+            if (!respawningAfterLoad && PersonaData.ContainsInnerPersona is false)
+            {
+                GenerateInnerPersona();
+            }
         }
 
         public override IEnumerable<Gizmo> GetGizmos()
@@ -111,9 +93,7 @@ namespace AlteredCarbon
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Deep.Look(ref personaData, "personaData");
             Scribe_Values.Look(ref backupCreationDataTicks, "backupCreationDataTicks");
-            Scribe_Values.Look(ref autoLoad, "autoLoad", true);
         }
     }
 }

@@ -114,7 +114,7 @@
 		<workType>Research</workType>
 		<priorityInType>50</priorityInType>
 		<fixedBillGiverDefs>
-			<li>AC_DecryptionBench</li>
+			<li>AC_NeuralEditor</li>
 		</fixedBillGiverDefs>
 		<verb>hack stacks</verb>
 		<gerund>hacking stacks at</gerund>

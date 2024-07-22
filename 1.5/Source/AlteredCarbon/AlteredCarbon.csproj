@@ -98,10 +98,14 @@
     <Compile Include="HarmonyPatches\FactionGiftUtility_GetBaseGoodwillChange_Patch.cs" />
     <Compile Include="HarmonyPatches\FactionGiftUtility_GetGoodwillChange_Patch1.cs" />
     <Compile Include="HarmonyPatches\FactionGiftUtility_GetGoodwillChange_Patch2.cs" />
+    <Compile Include="HarmonyPatches\ITab_Pawn_Log_SelPawnForCombatInfo_Patch.cs" />
+    <Compile Include="HarmonyPatches\ITab_Pawn_Social_SelPawnForSocialInfo_Patch.cs" />
     <Compile Include="HarmonyPatches\ModCompat\GeneRipper_Building_GeneRipper_KillOccupant_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_MeleeVerbs_TryGetMeleeVerb_Patch.cs" />
     <Compile Include="HarmonyPatches\HediffSet_GetHediffsVerbs_Patch.cs" />
     <Compile Include="HarmonyPatches\Precept_Role_ValidatePawn_Patch.cs" />
+    <Compile Include="HarmonyPatches\StatWorker_MarketValue_GetExplanationUnfinalized_Patch.cs" />
+    <Compile Include="HarmonyPatches\StatWorker_MarketValue_GetValueUnfinalized_Patch.cs" />
     <Compile Include="HarmonyPatches\TradeUtility_PlayerSellableNow_Patch.cs" />
     <Compile Include="HarmonyPatches\TransferableUIUtility_DoExtraIcons_Patch.cs" />
     <Compile Include="HarmonyPatches\CompRottable_CompInspectStringExtra_Patch.cs" />
@@ -137,6 +141,7 @@
     <Compile Include="Stacks\Hediff_ParroterStack.cs" />
     <Compile Include="Stacks\MindFrame.cs" />
     <Compile Include="Stacks\RJWData.cs" />
+    <Compile Include="Stacks\ThingWithStack.cs" />
     <Compile Include="Stacks\Thought_StackDegradation.cs" />
     <Compile Include="UI\Alert_ColonistStackNeedsExtracting.cs" />
     <Compile Include="UI\Command_ActionOnStack.cs" />

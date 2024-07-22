@@ -2,45 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using UnityEngine;
 using Verse;
 
 namespace AlteredCarbon
 {
     [HotSwappable]
-    public class PersonaStack : ThingWithComps
+    public class PersonaStack : ThingWithStack
     {
-        public bool autoLoad = true;
-
         public PersonaData personaDataRewritten;
-
-        private PersonaData personaData;
-        public PersonaData PersonaData
-        {
-            get
-            {
-                if (personaData is null)
-                {
-                    personaData = new PersonaData();
-                }
-                return personaData;
-            }
-            set
-            {
-                personaData = value;
-            }
-        }
-
-        private GraphicData hostileGraphicData;
-        private GraphicData friendlyGraphicData;
-        private GraphicData strangerGraphicData;
-        private GraphicData slaveGraphicData;
-
-        private Graphic hostileGraphic;
-        private Graphic friendlyGraphic;
-        private Graphic strangerGraphic;
-        private Graphic slaveGraphic;
 
         public override Graphic Graphic
         {
@@ -91,14 +61,6 @@ namespace AlteredCarbon
             return graphic;
         }
 
-        private GraphicData GetGraphicDataWithOtherPath(string texPath)
-        {
-            var copy = new GraphicData();
-            copy.CopyFrom(def.graphicData);
-            copy.texPath = texPath;
-            return copy;
-        }
-
         public override string LabelNoCount
         {
             get
@@ -136,22 +98,9 @@ namespace AlteredCarbon
             {
                 if (!respawningAfterLoad && !PersonaData.ContainsInnerPersona && IsFilledStack)
                 {
-                    PawnKindDef pawnKind = DefDatabase<PawnKindDef>.AllDefs.Where(x => x.RaceProps.Humanlike && x is not CreepJoinerFormKindDef).RandomElement();
-                    Faction faction = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction).RandomElement();
-                    Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnKind, faction));
-                    PersonaData.CopyFromPawn(pawn, this.def, copyRaceGenderInfo: true);
-                    PersonaData.OverwritePawn(pawn, this.def.GetModExtension<StackSavingOptionsModExtension>());
-                    PersonaData.dummyPawn = pawn;
+                    GenerateInnerPersona();
                     PersonaData.stackGroupID = AlteredCarbonManager.Instance.GetStackGroupID(this);
                     AlteredCarbonManager.Instance.RegisterStack(this);
-                    if (LookTargets_Patch.targets.TryGetValue(pawn, out List<LookTargets> targets))
-                    {
-                        foreach (LookTargets target in targets)
-                        {
-                            target.targets.Remove(pawn);
-                            target.targets.Add(this);
-                        }
-                    }
                 }
             }
             catch (Exception ex)
@@ -164,6 +113,7 @@ namespace AlteredCarbon
             }
             base.SpawnSetup(map, respawningAfterLoad);
         }
+
         public TargetingParameters ForPawn()
         {
             TargetingParameters targetingParameters = new TargetingParameters
@@ -311,14 +261,6 @@ namespace AlteredCarbon
             }
         }
 
-        public override string GetInspectString()
-        {
-            StringBuilder stringBuilder = new StringBuilder();
-            PersonaData.AppendInfo(stringBuilder);
-            stringBuilder.Append(base.GetInspectString());
-            return stringBuilder.ToString().TrimEndNewlines();
-        }
-
         public override void PostApplyDamage(DamageInfo dinfo, float totalDamageDealt)
         {
             base.PostApplyDamage(dinfo, totalDamageDealt);
@@ -393,9 +335,7 @@ namespace AlteredCarbon
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Deep.Look(ref personaData, "personaData");
             Scribe_Deep.Look(ref personaDataRewritten, "personaDataRewritten");
-            Scribe_Values.Look(ref autoLoad, "autoLoad", true);
         }
     }
 }

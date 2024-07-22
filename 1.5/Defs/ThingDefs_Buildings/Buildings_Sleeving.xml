@@ -4,7 +4,7 @@
 		<defName>AC_PersonaMatrix</defName>
 		<label>persona matrix</label>
 		<description>A quantum computing array, designed to store cortical stacks and make backups of them that can be restored if needed. Cortical stacks can be duplicated, when placed inside the array. Backups are synced between arrays, allowing for multiple ones to be built. \n\nStack Arrays will make an automatic backup of any colony cortical stacks that are installed on the local map every 24 hours. Backups are restored to empty cortical stacks if the original stack is destroyed.</description>
-		<thingClass>AlteredCarbon.Building_StackStorage</thingClass>
+		<thingClass>AlteredCarbon.Building_PersonaMatrix</thingClass>
 		<tickerType>Normal</tickerType>
 		<drawerType>RealtimeOnly</drawerType>
 		<graphicData>
@@ -106,7 +106,7 @@
 		<defName>AC_NeuralEditor</defName>
 		<label>neural editor</label>
 		<description>A sophisticated workbench that allows the user to connect to persona stacks in order to alter the contained information, such as changing allegiance, or even wipe them clean. Can also strip the biocoding from items.\n\nAs the process is quite aggressive, there is a risk of the decryption process destroying the item.</description>
-		<thingClass>AlteredCarbon.Building_DecryptionBench</thingClass>
+		<thingClass>AlteredCarbon.Building_NeuralEditor</thingClass>
 		<graphicData>
 			<texPath>Things/Building/Misc/HackingWorkbench/HackingWorkbench</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>

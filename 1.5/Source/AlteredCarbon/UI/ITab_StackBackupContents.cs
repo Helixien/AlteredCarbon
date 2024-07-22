@@ -13,7 +13,7 @@ namespace AlteredCarbon
     {
         private static readonly Vector2 WinSize = new Vector2(432f, 480f);
         private Vector2 scrollPosition;
-        public Building_PersonaMatrix Building_StackStorage => SelThing as Building_PersonaMatrix;
+        public Building_PersonaMatrix Building_PersonaMatrix => SelThing as Building_PersonaMatrix;
         public ITab_StackBackupContents()
         {
             size = WinSize;

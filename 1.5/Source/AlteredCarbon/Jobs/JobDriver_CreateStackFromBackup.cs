@@ -6,14 +6,14 @@ namespace AlteredCarbon
     public class JobDriver_CreateStackFromBackup : JobDriver
     {
         public const int RestoringDuration = 1000;
-        public Building_PersonaMatrix Building_StackStorage => TargetA.Thing as Building_PersonaMatrix;
+        public Building_PersonaMatrix Building_PersonaMatrix => TargetA.Thing as Building_PersonaMatrix;
         public override bool TryMakePreToilReservations(bool errorOnFailed)
         {
             return pawn.Reserve(TargetA, job);
         }
         public override IEnumerable<Toil> MakeNewToils()
         {
-            this.FailOn(() => !Building_StackStorage.Powered || GameComponent_DigitalStorage.Instance.FirstPersonaStackToRestore is null);
+            this.FailOn(() => !Building_PersonaMatrix.Powered || GameComponent_DigitalStorage.Instance.FirstPersonaStackToRestore is null);
             yield return Toils_Goto.GotoThing(TargetIndex.B, PathEndMode.ClosestTouch).FailOnDespawnedNullOrForbidden(TargetIndex.B)
                 .FailOnSomeonePhysicallyInteracting(TargetIndex.B);
             yield return Toils_Haul.StartCarryThing(TargetIndex.B);
