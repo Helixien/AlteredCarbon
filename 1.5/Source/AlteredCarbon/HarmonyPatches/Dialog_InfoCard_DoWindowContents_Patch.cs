@@ -11,7 +11,7 @@ namespace AlteredCarbon
     {
         public static bool Prefix(Dialog_InfoCard __instance, Rect inRect)
         {
-            if (__instance.thing is ThingWithStack personaStack && personaStack.PersonaData.ContainsInnerPersona)
+            if (__instance.thing is ThingWithStack personaStack && personaStack.PersonaData.ContainsPersona)
             {
                 DoWindowContents(__instance, inRect);
                 return false;

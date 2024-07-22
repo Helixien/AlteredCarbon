@@ -9,7 +9,7 @@ namespace AlteredCarbon
     {
         public static void Postfix(ref bool __result, Thing t, ITrader trader)
         {
-            if (t is PersonaStack personaStack && personaStack.PersonaData.ContainsInnerPersona)
+            if (t is PersonaStack personaStack && personaStack.PersonaData.ContainsPersona)
             {
                 if (TradeSession.giftMode is false)
                 {

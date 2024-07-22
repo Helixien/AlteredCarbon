@@ -65,7 +65,6 @@
 			<fixedStorageSettings>
 				<filter>
 					<thingDefs>
-						<li>AC_FilledPersonaStack</li>
 						<li>AC_MindFrame</li>
 					</thingDefs>
 				</filter>
@@ -74,7 +73,6 @@
 				<priority>Important</priority>
 				<filter>
 					<thingDefs>
-						<li>AC_FilledPersonaStack</li>
 						<li>AC_MindFrame</li>
 					</thingDefs>
 				</filter>
@@ -84,8 +82,7 @@
 			</buildingTags>
 		</building>
 		<inspectorTabs>
-			<li>AlteredCarbon.ITab_StackStorageContents</li>
-			<li>AlteredCarbon.ITab_StackBackupContents</li>
+			<li>AlteredCarbon.ITab_FramesStorageContents</li>
 		</inspectorTabs>
 		<comps>
 			<li Class="CompProperties_Power">
@@ -99,6 +96,9 @@
 			</li>
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Facility">
+				<maxSimultaneous>1</maxSimultaneous>
+			</li>
 		</comps>
 	</ThingDef>
 	
@@ -178,6 +178,11 @@
 			</li>
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_AffectedByFacilities">
+				<linkableFacilities>
+					<li>AC_PersonaMatrix</li>
+				</linkableFacilities>
+			</li>
 		</comps>
 	</ThingDef>
 </Defs>

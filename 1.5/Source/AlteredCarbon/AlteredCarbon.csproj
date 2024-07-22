@@ -106,7 +106,7 @@
     <Compile Include="HarmonyPatches\Precept_Role_ValidatePawn_Patch.cs" />
     <Compile Include="HarmonyPatches\StatWorker_MarketValue_GetExplanationUnfinalized_Patch.cs" />
     <Compile Include="HarmonyPatches\StatWorker_MarketValue_GetValueUnfinalized_Patch.cs" />
-    <Compile Include="HarmonyPatches\SymbolResolver_Interior_AncientTemple_Resolve_Patch.cs" />
+    <Compile Include="HarmonyPatches\SymbolResolver_AncientShrinesGroup_Resolve_Patch.cs" />
     <Compile Include="HarmonyPatches\TradeUtility_PlayerSellableNow_Patch.cs" />
     <Compile Include="HarmonyPatches\TransferableUIUtility_DoExtraIcons_Patch.cs" />
     <Compile Include="HarmonyPatches\CompRottable_CompInspectStringExtra_Patch.cs" />
@@ -269,8 +269,7 @@
     <Compile Include="Thoughts\ThoughtWorker_Precept_StackDuplicating_Social.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_XenoSleeving_Social.cs" />
     <Compile Include="UI\Dialog_InfoCardStack.cs" />
-    <Compile Include="UI\ITab_StackBackupContents.cs" />
-    <Compile Include="UI\ITab_StackStorageContents.cs" />
+    <Compile Include="UI\ITab_FramesStorageContents.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_ArchotechStack.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_NoStack.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_NoStack_Social.cs" />

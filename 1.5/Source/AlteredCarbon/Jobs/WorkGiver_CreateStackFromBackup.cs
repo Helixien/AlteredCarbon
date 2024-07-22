@@ -14,10 +14,12 @@ namespace AlteredCarbon
         }
         public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)
         {
-            return pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).Cast<Building_PersonaMatrix>()
-                .Where(x => x.autoRestoreIsEnabled && x.Powered && GameComponent_DigitalStorage.Instance.FirstPersonaStackToRestore != null
+            return pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_NeuralEditor).Cast<Building_NeuralEditor>()
+                .Where(x => x.autoRestoreIsEnabled && x.Powered 
+                && GameComponent_DigitalStorage.Instance.FirstPersonaStackToRestore != null
                 && pawn.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
         }
+
         public override bool HasJobOnThing(Pawn pawn, Thing t, bool forced = false)
         {
             if (pawn.skills.GetSkill(SkillDefOf.Intellectual).Level < 10)

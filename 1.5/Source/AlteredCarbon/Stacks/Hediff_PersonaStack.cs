@@ -113,7 +113,7 @@ namespace AlteredCarbon
 
         public override void Notify_PawnDied(DamageInfo? dinfo, Hediff culprit = null)
         {
-            if (!PersonaData.ContainsInnerPersona)
+            if (!PersonaData.ContainsPersona)
             {
                 PersonaData.CopyFromPawn(this.pawn, SourceStack);
             }
@@ -122,7 +122,7 @@ namespace AlteredCarbon
 
         public override void Notify_PawnKilled()
         {
-            if (!PersonaData.ContainsInnerPersona)
+            if (!PersonaData.ContainsPersona)
             {
                 PersonaData.CopyFromPawn(this.pawn, SourceStack);
             }

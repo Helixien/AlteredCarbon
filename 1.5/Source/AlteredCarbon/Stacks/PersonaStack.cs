@@ -17,7 +17,7 @@ namespace AlteredCarbon
             get
             {
                 PersonaData personaData = PersonaData;
-                if (personaData.ContainsInnerPersona)
+                if (personaData.ContainsPersona)
                 {
                     if (personaData.guestStatusInt == GuestStatus.Slave)
                     {
@@ -96,7 +96,7 @@ namespace AlteredCarbon
         {
             try
             {
-                if (!respawningAfterLoad && !PersonaData.ContainsInnerPersona && IsFilledStack)
+                if (!respawningAfterLoad && !PersonaData.ContainsPersona && IsFilledStack)
                 {
                     GeneratePersona();
                     PersonaData.stackGroupID = AlteredCarbonManager.Instance.GetStackGroupID(this);
@@ -288,7 +288,7 @@ namespace AlteredCarbon
                 return;
             }
             base.Destroy(mode);
-            if (PersonaData.ContainsInnerPersona && !dontKillThePawn)
+            if (PersonaData.ContainsPersona && !dontKillThePawn)
             {
                 KillInnerPawn();
             }
@@ -296,7 +296,7 @@ namespace AlteredCarbon
 
         public void KillInnerPawn(bool affectFactionRelationship = false, Pawn affecter = null)
         {
-            if (PersonaData.ContainsInnerPersona)
+            if (PersonaData.ContainsPersona)
             {
                 Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(PawnKindDefOf.Colonist, Faction.OfPlayer));
                 PersonaData.OverwritePawn(pawn, def.GetModExtension<StackSavingOptionsModExtension>());

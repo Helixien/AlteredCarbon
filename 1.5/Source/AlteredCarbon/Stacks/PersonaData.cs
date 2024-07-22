@@ -76,7 +76,7 @@ namespace AlteredCarbon
         private Battle battleActive;
         private int battleExitTick;
 
-        public bool ContainsInnerPersona => hostPawn != null || name != null;
+        public bool ContainsPersona => hostPawn != null || name != null;
 
         public static HashSet<Pawn> dummyPawns = new HashSet<Pawn>();
 
@@ -276,7 +276,7 @@ namespace AlteredCarbon
 
         public void AppendInfo(StringBuilder stringBuilder)
         {
-            if (this.ContainsInnerPersona)
+            if (this.ContainsPersona)
             {
                 if (this.faction != null)
                 {

@@ -82,7 +82,7 @@ namespace AlteredCarbon
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             base.SpawnSetup(map, respawningAfterLoad);
-            if (!respawningAfterLoad && PersonaData.ContainsInnerPersona is false)
+            if (!respawningAfterLoad && PersonaData.ContainsPersona is false)
             {
                 GeneratePersona();
             }

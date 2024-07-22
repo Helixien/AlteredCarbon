@@ -10,7 +10,7 @@ namespace AlteredCarbon
     {
         public static void Postfix(ref float __result, Thing anyThing, int count, float singlePrice, Faction theirFaction)
         {
-            if (anyThing is PersonaStack personaStack && personaStack.PersonaData.ContainsInnerPersona)
+            if (anyThing is PersonaStack personaStack && personaStack.PersonaData.ContainsPersona)
             {
                 __result = 0;
             }

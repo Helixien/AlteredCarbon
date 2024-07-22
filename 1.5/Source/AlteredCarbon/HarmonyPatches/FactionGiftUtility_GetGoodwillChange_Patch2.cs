@@ -15,7 +15,7 @@ namespace AlteredCarbon
             {
                 if (tradeables[i].ActionToDo == TradeAction.PlayerSells)
                 {
-                    if (tradeables[i].AnyThing is PersonaStack personaStack && personaStack.PersonaData.ContainsInnerPersona
+                    if (tradeables[i].AnyThing is PersonaStack personaStack && personaStack.PersonaData.ContainsPersona
                         && personaStack.PersonaData.faction == theirFaction)
                     {
                         __result += 8;

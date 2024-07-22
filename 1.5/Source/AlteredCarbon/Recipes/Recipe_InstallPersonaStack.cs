@@ -91,7 +91,7 @@ namespace AlteredCarbon
         {
             pawnToInstallStack = pawn;
             var hediff = HediffMaker.MakeHediff(recipe.addsHediff, pawn) as Hediff_PersonaStack;
-            if (personaStack.PersonaData.ContainsInnerPersona)
+            if (personaStack.PersonaData.ContainsPersona)
             {
                 hediff.PersonaData = personaStack.PersonaData;
                 if (pawn.IsEmptySleeve() is false)

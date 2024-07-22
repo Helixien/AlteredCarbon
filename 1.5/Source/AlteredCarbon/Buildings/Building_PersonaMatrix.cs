@@ -12,20 +12,16 @@ namespace AlteredCarbon
 {
     public class Building_PersonaMatrix : Building, IThingHolder
     {
+        public CompPowerTrader compPower;
         public const int MaxFilledStackCapacity = 25;
-        public Building_PersonaMatrix()
-        {
-            this.innerContainer = new ThingOwner<Thing>(this, false, LookMode.Deep);
-        }
-
         public bool allowColonistPersonaStacks = true;
         public bool allowStrangerPersonaStacks = true;
         public bool allowHostilePersonaStacks = true;
         public bool allowArchotechStacks = true;
-        public CompPowerTrader compPower;
-        public bool backupIsEnabled;
-        public bool autoRestoreIsEnabled = true;
-        public PersonaStack stackToDuplicate;
+        public Building_PersonaMatrix()
+        {
+            this.innerContainer = new ThingOwner<Thing>(this, false, LookMode.Deep);
+        }
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             base.SpawnSetup(map, respawningAfterLoad);
@@ -45,35 +41,15 @@ namespace AlteredCarbon
             }
             this.innerContainer.ClearAndDestroyContents(DestroyMode.Vanish);
             base.Destroy(mode);
-            GameComponent_DigitalStorage.Instance.ClearBackedUpStacksIfNoStackStorages();
         }
-
-
-        public bool CanDuplicateStack
-        {
-            get
-            {
-                if (this.stackToDuplicate is null || !this.innerContainer.Contains(this.stackToDuplicate))
-                {
-                    return false;
-                }
-                if (!Powered)
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
-
         public bool Powered => this.compPower.PowerOn;
-        public bool HasAnyContents
-        {
-            get
-            {
-                return this.innerContainer.Any();
-            }
-        }
-        public IEnumerable<PersonaStack> StoredStacks => this.innerContainer.OfType<PersonaStack>();
+
+
+
+        public bool HasAnyContents => StoredMindFrames.Any();
+
+        public IEnumerable<MindFrame> StoredMindFrames => this.innerContainer.OfType<MindFrame>();
+
         public override IEnumerable<Gizmo> GetGizmos()
         {
             foreach (var g in base.GetGizmos())
@@ -82,63 +58,8 @@ namespace AlteredCarbon
             }
             if (Faction == Faction.OfPlayer)
             {
-                var stacks = StoredStacks.ToList();
-                var duplicateStacks = new Command_Action
-                {
-                    defaultLabel = "AC.DuplicateStack".Translate(),
-                    defaultDesc = "AC.DuplicateStackDesc".Translate(),
-                    icon = ContentFinder<Texture2D>.Get("UI/Gizmos/DuplicateStack"),
-                    activateSound = SoundDefOf.Tick_Tiny,
-                    action = delegate ()
-                    {
-                        var floatList = new List<FloatMenuOption>();
-                        foreach (var stack in StoredStacks.Where(x => x.PersonaData.ContainsInnerPersona))
-                        {
-                            if (stack.IsArchotechStack is false)
-                            {
-                                var option = new FloatMenuOption(stack.PersonaData.PawnNameColored, delegate ()
-                                {
-                                    this.stackToDuplicate = stack;
-                                }, stack, stack.DrawColor);
-                                floatList.Add(option);
-                            }
-                        }
-                        Find.WindowStack.Add(new FloatMenu(floatList));
-                    }
-                };
-                if (this.stackToDuplicate != null)
-                {
-                    duplicateStacks.Disable("AC.AlreadySetToDuplicate".Translate());
-                }
-                else if (stacks.Count() >= MaxFilledStackCapacity)
-                {
-                    duplicateStacks.Disable("AC.NoEnoughSpaceForNewStack".Translate());
-                }
-                if (!stacks.Any())
-                {
-                    duplicateStacks.Disable("AC.NoStoredStackToDuplicate".Translate());
-                }
-                if (this.Powered is false)
-                {
-                    duplicateStacks.Disable("NoPower".Translate());
-                }
-                yield return duplicateStacks;
-                duplicateStacks.LockBehindReseach(new List<ResearchProjectDef> { AC_DefOf.AC_RewritePersonaStack });
-                if (this.stackToDuplicate != null)
-                {
-                    yield return new Command_Action
-                    {
-                        defaultLabel = "AC.CancelStackDuplication".Translate(),
-                        defaultDesc = "AC.CancelStackDuplicationDesc".Translate(),
-                        activateSound = SoundDefOf.Tick_Tiny,
-                        icon = UIHelper.CancelIcon,
-                        action = delegate ()
-                        {
-                            this.stackToDuplicate = null;
-                        }
-                    };
-                }
-                if (stacks.Any())
+                var frames = StoredMindFrames.ToList();
+                 if (frames.Any())
                 {
                     var ejectAll = new Command_Action();
                     ejectAll.defaultLabel = "AC.EjectAll".Translate();
@@ -149,63 +70,17 @@ namespace AlteredCarbon
                         EjectContents();
                     };
                     yield return ejectAll;
-
-                }
-
-                var enableBackup = new Command_Toggle()
-                {
-                    defaultLabel = "AC.EnableBackup".Translate(),
-                    defaultDesc = "AC.EnableBackupDesc".Translate(),
-                    icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EnableBackup"),
-                    activateSound = SoundDefOf.Tick_Tiny,
-                    toggleAction = delegate ()
-                    {
-                        backupIsEnabled = !backupIsEnabled;
-                    },
-                    isActive = () => backupIsEnabled
-                };
-                yield return enableBackup;
-                if (backupIsEnabled)
-                {
-                    var backupAll = new Command_Action()
-                    {
-                        defaultLabel = "AC.BackupAllStacks".Translate(),
-                        defaultDesc = "AC.BackupAllStacksDesc".Translate(),
-                        icon = ContentFinder<Texture2D>.Get("UI/Gizmos/BackupAllStacks"),
-                        activateSound = SoundDefOf.Tick_Tiny,
-                        action = delegate
-                        {
-                            GameComponent_DigitalStorage.Instance.BackupAllColonistsWithStacks();
-                        },
-                    };
-                    if (!this.compPower.PowerOn)
-                    {
-                        backupAll.Disable("NoPower".Translate());
                     }
-                    yield return backupAll;
-                }
-                yield return new Command_Toggle()
-                {
-                    defaultLabel = "AC.EnableAutoRestore".Translate(),
-                    defaultDesc = "AC.EnableAutoRestoreDesc".Translate(),
-                    icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EnableAutoRestore"),
-                    activateSound = SoundDefOf.Tick_Tiny,
-                    toggleAction = delegate ()
-                    {
-                        autoRestoreIsEnabled = !autoRestoreIsEnabled;
-                    },
-                    isActive = () => autoRestoreIsEnabled
-                };
             }
         }
 
         public override string GetInspectString()
         {
             var sb = new StringBuilder();
-            sb.AppendLine("AC.PersonaStacksStored".Translate(StoredStacks.Count(), MaxFilledStackCapacity));
-            if (GameComponent_DigitalStorage.Instance.backedUpStacks.Values.Any())
+            sb.AppendLine("AC.PersonaStacksStored".Translate(StoredMindFrames.Count(), MaxFilledStackCapacity));
+            if (StoredMindFrames.Any())
             {
-                var lastTimeUpdated = GameComponent_DigitalStorage.Instance.backedUpStacks.Select(x => x.Value.lastTimeUpdated).Max();
+                var lastTimeUpdated = StoredMindFrames.Select(x => x.backupCreationDataTicks).Max();
                 Vector2 vector = Find.WorldGrid.LongLatOf(this.Map.Tile);
                 sb.AppendLine("AC.LastBackup".Translate(GenDate.DateReadoutStringAt(lastTimeUpdated, vector)));
             }
@@ -213,23 +88,7 @@ namespace AlteredCarbon
             return sb.ToString();
         }
 
-        public void PerformStackDuplication(Pawn doer)
-        {
-            float successChance = 1f - Mathf.Abs((doer.skills.GetSkill(SkillDefOf.Intellectual).Level / 2f) - 11f) / 10f;
-            if (Rand.Chance(successChance))
-            {
-                var stackCopyTo = (PersonaStack)ThingMaker.MakeThing(AC_DefOf.AC_FilledPersonaStack);
-                this.innerContainer.TryAdd(stackCopyTo);
-                stackCopyTo.PersonaData.CopyDataFrom(stackToDuplicate.PersonaData, true);
-                AlteredCarbonManager.Instance.RegisterStack(stackCopyTo);
-                stackToDuplicate = null;
-                Messages.Message("AC.SuccessfullyDuplicatedStack".Translate(doer.Named("PAWN")), this, MessageTypeDefOf.TaskCompletion);
-            }
-            else
-            {
-                Messages.Message("AC.FailedToDuplicatedStack".Translate(doer.Named("PAWN")), this, MessageTypeDefOf.NeutralEvent);
-            }
-        }
+
         public void PerformStackBackup(Hediff_PersonaStack hediff_PersonaStack)
         {
             var stackCopyTo = (PersonaStack)ThingMaker.MakeThing(AC_DefOf.AC_FilledPersonaStack);
@@ -265,9 +124,6 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref this.allowHostilePersonaStacks, "allowHostilePersonaStacks", true);
             Scribe_Values.Look(ref this.allowStrangerPersonaStacks, "allowStrangerPersonaStacks", true);
             Scribe_Values.Look(ref this.allowArchotechStacks, "allowArchotechStacks", true);
-            Scribe_Values.Look(ref this.backupIsEnabled, "backupIsEnabled");
-            Scribe_Values.Look(ref this.autoRestoreIsEnabled, "autoRestoreIsEnabled", true);
-            Scribe_References.Look(ref this.stackToDuplicate, "stackToDuplicate");
         }
 
         public bool Accepts(Thing thing)
@@ -279,7 +135,7 @@ namespace AlteredCarbon
                 {
                     return false;
                 }
-                if (!stack.PersonaData.ContainsInnerPersona)
+                if (!stack.PersonaData.ContainsPersona)
                 {
                     return false;
                 }

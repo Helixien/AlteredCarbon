@@ -10,6 +10,29 @@ namespace AlteredCarbon
     [StaticConstructorOnStartup]
     public class Building_NeuralEditor : Building_WorkTable
     {
+        public bool autoRestoreIsEnabled = true;
+        public PersonaStack stackToDuplicate;
+        public Building_PersonaMatrix ConnectedMatrix => CompAffectedByFacilities.LinkedFacilitiesListForReading.OfType<Building_PersonaMatrix>().FirstOrDefault();
+        public bool Powered => (PowerComp as CompPowerTrader).PowerOn;
+        private CompAffectedByFacilities _compAffectedByFacilities;
+        public CompAffectedByFacilities CompAffectedByFacilities => 
+            _compAffectedByFacilities ??= GetComp<CompAffectedByFacilities>();
+
+        public bool CanDuplicateStack
+        {
+            get
+            {
+                if (this.stackToDuplicate is null || !ConnectedMatrix.innerContainer.Contains(this.stackToDuplicate))
+                {
+                    return false;
+                }
+                if (Powered is false)
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
         public override IEnumerable<Gizmo> GetGizmos()
         {
             foreach (Gizmo g in base.GetGizmos())
@@ -89,6 +112,90 @@ namespace AlteredCarbon
                     }
                 };
             }
+
+            yield return new Command_Toggle()
+            {
+                defaultLabel = "AC.EnableAutoRestore".Translate(),
+                defaultDesc = "AC.EnableAutoRestoreDesc".Translate(),
+                icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EnableAutoRestore"),
+                activateSound = SoundDefOf.Tick_Tiny,
+                toggleAction = delegate ()
+                {
+                    autoRestoreIsEnabled = !autoRestoreIsEnabled;
+                },
+                isActive = () => autoRestoreIsEnabled
+            };
+
+            var stacks = Map.listerThings.AllThings.OfType<PersonaStack>().Where(x => x.PersonaData.ContainsPersona).ToList();
+            var duplicateStacks = new Command_Action
+            {
+                defaultLabel = "AC.DuplicateStack".Translate(),
+                defaultDesc = "AC.DuplicateStackDesc".Translate(),
+                icon = ContentFinder<Texture2D>.Get("UI/Gizmos/DuplicateStack"),
+                activateSound = SoundDefOf.Tick_Tiny,
+                action = delegate ()
+                {
+                    var floatList = new List<FloatMenuOption>();
+                    foreach (var stack in stacks.Where(x => x.PersonaData.ContainsPersona))
+                    {
+                        if (stack.IsArchotechStack is false)
+                        {
+                            var option = new FloatMenuOption(stack.PersonaData.PawnNameColored, delegate ()
+                            {
+                                this.stackToDuplicate = stack;
+                            }, stack, stack.DrawColor);
+                            floatList.Add(option);
+                        }
+                    }
+                    Find.WindowStack.Add(new FloatMenu(floatList));
+                }
+            };
+            if (this.stackToDuplicate != null)
+            {
+                duplicateStacks.Disable("AC.AlreadySetToDuplicate".Translate());
+            }
+            if (!stacks.Any())
+            {
+                duplicateStacks.Disable("AC.NoStackToDuplicate".Translate());
+            }
+            if (this.Powered is false)
+            {
+                duplicateStacks.Disable("NoPower".Translate());
+            }
+            yield return duplicateStacks;
+            duplicateStacks.LockBehindReseach(new List<ResearchProjectDef> { AC_DefOf.AC_RewritePersonaStack });
+            if (this.stackToDuplicate != null)
+            {
+                yield return new Command_Action
+                {
+                    defaultLabel = "AC.CancelStackDuplication".Translate(),
+                    defaultDesc = "AC.CancelStackDuplicationDesc".Translate(),
+                    activateSound = SoundDefOf.Tick_Tiny,
+                    icon = UIHelper.CancelIcon,
+                    action = delegate ()
+                    {
+                        this.stackToDuplicate = null;
+                    }
+                };
+            }
+        }
+
+        public void PerformStackDuplication(Pawn doer)
+        {
+            float successChance = 1f - Mathf.Abs((doer.skills.GetSkill(SkillDefOf.Intellectual).Level / 2f) - 11f) / 10f;
+            if (Rand.Chance(successChance))
+            {
+                var stackCopyTo = (PersonaStack)ThingMaker.MakeThing(AC_DefOf.AC_FilledPersonaStack);
+                stackCopyTo.PersonaData.CopyDataFrom(stackToDuplicate.PersonaData, true);
+                AlteredCarbonManager.Instance.RegisterStack(stackCopyTo);
+                stackToDuplicate = null;
+                GenSpawn.Spawn(stackCopyTo, Position, Map);
+                Messages.Message("AC.SuccessfullyDuplicatedStack".Translate(doer.Named("PAWN")), this, MessageTypeDefOf.TaskCompletion);
+            }
+            else
+            {
+                Messages.Message("AC.FailedToDuplicatedStack".Translate(doer.Named("PAWN")), this, MessageTypeDefOf.NeutralEvent);
+            }
         }
 
         private void BeginTargetingForWipingStack()
@@ -127,7 +234,7 @@ namespace AlteredCarbon
             {
                 canTargetItems = true,
                 mapObjectTargetsMustBeAutoAttackable = false,
-                validator = (TargetInfo x) => x.Thing is PersonaStack stack && stack.PersonaData.ContainsInnerPersona && (includeArchotechStack ||
+                validator = (TargetInfo x) => x.Thing is PersonaStack stack && stack.PersonaData.ContainsPersona && (includeArchotechStack ||
                 stack.IsArchotechStack is false)
             };
             return targetingParameters;
@@ -149,5 +256,11 @@ namespace AlteredCarbon
             }
         }
 
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Values.Look(ref this.autoRestoreIsEnabled, "autoRestoreIsEnabled", true);
+            Scribe_References.Look(ref this.stackToDuplicate, "stackToDuplicate");
+        }
     }
 }

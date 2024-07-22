@@ -22,29 +22,18 @@ namespace AlteredCarbon
         private void Init()
         {
             Instance = this;
-            backedUpStacks ??= new Dictionary<int, PersonaData>();
             personaStacksToAppearAsWorldPawns ??= new();
         }
-        public void ClearBackedUpStacksIfNoStackStorages()
-        {
-            foreach (var map in Find.Maps)
-            {
-                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).Any(x => x.Faction == Faction.OfPlayer))
-                {
-                    return;
-                }
-            }
-            backedUpStacks.Clear();
-        }
-        public Dictionary<int, PersonaData> backedUpStacks;
+
         public Dictionary<PersonaData, int> personaStacksToAppearAsWorldPawns;
-        public IEnumerable<PersonaData> StoredBackedUpStacks => this.backedUpStacks.Values;
-        public PersonaData FirstPersonaStackToRestore
+
+        public PersonaData FirstPersonaStackToRestore(Map map)
         {
-            get
+            foreach (var matrix in map.listerThings.AllThings.OfType<Building_PersonaMatrix>())
             {
-                foreach (var personaData in StoredBackedUpStacks)
+                foreach (var frame in matrix.StoredMindFrames)
                 {
+                    var personaData = frame.PersonaData;
                     if (personaData.restoreToEmptyStack)
                     {
                         if (!AnyPersonaStackExist(personaData) && !AnyPawnExist(personaData))
@@ -53,8 +42,8 @@ namespace AlteredCarbon
                         }
                     }
                 }
-                return null;
             }
+            return null;
         }
 
         private static bool AnyPersonaStackExist(PersonaData personaData)
@@ -67,7 +56,7 @@ namespace AlteredCarbon
                     return true;
                 }
                 if (map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).Cast<Building_PersonaMatrix>()
-                    .Any(x => x.StoredStacks.Any(y => y.PersonaData.IsPresetPawn(personaData))))
+                    .Any(x => x.StoredMindFrames.Any(y => y.PersonaData.IsPresetPawn(personaData))))
                 {
                     return true;
                 }
@@ -89,23 +78,19 @@ namespace AlteredCarbon
         {
             Instance = this;
             base.ExposeData();
-            Scribe_Collections.Look(ref this.backedUpStacks, "backedUpStacks", LookMode.Value, LookMode.Deep, ref intKeys, ref personaDataValues);
             Scribe_Collections.Look(ref this.personaStacksToAppearAsWorldPawns, "personaStacksToAppearAsWorldPawns", 
                 LookMode.Deep, LookMode.Value, ref personaDataValues, ref intKeys);
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
-                this.backedUpStacks ??= new Dictionary<int, PersonaData>();
                 this.personaStacksToAppearAsWorldPawns ??= new Dictionary<PersonaData, int>();
             }
         }
 
-        public void PerformStackRestoration(Pawn doer)
+        public void PerformStackRestoration(Pawn doer, PersonaData personaDataToRestore)
         {
             var stackRestoreTo = (PersonaStack)ThingMaker.MakeThing(AC_DefOf.AC_FilledPersonaStack);
-            var personaDataToRestore = FirstPersonaStackToRestore;
             stackRestoreTo.PersonaData.CopyDataFrom(personaDataToRestore, true);
             AlteredCarbonManager.Instance.RegisterStack(stackRestoreTo);
-            backedUpStacks.Remove(personaDataToRestore.PawnID);
             Messages.Message("AC.SuccessfullyRestoredStackFromBackup".Translate(doer.Named("PAWN")), stackRestoreTo, MessageTypeDefOf.TaskCompletion);
             GenPlace.TryPlaceThing(stackRestoreTo, doer.Position, doer.Map, ThingPlaceMode.Near);
         }
@@ -122,49 +107,15 @@ namespace AlteredCarbon
             {
                 var copy = new PersonaData();
                 copy.CopyFromPawn(pawn, stackHediff.SourceStack, copyRaceGenderInfo: true);
-                if (this.backedUpStacks.TryGetValue(copy.PawnID, out var oldBackup))
-                {
-                    copy.restoreToEmptyStack = oldBackup.restoreToEmptyStack;
-                }
                 copy.isCopied = true;
                 copy.lastTimeUpdated = Find.TickManager.TicksAbs;
                 copy.RefreshDummyPawn();
-                this.backedUpStacks[copy.PawnID] = copy;
             }
-        }
-
-        public void BackupAllColonistsWithStacks()
-        {
-            int num = 0;
-            foreach (var pawn in AlteredCarbonManager.Instance.PawnsWithStacks)
-            {
-                if (CanBackup(pawn))
-                {
-                    num++;
-                    Backup(pawn);
-                }
-            }
-            Messages.Message("AC.BackupsCompleted".Translate(num), MessageTypeDefOf.NeutralEvent);
         }
 
         public override void GameComponentTick()
         {
             base.GameComponentTick();
-            if (Find.TickManager.TicksGame % GenDate.TicksPerDay == 0)
-            {
-                foreach (var map in Find.Maps)
-                {
-                    foreach (var storage in map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix)
-                        .Where(x => x.Faction == Faction.OfPlayer).OfType<Building_PersonaMatrix>())
-                    {
-                        if (storage.backupIsEnabled && storage.compPower.PowerOn)
-                        {
-                            BackupAllColonistsWithStacks();
-                            break;
-                        }
-                    }
-                }
-            }
             foreach (var data in personaStacksToAppearAsWorldPawns.ToList())
             {
                 if (Find.TickManager.TicksGame >= data.Value)

@@ -16,7 +16,7 @@ namespace AlteredCarbon
         }
         public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)
         {
-            var stacks = pawn.Map.listerThings.AllThings.OfType<PersonaStack>().Where(x => x.autoLoad && x.PersonaData.ContainsInnerPersona
+            var stacks = pawn.Map.listerThings.AllThings.OfType<PersonaStack>().Where(x => x.autoLoad && x.PersonaData.ContainsPersona
             && (pawn.Map.mapPawns.AllPawnsSpawned.Any(y => y.BillStack.Bills.Any(c => c is Bill_InstallStack installStack 
             && installStack.stackToInstall == x)) is false) && (pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_NeuralEditor)
             .OfType<Building_NeuralEditor>().Any(y => y.BillStack.Bills.Any(c => c is Bill_OperateOnStack operateOnStack
