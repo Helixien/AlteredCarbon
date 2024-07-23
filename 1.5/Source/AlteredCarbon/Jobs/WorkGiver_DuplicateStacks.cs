@@ -15,7 +15,8 @@ namespace AlteredCarbon
         public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)
         {
             return pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_NeuralEditor).Cast<Building_NeuralEditor>()
-                .Where(x => x.stackToDuplicate != null && x.CanDuplicateStack && pawn.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
+                .Where(x => x.stackToDuplicate != null && x.CanDuplicateStack 
+                && pawn.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
         }
         public override bool HasJobOnThing(Pawn pawn, Thing t, bool forced = false)
         {

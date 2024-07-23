@@ -12,10 +12,10 @@
 		<driverClass>AlteredCarbon.JobDriver_CreateStackFromBackup</driverClass>
 		<reportString>restoring persona stack from backup</reportString>
 	</JobDef>
-	<!-- ================================ Hauling Stacks ====================== -->
+	<!-- ================================ Hauling MInd Frames ====================== -->
 	<JobDef>
-		<defName>AC_HaulingStacks</defName>
-		<driverClass>AlteredCarbon.JobDriver_HaulStackToStackArray</driverClass>
+		<defName>AC_HaulMindFramesToPersonaMatrix</defName>
+		<driverClass>AlteredCarbon.JobDriver_HaulMindFramesToPersonaMatrix</driverClass>
 		<reportString>hauling TargetA to TargetB.</reportString>
 		<allowOpportunisticPrefix>true</allowOpportunisticPrefix>
 	</JobDef>

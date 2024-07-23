@@ -6,8 +6,8 @@
 		<label>duplicate stacks</label>
 		<giverClass>AlteredCarbon.WorkGiver_DuplicateStacks</giverClass>
 		<workType>Research</workType>
-		<verb>duplicate</verb>
-		<gerund>duplicating</gerund>
+		<verb>duplicate stack in</verb>
+		<gerund>duplicating stack in</gerund>
 		<priorityInType>999</priorityInType>
 		<requiredCapacities>
 			<li>Manipulation</li>
@@ -15,9 +15,9 @@
 	</WorkGiverDef>
 	<!-- ================================ Banking stacks ====================== -->
 	<WorkGiverDef>
-		<defName>AC_HaulStacksToStorage</defName>
-		<label>haul stacks</label>
-		<giverClass>AlteredCarbon.WorkGiver_HaulStacks</giverClass>
+		<defName>AC_HaulMindFramesToStorage</defName>
+		<label>haul mind frames</label>
+		<giverClass>AlteredCarbon.WorkGiver_HaulMindFrames</giverClass>
 		<workType>Hauling</workType>
 		<verb>bank</verb>
 		<gerund>banking</gerund>

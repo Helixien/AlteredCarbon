@@ -5,8 +5,6 @@ using System.Text;
 using RimWorld;
 using UnityEngine;
 using Verse;
-using Verse.AI;
-using Verse.Sound;
 
 namespace AlteredCarbon
 {
@@ -14,14 +12,60 @@ namespace AlteredCarbon
     {
         public CompPowerTrader compPower;
         public const int MaxFilledStackCapacity = 25;
-        public bool allowColonistPersonaStacks = true;
-        public bool allowStrangerPersonaStacks = true;
-        public bool allowHostilePersonaStacks = true;
-        public bool allowArchotechStacks = true;
+        public bool allowColonistMindFrames = true;
+        public bool allowStrangerMindFrames = true;
+        public bool allowHostileMindFrames = true;
+
         public Building_PersonaMatrix()
         {
             this.innerContainer = new ThingOwner<Thing>(this, false, LookMode.Deep);
         }
+
+        public MindFrame GetFirstMindFrameToRestore()
+        {
+            foreach (var frame in StoredMindFrames)
+            {
+                var personaData = frame.PersonaData;
+                if (personaData.restoreToEmptyStack)
+                {
+                    if (!AnyPersonaStackExist(personaData) && !AnyPawnExist(personaData))
+                    {
+                        return frame;
+                    }
+                }
+            }
+            return null;
+        }
+
+        private static bool AnyPersonaStackExist(PersonaData personaData)
+        {
+            foreach (var map in Find.Maps)
+            {
+                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_FilledPersonaStack).Cast<PersonaStack>()
+                    .Any(x => x.PersonaData.IsPresetPawn(personaData) && x.Spawned && !x.Destroyed))
+                {
+                    return true;
+                }
+                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).Cast<Building_PersonaMatrix>()
+                    .Any(x => x.StoredMindFrames.Any(y => y.PersonaData.IsPresetPawn(personaData))))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private static bool AnyPawnExist(PersonaData personaData)
+        {
+            foreach (var pawn in PawnsFinder.AllMapsWorldAndTemporary_AliveOrDead)
+            {
+                if (personaData.IsPresetPawn(pawn) && pawn.HasPersonaStack(out _))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             base.SpawnSetup(map, respawningAfterLoad);
@@ -44,8 +88,6 @@ namespace AlteredCarbon
         }
         public bool Powered => this.compPower.PowerOn;
 
-
-
         public bool HasAnyContents => StoredMindFrames.Any();
 
         public IEnumerable<MindFrame> StoredMindFrames => this.innerContainer.OfType<MindFrame>();
@@ -59,7 +101,7 @@ namespace AlteredCarbon
             if (Faction == Faction.OfPlayer)
             {
                 var frames = StoredMindFrames.ToList();
-                 if (frames.Any())
+                if (frames.Any())
                 {
                     var ejectAll = new Command_Action();
                     ejectAll.defaultLabel = "AC.EjectAll".Translate();
@@ -70,14 +112,14 @@ namespace AlteredCarbon
                         EjectContents();
                     };
                     yield return ejectAll;
-                    }
+                }
             }
         }
 
         public override string GetInspectString()
         {
             var sb = new StringBuilder();
-            sb.AppendLine("AC.PersonaStacksStored".Translate(StoredMindFrames.Count(), MaxFilledStackCapacity));
+            sb.AppendLine("AC.MindFramesStored".Translate(StoredMindFrames.Count(), MaxFilledStackCapacity));
             if (StoredMindFrames.Any())
             {
                 var lastTimeUpdated = StoredMindFrames.Select(x => x.backupCreationDataTicks).Max();
@@ -120,39 +162,34 @@ namespace AlteredCarbon
                 this
             });
             Scribe_Values.Look(ref this.contentsKnown, "contentsKnown", false);
-            Scribe_Values.Look(ref this.allowColonistPersonaStacks, "allowColonistPersonaStacks", true);
-            Scribe_Values.Look(ref this.allowHostilePersonaStacks, "allowHostilePersonaStacks", true);
-            Scribe_Values.Look(ref this.allowStrangerPersonaStacks, "allowStrangerPersonaStacks", true);
-            Scribe_Values.Look(ref this.allowArchotechStacks, "allowArchotechStacks", true);
+            Scribe_Values.Look(ref this.allowColonistMindFrames, "allowColonistMindFrames", true);
+            Scribe_Values.Look(ref this.allowHostileMindFrames, "allowHostileMindFrames", true);
+            Scribe_Values.Look(ref this.allowStrangerMindFrames, "allowStrangerMindFrames", true);
         }
 
         public bool Accepts(Thing thing)
         {
             Predicate<Thing> validator = delegate (Thing x)
             {
-                var stack = thing as PersonaStack;
-                if (stack is null)
+                var mindFrame = thing as MindFrame;
+                if (mindFrame is null)
                 {
                     return false;
                 }
-                if (!stack.PersonaData.ContainsPersona)
-                {
-                    return false;
-                }
-                if (!this.allowArchotechStacks && stack.IsArchotechStack)
+                if (!mindFrame.PersonaData.ContainsPersona)
                 {
                     return false;
                 }
 
-                if (this.allowColonistPersonaStacks && stack.PersonaData.faction != null && stack.PersonaData.faction == Faction.OfPlayer)
+                if (this.allowColonistMindFrames && mindFrame.PersonaData.faction != null && mindFrame.PersonaData.faction == Faction.OfPlayer)
                 {
                     return true;
                 }
-                if (this.allowHostilePersonaStacks && stack.PersonaData.faction.HostileTo(Faction.OfPlayer))
+                if (this.allowHostileMindFrames && mindFrame.PersonaData.faction.HostileTo(Faction.OfPlayer))
                 {
                     return true;
                 }
-                if (this.allowStrangerPersonaStacks && (stack.PersonaData.faction is null || stack.PersonaData.faction != Faction.OfPlayer && !stack.PersonaData.faction.HostileTo(Faction.OfPlayer)))
+                if (this.allowStrangerMindFrames && (mindFrame.PersonaData.faction is null || mindFrame.PersonaData.faction != Faction.OfPlayer && !mindFrame.PersonaData.faction.HostileTo(Faction.OfPlayer)))
                 {
                     return true;
                 }

@@ -98,7 +98,7 @@ namespace AlteredCarbon
         public static ThingDef AC_PersonaMatrix;
         public static JobDef AC_DuplicateStack;
         public static JobDef AC_CreateStackFromBackup;
-        public static JobDef AC_HaulingStacks;
+        public static JobDef AC_HaulMindFramesToPersonaMatrix;
         public static ResearchProjectDef Xenogermination;
         public static JobDef AC_HaulCorpseToGestation;
         public static JobDef AC_CancelRepurposingBody;

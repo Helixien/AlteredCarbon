@@ -27,53 +27,6 @@ namespace AlteredCarbon
 
         public Dictionary<PersonaData, int> personaStacksToAppearAsWorldPawns;
 
-        public PersonaData FirstPersonaStackToRestore(Map map)
-        {
-            foreach (var matrix in map.listerThings.AllThings.OfType<Building_PersonaMatrix>())
-            {
-                foreach (var frame in matrix.StoredMindFrames)
-                {
-                    var personaData = frame.PersonaData;
-                    if (personaData.restoreToEmptyStack)
-                    {
-                        if (!AnyPersonaStackExist(personaData) && !AnyPawnExist(personaData))
-                        {
-                            return personaData;
-                        }
-                    }
-                }
-            }
-            return null;
-        }
-
-        private static bool AnyPersonaStackExist(PersonaData personaData)
-        {
-            foreach (var map in Find.Maps)
-            {
-                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_FilledPersonaStack).Cast<PersonaStack>()
-                    .Any(x => x.PersonaData.IsPresetPawn(personaData) && x.Spawned && !x.Destroyed))
-                {
-                    return true;
-                }
-                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).Cast<Building_PersonaMatrix>()
-                    .Any(x => x.StoredMindFrames.Any(y => y.PersonaData.IsPresetPawn(personaData))))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        private static bool AnyPawnExist(PersonaData personaData)
-        {
-            foreach (var pawn in PawnsFinder.AllMapsWorldAndTemporary_AliveOrDead)
-            {
-                if (personaData.IsPresetPawn(pawn) && pawn.HasPersonaStack(out _))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
         public override void ExposeData()
         {
             Instance = this;
@@ -84,15 +37,6 @@ namespace AlteredCarbon
             {
                 this.personaStacksToAppearAsWorldPawns ??= new Dictionary<PersonaData, int>();
             }
-        }
-
-        public void PerformStackRestoration(Pawn doer, PersonaData personaDataToRestore)
-        {
-            var stackRestoreTo = (PersonaStack)ThingMaker.MakeThing(AC_DefOf.AC_FilledPersonaStack);
-            stackRestoreTo.PersonaData.CopyDataFrom(personaDataToRestore, true);
-            AlteredCarbonManager.Instance.RegisterStack(stackRestoreTo);
-            Messages.Message("AC.SuccessfullyRestoredStackFromBackup".Translate(doer.Named("PAWN")), stackRestoreTo, MessageTypeDefOf.TaskCompletion);
-            GenPlace.TryPlaceThing(stackRestoreTo, doer.Position, doer.Map, ThingPlaceMode.Near);
         }
 
         public bool CanBackup(Pawn pawn)

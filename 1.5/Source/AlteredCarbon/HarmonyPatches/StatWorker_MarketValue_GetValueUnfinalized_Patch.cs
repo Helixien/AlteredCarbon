@@ -24,7 +24,7 @@ namespace AlteredCarbon
         public static float PawnQualityPriceFactor(Pawn pawn, StringBuilder explanation = null)
         {
             float num = 1f;
-            if (pawn.skills != null)
+            if (pawn.skills != null && pawn.skills.skills.Count > 1)
             {
                 num *= PriceUtility.AverageSkillCurve.Evaluate(((IEnumerable<SkillRecord>)pawn.skills.skills)
                     .Average((Func<SkillRecord, float>)((SkillRecord sk) => sk.Level)));

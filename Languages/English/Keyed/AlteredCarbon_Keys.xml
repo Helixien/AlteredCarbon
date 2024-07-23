@@ -30,7 +30,7 @@
 	<AC.FailedPersonaStackDestroyed>Decrypt Ancient Stacks: Failed, persona stack destroyed!</AC.FailedPersonaStackDestroyed>
 	<AC.ScenPart_PawnsHavePersonaStack>{0} have a {1} chance of starting with a {2}.</AC.ScenPart_PawnsHavePersonaStack>
 	<AC.AutoLoad>Auto-load</AC.AutoLoad>
-	<AC.AutoLoadDesc>If active, haulers will automatically store this stack in a stack array.</AC.AutoLoadDesc>
+	<AC.AutoLoadDesc>If active, haulers will automatically store this mind frame in a persona matrix.</AC.AutoLoadDesc>
 	<AC.SleeveWithStack>Sleeve with stack installed inside.</AC.SleeveWithStack>
 	<AC.PawnAlreadyHasStack>{PAWN_nameDef} already has a persona stack installed!</AC.PawnAlreadyHasStack>
 	<AC.PawnAlreadyHasArchotechStack>{PAWN_nameDef} already has an archotech stack installed!</AC.PawnAlreadyHasArchotechStack>
@@ -113,48 +113,32 @@
 	<AC.FinishedGrowingSleeve>Sleeve Incubator: Finished growing sleeve!</AC.FinishedGrowingSleeve>
 	<AC.SleeveAge>Age:</AC.SleeveAge>
 	<AC.YearsOld>{0} years old</AC.YearsOld>
-	<!-- ================================ Stack Array ====================== -->
-	<AC.Backup>Backup</AC.Backup>
-	<AC.BackedUpStacksInArray>Persona Stack backups saved in arrays: {0}</AC.BackedUpStacksInArray>
-	<AC.Erase>Delete the saved backup irreversibly.</AC.Erase>
-	<AC.Backups>Backups</AC.Backups>
-	<AC.BackupNow>Backup now</AC.BackupNow>
-	<AC.CannotBackupNoSuchPawn>Cannot backup {0}: there's no such pawn!</AC.CannotBackupNoSuchPawn>
-	<AC.CannotBackupPawnOnAnotherLocation>Cannot backup, {0} is on different location.</AC.CannotBackupPawnOnAnotherLocation>
-	<AC.CannotBackupNoPower>Cannot backup {0}, the building is not powered.</AC.CannotBackupNoPower>
-	<AC.EnableBackup>Enable automatic backup</AC.EnableBackup>
-	<AC.EnableBackupDesc>Allow the array to automatically make backups of all installed persona stacks belonging to the player who are on the local map.</AC.EnableBackupDesc>
-	<AC.BackupAllStacks>Emergency Backup</AC.BackupAllStacks>
-	<AC.BackupAllStacksDesc>Make an emergency backup of all currently active persona stacks on the local map that belong to the colony.</AC.BackupAllStacksDesc>
+	<!-- ================================ Persona Matrix ====================== -->
 	<AC.TimeSinceLastBackup>(last backup: {0})</AC.TimeSinceLastBackup>
-	<AC.CannotRestoreBackupNoOtherEmptyStacks>Restore stack from backup (no empty stacks in stockpile.)</AC.CannotRestoreBackupNoOtherEmptyStacks>
-	<AC.SuccessfullyRestoredStackFromBackup>{PAWN_nameDef} successfully restored persona stack from backup.</AC.SuccessfullyRestoredStackFromBackup>
-	<AC.BackupsCompleted>Stack array: Backups Completed! {0} colonists were backed up!</AC.BackupsCompleted>
+	<AC.CannotRestoreBackupNoOtherEmptyStacks>Restore stack from mind frame (no empty stacks in stockpile.)</AC.CannotRestoreBackupNoOtherEmptyStacks>
+	<AC.SuccessfullyRestoredStackFromBackup>{PAWN_nameDef} successfully restored persona stack from mind frame.</AC.SuccessfullyRestoredStackFromBackup>
 	<AC.RestoreToStackAutomatically>Toggle if this person should be restored to a new stack automatically when the current stack is destroyed.</AC.RestoreToStackAutomatically>
 	<AC.EnableAutoRestore>Toggle automatic restoring</AC.EnableAutoRestore>
-	<AC.EnableAutoRestoreDesc>Allow the array to automatically restore backups if a pawn with an installed persona stacks dies.</AC.EnableAutoRestoreDesc>
+	<AC.EnableAutoRestoreDesc>Allow to automatically restore stacks from mind frames if a pawn with an installed persona stack dies.</AC.EnableAutoRestoreDesc>
 	<AC.DuplicateStack>Duplicate Stack</AC.DuplicateStack>
-	<AC.DuplicateStackDesc>Make a exact copy of an existing filled persona stack that is currently stored in the stack array.</AC.DuplicateStackDesc>
+	<AC.DuplicateStackDesc>Make a exact copy of an existing filled persona stack.</AC.DuplicateStackDesc>
 	<AC.AlreadySetToDuplicate>Already set a stack to duplicate</AC.AlreadySetToDuplicate>
-	<AC.NoEnoughSpaceForNewStack>Not enough space for new stack</AC.NoEnoughSpaceForNewStack>
-	<AC.EjectStackTooltip>Eject this persona stack from the array.</AC.EjectStackTooltip>
-	<AC.EjectStackConfirmation>Do you really want to eject {0}? It will be immediately ejected onto the ground nearby.</AC.EjectStackConfirmation>
-	<AC.NoStoredStackToDuplicate>There are no stored persona stacks in the array to duplicate.</AC.NoStoredStackToDuplicate>
+	<AC.EjectMindFrameTooltip>Eject this mind frame from the matrix.</AC.EjectMindFrameTooltip>
+	<AC.EjectMindFrameConfirmation>Do you really want to eject {0}? It will be immediately ejected onto the ground nearby.</AC.EjectMindFrameConfirmation>
+	<AC.EraseMindFrameTooltip>Erase this mind frame irreversibly.</AC.EraseMindFrameTooltip>
+	<AC.EraseMindFrameConfirmation>Do you really want to erase {0}? It will be immediately destroyed.</AC.EraseMindFrameConfirmation>
 	<AC.CancelStackDuplication>Cancel stack duplication</AC.CancelStackDuplication>
 	<AC.CancelStackDuplicationDesc>Cancel duplication of stored persona stack.</AC.CancelStackDuplicationDesc>
-	<AC.MessageCantSelectOffMapPawn>{1_labelShort} is off the map or not in a sleeve.</AC.MessageCantSelectOffMapPawn>
-	<AC.StackStorage>Contents</AC.StackStorage>
-	<AC.PersonaStacksInArray>Persona Stacks in array: ({0}/{1})</AC.PersonaStacksInArray>
-	<AC.PersonaStacksStored>Persona Stacks stored: {0}/{1}</AC.PersonaStacksStored>
+	<AC.MindFrameStorage>Contents</AC.MindFrameStorage>
+	<AC.MindFramesStored>Mind Frames stored: {0}/{1}</AC.MindFramesStored>
 	<AC.LastBackup>Last Backup: {0}</AC.LastBackup>
-	<AC.AllowColonistStacks>*Allow colonist persona stacks</AC.AllowColonistStacks>
-	<AC.AllowStrangerStacks>*Allow stranger persona stacks</AC.AllowStrangerStacks>
-	<AC.AllowHostileStacks>*Allow hostile persona stacks</AC.AllowHostileStacks>
-	<AC.AllowArchotechStacks>*Allow archotech stacks</AC.AllowArchotechStacks>
+	<AC.AllowColonistMindFrames>*Allow colonist mind frames</AC.AllowColonistMindFrames>
+	<AC.AllowStrangerMindFrames>*Allow stranger mind frames</AC.AllowStrangerMindFrames>
+	<AC.AllowHostileMindFrames>*Allow hostile mind frames</AC.AllowHostileMindFrames>
 	<AC.SuccessfullyDuplicatedStack>{PAWN_nameDef} successfully duplicated persona stack.</AC.SuccessfullyDuplicatedStack>
 	<AC.FailedToDuplicatedStack>{PAWN_nameDef} failed to duplicate persona stack.</AC.FailedToDuplicatedStack>
 	<AC.EjectAll>Eject all</AC.EjectAll>
-	<AC.EjectAllDesc>Drop all contained stacks onto the ground.</AC.EjectAllDesc>
+	<AC.EjectAllDesc>Drop all contained mind frames onto the ground.</AC.EjectAllDesc>
 	<!-- ================================ Gene Centrifuge ====================== -->
 	<AC.SeparateGene>Separate gene</AC.SeparateGene>
 	<AC.SeparateGeneDesc>Select a genepack from which to separate a gene from.</AC.SeparateGeneDesc>

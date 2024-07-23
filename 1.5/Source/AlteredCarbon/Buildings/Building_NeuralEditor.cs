@@ -18,11 +18,24 @@ namespace AlteredCarbon
         public CompAffectedByFacilities CompAffectedByFacilities => 
             _compAffectedByFacilities ??= GetComp<CompAffectedByFacilities>();
 
+        public bool HasMindFrameToRestore
+        {
+            get
+            {
+                var matrix = ConnectedMatrix;
+                if (matrix != null)
+                {
+                    return matrix.GetFirstMindFrameToRestore() != null;
+                }
+                return false;
+            }
+        }
+
         public bool CanDuplicateStack
         {
             get
             {
-                if (this.stackToDuplicate is null || !ConnectedMatrix.innerContainer.Contains(this.stackToDuplicate))
+                if (this.stackToDuplicate is null)
                 {
                     return false;
                 }
@@ -189,7 +202,7 @@ namespace AlteredCarbon
                 stackCopyTo.PersonaData.CopyDataFrom(stackToDuplicate.PersonaData, true);
                 AlteredCarbonManager.Instance.RegisterStack(stackCopyTo);
                 stackToDuplicate = null;
-                GenSpawn.Spawn(stackCopyTo, Position, Map);
+                GenPlace.TryPlaceThing(stackCopyTo, doer.Position, Map, ThingPlaceMode.Near);
                 Messages.Message("AC.SuccessfullyDuplicatedStack".Translate(doer.Named("PAWN")), this, MessageTypeDefOf.TaskCompletion);
             }
             else
@@ -254,6 +267,17 @@ namespace AlteredCarbon
             {
                 Find.WindowStack.Add(new Window_StackEditor(this, personaStack));
             }
+        }
+
+        public void PerformStackRestoration(Pawn doer, MindFrame mindFrame)
+        {
+            var stackRestoreTo = (PersonaStack)ThingMaker.MakeThing(AC_DefOf.AC_FilledPersonaStack);
+            stackRestoreTo.PersonaData.CopyDataFrom(mindFrame.PersonaData, true);
+            AlteredCarbonManager.Instance.RegisterStack(stackRestoreTo);
+            Messages.Message("AC.SuccessfullyRestoredStackFromBackup".Translate(doer.Named("PAWN")), stackRestoreTo, MessageTypeDefOf.TaskCompletion);
+            GenPlace.TryPlaceThing(stackRestoreTo, doer.Position, doer.Map, ThingPlaceMode.Near);
+            ConnectedMatrix.innerContainer.Remove(mindFrame);
+            mindFrame.Destroy();
         }
 
         public override void ExposeData()

@@ -27,13 +27,12 @@ namespace AlteredCarbon
             GUI.color = Color.white;
             float labelWidth = viewRect.width - 15f;
             float num = 0;
-            DoAllowOption(ref num, labelWidth, "AC.AllowColonistStacks", ref Building_PersonaMatrix.allowColonistPersonaStacks);
-            DoAllowOption(ref num, labelWidth, "AC.AllowStrangerStacks", ref Building_PersonaMatrix.allowStrangerPersonaStacks);
-            DoAllowOption(ref num, labelWidth, "AC.AllowHostileStacks", ref Building_PersonaMatrix.allowHostilePersonaStacks);
-            DoAllowOption(ref num, labelWidth, "AC.AllowArchotechStacks", ref Building_PersonaMatrix.allowArchotechStacks);
+            DoAllowOption(ref num, labelWidth, "AC.AllowColonistMindFrames", ref Building_PersonaMatrix.allowColonistMindFrames);
+            DoAllowOption(ref num, labelWidth, "AC.AllowStrangerMindFrames", ref Building_PersonaMatrix.allowStrangerMindFrames);
+            DoAllowOption(ref num, labelWidth, "AC.AllowHostileMindFrames", ref Building_PersonaMatrix.allowHostileMindFrames);
 
             var storedFrames = Building_PersonaMatrix.StoredMindFrames.ToList();
-            Widgets.ListSeparator(ref num, viewRect.width - 15, "AC.PersonaStacksInArray".Translate(storedFrames.Count(), Building_PersonaMatrix.MaxFilledStackCapacity));
+            Widgets.ListSeparator(ref num, viewRect.width - 15, "AC.MindFramesStored".Translate(storedFrames.Count(), Building_PersonaMatrix.MaxFilledStackCapacity));
             Rect scrollRect = new Rect(0, num, viewRect.width - 16, viewRect.height);
             Rect outerRect = scrollRect;
             outerRect.width += 16;
@@ -42,8 +41,7 @@ namespace AlteredCarbon
             Widgets.BeginScrollView(outerRect, ref scrollPosition, scrollRect);
             foreach (var frame in storedFrames)
             {
-                bool showDuplicateStatus = storedFrames.Count(x => x.PersonaData.stackGroupID == frame.PersonaData.stackGroupID) > 1;
-                DrawThingRow(ref num, scrollRect.width, frame, showDuplicateStatus);
+                DrawThingRow(ref num, scrollRect.width, frame);
             }
             Widgets.EndScrollView();
             GUI.EndGroup();
@@ -60,26 +58,36 @@ namespace AlteredCarbon
             labelRect.yMin -= 5f;
             Widgets.CheckboxLabeled(labelRect, optionKey.Translate().Truncate(labelRect.width), ref option);
             Text.Anchor = TextAnchor.UpperLeft;
-
             num += 24f;
         }
-        private void DrawThingRow(ref float y, float width, MindFrame frame, bool showDuplicateStatus)
+        private void DrawThingRow(ref float y, float width, MindFrame frame)
         {
             Rect rect1 = new Rect(0.0f, y, width, 28f);
             Widgets.InfoCardButton(0, y, frame);
             Rect rect2 = new Rect(rect1.width - 24, y, 24f, 24f);
-            TooltipHandler.TipRegion(rect2, "AC.EjectStackTooltip".Translate());
+            TooltipHandler.TipRegion(rect2, "AC.EjectMindFrameTooltip".Translate());
             if (Widgets.ButtonImage(rect2, ContentFinder<Texture2D>.Get("UI/Buttons/Drop", true)))
             {
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
-                Find.WindowStack.Add(new Dialog_MessageBox("AC.EjectStackConfirmation".Translate(frame.def.label + " (" + frame.PersonaData.name.ToStringFull + ")"),
+                Find.WindowStack.Add(new Dialog_MessageBox("AC.EjectMindFrameConfirmation".Translate(frame.def.label + " (" + frame.PersonaData.name.ToStringFull + ")"),
                      "Confirm".Translate(), delegate
                      {
                          Building_PersonaMatrix.innerContainer.TryDrop(frame, Building_PersonaMatrix.InteractionCell, Building_PersonaMatrix.Map, ThingPlaceMode.Near, 1, out Thing droppedThing);
                      }, "GoBack".Translate(), null));
             }
-            Rect installStackRect = rect2;
-            installStackRect.x -= 28;
+            Rect eraseMindFrame = rect2;
+            eraseMindFrame.x -= 28;
+            TooltipHandler.TipRegion(eraseMindFrame, "AC.EraseMindFrameTooltip".Translate());
+            if (Widgets.ButtonImage(eraseMindFrame, ContentFinder<Texture2D>.Get("UI/Icons/Erase", true)))
+            {
+                SoundDefOf.Tick_High.PlayOneShotOnCamera();
+                Find.WindowStack.Add(new Dialog_MessageBox("AC.EraseMindFrameConfirmation".Translate(frame.def.label + " (" + frame.PersonaData.name.ToStringFull + ")"),
+                     "Confirm".Translate(), delegate
+                     {
+                         Building_PersonaMatrix.innerContainer.Remove(frame);
+                         frame.Destroy();
+                     }, "GoBack".Translate(), null));
+            }
 
             rect1.width -= 54f;
             Rect rect3 = rect1;
@@ -97,10 +105,6 @@ namespace AlteredCarbon
             GUI.color = ITab_Pawn_Gear.ThingLabelColor;
             Rect pawnLabelRect = new Rect(thingIconRect.xMax + 5, y, rect1.width - 36f, rect1.height);
             TaggedString pawnLabel = frame.PersonaData.PawnNameColored.Truncate(pawnLabelRect.width);
-            if (showDuplicateStatus)
-            {
-                pawnLabel += " (" + (frame.PersonaData.isCopied ? "AC.Copy".Translate() : "AC.Original".Translate()) + ")";
-            }
             Widgets.Label(pawnLabelRect, pawnLabel);
             string str2 = frame.DescriptionDetailed;
             TooltipHandler.TipRegion(rect1, str2);

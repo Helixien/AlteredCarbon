@@ -248,11 +248,11 @@
     <Compile Include="Jobs\JobDriver_CancelRepurposingBody.cs" />
     <Compile Include="Jobs\JobDriver_CreateStackFromBackup.cs" />
     <Compile Include="Jobs\JobDriver_DuplicateStack.cs" />
-    <Compile Include="Jobs\JobDriver_HaulStackToStackArray.cs" />
+    <Compile Include="Jobs\JobDriver_HaulMindFramesToPersonaMatrix.cs" />
     <Compile Include="Jobs\WorkGiver_CancelRepurposingBody.cs" />
     <Compile Include="Jobs\WorkGiver_CreateStackFromBackup.cs" />
     <Compile Include="Jobs\WorkGiver_DuplicateStacks.cs" />
-    <Compile Include="Jobs\WorkGiver_HaulStacks.cs" />
+    <Compile Include="Jobs\WorkGiver_HaulMindFrames.cs" />
     <Compile Include="Misc\RoomRoleWorker_UltraTech.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recipes\Recipe_HackBiocodedThings.cs" />
