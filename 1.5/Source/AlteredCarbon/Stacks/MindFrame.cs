@@ -63,6 +63,51 @@ namespace AlteredCarbon
             return graphic;
         }
 
+        public bool CanAutoRestorePawn
+        {
+            get
+            {
+                var personaData = PersonaData;
+                if (personaData.restoreToEmptyStack)
+                {
+                    if (!AnyPersonaStackExist(personaData) && !AnyPawnExist(personaData))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+        private static bool AnyPersonaStackExist(PersonaData personaData)
+        {
+            foreach (var map in Find.Maps)
+            {
+                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_FilledPersonaStack).Cast<PersonaStack>()
+                    .Any(x => x.PersonaData.IsPresetPawn(personaData) && x.Spawned && !x.Destroyed))
+                {
+                    return true;
+                }
+                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).Cast<Building_PersonaMatrix>()
+                    .Any(x => x.StoredMindFrames.Any(y => y.PersonaData.IsPresetPawn(personaData))))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private static bool AnyPawnExist(PersonaData personaData)
+        {
+            foreach (var pawn in PawnsFinder.AllMapsWorldAndTemporary_AliveOrDead)
+            {
+                if (personaData.IsPresetPawn(pawn) && pawn.HasPersonaStack(out _))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public override void PreTraded(TradeAction action, Pawn playerNegotiator, ITrader trader)
         {
             base.PreTraded(action, playerNegotiator, trader);

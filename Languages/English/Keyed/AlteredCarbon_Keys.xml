@@ -115,28 +115,16 @@
 	<AC.YearsOld>{0} years old</AC.YearsOld>
 	<!-- ================================ Persona Matrix ====================== -->
 	<AC.TimeSinceLastBackup>(last backup: {0})</AC.TimeSinceLastBackup>
-	<AC.CannotRestoreBackupNoOtherEmptyStacks>Restore stack from mind frame (no empty stacks in stockpile.)</AC.CannotRestoreBackupNoOtherEmptyStacks>
-	<AC.SuccessfullyRestoredStackFromBackup>{PAWN_nameDef} successfully restored persona stack from mind frame.</AC.SuccessfullyRestoredStackFromBackup>
-	<AC.RestoreToStackAutomatically>Toggle if this person should be restored to a new stack automatically when the current stack is destroyed.</AC.RestoreToStackAutomatically>
-	<AC.EnableAutoRestore>Toggle automatic restoring</AC.EnableAutoRestore>
-	<AC.EnableAutoRestoreDesc>Allow to automatically restore stacks from mind frames if a pawn with an installed persona stack dies.</AC.EnableAutoRestoreDesc>
-	<AC.DuplicateStack>Duplicate Stack</AC.DuplicateStack>
-	<AC.DuplicateStackDesc>Make a exact copy of an existing filled persona stack.</AC.DuplicateStackDesc>
-	<AC.AlreadySetToDuplicate>Already set a stack to duplicate</AC.AlreadySetToDuplicate>
 	<AC.EjectMindFrameTooltip>Eject this mind frame from the matrix.</AC.EjectMindFrameTooltip>
 	<AC.EjectMindFrameConfirmation>Do you really want to eject {0}? It will be immediately ejected onto the ground nearby.</AC.EjectMindFrameConfirmation>
 	<AC.EraseMindFrameTooltip>Erase this mind frame irreversibly.</AC.EraseMindFrameTooltip>
 	<AC.EraseMindFrameConfirmation>Do you really want to erase {0}? It will be immediately destroyed.</AC.EraseMindFrameConfirmation>
-	<AC.CancelStackDuplication>Cancel stack duplication</AC.CancelStackDuplication>
-	<AC.CancelStackDuplicationDesc>Cancel duplication of stored persona stack.</AC.CancelStackDuplicationDesc>
 	<AC.MindFrameStorage>Contents</AC.MindFrameStorage>
 	<AC.MindFramesStored>Mind Frames stored: {0}/{1}</AC.MindFramesStored>
 	<AC.LastBackup>Last Backup: {0}</AC.LastBackup>
 	<AC.AllowColonistMindFrames>*Allow colonist mind frames</AC.AllowColonistMindFrames>
 	<AC.AllowStrangerMindFrames>*Allow stranger mind frames</AC.AllowStrangerMindFrames>
 	<AC.AllowHostileMindFrames>*Allow hostile mind frames</AC.AllowHostileMindFrames>
-	<AC.SuccessfullyDuplicatedStack>{PAWN_nameDef} successfully duplicated persona stack.</AC.SuccessfullyDuplicatedStack>
-	<AC.FailedToDuplicatedStack>{PAWN_nameDef} failed to duplicate persona stack.</AC.FailedToDuplicatedStack>
 	<AC.EjectAll>Eject all</AC.EjectAll>
 	<AC.EjectAllDesc>Drop all contained mind frames onto the ground.</AC.EjectAllDesc>
 	<!-- ================================ Gene Centrifuge ====================== -->
@@ -187,7 +175,7 @@
 	<AC.IsEmptySleeve>Is empty sleeve</AC.IsEmptySleeve>
 	<AC.OriginalGender>Original gender</AC.OriginalGender>
 	<AC.ChargeCuirassierBelt>Charge cuirassier belt</AC.ChargeCuirassierBelt>
-	<!-- ================================ Decryption Bench ====================== -->
+	<!-- ================================ Neural editor ====================== -->
 	<AC.HackStack>Hack stack</AC.HackStack>
 	<AC.HackStackDesc>Convert a stack to the players faction.</AC.HackStackDesc>
 	<AC.ConvertStack>Convert stack ideo</AC.ConvertStack>
@@ -226,6 +214,25 @@
 	<AC.CancelStackResetDesc>Cancel reseting persona stack.</AC.CancelStackResetDesc>
 	<AC.CancelStackRewrite>Cancel stack rewrite</AC.CancelStackRewrite>
 	<AC.CancelStackRewriteDesc>Cancel rewriting persona stack.</AC.CancelStackRewriteDesc>
+	<AC.RestoreFromMindFrame>Restore stack from mind frame</AC.RestoreFromMindFrame>
+	<AC.RestoreFromMindFrameDesc>text.todo</AC.RestoreFromMindFrameDesc>
+	<AC.CannotRestoreBackupNoOtherEmptyStacks>no empty stacks in stockpile</AC.CannotRestoreBackupNoOtherEmptyStacks>
+	<AC.SuccessfullyRestoredStackFromBackup>{PAWN_nameDef} successfully restored persona stack from mind frame.</AC.SuccessfullyRestoredStackFromBackup>
+	<AC.RestoreToStackAutomatically>Toggle if this person should be restored to a new stack automatically when the current stack is destroyed.</AC.RestoreToStackAutomatically>
+	<AC.EnableAutoRestore>Toggle automatic restoring</AC.EnableAutoRestore>
+	<AC.EnableAutoRestoreDesc>Allow to automatically restore stacks from mind frames if a pawn with an installed persona stack dies.</AC.EnableAutoRestoreDesc>
+	<AC.DuplicateStack>Duplicate Stack</AC.DuplicateStack>
+	<AC.DuplicateStackDesc>Make a exact copy of an existing filled persona stack.</AC.DuplicateStackDesc>
+	<AC.AlreadySetToDuplicate>Already set a stack to duplicate</AC.AlreadySetToDuplicate>
+	<AC.SuccessfullyDuplicatedStack>{PAWN_nameDef} successfully duplicated persona stack.</AC.SuccessfullyDuplicatedStack>
+	<AC.FailedToDuplicatedStack>{PAWN_nameDef} failed to duplicate persona stack.</AC.FailedToDuplicatedStack>
+	<AC.AlreadySetToRestore>Already set a mind frame to restore</AC.AlreadySetToRestore>
+	<AC.NoStackToDuplicate>There are no stacks to duplicate</AC.NoStackToDuplicate>
+	<AC.NoMindFrameToRestore>There are no mind frames to restore</AC.NoMindFrameToRestore>
+	<AC.CancelStackDuplication>Cancel stack duplication</AC.CancelStackDuplication>
+	<AC.CancelStackDuplicationDesc>Cancel duplication of stored persona stack.</AC.CancelStackDuplicationDesc>
+	<AC.CancelMindFrameRestoration>Cancel mind frame restoration</AC.CancelMindFrameRestoration>
+	<AC.CancelMindFrameRestorationDesc>Cancel stack restoration from mind frame.</AC.CancelMindFrameRestorationDesc>
 	<!-- ================================ Mod Settings ====================== -->
 	<AC.General>General</AC.General>
 	<AC.EnableStackSpawning>Enable Stack Spawning</AC.EnableStackSpawning>

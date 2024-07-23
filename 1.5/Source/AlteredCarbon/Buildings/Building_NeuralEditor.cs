@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Verse;
-using Verse.Sound;
 
 namespace AlteredCarbon
 {
@@ -12,22 +11,52 @@ namespace AlteredCarbon
     {
         public bool autoRestoreIsEnabled = true;
         public PersonaStack stackToDuplicate;
+        public MindFrame mindFrameToRestore;
         public Building_PersonaMatrix ConnectedMatrix => CompAffectedByFacilities.LinkedFacilitiesListForReading.OfType<Building_PersonaMatrix>().FirstOrDefault();
         public bool Powered => (PowerComp as CompPowerTrader).PowerOn;
         private CompAffectedByFacilities _compAffectedByFacilities;
         public CompAffectedByFacilities CompAffectedByFacilities => 
             _compAffectedByFacilities ??= GetComp<CompAffectedByFacilities>();
 
-        public bool HasMindFrameToRestore
+        public bool HasMindFrameToRestore => GetMindFrameToRestore != null;
+
+        public MindFrame GetMindFrameToRestore
         {
             get
             {
-                var matrix = ConnectedMatrix;
-                if (matrix != null)
+                if (mindFrameToRestore != null)
                 {
-                    return matrix.GetFirstMindFrameToRestore() != null;
+                    return mindFrameToRestore;
                 }
-                return false;
+                if (autoRestoreIsEnabled)
+                {
+                    MindFrame mindFrame = null;
+                    var matrix = ConnectedMatrix;
+                    if (matrix != null)
+                    {
+                        foreach (var frame in matrix.StoredMindFrames)
+                        {
+                            if (frame.CanAutoRestorePawn)
+                            {
+                                mindFrame = frame;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (mindFrame != null)
+                    {
+                        return mindFrame;
+                    }
+                    foreach (var frame in Map.listerThings.AllThings.OfType<MindFrame>())
+                    {
+                        if (frame.CanAutoRestorePawn)
+                        {
+                            return frame;
+                        }
+                    }
+                }
+                return null;
             }
         }
 
@@ -122,6 +151,61 @@ namespace AlteredCarbon
                         {
                             this.billStack.Delete(bill);
                         }
+                    }
+                };
+            }
+
+
+            var mindFrames = Map.listerThings.AllThings.OfType<MindFrame>().Where(x => x.PersonaData.ContainsPersona).ToList();
+            if (ConnectedMatrix != null)
+            {
+                mindFrames.AddRange(ConnectedMatrix.StoredMindFrames);
+            }
+            var restoreFromMindFrame = new Command_Action
+            {
+                defaultLabel = "AC.RestoreFromMindFrame".Translate(),
+                defaultDesc = "AC.RestoreFromMindFrameDesc".Translate(),
+                icon = ContentFinder<Texture2D>.Get("UI/Gizmos/RestoreFromMindFrame"),
+                activateSound = SoundDefOf.Tick_Tiny,
+                action = delegate ()
+                {
+                    var floatList = new List<FloatMenuOption>();
+                    foreach (var mindFrame in mindFrames.Where(x => x.PersonaData.ContainsPersona))
+                    {
+                        var option = new FloatMenuOption(mindFrame.PersonaData.PawnNameColored, delegate ()
+                        {
+                            this.mindFrameToRestore = mindFrame;
+                        }, mindFrame, mindFrame.DrawColor);
+                        floatList.Add(option);
+                    }
+                    Find.WindowStack.Add(new FloatMenu(floatList));
+                }
+            };
+
+            if (this.mindFrameToRestore != null)
+            {
+                restoreFromMindFrame.Disable("AC.AlreadySetToRestore".Translate());
+            }
+            if (!mindFrames.Any())
+            {
+                restoreFromMindFrame.Disable("AC.NoMindFrameToRestore".Translate());
+            }
+            if (this.Powered is false)
+            {
+                restoreFromMindFrame.Disable("NoPower".Translate());
+            }
+            yield return restoreFromMindFrame;
+            if (this.mindFrameToRestore != null)
+            {
+                yield return new Command_Action
+                {
+                    defaultLabel = "AC.CancelMindFrameRestoration".Translate(),
+                    defaultDesc = "AC.CancelMindFrameRestorationDesc".Translate(),
+                    activateSound = SoundDefOf.Tick_Tiny,
+                    icon = UIHelper.CancelIcon,
+                    action = delegate ()
+                    {
+                        this.mindFrameToRestore = null;
                     }
                 };
             }
@@ -269,15 +353,16 @@ namespace AlteredCarbon
             }
         }
 
-        public void PerformStackRestoration(Pawn doer, MindFrame mindFrame)
+        public void PerformStackRestoration(Pawn doer, MindFrame mindFrame, Building_PersonaMatrix matrix)
         {
             var stackRestoreTo = (PersonaStack)ThingMaker.MakeThing(AC_DefOf.AC_FilledPersonaStack);
             stackRestoreTo.PersonaData.CopyDataFrom(mindFrame.PersonaData, true);
             AlteredCarbonManager.Instance.RegisterStack(stackRestoreTo);
             Messages.Message("AC.SuccessfullyRestoredStackFromBackup".Translate(doer.Named("PAWN")), stackRestoreTo, MessageTypeDefOf.TaskCompletion);
             GenPlace.TryPlaceThing(stackRestoreTo, doer.Position, doer.Map, ThingPlaceMode.Near);
-            ConnectedMatrix.innerContainer.Remove(mindFrame);
+            matrix?.innerContainer.Remove(mindFrame);
             mindFrame.Destroy();
+            mindFrameToRestore = null;
         }
 
         public override void ExposeData()
@@ -285,6 +370,7 @@ namespace AlteredCarbon
             base.ExposeData();
             Scribe_Values.Look(ref this.autoRestoreIsEnabled, "autoRestoreIsEnabled", true);
             Scribe_References.Look(ref this.stackToDuplicate, "stackToDuplicate");
+            Scribe_References.Look(ref this.mindFrameToRestore, "mindFrameToRestore");
         }
     }
 }

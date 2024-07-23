@@ -246,11 +246,11 @@
     <Compile Include="HarmonyPatches\PawnUtility_GetPosture_Patch.cs" />
     <Compile Include="HarmonyPatches\Recipe_InstallPersonaStack_ApplyPersonaStack_Patch.cs" />
     <Compile Include="Jobs\JobDriver_CancelRepurposingBody.cs" />
-    <Compile Include="Jobs\JobDriver_CreateStackFromBackup.cs" />
+    <Compile Include="Jobs\JobDriver_CreateStackFromMindFrame.cs" />
     <Compile Include="Jobs\JobDriver_DuplicateStack.cs" />
     <Compile Include="Jobs\JobDriver_HaulMindFramesToPersonaMatrix.cs" />
     <Compile Include="Jobs\WorkGiver_CancelRepurposingBody.cs" />
-    <Compile Include="Jobs\WorkGiver_CreateStackFromBackup.cs" />
+    <Compile Include="Jobs\WorkGiver_CreateStackFromMindFrame.cs" />
     <Compile Include="Jobs\WorkGiver_DuplicateStacks.cs" />
     <Compile Include="Jobs\WorkGiver_HaulMindFrames.cs" />
     <Compile Include="Misc\RoomRoleWorker_UltraTech.cs" />

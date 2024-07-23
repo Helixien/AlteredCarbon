@@ -67,7 +67,6 @@ namespace AlteredCarbon
                     var pawn = data.Key.GetDummyPawn;
                     Find.WorldPawns.AddPawn(pawn);
                     personaStacksToAppearAsWorldPawns.Remove(data.Key);
-                    Log.Message(data.Key.GetDummyPawn + " should appear now");
                 }
             }
         }

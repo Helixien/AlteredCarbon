@@ -13,7 +13,7 @@
 			<li>Manipulation</li>
 		</requiredCapacities>
 	</WorkGiverDef>
-	<!-- ================================ Banking stacks ====================== -->
+	<!-- ================================ Banking mind frames ====================== -->
 	<WorkGiverDef>
 		<defName>AC_HaulMindFramesToStorage</defName>
 		<label>haul mind frames</label>
@@ -26,14 +26,14 @@
 			<li>Manipulation</li>
 		</requiredCapacities>
 	</WorkGiverDef>
-	<!-- ================================ Create stack from backup ====================== -->
+	<!-- ================================ Create stack from mind frame ====================== -->
 	<WorkGiverDef>
-		<defName>AC_CreateStackFromBackup</defName>
-		<label>restore stack from backup</label>
-		<giverClass>AlteredCarbon.WorkGiver_CreateStackFromBackup</giverClass>
+		<defName>AC_CreateStackFromMindFrame</defName>
+		<label>restore stack from mind frame</label>
+		<giverClass>AlteredCarbon.WorkGiver_CreateStackFromMindFrame</giverClass>
 		<workType>Research</workType>
-		<verb>restore stack from backup</verb>
-		<gerund>restoring stack from backup</gerund>
+		<verb>restore stack from mind frame</verb>
+		<gerund>restoring stack from mind frame</gerund>
 		<priorityInType>999</priorityInType>
 		<requiredCapacities>
 			<li>Manipulation</li>

@@ -6,11 +6,11 @@
 		<driverClass>AlteredCarbon.JobDriver_DuplicateStack</driverClass>
 		<reportString>duplicating persona stack</reportString>
 	</JobDef>
-	<!-- ================================ Create Stack from Backup ====================== -->
+	<!-- ================================ Create Stack from MindFrame ====================== -->
 	<JobDef>
-		<defName>AC_CreateStackFromBackup</defName>
-		<driverClass>AlteredCarbon.JobDriver_CreateStackFromBackup</driverClass>
-		<reportString>restoring persona stack from backup</reportString>
+		<defName>AC_CreateStackFromMindFrame</defName>
+		<driverClass>AlteredCarbon.JobDriver_CreateStackFromMindFrame</driverClass>
+		<reportString>restoring persona stack from mind frame</reportString>
 	</JobDef>
 	<!-- ================================ Hauling MInd Frames ====================== -->
 	<JobDef>
