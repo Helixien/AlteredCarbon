@@ -140,7 +140,7 @@ namespace AlteredCarbon
                     try
                     {
                         InnerPawn.Rotation = Rotation;
-                        InnerPawn.DrawAt(newPos + PawnDrawOffset, flip);
+                        InnerPawn.DynamicDrawPhaseAt(DrawPhase.Draw, newPos + PawnDrawOffset, flip);
                     }
                     catch (Exception e)
                     {

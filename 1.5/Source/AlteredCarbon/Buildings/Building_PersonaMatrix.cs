@@ -60,8 +60,8 @@ namespace AlteredCarbon
                 {
                     var ejectAll = new Command_Action();
                     ejectAll.defaultLabel = "AC.EjectAll".Translate();
-                    ejectAll.defaultDesc = "AC.EjectAllDesc".Translate();
-                    ejectAll.icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EjectAllStacks");
+                    ejectAll.defaultDesc = "AC.EjectAllMindFramesDesc".Translate();
+                    ejectAll.icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EjectAllMindFrames");
                     ejectAll.action = delegate
                     {
                         EjectContents();

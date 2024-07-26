@@ -142,7 +142,7 @@ namespace AlteredCarbon
         public bool restoreToEmptyStack = true;
         public bool isCopied = false;
         public int stackGroupID = -1;
-        public int lastTimeUpdated;
+        public int? lastTimeUpdated;
 
         public int editTime;
         public float stackDegradation;
@@ -151,6 +151,7 @@ namespace AlteredCarbon
         public PersonaData()
         {
             this.stackGroupID = AlteredCarbonManager.Instance.stacksRelationships.Count + 1;
+            this.lastTimeUpdated = Find.TickManager.TicksAbs;
         }
 
         public static Pawn lastDummyPawn;
@@ -221,9 +222,15 @@ namespace AlteredCarbon
             }
         }
 
-        public TaggedString PawnNameColored => TitleShort?.CapitalizeFirst().NullOrEmpty() ?? false
-                    ? (TaggedString)(name?.ToStringShort.Colorize(PawnNameColorUtility.PawnNameColorOf(GetDummyPawn)))
-                    : (TaggedString)(name?.ToStringShort.Colorize(PawnNameColorUtility.PawnNameColorOf(GetDummyPawn))) + ", " + TitleShort?.CapitalizeFirst();
+        public TaggedString PawnNameColored
+        {
+            get
+            {
+                var title = TitleShort;
+                var pawnName = name?.ToStringShort.Colorize(PawnNameColorUtility.PawnNameColorOf(GetDummyPawn));
+                return title.NullOrEmpty() ? pawnName : pawnName + ", " + title.CapitalizeFirst();
+            }
+        }
         public string TitleShort
         {
             get
@@ -274,7 +281,7 @@ namespace AlteredCarbon
             }
         }
 
-        public void AppendInfo(StringBuilder stringBuilder)
+        public void AppendInfoStack(StringBuilder stringBuilder)
         {
             if (this.ContainsPersona)
             {

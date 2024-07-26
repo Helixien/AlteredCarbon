@@ -44,14 +44,6 @@ namespace AlteredCarbon
             return copy;
         }
 
-        public override string GetInspectString()
-        {
-            StringBuilder stringBuilder = new StringBuilder();
-            PersonaData.AppendInfo(stringBuilder);
-            stringBuilder.Append(base.GetInspectString());
-            return stringBuilder.ToString().TrimEndNewlines();
-        }
-
         public void GeneratePersona()
         {
             Faction faction = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction).RandomElement();

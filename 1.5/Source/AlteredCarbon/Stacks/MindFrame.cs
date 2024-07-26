@@ -22,6 +22,26 @@ namespace AlteredCarbon
             }
         }
 
+        public override string GetInspectString()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            var personaData = PersonaData;
+            if (personaData.ContainsPersona)
+            {
+                if (personaData.faction != null)
+                {
+                    stringBuilder.AppendLineTagged("AC.Faction".Translate() + ": " + personaData.faction.NameColored);
+                }
+                stringBuilder.Append("AC.AgeChronologicalTicks".Translate() + ": " + (int)(personaData.ageChronologicalTicks / 3600000) + "\n");
+                var tile = this.Spawned ? this.Tile : Find.AnyPlayerHomeMap.Tile;
+                var timeOfDate = personaData.lastTimeUpdated == null ? (string)"Unknown".Translate()
+                    : GenDate.DateFullStringAt(personaData.lastTimeUpdated.Value, Find.WorldGrid.LongLatOf(tile));
+                stringBuilder.Append("AC.TimeOfBackup".Translate(timeOfDate));
+            }
+            stringBuilder.Append(base.GetInspectString());
+            return stringBuilder.ToString().TrimEndNewlines();
+        }
+
         public override Graphic Graphic
         {
             get

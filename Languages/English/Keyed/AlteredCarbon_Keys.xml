@@ -114,7 +114,7 @@
 	<AC.SleeveAge>Age:</AC.SleeveAge>
 	<AC.YearsOld>{0} years old</AC.YearsOld>
 	<!-- ================================ Persona Matrix ====================== -->
-	<AC.TimeSinceLastBackup>(last backup: {0})</AC.TimeSinceLastBackup>
+	<AC.TimeOfBackup>Time of backup: {0}</AC.TimeOfBackup>
 	<AC.EjectMindFrameTooltip>Eject this mind frame from the matrix.</AC.EjectMindFrameTooltip>
 	<AC.EjectMindFrameConfirmation>Do you really want to eject {0}? It will be immediately ejected onto the ground nearby.</AC.EjectMindFrameConfirmation>
 	<AC.EraseMindFrameTooltip>Erase this mind frame irreversibly.</AC.EraseMindFrameTooltip>
@@ -126,7 +126,7 @@
 	<AC.AllowStrangerMindFrames>*Allow stranger mind frames</AC.AllowStrangerMindFrames>
 	<AC.AllowHostileMindFrames>*Allow hostile mind frames</AC.AllowHostileMindFrames>
 	<AC.EjectAll>Eject all</AC.EjectAll>
-	<AC.EjectAllDesc>Drop all contained mind frames onto the ground.</AC.EjectAllDesc>
+	<AC.EjectAllMindFramesDesc>Drop all contained mind frames onto the ground.</AC.EjectAllMindFramesDesc>
 	<!-- ================================ Gene Centrifuge ====================== -->
 	<AC.SeparateGene>Separate gene</AC.SeparateGene>
 	<AC.SeparateGeneDesc>Select a genepack from which to separate a gene from.</AC.SeparateGeneDesc>

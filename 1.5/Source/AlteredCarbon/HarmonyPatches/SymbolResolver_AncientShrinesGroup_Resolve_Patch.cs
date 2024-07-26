@@ -33,6 +33,7 @@ namespace AlteredCarbon
                 var mindFrame = ThingMaker.MakeThing(AC_DefOf.AC_MindFrame) as MindFrame;
                 var faction = podContentsType is null || podContentsType.Value != PodContentsType.AncientHostile ? Faction.OfAncients : Faction.OfAncientsHostile;
                 mindFrame.GeneratePersona(faction);
+                mindFrame.PersonaData.lastTimeUpdated = null;
                 resolveParams.singleThingToSpawn = mindFrame;
                 BaseGen.symbolStack.Push("thing", resolveParams);
             }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 using Verse;
 
@@ -72,6 +73,14 @@ namespace AlteredCarbon
                 }
                 return label;
             }
+        }
+
+        public override string GetInspectString()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            PersonaData.AppendInfoStack(stringBuilder);
+            stringBuilder.Append(base.GetInspectString());
+            return stringBuilder.ToString().TrimEndNewlines();
         }
 
         public override void Tick()
