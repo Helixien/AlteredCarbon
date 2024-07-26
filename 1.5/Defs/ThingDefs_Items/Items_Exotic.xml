@@ -9,6 +9,7 @@
 		<graphicData>
 			<texPath>Things/Item/MindFrame/FriendlyMindFrame</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
+			<onGroundRandomRotateAngle>35</onGroundRandomRotateAngle>
 		</graphicData>
 		<techLevel>Ultra</techLevel>
 		<uiIconForStackCount>1</uiIconForStackCount>
