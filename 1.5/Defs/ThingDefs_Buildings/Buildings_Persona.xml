@@ -38,15 +38,12 @@
 		</costList>
 		<descriptionHyperlinks>
 			<ThingDef>AC_FilledPersonaStack</ThingDef>
-			<ThingDef>AC_FilledPersonaStack</ThingDef>
 			<ThingDef>AC_NeuralEditor</ThingDef>
 			<ThingDef>AC_MindFrame</ThingDef>
 		</descriptionHyperlinks>
 		<altitudeLayer>BuildingOnTop</altitudeLayer>
 		<neverMultiSelect>true</neverMultiSelect>
 		<designationCategory>Biotech</designationCategory>
-		<hasInteractionCell>True</hasInteractionCell>
-		<interactionCellOffset>(0,0,2)</interactionCellOffset>
 		<defaultPlacingRot>South</defaultPlacingRot>
 		<rotatable>true</rotatable>
 		<passability>PassThroughOnly</passability>
@@ -189,7 +186,7 @@
 		</comps>
 	</ThingDef>
 	<!-- ================================ Persona Cache ====================== -->
-	<ThingDef ParentName="GeneBuildingBase">
+	<ThingDef ParentName="BuildingBase">
 		<defName>AC_PersonaCache</defName>
 		<label>persona cache</label>
 		<description>text.todo</description>
@@ -227,6 +224,7 @@
 			<ThingDef>AC_PersonaMatrix</ThingDef>
 			<ThingDef>AC_NeuralEditor</ThingDef>
 		</descriptionHyperlinks>
+		<designationCategory>Biotech</designationCategory>
 		<comps>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>

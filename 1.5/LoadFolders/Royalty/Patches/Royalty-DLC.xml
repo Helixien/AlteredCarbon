@@ -20,13 +20,13 @@
 				</value>
 			</li>
 			<li Class="PatchOperationAdd">
-				<xpath>/Defs/ResearchProjectDef[defName="AC_PersonaCrafting"]</xpath>
+				<xpath>/Defs/ResearchProjectDef[defName="AC_NeuralDigitalization"]</xpath>
 				<value>
 					<techprintMarketValue>1500</techprintMarketValue>
 				</value>
 			</li>
 			<li Class="PatchOperationAdd">
-				<xpath>/Defs/ResearchProjectDef[defName="AC_RewritePersonaStack"]</xpath>
+				<xpath>/Defs/ResearchProjectDef[defName="AC_NeuralRewriting"]</xpath>
 				<value>
 					<techprintMarketValue>2000</techprintMarketValue>
 				</value>
