@@ -1,187 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
+	<!-- ================================ Sleeve Gestator ====================== -->
 	<ThingDef ParentName="BuildingBase">
-		<defName>AC_PersonaMatrix</defName>
-		<label>persona matrix</label>
-		<description>A quantum computing array, designed to store cortical stacks and make backups of them that can be restored if needed. Cortical stacks can be duplicated, when placed inside the array. Backups are synced between arrays, allowing for multiple ones to be built. \n\nStack Arrays will make an automatic backup of any colony cortical stacks that are installed on the local map every 24 hours. Backups are restored to empty cortical stacks if the original stack is destroyed.</description>
-		<thingClass>AlteredCarbon.Building_PersonaMatrix</thingClass>
-		<tickerType>Normal</tickerType>
-		<drawerType>RealtimeOnly</drawerType>
+		<defName>AC_SleeveGestator</defName>
+		<label>sleeve gestator</label>
+		<description>text.todo</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_SleeveCasket</ThingDef>
+			<ThingDef>GeneAssembler</ThingDef>
+			<ThingDef>Xenogerm</ThingDef>
+		</descriptionHyperlinks>
+		<thingClass>AlteredCarbon.Building_SleeveGestator</thingClass>
 		<graphicData>
-			<texPath>Things/Building/Misc/StackArray/StackBackupTerminal</texPath>
+			<texPath>Things/Building/Misc/SleeveGastator/SleeveGastatorBottom</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
-			<drawSize>(4.5,4.5)</drawSize>
-			<shaderType>CutoutComplex</shaderType>
-			<damageData>
-				<cornerTL>Damage/Corner</cornerTL>
-				<cornerTR>Damage/Corner</cornerTR>
-				<cornerBL>Damage/Corner</cornerBL>
-				<cornerBR>Damage/Corner</cornerBR>
-			</damageData>
+			<drawSize>(7,7)</drawSize>
 		</graphicData>
 		<size>(3,3)</size>
-		<statBases>
-			<MaxHitPoints>800</MaxHitPoints>
-			<WorkToBuild>18000</WorkToBuild>
-			<Flammability>1.0</Flammability>
-			<Cleanliness>1</Cleanliness>
-		</statBases>
-<!--		<researchPrerequisites>
-			<li>AC_CorticalCrafting</li>
-		</researchPrerequisites>-->
-		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
-		<costList>
-			<Steel>250</Steel>
-			<Plasteel>150</Plasteel>
-			<ComponentSpacer>6</ComponentSpacer>
-		</costList>
-		<descriptionHyperlinks>
-			<ThingDef>AC_FilledPersonaStack</ThingDef>
-			<ThingDef>AC_FilledArchotechStack</ThingDef>
-		</descriptionHyperlinks>
-		<altitudeLayer>BuildingOnTop</altitudeLayer>
-		<neverMultiSelect>true</neverMultiSelect>
-		<designationCategory>Biotech</designationCategory>
-		<hasInteractionCell>True</hasInteractionCell>
-		<interactionCellOffset>(0,0,2)</interactionCellOffset>
-		<defaultPlacingRot>South</defaultPlacingRot>
-		<rotatable>true</rotatable>
-		<passability>PassThroughOnly</passability>
-		<pathCost>100</pathCost>
-		<castEdgeShadows>true</castEdgeShadows>
-		<canOverlapZones>false</canOverlapZones>
-		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
-		<constructEffect>ConstructMetal</constructEffect>
-		<blockWind>true</blockWind>
-		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
-		<uiIconPath>Things/Building/Misc/StackArray/StackBackupTerminal_MenuIcon</uiIconPath>
+		<uiIconPath>Things/Building/Misc/SleeveGastator/SleeveGastator_MenuIcon</uiIconPath>
 		<uiIconScale>1.1</uiIconScale>
-		<building>
-			<ai_chillDestination>false</ai_chillDestination>
-			<destroySound>BuildingDestroyed_Metal_Big</destroySound>
-			<preventDeteriorationOnTop>true</preventDeteriorationOnTop>
-			<ignoreStoredThingsBeauty>true</ignoreStoredThingsBeauty>
-			<soundAmbient>AC_StackArray_Ambience</soundAmbient>
-			<fixedStorageSettings>
-				<filter>
-					<thingDefs>
-						<li>AC_MindFrame</li>
-					</thingDefs>
-				</filter>
-			</fixedStorageSettings>
-			<defaultStorageSettings>
-				<priority>Important</priority>
-				<filter>
-					<thingDefs>
-						<li>AC_MindFrame</li>
-					</thingDefs>
-				</filter>
-			</defaultStorageSettings>
-			<buildingTags>
-				<li>Biotech</li>
-			</buildingTags>
-		</building>
-		<inspectorTabs>
-			<li>AlteredCarbon.ITab_FramesStorageContents</li>
-		</inspectorTabs>
-		<comps>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerTrader</compClass>
-				<shortCircuitInRain>true</shortCircuitInRain>
-				<basePowerConsumption>1500</basePowerConsumption>
-			</li>
-			<li Class="CompProperties_Glower">
-				<glowRadius>5</glowRadius>
-				<glowColor>(0,181,240,0)</glowColor>
-			</li>
-			<li Class="CompProperties_Flickable"/>
-			<li Class="CompProperties_Breakdownable"/>
-			<li Class="CompProperties_Facility">
-				<maxSimultaneous>1</maxSimultaneous>
-			</li>
-		</comps>
-	</ThingDef>
-	
-	<ThingDef ParentName="BenchBase">
-		<defName>AC_NeuralEditor</defName>
-		<label>neural editor</label>
-		<description>A sophisticated workbench that allows the user to connect to persona stacks in order to alter the contained information, such as changing allegiance, or even wipe them clean. Can also strip the biocoding from items.\n\nAs the process is quite aggressive, there is a risk of the decryption process destroying the item.</description>
-		<thingClass>AlteredCarbon.Building_NeuralEditor</thingClass>
-		<graphicData>
-			<texPath>Things/Building/Misc/HackingWorkbench/HackingWorkbench</texPath>
-			<graphicClass>Graphic_Multi</graphicClass>
-			<drawSize>(3.5,1.5)</drawSize>
-			<damageData>
-				<cornerTL>Damage/Corner</cornerTL>
-				<cornerTR>Damage/Corner</cornerTR>
-				<cornerBL>Damage/Corner</cornerBL>
-				<cornerBR>Damage/Corner</cornerBR>
-			</damageData>
-		</graphicData>
-		<size>(3,1)</size>
 		<defaultPlacingRot>South</defaultPlacingRot>
-		<descriptionHyperlinks>
-			<ThingDef>AC_FilledPersonaStack</ThingDef>
-		</descriptionHyperlinks>
 		<designationCategory>Biotech</designationCategory>
 		<statBases>
-			<Mass>20</Mass>
-			<MaxHitPoints>180</MaxHitPoints>
-			<WorkToBuild>5000</WorkToBuild>
+			<Mass>30</Mass>
+			<WorkToBuild>12000</WorkToBuild>
+			<MaxHitPoints>300</MaxHitPoints>
 			<Flammability>0.5</Flammability>
 		</statBases>
 		<building>
-			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+			<destroySound>BuildingDestroyed_Metal_Big</destroySound>
+			<ai_chillDestination>false</ai_chillDestination>
+			<soundAmbient>AC_SleeveGestator_Ambience</soundAmbient>
+			<buildingTags>
+				<li>Biotech</li>
+			</buildingTags>
+		</building>
+		<constructionSkillPrerequisite>10</constructionSkillPrerequisite>
+		<researchPrerequisites>
+			<li>AC_SleeveGestation</li>
+		</researchPrerequisites>
+		<costList>
+			<Steel>250</Steel>
+			<Plasteel>50</Plasteel>
+			<ComponentSpacer>6</ComponentSpacer>
+		</costList>
+		<pathCost>90</pathCost>
+		<blockWind>true</blockWind>
+		<canOverlapZones>false</canOverlapZones>
+		<neverMultiSelect>true</neverMultiSelect>
+		<tickerType>Normal</tickerType>
+		<drawerType>RealtimeOnly</drawerType>
+		<hasInteractionCell>true</hasInteractionCell>
+		<interactionCellOffset>(0,0,2)</interactionCellOffset>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<placeWorkers>
+			<li>PlaceWorker_FuelingPort</li>
+		</placeWorkers>
+		<containedPawnsSelectable>true</containedPawnsSelectable>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<passability>PassThroughOnly</passability>
+		<castEdgeShadows>true</castEdgeShadows>
+		<fillPercent>0.5</fillPercent>
+		<comps>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Forbiddable"/>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<shortCircuitInRain>true</shortCircuitInRain>
+				<basePowerConsumption>450</basePowerConsumption>
+				<idlePowerDraw>75</idlePowerDraw>
+			</li>
+			<li Class="CompProperties_Refuelable">
+				<fuelLabel>Neutroamine</fuelLabel>
+				<fuelGizmoLabel>Neutroamine</fuelGizmoLabel>
+				<outOfFuelMessage>Cannot grow: Needs neutroamine</outOfFuelMessage>
+				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+				<targetFuelLevelConfigurable>false</targetFuelLevelConfigurable>
+				<fuelCapacity>500</fuelCapacity>
+				<fuelFilter>
+					<thingDefs>
+						<li>Neutroamine</li>
+					</thingDefs>
+				</fuelFilter>
+				<initialFuelPercent>0</initialFuelPercent>
+				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+				<showFuelGizmo>true</showFuelGizmo>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>5</glowRadius>
+				<glowColor>(96,161,153,0)</glowColor>
+			</li>
+		</comps>
+	</ThingDef>
+	<!-- ================================ Sleeve Casket ====================== -->
+	<ThingDef ParentName="FurnitureBase">
+		<defName>AC_SleeveCasket</defName>
+		<label>sleeve casket</label>
+		<description>An open sarcophagus-like suspender designed to keep a sleeve in a state of suspended animation while still allowing medical access, such as installing implants or bionics.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_SleeveGestator</ThingDef>
+			<ThingDef>AC_FilledPersonaStack</ThingDef>
+		</descriptionHyperlinks>
+		<thingClass>AlteredCarbon.Building_SleeveCasket</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Furniture/Bed/SleeveCasket</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(3,4)</drawSize>
+		</graphicData>
+		<size>(1,2)</size>
+		<uiIconPath>Things/Building/Furniture/Bed/SleeveCasket_MenuIcon</uiIconPath>
+		<uiIconScale>1.0</uiIconScale>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<designationCategory>Biotech</designationCategory>
+		<statBases>
+			<MarketValue>1520</MarketValue>
+			<MaxHitPoints>250</MaxHitPoints>
+			<WorkToBuild>6000</WorkToBuild>
+			<Mass>50</Mass>
+			<Flammability>0.5</Flammability>
+			<BedRestEffectiveness>1.2</BedRestEffectiveness>
+			<Comfort>0.1</Comfort>
+			<ImmunityGainSpeedFactor>1.25</ImmunityGainSpeedFactor>
+			<MedicalTendQualityOffset>0.10</MedicalTendQualityOffset>
+			<SurgerySuccessChanceFactor>1.5</SurgerySuccessChanceFactor>
+		</statBases>
+		<building>
+			<bed_showSleeperBody>false</bed_showSleeperBody>
+			<buildingSizeCategory>Small</buildingSizeCategory>
+			<bed_humanlike>true</bed_humanlike>
+			<bed_healPerDay>2</bed_healPerDay>
+			<bed_defaultMedical>true</bed_defaultMedical>
 			<ai_chillDestination>false</ai_chillDestination>
 			<buildingTags>
 				<li>Biotech</li>
 			</buildingTags>
 		</building>
-		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+		<constructionSkillPrerequisite>10</constructionSkillPrerequisite>
 		<researchPrerequisites>
-			<li>AC_Hacking</li>
+			<li>AC_SleeveGestation</li>
 		</researchPrerequisites>
 		<costList>
-			<Steel>80</Steel>
-			<Plasteel>10</Plasteel>
+			<Steel>100</Steel>
+			<Plasteel>15</Plasteel>
+			<Uranium>5</Uranium>
 			<ComponentSpacer>2</ComponentSpacer>
 		</costList>
-		<recipes>
-			<li>AC_WipeFilledPersonaStack</li>
-			<li>AC_HackBiocodedThings</li>
-		</recipes>
-		<castEdgeShadows>true</castEdgeShadows>
-		<staticSunShadowHeight>0.20</staticSunShadowHeight>
-		<hasInteractionCell>true</hasInteractionCell>
-		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+		<pathCost>35</pathCost>
+		<canOverlapZones>false</canOverlapZones>
 		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+		<tickerType>Normal</tickerType>
+		<drawerType>RealtimeOnly</drawerType>
 		<passability>PassThroughOnly</passability>
-		<fillPercent>0.3</fillPercent>
-		<pathCost>42</pathCost>
+		<castEdgeShadows>True</castEdgeShadows>
+		<fillPercent>0.5</fillPercent>
 		<thingCategories>
 			<li>BuildingsMisc</li>
 		</thingCategories>
-		<surfaceType>Item</surfaceType>
-		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
-		<placeWorkers>
-			<li>PlaceWorker_PreventInteractionSpotOverlap</li>
-		</placeWorkers>
-		<inspectorTabs>
-			<li>ITab_Bills</li>
-		</inspectorTabs>
 		<comps>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
-				<basePowerConsumption>350</basePowerConsumption>
 				<shortCircuitInRain>true</shortCircuitInRain>
-				<idlePowerDraw>50</idlePowerDraw>
+				<basePowerConsumption>75</basePowerConsumption>
+				<idlePowerDraw>15</idlePowerDraw>
 			</li>
-			<li Class="CompProperties_Flickable"/>
-			<li Class="CompProperties_Breakdownable"/>
 			<li Class="CompProperties_AffectedByFacilities">
 				<linkableFacilities>
-					<li>AC_PersonaMatrix</li>
+					<li>VitalsMonitor</li>
+					<li MayRequire="Ludeon.RimWorld.Ideology">SleepAccelerator</li>
 				</linkableFacilities>
+			</li>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_AssignableToPawn">
+				<drawAssignmentOverlay>false</drawAssignmentOverlay>
+				<compClass>CompAssignableToPawn_Bed</compClass>
 			</li>
 		</comps>
 	</ThingDef>

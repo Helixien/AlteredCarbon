@@ -20,6 +20,30 @@
 			<li>MicroelectronicsBasics</li>
 		</prerequisites>
 	</ResearchProjectDef>
+	<!-- ================================ Neural Digitalization ====================== -->
+	<ResearchProjectDef ParentName="AC_ResearchBase">
+		<defName>AC_NeuralDigitalization</defName>
+		<label>neural digitalization</label>
+		<description>text.todo</description>
+		<baseCost>4000</baseCost>
+		<researchViewX>17.00</researchViewX>
+		<researchViewY>0.00</researchViewY>
+		<prerequisites>
+			<li>AdvancedFabrication</li>
+		</prerequisites>
+	</ResearchProjectDef>
+	<!-- ================================ Neural Rewriting ====================== -->
+	<ResearchProjectDef ParentName="AC_ResearchBase">
+		<defName>AC_NeuralRewriting</defName>
+		<label>neural rewriting</label>
+		<description>text.todo.</description>
+		<baseCost>5000</baseCost>
+		<researchViewX>18.00</researchViewX>
+		<researchViewY>0.00</researchViewY>
+		<prerequisites>
+			<li>AC_NeuralDigitalization</li>
+		</prerequisites>
+	</ResearchProjectDef>
 	<!-- ================================ Advanced Powered Armor ====================== -->
 	<ResearchProjectDef>
 		<defName>AC_AdvancedPoweredArmor</defName>
