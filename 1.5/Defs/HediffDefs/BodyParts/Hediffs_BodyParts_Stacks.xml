@@ -2,6 +2,10 @@
 <Defs>
 	<!-- ================================ Persona Stack - Base ====================== -->
 	<ThingDef Name="AC_StackBase" ParentName="BodyPartArchotechBase" Abstract="True">
+		<graphicData Inherit="False">
+			<onGroundRandomRotateAngle>35</onGroundRandomRotateAngle>
+			<drawSize>0.80</drawSize>
+		</graphicData>
 		<techLevel>Ultra</techLevel>
 		<uiIconForStackCount>1</uiIconForStackCount>
 		<tradeNeverStack>false</tradeNeverStack>
