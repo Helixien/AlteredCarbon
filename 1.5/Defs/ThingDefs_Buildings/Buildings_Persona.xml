@@ -200,7 +200,7 @@
 		<tickerType>Rare</tickerType>
 		<passability>PassThroughOnly</passability>
 		<canOverlapZones>false</canOverlapZones>
-		<size>(2, 1)</size>
+		<size>(2, 2)</size>
 		<statBases>
 			<MaxHitPoints>200</MaxHitPoints>
 			<WorkToBuild>5000</WorkToBuild>
