@@ -243,4 +243,63 @@
 			<li Class="CompProperties_Flickable"/>
 		</comps>
 	</ThingDef>
+	<!-- ================================ Persona Interfacer ====================== -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>AC_PersonaInterfacer</defName>
+		<label>persona interfacer</label>
+		<description>to.do</description>
+		<graphicData>
+			<texPath>VCEF_AlphaFish_a</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(2, 1)</drawSize>
+			<shadowData>
+				<volume>(1.7, 0.3, 0.85)</volume>
+			</shadowData>
+		</graphicData>
+		<containedPawnsSelectable>true</containedPawnsSelectable>
+		<passability>PassThroughOnly</passability>
+		<fillPercent>0.4</fillPercent>
+		<castEdgeShadows>true</castEdgeShadows>
+		<drawerType>MapMeshAndRealTime</drawerType>
+		<tickerType>Normal</tickerType>
+		<size>(2, 2)</size>
+		<canOverlapZones>false</canOverlapZones>
+		<hasInteractionCell>true</hasInteractionCell>
+		<interactionCellOffset>(1, 0, 2)</interactionCellOffset>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<designationCategory>Biotech</designationCategory>
+		<uiOrder>2100</uiOrder>
+		<researchPrerequisites>
+			<li>AC_NeuralDigitalization</li>
+		</researchPrerequisites>
+		<building>
+			<buildingTags>
+				<li>Biotech</li>
+			</buildingTags>
+		</building>
+		<statBases>
+			<MaxHitPoints>350</MaxHitPoints>
+			<WorkToBuild>9000</WorkToBuild>
+			<Mass>85</Mass>
+			<Flammability>0.5</Flammability>
+		</statBases>
+		<costList>
+			<Steel>200</Steel>
+			<ComponentIndustrial>8</ComponentIndustrial>
+		</costList>
+		<constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>200</basePowerConsumption>
+				<idlePowerDraw>50</idlePowerDraw>
+			</li>
+			<li Class="CompProperties_AffectedByFacilities">
+				<linkableFacilities>
+					<li>AC_PersonaMatrix</li>
+				</linkableFacilities>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+		</comps>
+	</ThingDef>
 </Defs>
