@@ -12,9 +12,9 @@ namespace AlteredCarbon
     {
         public CompPowerTrader compPower;
         public const int MaxFilledStackCapacity = 25;
-        public bool allowColonistMindFrames = true;
-        public bool allowStrangerMindFrames = true;
-        public bool allowHostileMindFrames = true;
+        public bool allowColonistPersonaPrints = true;
+        public bool allowStrangerPersonaPrints = true;
+        public bool allowHostilePersonaPrints = true;
 
         public Building_PersonaMatrix()
         {
@@ -43,9 +43,9 @@ namespace AlteredCarbon
         }
         public bool Powered => this.compPower.PowerOn;
 
-        public bool HasAnyContents => StoredMindFrames.Any();
+        public bool HasAnyContents => StoredPersonaPrints.Any();
 
-        public IEnumerable<MindFrame> StoredMindFrames => this.innerContainer.OfType<MindFrame>();
+        public IEnumerable<PersonaPrint> StoredPersonaPrints => this.innerContainer.OfType<PersonaPrint>();
 
         public override IEnumerable<Gizmo> GetGizmos()
         {
@@ -55,13 +55,13 @@ namespace AlteredCarbon
             }
             if (Faction == Faction.OfPlayer)
             {
-                var frames = StoredMindFrames.ToList();
+                var frames = StoredPersonaPrints.ToList();
                 if (frames.Any())
                 {
                     var ejectAll = new Command_Action();
                     ejectAll.defaultLabel = "AC.EjectAll".Translate();
-                    ejectAll.defaultDesc = "AC.EjectAllMindFramesDesc".Translate();
-                    ejectAll.icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EjectAllMindFrames");
+                    ejectAll.defaultDesc = "AC.EjectAllPersonaPrintsDesc".Translate();
+                    ejectAll.icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EjectAllPersonaPrints");
                     ejectAll.action = delegate
                     {
                         EjectContents();
@@ -74,10 +74,10 @@ namespace AlteredCarbon
         public override string GetInspectString()
         {
             var sb = new StringBuilder();
-            sb.AppendLine("AC.MindFramesStored".Translate(StoredMindFrames.Count(), MaxFilledStackCapacity));
-            if (StoredMindFrames.Any())
+            sb.AppendLine("AC.PersonaPrintsStored".Translate(StoredPersonaPrints.Count(), MaxFilledStackCapacity));
+            if (StoredPersonaPrints.Any())
             {
-                var lastTimeUpdated = StoredMindFrames.Select(x => x.backupCreationDataTicks).Max();
+                var lastTimeUpdated = StoredPersonaPrints.Select(x => x.backupCreationDataTicks).Max();
                 Vector2 vector = Find.WorldGrid.LongLatOf(this.Map.Tile);
                 sb.AppendLine("AC.LastBackup".Translate(GenDate.DateReadoutStringAt(lastTimeUpdated, vector)));
             }
@@ -117,34 +117,34 @@ namespace AlteredCarbon
                 this
             });
             Scribe_Values.Look(ref this.contentsKnown, "contentsKnown", false);
-            Scribe_Values.Look(ref this.allowColonistMindFrames, "allowColonistMindFrames", true);
-            Scribe_Values.Look(ref this.allowHostileMindFrames, "allowHostileMindFrames", true);
-            Scribe_Values.Look(ref this.allowStrangerMindFrames, "allowStrangerMindFrames", true);
+            Scribe_Values.Look(ref this.allowColonistPersonaPrints, "allowColonistPersonaPrints", true);
+            Scribe_Values.Look(ref this.allowHostilePersonaPrints, "allowHostilePersonaPrints", true);
+            Scribe_Values.Look(ref this.allowStrangerPersonaPrints, "allowStrangerPersonaPrints", true);
         }
 
         public bool Accepts(Thing thing)
         {
             Predicate<Thing> validator = delegate (Thing x)
             {
-                var mindFrame = thing as MindFrame;
-                if (mindFrame is null)
+                var personaPrint = thing as PersonaPrint;
+                if (personaPrint is null)
                 {
                     return false;
                 }
-                if (!mindFrame.PersonaData.ContainsPersona)
+                if (!personaPrint.PersonaData.ContainsPersona)
                 {
                     return false;
                 }
 
-                if (this.allowColonistMindFrames && mindFrame.PersonaData.faction != null && mindFrame.PersonaData.faction == Faction.OfPlayer)
+                if (this.allowColonistPersonaPrints && personaPrint.PersonaData.faction != null && personaPrint.PersonaData.faction == Faction.OfPlayer)
                 {
                     return true;
                 }
-                if (this.allowHostileMindFrames && mindFrame.PersonaData.faction.HostileTo(Faction.OfPlayer))
+                if (this.allowHostilePersonaPrints && personaPrint.PersonaData.faction.HostileTo(Faction.OfPlayer))
                 {
                     return true;
                 }
-                if (this.allowStrangerMindFrames && (mindFrame.PersonaData.faction is null || mindFrame.PersonaData.faction != Faction.OfPlayer && !mindFrame.PersonaData.faction.HostileTo(Faction.OfPlayer)))
+                if (this.allowStrangerPersonaPrints && (personaPrint.PersonaData.faction is null || personaPrint.PersonaData.faction != Faction.OfPlayer && !personaPrint.PersonaData.faction.HostileTo(Faction.OfPlayer)))
                 {
                     return true;
                 }

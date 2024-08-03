@@ -60,7 +60,7 @@ namespace AlteredCarbon
         public static HediffDef AC_SleeveShock;
         public static ThingDef AC_SleeveGestator;
         public static ThingDef AC_SleeveCasket;
-        public static ThingDef AC_NeuralEditor;
+        public static ThingDef AC_PersonaEditor;
         public static RecipeDef AC_WipeFilledPersonaStack;
         public static RecipeDef AC_InstallPersonaStack;
         public static RecipeDef AC_InstallEmptyPersonaStack;
@@ -97,12 +97,12 @@ namespace AlteredCarbon
 
         public static ThingDef AC_PersonaMatrix;
         public static JobDef AC_DuplicateStack;
-        public static JobDef AC_CreateStackFromMindFrame;
-        public static JobDef AC_HaulMindFramesToPersonaMatrix;
+        public static JobDef AC_CreateStackFromPersonaPrint;
+        public static JobDef AC_HaulPersonaPrintsToPersonaMatrix;
         public static ResearchProjectDef Xenogermination;
         public static JobDef AC_HaulCorpseToGestation;
         public static JobDef AC_CancelRepurposingBody;
-        public static ResearchProjectDef AC_RewritePersonaStack;
+        public static ResearchProjectDef AC_NeuralRewriting;
         public static EffecterDef AC_Hacking;
 
         [MayRequireIdeology] public static PreceptDef AC_Stacking_Despised;
@@ -116,6 +116,6 @@ namespace AlteredCarbon
         public static ThingDef AC_Apparel_FusilierHelmet;
         public static JobDef AC_ChargeCuirassierBelt;
         public static ThingDef AC_CuirassierBelt;
-        public static ThingDef AC_MindFrame;
+        public static ThingDef AC_PersonaPrint;
     }
 }

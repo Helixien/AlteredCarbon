@@ -14,16 +14,16 @@ namespace AlteredCarbon
         public bool enableStackSpawning = true;
         public bool enableTechprintRequirement = true;
         public bool sleeveDeathDoesNotCauseGearTainting = true;
-        public bool enableSoldMindFramesCreatingPawnDuplicates = true;
-        public bool enableMindFramesInAncientDangers = true;
+        public bool enableSoldPersonaPrintsCreatingPawnDuplicates = true;
+        public bool enablePersonaPrintsInAncientDangers = true;
 
         public override void ExposeData()
         {
             Scribe_Values.Look(ref enableStackSpawning, "enableStackSpawning", true);
             Scribe_Values.Look(ref enableTechprintRequirement, "enableTechprintRequirement", true);
             Scribe_Values.Look(ref sleeveDeathDoesNotCauseGearTainting, "sleeveDeathDoesNotCauseGearTainting", true);
-            Scribe_Values.Look(ref enableSoldMindFramesCreatingPawnDuplicates, "enableSoldMindFramesCreatingPawnDuplicates", true);
-            Scribe_Values.Look(ref enableMindFramesInAncientDangers, "enableMindFramesInAncientDangers", true);
+            Scribe_Values.Look(ref enableSoldPersonaPrintsCreatingPawnDuplicates, "enableSoldPersonaPrintsCreatingPawnDuplicates", true);
+            Scribe_Values.Look(ref enablePersonaPrintsInAncientDangers, "enablePersonaPrintsInAncientDangers", true);
         }
 
         public override void CopyFrom(PatchOperationWorker savedWorker)
@@ -32,8 +32,8 @@ namespace AlteredCarbon
             this.enableStackSpawning = copy.enableStackSpawning;
             this.enableTechprintRequirement = copy.enableTechprintRequirement;
             this.sleeveDeathDoesNotCauseGearTainting = copy.sleeveDeathDoesNotCauseGearTainting;
-            this.enableSoldMindFramesCreatingPawnDuplicates = copy.enableSoldMindFramesCreatingPawnDuplicates;
-            this.enableMindFramesInAncientDangers = copy.enableMindFramesInAncientDangers;
+            this.enableSoldPersonaPrintsCreatingPawnDuplicates = copy.enableSoldPersonaPrintsCreatingPawnDuplicates;
+            this.enablePersonaPrintsInAncientDangers = copy.enablePersonaPrintsInAncientDangers;
         }
 
         public override void DoSettings(ModSettingsContainer container, Listing_Standard list)
@@ -41,8 +41,8 @@ namespace AlteredCarbon
             DoCheckbox(list, "AC.EnableStackSpawning".Translate(), ref enableStackSpawning, "AC.EnableStackSpawningDesc".Translate());
             DoCheckbox(list, "AC.EnableTechprintRequirement".Translate(), ref enableTechprintRequirement, "AC.EnableTechprintRequirementDesc".Translate());
             DoCheckbox(list, "AC.SleeveDeathDoesNotCauseGearTainting".Translate(), ref sleeveDeathDoesNotCauseGearTainting, null);
-            DoCheckbox(list, "AC.EnableSoldMindFramesCreatingPawnDuplicates".Translate(), ref enableSoldMindFramesCreatingPawnDuplicates, "AC.EnableSoldMindFramesCreatingPawnDuplicatesDesc".Translate());
-            DoCheckbox(list, "AC.EnableMindFramesInAncientDangers".Translate(), ref enableMindFramesInAncientDangers, "AC.EnableMindFramesInAncientDangersDesc".Translate());
+            DoCheckbox(list, "AC.EnableSoldPersonaPrintsCreatingPawnDuplicates".Translate(), ref enableSoldPersonaPrintsCreatingPawnDuplicates, "AC.EnableSoldPersonaPrintsCreatingPawnDuplicatesDesc".Translate());
+            DoCheckbox(list, "AC.EnablePersonaPrintsInAncientDangers".Translate(), ref enablePersonaPrintsInAncientDangers, "AC.EnablePersonaPrintsInAncientDangersDesc".Translate());
         }
 
         public override void Reset()
@@ -50,8 +50,8 @@ namespace AlteredCarbon
             enableStackSpawning = true;
             enableTechprintRequirement = true;
             sleeveDeathDoesNotCauseGearTainting = true;
-            enableSoldMindFramesCreatingPawnDuplicates = true;
-            enableMindFramesInAncientDangers = true;
+            enableSoldPersonaPrintsCreatingPawnDuplicates = true;
+            enablePersonaPrintsInAncientDangers = true;
         }
 
         public override void ApplySettings()

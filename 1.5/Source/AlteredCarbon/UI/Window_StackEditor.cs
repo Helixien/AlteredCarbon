@@ -25,7 +25,7 @@ namespace AlteredCarbon
             {2,  SkillUI.PassionMajorIcon }
         };
 
-        private Building_NeuralEditor decryptionBench;
+        private Building_PersonaEditor decryptionBench;
         private PersonaStack personaStack;
         private PersonaData personaData;
         private PersonaData personaDataCopy;
@@ -66,7 +66,7 @@ namespace AlteredCarbon
         private float LeftPanelWidth => 450;
         public override Vector2 InitialSize => new Vector2(900, Mathf.Min(UI.screenHeight, 975));
         public bool stackRecruitable;
-        public Window_StackEditor(Building_NeuralEditor decryptionBench, PersonaStack personaStack)
+        public Window_StackEditor(Building_PersonaEditor decryptionBench, PersonaStack personaStack)
         {
             this.decryptionBench = decryptionBench;
             this.personaStack = personaStack;

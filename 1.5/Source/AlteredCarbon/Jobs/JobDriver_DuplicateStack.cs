@@ -6,14 +6,14 @@ namespace AlteredCarbon
     public class JobDriver_DuplicateStack : JobDriver
     {
         public const int DuplicateDuration = 1000;
-        public Building_NeuralEditor NeuralEditor => TargetA.Thing as Building_NeuralEditor;
+        public Building_PersonaEditor PersonaEditor => TargetA.Thing as Building_PersonaEditor;
         public override bool TryMakePreToilReservations(bool errorOnFailed)
         {
             return pawn.Reserve(TargetA, job);
         }
         public override IEnumerable<Toil> MakeNewToils()
         {
-            this.FailOn(() => !NeuralEditor.CanDuplicateStack);
+            this.FailOn(() => !PersonaEditor.CanDuplicateStack);
             yield return Toils_Goto.GotoThing(TargetIndex.B, PathEndMode.ClosestTouch).FailOnDespawnedNullOrForbidden(TargetIndex.B).FailOnSomeonePhysicallyInteracting(TargetIndex.B);
             yield return Toils_Haul.StartCarryThing(TargetIndex.B);
             yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.InteractionCell);
@@ -30,7 +30,7 @@ namespace AlteredCarbon
             {
                 initAction = delegate ()
                 {
-                    NeuralEditor.PerformStackDuplication(pawn);
+                    PersonaEditor.PerformStackDuplication(pawn);
                     TargetB.Thing.Destroy();
                 }
             };

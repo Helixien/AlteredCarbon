@@ -7,48 +7,48 @@ using Verse;
 namespace AlteredCarbon
 {
     [StaticConstructorOnStartup]
-    public class Building_NeuralEditor : Building_WorkTable
+    public class Building_PersonaEditor : Building_WorkTable
     {
         public bool autoRestoreIsEnabled = true;
         public PersonaStack stackToDuplicate;
-        public MindFrame mindFrameToRestore;
+        public PersonaPrint personaPrintToRestore;
         public Building_PersonaMatrix ConnectedMatrix => CompAffectedByFacilities.LinkedFacilitiesListForReading.OfType<Building_PersonaMatrix>().FirstOrDefault();
         public bool Powered => (PowerComp as CompPowerTrader).PowerOn;
         private CompAffectedByFacilities _compAffectedByFacilities;
         public CompAffectedByFacilities CompAffectedByFacilities => 
             _compAffectedByFacilities ??= GetComp<CompAffectedByFacilities>();
 
-        public bool HasMindFrameToRestore => GetMindFrameToRestore != null;
+        public bool HasPersonaPrintToRestore => GetPersonaPrintToRestore != null;
 
-        public MindFrame GetMindFrameToRestore
+        public PersonaPrint GetPersonaPrintToRestore
         {
             get
             {
-                if (mindFrameToRestore != null)
+                if (personaPrintToRestore != null)
                 {
-                    return mindFrameToRestore;
+                    return personaPrintToRestore;
                 }
                 if (autoRestoreIsEnabled)
                 {
-                    MindFrame mindFrame = null;
+                    PersonaPrint personaPrint = null;
                     var matrix = ConnectedMatrix;
                     if (matrix != null)
                     {
-                        foreach (var frame in matrix.StoredMindFrames)
+                        foreach (var frame in matrix.StoredPersonaPrints)
                         {
                             if (frame.CanAutoRestorePawn)
                             {
-                                mindFrame = frame;
+                                personaPrint = frame;
                                 break;
                             }
                         }
                     }
 
-                    if (mindFrame != null)
+                    if (personaPrint != null)
                     {
-                        return mindFrame;
+                        return personaPrint;
                     }
-                    foreach (var frame in Map.listerThings.AllThings.OfType<MindFrame>())
+                    foreach (var frame in Map.listerThings.AllThings.OfType<PersonaPrint>())
                     {
                         if (frame.CanAutoRestorePawn)
                         {
@@ -156,56 +156,56 @@ namespace AlteredCarbon
             }
 
 
-            var mindFrames = Map.listerThings.AllThings.OfType<MindFrame>().Where(x => x.PersonaData.ContainsPersona).ToList();
+            var personaPrints = Map.listerThings.AllThings.OfType<PersonaPrint>().Where(x => x.PersonaData.ContainsPersona).ToList();
             if (ConnectedMatrix != null)
             {
-                mindFrames.AddRange(ConnectedMatrix.StoredMindFrames);
+                personaPrints.AddRange(ConnectedMatrix.StoredPersonaPrints);
             }
-            var restoreFromMindFrame = new Command_Action
+            var restoreFromPersonaPrint = new Command_Action
             {
-                defaultLabel = "AC.RestoreFromMindFrame".Translate(),
-                defaultDesc = "AC.RestoreFromMindFrameDesc".Translate(),
-                icon = ContentFinder<Texture2D>.Get("UI/Gizmos/RestoreFromMindFrame"),
+                defaultLabel = "AC.RestoreFromPersonaPrint".Translate(),
+                defaultDesc = "AC.RestoreFromPersonaPrintDesc".Translate(),
+                icon = ContentFinder<Texture2D>.Get("UI/Gizmos/RestoreFromPersonaPrint"),
                 activateSound = SoundDefOf.Tick_Tiny,
                 action = delegate ()
                 {
                     var floatList = new List<FloatMenuOption>();
-                    foreach (var mindFrame in mindFrames.Where(x => x.PersonaData.ContainsPersona))
+                    foreach (var personaPrint in personaPrints.Where(x => x.PersonaData.ContainsPersona))
                     {
-                        var option = new FloatMenuOption(mindFrame.PersonaData.PawnNameColored, delegate ()
+                        var option = new FloatMenuOption(personaPrint.PersonaData.PawnNameColored, delegate ()
                         {
-                            this.mindFrameToRestore = mindFrame;
-                        }, mindFrame, mindFrame.DrawColor);
+                            this.personaPrintToRestore = personaPrint;
+                        }, personaPrint, personaPrint.DrawColor);
                         floatList.Add(option);
                     }
                     Find.WindowStack.Add(new FloatMenu(floatList));
                 }
             };
 
-            if (this.mindFrameToRestore != null)
+            if (this.personaPrintToRestore != null)
             {
-                restoreFromMindFrame.Disable("AC.AlreadySetToRestore".Translate());
+                restoreFromPersonaPrint.Disable("AC.AlreadySetToRestore".Translate());
             }
-            if (!mindFrames.Any())
+            if (!personaPrints.Any())
             {
-                restoreFromMindFrame.Disable("AC.NoMindFrameToRestore".Translate());
+                restoreFromPersonaPrint.Disable("AC.NoPersonaPrintToRestore".Translate());
             }
             if (this.Powered is false)
             {
-                restoreFromMindFrame.Disable("NoPower".Translate());
+                restoreFromPersonaPrint.Disable("NoPower".Translate());
             }
-            yield return restoreFromMindFrame;
-            if (this.mindFrameToRestore != null)
+            yield return restoreFromPersonaPrint;
+            if (this.personaPrintToRestore != null)
             {
                 yield return new Command_Action
                 {
-                    defaultLabel = "AC.CancelMindFrameRestoration".Translate(),
-                    defaultDesc = "AC.CancelMindFrameRestorationDesc".Translate(),
+                    defaultLabel = "AC.CancelPersonaPrintRestoration".Translate(),
+                    defaultDesc = "AC.CancelPersonaPrintRestorationDesc".Translate(),
                     activateSound = SoundDefOf.Tick_Tiny,
                     icon = UIHelper.CancelIcon,
                     action = delegate ()
                     {
-                        this.mindFrameToRestore = null;
+                        this.personaPrintToRestore = null;
                     }
                 };
             }
@@ -260,7 +260,7 @@ namespace AlteredCarbon
                 duplicateStacks.Disable("NoPower".Translate());
             }
             yield return duplicateStacks;
-            duplicateStacks.LockBehindReseach(new List<ResearchProjectDef> { AC_DefOf.AC_RewritePersonaStack });
+            duplicateStacks.LockBehindReseach(new List<ResearchProjectDef> { AC_DefOf.AC_NeuralRewriting });
             if (this.stackToDuplicate != null)
             {
                 yield return new Command_Action
@@ -353,16 +353,16 @@ namespace AlteredCarbon
             }
         }
 
-        public void PerformStackRestoration(Pawn doer, MindFrame mindFrame, Building_PersonaMatrix matrix)
+        public void PerformStackRestoration(Pawn doer, PersonaPrint personaPrint, Building_PersonaMatrix matrix)
         {
             var stackRestoreTo = (PersonaStack)ThingMaker.MakeThing(AC_DefOf.AC_FilledPersonaStack);
-            stackRestoreTo.PersonaData.CopyDataFrom(mindFrame.PersonaData, true);
+            stackRestoreTo.PersonaData.CopyDataFrom(personaPrint.PersonaData, true);
             AlteredCarbonManager.Instance.RegisterStack(stackRestoreTo);
             Messages.Message("AC.SuccessfullyRestoredStackFromBackup".Translate(doer.Named("PAWN")), stackRestoreTo, MessageTypeDefOf.TaskCompletion);
             GenPlace.TryPlaceThing(stackRestoreTo, doer.Position, doer.Map, ThingPlaceMode.Near);
-            matrix?.innerContainer.Remove(mindFrame);
-            mindFrame.Destroy();
-            mindFrameToRestore = null;
+            matrix?.innerContainer.Remove(personaPrint);
+            personaPrint.Destroy();
+            personaPrintToRestore = null;
         }
 
         public override void ExposeData()
@@ -370,7 +370,7 @@ namespace AlteredCarbon
             base.ExposeData();
             Scribe_Values.Look(ref this.autoRestoreIsEnabled, "autoRestoreIsEnabled", true);
             Scribe_References.Look(ref this.stackToDuplicate, "stackToDuplicate");
-            Scribe_References.Look(ref this.mindFrameToRestore, "mindFrameToRestore");
+            Scribe_References.Look(ref this.personaPrintToRestore, "personaPrintToRestore");
         }
     }
 }

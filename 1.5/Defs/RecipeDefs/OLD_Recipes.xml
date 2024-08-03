@@ -38,7 +38,7 @@
 		<products>
 			<AC_EmptyPersonaStack>1</AC_EmptyPersonaStack>
 		</products>
-		<researchPrerequisite>AC_PersonaCrafting</researchPrerequisite>
+		<researchPrerequisite>AC_NeuralDigitalization</researchPrerequisite>
 		<workSkill>Crafting</workSkill>
 		<skillRequirements>
 			<Crafting>15</Crafting>
@@ -167,7 +167,7 @@
 			<Intellectual>10</Intellectual>
 		</skillRequirements>
 		<researchPrerequisites>
-			<li>AC_RewritePersonaStack</li>
+			<li>AC_NeuralRewriting</li>
 		</researchPrerequisites>
 	</RecipeDef>
 	<!-- ================================ Hacking Biocoded things ====================== -->

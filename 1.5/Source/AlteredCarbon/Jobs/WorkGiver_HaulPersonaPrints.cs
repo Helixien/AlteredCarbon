@@ -8,7 +8,7 @@ using System.Linq;
 namespace AlteredCarbon
 {
     [HotSwappable]
-    public class WorkGiver_HaulMindFrames : WorkGiver_Scanner
+    public class WorkGiver_HaulPersonaPrints : WorkGiver_Scanner
     {
         public override Danger MaxPathDanger(Pawn pawn)
         {
@@ -16,7 +16,7 @@ namespace AlteredCarbon
         }
         public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)
         {
-            var frames = pawn.Map.listerThings.AllThings.OfType<MindFrame>().Where(x => x.autoLoad 
+            var frames = pawn.Map.listerThings.AllThings.OfType<PersonaPrint>().Where(x => x.autoLoad 
                 && x.PersonaData.ContainsPersona
                 && pawn.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
             return frames;
@@ -29,7 +29,7 @@ namespace AlteredCarbon
         public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
         {
             var personaMatrix = GenClosest.ClosestThing_Global_Reachable(pawn.Position, pawn.Map, GetPersonaMatrices(pawn, t), PathEndMode.Touch, TraverseParms.For(pawn));
-            var job = JobMaker.MakeJob(AC_DefOf.AC_HaulMindFramesToPersonaMatrix, t, personaMatrix);
+            var job = JobMaker.MakeJob(AC_DefOf.AC_HaulPersonaPrintsToPersonaMatrix, t, personaMatrix);
             job.count = 1;
             return job;
         }

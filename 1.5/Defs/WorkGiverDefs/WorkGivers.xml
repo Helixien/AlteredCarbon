@@ -13,11 +13,11 @@
 			<li>Manipulation</li>
 		</requiredCapacities>
 	</WorkGiverDef>
-	<!-- ================================ Banking mind frames ====================== -->
+	<!-- ================================ Banking persona prints ====================== -->
 	<WorkGiverDef>
-		<defName>AC_HaulMindFramesToStorage</defName>
-		<label>haul mind frames</label>
-		<giverClass>AlteredCarbon.WorkGiver_HaulMindFrames</giverClass>
+		<defName>AC_HaulPersonaPrintsToStorage</defName>
+		<label>haul persona prints</label>
+		<giverClass>AlteredCarbon.WorkGiver_HaulPersonaPrints</giverClass>
 		<workType>Hauling</workType>
 		<verb>bank</verb>
 		<gerund>banking</gerund>
@@ -26,14 +26,14 @@
 			<li>Manipulation</li>
 		</requiredCapacities>
 	</WorkGiverDef>
-	<!-- ================================ Create stack from mind frame ====================== -->
+	<!-- ================================ Create stack from persona print ====================== -->
 	<WorkGiverDef>
-		<defName>AC_CreateStackFromMindFrame</defName>
-		<label>restore stack from mind frame</label>
-		<giverClass>AlteredCarbon.WorkGiver_CreateStackFromMindFrame</giverClass>
+		<defName>AC_CreateStackFromPersonaPrint</defName>
+		<label>restore stack from persona print</label>
+		<giverClass>AlteredCarbon.WorkGiver_CreateStackFromPersonaPrint</giverClass>
 		<workType>Research</workType>
-		<verb>restore stack from mind frame</verb>
-		<gerund>restoring stack from mind frame</gerund>
+		<verb>restore stack from persona print</verb>
+		<gerund>restoring stack from persona print</gerund>
 		<priorityInType>999</priorityInType>
 		<requiredCapacities>
 			<li>Manipulation</li>
@@ -114,7 +114,7 @@
 		<workType>Research</workType>
 		<priorityInType>50</priorityInType>
 		<fixedBillGiverDefs>
-			<li>AC_NeuralEditor</li>
+			<li>AC_PersonaEditor</li>
 		</fixedBillGiverDefs>
 		<verb>hack stacks</verb>
 		<gerund>hacking stacks at</gerund>

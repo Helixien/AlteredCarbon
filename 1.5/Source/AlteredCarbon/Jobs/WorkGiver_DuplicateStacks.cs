@@ -14,7 +14,7 @@ namespace AlteredCarbon
         }
         public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)
         {
-            return pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_NeuralEditor).Cast<Building_NeuralEditor>()
+            return pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaEditor).Cast<Building_PersonaEditor>()
                 .Where(x => x.stackToDuplicate != null && x.CanDuplicateStack 
                 && pawn.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
         }

@@ -86,7 +86,7 @@
   <ItemGroup>
     <Compile Include="AlteredCarbonSettingsWorker_RewriteStack.cs" />
     <Compile Include="AlteredCarbonSettingsWorker_SleeveGrowing.cs" />
-    <Compile Include="Buildings\Building_NeuralEditor.cs" />
+    <Compile Include="Buildings\Building_PersonaEditor.cs" />
     <Compile Include="Buildings\Building_Incubator.cs" />
     <Compile Include="Buildings\Building_SleeveGestator.cs" />
     <Compile Include="CompApparelAbilities.cs" />
@@ -124,7 +124,9 @@
     <Compile Include="HarmonyPatches\TransferableUtility_CanStack_Patch.cs" />
     <Compile Include="HediffComp_MeleeWeapon.cs" />
     <Compile Include="Jobs\JobDriver_ChargeCuirassierBelt.cs" />
+    <Compile Include="Jobs\JobDriver_CreateStackFromPersonaPrint.cs" />
     <Compile Include="Jobs\JobDriver_HaulCorpseToGestation.cs" />
+    <Compile Include="Jobs\JobDriver_HaulPersonaPrintsToPersonaMatrix.cs" />
     <Compile Include="Jobs\JobDriver_TakeEmptySleeve.cs" />
     <Compile Include="HarmonyPatches\PawnRenderer_LayingFacing_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnUtility_ShouldSendNotificationAbout_Patch.cs" />
@@ -132,7 +134,9 @@
     <Compile Include="HarmonyPatches\Pawn_GuestTracker_Notify_PawnUndowned_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_IdeoTracker_ExposeData_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnRenderer_EquipmentRender_Patch.cs" />
+    <Compile Include="Jobs\WorkGiver_CreateStackFromPersonaPrint.cs" />
     <Compile Include="Jobs\WorkGiver_HaulCorpseToSleeveGrower.cs" />
+    <Compile Include="Jobs\WorkGiver_HaulPersonaPrints.cs" />
     <Compile Include="Recipes\Bill_RewriteStack.cs" />
     <Compile Include="HarmonyPatches\JobDriver_DoBill_MakeNewToils_Patch.cs" />
     <Compile Include="Recipes\Recipe_InstallParroterStack.cs" />
@@ -140,7 +144,7 @@
     <Compile Include="Recipes\Recipe_RemoveParroterStack.cs" />
     <Compile Include="SleevePreset.cs" />
     <Compile Include="Stacks\Hediff_ParroterStack.cs" />
-    <Compile Include="Stacks\MindFrame.cs" />
+    <Compile Include="Stacks\PersonaPrint.cs" />
     <Compile Include="Stacks\RJWData.cs" />
     <Compile Include="Stacks\ThingWithStack.cs" />
     <Compile Include="Stacks\Thought_StackDegradation.cs" />
@@ -246,13 +250,9 @@
     <Compile Include="HarmonyPatches\PawnUtility_GetPosture_Patch.cs" />
     <Compile Include="HarmonyPatches\Recipe_InstallPersonaStack_ApplyPersonaStack_Patch.cs" />
     <Compile Include="Jobs\JobDriver_CancelRepurposingBody.cs" />
-    <Compile Include="Jobs\JobDriver_CreateStackFromMindFrame.cs" />
     <Compile Include="Jobs\JobDriver_DuplicateStack.cs" />
-    <Compile Include="Jobs\JobDriver_HaulMindFramesToPersonaMatrix.cs" />
     <Compile Include="Jobs\WorkGiver_CancelRepurposingBody.cs" />
-    <Compile Include="Jobs\WorkGiver_CreateStackFromMindFrame.cs" />
     <Compile Include="Jobs\WorkGiver_DuplicateStacks.cs" />
-    <Compile Include="Jobs\WorkGiver_HaulMindFrames.cs" />
     <Compile Include="Misc\RoomRoleWorker_UltraTech.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recipes\Recipe_HackBiocodedThings.cs" />
@@ -269,7 +269,7 @@
     <Compile Include="Thoughts\ThoughtWorker_Precept_StackDuplicating_Social.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_XenoSleeving_Social.cs" />
     <Compile Include="UI\Dialog_InfoCardStack.cs" />
-    <Compile Include="UI\ITab_FramesStorageContents.cs" />
+    <Compile Include="UI\ITab_PersonaPrintStorageContents.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_ArchotechStack.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_NoStack.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_NoStack_Social.cs" />

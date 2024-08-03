@@ -6,7 +6,7 @@ using Verse.AI;
 
 namespace AlteredCarbon
 {
-    public class WorkGiver_CreateStackFromMindFrame : WorkGiver_Scanner
+    public class WorkGiver_CreateStackFromPersonaPrint : WorkGiver_Scanner
     {
         public override Danger MaxPathDanger(Pawn pawn)
         {
@@ -14,8 +14,8 @@ namespace AlteredCarbon
         }
         public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)
         {
-            return pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_NeuralEditor).Cast<Building_NeuralEditor>()
-                .Where(x => x.Powered && x.HasMindFrameToRestore
+            return pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaEditor).Cast<Building_PersonaEditor>()
+                .Where(x => x.Powered && x.HasPersonaPrintToRestore
                 && pawn.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
         }
 
@@ -39,8 +39,8 @@ namespace AlteredCarbon
         {
             Thing emptyPersonaStack = GenClosest.ClosestThingReachable(pawn.Position, pawn.Map,
                 ThingRequest.ForDef(AC_DefOf.AC_EmptyPersonaStack), PathEndMode.Touch, TraverseParms.For(pawn));
-            var mindFrame = (t as Building_NeuralEditor).GetMindFrameToRestore;
-            Job job = JobMaker.MakeJob(AC_DefOf.AC_CreateStackFromMindFrame, t, emptyPersonaStack, mindFrame);
+            var personaPrint = (t as Building_PersonaEditor).GetPersonaPrintToRestore;
+            Job job = JobMaker.MakeJob(AC_DefOf.AC_CreateStackFromPersonaPrint, t, emptyPersonaStack, personaPrint);
             job.count = 1;
             return job;
         }

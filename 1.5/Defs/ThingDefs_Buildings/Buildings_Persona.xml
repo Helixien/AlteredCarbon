@@ -38,8 +38,8 @@
 		</costList>
 		<descriptionHyperlinks>
 			<ThingDef>AC_FilledPersonaStack</ThingDef>
-			<ThingDef>AC_NeuralEditor</ThingDef>
-			<ThingDef>AC_MindFrame</ThingDef>
+			<ThingDef>AC_PersonaEditor</ThingDef>
+			<ThingDef>AC_PersonaPrint</ThingDef>
 		</descriptionHyperlinks>
 		<altitudeLayer>BuildingOnTop</altitudeLayer>
 		<neverMultiSelect>true</neverMultiSelect>
@@ -65,7 +65,7 @@
 			<fixedStorageSettings>
 				<filter>
 					<thingDefs>
-						<li>AC_MindFrame</li>
+						<li>AC_PersonaPrint</li>
 					</thingDefs>
 				</filter>
 			</fixedStorageSettings>
@@ -73,7 +73,7 @@
 				<priority>Important</priority>
 				<filter>
 					<thingDefs>
-						<li>AC_MindFrame</li>
+						<li>AC_PersonaPrint</li>
 					</thingDefs>
 				</filter>
 			</defaultStorageSettings>
@@ -82,7 +82,7 @@
 			</buildingTags>
 		</building>
 		<inspectorTabs>
-			<li>AlteredCarbon.ITab_FramesStorageContents</li>
+			<li>AlteredCarbon.ITab_PersonaPrintStorageContents</li>
 		</inspectorTabs>
 		<comps>
 			<li Class="CompProperties_Power">
@@ -103,10 +103,10 @@
 	</ThingDef>
 	<!-- ================================ Persona Matrix ====================== -->
 	<ThingDef ParentName="BenchBase">
-		<defName>AC_NeuralEditor</defName>
-		<label>neural editor</label>
+		<defName>AC_PersonaEditor</defName>
+		<label>persona editor</label>
 		<description>A sophisticated workbench that allows the user to connect to persona stacks in order to alter the contained information, such as changing allegiance, or even wipe them clean. Can also strip the biocoding from items.\n\nAs the process is quite aggressive, there is a risk of the decryption process destroying the item.</description>
-		<thingClass>AlteredCarbon.Building_NeuralEditor</thingClass>
+		<thingClass>AlteredCarbon.Building_PersonaEditor</thingClass>
 		<graphicData>
 			<texPath>Things/Building/Misc/HackingWorkbench/HackingWorkbench</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
@@ -222,7 +222,7 @@
 			<ThingDef>AC_EmptyPersonaStack</ThingDef>
 			<ThingDef>AC_FilledPersonaStack</ThingDef>
 			<ThingDef>AC_PersonaMatrix</ThingDef>
-			<ThingDef>AC_NeuralEditor</ThingDef>
+			<ThingDef>AC_PersonaEditor</ThingDef>
 		</descriptionHyperlinks>
 		<designationCategory>Biotech</designationCategory>
 		<comps>

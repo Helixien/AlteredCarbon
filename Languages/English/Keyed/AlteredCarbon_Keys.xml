@@ -30,7 +30,7 @@
 	<AC.FailedPersonaStackDestroyed>Decrypt Ancient Stacks: Failed, persona stack destroyed!</AC.FailedPersonaStackDestroyed>
 	<AC.ScenPart_PawnsHavePersonaStack>{0} have a {1} chance of starting with a {2}.</AC.ScenPart_PawnsHavePersonaStack>
 	<AC.AutoLoad>Auto-load</AC.AutoLoad>
-	<AC.AutoLoadDesc>If active, haulers will automatically store this mind frame in a persona matrix.</AC.AutoLoadDesc>
+	<AC.AutoLoadDesc>If active, haulers will automatically store this persona print in a persona matrix.</AC.AutoLoadDesc>
 	<AC.SleeveWithStack>Sleeve with stack installed inside.</AC.SleeveWithStack>
 	<AC.PawnAlreadyHasStack>{PAWN_nameDef} already has a persona stack installed!</AC.PawnAlreadyHasStack>
 	<AC.PawnAlreadyHasArchotechStack>{PAWN_nameDef} already has an archotech stack installed!</AC.PawnAlreadyHasArchotechStack>
@@ -115,18 +115,18 @@
 	<AC.YearsOld>{0} years old</AC.YearsOld>
 	<!-- ================================ Persona Matrix ====================== -->
 	<AC.TimeOfBackup>Time of backup: {0}</AC.TimeOfBackup>
-	<AC.EjectMindFrameTooltip>Eject this mind frame from the matrix.</AC.EjectMindFrameTooltip>
-	<AC.EjectMindFrameConfirmation>Do you really want to eject {0}? It will be immediately ejected onto the ground nearby.</AC.EjectMindFrameConfirmation>
-	<AC.EraseMindFrameTooltip>Erase this mind frame irreversibly.</AC.EraseMindFrameTooltip>
-	<AC.EraseMindFrameConfirmation>Do you really want to erase {0}? It will be immediately destroyed.</AC.EraseMindFrameConfirmation>
-	<AC.MindFrameStorage>Contents</AC.MindFrameStorage>
-	<AC.MindFramesStored>Mind Frames stored: {0}/{1}</AC.MindFramesStored>
+	<AC.EjectPersonaPrintTooltip>Eject this persona print from the matrix.</AC.EjectPersonaPrintTooltip>
+	<AC.EjectPersonaPrintConfirmation>Do you really want to eject {0}? It will be immediately ejected onto the ground nearby.</AC.EjectPersonaPrintConfirmation>
+	<AC.ErasePersonaPrintTooltip>Erase this persona print irreversibly.</AC.ErasePersonaPrintTooltip>
+	<AC.ErasePersonaPrintConfirmation>Do you really want to erase {0}? It will be immediately destroyed.</AC.ErasePersonaPrintConfirmation>
+	<AC.PersonaPrintStorage>Contents</AC.PersonaPrintStorage>
+	<AC.PersonaPrintsStored>Persona prints stored: {0}/{1}</AC.PersonaPrintsStored>
 	<AC.LastBackup>Last Backup: {0}</AC.LastBackup>
-	<AC.AllowColonistMindFrames>*Allow colonist mind frames</AC.AllowColonistMindFrames>
-	<AC.AllowStrangerMindFrames>*Allow stranger mind frames</AC.AllowStrangerMindFrames>
-	<AC.AllowHostileMindFrames>*Allow hostile mind frames</AC.AllowHostileMindFrames>
+	<AC.AllowColonistPersonaPrints>*Allow colonist persona prints</AC.AllowColonistPersonaPrints>
+	<AC.AllowStrangerPersonaPrints>*Allow stranger persona prints</AC.AllowStrangerPersonaPrints>
+	<AC.AllowHostilePersonaPrints>*Allow hostile persona prints</AC.AllowHostilePersonaPrints>
 	<AC.EjectAll>Eject all</AC.EjectAll>
-	<AC.EjectAllMindFramesDesc>Drop all contained mind frames onto the ground.</AC.EjectAllMindFramesDesc>
+	<AC.EjectAllPersonaPrintsDesc>Drop all contained persona prints onto the ground.</AC.EjectAllPersonaPrintsDesc>
 	<!-- ================================ Gene Centrifuge ====================== -->
 	<AC.SeparateGene>Separate gene</AC.SeparateGene>
 	<AC.SeparateGeneDesc>Select a genepack from which to separate a gene from.</AC.SeparateGeneDesc>
@@ -214,25 +214,25 @@
 	<AC.CancelStackResetDesc>Cancel reseting persona stack.</AC.CancelStackResetDesc>
 	<AC.CancelStackRewrite>Cancel stack rewrite</AC.CancelStackRewrite>
 	<AC.CancelStackRewriteDesc>Cancel rewriting persona stack.</AC.CancelStackRewriteDesc>
-	<AC.RestoreFromMindFrame>Restore stack from mind frame</AC.RestoreFromMindFrame>
-	<AC.RestoreFromMindFrameDesc>text.todo</AC.RestoreFromMindFrameDesc>
+	<AC.RestoreFromPersonaPrint>Restore stack from persona print</AC.RestoreFromPersonaPrint>
+	<AC.RestoreFromPersonaPrintDesc>text.todo</AC.RestoreFromPersonaPrintDesc>
 	<AC.CannotRestoreBackupNoOtherEmptyStacks>no empty stacks in stockpile</AC.CannotRestoreBackupNoOtherEmptyStacks>
-	<AC.SuccessfullyRestoredStackFromBackup>{PAWN_nameDef} successfully restored persona stack from mind frame.</AC.SuccessfullyRestoredStackFromBackup>
+	<AC.SuccessfullyRestoredStackFromBackup>{PAWN_nameDef} successfully restored persona stack from persona print.</AC.SuccessfullyRestoredStackFromBackup>
 	<AC.RestoreToStackAutomatically>Toggle if this person should be restored to a new stack automatically when the current stack is destroyed.</AC.RestoreToStackAutomatically>
 	<AC.EnableAutoRestore>Toggle automatic restoring</AC.EnableAutoRestore>
-	<AC.EnableAutoRestoreDesc>Allow to automatically restore stacks from mind frames if a pawn with an installed persona stack dies.</AC.EnableAutoRestoreDesc>
+	<AC.EnableAutoRestoreDesc>Allow to automatically restore stacks from persona prints if a pawn with an installed persona stack dies.</AC.EnableAutoRestoreDesc>
 	<AC.DuplicateStack>Duplicate Stack</AC.DuplicateStack>
 	<AC.DuplicateStackDesc>Make a exact copy of an existing filled persona stack.</AC.DuplicateStackDesc>
 	<AC.AlreadySetToDuplicate>Already set a stack to duplicate</AC.AlreadySetToDuplicate>
 	<AC.SuccessfullyDuplicatedStack>{PAWN_nameDef} successfully duplicated persona stack.</AC.SuccessfullyDuplicatedStack>
 	<AC.FailedToDuplicatedStack>{PAWN_nameDef} failed to duplicate persona stack.</AC.FailedToDuplicatedStack>
-	<AC.AlreadySetToRestore>Already set a mind frame to restore</AC.AlreadySetToRestore>
+	<AC.AlreadySetToRestore>Already set a persona print to restore</AC.AlreadySetToRestore>
 	<AC.NoStackToDuplicate>There are no stacks to duplicate</AC.NoStackToDuplicate>
-	<AC.NoMindFrameToRestore>There are no mind frames to restore</AC.NoMindFrameToRestore>
+	<AC.NoPersonaPrintToRestore>There are no persona prints to restore</AC.NoPersonaPrintToRestore>
 	<AC.CancelStackDuplication>Cancel stack duplication</AC.CancelStackDuplication>
 	<AC.CancelStackDuplicationDesc>Cancel duplication of stored persona stack.</AC.CancelStackDuplicationDesc>
-	<AC.CancelMindFrameRestoration>Cancel mind frame restoration</AC.CancelMindFrameRestoration>
-	<AC.CancelMindFrameRestorationDesc>Cancel stack restoration from mind frame.</AC.CancelMindFrameRestorationDesc>
+	<AC.CancelPersonaPrintRestoration>Cancel persona print restoration</AC.CancelPersonaPrintRestoration>
+	<AC.CancelPersonaPrintRestorationDesc>Cancel stack restoration from persona print.</AC.CancelPersonaPrintRestorationDesc>
 	<!-- ================================ Mod Settings ====================== -->
 	<AC.General>General</AC.General>
 	<AC.EnableStackSpawning>Enable Stack Spawning</AC.EnableStackSpawning>
@@ -256,10 +256,10 @@
 	<AC.ColonistStackNeedsExtracting>Colonist stack needs extracting.</AC.ColonistStackNeedsExtracting>
 	<AC.ColonistStackNeedsExtractingDesc>These colonists are incapacitated on the ground:\n\n{0}\nSend another colonist to rescue them and carry them back to bed.\n\n(To rescue, select another colonist, then right click on the victim and select Rescue.)</AC.ColonistStackNeedsExtractingDesc>
 	<AC.SleeveDeathDoesNotCauseGearTainting>Sleeve death doesn't cause gear to be tainted</AC.SleeveDeathDoesNotCauseGearTainting>
-	<AC.EnableSoldMindFramesCreatingPawnDuplicates>Selling mind frames can create duplicates</AC.EnableSoldMindFramesCreatingPawnDuplicates>
-	<AC.EnableSoldMindFramesCreatingPawnDuplicatesDesc>text.todo</AC.EnableSoldMindFramesCreatingPawnDuplicatesDesc>
-	<AC.EnableMindFramesInAncientDangers>Enable mind frames spawning in ancient dangers</AC.EnableMindFramesInAncientDangers>
-	<AC.EnableMindFramesInAncientDangersDesc>text.todo</AC.EnableMindFramesInAncientDangersDesc>
+	<AC.EnableSoldPersonaPrintsCreatingPawnDuplicates>Selling persona prints can create duplicates</AC.EnableSoldPersonaPrintsCreatingPawnDuplicates>
+	<AC.EnableSoldPersonaPrintsCreatingPawnDuplicatesDesc>text.todo</AC.EnableSoldPersonaPrintsCreatingPawnDuplicatesDesc>
+	<AC.EnablePersonaPrintsInAncientDangers>Enable persona prints spawning in ancient dangers</AC.EnablePersonaPrintsInAncientDangers>
+	<AC.EnablePersonaPrintsInAncientDangersDesc>text.todo</AC.EnablePersonaPrintsInAncientDangersDesc>
 	<!-- ================================ Warnings ====================== -->
 	<AC.CannotInstallStackOnAndroidWithoutPersonaModule>Cannot install stacks into androids without a persona module.</AC.CannotInstallStackOnAndroidWithoutPersonaModule>
 	<AC.CannotInstallEmptyStackInEmptySleeve>Cannot install an empty stack into an empty sleeve.</AC.CannotInstallEmptyStackInEmptySleeve>

@@ -7,15 +7,15 @@ using Verse.Sound;
 namespace AlteredCarbon
 {
     [HotSwappable]
-    public class ITab_FramesStorageContents : ITab
+    public class ITab_PersonaPrintStorageContents : ITab
     {
         private static readonly Vector2 WinSize = new Vector2(432f, 480f);
         private Vector2 scrollPosition;
         public Building_PersonaMatrix Building_PersonaMatrix => SelThing as Building_PersonaMatrix;
-        public ITab_FramesStorageContents()
+        public ITab_PersonaPrintStorageContents()
         {
             size = WinSize;
-            labelKey = "AC.MindFrameStorage";
+            labelKey = "AC.PersonaPrintStorage";
         }
 
         public override void FillTab()
@@ -27,12 +27,12 @@ namespace AlteredCarbon
             GUI.color = Color.white;
             float labelWidth = viewRect.width - 15f;
             float num = 0;
-            DoAllowOption(ref num, labelWidth, "AC.AllowColonistMindFrames", ref Building_PersonaMatrix.allowColonistMindFrames);
-            DoAllowOption(ref num, labelWidth, "AC.AllowStrangerMindFrames", ref Building_PersonaMatrix.allowStrangerMindFrames);
-            DoAllowOption(ref num, labelWidth, "AC.AllowHostileMindFrames", ref Building_PersonaMatrix.allowHostileMindFrames);
+            DoAllowOption(ref num, labelWidth, "AC.AllowColonistPersonaPrints", ref Building_PersonaMatrix.allowColonistPersonaPrints);
+            DoAllowOption(ref num, labelWidth, "AC.AllowStrangerPersonaPrints", ref Building_PersonaMatrix.allowStrangerPersonaPrints);
+            DoAllowOption(ref num, labelWidth, "AC.AllowHostilePersonaPrints", ref Building_PersonaMatrix.allowHostilePersonaPrints);
 
-            var storedFrames = Building_PersonaMatrix.StoredMindFrames.ToList();
-            Widgets.ListSeparator(ref num, viewRect.width - 15, "AC.MindFramesStored".Translate(storedFrames.Count(), Building_PersonaMatrix.MaxFilledStackCapacity));
+            var storedFrames = Building_PersonaMatrix.StoredPersonaPrints.ToList();
+            Widgets.ListSeparator(ref num, viewRect.width - 15, "AC.PersonaPrintsStored".Translate(storedFrames.Count(), Building_PersonaMatrix.MaxFilledStackCapacity));
             Rect scrollRect = new Rect(0, num, viewRect.width - 16, viewRect.height);
             Rect outerRect = scrollRect;
             outerRect.width += 16;
@@ -60,28 +60,28 @@ namespace AlteredCarbon
             Text.Anchor = TextAnchor.UpperLeft;
             num += 24f;
         }
-        private void DrawThingRow(ref float y, float width, MindFrame frame)
+        private void DrawThingRow(ref float y, float width, PersonaPrint frame)
         {
             Rect rect1 = new Rect(0.0f, y, width, 28f);
             Widgets.InfoCardButton(0, y, frame);
             Rect rect2 = new Rect(rect1.width - 24, y, 24f, 24f);
-            TooltipHandler.TipRegion(rect2, "AC.EjectMindFrameTooltip".Translate());
+            TooltipHandler.TipRegion(rect2, "AC.EjectPersonaPrintTooltip".Translate());
             if (Widgets.ButtonImage(rect2, ContentFinder<Texture2D>.Get("UI/Buttons/Drop", true)))
             {
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
-                Find.WindowStack.Add(new Dialog_MessageBox("AC.EjectMindFrameConfirmation".Translate(frame.def.label + " (" + frame.PersonaData.name.ToStringFull + ")"),
+                Find.WindowStack.Add(new Dialog_MessageBox("AC.EjectPersonaPrintConfirmation".Translate(frame.def.label + " (" + frame.PersonaData.name.ToStringFull + ")"),
                      "Confirm".Translate(), delegate
                      {
                          Building_PersonaMatrix.innerContainer.TryDrop(frame, Building_PersonaMatrix.InteractionCell, Building_PersonaMatrix.Map, ThingPlaceMode.Near, 1, out Thing droppedThing);
                      }, "GoBack".Translate(), null));
             }
-            Rect eraseMindFrame = rect2;
-            eraseMindFrame.x -= 28;
-            TooltipHandler.TipRegion(eraseMindFrame, "AC.EraseMindFrameTooltip".Translate());
-            if (Widgets.ButtonImage(eraseMindFrame, ContentFinder<Texture2D>.Get("UI/Icons/Erase", true)))
+            Rect erasePersonaPrint = rect2;
+            erasePersonaPrint.x -= 28;
+            TooltipHandler.TipRegion(erasePersonaPrint, "AC.ErasePersonaPrintTooltip".Translate());
+            if (Widgets.ButtonImage(erasePersonaPrint, ContentFinder<Texture2D>.Get("UI/Icons/Erase", true)))
             {
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
-                Find.WindowStack.Add(new Dialog_MessageBox("AC.EraseMindFrameConfirmation".Translate(frame.def.label + " (" + frame.PersonaData.name.ToStringFull + ")"),
+                Find.WindowStack.Add(new Dialog_MessageBox("AC.ErasePersonaPrintConfirmation".Translate(frame.def.label + " (" + frame.PersonaData.name.ToStringFull + ")"),
                      "Confirm".Translate(), delegate
                      {
                          Building_PersonaMatrix.innerContainer.Remove(frame);

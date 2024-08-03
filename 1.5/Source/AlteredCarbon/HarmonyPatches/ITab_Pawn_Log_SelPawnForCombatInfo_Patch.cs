@@ -35,9 +35,9 @@ namespace AlteredCarbon
         public static PersonaData TryGetPersonaData()
         {
             var selectedThing = Find.Selector.SingleSelectedThing;
-            if (selectedThing is MindFrame mindFrame)
+            if (selectedThing is PersonaPrint personaPrint)
             {
-                return mindFrame.PersonaData;
+                return personaPrint.PersonaData;
             }
             return null;
         }

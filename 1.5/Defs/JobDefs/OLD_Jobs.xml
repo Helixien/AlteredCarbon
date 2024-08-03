@@ -6,16 +6,16 @@
 		<driverClass>AlteredCarbon.JobDriver_DuplicateStack</driverClass>
 		<reportString>duplicating persona stack</reportString>
 	</JobDef>
-	<!-- ================================ Create Stack from MindFrame ====================== -->
+	<!-- ================================ Create Stack from PersonaPrint ====================== -->
 	<JobDef>
-		<defName>AC_CreateStackFromMindFrame</defName>
-		<driverClass>AlteredCarbon.JobDriver_CreateStackFromMindFrame</driverClass>
-		<reportString>restoring persona stack from mind frame</reportString>
+		<defName>AC_CreateStackFromPersonaPrint</defName>
+		<driverClass>AlteredCarbon.JobDriver_CreateStackFromPersonaPrint</driverClass>
+		<reportString>restoring persona stack from persona print</reportString>
 	</JobDef>
-	<!-- ================================ Hauling MInd Frames ====================== -->
+	<!-- ================================ Hauling Persona Prints ====================== -->
 	<JobDef>
-		<defName>AC_HaulMindFramesToPersonaMatrix</defName>
-		<driverClass>AlteredCarbon.JobDriver_HaulMindFramesToPersonaMatrix</driverClass>
+		<defName>AC_HaulPersonaPrintsToPersonaMatrix</defName>
+		<driverClass>AlteredCarbon.JobDriver_HaulPersonaPrintsToPersonaMatrix</driverClass>
 		<reportString>hauling TargetA to TargetB.</reportString>
 		<allowOpportunisticPrefix>true</allowOpportunisticPrefix>
 	</JobDef>

@@ -8,7 +8,7 @@ using Verse;
 namespace AlteredCarbon
 {
     [HotSwappable]
-    public class MindFrame : ThingWithStack
+    public class PersonaPrint : ThingWithStack
     {
         public int backupCreationDataTicks;
 
@@ -49,28 +49,28 @@ namespace AlteredCarbon
                 var personaData = PersonaData;
                 if (personaData.guestStatusInt == GuestStatus.Slave)
                 {
-                    return GetMindFrameGraphic(ref slaveGraphic, ref slaveGraphicData,
-                        "Things/Item/MindFrame/SlaveMindFrame");
+                    return GetPersonaPrintGraphic(ref slaveGraphic, ref slaveGraphicData,
+                        "Things/Item/PersonaPrint/SlavePersonaPrint");
                 }
                 else if (personaData.faction == Faction.OfPlayer)
                 {
-                    return GetMindFrameGraphic(ref friendlyGraphic, ref friendlyGraphicData,
-                        "Things/Item/MindFrame/FriendlyMindFrame");
+                    return GetPersonaPrintGraphic(ref friendlyGraphic, ref friendlyGraphicData,
+                        "Things/Item/PersonaPrint/FriendlyPersonaPrint");
                 }
                 else if (personaData.faction is null || !personaData.faction.HostileTo(Faction.OfPlayer))
                 {
-                    return GetMindFrameGraphic(ref strangerGraphic, ref strangerGraphicData,
-                        "Things/Item/MindFrame/NeutralMindFrame");
+                    return GetPersonaPrintGraphic(ref strangerGraphic, ref strangerGraphicData,
+                        "Things/Item/PersonaPrint/NeutralPersonaPrint");
                 }
                 else
                 {
-                    return GetMindFrameGraphic(ref hostileGraphic, ref hostileGraphicData,
-                        "Things/Item/MindFrame/HostileMindFrame");
+                    return GetPersonaPrintGraphic(ref hostileGraphic, ref hostileGraphicData,
+                        "Things/Item/PersonaPrint/HostilePersonaPrint");
                 }
             }
         }
 
-        private Graphic GetMindFrameGraphic(ref Graphic graphic, ref GraphicData graphicData, string path)
+        private Graphic GetPersonaPrintGraphic(ref Graphic graphic, ref GraphicData graphicData, string path)
         {
             if (graphic is null)
             {
@@ -109,7 +109,7 @@ namespace AlteredCarbon
                     return true;
                 }
                 if (map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).Cast<Building_PersonaMatrix>()
-                    .Any(x => x.StoredMindFrames.Any(y => y.PersonaData.IsPresetPawn(personaData))))
+                    .Any(x => x.StoredPersonaPrints.Any(y => y.PersonaData.IsPresetPawn(personaData))))
                 {
                     return true;
                 }
@@ -131,7 +131,7 @@ namespace AlteredCarbon
         public override void PreTraded(TradeAction action, Pawn playerNegotiator, ITrader trader)
         {
             base.PreTraded(action, playerNegotiator, trader);
-            if (AC_Utils.generalSettings.enableSoldMindFramesCreatingPawnDuplicates
+            if (AC_Utils.generalSettings.enableSoldPersonaPrintsCreatingPawnDuplicates
                 && trader.Faction?.def.techLevel >= TechLevel.Spacer && Rand.Chance(0.15f))
             {
                 var copy = new PersonaData();
@@ -163,7 +163,7 @@ namespace AlteredCarbon
             {
                 defaultLabel = "AC.AutoLoad".Translate(),
                 defaultDesc = "AC.AutoLoadDesc".Translate(),
-                icon = ContentFinder<Texture2D>.Get("UI/Gizmos/AutoLoadMindFrame"),
+                icon = ContentFinder<Texture2D>.Get("UI/Gizmos/AutoLoadPersonaPrint"),
                 isActive = () => autoLoad,
                 toggleAction = delegate
                 {

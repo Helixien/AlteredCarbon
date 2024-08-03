@@ -4,11 +4,11 @@ using Verse.AI;
 
 namespace AlteredCarbon
 {
-    public class JobDriver_CreateStackFromMindFrame : JobDriver
+    public class JobDriver_CreateStackFromPersonaPrint : JobDriver
     {
         public const int RestoringDuration = 1000;
-        public Building_NeuralEditor Building_NeuralEditor => TargetA.Thing as Building_NeuralEditor;
-        public MindFrame MindFrame => TargetC.Thing as MindFrame;
+        public Building_PersonaEditor Building_PersonaEditor => TargetA.Thing as Building_PersonaEditor;
+        public PersonaPrint PersonaPrint => TargetC.Thing as PersonaPrint;
         public override bool TryMakePreToilReservations(bool errorOnFailed)
         {
             return pawn.Reserve(TargetA, job) && pawn.Reserve(TargetB, job) && (TargetC.HasThing is false || pawn.Reserve(TargetC, job));
@@ -18,8 +18,8 @@ namespace AlteredCarbon
         {
             this.FailOnDestroyedNullOrForbidden(TargetIndex.A);
             this.FailOnDestroyedNullOrForbidden(TargetIndex.B);
-            this.FailOn(() => !Building_NeuralEditor.Powered || Building_NeuralEditor.mindFrameToRestore 
-            != MindFrame && MindFrame.CanAutoRestorePawn is false);
+            this.FailOn(() => !Building_PersonaEditor.Powered || Building_PersonaEditor.personaPrintToRestore 
+            != PersonaPrint && PersonaPrint.CanAutoRestorePawn is false);
             if (TargetC.Thing.Spawned)
             {
                 yield return Toils_Goto.GotoThing(TargetIndex.C, PathEndMode.ClosestTouch)
@@ -48,8 +48,8 @@ namespace AlteredCarbon
             {
                 initAction = delegate ()
                 {
-                    var mindFrame = TargetC.Thing as MindFrame;
-                    Building_NeuralEditor.PerformStackRestoration(pawn, mindFrame, Building_NeuralEditor.ConnectedMatrix);
+                    var personaPrint = TargetC.Thing as PersonaPrint;
+                    Building_PersonaEditor.PerformStackRestoration(pawn, personaPrint, Building_PersonaEditor.ConnectedMatrix);
                     job.targetB.Thing.Destroy();
                 }
             };

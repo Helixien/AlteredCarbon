@@ -151,7 +151,7 @@ namespace AlteredCarbon
         public PersonaData()
         {
             this.stackGroupID = AlteredCarbonManager.Instance.stacksRelationships.Count + 1;
-            this.lastTimeUpdated = Find.TickManager.TicksAbs;
+            this.lastTimeUpdated = GenTicks.TicksAbs;
         }
 
         public static Pawn lastDummyPawn;

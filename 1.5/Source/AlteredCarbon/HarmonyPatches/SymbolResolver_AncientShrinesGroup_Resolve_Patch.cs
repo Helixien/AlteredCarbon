@@ -21,20 +21,20 @@ namespace AlteredCarbon
                     yield return new CodeInstruction(OpCodes.Ldloc_S, 4);
                     yield return new CodeInstruction(OpCodes.Ldarg_1);
                     yield return new CodeInstruction(OpCodes.Call,
-                        AccessTools.Method(typeof(SymbolResolver_AncientShrinesGroup_Resolve_Patch), "TryAddMindFrame"));
+                        AccessTools.Method(typeof(SymbolResolver_AncientShrinesGroup_Resolve_Patch), "TryAddPersonaPrint"));
                 }
             }
         }
-        public static void TryAddMindFrame(PodContentsType? podContentsType, ResolveParams rp)
+        public static void TryAddPersonaPrint(PodContentsType? podContentsType, ResolveParams rp)
         {
-            if (AC_Utils.generalSettings.enableMindFramesInAncientDangers && Rand.Chance(0.25f))
+            if (AC_Utils.generalSettings.enablePersonaPrintsInAncientDangers && Rand.Chance(0.25f))
             {
                 ResolveParams resolveParams = rp;
-                var mindFrame = ThingMaker.MakeThing(AC_DefOf.AC_MindFrame) as MindFrame;
+                var personaPrint = ThingMaker.MakeThing(AC_DefOf.AC_PersonaPrint) as PersonaPrint;
                 var faction = podContentsType is null || podContentsType.Value != PodContentsType.AncientHostile ? Faction.OfAncients : Faction.OfAncientsHostile;
-                mindFrame.GeneratePersona(faction);
-                mindFrame.PersonaData.lastTimeUpdated = null;
-                resolveParams.singleThingToSpawn = mindFrame;
+                personaPrint.GeneratePersona(faction);
+                personaPrint.PersonaData.lastTimeUpdated = null;
+                resolveParams.singleThingToSpawn = personaPrint;
                 BaseGen.symbolStack.Push("thing", resolveParams);
             }
         }
