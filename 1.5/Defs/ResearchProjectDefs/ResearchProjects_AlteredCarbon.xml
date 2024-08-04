@@ -61,4 +61,21 @@
 			<li>PoweredArmor</li>
 		</prerequisites>
 	</ResearchProjectDef>
+	<ResearchProjectDef>
+		<!-- ================================ Advanced Shield Belt ====================== -->
+		<defName>AC_AdvancedShieldBelt</defName>
+		<label>advanced shields</label>
+		<description>text.todo</description>
+		<baseCost>2500</baseCost>
+		<techLevel>Ultra</techLevel>
+		<requiredResearchFacilities>
+			<li>MultiAnalyzer</li>
+		</requiredResearchFacilities>
+		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
+		<researchViewX>15.00</researchViewX>
+		<researchViewY>1.50</researchViewY>
+		<prerequisites>
+			<li>ShieldBelt</li>
+		</prerequisites>
+	</ResearchProjectDef>
 </Defs>

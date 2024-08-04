@@ -30,7 +30,6 @@
 			<ArmorRating_Heat>0.56</ArmorRating_Heat>
 			<Insulation_Cold>36</Insulation_Cold>
 			<Insulation_Heat>12</Insulation_Heat>
-			<EquipDelay>12</EquipDelay>
 			<EquipDelay>5</EquipDelay>
 		</statBases>
 		<costList>

@@ -29,7 +29,7 @@
 		</costList>
 		<recipeMaker>
 			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
-			<researchPrerequisite>AC_AdvancedPoweredArmor</researchPrerequisite>
+			<researchPrerequisite>AC_AdvancedShieldBelt</researchPrerequisite>
 			<skillRequirements>
 				<Crafting>12</Crafting>
 			</skillRequirements>
