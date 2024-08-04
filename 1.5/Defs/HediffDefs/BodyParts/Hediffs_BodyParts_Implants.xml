@@ -2,7 +2,7 @@
 <Defs>
 	<!-- ================================ Voice Synthesizer ====================== -->
 	<!-- ================================ Voice ThingDef ====================== -->
-	<ThingDef ParentName="BodyPartProstheticBase">
+	<ThingDef ParentName="BodyPartBionicBase">
 		<defName>AC_VoiceSynthesizer</defName>
 		<label>voice synthesizer</label>
 		<description>An ultratech vocal synthesiser, designed for seamless vocal transformation. Embedded with adaptive sound modulation, it allows the user to alter their voice at will, ranging from subtle inflections to entirely different personas.</description>
@@ -78,7 +78,7 @@
 	</RecipeDef>
 	<!-- ================================ Mental Fuse ====================== -->
 	<!-- ================================ Mental Fuse - ThingDef ====================== -->
-	<ThingDef ParentName="BodyPartProstheticBase">
+	<ThingDef ParentName="BodyPartBionicBase">
 		<defName>AC_MentalFuse</defName>
 		<label>mental fuse</label>
 		<description>A brain implant that monitors the user's neural activity and acts as a safeguard against mental breakdowns. If a mental breakdown is detected it will “reboot” the brain, leading to split second unconsciousness and a potential wipe of the users short term memories./n/n While Mental Fuses ensure mental fortitude under even the most extreme conditions, it comes at the cost of a slight numbness to the world around them. Heavy usage has been reported to be dangerous and can lead to permanent brain damage.</description>
@@ -157,12 +157,12 @@
 	</RecipeDef>
 	<!-- ================================ Dreamcatcher ====================== -->
 	<!-- ================================ Dreamcatcher - ThingDef ====================== -->
-	<ThingDef ParentName="BodyPartProstheticBase">
-		<defName>AC_DreamcatcherImplant</defName>
-		<label>dreamcatcher implant</label>
+	<ThingDef ParentName="BodyPartBionicBase">
+		<defName>AC_Dreamcatcher</defName>
+		<label>dreamcatcher</label>
 		<description>A brain implant that stimulates and improves the brain's ability to consolidate memories. It automatically activates during the REM phases of sleep, analysing new memories and boosting positive ones, while slightly suppressing negative memories. A pleasant side effect for the user is that nearly all their dreams will be positive, near therapeutic, leading to an overall higher mental wellbeing.</description>
 		<descriptionHyperlinks>
-			<RecipeDef>AC_InstallDreamcatcherImplant</RecipeDef>
+			<RecipeDef>AC_InstallDreamcatcher</RecipeDef>
 		</descriptionHyperlinks>
 		<thingSetMakerTags>
 			<li>RewardStandardLowFreq</li>
@@ -177,14 +177,14 @@
 	</ThingDef>
 	<!-- ================================ Dreamcatcher Hediff ====================== -->
 	<HediffDef ParentName="ImplantHediffBase">
-		<defName>AC_DreamcatcherImplant</defName>
-		<label>dreamcatcher implant</label>
-		<labelNoun>a dreamcatcher implant</labelNoun>
-		<description>An installed dreamcatcher implant.</description>
+		<defName>AC_Dreamcatcher</defName>
+		<label>dreamcatcher</label>
+		<labelNoun>a dreamcatcher</labelNoun>
+		<description>An installed dreamcatcher.</description>
 		<descriptionHyperlinks>
-			<ThingDef>AC_DreamcatcherImplant</ThingDef>
+			<ThingDef>AC_Dreamcatcher</ThingDef>
 		</descriptionHyperlinks>
-		<spawnThingOnRemoved>AC_DreamcatcherImplant</spawnThingOnRemoved>
+		<spawnThingOnRemoved>AC_Dreamcatcher</spawnThingOnRemoved>
 		<comps>
 			<li Class="HediffCompProperties_ReactOnDamage">
 				<damageDefIncoming>EMP</damageDefIncoming>
@@ -194,19 +194,19 @@
 	</HediffDef>
 	<!-- ================================ Dreamcatcher - Install ====================== -->
 	<RecipeDef ParentName="SurgeryInstallImplantBase">
-		<defName>AC_InstallDreamcatcherImplant</defName>
-		<label>install dreamcatcher implant</label>
-		<description>Install a dreamcatcher implant.</description>
+		<defName>AC_InstallDreamcatcher</defName>
+		<label>install dreamcatcher</label>
+		<description>Install a dreamcatcher.</description>
 		<descriptionHyperlinks>
-			<ThingDef>AC_DreamcatcherImplant</ThingDef>
-			<HediffDef>AC_DreamcatcherImplant</HediffDef>
+			<ThingDef>AC_Dreamcatcher</ThingDef>
+			<HediffDef>AC_Dreamcatcher</HediffDef>
 		</descriptionHyperlinks>
-		<jobString>Installing dreamcatcher implant.</jobString>
+		<jobString>Installing dreamcatcher.</jobString>
 		<ingredients>
 			<li>
 				<filter>
 					<thingDefs>
-						<li>AC_DreamcatcherImplant</li>
+						<li>AC_Dreamcatcher</li>
 					</thingDefs>
 				</filter>
 				<count>1</count>
@@ -214,24 +214,24 @@
 		</ingredients>
 		<fixedIngredientFilter>
 			<thingDefs>
-				<li>AC_DreamcatcherImplant</li>
+				<li>AC_Dreamcatcher</li>
 			</thingDefs>
 		</fixedIngredientFilter>
 		<appliedOnFixedBodyParts>
 			<li>Brain</li>
 		</appliedOnFixedBodyParts>
-		<addsHediff>AC_DreamcatcherImplant</addsHediff>
+		<addsHediff>AC_Dreamcatcher</addsHediff>
 	</RecipeDef>
 	<!-- ================================ Dreamcatcher - Remove ====================== -->
 	<RecipeDef ParentName="SurgeryRemoveImplantBase">
-		<defName>AC_RemoveDreamcatcherImplant</defName>
-		<label>remove dreamcatcher implant</label>
-		<description>Remove dreamcatcher implant.</description>
+		<defName>AC_RemoveDreamcatcher</defName>
+		<label>remove dreamcatcher</label>
+		<description>Remove dreamcatcher.</description>
 		<descriptionHyperlinks>
-			<ThingDef>AC_DreamcatcherImplant</ThingDef>
-			<HediffDef>AC_DreamcatcherImplant</HediffDef>
+			<ThingDef>AC_Dreamcatcher</ThingDef>
+			<HediffDef>AC_Dreamcatcher</HediffDef>
 		</descriptionHyperlinks>
-		<jobString>Removing dreamcatcher implant.</jobString>
-		<removesHediff>AC_DreamcatcherImplant</removesHediff>
+		<jobString>Removing dreamcatcher.</jobString>
+		<removesHediff>AC_Dreamcatcher</removesHediff>
 	</RecipeDef>
 </Defs>
