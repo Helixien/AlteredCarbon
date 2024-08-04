@@ -37,6 +37,8 @@
 	<AC.PawnStackCannotDowngrade>{PAWN_nameDef} already has an archotech stack installed!</AC.PawnStackCannotDowngrade>
 	<AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>Cannot install persona stack - neck is missing or another implant installed in the neck.</AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>
 	<AC.EjectAllPersonaStacksDesc>Drop all contained persona stacks onto the ground.</AC.EjectAllPersonaStacksDesc>
+	<AC.PersonaStacksStored>Persona stacks stored: {0}/{1}</AC.PersonaStacksStored>
+
 	<!-- ================================ Sleeves ====================== -->
 	<AC.EmptySleeve>Empty sleeve</AC.EmptySleeve>
 	<AC.SleeveDeath>Sleeve Death</AC.SleeveDeath>

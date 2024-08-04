@@ -12,7 +12,7 @@
 	</HistoryEventDef>
 	<!-- ================================ Erased Stack ====================== -->
 	<HistoryEventDef>
-		<defName>AC_ErasedStack</defName>
+		<defName>AC_ErasedStackEvent</defName>
 		<label>erased stack of faction member</label>
 	</HistoryEventDef>
 </Defs>

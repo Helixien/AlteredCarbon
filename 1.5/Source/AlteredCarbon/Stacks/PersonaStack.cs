@@ -312,7 +312,8 @@ namespace AlteredCarbon
                 PersonaData.OverwritePawn(pawn, def.GetModExtension<StackSavingOptionsModExtension>());
                 if (affectFactionRelationship)
                 {
-                    PersonaData.faction.TryAffectGoodwillWith(affecter.Faction, -70, canSendMessage: true, reason: AC_DefOf.AC_ErasedStack);
+                    PersonaData.faction.TryAffectGoodwillWith(affecter.Faction, -70, canSendMessage: true, reason: AC_DefOf.AC_ErasedStackEvent);
+                    
                 }
                 if (PersonaData.isFactionLeader)
                 {
@@ -337,6 +338,10 @@ namespace AlteredCarbon
                 AlteredCarbonManager.Instance.StacksIndex.Remove(PersonaData.PawnID);
             }
             KillInnerPawn(affectFactionRelationship, affecter);
+            foreach (Pawn otherPawn in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_Colonists)
+            {
+                otherPawn?.needs?.mood?.thoughts.memories.TryGainMemory(AC_DefOf.AC_ErasedStack);
+            }
             Destroy();
         }
 

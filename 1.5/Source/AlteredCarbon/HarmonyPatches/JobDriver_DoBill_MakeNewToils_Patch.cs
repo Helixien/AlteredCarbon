@@ -2,30 +2,128 @@
 using RimWorld;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 using Verse;
 using Verse.AI;
 
 namespace AlteredCarbon
 {
+    [HarmonyPatch(typeof(WorkGiver_DoBill), "TryFindBestIngredientsHelper")]
+    public static class WorkGiver_DoBill_TryFindBestIngredientsHelper_Patch
+    {
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            var method = AccessTools.Method(typeof(RegionTraverser), "BreadthFirstTraverse", new Type[]
+            {typeof(Region), typeof(RegionEntryPredicate), typeof(RegionProcessor), typeof(int), typeof(RegionType)});
+            foreach (var instruction in instructions)
+            {
+                if (instruction.Calls(method))
+                {
+                    yield return new CodeInstruction(OpCodes.Call,
+                        AccessTools.Method(typeof(WorkGiver_DoBill_TryFindBestIngredientsHelper_Patch),
+                        "AppendStacks"));
+                }
+                yield return instruction;
+            }
+        }
+
+        public static void AppendStacks()
+        {
+
+        }
+    }
     [HarmonyPatch(typeof(JobDriver_DoBill), "MakeNewToils")]
     public static class JobDriver_DoBill_MakeNewToils_Patch
     {
         public static IEnumerable<Toil> Postfix(IEnumerable<Toil> __result, JobDriver_DoBill __instance)
         {
-            if (__result != null)
+            if (__instance.job.bill.recipe.Worker is Recipe_OperateOnPersonaStack)
             {
-                foreach (var toil in __result)
+                var job = __instance.job;
+                var pawn = __instance.pawn;
+                Toil gotoBillGiver = Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.InteractionCell);
+                Toil toil = ToilMaker.MakeToil("MakeNewToils");
+                toil.initAction = delegate
                 {
-                    if (toil?.debugName == "DoRecipeWork" && __instance.job?.bill is Bill_RewriteStack)
+                    if (job.targetQueueB != null && job.targetQueueB.Count == 1 && job.targetQueueB[0].Thing is UnfinishedThing unfinishedThing)
                     {
-                        yield return DoRecipeWorkFixed();
+                        unfinishedThing.BoundBill = (Bill_ProductionWithUft)job.bill;
                     }
-                    else
+                    job.bill.Notify_DoBillStarted(pawn);
+                };
+                yield return toil;
+                yield return Toils_Jump.JumpIf(gotoBillGiver, () => job.GetTargetQueue(TargetIndex.B).NullOrEmpty());
+                foreach (Toil item in CollectIngredientsToils(__instance, TargetIndex.B, TargetIndex.A, TargetIndex.C, 
+                    subtractNumTakenFromJobCount: false, failIfStackCountLessThanJobCount: true, 
+                    __instance.BillGiver is Building_WorkTableAutonomous))
+                {
+                    yield return item;
+                }
+                yield return gotoBillGiver;
+                yield return Toils_Recipe.MakeUnfinishedThingIfNeeded();
+                var recipeWork = job.bill is Bill_RewriteStack ? DoRecipeWorkFixed() : Toils_Recipe.DoRecipeWork();
+                yield return recipeWork.FailOnDespawnedNullOrForbiddenPlacedThings(TargetIndex.A).FailOnCannotTouch(TargetIndex.A, PathEndMode.InteractionCell);
+                yield return Toils_Recipe.CheckIfRecipeCanFinishNow();
+                yield return Toils_Recipe.FinishRecipeAndStartStoringProduct(TargetIndex.None);
+            }
+            else
+            {
+                if (__result != null)
+                {
+                    foreach (var toil in __result)
                     {
                         yield return toil;
                     }
                 }
             }
+        }
+
+        public static IEnumerable<Toil> CollectIngredientsToils(JobDriver_DoBill jobdriver, TargetIndex ingredientInd, TargetIndex billGiverInd, 
+            TargetIndex ingredientPlaceCellInd, bool subtractNumTakenFromJobCount = false, 
+            bool failIfStackCountLessThanJobCount = true, bool placeInBillGiver = false)
+        {
+
+            var label = Toils_General.Do(delegate
+            {
+                var targetQueue = jobdriver.job.GetTargetQueue(ingredientInd);
+                if (targetQueue.Any())
+                {
+                    var target = targetQueue[0].Thing;
+                    if (target.Spawned is false)
+                    {
+
+                    }
+                }
+            });
+            yield return label;
+
+            Toil extract = Toils_JobTransforms.ExtractNextTargetFromQueue(ingredientInd);
+            yield return extract;
+            Toil jumpIfHaveTargetInQueue = Toils_Jump.JumpIfHaveTargetInQueue(ingredientInd, label);
+            yield return JobDriver_DoBill.JumpIfTargetInsideBillGiver(jumpIfHaveTargetInQueue, ingredientInd, billGiverInd);
+            Toil getToHaulTarget = Toils_Goto.GotoThing(ingredientInd, PathEndMode.ClosestTouch)
+                .FailOnDespawnedNullOrForbidden(ingredientInd).FailOnSomeonePhysicallyInteracting(ingredientInd);
+            yield return getToHaulTarget;
+            yield return Toils_Haul.StartCarryThing(ingredientInd, putRemainderInQueue: true, subtractNumTakenFromJobCount, failIfStackCountLessThanJobCount, reserve: false);
+            yield return JobDriver_DoBill.JumpToCollectNextIntoHandsForBill(getToHaulTarget, TargetIndex.B);
+            yield return Toils_Goto.GotoThing(billGiverInd, PathEndMode.InteractionCell).FailOnDestroyedOrNull(ingredientInd);
+            if (!placeInBillGiver)
+            {
+                Toil findPlaceTarget = Toils_JobTransforms.SetTargetToIngredientPlaceCell(billGiverInd, ingredientInd, ingredientPlaceCellInd);
+                yield return findPlaceTarget;
+                yield return Toils_Haul.PlaceHauledThingInCell(ingredientPlaceCellInd, findPlaceTarget, storageMode: false);
+                Toil physReserveToil = ToilMaker.MakeToil("CollectIngredientsToils");
+                physReserveToil.initAction = delegate
+                {
+                    physReserveToil.actor.Map.physicalInteractionReservationManager.Reserve(physReserveToil.actor, physReserveToil.actor.CurJob, physReserveToil.actor.CurJob.GetTarget(ingredientInd));
+                };
+                yield return physReserveToil;
+            }
+            else
+            {
+                yield return Toils_Haul.DepositHauledThingInContainer(billGiverInd, ingredientInd);
+            }
+            yield return jumpIfHaveTargetInQueue;
         }
 
         public static Toil DoRecipeWorkFixed()

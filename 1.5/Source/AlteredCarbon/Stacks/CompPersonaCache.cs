@@ -10,7 +10,7 @@ namespace AlteredCarbon
     {
         public override bool Accepts(Thing thing)
         {
-            return thing is PersonaStack stack && stack.IsFilledStack && stack.autoLoad;// && base.Accepts(thing);
+            return thing is PersonaStack stack && stack.IsFilledStack && stack.autoLoad && Full is false;
         }
 
         public override bool Accepts(ThingDef thingDef)
@@ -32,6 +32,16 @@ namespace AlteredCarbon
                 };
                 yield return ejectAll;
             }
+        }
+
+        public override string CompInspectStringExtra()
+        {
+            return "AC.PersonaStacksStored".Translate(innerContainer.Count(), Props.stackLimit);
+        }
+
+        public override IEnumerable<StatDrawEntry> SpecialDisplayStats()
+        {
+            yield break;
         }
     }
 }

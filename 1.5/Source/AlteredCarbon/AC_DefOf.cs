@@ -118,7 +118,8 @@ namespace AlteredCarbon
         public static ThingDef AC_CuirassierBelt;
         public static ThingDef AC_PersonaPrint;
         [MayRequireAnomaly] public static HeadTypeDef CultEscapee;
-        public static HistoryEventDef AC_ErasedStack;
+        public static HistoryEventDef AC_ErasedStackEvent;
         public static ThingDef AC_PersonaCache;
+        public static ThoughtDef AC_ErasedStack;
     }
 }

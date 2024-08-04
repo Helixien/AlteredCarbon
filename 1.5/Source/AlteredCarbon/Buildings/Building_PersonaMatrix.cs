@@ -74,6 +74,7 @@ namespace AlteredCarbon
         public override string GetInspectString()
         {
             var sb = new StringBuilder();
+            sb.Append(base.GetInspectString());
             sb.AppendLine("AC.PersonaPrintsStored".Translate(StoredPersonaPrints.Count(), MaxFilledStackCapacity));
             if (StoredPersonaPrints.Any())
             {
@@ -81,7 +82,6 @@ namespace AlteredCarbon
                 Vector2 vector = Find.WorldGrid.LongLatOf(this.Map.Tile);
                 sb.AppendLine("AC.LastBackup".Translate(GenDate.DateReadoutStringAt(lastTimeUpdated, vector)));
             }
-            sb.Append(base.GetInspectString());
             return sb.ToString();
         }
 

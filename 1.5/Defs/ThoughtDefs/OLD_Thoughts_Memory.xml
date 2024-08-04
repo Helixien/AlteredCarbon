@@ -332,4 +332,21 @@
 			</li>
 		</stages>
 	</ThoughtDef>
+<ThoughtDef ParentName="DeathMemory">
+    <defName>AC_ErasedStack</defName>
+    <durationDays>6</durationDays>
+    <stackLimit>5</stackLimit>
+    <doNotApplyToQuestLodgers>true</doNotApplyToQuestLodgers>
+    <nullifyingTraits>
+      <li>Psychopath</li>
+      <li>Bloodlust</li>
+    </nullifyingTraits>
+    <stages>
+      <li>
+        <label>persona stack erased</label>
+        <description>text.todo.</description>
+        <baseMoodEffect>-5</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
 </Defs>

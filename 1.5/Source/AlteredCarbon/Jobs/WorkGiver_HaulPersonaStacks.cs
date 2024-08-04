@@ -38,7 +38,7 @@ namespace AlteredCarbon
         {
             var storages = hauler.Map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaCache)
                 .Where(x => x.TryGetComp<CompPersonaCache>() is CompPersonaCache comp
-                && comp.Accepts(stack));// && hauler.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
+                && comp.Accepts(stack) && hauler.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
             Log.Message("storages: " + storages.ToStringSafeEnumerable() + " - stack: " + stack);
             return storages;
         }
