@@ -29,9 +29,9 @@ namespace AlteredCarbon
 
         public static float GetWorkAmount(float workAmount, Bill bill)
         {
-            if (bill is Bill_RewriteStack bill_RewriteStack)
+            if (bill is Bill_EditStack bill_EditStack)
             {
-                return bill_RewriteStack.GetWorkAmount();
+                return bill_EditStack.GetWorkAmount();
             }
             return workAmount;
         }

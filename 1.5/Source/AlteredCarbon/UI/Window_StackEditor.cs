@@ -156,7 +156,7 @@ namespace AlteredCarbon
         {
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
-            var title = "AC.RewritePersonaStack".Translate();
+            var title = "AC.EditPersonaStack".Translate();
             Widgets.Label(GetLabelRect(title, ref pos, labelWidthOverride: inRect.width - (Margin * 2f)), title);
             Text.Anchor = TextAnchor.UpperLeft;
             pos.y += 15;
@@ -649,9 +649,9 @@ namespace AlteredCarbon
             Text.Font = GameFont.Medium;
             Rect editTime = new Rect(pos.x, pos.y, inRect.width - (this.Margin * 2), 32);
             string time = ToStringTicksToHours(GetEditTime());
-            Widgets.Label(editTime, "AC.TotalTimeToRewrite".Translate(time));
+            Widgets.Label(editTime, "AC.TotalTimeToEdit".Translate(time));
             editTime.y += Text.LineHeight + 5;
-            if (AC_Utils.rewriteStacksSettings.enableStackDegradation)
+            if (AC_Utils.editStacksSettings.enableStackDegradation)
             {
                 string stackDegradation = Mathf.Min(1f, this.personaData.stackDegradation + GetDegradation()).ToStringPercent();
                 Text.Font = GameFont.Small;
@@ -699,15 +699,15 @@ namespace AlteredCarbon
                 this.Close();
             }
             var acceptButtonRect = new Rect(inRect.width - (buttonWidth + (buttonWidth / 2f)), resetAllButtonRect.y, buttonWidth, 32);
-            if (Widgets.ButtonText(acceptButtonRect, "AC.StartRewriting".Translate()))
+            if (Widgets.ButtonText(acceptButtonRect, "AC.StartEditing".Translate()))
             {
                 personaData.editTime = GetEditTime();
-                if (AC_Utils.rewriteStacksSettings.enableStackDegradation)
+                if (AC_Utils.editStacksSettings.enableStackDegradation)
                 {
                     personaData.stackDegradationToAdd = GetDegradation();
                 }
                 personaStack.personaDataRewritten = personaData;
-                personaEditor.billStack.AddBill(new Bill_RewriteStack(personaStack, AC_DefOf.AC_RewriteFilledPersonaStack, null));
+                personaEditor.billStack.AddBill(new Bill_EditStack(personaStack, AC_DefOf.AC_EditFilledPersonaStack, null));
                 this.Close();
             }
         }
@@ -781,7 +781,7 @@ namespace AlteredCarbon
             {
                 time += editTimeOffsetPerUnwaveringLoyalChange;
             }
-            return (int)(time * AC_Utils.rewriteStacksSettings.stackRewriteEditTimeValueMultiplier);
+            return (int)(time * AC_Utils.editStacksSettings.stackEditEditTimeValueMultiplier);
         }
 
         private float GetDegradation()
@@ -854,7 +854,7 @@ namespace AlteredCarbon
             {
                 degradation += stackDegradationOffsetPerUnwaveringLoyalChange;
             }
-            return degradation * AC_Utils.rewriteStacksSettings.stackRewriteDegradationValueMultiplier;
+            return degradation * AC_Utils.editStacksSettings.stackEditDegradationValueMultiplier;
         }
 
         private void ResetAll()

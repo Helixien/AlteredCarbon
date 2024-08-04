@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,12 +11,11 @@ namespace AlteredCarbon
     public class Building_PersonaEditor : Building_WorkTable
     {
         public bool autoRestoreIsEnabled = true;
-        public PersonaStack stackToDuplicate;
         public PersonaPrint personaPrintToRestore;
         public Building_PersonaMatrix ConnectedMatrix => CompAffectedByFacilities.LinkedFacilitiesListForReading.OfType<Building_PersonaMatrix>().FirstOrDefault();
         public bool Powered => (PowerComp as CompPowerTrader).PowerOn;
         private CompAffectedByFacilities _compAffectedByFacilities;
-        public CompAffectedByFacilities CompAffectedByFacilities => 
+        public CompAffectedByFacilities CompAffectedByFacilities =>
             _compAffectedByFacilities ??= GetComp<CompAffectedByFacilities>();
 
         public bool HasPersonaPrintToRestore => GetPersonaPrintToRestore != null;
@@ -60,107 +60,71 @@ namespace AlteredCarbon
             }
         }
 
-        public bool CanDuplicateStack
+        public class StackGizmoInfo
         {
-            get
-            {
-                if (this.stackToDuplicate is null)
-                {
-                    return false;
-                }
-                if (Powered is false)
-                {
-                    return false;
-                }
-                return true;
-            }
+            public string defaultLabel, defaultDesc, icon;
+            public Action targetAction;
+            public Action<LocalTargetInfo> action;
+            public List<ResearchProjectDef> lockedProjects;
+            public RecipeDef recipe;
+            public string defaultLabelCancel, defaultDescCancel;
+            public bool includeArchotechStack;
         }
+
         public override IEnumerable<Gizmo> GetGizmos()
         {
             foreach (Gizmo g in base.GetGizmos())
             {
                 yield return g;
             }
-            var wipeStacks = new Command_ActionOnStack(this, ForFilledStack(includeArchotechStack: false), 
-                InstallWipeStackBill)
+            foreach (var g in GetStackOperationGizmos(new StackGizmoInfo
             {
                 defaultLabel = "AC.WipeStack".Translate(),
                 defaultDesc = "AC.WipeStackDesc".Translate(),
-                icon = ContentFinder<Texture2D>.Get("UI/Gizmos/WipeStack"),
-                activateSound = SoundDefOf.Tick_Tiny,
-                action = delegate ()
-                {
-                    BeginTargetingForWipingStack();
-                },
-            };
-            if (powerComp.PowerOn is false)
+                icon = "UI/Gizmos/WipeStack",
+                targetAction = BeginTargetingForWipingStack,
+                action = InstallWipeStackBill,
+                lockedProjects = new List<ResearchProjectDef> { AC_DefOf.AC_NeuralEditing },
+                recipe = AC_DefOf.AC_WipeFilledPersonaStack,
+                defaultLabelCancel = "AC.CancelStackReset".Translate(),
+                defaultDescCancel = "AC.CancelStackResetDesc".Translate()
+            }))
             {
-                wipeStacks.Disable("NoPower".Translate().CapitalizeFirst());
-            }
-            wipeStacks.LockBehindReseach(new List<ResearchProjectDef> { AC_DefOf.AC_NeuralRewriting });
-            if (ConnectedMatrix is null)
-            {
-                wipeStacks.Disable("AC.NoConnectedMatrix".Translate());
-            }
-            yield return wipeStacks;
-            var wipeStacksBills = this.billStack.Bills.Where(x => x.recipe == AC_DefOf.AC_WipeFilledPersonaStack).ToList();
-            if (wipeStacksBills.Any())
-            {
-                yield return new Command_Action
-                {
-                    defaultLabel = "AC.CancelStackReset".Translate(),
-                    defaultDesc = "AC.CancelStackResetDesc".Translate(),
-                    activateSound = SoundDefOf.Tick_Tiny,
-                    icon = UIHelper.CancelIcon,
-                    action = delegate ()
-                    {
-                        foreach (var bill in wipeStacksBills)
-                        {
-                            this.billStack.Delete(bill);
-                        }
-                    }
-                };
-            }
-            var rewriteStack = new Command_ActionOnStack(this, ForFilledStack(includeArchotechStack: AC_Utils.rewriteStacksSettings.enableArchostackRewriting), InstallRewriteBill)
-            {
-                defaultLabel = "AC.RewriteStack".Translate(),
-                defaultDesc = "AC.RewriteStackDesc".Translate(),
-                icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EditStack"),
-                activateSound = SoundDefOf.Tick_Tiny,
-                action = delegate ()
-                {
-                    Find.Targeter.BeginTargeting(ForFilledStack(includeArchotechStack: AC_Utils.rewriteStacksSettings.enableArchostackRewriting), delegate (LocalTargetInfo x)
-                    {
-                        InstallRewriteBill(x);
-                    });
-                }
-            };
-            rewriteStack.LockBehindReseach(AC_DefOf.AC_RewriteFilledPersonaStack.researchPrerequisites);
-            if (powerComp.PowerOn is false)
-            {
-                rewriteStack.Disable("NoPower".Translate().CapitalizeFirst());
-            }
-            yield return rewriteStack;
-
-            var rewriteStacksBills = this.billStack.Bills.Where(x => x.recipe == AC_DefOf.AC_RewriteFilledPersonaStack).ToList();
-            if (rewriteStacksBills.Any())
-            {
-                yield return new Command_Action
-                {
-                    defaultLabel = "AC.CancelStackRewrite".Translate(),
-                    defaultDesc = "AC.CancelStackRewriteDesc".Translate(),
-                    activateSound = SoundDefOf.Tick_Tiny,
-                    icon = UIHelper.CancelIcon,
-                    action = delegate ()
-                    {
-                        foreach (var bill in rewriteStacksBills)
-                        {
-                            this.billStack.Delete(bill);
-                        }
-                    }
-                };
+                yield return g;
             }
 
+            foreach (var g in GetStackOperationGizmos(new StackGizmoInfo
+            {
+                defaultLabel = "AC.DuplicateStack".Translate(),
+                defaultDesc = "AC.DuplicateStackDesc".Translate(),
+                icon = "UI/Gizmos/DuplicateStack",
+                targetAction = BeginTargetingForDuplicatingStack,
+                action = InstallDuplicateStackBill,
+                lockedProjects = new List<ResearchProjectDef> { AC_DefOf.AC_NeuralEditing },
+                recipe = AC_DefOf.AC_DuplicatePersonaStack,
+                defaultLabelCancel = "AC.CancelStackDuplication".Translate(),
+                defaultDescCancel = "AC.CancelStackDuplicationDesc".Translate()
+            }))
+            {
+                yield return g;
+            }
+
+            foreach (var g in GetStackOperationGizmos(new StackGizmoInfo
+            {
+                defaultLabel = "AC.EditStack".Translate(),
+                defaultDesc = "AC.EditStackDesc".Translate(),
+                icon = "UI/Gizmos/EditStack",
+                targetAction = BeginTargetingForEditingStack,
+                action = InstallEditBill,
+                lockedProjects = AC_DefOf.AC_EditFilledPersonaStack.researchPrerequisites,
+                recipe = AC_DefOf.AC_EditFilledPersonaStack,
+                defaultLabelCancel = "AC.CancelStackEdit".Translate(),
+                defaultDescCancel = "AC.CancelStackEditDesc".Translate(),
+                includeArchotechStack = AC_Utils.editStacksSettings.enableArchostackEditing
+            }))
+            {
+                yield return g;
+            }
 
             var personaPrints = Map.listerThings.AllThings.OfType<PersonaPrint>().Where(x => x.PersonaData.ContainsPersona).ToList();
             if (ConnectedMatrix != null)
@@ -228,76 +192,49 @@ namespace AlteredCarbon
                 },
                 isActive = () => autoRestoreIsEnabled
             };
+        }
 
-            var stacks = Map.listerThings.AllThings.OfType<PersonaStack>().Where(x => x.PersonaData.ContainsPersona).ToList();
-            var duplicateStacks = new Command_Action
+        private IEnumerable<Gizmo> GetStackOperationGizmos(StackGizmoInfo info)
+        {
+            var command = new Command_ActionOnStack(this, ForFilledStack(includeArchotechStack: info.includeArchotechStack),
+                info.action)
             {
-                defaultLabel = "AC.DuplicateStack".Translate(),
-                defaultDesc = "AC.DuplicateStackDesc".Translate(),
-                icon = ContentFinder<Texture2D>.Get("UI/Gizmos/DuplicateStack"),
+                defaultLabel = info.defaultLabel,
+                defaultDesc = info.defaultDesc,
+                icon = ContentFinder<Texture2D>.Get(info.icon),
                 activateSound = SoundDefOf.Tick_Tiny,
                 action = delegate ()
                 {
-                    var floatList = new List<FloatMenuOption>();
-                    foreach (var stack in stacks.Where(x => x.PersonaData.ContainsPersona))
-                    {
-                        if (stack.IsArchotechStack is false)
-                        {
-                            var option = new FloatMenuOption(stack.PersonaData.PawnNameColored, delegate ()
-                            {
-                                this.stackToDuplicate = stack;
-                            }, stack, stack.DrawColor);
-                            floatList.Add(option);
-                        }
-                    }
-                    Find.WindowStack.Add(new FloatMenu(floatList));
-                }
+                    info.targetAction();
+                },
             };
-            if (this.stackToDuplicate != null)
+            if (powerComp.PowerOn is false)
             {
-                duplicateStacks.Disable("AC.AlreadySetToDuplicate".Translate());
+                command.Disable("NoPower".Translate().CapitalizeFirst());
             }
-            if (!stacks.Any())
+            command.LockBehindReseach(info.lockedProjects);
+            if (ConnectedMatrix is null)
             {
-                duplicateStacks.Disable("AC.NoStackToDuplicate".Translate());
+                command.Disable("AC.NoConnectedMatrix".Translate());
             }
-            if (this.Powered is false)
-            {
-                duplicateStacks.Disable("NoPower".Translate());
-            }
-            yield return duplicateStacks;
-            duplicateStacks.LockBehindReseach(new List<ResearchProjectDef> { AC_DefOf.AC_NeuralRewriting });
-            if (this.stackToDuplicate != null)
+            yield return command;
+            var bills = this.billStack.Bills.Where(x => x.recipe == info.recipe).ToList();
+            if (bills.Any())
             {
                 yield return new Command_Action
                 {
-                    defaultLabel = "AC.CancelStackDuplication".Translate(),
-                    defaultDesc = "AC.CancelStackDuplicationDesc".Translate(),
+                    defaultLabel = info.defaultLabelCancel,
+                    defaultDesc = info.defaultDescCancel,
                     activateSound = SoundDefOf.Tick_Tiny,
                     icon = UIHelper.CancelIcon,
                     action = delegate ()
                     {
-                        this.stackToDuplicate = null;
+                        foreach (var bill in bills)
+                        {
+                            this.billStack.Delete(bill);
+                        }
                     }
                 };
-            }
-        }
-
-        public void PerformStackDuplication(Pawn doer)
-        {
-            float successChance = 1f - Mathf.Abs((doer.skills.GetSkill(SkillDefOf.Intellectual).Level / 2f) - 11f) / 10f;
-            if (Rand.Chance(successChance))
-            {
-                var stackCopyTo = (PersonaStack)ThingMaker.MakeThing(AC_DefOf.AC_FilledPersonaStack);
-                stackCopyTo.PersonaData.CopyDataFrom(stackToDuplicate.PersonaData, true);
-                AlteredCarbonManager.Instance.RegisterStack(stackCopyTo);
-                stackToDuplicate = null;
-                GenPlace.TryPlaceThing(stackCopyTo, doer.Position, Map, ThingPlaceMode.Near);
-                Messages.Message("AC.SuccessfullyDuplicatedStack".Translate(doer.Named("PAWN")), this, MessageTypeDefOf.TaskCompletion);
-            }
-            else
-            {
-                Messages.Message("AC.FailedToDuplicatedStack".Translate(doer.Named("PAWN")), this, MessageTypeDefOf.NeutralEvent);
             }
         }
 
@@ -313,6 +250,25 @@ namespace AlteredCarbon
             });
         }
 
+        private void BeginTargetingForDuplicatingStack()
+        {
+            Find.Targeter.BeginTargeting(ForFilledStack(includeArchotechStack: false), delegate (LocalTargetInfo x)
+            {
+                InstallDuplicateStackBill(x);
+                if (Event.current.shift)
+                {
+                    BeginTargetingForDuplicatingStack();
+                }
+            });
+        }
+
+        private void BeginTargetingForEditingStack()
+        {
+            Find.Targeter.BeginTargeting(ForFilledStack(includeArchotechStack: AC_Utils.editStacksSettings.enableArchostackEditing), delegate (LocalTargetInfo x)
+            {
+                InstallEditBill(x);
+            });
+        }
         public bool CanAddOperationOn(PersonaStack personaStack)
         {
             var bill = this.billStack.Bills.OfType<Bill_OperateOnStack>().Where(x => x.personaStack == personaStack).FirstOrDefault();
@@ -322,9 +278,13 @@ namespace AlteredCarbon
                 {
                     Messages.Message("AC.AlreadyOrderedToWipeStack".Translate(), MessageTypeDefOf.CautionInput);
                 }
-                else if (bill.recipe == AC_DefOf.AC_RewriteFilledPersonaStack)
+                else if (bill.recipe == AC_DefOf.AC_EditFilledPersonaStack)
                 {
-                    Messages.Message("AC.AlreadyOrderedToRewriteStack".Translate(), MessageTypeDefOf.CautionInput);
+                    Messages.Message("AC.AlreadyOrderedToEditStack".Translate(), MessageTypeDefOf.CautionInput);
+                }
+                else if (bill.recipe == AC_DefOf.AC_DuplicatePersonaStack)
+                {
+                    Messages.Message("AC.AlreadyOrderedToDuplicateStack".Translate(), MessageTypeDefOf.CautionInput);
                 }
                 return false;
             }
@@ -347,7 +307,7 @@ namespace AlteredCarbon
         {
             if (x.Thing is PersonaStack personaStack && CanAddOperationOn(personaStack))
             {
-                if (personaStack.Faction != null && personaStack.Faction.HostileTo(Faction.OfPlayer) is false)
+                if (personaStack.PersonaData.faction != null && personaStack.PersonaData.faction.HostileTo(Faction.OfPlayer) is false)
                 {
                     Find.WindowStack.Add(new Dialog_MessageBox("AC.WipingFriendlyStackWarning".Translate(), "Cancel".Translate(), null,
                     "Confirm".Translate(), delegate ()
@@ -362,11 +322,41 @@ namespace AlteredCarbon
             }
         }
 
-        private void InstallRewriteBill(LocalTargetInfo x)
+        public void InstallDuplicateStackBill(LocalTargetInfo x)
         {
             if (x.Thing is PersonaStack personaStack && CanAddOperationOn(personaStack))
             {
-                Find.WindowStack.Add(new Window_StackEditor(this, personaStack));
+                if (personaStack.PersonaData.faction != null && personaStack.PersonaData.faction.HostileTo(Faction.OfPlayer) is false)
+                {
+                    Find.WindowStack.Add(new Dialog_MessageBox("AC.DuplicatingFriendlyStackWarning".Translate(), "Cancel".Translate(), null,
+                    "Confirm".Translate(), delegate ()
+                    {
+                        billStack.AddBill(new Bill_OperateOnStack(personaStack, AC_DefOf.AC_DuplicatePersonaStack, null));
+                    }, null, false, null, null));
+                }
+                else
+                {
+                    billStack.AddBill(new Bill_OperateOnStack(personaStack, AC_DefOf.AC_DuplicatePersonaStack, null));
+                }
+            }
+        }
+
+        private void InstallEditBill(LocalTargetInfo x)
+        {
+            if (x.Thing is PersonaStack personaStack && CanAddOperationOn(personaStack))
+            {
+                if (personaStack.PersonaData.faction != null && personaStack.PersonaData.faction.HostileTo(Faction.OfPlayer) is false)
+                {
+                    Find.WindowStack.Add(new Dialog_MessageBox("AC.EditingFriendlyStackWarning".Translate(), "Cancel".Translate(), null,
+                    "Confirm".Translate(), delegate ()
+                    {
+                        Find.WindowStack.Add(new Window_StackEditor(this, personaStack));
+                    }, null, false, null, null));
+                }
+                else
+                {
+                    Find.WindowStack.Add(new Window_StackEditor(this, personaStack));
+                }
             }
         }
 
@@ -386,7 +376,6 @@ namespace AlteredCarbon
         {
             base.ExposeData();
             Scribe_Values.Look(ref this.autoRestoreIsEnabled, "autoRestoreIsEnabled", true);
-            Scribe_References.Look(ref this.stackToDuplicate, "stackToDuplicate");
             Scribe_References.Look(ref this.personaPrintToRestore, "personaPrintToRestore");
         }
     }

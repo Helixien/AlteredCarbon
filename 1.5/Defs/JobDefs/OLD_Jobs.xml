@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<!-- ================================ Duplicate Stack ====================== -->
-	<JobDef>
-		<defName>AC_DuplicateStack</defName>
-		<driverClass>AlteredCarbon.JobDriver_DuplicateStack</driverClass>
-		<reportString>duplicating persona stack</reportString>
-	</JobDef>
 	<!-- ================================ Create Stack from PersonaPrint ====================== -->
 	<JobDef>
 		<defName>AC_CreateStackFromPersonaPrint</defName>

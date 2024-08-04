@@ -35,7 +35,7 @@ namespace AlteredCarbon
 
                 if (pawnTarget.Faction != null && CasterPawn.Faction != null && pawnTarget.Faction != CasterPawn.Faction)
                 {
-                    pawnTarget.Faction.TryAffectGoodwillWith(CasterPawn.Faction, -80, reason: AC_DefOf.AC_UsedArchotechStack, lookTarget: pawnTarget);
+                    pawnTarget.Faction.TryAffectGoodwillWith(CasterPawn.Faction, pawnTarget.Faction.GoodwillToMakeHostile(CasterPawn.Faction), reason: AC_DefOf.AC_UsedArchotechStack, lookTarget: pawnTarget);
                 }
 
                 if (pawnTarget.HasPersonaStack(out var stackHediff))

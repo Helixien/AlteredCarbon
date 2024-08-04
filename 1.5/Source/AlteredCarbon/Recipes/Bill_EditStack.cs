@@ -3,14 +3,14 @@ using Verse;
 
 namespace AlteredCarbon
 {
-    public class Bill_RewriteStack : Bill_OperateOnStack
+    public class Bill_EditStack : Bill_OperateOnStack
     {
         public Pawn curBillDoer;
-        public Bill_RewriteStack()
+        public Bill_EditStack()
         {
 
         }
-        public Bill_RewriteStack(PersonaStack personaStack, RecipeDef recipe, Precept_ThingStyle precept = null) 
+        public Bill_EditStack(PersonaStack personaStack, RecipeDef recipe, Precept_ThingStyle precept = null) 
             : base(personaStack, recipe, precept)
         {
         }

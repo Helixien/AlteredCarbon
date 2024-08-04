@@ -15,9 +15,10 @@ namespace AlteredCarbon
         public override void Notify_IterationCompleted(Pawn billDoer, List<Thing> ingredients)
         {
             base.Notify_IterationCompleted(billDoer, ingredients);
-            var stack = ingredients.OfType<PersonaStack>().FirstOrDefault();
+            var stack = PersonaStack(billDoer);
             AC_DefOf.Message_NegativeEvent.PlayOneShot(stack);
-            if (stack.PersonaData.faction != null && billDoer != null && billDoer.Faction != null && billDoer.Faction != stack.Faction)
+            if (stack.PersonaData.faction != null && billDoer != null && billDoer.Faction != null 
+                && billDoer.Faction != stack.PersonaData.faction)
             {
                 stack.EmptyStack(billDoer, true);
             }

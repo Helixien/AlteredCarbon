@@ -120,13 +120,13 @@
 		<uiIconThing>AC_FilledArchotechStack</uiIconThing>
 		<removesHediff>AC_ArchotechStack</removesHediff>
 	</RecipeDef>
-	<!-- ================================ Rewrite filled Persona stacks ====================== -->
+	<!-- ================================ Edit filled Persona stacks ====================== -->
 	<RecipeDef ParentName="AC_RecipeHacking">
-		<defName>AC_RewriteFilledPersonaStack</defName>
-		<label>Rewrite Persona stack</label>
-		<description>Rewrite a Persona stack.</description>
-		<jobString>rewriting Persona stack.</jobString>
-		<workerClass>AlteredCarbon.Recipe_RewriteFilledPersonaStack</workerClass>
+		<defName>AC_EditFilledPersonaStack</defName>
+		<label>Edit Persona stack</label>
+		<description>Edit a Persona stack.</description>
+		<jobString>editing Persona stack.</jobString>
+		<workerClass>AlteredCarbon.Recipe_EditFilledPersonaStack</workerClass>
 		<workAmount>10000000000</workAmount>
 		<ingredients>
 			<li>
@@ -167,7 +167,7 @@
 			<Intellectual>10</Intellectual>
 		</skillRequirements>
 		<researchPrerequisites>
-			<li>AC_NeuralRewriting</li>
+			<li>AC_NeuralEditing</li>
 		</researchPrerequisites>
 	</RecipeDef>
 	<!-- ================================ Hacking Biocoded things ====================== -->
@@ -305,5 +305,63 @@
 		<products>
 			<Plasteel>3</Plasteel>
 		</products>
+	</RecipeDef>
+	
+	<!-- ================================ Hacking - Duplicate filled Persona stacks ====================== -->
+	<RecipeDef ParentName="AC_RecipeHacking">
+		<defName>AC_DuplicatePersonaStack</defName>
+		<label>duplicate persona stack</label>
+		<description>Duplicate a persona stack.</description>
+		<jobString>duplicating persona stack.</jobString>
+		<workerClass>AlteredCarbon.Recipe_DuplicatePersonaStack</workerClass>
+		<workAmount>1000</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AC_EmptyPersonaStack</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AC_FilledPersonaStack</li>
+					</thingDefs>
+					<specialFiltersToAllow>
+						<li>AC_AllowStacksColonist</li>
+						<li>AC_AllowStacksStranger</li>
+						<li>AC_AllowStacksHostile</li>
+					</specialFiltersToAllow>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AC_EmptyPersonaStack</li>
+				<li>AC_FilledPersonaStack</li>
+			</thingDefs>
+			<specialFiltersToAllow>
+				<li>AC_AllowStacksColonist</li>
+				<li>AC_AllowStacksStranger</li>
+				<li>AC_AllowStacksHostile</li>
+			</specialFiltersToAllow>
+		</fixedIngredientFilter>
+		<defaultIngredientFilter>
+			<thingDefs>
+				<li>AC_EmptyPersonaStack</li>
+				<li>AC_FilledPersonaStack</li>
+			</thingDefs>
+			<specialFiltersToAllow>
+				<li>AC_AllowStacksColonist</li>
+				<li>AC_AllowStacksStranger</li>
+				<li>AC_AllowStacksHostile</li>
+			</specialFiltersToAllow>
+		</defaultIngredientFilter>
+		<skillRequirements>
+			<Intellectual>10</Intellectual>
+		</skillRequirements>
 	</RecipeDef>
 </Defs>

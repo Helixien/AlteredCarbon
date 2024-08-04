@@ -124,11 +124,18 @@ namespace AlteredCarbon
             {
                 Find.HistoryEventsManager.RecordEvent(new HistoryEvent(AC_DefOf.AC_InstalledPersonaStack, pawn.Named(HistoryEventArgsNames.Doer)));
             }
+
+            if (hediff.PersonaData.ideo?.HasPrecept(AC_DefOf.AC_CrossSleeving_DontCare) ?? false)
+            {
+                hediff.PersonaData.thoughts?.RemoveAll(x => x.def == AC_DefOf.AC_WrongGender);
+                hediff.PersonaData.thoughts?.RemoveAll(x => x.def == AC_DefOf.AC_WrongGenderDouble);
+                hediff.PersonaData.thoughts?.RemoveAll(x => x.def == AC_DefOf.AC_WrongGenderPregnant);
+            }
         }
 
         public static void ApplyMindEffects(Pawn pawn, Hediff_PersonaStack hediff)
         {
-            if (AC_Utils.rewriteStacksSettings.enableStackDegradation && hediff.PersonaData.stackDegradation > 0)
+            if (AC_Utils.editStacksSettings.enableStackDegradation && hediff.PersonaData.stackDegradation > 0)
             {
                 var stackDegradationHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_StackDegradation) as Hediff_StackDegradation;
                 if (stackDegradationHediff is null)

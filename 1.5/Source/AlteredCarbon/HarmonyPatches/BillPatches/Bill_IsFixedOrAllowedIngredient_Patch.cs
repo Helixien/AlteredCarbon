@@ -7,7 +7,6 @@ using Verse.AI;
 
 namespace AlteredCarbon
 {
-
 	[HarmonyPatch(typeof(Bill), "IsFixedOrAllowedIngredient", new Type[] { typeof(Thing) })]
 	public static class Bill_IsFixedOrAllowedIngredient_Patch
     {
@@ -18,7 +17,7 @@ namespace AlteredCarbon
 				__result = thing == installStack.stackToInstall;
 				return false;
 			}
-			else if (__instance is Bill_OperateOnStack operateOnStack && thing is PersonaStack stack)
+			else if (__instance is Bill_OperateOnStack operateOnStack && thing is PersonaStack stack && stack.IsFilledStack)
             {
 				__result = stack == operateOnStack.personaStack;
 				return false;

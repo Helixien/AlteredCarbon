@@ -35,7 +35,7 @@ namespace AlteredCarbon
         public static VFECore.Abilities.AbilityDef AC_ArchotechStackSkip;
         public static HediffDef AC_StackDegradation;
         public static HediffDef AC_BrainTrauma;
-        public static RecipeDef AC_RewriteFilledPersonaStack;
+        public static RecipeDef AC_EditFilledPersonaStack;
         public static HistoryEventDef AC_UsedArchotechStack;
         public static ThoughtDef AC_StackDegradationThought;
         [MayRequireIdeology] public static HistoryEventDef AC_InstalledPersonaStack;
@@ -96,20 +96,20 @@ namespace AlteredCarbon
         public static BodyPartDef Neck;
 
         public static ThingDef AC_PersonaMatrix;
-        public static JobDef AC_DuplicateStack;
+        public static RecipeDef AC_DuplicatePersonaStack;
         public static JobDef AC_CreateStackFromPersonaPrint;
         public static JobDef AC_HaulThingsToContainer;
         public static ResearchProjectDef Xenogermination;
         public static JobDef AC_HaulCorpseToGestation;
         public static JobDef AC_CancelRepurposingBody;
-        public static ResearchProjectDef AC_NeuralRewriting;
+        public static ResearchProjectDef AC_NeuralEditing;
         public static EffecterDef AC_Hacking;
 
         [MayRequireIdeology] public static PreceptDef AC_Stacking_Despised;
         [MayRequireIdeology] public static PreceptDef AC_Sleeving_Despised;
         [MayRequireIdeology] public static PreceptDef AC_CrossSleeving_DontCare;
         [MayRequireIdeology] public static PreceptDef AC_CrossSleeving_Despised;
-        public static HistoryEventDef AC_RewroteStack;
+        public static HistoryEventDef AC_EditedStack;
 
         public static RecipeDef AC_HackBiocodedThings;
         public static ThingDef AC_Apparel_DragoonHelmet;
@@ -118,7 +118,7 @@ namespace AlteredCarbon
         public static ThingDef AC_CuirassierBelt;
         public static ThingDef AC_PersonaPrint;
         [MayRequireAnomaly] public static HeadTypeDef CultEscapee;
-        public static HistoryEventDef AC_ErasedStackEvent;
+        public static HistoryEventDef AC_ErasedStackEvent, AC_DuplicatedStackEvent;
         public static ThingDef AC_PersonaCache;
         public static ThoughtDef AC_ErasedStack;
     }

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 	<ModSettingsFramework.ModOptionCategoryDef Name="AC_ModOptionsBase" Abstract="True">
 		<mods>
@@ -16,8 +16,8 @@
 		<order>10</order>
 	</ModSettingsFramework.ModOptionCategoryDef>
 	<ModSettingsFramework.ModOptionCategoryDef ParentName="AC_ModOptionsBase">
-		<defName>AC_StackRewriting</defName>
-		<label>Stack Rewriting</label>
+		<defName>AC_StackEditing</defName>
+		<label>Stack Editing</label>
 		<order>20</order>
 	</ModSettingsFramework.ModOptionCategoryDef>
 	<ModSettingsFramework.ModOptionCategoryDef ParentName="AC_ModOptionsBase">

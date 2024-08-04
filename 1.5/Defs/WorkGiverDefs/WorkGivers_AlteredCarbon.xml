@@ -1,18 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<!-- ================================ Duplicate Stack ====================== -->
-	<WorkGiverDef>
-		<defName>AC_DuplicateStacks</defName>
-		<label>duplicate stacks</label>
-		<giverClass>AlteredCarbon.WorkGiver_DuplicateStacks</giverClass>
-		<workType>Research</workType>
-		<verb>duplicate stack in</verb>
-		<gerund>duplicating stack in</gerund>
-		<priorityInType>999</priorityInType>
-		<requiredCapacities>
-			<li>Manipulation</li>
-		</requiredCapacities>
-	</WorkGiverDef>
 	<!-- ================================ Banking persona prints ====================== -->
 	<WorkGiverDef>
 		<defName>AC_HaulPersonaPrintsToStorage</defName>

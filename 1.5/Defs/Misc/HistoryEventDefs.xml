@@ -5,14 +5,19 @@
 		<defName>AC_UsedArchotechStack</defName>
 		<label>killed faction member with archotech stack</label>
 	</HistoryEventDef>
-	<!-- ================================ Rewrote Stack ====================== -->
+	<!-- ================================ Edited Stack ====================== -->
 	<HistoryEventDef>
-		<defName>AC_RewroteStack</defName>
-		<label>rewrote stack of faction member</label>
+		<defName>AC_EditedStack</defName>
+		<label>edited stack of faction member</label>
 	</HistoryEventDef>
 	<!-- ================================ Erased Stack ====================== -->
 	<HistoryEventDef>
 		<defName>AC_ErasedStackEvent</defName>
 		<label>erased stack of faction member</label>
+	</HistoryEventDef>
+	
+	<HistoryEventDef>
+		<defName>AC_DuplicatedStackEvent</defName>
+		<label>duplicated stack of faction member</label>
 	</HistoryEventDef>
 </Defs>

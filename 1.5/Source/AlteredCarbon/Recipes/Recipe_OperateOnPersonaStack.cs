@@ -12,6 +12,11 @@ namespace AlteredCarbon
         {
 
         }
+
+        public PersonaStack PersonaStack(Pawn billDoer)
+        {
+            return (billDoer.jobs.curJob.bill as Bill_OperateOnStack).personaStack;
+        }
     }
 }
 

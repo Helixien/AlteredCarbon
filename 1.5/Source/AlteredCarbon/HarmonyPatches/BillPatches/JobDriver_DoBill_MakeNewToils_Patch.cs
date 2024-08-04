@@ -2,36 +2,13 @@
 using RimWorld;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection.Emit;
 using Verse;
 using Verse.AI;
 
 namespace AlteredCarbon
 {
-    [HarmonyPatch(typeof(WorkGiver_DoBill), "TryFindBestIngredientsHelper")]
-    public static class WorkGiver_DoBill_TryFindBestIngredientsHelper_Patch
-    {
-        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
-        {
-            var method = AccessTools.Method(typeof(RegionTraverser), "BreadthFirstTraverse", new Type[]
-            {typeof(Region), typeof(RegionEntryPredicate), typeof(RegionProcessor), typeof(int), typeof(RegionType)});
-            foreach (var instruction in instructions)
-            {
-                if (instruction.Calls(method))
-                {
-                    yield return new CodeInstruction(OpCodes.Call,
-                        AccessTools.Method(typeof(WorkGiver_DoBill_TryFindBestIngredientsHelper_Patch),
-                        "AppendStacks"));
-                }
-                yield return instruction;
-            }
-        }
-
-        public static void AppendStacks()
-        {
-
-        }
-    }
     [HarmonyPatch(typeof(JobDriver_DoBill), "MakeNewToils")]
     public static class JobDriver_DoBill_MakeNewToils_Patch
     {
@@ -61,8 +38,9 @@ namespace AlteredCarbon
                 }
                 yield return gotoBillGiver;
                 yield return Toils_Recipe.MakeUnfinishedThingIfNeeded();
-                var recipeWork = job.bill is Bill_RewriteStack ? DoRecipeWorkFixed() : Toils_Recipe.DoRecipeWork();
-                yield return recipeWork.FailOnDespawnedNullOrForbiddenPlacedThings(TargetIndex.A).FailOnCannotTouch(TargetIndex.A, PathEndMode.InteractionCell);
+                var recipeWork = job.bill is Bill_EditStack ? DoRecipeWorkFixed() : Toils_Recipe.DoRecipeWork();
+                yield return recipeWork.FailOnDespawnedNullOrForbiddenPlacedThings(TargetIndex.A)
+                    .FailOnCannotTouch(TargetIndex.A, PathEndMode.InteractionCell);
                 yield return Toils_Recipe.CheckIfRecipeCanFinishNow();
                 yield return Toils_Recipe.FinishRecipeAndStartStoringProduct(TargetIndex.None);
             }
@@ -82,8 +60,31 @@ namespace AlteredCarbon
             TargetIndex ingredientPlaceCellInd, bool subtractNumTakenFromJobCount = false, 
             bool failIfStackCountLessThanJobCount = true, bool placeInBillGiver = false)
         {
-
-            var label = Toils_General.Do(delegate
+            var extractTarget = Toils_JobTransforms.ExtractNextTargetFromQueue(ingredientInd);
+            Toil getToHaulTarget = Toils_Goto.GotoThing(ingredientInd, PathEndMode.ClosestTouch)
+                .FailOnDespawnedNullOrForbidden(ingredientInd).FailOnSomeonePhysicallyInteracting(ingredientInd);
+            var changeTargetToPersonaCacheIfNotSpawned = ToilMaker.MakeToil("Do");
+            var gotoWorkbench = Toils_Goto.GotoThing(billGiverInd, PathEndMode.InteractionCell).FailOnDestroyedOrNull(ingredientInd); ;
+            var jumpIfHaveTargetInQueue = Toils_Jump.JumpIfHaveTargetInQueue(ingredientInd, changeTargetToPersonaCacheIfNotSpawned);
+            var decideShouldCarryItem = Toils_General.Do(delegate
+            {
+                if (jobdriver.job.bill.recipe.Worker is Recipe_EditFilledPersonaStack
+                    or Recipe_DuplicatePersonaStack && jobdriver.job.targetB.Thing.def == AC_DefOf.AC_PersonaCache)
+                {
+                    Pawn actor = jobdriver.pawn;
+                    Job curJob = actor.jobs.curJob;
+                    List<LocalTargetInfo> targetQueue = curJob.GetTargetQueue(ingredientInd);
+                    curJob.SetTarget(ingredientInd, targetQueue[0]);
+                    targetQueue.RemoveAt(0);
+                    if (!curJob.countQueue.NullOrEmpty())
+                    {
+                        curJob.count = curJob.countQueue[0];
+                        curJob.countQueue.RemoveAt(0);
+                    }
+                    jobdriver.JumpToToil(jumpIfHaveTargetInQueue);
+                }
+            });
+            changeTargetToPersonaCacheIfNotSpawned.initAction = delegate
             {
                 var targetQueue = jobdriver.job.GetTargetQueue(ingredientInd);
                 if (targetQueue.Any())
@@ -91,22 +92,39 @@ namespace AlteredCarbon
                     var target = targetQueue[0].Thing;
                     if (target.Spawned is false)
                     {
+                        var comp = target.ParentHolder as CompPersonaCache;
+                        jobdriver.job.SetTarget(ingredientInd, comp.parent);
+                        jobdriver.JumpToToil(decideShouldCarryItem);
+                    }
+                }
+            };
 
+            var carryItem = Toils_Haul.StartCarryThing(ingredientInd, putRemainderInQueue: true, subtractNumTakenFromJobCount, failIfStackCountLessThanJobCount, reserve: false);
+            var tryDropStackFromCache = Toils_General.Do(delegate
+            {
+                var target = jobdriver.job.GetTarget(ingredientInd).Thing;
+                if (target is not PersonaStack)
+                {
+                    var targetQueue = jobdriver.job.GetTargetQueue(ingredientInd);
+                    target = targetQueue[0].Thing;
+                    if (target.Spawned is false)
+                    {
+                        var comp = target.ParentHolder as CompPersonaCache;
+                        comp.innerContainer.TryDrop(target, ThingPlaceMode.Near, out var targetThing);
+                        jobdriver.JumpToToil(extractTarget);
                     }
                 }
             });
-            yield return label;
 
-            Toil extract = Toils_JobTransforms.ExtractNextTargetFromQueue(ingredientInd);
-            yield return extract;
-            Toil jumpIfHaveTargetInQueue = Toils_Jump.JumpIfHaveTargetInQueue(ingredientInd, label);
+            yield return changeTargetToPersonaCacheIfNotSpawned; 
+            yield return extractTarget;
             yield return JobDriver_DoBill.JumpIfTargetInsideBillGiver(jumpIfHaveTargetInQueue, ingredientInd, billGiverInd);
-            Toil getToHaulTarget = Toils_Goto.GotoThing(ingredientInd, PathEndMode.ClosestTouch)
-                .FailOnDespawnedNullOrForbidden(ingredientInd).FailOnSomeonePhysicallyInteracting(ingredientInd);
+            yield return decideShouldCarryItem;
             yield return getToHaulTarget;
-            yield return Toils_Haul.StartCarryThing(ingredientInd, putRemainderInQueue: true, subtractNumTakenFromJobCount, failIfStackCountLessThanJobCount, reserve: false);
-            yield return JobDriver_DoBill.JumpToCollectNextIntoHandsForBill(getToHaulTarget, TargetIndex.B);
-            yield return Toils_Goto.GotoThing(billGiverInd, PathEndMode.InteractionCell).FailOnDestroyedOrNull(ingredientInd);
+            yield return tryDropStackFromCache;
+            yield return carryItem;
+            yield return JobDriver_DoBill.JumpToCollectNextIntoHandsForBill(decideShouldCarryItem, TargetIndex.B);
+            yield return gotoWorkbench;
             if (!placeInBillGiver)
             {
                 Toil findPlaceTarget = Toils_JobTransforms.SetTargetToIngredientPlaceCell(billGiverInd, ingredientInd, ingredientPlaceCellInd);
@@ -233,7 +251,6 @@ namespace AlteredCarbon
             toil.activeSkill = () => toil.actor.CurJob.bill.recipe.workSkill;
             return toil;
         }
-
     }
 }
 

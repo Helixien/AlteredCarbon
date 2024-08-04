@@ -181,10 +181,10 @@
 		<showTooltipAsTinyText>false</showTooltipAsTinyText>
 	</Operation>
 	<!-- ================ Stack Rewritting ================ -->
-	<Operation Class="AlteredCarbon.AlteredCarbonSettingsWorker_RewriteStack">
+	<Operation Class="AlteredCarbon.AlteredCarbonSettingsWorker_EditStack">
 		<order>30</order>
-		<id>AlteredCarbon_ModSettings_StackRewriting</id>
-		<category>AC_StackRewriting</category>
+		<id>AlteredCarbon_ModSettings_StackEditing</id>
+		<category>AC_StackEditing</category>
 		<showTooltipAsTinyText>false</showTooltipAsTinyText>
 	</Operation>
 </Patch>

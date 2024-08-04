@@ -312,8 +312,7 @@ namespace AlteredCarbon
                 PersonaData.OverwritePawn(pawn, def.GetModExtension<StackSavingOptionsModExtension>());
                 if (affectFactionRelationship)
                 {
-                    PersonaData.faction.TryAffectGoodwillWith(affecter.Faction, -70, canSendMessage: true, reason: AC_DefOf.AC_ErasedStackEvent);
-                    
+                    PersonaData.faction.TryAffectGoodwillWith(affecter.Faction, PersonaData.faction.GoodwillToMakeHostile(affecter.Faction), canSendMessage: true, reason: AC_DefOf.AC_ErasedStackEvent);
                 }
                 if (PersonaData.isFactionLeader)
                 {

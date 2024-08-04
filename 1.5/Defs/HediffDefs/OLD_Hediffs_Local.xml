@@ -6,7 +6,7 @@
 		<label>degradation</label>
 		<labelNoun>stack degradation</labelNoun>
 		<hediffClass>AlteredCarbon.Hediff_StackDegradation</hediffClass>
-		<description>Persona stack degradation caused by an unauthorized, aggressive rewrite.</description>
+		<description>Persona stack degradation caused by an unauthorized, aggressive edit.</description>
 		<isBad>false</isBad>
 		<defaultLabelColor>(1, 0, 0)</defaultLabelColor>
 	</HediffDef>

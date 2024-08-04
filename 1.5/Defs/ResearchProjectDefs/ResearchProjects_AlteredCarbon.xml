@@ -32,10 +32,10 @@
 			<li>AdvancedFabrication</li>
 		</prerequisites>
 	</ResearchProjectDef>
-	<!-- ================================ Neural Rewriting ====================== -->
+	<!-- ================================ Neural Editing ====================== -->
 	<ResearchProjectDef ParentName="AC_ResearchBase">
-		<defName>AC_NeuralRewriting</defName>
-		<label>neural rewriting</label>
+		<defName>AC_NeuralEditing</defName>
+		<label>neural editing</label>
 		<description>text.todo.</description>
 		<baseCost>5000</baseCost>
 		<researchViewX>18.00</researchViewX>
