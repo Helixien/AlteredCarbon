@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 	<!-- ================================ Voice Synthesizer ====================== -->
+	<!-- ================================ Voice ThingDef ====================== -->
 	<ThingDef ParentName="BodyPartProstheticBase">
 		<defName>AC_VoiceSynthesizer</defName>
 		<label>voice synthesizer</label>
@@ -16,7 +17,7 @@
 			<ComponentSpacer>3</ComponentSpacer>
 		</costList>
 		<recipeMaker>
-			<researchPrerequisite>Bionics</researchPrerequisite>
+			<researchPrerequisite>AC_VocalSynthesis</researchPrerequisite>
 		</recipeMaker>
 	</ThingDef>
 	<!-- ================================ Voice Synthesizer Hediff ====================== -->
@@ -76,6 +77,7 @@
 		<removesHediff>AC_VoiceSynthesizer</removesHediff>
 	</RecipeDef>
 	<!-- ================================ Mental Fuse ====================== -->
+	<!-- ================================ Mental Fuse - ThingDef ====================== -->
 	<ThingDef ParentName="BodyPartProstheticBase">
 		<defName>AC_MentalFuse</defName>
 		<label>mental fuse</label>
@@ -91,7 +93,7 @@
 			<ComponentSpacer>3</ComponentSpacer>
 		</costList>
 		<recipeMaker>
-			<researchPrerequisite>Bionics</researchPrerequisite>
+			<researchPrerequisite>AC_MentalFortification</researchPrerequisite>
 		</recipeMaker>
 	</ThingDef>
 	<!-- ================================ Mental Fuse Hediff ====================== -->
@@ -154,6 +156,7 @@
 		<removesHediff>AC_MentalFuse</removesHediff>
 	</RecipeDef>
 	<!-- ================================ Dreamcatcher ====================== -->
+	<!-- ================================ Dreamcatcher - ThingDef ====================== -->
 	<ThingDef ParentName="BodyPartProstheticBase">
 		<defName>AC_DreamcatcherImplant</defName>
 		<label>dreamcatcher implant</label>
@@ -169,7 +172,7 @@
 			<ComponentSpacer>3</ComponentSpacer>
 		</costList>
 		<recipeMaker>
-			<researchPrerequisite>Bionics</researchPrerequisite>
+			<researchPrerequisite>AC_REMEnchanment</researchPrerequisite>
 		</recipeMaker>
 	</ThingDef>
 	<!-- ================================ Dreamcatcher Hediff ====================== -->

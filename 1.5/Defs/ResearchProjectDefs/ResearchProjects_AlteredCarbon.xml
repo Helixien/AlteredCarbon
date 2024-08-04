@@ -45,7 +45,7 @@
 		</prerequisites>
 	</ResearchProjectDef>
 	<!-- ================================ Chrysalis Powered Armor ====================== -->
-	<ResearchProjectDef>
+	<ResearchProjectDef ParentName="AC_ResearchBase">
 		<defName>AC_ChrysalisPoweredArmor</defName>
 		<label>chrysalis armor</label>
 		<description>Craft chrysalis armor, specilized for a wide range of different battle field scenarios and needs, while providing the most protection possible. Note that these also require advanced components.</description>
@@ -61,7 +61,7 @@
 			<li>PoweredArmor</li>
 		</prerequisites>
 	</ResearchProjectDef>
-	<ResearchProjectDef>
+	<ResearchProjectDef ParentName="AC_ResearchBase">
 		<!-- ================================ Advanced Shield Belt ====================== -->
 		<defName>AC_AdvancedShieldBelt</defName>
 		<label>advanced shields</label>
@@ -77,5 +77,47 @@
 		<prerequisites>
 			<li>ShieldBelt</li>
 		</prerequisites>
+	</ResearchProjectDef>
+	<!-- ================================ Vocal Synthesis ====================== -->
+	<ResearchProjectDef ParentName="AC_ResearchBase">
+		<defName>AC_VocalSynthesis</defName>
+		<label>vocal synthesis</label>
+		<description>text.todo</description>
+		<prerequisites>
+			<li>Fabrication</li>
+		</prerequisites>
+		<hiddenPrerequisites>
+			<li>Prosthetics</li>
+		</hiddenPrerequisites>
+		<researchViewX>18.00</researchViewX>
+		<researchViewY>5.30</researchViewY>
+	</ResearchProjectDef>
+	<!-- ================================ Mental Fortification ====================== -->
+	<ResearchProjectDef ParentName="AC_ResearchBase">
+		<defName>AC_MentalFortification</defName>
+		<label>mental fortification</label>
+		<description>text.todo</description>
+		<prerequisites>
+			<li>Fabrication</li>
+		</prerequisites>
+		<hiddenPrerequisites>
+			<li>Prosthetics</li>
+		</hiddenPrerequisites>
+		<researchViewX>17.00</researchViewX>
+		<researchViewY>5.70</researchViewY>
+	</ResearchProjectDef>
+	<!-- ================================ REM-sleep Enchanment ====================== -->
+	<ResearchProjectDef ParentName="AC_ResearchBase">
+		<defName>AC_REMEnchanment</defName>
+		<label>REM-sleep enchanment</label>
+		<description>text.todo</description>
+		<prerequisites>
+			<li>Fabrication</li>
+		</prerequisites>
+		<hiddenPrerequisites>
+			<li>Prosthetics</li>
+		</hiddenPrerequisites>
+		<researchViewX>17.00</researchViewX>
+		<researchViewY>4.60</researchViewY>
 	</ResearchProjectDef>
 </Defs>
