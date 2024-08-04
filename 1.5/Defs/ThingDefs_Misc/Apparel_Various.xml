@@ -5,7 +5,7 @@
 		<techLevel>Ultra</techLevel>
 		<recipeMaker>
 			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
-			<researchPrerequisite>AC_ChrysalisPoweredArmor</researchPrerequisite>
+			<researchPrerequisite></researchPrerequisite>
 			<skillRequirements>
 				<Crafting>10</Crafting>
 			</skillRequirements>

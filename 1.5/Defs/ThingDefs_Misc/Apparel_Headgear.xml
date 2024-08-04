@@ -1,45 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-	<!-- ================================ Base ====================== -->
-	<ThingDef Name="AC_HuntersHelmet" ParentName="ApparelBase" Abstract="True">
+	<!-- ================================ Chrysalis Base ====================== -->
+	<ThingDef Name="AC_ApparelArmorHelmetChrysalisBase" ParentName="ApparelBase" Abstract="True">
+		<techLevel>Ultra</techLevel>
+		<recipeMaker>
+			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+			<researchPrerequisite>AC_ChrysalisPoweredArmor</researchPrerequisite>
+			<skillRequirements>
+				<Crafting>10</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>FabricationBench</li>
+			</recipeUsers>
+		</recipeMaker>
 		<graphicData>
+			<texPath>Things/Pawn/Humanlike/Apparel/ChrysalisArmorHelmet/ChrysalisHelmet</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<shaderType>CutoutComplex</shaderType>
+			<drawSize>(0.9, 0.9)</drawSize>
 		</graphicData>
-		<techLevel>Ultra</techLevel>
-		<thingCategories>
-			<li>ArmorHeadgear</li>
-		</thingCategories>
-		<uiIconScale>1.25</uiIconScale>
-		<tradeTags>
-			<li>HiTechArmor</li>
-		</tradeTags>
-		<generateCommonality>0.8</generateCommonality>
-		<equippedStatOffsets>
-			<SlaveSuppressionOffset MayRequire="Ludeon.RimWorld.Ideology">-0.1</SlaveSuppressionOffset>
-		</equippedStatOffsets>
+		<generateCommonality>0.4</generateCommonality>
+		<statBases>
+			<WorkToMake>30250</WorkToMake>
+			<MaxHitPoints>160</MaxHitPoints>
+			<Mass>2</Mass>
+			<Flammability>0.3</Flammability>
+			<ArmorRating_Sharp>1.25</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.5</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.56</ArmorRating_Heat>
+			<Insulation_Cold>36</Insulation_Cold>
+			<Insulation_Heat>12</Insulation_Heat>
+			<EquipDelay>12</EquipDelay>
+			<EquipDelay>5</EquipDelay>
+		</statBases>
+		<costList>
+			<ComponentSpacer>2</ComponentSpacer>
+			<Plasteel>60</Plasteel>
+			<Uranium>5</Uranium>
+		</costList>
 		<apparel>
 			<bodyPartGroups>
 				<li>FullHead</li>
 			</bodyPartGroups>
+			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/ChrysalisArmorHelmet/ChrysalisHelmet</wornGraphicPath>
 			<layers>
 				<li>Overhead</li>
 			</layers>
 			<defaultOutfitTags>
 				<li>Soldier</li>
 			</defaultOutfitTags>
+			<tags>
+				<li>SpacerMilitary</li>
+				<li>UltraMilitary</li>
+			</tags>
 			<useDeflectMetalEffect>true</useDeflectMetalEffect>
-			<useWornGraphicMask>true</useWornGraphicMask>
 		</apparel>
-		<thingSetMakerTags>
-			<li>RewardStandardLowFreq</li>
-		</thingSetMakerTags>
 		<colorGenerator Class="ColorGenerator_Options">
 			<options>
-				<li>
-					<weight>10</weight>
-					<only>(0.9,0.9,0.9,1)</only>
-				</li>
 				<li>
 					<weight>10</weight>
 					<only>(0.33,0.33,0.33,1)</only>
@@ -53,157 +70,110 @@
 					<min>(0.3,0.3,0.3,1)</min>
 					<max>(0.5,0.5,0.5,1)</max>
 				</li>
+				<li>
+					<weight>10.1</weight>
+					<only>(0.9,0.9,0.9,1)</only>
+				</li>
 			</options>
 		</colorGenerator>
 		<comps>
 			<li Class="CompProperties_Biocodable"/>
 		</comps>
+		<thingSetMakerTags>
+			<li>RewardStandardLowFreq</li>
+		</thingSetMakerTags>
 	</ThingDef>
-	<!-- ================================ Overseer Armour - Helmet ====================== -->
-	<ThingDef ParentName="AC_HuntersHelmet">
-		<defName>AC_Apparel_OverseerHelmet</defName>
-		<label>overseer helmet</label>
-		<description>text.todo</description>
-		<graphicData>
-			<texPath>Things/Pawn/Humanlike/Apparel/OverseerArmor/OverseerHelmet</texPath>
-		</graphicData>
+	<!-- ================================ Chrysalis Armour - Helmet ====================== -->
+	<ThingDef ParentName="AC_ApparelArmorHelmetChrysalisBase">
+		<defName>AC_Apparel_ChrysalisHelmet</defName>
+		<label>chrysalis helmet</label>
+		<description>An advanced next-gen helmet, with a solid plasteel-weave shell and complex visual system for near 360 degree view angles and tactical telemetry feed, including aim assist.</description>
 		<statBases>
-			<WorkToMake>1800</WorkToMake>
-			<MaxHitPoints>125</MaxHitPoints>
-			<Mass>1.4</Mass>
-			<Flammability>0.4</Flammability>
-			<ArmorRating_Sharp>0.9</ArmorRating_Sharp>
-			<ArmorRating_Blunt>0.41</ArmorRating_Blunt>
-			<ArmorRating_Heat>0.45</ArmorRating_Heat>
-			<Insulation_Cold>7</Insulation_Cold>
-			<Insulation_Heat>3</Insulation_Heat>
-			<EquipDelay>2.4</EquipDelay>
-			<VEF_RangedCooldownFactor>0.75</VEF_RangedCooldownFactor>
-		</statBases>
-		<recipeMaker>
-			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
-			<researchPrerequisite>AC_AdvancedPoweredArmor</researchPrerequisite>
-			<workSkill>Crafting</workSkill>
-			<skillRequirements>
-				<Crafting>7</Crafting>
-			</skillRequirements>
-			<recipeUsers Inherit="False">
-				<li>FabricationBench</li>
-			</recipeUsers>
-			<displayPriority>104</displayPriority>
-		</recipeMaker>
-		<costList>
-			<ComponentSpacer>2</ComponentSpacer>
-			<Plasteel>20</Plasteel>
-		</costList>
-		<equippedStatOffsets>
-			<AimingDelayFactor>-0.25</AimingDelayFactor>
-			<ShootingAccuracyPawn>8</ShootingAccuracyPawn>
-		</equippedStatOffsets>
-		<apparel>
-			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/OverseerArmor/OverseerHelmet</wornGraphicPath>
-			<tags>
-				<li>SpacerMilitary</li>
-				<li>UltraMilitary</li>
-			</tags>
-		</apparel>
-	</ThingDef>
-	<!-- ================================ Protector Armour - Helmet ====================== -->
-	<ThingDef ParentName="AC_HuntersHelmet">
-		<defName>AC_Apparel_ProtectorHelmet</defName>
-		<label>protector helmet</label>
-		<description>A helmet of protector-issue power armor. Improved protection over standard marine power armor, offered by molecular plasteel integration thoughout the helmet. Complete with tactical telemetry feed and aim assist.</description>
-		<graphicData>
-			<texPath>Things/Pawn/Humanlike/Apparel/ProtectorArmor/ProtectorHelmet</texPath>
-		</graphicData>
-		<statBases>
-			<WorkToMake>20000</WorkToMake>
-			<MaxHitPoints>125</MaxHitPoints>
-			<Mass>1.8</Mass>
-			<Flammability>0.4</Flammability>
-			<ArmorRating_Sharp>1.12</ArmorRating_Sharp>
-			<ArmorRating_Blunt>0.54</ArmorRating_Blunt>
-			<ArmorRating_Heat>0.6</ArmorRating_Heat>
-			<Insulation_Cold>12</Insulation_Cold>
-			<Insulation_Heat>8</Insulation_Heat>
-			<EquipDelay>3</EquipDelay>
 			<VEF_RangedCooldownFactor>0.82</VEF_RangedCooldownFactor>
 		</statBases>
 		<recipeMaker>
-			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
-			<researchPrerequisite>AC_AdvancedPoweredArmor</researchPrerequisite>
-			<workSkill>Crafting</workSkill>
-			<skillRequirements>
-				<Crafting>7</Crafting>
-			</skillRequirements>
-			<recipeUsers Inherit="False">
-				<li>FabricationBench</li>
-			</recipeUsers>
-			<displayPriority>105</displayPriority>
+			<displayPriority>135</displayPriority>
 		</recipeMaker>
 		<costList>
 			<ComponentSpacer>1</ComponentSpacer>
 			<Plasteel>35</Plasteel>
 		</costList>
 		<equippedStatOffsets>
-			<AimingDelayFactor>-0.1</AimingDelayFactor>
+			<AimingDelayFactor>-0.2</AimingDelayFactor>
 			<ShootingAccuracyPawn>5</ShootingAccuracyPawn>
 		</equippedStatOffsets>
-		<apparel>
-			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/ProtectorArmor/ProtectorHelmet</wornGraphicPath>
-			<tags>
-				<li>SpacerMilitary</li>
-				<li>UltraMilitary</li>
-			</tags>
-		</apparel>
 	</ThingDef>
 	<!-- ================================ Fusilier Armour - Helmet ====================== -->
-	<ThingDef ParentName="AC_HuntersHelmet">
+	<ThingDef ParentName="AC_ApparelArmorHelmetChrysalisBase">
 		<defName>AC_Apparel_FusilierHelmet</defName>
 		<label>fusilier helmet</label>
-		<description>A powered armor helmet, built to provide the best protection available for humanity. Every helmet is manufactured at a specialized facility, which effectively prints the entirety as one piece, molecule by molecule. The result is levels of protection unmatched by military hardware, as the production costs are staggering and unsustainable for mass production.\n\nIncludes a package of several multi-spectrum sensors and a classifier AI, allowing the user to see in darkness and smokey conditions as if it were bright and clear conditions. The integrated ballistic rangefinder provides optimal firing solutions, increasing the user’s effective range by 50%.</description>
+		<description>A variant of chrysalis armor helmet with a heavy layer of plasteel-weave plates, next-gen solid ablative coatings and a package of several multi-spectrum sensors, including a classifier AI, allowing the user to see in darkness and smokey conditions. The integrated ballistic rangefinder provides optimal firing solutions, increasing the user’s effective range by 50%.</description>
 		<graphicData>
-			<texPath>Things/Pawn/Humanlike/Apparel/FusilierArmor/FusilierHelmet</texPath>
+			<texPath>Things/Pawn/Humanlike/Apparel/FusilierArmorHelmet/FusilierHelmet</texPath>
 		</graphicData>
 		<statBases>
-			<WorkToMake>28250</WorkToMake>
+			<WorkToMake>32250</WorkToMake>
 			<MaxHitPoints>200</MaxHitPoints>
 			<Mass>3.5</Mass>
-			<Flammability>0.4</Flammability>
-			<ArmorRating_Sharp>1.05</ArmorRating_Sharp>
-			<ArmorRating_Blunt>0.48</ArmorRating_Blunt>
-			<ArmorRating_Heat>0.56</ArmorRating_Heat>
-			<Insulation_Cold>8</Insulation_Cold>
-			<Insulation_Heat>8</Insulation_Heat>
+			<Flammability>0.3</Flammability>
+			<ArmorRating_Sharp>1.3</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.55</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.64</ArmorRating_Heat>
+			<Insulation_Cold>6</Insulation_Cold>
+			<Insulation_Heat>4</Insulation_Heat>
 			<EquipDelay>7</EquipDelay>
 			<VEF_RangedCooldownFactor>0.85</VEF_RangedCooldownFactor>
 		</statBases>
 		<recipeMaker>
-			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
-			<researchPrerequisite>AC_AdvancedPoweredArmor</researchPrerequisite>
-			<workSkill>Crafting</workSkill>
-			<skillRequirements>
-				<Crafting>10</Crafting>
-			</skillRequirements>
-			<recipeUsers Inherit="False">
-				<li>FabricationBench</li>
-			</recipeUsers>
-			<displayPriority>107</displayPriority>
+			<displayPriority>136</displayPriority>
 		</recipeMaker>
 		<costList>
-			<ComponentSpacer>2</ComponentSpacer>
-			<Plasteel>65</Plasteel>
+			<ComponentSpacer>3</ComponentSpacer>
+			<Plasteel>70</Plasteel>
+			<Uranium>10</Uranium>
 		</costList>
 		<apparel>
-			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/FusilierArmor/FusilierHelmet</wornGraphicPath>
-			<tags>
-				<li>SpacerMilitary</li>
-				<li>UltraMilitary</li>
-			</tags>
+			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/FusilierArmorHelmet/FusilierHelmet</wornGraphicPath>
 		</apparel>
 		<equippedStatOffsets>
 			<AimingDelayFactor>-0.5</AimingDelayFactor>
 			<ShootingAccuracyPawn>10</ShootingAccuracyPawn>
 		</equippedStatOffsets>
+	</ThingDef>
+	<!-- ================================ Dragoon Armour - Helmet ====================== -->
+	<ThingDef ParentName="AC_ApparelArmorHelmetChrysalisBase" MayRequire="Ludeon.RimWorld.Royalty">
+		<defName>AC_Apparel_DragoonHelmet</defName>
+		<label>dragoon helmet</label>
+		<description>A variant of chrysalis armor helmet with a simple classifier AI, to analyze terrain composition and guide the user, effectively eliminating terrain movement penalties.</description>
+		<graphicData>
+			<texPath>Things/Pawn/Humanlike/Apparel/DragoonArmorHelmet/DragoonHelmet</texPath>
+		</graphicData>
+		<statBases>
+			<WorkToMake>31250</WorkToMake>
+			<MaxHitPoints>150</MaxHitPoints>
+			<Mass>2.5</Mass>
+			<ArmorRating_Sharp>1.18</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.52</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.62</ArmorRating_Heat>
+			<Insulation_Cold>5</Insulation_Cold>
+			<Insulation_Heat>4</Insulation_Heat>
+			<EquipDelay>7</EquipDelay>
+		</statBases>
+		<recipeMaker>
+			<displayPriority>137</displayPriority>
+		</recipeMaker>
+		<costList>
+			<ComponentSpacer>1</ComponentSpacer>
+			<Plasteel>60</Plasteel>
+			<Uranium>5</Uranium>
+		</costList>
+		<equippedStatOffsets>
+			<MoveSpeed>-0.35</MoveSpeed>
+			<AimingDelayFactor>-0.1</AimingDelayFactor>
+			<ShootingAccuracyPawn>2</ShootingAccuracyPawn>
+		</equippedStatOffsets>
+		<apparel>
+			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/DragoonArmorHelmet/DragoonHelmet</wornGraphicPath>
+		</apparel>
 	</ThingDef>
 </Defs>
