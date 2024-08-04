@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<SoundDef>
+	<SoundDef MayRequire="Ludeon.RimWorld.Royalty">
 		<defName>AC_JumpWingsLand</defName>
 		<context>MapOnly</context>
 		<maxSimultaneous>1</maxSimultaneous>
@@ -16,7 +16,7 @@
 			</li>
 		</subSounds>
 	</SoundDef>
-	<SoundDef>
+	<SoundDef MayRequire="Ludeon.RimWorld.Royalty">
 		<defName>AC_JumpWingsLaunch</defName>
 		<context>MapOnly</context>
 		<maxSimultaneous>1</maxSimultaneous>
