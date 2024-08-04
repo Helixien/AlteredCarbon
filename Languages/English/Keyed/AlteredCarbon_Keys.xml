@@ -36,6 +36,7 @@
 	<AC.PawnAlreadyHasArchotechStack>{PAWN_nameDef} already has an archotech stack installed!</AC.PawnAlreadyHasArchotechStack>
 	<AC.PawnStackCannotDowngrade>{PAWN_nameDef} already has an archotech stack installed!</AC.PawnStackCannotDowngrade>
 	<AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>Cannot install persona stack - neck is missing or another implant installed in the neck.</AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>
+	<AC.EjectAllPersonaStacksDesc>Drop all contained persona stacks onto the ground.</AC.EjectAllPersonaStacksDesc>
 	<!-- ================================ Sleeves ====================== -->
 	<AC.EmptySleeve>Empty sleeve</AC.EmptySleeve>
 	<AC.SleeveDeath>Sleeve Death</AC.SleeveDeath>
@@ -175,13 +176,17 @@
 	<AC.IsEmptySleeve>Is empty sleeve</AC.IsEmptySleeve>
 	<AC.OriginalGender>Original gender</AC.OriginalGender>
 	<AC.ChargeCuirassierBelt>Charge cuirassier belt</AC.ChargeCuirassierBelt>
-	<!-- ================================ Neural editor ====================== -->
+	<!-- ================================ Persona editor ====================== -->
 	<AC.HackStack>Hack stack</AC.HackStack>
 	<AC.HackStackDesc>Convert a stack to the players faction.</AC.HackStackDesc>
 	<AC.ConvertStack>Convert stack ideo</AC.ConvertStack>
 	<AC.ConvertStackDesc>Convert a stack to the players ideology.</AC.ConvertStackDesc>
-	<AC.WipeStack>Reset stack</AC.WipeStack>
+	<AC.WipeStack>Factory reset stack</AC.WipeStack>
 	<AC.WipeStackDesc>Factory reset a filled persona to be used on a new host. This process will deleted the pawn stored on it, effectively killing them.</AC.WipeStackDesc>
+	<AC.NoConnectedMatrix>Cannot use: No Persona Matrix nearby.</AC.NoConnectedMatrix>
+	<AC.WipingFriendlyStackWarning>Warning: The stack you are trying to factory reset does not belong to your faction.
+
+If you erase the content from a non-colonist stack from another faction, their entire faction may become your enemy.</AC.WipingFriendlyStackWarning>
 	<AC.AlreadyOrderedToHackStack>This stack is set for hacking already on the decryption workbench. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToHackStack>
 	<AC.AlreadyOrderedToWipeStack>This stack is set for reseting already on a decryption workbench. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToWipeStack>
 	<AC.AlreadyOrderedToRewriteStack>This stack is set for rewriting already on a decryption workbench. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToRewriteStack>

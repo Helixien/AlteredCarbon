@@ -577,7 +577,7 @@ namespace AlteredCarbon
 
             foreach (var oldGene in oldGenes)
             {
-                if (curSleeve.genes.HasGene(oldGene.def))
+                if (curSleeve.genes.HasActiveGene(oldGene.def))
                 {
                     oldGene.OverrideBy(newGene);
                 }
@@ -748,7 +748,16 @@ namespace AlteredCarbon
         {
             return (ModCompatibility.AlienRacesIsActive
                 ? ModCompatibility.GetPermittedHair(currentPawnKindDef.race)
-                : DefDatabase<HairDef>.AllDefs.ToList()).Where(x => PawnStyleItemChooser.WantsToUseStyle(curSleeve, x)).ToList();
+                : DefDatabase<HairDef>.AllDefs.ToList()).Where(x => 
+                PawnStyleItemChooser.WantsToUseStyle(curSleeve, x) && CanUseHairDef(x)).ToList();
+            bool CanUseHairDef(HairDef hair)
+            {
+                if (ModsConfig.AnomalyActive && hair.requiredMutant == MutantDefOf.Ghoul)
+                {
+                    return false;
+                }
+                return true;
+            }
         }
 
         private static List<HeadTypeDef> invalidHeads = new List<HeadTypeDef>
@@ -792,10 +801,21 @@ namespace AlteredCarbon
                     }
                     foreach (GeneDef requiredGene in head.requiredGenes)
                     {
-                        if (!curSleeve.genes.HasGene(requiredGene))
+                        if (!curSleeve.genes.HasActiveGene(requiredGene))
                         {
                             return false;
                         }
+                    }
+                }
+                if (ModsConfig.AnomalyActive)
+                {
+                    if (MutantDefOf.Ghoul.forcedHeadTypes.Contains(head))
+                    {
+                        return false;
+                    }
+                    if (head == AC_DefOf.CultEscapee)
+                    {
+                        return false;
                     }
                 }
                 return head.gender ==  Gender.None || head.gender == curSleeve.gender;

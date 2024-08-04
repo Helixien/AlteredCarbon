@@ -320,7 +320,7 @@ namespace AlteredCarbon
             }
             Find.WindowStack.Add(new Window_SleeveCustomization(this));
         }
-        public static TargetingParameters ForPawn()
+        public TargetingParameters ForPawnToClone()
         {
             TargetingParameters targetingParameters = new TargetingParameters
             {
@@ -333,16 +333,16 @@ namespace AlteredCarbon
             return targetingParameters;
         }
 
-        private static bool BodyCanBeReused(Pawn pawn)
+        private bool BodyCanBeReused(Pawn pawn)
         {
             return pawn.RaceProps.Humanlike && pawn.DevelopmentalStage == DevelopmentalStage.Adult 
-                && (!ModCompatibility.AlienRacesIsActive  || ModCompatibility.GetPermittedRaces().Contains(pawn.def)) 
-                && pawn.IsAndroid() is false;
+                && (!ModCompatibility.AlienRacesIsActive || ModCompatibility.GetPermittedRaces().Contains(pawn.def)) 
+                && pawn.IsAndroid() is false && pawn.IsMutant is false;
         }
 
         public void CopyPawnBody()
         {
-            Find.Targeter.BeginTargeting(ForPawn(), delegate (LocalTargetInfo x)
+            Find.Targeter.BeginTargeting(ForPawnToClone(), delegate (LocalTargetInfo x)
             {
                 if (x.Thing is Pawn pawn)
                 {
@@ -355,7 +355,7 @@ namespace AlteredCarbon
             });
         }
 
-        public static TargetingParameters ForCorpse()
+        public TargetingParameters ForCorpseToRepurpose()
         {
             TargetingParameters targetingParameters = new TargetingParameters
             {
@@ -369,7 +369,7 @@ namespace AlteredCarbon
 
         public void RepurposeCorpse()
         {
-            Find.Targeter.BeginTargeting(ForCorpse(), delegate (LocalTargetInfo x)
+            Find.Targeter.BeginTargeting(ForCorpseToRepurpose(), delegate (LocalTargetInfo x)
             {
                 var corpse = x.Thing as Corpse;
                 if (corpse.InnerPawn.HasPersonaStack())
@@ -379,7 +379,7 @@ namespace AlteredCarbon
                 else if (corpse.InnerPawn.health.hediffSet.HasHead is false)
                 {
                     Messages.Message("AC.CannotRepurposeCorspeWithoutHead".Translate(), MessageTypeDefOf.CautionInput);
-                } 
+                }
                 else 
                 {
                     Reset();

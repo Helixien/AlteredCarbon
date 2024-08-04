@@ -241,6 +241,10 @@
 				</linkableFacilities>
 			</li>
 			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_ThingContainer">
+				<compClass>AlteredCarbon.CompPersonaCache</compClass>
+				<stackLimit>10</stackLimit>
+			</li>
 		</comps>
 	</ThingDef>
 	<!-- ================================ Persona Interfacer ====================== -->

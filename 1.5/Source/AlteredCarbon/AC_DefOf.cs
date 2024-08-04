@@ -98,7 +98,7 @@ namespace AlteredCarbon
         public static ThingDef AC_PersonaMatrix;
         public static JobDef AC_DuplicateStack;
         public static JobDef AC_CreateStackFromPersonaPrint;
-        public static JobDef AC_HaulPersonaPrintsToPersonaMatrix;
+        public static JobDef AC_HaulThingsToContainer;
         public static ResearchProjectDef Xenogermination;
         public static JobDef AC_HaulCorpseToGestation;
         public static JobDef AC_CancelRepurposingBody;
@@ -109,7 +109,7 @@ namespace AlteredCarbon
         [MayRequireIdeology] public static PreceptDef AC_Sleeving_Despised;
         [MayRequireIdeology] public static PreceptDef AC_CrossSleeving_DontCare;
         [MayRequireIdeology] public static PreceptDef AC_CrossSleeving_Despised;
-        [MayRequireIdeology] public static HistoryEventDef AC_RewroteStack;
+        public static HistoryEventDef AC_RewroteStack;
 
         public static RecipeDef AC_HackBiocodedThings;
         public static ThingDef AC_Apparel_DragoonHelmet;
@@ -117,5 +117,8 @@ namespace AlteredCarbon
         public static JobDef AC_ChargeCuirassierBelt;
         public static ThingDef AC_CuirassierBelt;
         public static ThingDef AC_PersonaPrint;
+        [MayRequireAnomaly] public static HeadTypeDef CultEscapee;
+        public static HistoryEventDef AC_ErasedStack;
+        public static ThingDef AC_PersonaCache;
     }
 }

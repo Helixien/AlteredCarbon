@@ -10,4 +10,9 @@
 		<defName>AC_RewroteStack</defName>
 		<label>rewrote stack of faction member</label>
 	</HistoryEventDef>
+	<!-- ================================ Erased Stack ====================== -->
+	<HistoryEventDef>
+		<defName>AC_ErasedStack</defName>
+		<label>erased stack of faction member</label>
+	</HistoryEventDef>
 </Defs>

@@ -29,7 +29,7 @@ namespace AlteredCarbon
         public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
         {
             var personaMatrix = GenClosest.ClosestThing_Global_Reachable(pawn.Position, pawn.Map, GetPersonaMatrices(pawn, t), PathEndMode.Touch, TraverseParms.For(pawn));
-            var job = JobMaker.MakeJob(AC_DefOf.AC_HaulPersonaPrintsToPersonaMatrix, t, personaMatrix);
+            var job = JobMaker.MakeJob(AC_DefOf.AC_HaulThingsToContainer, t, personaMatrix);
             job.count = 1;
             return job;
         }

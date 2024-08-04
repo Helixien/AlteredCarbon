@@ -25,7 +25,7 @@ namespace AlteredCarbon
             {2,  SkillUI.PassionMajorIcon }
         };
 
-        private Building_PersonaEditor decryptionBench;
+        private Building_PersonaEditor personaEditor;
         private PersonaStack personaStack;
         private PersonaData personaData;
         private PersonaData personaDataCopy;
@@ -66,9 +66,9 @@ namespace AlteredCarbon
         private float LeftPanelWidth => 450;
         public override Vector2 InitialSize => new Vector2(900, Mathf.Min(UI.screenHeight, 975));
         public bool stackRecruitable;
-        public Window_StackEditor(Building_PersonaEditor decryptionBench, PersonaStack personaStack)
+        public Window_StackEditor(Building_PersonaEditor personaEditor, PersonaStack personaStack)
         {
-            this.decryptionBench = decryptionBench;
+            this.personaEditor = personaEditor;
             this.personaStack = personaStack;
             personaData = new PersonaData();
             personaData.CopyDataFrom(personaStack.PersonaData);
@@ -707,7 +707,7 @@ namespace AlteredCarbon
                     personaData.stackDegradationToAdd = GetDegradation();
                 }
                 personaStack.personaDataRewritten = personaData;
-                decryptionBench.billStack.AddBill(new Bill_RewriteStack(personaStack, AC_DefOf.AC_RewriteFilledPersonaStack, null));
+                personaEditor.billStack.AddBill(new Bill_RewriteStack(personaStack, AC_DefOf.AC_RewriteFilledPersonaStack, null));
                 this.Close();
             }
         }

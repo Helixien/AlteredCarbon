@@ -26,6 +26,19 @@
 			<li>Manipulation</li>
 		</requiredCapacities>
 	</WorkGiverDef>
+	<!-- ================================ Banking persona stacks ====================== -->
+	<WorkGiverDef>
+		<defName>AC_HaulPersonaStacksToStorage</defName>
+		<label>haul persona stacks</label>
+		<giverClass>AlteredCarbon.WorkGiver_HaulPersonaStacks</giverClass>
+		<workType>Hauling</workType>
+		<verb>bank</verb>
+		<gerund>banking</gerund>
+		<priorityInType>1000</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
 	<!-- ================================ Create stack from persona print ====================== -->
 	<WorkGiverDef>
 		<defName>AC_CreateStackFromPersonaPrint</defName>

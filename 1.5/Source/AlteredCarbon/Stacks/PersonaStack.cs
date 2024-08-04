@@ -8,6 +8,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
+
     [HotSwappable]
     public class PersonaStack : ThingWithStack
     {
@@ -311,8 +312,7 @@ namespace AlteredCarbon
                 PersonaData.OverwritePawn(pawn, def.GetModExtension<StackSavingOptionsModExtension>());
                 if (affectFactionRelationship)
                 {
-                    PersonaData.faction.TryAffectGoodwillWith(affecter.Faction, -70, canSendMessage: true);
-                    QuestUtility.SendQuestTargetSignals(pawn.questTags, "SurgeryViolation", pawn.Named("SUBJECT"));
+                    PersonaData.faction.TryAffectGoodwillWith(affecter.Faction, -70, canSendMessage: true, reason: AC_DefOf.AC_ErasedStack);
                 }
                 if (PersonaData.isFactionLeader)
                 {

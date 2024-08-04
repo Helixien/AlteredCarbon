@@ -5,7 +5,7 @@ using Verse.AI;
 
 namespace AlteredCarbon
 {
-    public class JobDriver_HaulPersonaPrintsToPersonaMatrix : JobDriver_HaulToContainer
+    public class JobDriver_HaulThingsToContainer : JobDriver_HaulToContainer
     {
         public override IEnumerable<Toil> MakeNewToils()
         {
@@ -46,23 +46,27 @@ namespace AlteredCarbon
                 toil.PlaySustainerOrSound(workSustainer);
             }
             Thing destThing = job.GetTarget(TargetIndex.B).Thing;
-            toil.tickAction = delegate
-            {
-                if (pawn.IsHashIntervalTick(80) && destThing is Building_Grave && graveDigEffect == null)
-                {
-                    graveDigEffect = EffecterDefOf.BuryPawn.Spawn();
-                    graveDigEffect.Trigger(destThing, destThing);
-                }
-                graveDigEffect?.EffectTick(destThing, destThing);
-            };
             ModifyPrepareToil(toil);
             yield return toil;
             yield return Toils_Construct.MakeSolidThingFromBlueprintIfNecessary(TargetIndex.B, TargetIndex.C);
             yield return Toils_Haul.DepositHauledThingInContainer(TargetIndex.B, TargetIndex.C, delegate
             {
-                var containerComp = Container as Building_PersonaMatrix;
-                MoteMaker.ThrowText(Container.DrawPos, pawn.Map, "InsertedThing".Translate($"{containerComp.innerContainer.Count} / " +
-                    $"{Building_PersonaMatrix.MaxFilledStackCapacity}"));
+                var matrix = Container as Building_PersonaMatrix;
+                if (matrix != null)
+                {
+                    MoteMaker.ThrowText(Container.DrawPos, pawn.Map, "InsertedThing".Translate($"{matrix.innerContainer.Count} / " +
+                        $"{Building_PersonaMatrix.MaxFilledStackCapacity}"));
+                }
+                else
+                {
+                    var comp = Container.TryGetComp<CompThingContainer>();
+                    if (comp != null)
+                    {
+                        MoteMaker.ThrowText(Container.DrawPos, pawn.Map, "InsertedThing".Translate($"{comp.innerContainer.Count} / " +
+                            $"{comp.Props.stackLimit}"));
+                    }
+                }
+
             });
             yield return Toils_Haul.JumpToCarryToNextContainerIfPossible(carryToContainer, TargetIndex.C);
         }

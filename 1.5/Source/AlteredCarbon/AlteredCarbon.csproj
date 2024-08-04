@@ -126,7 +126,7 @@
     <Compile Include="Jobs\JobDriver_ChargeCuirassierBelt.cs" />
     <Compile Include="Jobs\JobDriver_CreateStackFromPersonaPrint.cs" />
     <Compile Include="Jobs\JobDriver_HaulCorpseToGestation.cs" />
-    <Compile Include="Jobs\JobDriver_HaulPersonaPrintsToPersonaMatrix.cs" />
+    <Compile Include="Jobs\JobDriver_HaulThingsToContainer.cs" />
     <Compile Include="Jobs\JobDriver_TakeEmptySleeve.cs" />
     <Compile Include="HarmonyPatches\PawnRenderer_LayingFacing_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnUtility_ShouldSendNotificationAbout_Patch.cs" />
@@ -136,6 +136,7 @@
     <Compile Include="HarmonyPatches\PawnRenderer_EquipmentRender_Patch.cs" />
     <Compile Include="Jobs\WorkGiver_CreateStackFromPersonaPrint.cs" />
     <Compile Include="Jobs\WorkGiver_HaulCorpseToSleeveGrower.cs" />
+    <Compile Include="Jobs\WorkGiver_HaulPersonaStacks.cs" />
     <Compile Include="Jobs\WorkGiver_HaulPersonaPrints.cs" />
     <Compile Include="Recipes\Bill_RewriteStack.cs" />
     <Compile Include="HarmonyPatches\JobDriver_DoBill_MakeNewToils_Patch.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Recipes\Recipe_OperateOnPersonaStack.cs" />
     <Compile Include="Recipes\Recipe_RemoveParroterStack.cs" />
     <Compile Include="SleevePreset.cs" />
+    <Compile Include="Stacks\CompPersonaCache.cs" />
     <Compile Include="Stacks\Hediff_ParroterStack.cs" />
     <Compile Include="Stacks\PersonaPrint.cs" />
     <Compile Include="Stacks\RJWData.cs" />

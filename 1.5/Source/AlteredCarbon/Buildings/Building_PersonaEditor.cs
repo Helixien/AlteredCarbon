@@ -81,7 +81,8 @@ namespace AlteredCarbon
             {
                 yield return g;
             }
-            var wipeStacks = new Command_ActionOnStack(this, ForFilledStack(includeArchotechStack: false), InstallWipeStackBill)
+            var wipeStacks = new Command_ActionOnStack(this, ForFilledStack(includeArchotechStack: false), 
+                InstallWipeStackBill)
             {
                 defaultLabel = "AC.WipeStack".Translate(),
                 defaultDesc = "AC.WipeStackDesc".Translate(),
@@ -95,6 +96,11 @@ namespace AlteredCarbon
             if (powerComp.PowerOn is false)
             {
                 wipeStacks.Disable("NoPower".Translate().CapitalizeFirst());
+            }
+            wipeStacks.LockBehindReseach(new List<ResearchProjectDef> { AC_DefOf.AC_NeuralRewriting });
+            if (ConnectedMatrix is null)
+            {
+                wipeStacks.Disable("AC.NoConnectedMatrix".Translate());
             }
             yield return wipeStacks;
             var wipeStacksBills = this.billStack.Bills.Where(x => x.recipe == AC_DefOf.AC_WipeFilledPersonaStack).ToList();
@@ -341,7 +347,18 @@ namespace AlteredCarbon
         {
             if (x.Thing is PersonaStack personaStack && CanAddOperationOn(personaStack))
             {
-                billStack.AddBill(new Bill_OperateOnStack(personaStack, AC_DefOf.AC_WipeFilledPersonaStack, null));
+                if (personaStack.Faction != null && personaStack.Faction.HostileTo(Faction.OfPlayer) is false)
+                {
+                    Find.WindowStack.Add(new Dialog_MessageBox("AC.WipingFriendlyStackWarning".Translate(), "Cancel".Translate(), null,
+                    "Confirm".Translate(), delegate ()
+                    {
+                        billStack.AddBill(new Bill_OperateOnStack(personaStack, AC_DefOf.AC_WipeFilledPersonaStack, null));
+                    }, null, false, null, null));
+                }
+                else
+                {
+                    billStack.AddBill(new Bill_OperateOnStack(personaStack, AC_DefOf.AC_WipeFilledPersonaStack, null));
+                }
             }
         }
 

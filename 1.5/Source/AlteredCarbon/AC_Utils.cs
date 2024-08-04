@@ -354,7 +354,7 @@ namespace AlteredCarbon
             }
             if (ModCompatibility.IsAndroid(pawn))
             {
-                if (pawn.genes.HasGene(AC_DefOf.AC_PersonaModule))
+                if (pawn.genes.HasActiveGene(AC_DefOf.AC_PersonaModule))
                 {
                     return true;
                 }
