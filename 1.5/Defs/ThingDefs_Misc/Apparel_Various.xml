@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<!-- ================================ Base ====================== -->
-	<ThingDef Name="AC_ApparelArmorUltraBase" ParentName="ArmorMachineableBase" Abstract="True">
+	<!-- ================================ Chrysalis Base ====================== -->
+	<ThingDef Name="AC_ApparelArmorChrysalisBase" ParentName="ArmorMachineableBase" Abstract="True">
 		<techLevel>Ultra</techLevel>
 		<recipeMaker>
 			<unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
-			<researchPrerequisite>PoweredArmor</researchPrerequisite>
+			<researchPrerequisite>AC_ChrysalisPoweredArmor</researchPrerequisite>
 			<skillRequirements>
 				<Crafting>10</Crafting>
 			</skillRequirements>
@@ -14,25 +14,40 @@
 			</recipeUsers>
 		</recipeMaker>
 		<graphicData>
-			<texPath>Things/Pawn/Humanlike/Apparel/PowerArmor/PowerArmor</texPath>
+			<texPath>Things/Pawn/Humanlike/Apparel/ChrysalisArmor/ChrysalisArmor</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
-		<generateCommonality>0.5</generateCommonality>
+		<generateCommonality>0.4</generateCommonality>
 		<statBases>
-			<Flammability>0.2</Flammability>
+			<WorkToMake>80000</WorkToMake>
+			<MaxHitPoints>360</MaxHitPoints>
+			<Mass>12</Mass>
+			<Flammability>0.3</Flammability>
+			<ArmorRating_Sharp>1.25</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.5</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.56</ArmorRating_Heat>
+			<Insulation_Cold>36</Insulation_Cold>
+			<Insulation_Heat>12</Insulation_Heat>
+			<EquipDelay>12</EquipDelay>
 		</statBases>
 		<equippedStatOffsets>
 			<MoveSpeed>-0.4</MoveSpeed>
-			<SlaveSuppressionOffset MayRequire="Ludeon.RimWorld.Ideology">-0.5</SlaveSuppressionOffset>
+			<SlaveSuppressionOffset MayRequire="Ludeon.RimWorld.Ideology">-0.4</SlaveSuppressionOffset>
 		</equippedStatOffsets>
 		<thingCategories>
 			<li>ApparelArmor</li>
 		</thingCategories>
 		<tradeTags>
+			<li>ChrysalisArmor</li>
 			<li>UltraTechArmor</li>
 			<li>HiTechArmor</li>
 			<li>Armor</li>
 		</tradeTags>
+		<costList>
+			<ComponentSpacer>5</ComponentSpacer>
+			<Plasteel>125</Plasteel>
+			<Uranium>35</Uranium>
+		</costList>
 		<apparel>
 			<bodyPartGroups>
 				<li>Torso</li>
@@ -41,6 +56,7 @@
 				<li>Arms</li>
 				<li>Legs</li>
 			</bodyPartGroups>
+			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/ChrysalisArmor/ChrysalisArmor</wornGraphicPath>
 			<layers>
 				<li>Middle</li>
 				<li>Shell</li>
@@ -48,6 +64,10 @@
 			<defaultOutfitTags>
 				<li>Soldier</li>
 			</defaultOutfitTags>
+			<tags>
+				<li>SpacerMilitary</li>
+				<li>UltraMilitary</li>
+			</tags>
 			<useDeflectMetalEffect>true</useDeflectMetalEffect>
 			<soundWear>Wear_PowerArmor</soundWear>
 			<soundRemove>Remove_PowerArmor</soundRemove>
@@ -74,109 +94,122 @@
 			</options>
 		</colorGenerator>
 		<comps>
+			<li Class="VFECore.CompProperties_ApparelHediffs">
+				<hediffDefnames>
+					<li>AC_PainProtection</li>
+				</hediffDefnames>
+			</li>
 			<li Class="CompProperties_Biocodable"/>
 		</comps>
 		<thingSetMakerTags>
 			<li>RewardStandardLowFreq</li>
 		</thingSetMakerTags>
 	</ThingDef>
-	<!-- ================================ Protector Armour ====================== -->
-	<ThingDef ParentName="AC_ApparelArmorUltraBase">
-		<defName>AC_Apparel_ProtectorArmor</defName>
-		<label>protector armor</label>
-		<description>A suit of protector-issue power armor. Improved protection over standard recon power armor, offered by molecular plasteel integration thoughout the suit as well as on-board processors to assist movement and dampen pain receptors.</description>
-		<graphicData>
-			<texPath>Things/Pawn/Humanlike/Apparel/ProtectorArmor/ProtectorArmor</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-		</graphicData>
-		<generateCommonality>0.8</generateCommonality>
-		<statBases>
-			<WorkToMake>48000</WorkToMake>
-			<MaxHitPoints>300</MaxHitPoints>
-			<Mass>10</Mass>
-			<ArmorRating_Sharp>1.02</ArmorRating_Sharp>
-			<ArmorRating_Blunt>0.5</ArmorRating_Blunt>
-			<ArmorRating_Heat>0.56</ArmorRating_Heat>
-			<Insulation_Cold>34</Insulation_Cold>
-			<Insulation_Heat>12</Insulation_Heat>
-			<EquipDelay>11</EquipDelay>
-		</statBases>
+	<!-- ================================ Chrysalis Armour ====================== -->
+	<ThingDef ParentName="AC_ApparelArmorChrysalisBase">
+		<defName>AC_Apparel_ChrysalisArmor</defName>
+		<label>chrysalis armor</label>
+		<description>A suit of advanced chrysalis power armor. Improved protection over standard power armor, offered by molecular plasteel integration thoughout the suit as well as on-board processors to assist movement and dampen pain receptors.</description>
 		<recipeMaker>
-			<displayPriority>105</displayPriority>
+			<displayPriority>135</displayPriority>
 		</recipeMaker>
-		<costList>
-			<ComponentSpacer>3</ComponentSpacer>
-			<Plasteel>115</Plasteel>
-			<Uranium>16</Uranium>
-		</costList>
-		<equippedStatOffsets>
-			<MoveSpeed>-0.35</MoveSpeed>
-		</equippedStatOffsets>
-		<apparel>
-			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/ProtectorArmor/ProtectorArmor</wornGraphicPath>
-			<tags>
-				<li>SpacerMilitary</li>
-				<li>UltraMilitary</li>
-			</tags>
-		</apparel>
-		<comps>
-			<li Class="VFECore.CompProperties_ApparelHediffs">
-				<hediffDefnames>
-					<li>AC_PainProtection</li>
-				</hediffDefnames>
-			</li>
-		</comps>
 	</ThingDef>
 	<!-- ================================ Fusilier Armour ====================== -->
-	<ThingDef ParentName="AC_ApparelArmorUltraBase">
+	<ThingDef ParentName="AC_ApparelArmorChrysalisBase">
 		<defName>AC_Apparel_FusilierArmor</defName>
 		<label>fusilier armor</label>
-		<description>A suit of powered armor, built to provide the best protection available for humanity. Every suit is manufactured at a specialized facility, which effectively prints the entirety as one piece, molecule by molecule. The result is levels of protection unmatched by military hardware, as the production costs are staggering and unsustainable for mass production.\n\nIncludes a package of pain inhibitors to ensure the user can fulfill their objective until their dying breath. The intent of the armor is to ensure their benefactor’s survival, as opposed to the user.\n\nThis model includes a powerful smokepop dispenser to obfuscate the user’s location. Primarily used by infiltration and ambush units, the extra bulk from smokepop synthesizers provides minimal protective improvements.</description>
+		<description>A variant of chrysalis armor with a heavy layer of plasteel-weave plates, next-gen solid ablative coatings and integrated smokepop synthesizers to obfuscate the wearer’s location. \n\nIncludes a package of pain inhibitors to ensure the wearer can fulfill their objective until their dying breath.</description>
 		<graphicData>
 			<texPath>Things/Pawn/Humanlike/Apparel/FusilierArmor/FusilierArmor</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<statBases>
-			<WorkToMake>80000</WorkToMake>
-			<MaxHitPoints>420</MaxHitPoints>
-			<Mass>18</Mass>
-			<ArmorRating_Sharp>1.25</ArmorRating_Sharp>
-			<ArmorRating_Blunt>0.55</ArmorRating_Blunt>
-			<ArmorRating_Heat>0.65</ArmorRating_Heat>
+			<WorkToMake>95000</WorkToMake>
+			<MaxHitPoints>450</MaxHitPoints>
+			<Mass>14</Mass>
+			<ArmorRating_Sharp>1.35</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.6</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.7</ArmorRating_Heat>
 			<Insulation_Cold>42</Insulation_Cold>
-			<Insulation_Heat>26</Insulation_Heat>
-			<EquipDelay>19</EquipDelay>
+			<Insulation_Heat>28</Insulation_Heat>
+			<EquipDelay>20</EquipDelay>
 		</statBases>
 		<recipeMaker>
-			<researchPrerequisite>AC_AdvancedPoweredArmor</researchPrerequisite>
-			<displayPriority>107</displayPriority>
+			<displayPriority>136</displayPriority>
 		</recipeMaker>
 		<costList>
 			<ComponentSpacer>8</ComponentSpacer>
-			<Plasteel>160</Plasteel>
-			<Uranium>70</Uranium>
+			<Plasteel>175</Plasteel>
+			<Uranium>60</Uranium>
 		</costList>
 		<equippedStatOffsets>
-			<MoveSpeed>-0.85</MoveSpeed>
+			<MoveSpeed>-0.9</MoveSpeed>
 		</equippedStatOffsets>
 		<apparel>
 			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/FusilierArmor/FusilierArmor</wornGraphicPath>
-			<tags>
-				<li>SpacerMilitary</li>
-				<li>UltraMilitary</li>
-			</tags>
 		</apparel>
 		<comps>
-			<li Class="VFECore.CompProperties_ApparelHediffs">
-				<hediffDefnames>
-					<li>AC_PainProtection</li>
-				</hediffDefnames>
-			</li>
 			<li Class="VFECore.Abilities.CompProperties_AbilitiesApparel">
 				<abilities>
 					<li>AC_FusilierSmokepop</li>
 				</abilities>
 			</li>
 		</comps>
+	</ThingDef>
+	<!-- ================================ Dragoon Armour ====================== -->
+	<ThingDef ParentName="AC_ApparelArmorChrysalisBase" MayRequire="Ludeon.RimWorld.Royalty">
+		<defName>AC_Apparel_DragoonArmor</defName>
+		<label>dragoon armor</label>
+		<description>A variant of chrysalis armor with automatically recharging kinetic assistors and stability modules that allow the user to leap an impressive distance. Dragoon armor is less protective than standard chrysalis armor, but next-gen neuro-memetic assistors allow for improved mobility and easy flanking of hostile forces on the battlefield. \n\nIncludes a package of pain inhibitors to ensure the wearer can fulfill their objective until their dying breath.</description>
+		<graphicData>
+			<texPath>Things/Pawn/Humanlike/Apparel/DragoonArmor/DragoonArmor</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<WorkToMake>85000</WorkToMake>
+			<MaxHitPoints>320</MaxHitPoints>
+			<Mass>18</Mass>
+			<ArmorRating_Sharp>1.1</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.4</ArmorRating_Blunt>
+			<ArmorRating_Heat>0.5</ArmorRating_Heat>
+			<Insulation_Cold>36</Insulation_Cold>
+			<Insulation_Heat>12</Insulation_Heat>
+			<EquipDelay>14</EquipDelay>
+			<JumpRange>23.9</JumpRange>
+		</statBases>
+		<recipeMaker>
+			<displayPriority>137</displayPriority>
+		</recipeMaker>
+		<costList>
+			<ComponentSpacer>6</ComponentSpacer>
+			<Plasteel>160</Plasteel>
+			<Uranium>50</Uranium>
+		</costList>
+		<equippedStatOffsets>
+			<MoveSpeed>-0.2</MoveSpeed>
+		</equippedStatOffsets>
+		<apparel>
+			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/DragoonArmor/DragoonArmor</wornGraphicPath>
+		</apparel>
+		<verbs>
+			<li>
+				<verbClass>Verb_Jump</verbClass>
+				<label>jump</label>
+				<commandIcon>UI/Gizmos/Ability_DragoonJump</commandIcon>
+				<violent>false</violent>
+				<hasStandardCommand>true</hasStandardCommand>
+				<onlyManualCast>True</onlyManualCast>
+				<forceNormalTimeSpeed>false</forceNormalTimeSpeed>
+				<warmupTime>0.4</warmupTime>
+				<warmupEffecter>JumpWarmupEffect</warmupEffecter>
+				<flightEffecterDef>JumpFlightEffect</flightEffecterDef>
+				<requireLineOfSight>true</requireLineOfSight>
+				<targetParams>
+					<canTargetLocations>true</canTargetLocations>
+					<canTargetPawns>false</canTargetPawns>
+					<canTargetBuildings>false</canTargetBuildings>
+				</targetParams>
+			</li>
+		</verbs>
 	</ThingDef>
 </Defs>

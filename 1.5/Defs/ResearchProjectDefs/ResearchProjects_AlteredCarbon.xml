@@ -44,19 +44,19 @@
 			<li>AC_NeuralDigitalization</li>
 		</prerequisites>
 	</ResearchProjectDef>
-	<!-- ================================ Advanced Powered Armor ====================== -->
+	<!-- ================================ Chrysalis Powered Armor ====================== -->
 	<ResearchProjectDef>
-		<defName>AC_AdvancedPoweredArmor</defName>
-		<label>advanced armor</label>
-		<description>Build advanced powered armor, designed to  provide the best protection available for humanity. Note that these also require advanced components.</description>
+		<defName>AC_ChrysalisPoweredArmor</defName>
+		<label>chrysalis armor</label>
+		<description>Craft chrysalis armor, specilized for a wide range of different battle field scenarios and needs, while providing the most protection possible. Note that these also require advanced components.</description>
 		<baseCost>8500</baseCost>
 		<techLevel>Ultra</techLevel>
 		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
 		<requiredResearchFacilities>
 			<li>MultiAnalyzer</li>
 		</requiredResearchFacilities>
-		<researchViewX>16.00</researchViewX>
-		<researchViewY>0.00</researchViewY>
+		<researchViewX>17.00</researchViewX>
+		<researchViewY>2.10</researchViewY>
 		<prerequisites>
 			<li>PoweredArmor</li>
 		</prerequisites>
