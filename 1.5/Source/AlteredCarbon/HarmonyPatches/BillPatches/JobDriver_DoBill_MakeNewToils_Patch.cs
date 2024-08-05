@@ -14,7 +14,7 @@ namespace AlteredCarbon
     {
         public static IEnumerable<Toil> Postfix(IEnumerable<Toil> __result, JobDriver_DoBill __instance)
         {
-            if (__instance.job.bill.recipe.Worker is Recipe_OperateOnPersonaStack)
+            if (__instance.job.bill.recipe.Worker is Recipe_OperateOnPersonaStack or Recipe_OperateOnPersonaPrint)
             {
                 var job = __instance.job;
                 var pawn = __instance.pawn;
@@ -69,7 +69,9 @@ namespace AlteredCarbon
             var decideShouldCarryItem = Toils_General.Do(delegate
             {
                 if (jobdriver.job.bill.recipe.Worker is Recipe_EditFilledPersonaStack
-                    or Recipe_DuplicatePersonaStack && jobdriver.job.targetB.Thing.def == AC_DefOf.AC_PersonaCache)
+                    or Recipe_DuplicatePersonaStack && jobdriver.job.targetB.Thing.def == AC_DefOf.AC_PersonaCache
+                    || jobdriver.job.bill.recipe.Worker is Recipe_RestoreStackFromPersonaPrint
+                    && jobdriver.job.targetB.Thing.def == AC_DefOf.AC_PersonaMatrix)
                 {
                     Pawn actor = jobdriver.pawn;
                     Job curJob = actor.jobs.curJob;
@@ -92,8 +94,14 @@ namespace AlteredCarbon
                     var target = targetQueue[0].Thing;
                     if (target.Spawned is false)
                     {
-                        var comp = target.ParentHolder as CompPersonaCache;
-                        jobdriver.job.SetTarget(ingredientInd, comp.parent);
+                        if (target.ParentHolder is CompPersonaCache comp)
+                        {
+                            jobdriver.job.SetTarget(ingredientInd, comp.parent);
+                        }
+                        else if (target.ParentHolder is Building_PersonaMatrix matrix)
+                        {
+                            jobdriver.job.SetTarget(ingredientInd, matrix);
+                        }
                         jobdriver.JumpToToil(decideShouldCarryItem);
                     }
                 }
@@ -109,8 +117,14 @@ namespace AlteredCarbon
                     target = targetQueue[0].Thing;
                     if (target.Spawned is false)
                     {
-                        var comp = target.ParentHolder as CompPersonaCache;
-                        comp.innerContainer.TryDrop(target, ThingPlaceMode.Near, out var targetThing);
+                        if (target.ParentHolder is CompPersonaCache comp)
+                        {
+                            comp.innerContainer.TryDrop(target, ThingPlaceMode.Near, out var targetThing);
+                        }
+                        else if (target.ParentHolder is Building_PersonaMatrix matrix)
+                        {
+                            matrix.innerContainer.TryDrop(target, ThingPlaceMode.Near, out var targetThing);
+                        }
                         jobdriver.JumpToToil(extractTarget);
                     }
                 }

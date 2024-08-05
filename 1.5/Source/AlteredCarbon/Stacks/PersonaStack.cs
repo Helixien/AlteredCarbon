@@ -10,7 +10,7 @@ namespace AlteredCarbon
 {
 
     [HotSwappable]
-    public class PersonaStack : ThingWithStack
+    public class PersonaStack : ThingWithPersonaData
     {
         public PersonaData personaDataRewritten;
 

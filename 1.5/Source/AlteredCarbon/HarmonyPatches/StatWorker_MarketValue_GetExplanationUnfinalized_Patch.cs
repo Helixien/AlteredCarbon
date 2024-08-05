@@ -12,7 +12,7 @@ namespace AlteredCarbon
     {
         public static bool Prefix(StatWorker_MarketValue __instance, ref string __result, StatRequest req, ToStringNumberSense numberSense)
         {
-            if (req.Thing is ThingWithStack thingWithStack)
+            if (req.Thing is ThingWithPersonaData thingWithStack)
             {
                 Pawn pawn = thingWithStack.PersonaData.GetDummyPawn;
                 StringBuilder stringBuilder = new StringBuilder();

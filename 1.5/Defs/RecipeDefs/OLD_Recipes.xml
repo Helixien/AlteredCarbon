@@ -134,11 +134,6 @@
 					<thingDefs>
 						<li>AC_FilledPersonaStack</li>
 					</thingDefs>
-					<specialFiltersToAllow>
-						<li>AC_AllowStacksColonist</li>
-						<li>AC_AllowStacksStranger</li>
-						<li>AC_AllowStacksHostile</li>
-					</specialFiltersToAllow>
 				</filter>
 				<count>1</count>
 			</li>
@@ -147,21 +142,11 @@
 			<thingDefs>
 				<li>AC_FilledPersonaStack</li>
 			</thingDefs>
-			<specialFiltersToAllow>
-				<li>AC_AllowStacksColonist</li>
-				<li>AC_AllowStacksStranger</li>
-				<li>AC_AllowStacksHostile</li>
-			</specialFiltersToAllow>
 		</fixedIngredientFilter>
 		<defaultIngredientFilter>
 			<thingDefs>
 				<li>AC_FilledPersonaStack</li>
 			</thingDefs>
-			<specialFiltersToAllow>
-				<li>AC_AllowStacksColonist</li>
-				<li>AC_AllowStacksStranger</li>
-				<li>AC_AllowStacksHostile</li>
-			</specialFiltersToAllow>
 		</defaultIngredientFilter>
 		<skillRequirements>
 			<Intellectual>10</Intellectual>
@@ -219,11 +204,6 @@
 					<thingDefs>
 						<li>AC_FilledPersonaStack</li>
 					</thingDefs>
-					<specialFiltersToAllow>
-						<li>AC_AllowStacksColonist</li>
-						<li>AC_AllowStacksStranger</li>
-						<li>AC_AllowStacksHostile</li>
-					</specialFiltersToAllow>
 				</filter>
 				<count>1</count>
 			</li>
@@ -232,21 +212,11 @@
 			<thingDefs>
 				<li>AC_FilledPersonaStack</li>
 			</thingDefs>
-			<specialFiltersToAllow>
-				<li>AC_AllowStacksColonist</li>
-				<li>AC_AllowStacksStranger</li>
-				<li>AC_AllowStacksHostile</li>
-			</specialFiltersToAllow>
 		</fixedIngredientFilter>
 		<defaultIngredientFilter>
 			<thingDefs>
 				<li>AC_FilledPersonaStack</li>
 			</thingDefs>
-			<specialFiltersToAllow>
-				<li>AC_AllowStacksColonist</li>
-				<li>AC_AllowStacksStranger</li>
-				<li>AC_AllowStacksHostile</li>
-			</specialFiltersToAllow>
 		</defaultIngredientFilter>
 		<skillRequirements>
 			<Intellectual>8</Intellectual>
@@ -329,11 +299,6 @@
 					<thingDefs>
 						<li>AC_FilledPersonaStack</li>
 					</thingDefs>
-					<specialFiltersToAllow>
-						<li>AC_AllowStacksColonist</li>
-						<li>AC_AllowStacksStranger</li>
-						<li>AC_AllowStacksHostile</li>
-					</specialFiltersToAllow>
 				</filter>
 				<count>1</count>
 			</li>
@@ -343,22 +308,54 @@
 				<li>AC_EmptyPersonaStack</li>
 				<li>AC_FilledPersonaStack</li>
 			</thingDefs>
-			<specialFiltersToAllow>
-				<li>AC_AllowStacksColonist</li>
-				<li>AC_AllowStacksStranger</li>
-				<li>AC_AllowStacksHostile</li>
-			</specialFiltersToAllow>
 		</fixedIngredientFilter>
 		<defaultIngredientFilter>
 			<thingDefs>
 				<li>AC_EmptyPersonaStack</li>
 				<li>AC_FilledPersonaStack</li>
 			</thingDefs>
-			<specialFiltersToAllow>
-				<li>AC_AllowStacksColonist</li>
-				<li>AC_AllowStacksStranger</li>
-				<li>AC_AllowStacksHostile</li>
-			</specialFiltersToAllow>
+		</defaultIngredientFilter>
+		<skillRequirements>
+			<Intellectual>10</Intellectual>
+		</skillRequirements>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="AC_RecipeHacking">
+		<defName>AC_RestoreStackFromPersonaPrint</defName>
+		<label>restore stack from persona print</label>
+		<description>Restore stack from persona print.</description>
+		<jobString>restoring stack from persona print.</jobString>
+		<workerClass>AlteredCarbon.Recipe_RestoreStackFromPersonaPrint</workerClass>
+		<workAmount>1000</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AC_EmptyPersonaStack</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AC_PersonaPrint</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AC_EmptyPersonaStack</li>
+				<li>AC_PersonaPrint</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<defaultIngredientFilter>
+			<thingDefs>
+				<li>AC_EmptyPersonaStack</li>
+				<li>AC_PersonaPrint</li>
+			</thingDefs>
 		</defaultIngredientFilter>
 		<skillRequirements>
 			<Intellectual>10</Intellectual>

@@ -199,6 +199,7 @@ If you edit the content from a non-colonist stack from another faction, their en
 	<AC.AlreadyOrderedToWipeStack>This stack is set for reseting already on a persona editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToWipeStack>
 	<AC.AlreadyOrderedToEditStack>This stack is set for editing already on a persona editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToEditStack>
 	<AC.AlreadyOrderedToDuplicateStack>This stack is set for duplicating already on a persona editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToDuplicateStack>
+	<AC.AlreadyOrderedToRestoreStack>This print is set for restoring already on a persona editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToRestoreStack>
 	<AC.FixedAncientStack>Decrypt Ancient Stacks: Fixed the ancient persona stack!</AC.FixedAncientStack>
 	<AC.UnlockedNewTechnology>Decrypt Ancient Stacks: Unlocked new technology - {0}!</AC.UnlockedNewTechnology>
 	<AC.GainedProgressToTechnology>Decrypt Ancient Stacks: Gained progress to technology - {0}!</AC.GainedProgressToTechnology>

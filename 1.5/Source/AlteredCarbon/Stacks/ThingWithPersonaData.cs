@@ -6,7 +6,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
-    public abstract class ThingWithStack : ThingWithComps
+    public abstract class ThingWithPersonaData : ThingWithComps
     {
         public bool autoLoad = true;
         private PersonaData personaData;

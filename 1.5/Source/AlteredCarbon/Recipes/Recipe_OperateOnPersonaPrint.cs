@@ -2,7 +2,7 @@
 
 namespace AlteredCarbon
 {
-    public class Recipe_OperateOnPersonaStack : RecipeWorker
+    public class Recipe_OperateOnPersonaPrint : RecipeWorker
     {
         public override bool AvailableOnNow(Thing thing, BodyPartRecord part = null)
         {
@@ -13,9 +13,9 @@ namespace AlteredCarbon
 
         }
 
-        public PersonaStack PersonaStack(Pawn billDoer)
+        public PersonaPrint PersonaPrint(Pawn billDoer)
         {
-            return (billDoer.jobs.curJob.bill as Bill_OperateOnStack).thingWithPersonaData as PersonaStack;
+            return (billDoer.jobs.curJob.bill as Bill_OperateOnStack).thingWithPersonaData as PersonaPrint;
         }
     }
 }

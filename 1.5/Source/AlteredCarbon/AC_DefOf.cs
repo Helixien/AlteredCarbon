@@ -97,7 +97,6 @@ namespace AlteredCarbon
 
         public static ThingDef AC_PersonaMatrix;
         public static RecipeDef AC_DuplicatePersonaStack;
-        public static JobDef AC_CreateStackFromPersonaPrint;
         public static JobDef AC_HaulThingsToContainer;
         public static ResearchProjectDef Xenogermination;
         public static JobDef AC_HaulCorpseToGestation;
@@ -121,5 +120,7 @@ namespace AlteredCarbon
         public static HistoryEventDef AC_ErasedStackEvent, AC_DuplicatedStackEvent;
         public static ThingDef AC_PersonaCache;
         public static ThoughtDef AC_ErasedStack;
+        public static ResearchProjectDef AC_NeuralDigitalization;
+        public static RecipeDef AC_RestoreStackFromPersonaPrint;
     }
 }

@@ -19,7 +19,7 @@ namespace AlteredCarbon
 			}
 			else if (__instance is Bill_OperateOnStack operateOnStack && thing is PersonaStack stack && stack.IsFilledStack)
             {
-				__result = stack == operateOnStack.personaStack;
+				__result = stack == operateOnStack.thingWithPersonaData;
 				return false;
 			}
             return true;

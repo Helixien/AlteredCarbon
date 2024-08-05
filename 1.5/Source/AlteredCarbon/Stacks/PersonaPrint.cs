@@ -8,7 +8,7 @@ using Verse;
 namespace AlteredCarbon
 {
     [HotSwappable]
-    public class PersonaPrint : ThingWithStack
+    public class PersonaPrint : ThingWithPersonaData
     {
         public int backupCreationDataTicks;
 
