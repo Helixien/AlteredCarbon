@@ -17,9 +17,9 @@ namespace AlteredCarbon
 				__result = thing == installStack.stackToInstall;
 				return false;
 			}
-			else if (__instance is Bill_OperateOnStack operateOnStack && thing is PersonaStack stack && stack.IsFilledStack)
+			else if (__instance is Bill_OperateOnStack operateOnStack && thing is ThingWithPersonaData data && data.PersonaData.ContainsPersona)
             {
-				__result = stack == operateOnStack.thingWithPersonaData;
+				__result = thing == operateOnStack.thingWithPersonaData;
 				return false;
 			}
             return true;

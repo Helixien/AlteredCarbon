@@ -17,7 +17,9 @@ namespace AlteredCarbon
             AlteredCarbonManager.Instance.RegisterStack(stackRestoreTo);
             Messages.Message("AC.SuccessfullyRestoredStackFromBackup".Translate(billDoer.Named("PAWN")), stackRestoreTo, MessageTypeDefOf.TaskCompletion);
             GenPlace.TryPlaceThing(stackRestoreTo, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
+            personaPrint.holdingOwner?.Remove(personaPrint);
             personaPrint.Destroy();
+            emptyStack.Destroy();
         }
     }
 }

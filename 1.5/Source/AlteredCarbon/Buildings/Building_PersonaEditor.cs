@@ -12,48 +12,9 @@ namespace AlteredCarbon
     {
         public bool autoRestoreIsEnabled = true;
         public Building_PersonaMatrix ConnectedMatrix => CompAffectedByFacilities.LinkedFacilitiesListForReading.OfType<Building_PersonaMatrix>().FirstOrDefault();
-        public bool Powered => (PowerComp as CompPowerTrader).PowerOn;
         private CompAffectedByFacilities _compAffectedByFacilities;
         public CompAffectedByFacilities CompAffectedByFacilities =>
             _compAffectedByFacilities ??= GetComp<CompAffectedByFacilities>();
-
-        public bool HasPersonaPrintToRestore => GetPersonaPrintToRestore != null;
-
-        public PersonaPrint GetPersonaPrintToRestore
-        {
-            get
-            {
-                if (autoRestoreIsEnabled)
-                {
-                    PersonaPrint personaPrint = null;
-                    var matrix = ConnectedMatrix;
-                    if (matrix != null)
-                    {
-                        foreach (var frame in matrix.StoredPersonaPrints)
-                        {
-                            if (frame.CanAutoRestorePawn)
-                            {
-                                personaPrint = frame;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (personaPrint != null)
-                    {
-                        return personaPrint;
-                    }
-                    foreach (var frame in Map.listerThings.AllThings.OfType<PersonaPrint>())
-                    {
-                        if (frame.CanAutoRestorePawn)
-                        {
-                            return frame;
-                        }
-                    }
-                }
-                return null;
-            }
-        }
 
         public class CommandInfo
         {
@@ -140,7 +101,7 @@ namespace AlteredCarbon
                 yield return g;
             }
 
-            yield return new Command_Toggle()
+            var autoRestore = new Command_Toggle()
             {
                 defaultLabel = "AC.EnableAutoRestore".Translate(),
                 defaultDesc = "AC.EnableAutoRestoreDesc".Translate(),
@@ -152,11 +113,16 @@ namespace AlteredCarbon
                 },
                 isActive = () => autoRestoreIsEnabled
             };
+            TryDisableCommand(new CommandInfo
+            {
+                lockedProjects = new List<ResearchProjectDef> { AC_DefOf.AC_NeuralDigitalization }
+            }, autoRestore);
+            yield return autoRestore;
         }
 
         private IEnumerable<Gizmo> GetCommands<T>(CommandInfo info) where T : Command_ActionOnThing
         {
-            var command = (T)Activator.CreateInstance(typeof(T), new object[] 
+            var command = (T)Activator.CreateInstance(typeof(T), new object[]
             { this, info.targetParameters, info.action });
             command.defaultLabel = info.defaultLabel;
             command.defaultDesc = info.defaultDesc;
@@ -166,15 +132,7 @@ namespace AlteredCarbon
             {
                 info.targetAction();
             };
-            if (powerComp.PowerOn is false)
-            {
-                command.Disable("NoPower".Translate().CapitalizeFirst());
-            }
-            command.LockBehindReseach(info.lockedProjects);
-            if (ConnectedMatrix is null)
-            {
-                command.Disable("AC.NoConnectedMatrix".Translate());
-            }
+            TryDisableCommand(info, command);
             yield return command;
             var bills = this.billStack.Bills.Where(x => x.recipe == info.recipe).ToList();
             if (bills.Any())
@@ -193,6 +151,22 @@ namespace AlteredCarbon
                         }
                     }
                 };
+            }
+        }
+
+        private void TryDisableCommand(CommandInfo info, Command command)
+        {
+            if (powerComp.PowerOn is false)
+            {
+                command.Disable("NoPower".Translate().CapitalizeFirst());
+            }
+            if (info.lockedProjects != null)
+            {
+                command.LockBehindReseach(info.lockedProjects);
+            }
+            if (ConnectedMatrix is null)
+            {
+                command.Disable("AC.NoConnectedMatrix".Translate());
             }
         }
 

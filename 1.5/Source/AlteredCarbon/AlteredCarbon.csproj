@@ -254,7 +254,7 @@
     <Compile Include="HarmonyPatches\Pawn_PathFollower_CostToMoveIntoCell_Patch.cs" />
     <Compile Include="HarmonyPatches\ShotReport_HitReportFor_Patch.cs" />
     <Compile Include="Buildings\Building_PersonaMatrix.cs" />
-    <Compile Include="GameComponent_DigitalStorage.cs" />
+    <Compile Include="GameComponent_AlteredCarbon.cs" />
     <Compile Include="HarmonyPatches\PawnUtility_GetPosture_Patch.cs" />
     <Compile Include="Jobs\JobDriver_CancelRepurposingBody.cs" />
     <Compile Include="Jobs\WorkGiver_CancelRepurposingBody.cs" />

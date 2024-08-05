@@ -10,7 +10,7 @@ namespace AlteredCarbon
     [HotSwappable]
     public class PersonaPrint : ThingWithPersonaData
     {
-        public int backupCreationDataTicks;
+        public bool allowAutomaticRestoration = true;
 
         public override string LabelNoCount
         {
@@ -34,8 +34,8 @@ namespace AlteredCarbon
                 }
                 stringBuilder.Append("AC.AgeChronologicalTicks".Translate() + ": " + (int)(personaData.ageChronologicalTicks / 3600000) + "\n");
                 var tile = this.Spawned ? this.Tile : Find.AnyPlayerHomeMap.Tile;
-                var timeOfDate = personaData.lastTimeUpdated == null ? (string)"Unknown".Translate()
-                    : GenDate.DateFullStringAt(personaData.lastTimeUpdated.Value, Find.WorldGrid.LongLatOf(tile));
+                var timeOfDate = personaData.lastTimeBackedUp == null ? (string)"Unknown".Translate()
+                    : GenDate.DateFullStringAt(personaData.lastTimeBackedUp.Value, Find.WorldGrid.LongLatOf(tile));
                 stringBuilder.Append("AC.TimeOfBackup".Translate(timeOfDate));
             }
             stringBuilder.Append(base.GetInspectString());
@@ -83,47 +83,16 @@ namespace AlteredCarbon
             return graphic;
         }
 
-        public bool CanAutoRestorePawn
+        public bool CanAutoRestorePawn(PersonaData otherData)
         {
-            get
+            if (allowAutomaticRestoration)
             {
                 var personaData = PersonaData;
-                if (personaData.restoreToEmptyStack)
+                if (otherData.IsPresetPawn(personaData) is false)
                 {
-                    if (!AnyPersonaStackExist(personaData) && !AnyPawnExist(personaData))
-                    {
-                        return true;
-                    }
+                    return false;
                 }
-                return false;
-            }
-        }
-
-        private static bool AnyPersonaStackExist(PersonaData personaData)
-        {
-            foreach (var map in Find.Maps)
-            {
-                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_FilledPersonaStack).Cast<PersonaStack>()
-                    .Any(x => x.PersonaData.IsPresetPawn(personaData) && x.Spawned && !x.Destroyed))
-                {
-                    return true;
-                }
-                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).Cast<Building_PersonaMatrix>()
-                    .Any(x => x.StoredPersonaPrints.Any(y => y.PersonaData.IsPresetPawn(personaData))))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        private static bool AnyPawnExist(PersonaData personaData)
-        {
-            foreach (var pawn in PawnsFinder.AllMapsWorldAndTemporary_AliveOrDead)
-            {
-                if (personaData.IsPresetPawn(pawn) && pawn.HasPersonaStack(out _))
-                {
-                    return true;
-                }
+                return true;
             }
             return false;
         }
@@ -138,7 +107,7 @@ namespace AlteredCarbon
                 copy.CopyDataFrom(PersonaData);
                 copy.faction = trader.Faction;
                 Rand.PushState(copy.GetHashCode());
-                GameComponent_DigitalStorage.Instance.personaStacksToAppearAsWorldPawns[copy] =
+                GameComponent_AlteredCarbon.Instance.personaStacksToAppearAsWorldPawns[copy] =
                     (int)(Find.TickManager.TicksGame + (new FloatRange(5f, 30f).RandomInRange * GenDate.TicksPerDay));
                 Rand.PopState();
             }
@@ -170,11 +139,22 @@ namespace AlteredCarbon
                     autoLoad = !autoLoad;
                 }
             };
+            yield return new Command_Toggle
+            {
+                defaultLabel = "AC.AllowAutomaticRestoration".Translate(),
+                defaultDesc = "AC.AllowAutomaticRestorationDesc".Translate(),
+                icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EnableAutoRestore"),
+                isActive = () => allowAutomaticRestoration,
+                toggleAction = delegate
+                {
+                    allowAutomaticRestoration = !allowAutomaticRestoration;
+                }
+            };
         }
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref backupCreationDataTicks, "backupCreationDataTicks");
+            Scribe_Values.Look(ref allowAutomaticRestoration, "allowAutomaticRestoration", true);
         }
     }
 }

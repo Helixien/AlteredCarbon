@@ -33,7 +33,7 @@ namespace AlteredCarbon
                 var personaPrint = ThingMaker.MakeThing(AC_DefOf.AC_PersonaPrint) as PersonaPrint;
                 var faction = podContentsType is null || podContentsType.Value != PodContentsType.AncientHostile ? Faction.OfAncients : Faction.OfAncientsHostile;
                 personaPrint.GeneratePersona(faction);
-                personaPrint.PersonaData.lastTimeUpdated = null;
+                personaPrint.PersonaData.lastTimeBackedUp = null;
                 resolveParams.singleThingToSpawn = personaPrint;
                 BaseGen.symbolStack.Push("thing", resolveParams);
             }

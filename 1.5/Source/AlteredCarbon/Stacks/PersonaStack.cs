@@ -188,6 +188,7 @@ namespace AlteredCarbon
                     };
                 }
             }
+
             if (this.IsFilledStack)
             {
                 yield return new Command_Toggle
@@ -298,8 +299,9 @@ namespace AlteredCarbon
                 return;
             }
             base.Destroy(mode);
-            if (PersonaData.ContainsPersona && !dontKillThePawn)
+            if (PersonaData.ContainsPersona && dontKillThePawn is false)
             {
+                PersonaData.TryQueueAutoRestoration();
                 KillInnerPawn();
             }
         }

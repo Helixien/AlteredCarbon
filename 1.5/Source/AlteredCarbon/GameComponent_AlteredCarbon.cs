@@ -6,16 +6,16 @@ using Verse;
 namespace AlteredCarbon
 {
     [HotSwappable]
-    public class GameComponent_DigitalStorage : GameComponent
+    public class GameComponent_AlteredCarbon : GameComponent
     {
-        public static GameComponent_DigitalStorage Instance;
+        public static GameComponent_AlteredCarbon Instance;
 
-        public GameComponent_DigitalStorage()
+        public GameComponent_AlteredCarbon()
         {
             Init();
         }
 
-        public GameComponent_DigitalStorage(Game game)
+        public GameComponent_AlteredCarbon(Game game)
         {
             Init();
         }
@@ -52,7 +52,7 @@ namespace AlteredCarbon
                 var copy = new PersonaData();
                 copy.CopyFromPawn(pawn, stackHediff.SourceStack, copyRaceGenderInfo: true);
                 copy.isCopied = true;
-                copy.lastTimeUpdated = Find.TickManager.TicksAbs;
+                copy.lastTimeBackedUp = Find.TickManager.TicksAbs;
                 copy.RefreshDummyPawn();
             }
         }
