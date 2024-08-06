@@ -297,4 +297,8 @@ If you edit the content from a non-colonist stack from another faction, their en
 	<AC.TriggeredMentalFuseText>{PAWN_nameDef}'s mental fuse has triggered, preventing a mental break.</AC.TriggeredMentalFuseText>
 	<AC.MentalFuseTraumaLabel>Mental fuse trauma</AC.MentalFuseTraumaLabel>
 	<AC.MentalFuseTraumaText>{PAWN_nameDef}'s mental fuse has caused permanent damage in {PAWN_objective} brain. This damage has caused {PAWN_objective} to develop strange savant-like abilities.</AC.MentalFuseTraumaText>
+	<!-- ================================ Persona Connectors ====================== -->
+	<AC.RequiresPersonaStackInstalled>Requires persona stack installed.</AC.RequiresPersonaStackInstalled>
+	<AC.CreatePersonaPrint>Create persona print</AC.CreatePersonaPrint>
+	<AC.CreateSkilltrainer>Create skilltrainer</AC.CreateSkilltrainer>
 </LanguageData>

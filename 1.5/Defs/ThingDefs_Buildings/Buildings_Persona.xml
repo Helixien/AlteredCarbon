@@ -246,11 +246,12 @@
 			</li>
 		</comps>
 	</ThingDef>
-	<!-- ================================ Persona Interfacer ====================== -->
+	<!-- ================================ Persona Connector ====================== -->
 	<ThingDef ParentName="BuildingBase">
-		<defName>AC_PersonaInterfacer</defName>
-		<label>persona interfacer</label>
+		<defName>AC_PersonaConnector</defName>
+		<label>persona connector</label>
 		<description>to.do</description>
+		<thingClass>AlteredCarbon.Building_PersonaConnector</thingClass>
 		<graphicData>
 			<texPath>VCEF_AlphaFish_a</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
@@ -279,6 +280,30 @@
 			<buildingTags>
 				<li>Biotech</li>
 			</buildingTags>
+			<subcoreScannerFixedIngredients>
+				<li>
+					<filter>
+						<thingDefs>
+						<li>Steel</li>
+						</thingDefs>
+					</filter>
+					<count>25</count>
+				</li>
+				<li>
+					<filter>
+						<thingDefs>
+						<li>ComponentIndustrial</li>
+						</thingDefs>
+					</filter>
+					<count>2</count>
+				</li>
+			</subcoreScannerFixedIngredients>
+			<subcoreScannerOutputDef>AC_PersonaPrint</subcoreScannerOutputDef>
+			<subcoreScannerStartEffect>SubcoreSoftscanner_Start</subcoreScannerStartEffect>
+			<subcoreScannerWorking>SubcoreSoftscanner_Working</subcoreScannerWorking>
+			<subcoreScannerComplete>SubcoreSoftscanner_Complete</subcoreScannerComplete>
+			<subcoreScannerHediff>ScanningSickness</subcoreScannerHediff>
+			<subcoreScannerTicks>12500</subcoreScannerTicks>
 		</building>
 		<statBases>
 			<MaxHitPoints>350</MaxHitPoints>

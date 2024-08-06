@@ -353,7 +353,7 @@ namespace AlteredCarbon
                 {
                     if (trait.sourceGene is null && trait.suppressedByGene is null)
                     {
-                        var extension = sourceStack.GetModExtension<StackSavingOptionsModExtension>();
+                        var extension = this.sourceStack.GetModExtension<StackSavingOptionsModExtension>();
                         if (extension != null && extension.ignoresTraits != null && extension.ignoresTraits.Contains(trait.def.defName))
                         {
                             continue;

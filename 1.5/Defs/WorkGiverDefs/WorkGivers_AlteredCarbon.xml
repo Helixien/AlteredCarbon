@@ -110,4 +110,11 @@
 		</requiredCapacities>
 		<prioritizeSustains>true</prioritizeSustains>
 	</WorkGiverDef>
+	<!-- ================================ Hauling to persona connector ====================== -->
+	<WorkGiverDef ParentName="HaulToBase">
+		<defName>AC_HaulToPersonaConnector</defName>
+		<label>haul resources to persona connector</label>
+		<giverClass>AlteredCarbon.WorkGiver_HaulToPersonaConnector</giverClass>
+	</WorkGiverDef>
+
 </Defs>

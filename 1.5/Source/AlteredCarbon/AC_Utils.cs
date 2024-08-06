@@ -739,6 +739,15 @@ namespace AlteredCarbon
         {
             return pawn.health.hediffSet.hediffs.OfType<Hediff_MissingPart>();
         }
+
+        public static Hediff_PersonaStack GetPersonaStack(this Pawn pawn)
+        {
+            if (pawn.HasPersonaStack(out var hediff))
+            {
+                return hediff;
+            }
+            return null;
+        }
         public static bool HasPersonaStack(this Pawn pawn, out Hediff_PersonaStack hediff_PersonaStack)
         {
             if (pawn?.health?.hediffSet != null)

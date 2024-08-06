@@ -122,5 +122,6 @@ namespace AlteredCarbon
         public static ThoughtDef AC_ErasedStack;
         public static ResearchProjectDef AC_NeuralDigitalization;
         public static RecipeDef AC_RestoreStackFromPersonaPrint;
+        public static ThingDef AC_PersonaConnector;
     }
 }

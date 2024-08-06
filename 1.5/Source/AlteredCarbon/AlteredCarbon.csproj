@@ -86,12 +86,15 @@
   <ItemGroup>
     <Compile Include="AlteredCarbonSettingsWorker_EditStack.cs" />
     <Compile Include="AlteredCarbonSettingsWorker_SleeveGrowing.cs" />
+    <Compile Include="Buildings\Building_PersonaConnector.cs" />
     <Compile Include="Buildings\Building_PersonaEditor.cs" />
     <Compile Include="Buildings\Building_Incubator.cs" />
     <Compile Include="Buildings\Building_SleeveGestator.cs" />
     <Compile Include="CompApparelAbilities.cs" />
     <Compile Include="HarmonyPatches\Alert_ColonistLeftUnburied_IsCorpseOfColonist_Patch.cs" />
     <Compile Include="HarmonyPatches\Apparel_Notify_PawnKilled_Patch.cs" />
+    <Compile Include="HarmonyPatches\Building_GrowthVat_CanAcceptPawn_Patch.cs" />
+    <Compile Include="HarmonyPatches\Building_SubcoreScanner_CanAcceptPawn_Patch.cs" />
     <Compile Include="HarmonyPatches\CharacterCardUtility_DrawCharacterCard_Patch.cs" />
     <Compile Include="HarmonyPatches\CharacterCardUtility_LifestageAndXenotypeOptions_Patch.cs" />
     <Compile Include="HarmonyPatches\CompBiocodable_UnCode_Patch.cs" />
@@ -139,6 +142,7 @@
     <Compile Include="Jobs\WorkGiver_HaulPersonaStacks.cs" />
     <Compile Include="Jobs\WorkGiver_HaulPersonaPrints.cs" />
     <Compile Include="HarmonyPatches\BillPatches\JobDriver_DoBill_MakeNewToils_Patch.cs" />
+    <Compile Include="Jobs\WorkGiver_HaulToPersonaConnector.cs" />
     <Compile Include="Recipes\Bill_EditStack.cs" />
     <Compile Include="Recipes\Recipe_DuplicatePersonaStack.cs" />
     <Compile Include="Recipes\Recipe_InstallParroterStack.cs" />
