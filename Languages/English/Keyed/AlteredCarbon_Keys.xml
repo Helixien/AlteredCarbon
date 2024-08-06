@@ -38,7 +38,11 @@
 	<AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>Cannot install persona stack - neck is missing or another implant installed in the neck.</AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>
 	<AC.EjectAllPersonaStacksDesc>Drop all contained persona stacks onto the ground.</AC.EjectAllPersonaStacksDesc>
 	<AC.PersonaStacksStored>Persona stacks stored: {0}/{1}</AC.PersonaStacksStored>
-
+	<!-- ================================ Prints ====================== -->
+	<AC.AllowAutomaticRestoration>Allow automatic restoration</AC.AllowAutomaticRestoration>
+	<AC.AllowAutomaticRestorationDesc>Toggle this button to allow/disallow automatic restoration.</AC.AllowAutomaticRestorationDesc>
+	<AC.RestoringQueued>Restoring queued: {PAWN_nameDef} </AC.RestoringQueued>
+	<AC.RestoringQueuedDesc>Stack of {PAWN_nameDef} has been destroyed. {PAWN_possessive} latest persona print backup has been queued to be restored.</AC.RestoringQueuedDesc>
 	<!-- ================================ Sleeves ====================== -->
 	<AC.EmptySleeve>Empty sleeve</AC.EmptySleeve>
 	<AC.SleeveDeath>Sleeve Death</AC.SleeveDeath>
@@ -199,6 +203,7 @@ If you edit the content from a non-colonist stack from another faction, their en
 	<AC.AlreadyOrderedToWipeStack>This stack is set for reseting already on a persona editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToWipeStack>
 	<AC.AlreadyOrderedToEditStack>This stack is set for editing already on a persona editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToEditStack>
 	<AC.AlreadyOrderedToDuplicateStack>This stack is set for duplicating already on a persona editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToDuplicateStack>
+	<AC.AlreadyOrderedToRestoreStack>This print is set for restoring already on a persona editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToRestoreStack>
 	<AC.FixedAncientStack>Decrypt Ancient Stacks: Fixed the ancient persona stack!</AC.FixedAncientStack>
 	<AC.UnlockedNewTechnology>Decrypt Ancient Stacks: Unlocked new technology - {0}!</AC.UnlockedNewTechnology>
 	<AC.GainedProgressToTechnology>Decrypt Ancient Stacks: Gained progress to technology - {0}!</AC.GainedProgressToTechnology>

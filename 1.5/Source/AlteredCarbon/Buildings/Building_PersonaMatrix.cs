@@ -78,11 +78,14 @@ namespace AlteredCarbon
             sb.AppendLine("AC.PersonaPrintsStored".Translate(StoredPersonaPrints.Count(), MaxFilledStackCapacity));
             if (StoredPersonaPrints.Any())
             {
-                var lastTimeUpdated = StoredPersonaPrints.Select(x => x.backupCreationDataTicks).Max();
-                Vector2 vector = Find.WorldGrid.LongLatOf(this.Map.Tile);
-                sb.AppendLine("AC.LastBackup".Translate(GenDate.DateReadoutStringAt(lastTimeUpdated, vector)));
+                var lastTimeUpdated = StoredPersonaPrints.Select(x => x.PersonaData.lastTimeBackedUp).Max();
+                if (lastTimeUpdated.HasValue)
+                {
+                    Vector2 vector = Find.WorldGrid.LongLatOf(this.Map.Tile);
+                    sb.AppendLine("AC.LastBackup".Translate(GenDate.DateReadoutStringAt(lastTimeUpdated.Value, vector)));
+                }
             }
-            return sb.ToString();
+            return sb.ToString().TrimEndNewlines();
         }
 
 

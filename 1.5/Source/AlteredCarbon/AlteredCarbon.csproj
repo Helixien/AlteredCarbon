@@ -126,7 +126,6 @@
     <Compile Include="HarmonyPatches\BillPatches\WorkGiver_DoBill_TryFindBestIngredientsHelper_Patch.cs" />
     <Compile Include="HediffComp_MeleeWeapon.cs" />
     <Compile Include="Jobs\JobDriver_ChargeCuirassierBelt.cs" />
-    <Compile Include="Jobs\JobDriver_CreateStackFromPersonaPrint.cs" />
     <Compile Include="Jobs\JobDriver_HaulCorpseToGestation.cs" />
     <Compile Include="Jobs\JobDriver_HaulThingsToContainer.cs" />
     <Compile Include="Jobs\JobDriver_TakeEmptySleeve.cs" />
@@ -136,7 +135,6 @@
     <Compile Include="HarmonyPatches\Pawn_GuestTracker_Notify_PawnUndowned_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_IdeoTracker_ExposeData_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnRenderer_EquipmentRender_Patch.cs" />
-    <Compile Include="Jobs\WorkGiver_CreateStackFromPersonaPrint.cs" />
     <Compile Include="Jobs\WorkGiver_HaulCorpseToSleeveGrower.cs" />
     <Compile Include="Jobs\WorkGiver_HaulPersonaStacks.cs" />
     <Compile Include="Jobs\WorkGiver_HaulPersonaPrints.cs" />
@@ -144,17 +142,20 @@
     <Compile Include="Recipes\Bill_EditStack.cs" />
     <Compile Include="Recipes\Recipe_DuplicatePersonaStack.cs" />
     <Compile Include="Recipes\Recipe_InstallParroterStack.cs" />
+    <Compile Include="Recipes\Recipe_OperateOnPersonaPrint.cs" />
     <Compile Include="Recipes\Recipe_OperateOnPersonaStack.cs" />
     <Compile Include="Recipes\Recipe_RemoveParroterStack.cs" />
     <Compile Include="Recipes\Recipe_EditFilledPersonaStack.cs" />
+    <Compile Include="Recipes\Recipe_RestoreStackFromPersonaPrint.cs" />
     <Compile Include="SleevePreset.cs" />
     <Compile Include="Stacks\CompPersonaCache.cs" />
     <Compile Include="Stacks\Hediff_ParroterStack.cs" />
     <Compile Include="Stacks\PersonaPrint.cs" />
     <Compile Include="Stacks\RJWData.cs" />
-    <Compile Include="Stacks\ThingWithStack.cs" />
+    <Compile Include="Stacks\ThingWithPersonaData.cs" />
     <Compile Include="Stacks\Thought_StackDegradation.cs" />
     <Compile Include="UI\Alert_ColonistStackNeedsExtracting.cs" />
+    <Compile Include="UI\Command_ActionOnPrint.cs" />
     <Compile Include="UI\Command_ActionOnStack.cs" />
     <Compile Include="HarmonyPatches\Building_GeneExtractor_CanAcceptPawn_Patch.cs" />
     <Compile Include="HarmonyPatches\ChildcareUtility_SwaddleBaby_Patch.cs" />
@@ -194,6 +195,7 @@
     <Compile Include="Stacks\Ability_ArchotechStackSkip.cs" />
     <Compile Include="Stacks\Hediff_StackDegradation.cs" />
     <Compile Include="Stacks\ScenPart_PersonaStack.cs" />
+    <Compile Include="UI\Command_ActionOnThing.cs" />
     <Compile Include="UI\Dialog_PresetList.cs" />
     <Compile Include="UI\Dialog_SelectXenogermForSleeve.cs" />
     <Compile Include="UI\GeneUtility.cs" />
@@ -252,7 +254,7 @@
     <Compile Include="HarmonyPatches\Pawn_PathFollower_CostToMoveIntoCell_Patch.cs" />
     <Compile Include="HarmonyPatches\ShotReport_HitReportFor_Patch.cs" />
     <Compile Include="Buildings\Building_PersonaMatrix.cs" />
-    <Compile Include="GameComponent_DigitalStorage.cs" />
+    <Compile Include="GameComponent_AlteredCarbon.cs" />
     <Compile Include="HarmonyPatches\PawnUtility_GetPosture_Patch.cs" />
     <Compile Include="Jobs\JobDriver_CancelRepurposingBody.cs" />
     <Compile Include="Jobs\WorkGiver_CancelRepurposingBody.cs" />

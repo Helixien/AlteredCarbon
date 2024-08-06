@@ -139,10 +139,9 @@ namespace AlteredCarbon
 
         // misc
         public bool? diedFromCombat;
-        public bool restoreToEmptyStack = true;
         public bool isCopied = false;
         public int stackGroupID = -1;
-        public int? lastTimeUpdated;
+        public int? lastTimeBackedUp;
 
         public int editTime;
         public float stackDegradation;
@@ -151,7 +150,7 @@ namespace AlteredCarbon
         public PersonaData()
         {
             this.stackGroupID = AlteredCarbonManager.Instance.stacksRelationships.Count + 1;
-            this.lastTimeUpdated = GenTicks.TicksAbs;
+            this.lastTimeBackedUp = GenTicks.TicksAbs;
         }
 
         public static Pawn lastDummyPawn;
@@ -772,7 +771,6 @@ namespace AlteredCarbon
 
             isCopied = isDuplicateOperation || other.isCopied;
             diedFromCombat = other.diedFromCombat;
-            restoreToEmptyStack = other.restoreToEmptyStack;
             stackGroupID = other.stackGroupID;
 
             sexuality = other.sexuality;
@@ -1547,6 +1545,76 @@ namespace AlteredCarbon
             return false;
         }
 
+        public bool AnyPersonaStackExist()
+        {
+            foreach (var map in Find.Maps)
+            {
+                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_FilledPersonaStack).Cast<PersonaStack>()
+                    .Any(x => x.PersonaData.IsPresetPawn(this) && x.Spawned && !x.Destroyed))
+                {
+                    return true;
+                }
+                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaCache)
+                    .Any(x => x.TryGetComp<CompPersonaCache>() is CompPersonaCache comp
+                    && comp.innerContainer.OfType<PersonaStack>().Any(y => y.PersonaData.IsPresetPawn(this))))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool AnyPawnExist()
+        {
+            foreach (var pawn in PawnsFinder.AllMapsWorldAndTemporary_AliveOrDead)
+            {
+                if (IsPresetPawn(pawn) && pawn.HasPersonaStack(out _))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void TryQueueAutoRestoration()
+        {
+            if (AnyPawnExist() || AnyPersonaStackExist())
+            {
+                return;
+            }
+            var prints = new List<PersonaPrint>();
+            foreach (var map in Find.Maps)
+            {
+                var localPrints = map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaPrint).Cast<PersonaPrint>().ToList();
+                foreach (var matrix in map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).Cast<Building_PersonaMatrix>())
+                {
+                    localPrints.AddRange(matrix.StoredPersonaPrints);
+                }
+            }
+            var foundPrint = prints.Where(x => x.CanAutoRestorePawn(this))
+                .OrderByDescending(x => x.PersonaData.lastTimeBackedUp).FirstOrDefault();
+            if (foundPrint != null)
+            {
+                Log.Message("Found: " + foundPrint);
+                var map = foundPrint.MapHeld;
+                var editors = map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaEditor)
+                    .OfType<Building_PersonaEditor>().ToList();
+                foreach (var editor in editors)
+                {
+                    if (foundPrint.Spawned is false && foundPrint.ParentHolder != editor.ConnectedMatrix)
+                    {
+                        continue;
+                    }
+                    if (editor.autoRestoreIsEnabled is false)
+                    {
+                        continue;
+                    }
+                    Log.Message("Found editor: " + editor);
+                    break;
+                }
+            }
+        }
+
         public void ExposeData()
         {
             Scribe_Values.Look(ref pawnID, "pawnID");
@@ -1616,7 +1684,7 @@ namespace AlteredCarbon
             Scribe_References.Look(ref battleActive, "battleActive");
             Scribe_Values.Look(ref battleExitTick, "battleExitTick", 0);
             Scribe_Values.Look(ref originalGender, "gender");
-            Scribe_Values.Look(ref lastTimeUpdated, "lastTimeUpdated");
+            Scribe_Values.Look(ref lastTimeBackedUp, "lastTimeUpdated");
             if (ModsConfig.RoyaltyActive)
             {
                 Scribe_Collections.Look(ref favor, "favor", LookMode.Reference, LookMode.Value, ref favorKeys, ref favorValues);
@@ -1660,7 +1728,6 @@ namespace AlteredCarbon
                 Scribe_Collections.Look(ref aspirationsCompletedTicks, nameof(aspirationsCompletedTicks), LookMode.Value);
             }
 
-            Scribe_Values.Look(ref restoreToEmptyStack, "restoreToEmptyStack", true);
             Scribe_Defs.Look(ref sourceStack, "sourceStack");
             Scribe_Values.Look(ref psylinkLevel, "psylinkLevel");
             Scribe_Collections.Look(ref abilities, "abilities", LookMode.Def);

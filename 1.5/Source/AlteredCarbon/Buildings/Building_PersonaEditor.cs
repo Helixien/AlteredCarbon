@@ -11,56 +11,12 @@ namespace AlteredCarbon
     public class Building_PersonaEditor : Building_WorkTable
     {
         public bool autoRestoreIsEnabled = true;
-        public PersonaPrint personaPrintToRestore;
         public Building_PersonaMatrix ConnectedMatrix => CompAffectedByFacilities.LinkedFacilitiesListForReading.OfType<Building_PersonaMatrix>().FirstOrDefault();
-        public bool Powered => (PowerComp as CompPowerTrader).PowerOn;
         private CompAffectedByFacilities _compAffectedByFacilities;
         public CompAffectedByFacilities CompAffectedByFacilities =>
             _compAffectedByFacilities ??= GetComp<CompAffectedByFacilities>();
 
-        public bool HasPersonaPrintToRestore => GetPersonaPrintToRestore != null;
-
-        public PersonaPrint GetPersonaPrintToRestore
-        {
-            get
-            {
-                if (personaPrintToRestore != null)
-                {
-                    return personaPrintToRestore;
-                }
-                if (autoRestoreIsEnabled)
-                {
-                    PersonaPrint personaPrint = null;
-                    var matrix = ConnectedMatrix;
-                    if (matrix != null)
-                    {
-                        foreach (var frame in matrix.StoredPersonaPrints)
-                        {
-                            if (frame.CanAutoRestorePawn)
-                            {
-                                personaPrint = frame;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (personaPrint != null)
-                    {
-                        return personaPrint;
-                    }
-                    foreach (var frame in Map.listerThings.AllThings.OfType<PersonaPrint>())
-                    {
-                        if (frame.CanAutoRestorePawn)
-                        {
-                            return frame;
-                        }
-                    }
-                }
-                return null;
-            }
-        }
-
-        public class StackGizmoInfo
+        public class CommandInfo
         {
             public string defaultLabel, defaultDesc, icon;
             public Action targetAction;
@@ -68,7 +24,7 @@ namespace AlteredCarbon
             public List<ResearchProjectDef> lockedProjects;
             public RecipeDef recipe;
             public string defaultLabelCancel, defaultDescCancel;
-            public bool includeArchotechStack;
+            public TargetingParameters targetParameters;
         }
 
         public override IEnumerable<Gizmo> GetGizmos()
@@ -77,7 +33,7 @@ namespace AlteredCarbon
             {
                 yield return g;
             }
-            foreach (var g in GetStackOperationGizmos(new StackGizmoInfo
+            foreach (var g in GetCommands<Command_ActionOnStack>(new CommandInfo
             {
                 defaultLabel = "AC.WipeStack".Translate(),
                 defaultDesc = "AC.WipeStackDesc".Translate(),
@@ -87,13 +43,14 @@ namespace AlteredCarbon
                 lockedProjects = new List<ResearchProjectDef> { AC_DefOf.AC_NeuralEditing },
                 recipe = AC_DefOf.AC_WipeFilledPersonaStack,
                 defaultLabelCancel = "AC.CancelStackReset".Translate(),
-                defaultDescCancel = "AC.CancelStackResetDesc".Translate()
+                defaultDescCancel = "AC.CancelStackResetDesc".Translate(),
+                targetParameters = ForFilledStack(includeArchotechStack: false)
             }))
             {
                 yield return g;
             }
 
-            foreach (var g in GetStackOperationGizmos(new StackGizmoInfo
+            foreach (var g in GetCommands<Command_ActionOnStack>(new CommandInfo
             {
                 defaultLabel = "AC.DuplicateStack".Translate(),
                 defaultDesc = "AC.DuplicateStackDesc".Translate(),
@@ -103,13 +60,14 @@ namespace AlteredCarbon
                 lockedProjects = new List<ResearchProjectDef> { AC_DefOf.AC_NeuralEditing },
                 recipe = AC_DefOf.AC_DuplicatePersonaStack,
                 defaultLabelCancel = "AC.CancelStackDuplication".Translate(),
-                defaultDescCancel = "AC.CancelStackDuplicationDesc".Translate()
+                defaultDescCancel = "AC.CancelStackDuplicationDesc".Translate(),
+                targetParameters = ForFilledStack(includeArchotechStack: false)
             }))
             {
                 yield return g;
             }
 
-            foreach (var g in GetStackOperationGizmos(new StackGizmoInfo
+            foreach (var g in GetCommands<Command_ActionOnStack>(new CommandInfo
             {
                 defaultLabel = "AC.EditStack".Translate(),
                 defaultDesc = "AC.EditStackDesc".Translate(),
@@ -120,67 +78,30 @@ namespace AlteredCarbon
                 recipe = AC_DefOf.AC_EditFilledPersonaStack,
                 defaultLabelCancel = "AC.CancelStackEdit".Translate(),
                 defaultDescCancel = "AC.CancelStackEditDesc".Translate(),
-                includeArchotechStack = AC_Utils.editStacksSettings.enableArchostackEditing
+                targetParameters = ForFilledStack(includeArchotechStack: AC_Utils.editStacksSettings.enableArchostackEditing)
             }))
             {
                 yield return g;
             }
 
-            var personaPrints = Map.listerThings.AllThings.OfType<PersonaPrint>().Where(x => x.PersonaData.ContainsPersona).ToList();
-            if (ConnectedMatrix != null)
-            {
-                personaPrints.AddRange(ConnectedMatrix.StoredPersonaPrints);
-            }
-            var restoreFromPersonaPrint = new Command_Action
+            foreach (var g in GetCommands<Command_ActionOnPrint>(new CommandInfo
             {
                 defaultLabel = "AC.RestoreFromPersonaPrint".Translate(),
                 defaultDesc = "AC.RestoreFromPersonaPrintDesc".Translate(),
-                icon = ContentFinder<Texture2D>.Get("UI/Gizmos/RestoreFromPersonaPrint"),
-                activateSound = SoundDefOf.Tick_Tiny,
-                action = delegate ()
-                {
-                    var floatList = new List<FloatMenuOption>();
-                    foreach (var personaPrint in personaPrints.Where(x => x.PersonaData.ContainsPersona))
-                    {
-                        var option = new FloatMenuOption(personaPrint.PersonaData.PawnNameColored, delegate ()
-                        {
-                            this.personaPrintToRestore = personaPrint;
-                        }, personaPrint, personaPrint.DrawColor);
-                        floatList.Add(option);
-                    }
-                    Find.WindowStack.Add(new FloatMenu(floatList));
-                }
-            };
-
-            if (this.personaPrintToRestore != null)
+                icon = "UI/Gizmos/RestoreFromPersonaPrint",
+                targetAction = BeginTargetingForRestoringFromPrint,
+                action = InstallRestoreFromPrintBill,
+                lockedProjects = new List<ResearchProjectDef> { AC_DefOf.AC_NeuralDigitalization },
+                recipe = AC_DefOf.AC_RestoreStackFromPersonaPrint,
+                defaultLabelCancel = "AC.CancelPersonaPrintRestoration".Translate(),
+                defaultDescCancel = "AC.CancelPersonaPrintRestorationDesc".Translate(),
+                targetParameters = ForPersonaPrint()
+            }))
             {
-                restoreFromPersonaPrint.Disable("AC.AlreadySetToRestore".Translate());
-            }
-            if (!personaPrints.Any())
-            {
-                restoreFromPersonaPrint.Disable("AC.NoPersonaPrintToRestore".Translate());
-            }
-            if (this.Powered is false)
-            {
-                restoreFromPersonaPrint.Disable("NoPower".Translate());
-            }
-            yield return restoreFromPersonaPrint;
-            if (this.personaPrintToRestore != null)
-            {
-                yield return new Command_Action
-                {
-                    defaultLabel = "AC.CancelPersonaPrintRestoration".Translate(),
-                    defaultDesc = "AC.CancelPersonaPrintRestorationDesc".Translate(),
-                    activateSound = SoundDefOf.Tick_Tiny,
-                    icon = UIHelper.CancelIcon,
-                    action = delegate ()
-                    {
-                        this.personaPrintToRestore = null;
-                    }
-                };
+                yield return g;
             }
 
-            yield return new Command_Toggle()
+            var autoRestore = new Command_Toggle()
             {
                 defaultLabel = "AC.EnableAutoRestore".Translate(),
                 defaultDesc = "AC.EnableAutoRestoreDesc".Translate(),
@@ -192,31 +113,26 @@ namespace AlteredCarbon
                 },
                 isActive = () => autoRestoreIsEnabled
             };
+            TryDisableCommand(new CommandInfo
+            {
+                lockedProjects = new List<ResearchProjectDef> { AC_DefOf.AC_NeuralDigitalization }
+            }, autoRestore);
+            yield return autoRestore;
         }
 
-        private IEnumerable<Gizmo> GetStackOperationGizmos(StackGizmoInfo info)
+        private IEnumerable<Gizmo> GetCommands<T>(CommandInfo info) where T : Command_ActionOnThing
         {
-            var command = new Command_ActionOnStack(this, ForFilledStack(includeArchotechStack: info.includeArchotechStack),
-                info.action)
+            var command = (T)Activator.CreateInstance(typeof(T), new object[]
+            { this, info.targetParameters, info.action });
+            command.defaultLabel = info.defaultLabel;
+            command.defaultDesc = info.defaultDesc;
+            command.icon = ContentFinder<Texture2D>.Get(info.icon);
+            command.activateSound = SoundDefOf.Tick_Tiny;
+            command.action = delegate ()
             {
-                defaultLabel = info.defaultLabel,
-                defaultDesc = info.defaultDesc,
-                icon = ContentFinder<Texture2D>.Get(info.icon),
-                activateSound = SoundDefOf.Tick_Tiny,
-                action = delegate ()
-                {
-                    info.targetAction();
-                },
+                info.targetAction();
             };
-            if (powerComp.PowerOn is false)
-            {
-                command.Disable("NoPower".Translate().CapitalizeFirst());
-            }
-            command.LockBehindReseach(info.lockedProjects);
-            if (ConnectedMatrix is null)
-            {
-                command.Disable("AC.NoConnectedMatrix".Translate());
-            }
+            TryDisableCommand(info, command);
             yield return command;
             var bills = this.billStack.Bills.Where(x => x.recipe == info.recipe).ToList();
             if (bills.Any())
@@ -235,6 +151,22 @@ namespace AlteredCarbon
                         }
                     }
                 };
+            }
+        }
+
+        private void TryDisableCommand(CommandInfo info, Command command)
+        {
+            if (powerComp.PowerOn is false)
+            {
+                command.Disable("NoPower".Translate().CapitalizeFirst());
+            }
+            if (info.lockedProjects != null)
+            {
+                command.LockBehindReseach(info.lockedProjects);
+            }
+            if (ConnectedMatrix is null)
+            {
+                command.Disable("AC.NoConnectedMatrix".Translate());
             }
         }
 
@@ -269,9 +201,22 @@ namespace AlteredCarbon
                 InstallEditBill(x);
             });
         }
+
+        private void BeginTargetingForRestoringFromPrint()
+        {
+            Find.Targeter.BeginTargeting(ForPersonaPrint(), delegate (LocalTargetInfo x)
+            {
+                InstallRestoreFromPrintBill(x);
+                if (Event.current.shift)
+                {
+                    BeginTargetingForRestoringFromPrint();
+                }
+            });
+        }
+
         public bool CanAddOperationOn(PersonaStack personaStack)
         {
-            var bill = this.billStack.Bills.OfType<Bill_OperateOnStack>().Where(x => x.personaStack == personaStack).FirstOrDefault();
+            var bill = this.billStack.Bills.OfType<Bill_OperateOnStack>().Where(x => x.thingWithPersonaData == personaStack).FirstOrDefault();
             if (bill != null)
             {
                 if (bill.recipe == AC_DefOf.AC_WipeFilledPersonaStack)
@@ -291,6 +236,20 @@ namespace AlteredCarbon
             return true;
         }
 
+        public bool CanAddOperationOn(PersonaPrint personaStack)
+        {
+            var bill = this.billStack.Bills.OfType<Bill_OperateOnStack>().Where(x => x.thingWithPersonaData == personaStack).FirstOrDefault();
+            if (bill != null)
+            {
+                if (bill.recipe == AC_DefOf.AC_RestoreStackFromPersonaPrint)
+                {
+                    Messages.Message("AC.AlreadyOrderedToRestoreStack".Translate(), MessageTypeDefOf.CautionInput);
+                }
+                return false;
+            }
+            return true;
+        }
+
         private TargetingParameters ForFilledStack(bool includeArchotechStack)
         {
             TargetingParameters targetingParameters = new TargetingParameters
@@ -299,6 +258,17 @@ namespace AlteredCarbon
                 mapObjectTargetsMustBeAutoAttackable = false,
                 validator = (TargetInfo x) => x.Thing is PersonaStack stack && stack.PersonaData.ContainsPersona && (includeArchotechStack ||
                 stack.IsArchotechStack is false)
+            };
+            return targetingParameters;
+        }
+
+        private TargetingParameters ForPersonaPrint()
+        {
+            TargetingParameters targetingParameters = new TargetingParameters
+            {
+                canTargetItems = true,
+                mapObjectTargetsMustBeAutoAttackable = false,
+                validator = (TargetInfo x) => x.Thing is PersonaPrint stack && stack.PersonaData.ContainsPersona
             };
             return targetingParameters;
         }
@@ -360,23 +330,19 @@ namespace AlteredCarbon
             }
         }
 
-        public void PerformStackRestoration(Pawn doer, PersonaPrint personaPrint, Building_PersonaMatrix matrix)
+
+        public void InstallRestoreFromPrintBill(LocalTargetInfo x)
         {
-            var stackRestoreTo = (PersonaStack)ThingMaker.MakeThing(AC_DefOf.AC_FilledPersonaStack);
-            stackRestoreTo.PersonaData.CopyDataFrom(personaPrint.PersonaData, true);
-            AlteredCarbonManager.Instance.RegisterStack(stackRestoreTo);
-            Messages.Message("AC.SuccessfullyRestoredStackFromBackup".Translate(doer.Named("PAWN")), stackRestoreTo, MessageTypeDefOf.TaskCompletion);
-            GenPlace.TryPlaceThing(stackRestoreTo, doer.Position, doer.Map, ThingPlaceMode.Near);
-            matrix?.innerContainer.Remove(personaPrint);
-            personaPrint.Destroy();
-            personaPrintToRestore = null;
+            if (x.Thing is PersonaPrint personaStack && CanAddOperationOn(personaStack))
+            {
+                billStack.AddBill(new Bill_OperateOnStack(personaStack, AC_DefOf.AC_RestoreStackFromPersonaPrint, null));
+            }
         }
 
         public override void ExposeData()
         {
             base.ExposeData();
             Scribe_Values.Look(ref this.autoRestoreIsEnabled, "autoRestoreIsEnabled", true);
-            Scribe_References.Look(ref this.personaPrintToRestore, "personaPrintToRestore");
         }
     }
 }

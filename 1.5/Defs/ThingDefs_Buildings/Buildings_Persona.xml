@@ -147,7 +147,6 @@
 			<ComponentSpacer>2</ComponentSpacer>
 		</costList>
 		<recipes>
-			<li>AC_WipeFilledPersonaStack</li>
 			<li>AC_HackBiocodedThings</li>
 		</recipes>
 		<castEdgeShadows>true</castEdgeShadows>

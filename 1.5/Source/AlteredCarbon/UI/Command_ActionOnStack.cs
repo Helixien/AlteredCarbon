@@ -2,25 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using Verse;
 
 namespace AlteredCarbon
 {
-    [HotSwappable]
-    public class Command_ActionOnStack : Command_Action
+    public class Command_ActionOnStack : Command_ActionOnThing
     {
-        private Building_PersonaEditor personaEditor;
-        private TargetingParameters targetParameters;
-        private Action<LocalTargetInfo> actionOnStack;
-        public Command_ActionOnStack(Building_PersonaEditor personaEditor, TargetingParameters targetParameters, Action<LocalTargetInfo> actionOnStack)
+        public Command_ActionOnStack(Building_PersonaEditor personaEditor, TargetingParameters targetParameters, Action<LocalTargetInfo> actionOnStack) : base(personaEditor, targetParameters, actionOnStack)
         {
-            this.personaEditor = personaEditor;
-            this.targetParameters = targetParameters;
-            this.actionOnStack = actionOnStack;
         }
 
-        public IEnumerable<FloatMenuOption> FloatMenuOptions
+        public override IEnumerable<FloatMenuOption> FloatMenuOptions
         {
             get
             {
@@ -49,21 +41,7 @@ namespace AlteredCarbon
                         }, iconThing: personaStack, iconColor: personaStack.DrawColor);
                     }
                 }
-
             }
-        }
-
-        public override void ProcessInput(Event ev)
-        {
-            if (ev.button == 0)
-            {
-                var list = FloatMenuOptions.ToList();
-                if (list.Any())
-                {
-                    Find.WindowStack.Add(new FloatMenu(list));
-                }
-            }
-            base.ProcessInput(ev);
         }
     }
 }

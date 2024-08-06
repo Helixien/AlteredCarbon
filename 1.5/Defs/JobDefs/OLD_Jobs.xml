@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<!-- ================================ Create Stack from PersonaPrint ====================== -->
-	<JobDef>
-		<defName>AC_CreateStackFromPersonaPrint</defName>
-		<driverClass>AlteredCarbon.JobDriver_CreateStackFromPersonaPrint</driverClass>
-		<reportString>restoring persona stack from persona print</reportString>
-	</JobDef>
 	<!-- ================================ Hauling Persona Prints ====================== -->
 	<JobDef>
 		<defName>AC_HaulThingsToContainer</defName>

@@ -30,45 +30,49 @@ namespace AlteredCarbon
         }
         public static void Postfix(Pawn __instance, DamageInfo? dinfo, Hediff exactCulprit = null)
         {
-            if (__instance.HasPersonaStack(out var stackHediff))
+            if (__instance.Dead)
             {
-                var caravan = __instance.GetCaravan();
-                bool isArchotechStack = stackHediff.def == AC_DefOf.AC_ArchotechStack;
-                if (dinfo.HasValue && dinfo.Value.Def == DamageDefOf.Crush 
-                    && dinfo.Value.Category == DamageInfo.SourceCategory.Collapse)
+                if (__instance.HasPersonaStack(out var stackHediff))
                 {
-                    if (isArchotechStack)
+                    var caravan = __instance.GetCaravan();
+                    bool isArchotechStack = stackHediff.def == AC_DefOf.AC_ArchotechStack;
+                    if (dinfo.HasValue && dinfo.Value.Def == DamageDefOf.Crush
+                        && dinfo.Value.Category == DamageInfo.SourceCategory.Collapse)
+                    {
+                        if (isArchotechStack)
+                        {
+                            stackHediff.SpawnStack(caravan: caravan);
+                        }
+                    }
+                    else
+                    {
+                        AlteredCarbonManager.Instance.deadPawns.Add(__instance);
+                        if (dinfo.HasValue && dinfo.Value.Def.ExternalViolenceFor(__instance))
+                        {
+                            stackHediff.PersonaData.diedFromCombat = true;
+                        }
+
+                        if (isArchotechStack && caravan is null && __instance.GetNeck() is null)
+                        {
+                            stackHediff.SpawnStack();
+                        }
+                    }
+
+                    if (caravan != null)
                     {
                         stackHediff.SpawnStack(caravan: caravan);
-                    }
-                }
-                else
-                {
-                    AlteredCarbonManager.Instance.deadPawns.Add(__instance);
-                    if (dinfo.HasValue && dinfo.Value.Def.ExternalViolenceFor(__instance))
-                    {
-                        stackHediff.PersonaData.diedFromCombat = true;
-                    }
-
-                    if (isArchotechStack && caravan is null && __instance.GetNeck() is null)
-                    {
-                        stackHediff.SpawnStack();
-                    }
-                }
-
-                if (caravan != null)
-                {
-                    stackHediff.SpawnStack(caravan: caravan);
-                    var head = __instance.health.hediffSet.GetNotMissingParts().FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Head);
-                    if (head != null)
-                    {
-                        Hediff_MissingPart hediff_MissingPart = (Hediff_MissingPart)HediffMaker.MakeHediff(HediffDefOf.MissingBodyPart, __instance, head);
-                        hediff_MissingPart.lastInjury = HediffDefOf.SurgicalCut;
-                        hediff_MissingPart.IsFresh = true;
-                        __instance.health.AddHediff(hediff_MissingPart);
+                        var head = __instance.health.hediffSet.GetNotMissingParts().FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Head);
+                        if (head != null)
+                        {
+                            Hediff_MissingPart hediff_MissingPart = (Hediff_MissingPart)HediffMaker.MakeHediff(HediffDefOf.MissingBodyPart, __instance, head);
+                            hediff_MissingPart.lastInjury = HediffDefOf.SurgicalCut;
+                            hediff_MissingPart.IsFresh = true;
+                            __instance.health.AddHediff(hediff_MissingPart);
+                        }
                     }
                 }
             }
+
             __instance.EnableKillEffects();
         }
 

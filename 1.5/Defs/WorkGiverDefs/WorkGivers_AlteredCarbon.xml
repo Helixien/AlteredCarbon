@@ -26,19 +26,6 @@
 			<li>Manipulation</li>
 		</requiredCapacities>
 	</WorkGiverDef>
-	<!-- ================================ Create stack from persona print ====================== -->
-	<WorkGiverDef>
-		<defName>AC_CreateStackFromPersonaPrint</defName>
-		<label>restore stack from persona print</label>
-		<giverClass>AlteredCarbon.WorkGiver_CreateStackFromPersonaPrint</giverClass>
-		<workType>Research</workType>
-		<verb>restore stack from persona print</verb>
-		<gerund>restoring stack from persona print</gerund>
-		<priorityInType>999</priorityInType>
-		<requiredCapacities>
-			<li>Manipulation</li>
-		</requiredCapacities>
-	</WorkGiverDef>
 	<!-- ================================ Hauling corpse to sleeve grower ====================== -->
 	<WorkGiverDef>
 		<defName>AC_HaulCorpseToSleeveGrower</defName>

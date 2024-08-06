@@ -597,7 +597,7 @@ namespace AlteredCarbon
             }
         }
 
-        public static void LockBehindReseach(this Command_Action command, List<ResearchProjectDef> researchProjects)
+        public static void LockBehindReseach(this Command command, List<ResearchProjectDef> researchProjects)
         {
             if (researchProjects != null && researchProjects.Any() && IsResearchFinished(researchProjects) is false)
             {

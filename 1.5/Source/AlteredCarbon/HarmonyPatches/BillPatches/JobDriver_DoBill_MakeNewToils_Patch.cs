@@ -14,7 +14,7 @@ namespace AlteredCarbon
     {
         public static IEnumerable<Toil> Postfix(IEnumerable<Toil> __result, JobDriver_DoBill __instance)
         {
-            if (__instance.job.bill.recipe.Worker is Recipe_OperateOnPersonaStack)
+            if (__instance.job.bill.recipe.Worker is Recipe_OperateOnPersonaStack or Recipe_OperateOnPersonaPrint)
             {
                 var job = __instance.job;
                 var pawn = __instance.pawn;
@@ -30,8 +30,8 @@ namespace AlteredCarbon
                 };
                 yield return toil;
                 yield return Toils_Jump.JumpIf(gotoBillGiver, () => job.GetTargetQueue(TargetIndex.B).NullOrEmpty());
-                foreach (Toil item in CollectIngredientsToils(__instance, TargetIndex.B, TargetIndex.A, TargetIndex.C, 
-                    subtractNumTakenFromJobCount: false, failIfStackCountLessThanJobCount: true, 
+                foreach (Toil item in CollectIngredientsToils(__instance, TargetIndex.B, TargetIndex.A, TargetIndex.C,
+                    subtractNumTakenFromJobCount: false, failIfStackCountLessThanJobCount: true,
                     __instance.BillGiver is Building_WorkTableAutonomous))
                 {
                     yield return item;
@@ -56,8 +56,8 @@ namespace AlteredCarbon
             }
         }
 
-        public static IEnumerable<Toil> CollectIngredientsToils(JobDriver_DoBill jobdriver, TargetIndex ingredientInd, TargetIndex billGiverInd, 
-            TargetIndex ingredientPlaceCellInd, bool subtractNumTakenFromJobCount = false, 
+        public static IEnumerable<Toil> CollectIngredientsToils(JobDriver_DoBill jobdriver, TargetIndex ingredientInd, TargetIndex billGiverInd,
+            TargetIndex ingredientPlaceCellInd, bool subtractNumTakenFromJobCount = false,
             bool failIfStackCountLessThanJobCount = true, bool placeInBillGiver = false)
         {
             var extractTarget = Toils_JobTransforms.ExtractNextTargetFromQueue(ingredientInd);
@@ -69,17 +69,22 @@ namespace AlteredCarbon
             var decideShouldCarryItem = Toils_General.Do(delegate
             {
                 if (jobdriver.job.bill.recipe.Worker is Recipe_EditFilledPersonaStack
-                    or Recipe_DuplicatePersonaStack && jobdriver.job.targetB.Thing.def == AC_DefOf.AC_PersonaCache)
+                    or Recipe_DuplicatePersonaStack && jobdriver.job.targetB.Thing.def == AC_DefOf.AC_PersonaCache
+                    || jobdriver.job.bill.recipe.Worker is Recipe_RestoreStackFromPersonaPrint
+                    && jobdriver.job.targetB.Thing.def == AC_DefOf.AC_PersonaMatrix)
                 {
                     Pawn actor = jobdriver.pawn;
                     Job curJob = actor.jobs.curJob;
                     List<LocalTargetInfo> targetQueue = curJob.GetTargetQueue(ingredientInd);
-                    curJob.SetTarget(ingredientInd, targetQueue[0]);
-                    targetQueue.RemoveAt(0);
-                    if (!curJob.countQueue.NullOrEmpty())
+                    if (targetQueue.Any())
                     {
-                        curJob.count = curJob.countQueue[0];
-                        curJob.countQueue.RemoveAt(0);
+                        curJob.SetTarget(ingredientInd, targetQueue[0]);
+                        targetQueue.RemoveAt(0);
+                        if (!curJob.countQueue.NullOrEmpty())
+                        {
+                            curJob.count = curJob.countQueue[0];
+                            curJob.countQueue.RemoveAt(0);
+                        }
                     }
                     jobdriver.JumpToToil(jumpIfHaveTargetInQueue);
                 }
@@ -92,8 +97,15 @@ namespace AlteredCarbon
                     var target = targetQueue[0].Thing;
                     if (target.Spawned is false)
                     {
-                        var comp = target.ParentHolder as CompPersonaCache;
-                        jobdriver.job.SetTarget(ingredientInd, comp.parent);
+                        Log.Message("target.ParentHolder: " + target.ParentHolder);
+                        if (target.ParentHolder is CompPersonaCache comp)
+                        {
+                            jobdriver.job.SetTarget(ingredientInd, comp.parent);
+                        }
+                        else if (target.ParentHolder is Building_PersonaMatrix matrix)
+                        {
+                            jobdriver.job.SetTarget(ingredientInd, matrix);
+                        }
                         jobdriver.JumpToToil(decideShouldCarryItem);
                     }
                 }
@@ -103,20 +115,26 @@ namespace AlteredCarbon
             var tryDropStackFromCache = Toils_General.Do(delegate
             {
                 var target = jobdriver.job.GetTarget(ingredientInd).Thing;
-                if (target is not PersonaStack)
+                if (target is not ThingWithPersonaData)
                 {
                     var targetQueue = jobdriver.job.GetTargetQueue(ingredientInd);
                     target = targetQueue[0].Thing;
                     if (target.Spawned is false)
                     {
-                        var comp = target.ParentHolder as CompPersonaCache;
-                        comp.innerContainer.TryDrop(target, ThingPlaceMode.Near, out var targetThing);
+                        if (target.ParentHolder is CompPersonaCache comp)
+                        {
+                            comp.innerContainer.TryDrop(target, ThingPlaceMode.Near, out var targetThing);
+                        }
+                        else if (target.ParentHolder is Building_PersonaMatrix matrix)
+                        {
+                            matrix.innerContainer.TryDrop(target, ThingPlaceMode.Near, out var targetThing);
+                        }
                         jobdriver.JumpToToil(extractTarget);
                     }
                 }
             });
 
-            yield return changeTargetToPersonaCacheIfNotSpawned; 
+            yield return changeTargetToPersonaCacheIfNotSpawned;
             yield return extractTarget;
             yield return JobDriver_DoBill.JumpIfTargetInsideBillGiver(jumpIfHaveTargetInQueue, ingredientInd, billGiverInd);
             yield return decideShouldCarryItem;
@@ -253,4 +271,3 @@ namespace AlteredCarbon
         }
     }
 }
-

@@ -23,7 +23,8 @@ namespace AlteredCarbon
 
         public override float GetWorkAmount(Thing thing = null)
         {
-            var time = (float)this.personaStack.personaDataRewritten.editTime;
+            var personaStack = thingWithPersonaData as PersonaStack;
+            var time = (float)personaStack.personaDataRewritten.editTime;
             if (this.curBillDoer != null)
             {
                 var level = curBillDoer.skills.GetSkill(SkillDefOf.Intellectual).Level;

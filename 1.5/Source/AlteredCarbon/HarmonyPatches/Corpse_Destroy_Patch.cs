@@ -14,6 +14,10 @@ namespace AlteredCarbon
                 {
                     stackHediff.SpawnStack(placeMode: ThingPlaceMode.Direct, psycastEffect: true);
                 }
+                else
+                {
+                    stackHediff.PersonaData.TryQueueAutoRestoration();
+                }
             }
         }
     }

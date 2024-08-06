@@ -34,19 +34,33 @@ namespace AlteredCarbon
 
         public static void TryModifyResult(ref bool __result, Predicate<List<Thing>> foundAllIngredientsAndChoose, Pawn pawn)
         {
-            if (__result is false && WorkGiver_DoBill_TryFindBestBillIngredients_Patch.curBill is Bill bill 
-                && bill.recipe.Worker is Recipe_OperateOnPersonaStack)
+            if (__result is false && WorkGiver_DoBill_TryFindBestBillIngredients_Patch.curBill is Bill bill)
             {
-                var personaCaches = pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaCache);
-                foreach (var personaCache in personaCaches)
+                if (bill.recipe.Worker is Recipe_OperateOnPersonaStack)
                 {
-                    var comp = personaCache.TryGetComp<CompPersonaCache>();
-                    var stacks = comp.innerContainer.ToList();
-                    WorkGiver_DoBill.relevantThings.AddRange(stacks);
+                    var personaCaches = pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaCache);
+                    foreach (var personaCache in personaCaches)
+                    {
+                        var comp = personaCache.TryGetComp<CompPersonaCache>();
+                        var stacks = comp.innerContainer.ToList();
+                        WorkGiver_DoBill.relevantThings.AddRange(stacks);
+                    }
+                    if (foundAllIngredientsAndChoose(WorkGiver_DoBill.relevantThings))
+                    {
+                        __result = true;
+                    }
                 }
-                if (foundAllIngredientsAndChoose(WorkGiver_DoBill.relevantThings))
+                else if (bill.recipe.Worker is Recipe_OperateOnPersonaPrint)
                 {
-                    __result = true;
+                    var personaMatrices = pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).OfType<Building_PersonaMatrix>();
+                    foreach (var personaMatrix in personaMatrices)
+                    {
+                        WorkGiver_DoBill.relevantThings.AddRange(personaMatrix.StoredPersonaPrints);
+                    }
+                    if (foundAllIngredientsAndChoose(WorkGiver_DoBill.relevantThings))
+                    {
+                        __result = true;
+                    }
                 }
             }
         }

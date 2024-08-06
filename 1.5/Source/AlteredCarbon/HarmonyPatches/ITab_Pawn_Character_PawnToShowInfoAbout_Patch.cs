@@ -35,7 +35,7 @@ namespace AlteredCarbon
         public static PersonaData TryGetPersonaData()
         {
             var selectedThing = Find.Selector.SingleSelectedThing;
-            if (selectedThing is ThingWithStack stack && stack.PersonaData.ContainsPersona)
+            if (selectedThing is ThingWithPersonaData stack && stack.PersonaData.ContainsPersona)
             {
                 return stack.PersonaData;
             }
