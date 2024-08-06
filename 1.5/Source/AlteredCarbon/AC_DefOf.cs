@@ -123,5 +123,6 @@ namespace AlteredCarbon
         public static ResearchProjectDef AC_NeuralDigitalization;
         public static RecipeDef AC_RestoreStackFromPersonaPrint;
         public static ThingDef AC_PersonaConnector;
+        public static HediffDef AC_ScanningSickness;
     }
 }

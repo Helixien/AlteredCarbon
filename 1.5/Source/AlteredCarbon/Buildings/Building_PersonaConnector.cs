@@ -10,7 +10,7 @@ using Verse.Sound;
 namespace AlteredCarbon
 {
     [StaticConstructorOnStartup]
-    public class Building_PersonaConnector : Building_Enterable, IThingHolderWithDrawnPawn, IThingHolder
+    public class Building_PersonaConnector : Building_Enterable, IThingHolderWithDrawnPawn, IThingHolder, IMatrixConnectable
     {
         public enum PersonaConnectorMode
         {
@@ -18,6 +18,11 @@ namespace AlteredCarbon
         }
 
         private PersonaConnectorMode connectorMode;
+
+        public Building_PersonaMatrix ConnectedMatrix => CompAffectedByFacilities.LinkedFacilitiesListForReading.OfType<Building_PersonaMatrix>().FirstOrDefault();
+        private CompAffectedByFacilities _compAffectedByFacilities;
+        public CompAffectedByFacilities CompAffectedByFacilities =>
+            _compAffectedByFacilities ??= GetComp<CompAffectedByFacilities>();
 
         private bool initScanner;
 
@@ -36,6 +41,8 @@ namespace AlteredCarbon
         private Effecter progressBarEffecter;
 
         public static readonly Texture2D CancelLoadingIcon = ContentFinder<Texture2D>.Get("UI/Designators/Cancel");
+        public static readonly Texture2D EmptyPersonaPrint = ContentFinder<Texture2D>.Get("Things/Item/PersonaPrint/EmptyPersonaPrint/EmptyPersonaPrintA");
+        public static readonly Texture2D Skilltrainer = ContentFinder<Texture2D>.Get("Things/Item/Special/MechSerumNeurotrainer");
 
         public static readonly CachedTexture InsertPersonIcon = new CachedTexture("UI/Icons/InsertPersonSubcoreScanner");
 
@@ -112,7 +119,7 @@ namespace AlteredCarbon
         {
             get
             {
-                if (!initScanner || !PowerOn)
+                if (!initScanner || !PowerOn || ConnectedMatrix is null || ConnectedMatrix.Powered is false)
                 {
                     return SubcoreScannerState.Inactive;
                 }
@@ -136,6 +143,7 @@ namespace AlteredCarbon
                 def.building.subcoreScannerFixedIngredients[i].ResolveReferences();
             }
         }
+        public bool DestroyOccupantBrain => connectorMode == PersonaConnectorMode.CreateSkilltrainer;
 
         public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
         {
@@ -145,6 +153,10 @@ namespace AlteredCarbon
             effectHusk = null;
             effectStart?.Cleanup();
             effectStart = null;
+            if (DestroyOccupantBrain && Occupant != null)
+            {
+                KillOccupant();
+            }
             base.DeSpawn(mode);
         }
 
@@ -208,9 +220,13 @@ namespace AlteredCarbon
             }
             else
             {
-                if (selPawn.HasPersonaStack(out _) is false)
+                if (connectorMode == PersonaConnectorMode.CreatePersonaPrint && selPawn.HasPersonaStack(out _) is false)
                 {
                     return "AC.RequiresPersonaStackInstalled".Translate();
+                }
+                if (connectorMode == PersonaConnectorMode.CreateSkilltrainer && selPawn.skills.skills.MaxBy(x => x.Level).Level < 10)
+                {
+                    return "AC.NotSufficientSkillLevels".Translate();
                 }
                 if (selPawn.IsQuestLodger())
                 {
@@ -219,6 +235,10 @@ namespace AlteredCarbon
                 if (selPawn.health.hediffSet.HasHediff(HediffDefOf.ScanningSickness))
                 {
                     return "SubcoreScannerPawnHasSickness".Translate(HediffDefOf.ScanningSickness.label);
+                }
+                if (selPawn.health.hediffSet.HasHediff(AC_DefOf.AC_ScanningSickness))
+                {
+                    return "SubcoreScannerPawnHasSickness".Translate(AC_DefOf.AC_ScanningSickness.label);
                 }
                 if (selPawn.DevelopmentalStage.Baby())
                 {
@@ -245,7 +265,20 @@ namespace AlteredCarbon
                 {
                     Find.Selector.Select(pawn, playSound: false, forceDesignatorDeselect: false);
                 }
-                fabricationTicksLeft = def.building.subcoreScannerTicks;
+                fabricationTicksLeft = FabricationTicks;
+            }
+        }
+
+        public int FabricationTicks
+        {
+            get
+            {
+                switch (connectorMode)
+                {
+                    case PersonaConnectorMode.CreatePersonaPrint: return 12500;
+                    case PersonaConnectorMode.CreateSkilltrainer: return 20000;
+                    default: return 0;
+                }
             }
         }
 
@@ -267,6 +300,10 @@ namespace AlteredCarbon
                 {
                     occupant.health?.AddHediff(def.building.subcoreScannerHediff);
                 }
+                if (DestroyOccupantBrain)
+                {
+                    KillOccupant();
+                }
                 for (int num = innerContainer.Count - 1; num >= 0; num--)
                 {
                     if (innerContainer[num] is Pawn || innerContainer[num] is Corpse)
@@ -280,6 +317,18 @@ namespace AlteredCarbon
             initScanner = false;
         }
 
+        private void KillOccupant()
+        {
+            Pawn occupant = Occupant;
+            DamageInfo dinfo = new DamageInfo(DamageDefOf.ExecutionCut, 9999f, 999f, -1f, null, occupant.health.hediffSet.GetBrain());
+            dinfo.SetIgnoreInstantKillProtection(ignore: true);
+            dinfo.SetAllowDamagePropagation(val: false);
+            occupant.forceNoDeathNotification = true;
+            occupant.TakeDamage(dinfo);
+            occupant.forceNoDeathNotification = false;
+            ThoughtUtility.GiveThoughtsForPawnExecuted(occupant, null, PawnExecutionKind.Ripscanned);
+            Messages.Message("MessagePawnKilledRipscanner".Translate(occupant.Named("PAWN")), occupant, MessageTypeDefOf.NegativeHealthEvent);
+        }
 
         public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Pawn selPawn)
         {
@@ -297,7 +346,17 @@ namespace AlteredCarbon
             {
                 yield return FloatMenuUtility.DecoratePrioritizedTask(new FloatMenuOption("EnterBuilding".Translate(this), delegate
                 {
-                    SelectPawn(selPawn);
+                    if (connectorMode == PersonaConnectorMode.CreateSkilltrainer)
+                    {
+                        Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("AC.ConfirmSkilltrainerPawn".Translate(selPawn.Named("PAWN")), delegate
+                        {
+                            SelectPawn(selPawn);
+                        }, destructive: true));
+                    }
+                    else
+                    {
+                        SelectPawn(selPawn);
+                    }
                 }), selPawn, this);
             }
             else if (!acceptanceReport.Reason.NullOrEmpty())
@@ -356,9 +415,21 @@ namespace AlteredCarbon
                     {
                         var print = ThingMaker.MakeThing(def.building.subcoreScannerOutputDef) as PersonaPrint;
                         var stack = Occupant.GetPersonaStack();
-                        print.PersonaData.CopyFromPawn(Occupant, stack.sourceDef, true);
-                        GenPlace.TryPlaceThing(print, InteractionCell, base.Map, ThingPlaceMode.Near);
-                        Messages.Message("MessageSubcoreSoftscannerCompleted".Translate(Occupant.Named("PAWN")), Occupant, MessageTypeDefOf.PositiveEvent);
+                        print.PersonaData.CopyFromPawn(Occupant, stack.sourceDef, true, false);
+                        var matrix = ConnectedMatrix;
+                        if (matrix.TryAcceptThing(print) is false)
+                        {
+                            GenPlace.TryPlaceThing(print, InteractionCell, base.Map, ThingPlaceMode.Near);
+                        }
+                        Messages.Message("AC.CreatingPersonaPrintCompleted".Translate(Occupant.Named("PAWN")), Occupant, MessageTypeDefOf.PositiveEvent);
+                    }
+                    else if (connectorMode == PersonaConnectorMode.CreateSkilltrainer)
+                    {
+                        var skill = Occupant.skills.skills.Where(x => x.Level >= 10).RandomElement();
+                        var def = ThingDef.Named(ThingDefGenerator_Neurotrainer.NeurotrainerDefPrefix + "_" + skill.def.defName);
+                        var skilTrainer = ThingMaker.MakeThing(def);
+                        GenPlace.TryPlaceThing(skilTrainer, InteractionCell, base.Map, ThingPlaceMode.Near);
+                        Messages.Message("AC.CreatingSkilltrainerCompleted".Translate(Occupant.Named("PAWN")), Occupant, MessageTypeDefOf.PositiveEvent);
                     }
                     EjectContents();
                     if (def.building.subcoreScannerComplete != null)
@@ -377,7 +448,7 @@ namespace AlteredCarbon
                 }
                 progressBarEffecter.EffectTick(this, TargetInfo.Invalid);
                 MoteProgressBar mote = ((SubEffecter_ProgressBar)progressBarEffecter.children[0]).mote;
-                mote.progress = 1f - (float)fabricationTicksLeft / (float)def.building.subcoreScannerTicks;
+                mote.progress = 1f - (float)fabricationTicksLeft / (float)FabricationTicks;
                 mote.offsetZ = -0.8f;
                 if (def.building.subcoreScannerWorking != null)
                 {
@@ -417,6 +488,7 @@ namespace AlteredCarbon
             }
         }
 
+
         public override IEnumerable<Gizmo> GetGizmos()
         {
             foreach (Gizmo gizmo in base.GetGizmos())
@@ -428,10 +500,6 @@ namespace AlteredCarbon
                 Command_Action command_Action = new Command_Action();
                 command_Action.defaultLabel = "SubcoreScannerStart".Translate();
                 StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.Append("SubcoreScannerProduces".Translate() + " " + def.building.subcoreScannerOutputDef.label + ".");
-                stringBuilder.Append("\n\n");
-                stringBuilder.Append("DurationHours".Translate() + ": " + def.building.subcoreScannerTicks.ToStringTicksToPeriod());
-                stringBuilder.Append("\n\n");
                 string text = def.building.subcoreScannerFixedIngredients.Select((IngredientCount i) => i.Summary).ToCommaList(useAnd: true);
                 stringBuilder.Append("SubcoreScannerStartDesc".Translate(def.label, text));
                 command_Action.defaultDesc = stringBuilder.ToString();
@@ -443,15 +511,20 @@ namespace AlteredCarbon
                     {
                         initScanner = true;
                         connectorMode = PersonaConnectorMode.CreatePersonaPrint;
-                    })); 
+                    }, itemIcon: EmptyPersonaPrint, Color.white)); 
                     floatList.Add(new FloatMenuOption("AC.CreateSkilltrainer".Translate(), delegate
                     {
                         initScanner = true; 
                         connectorMode = PersonaConnectorMode.CreateSkilltrainer;
-                    }));
+                    }, itemIcon: Skilltrainer, Color.white));
                     Find.WindowStack.Add(new FloatMenu(floatList));
                 };
                 command_Action.activateSound = SoundDefOf.Tick_Tiny;
+                command_Action.TryDisableCommand(new CommandInfo
+                {
+                    lockedProjects = new List<ResearchProjectDef> { AC_DefOf.AC_NeuralDigitalization },
+                    building = this
+                });
                 yield return command_Action;
             }
             else if (base.SelectedPawn == null)
@@ -479,7 +552,17 @@ namespace AlteredCarbon
                         {
                             list.Add(new FloatMenuOption(pawn.LabelShortCap, delegate
                             {
-                                SelectPawn(pawn);
+                                if (connectorMode == PersonaConnectorMode.CreateSkilltrainer)
+                                {
+                                    Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("AC.ConfirmSkilltrainerPawn".Translate(pawn.Named("PAWN")), delegate
+                                    {
+                                        SelectPawn(pawn);
+                                    }, destructive: true));
+                                }
+                                else
+                                {
+                                    SelectPawn(pawn);
+                                }
                             }, pawn, Color.white));
                         }
                     }
@@ -499,6 +582,11 @@ namespace AlteredCarbon
                     AppendIngredientsList(stringBuilder2);
                     command_Action2.Disable(stringBuilder2.ToString());
                 }
+                command_Action2.TryDisableCommand(new CommandInfo
+                {
+                    lockedProjects = new List<ResearchProjectDef> { AC_DefOf.AC_NeuralDigitalization },
+                    building = this
+                });
                 yield return command_Action2;
             }
             if (initScanner)
@@ -509,7 +597,14 @@ namespace AlteredCarbon
                 command_Action3.icon = CancelLoadingIcon;
                 command_Action3.action = delegate
                 {
-                    EjectContents();
+                    if (State == SubcoreScannerState.Occupied && connectorMode == PersonaConnectorMode.CreateSkilltrainer)
+                    {
+                        Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("AC.ConfirmCancelSkilltrainerPawn".Translate(Occupant.Named("PAWN")), EjectContents, destructive: true));
+                    }
+                    else
+                    {
+                        EjectContents();
+                    }
                 };
                 command_Action3.activateSound = SoundDefOf.Designate_Cancel;
                 yield return command_Action3;

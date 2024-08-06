@@ -190,6 +190,7 @@
 	<AC.WipeStack>Factory reset stack</AC.WipeStack>
 	<AC.WipeStackDesc>Factory reset a filled persona to be used on a new host. This process will deleted the pawn stored on it, effectively killing them.</AC.WipeStackDesc>
 	<AC.NoConnectedMatrix>Cannot use: No Persona Matrix nearby.</AC.NoConnectedMatrix>
+	<AC.ConnectedMatrixHasNoPower>Cannot use: Connected Persona Matrix is not powered.</AC.ConnectedMatrixHasNoPower>
 	<AC.WipingFriendlyStackWarning>Warning: The stack you are trying to factory reset does not belong to your faction.
 
 If you erase the content from a non-colonist stack from another faction, their entire faction may become your enemy.</AC.WipingFriendlyStackWarning>
@@ -301,4 +302,10 @@ If you edit the content from a non-colonist stack from another faction, their en
 	<AC.RequiresPersonaStackInstalled>Requires persona stack installed.</AC.RequiresPersonaStackInstalled>
 	<AC.CreatePersonaPrint>Create persona print</AC.CreatePersonaPrint>
 	<AC.CreateSkilltrainer>Create skilltrainer</AC.CreateSkilltrainer>
+	<AC.NotSufficientSkillLevels>Not sufficient skill levels</AC.NotSufficientSkillLevels>
+	<AC.CreatingPersonaPrintCompleted>Creating persona print completed for {PAWN_nameDef}.</AC.CreatingPersonaPrintCompleted>
+	<AC.CreatingSkilltrainerCompleted>Creating skilltrainer completed for {PAWN_nameDef}. {PAWN_nameDef}'s brain has been destroyed by the persona connector.</AC.CreatingSkilltrainerCompleted>
+	<AC.ConfirmSkilltrainerPawn>Scanning {PAWN_nameDef} to create a skilltrainer will kill {PAWN_objective}. Are you sure you want to continue?</AC.ConfirmSkilltrainerPawn>
+	<AC.ConfirmCancelSkilltrainerPawn>Cancelling a skilltrainer process will still kill {PAWN_nameDef}. Are you sure you want to continue?</AC.ConfirmCancelSkilltrainerPawn>
+
 </LanguageData>

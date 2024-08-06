@@ -302,8 +302,7 @@
 			<subcoreScannerStartEffect>SubcoreSoftscanner_Start</subcoreScannerStartEffect>
 			<subcoreScannerWorking>SubcoreSoftscanner_Working</subcoreScannerWorking>
 			<subcoreScannerComplete>SubcoreSoftscanner_Complete</subcoreScannerComplete>
-			<subcoreScannerHediff>ScanningSickness</subcoreScannerHediff>
-			<subcoreScannerTicks>12500</subcoreScannerTicks>
+			<subcoreScannerHediff>AC_ScanningSickness</subcoreScannerHediff>
 		</building>
 		<statBases>
 			<MaxHitPoints>350</MaxHitPoints>

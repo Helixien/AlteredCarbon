@@ -31,7 +31,6 @@ namespace AlteredCarbon
             compPower = this.TryGetComp<CompPowerTrader>();
         }
 
-
         public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
         {
             if (this.innerContainer.Count > 0 && (mode == DestroyMode.Deconstruct || mode == DestroyMode.KillFinalize))
@@ -55,8 +54,8 @@ namespace AlteredCarbon
             }
             if (Faction == Faction.OfPlayer)
             {
-                var frames = StoredPersonaPrints.ToList();
-                if (frames.Any())
+                var prints = StoredPersonaPrints.ToList();
+                if (prints.Any())
                 {
                     var ejectAll = new Command_Action();
                     ejectAll.defaultLabel = "AC.EjectAll".Translate();
@@ -74,7 +73,7 @@ namespace AlteredCarbon
         public override string GetInspectString()
         {
             var sb = new StringBuilder();
-            sb.Append(base.GetInspectString());
+            sb.Append(base.GetInspectString() + "\n");
             sb.AppendLine("AC.PersonaPrintsStored".Translate(StoredPersonaPrints.Count(), MaxFilledStackCapacity));
             if (StoredPersonaPrints.Any())
             {

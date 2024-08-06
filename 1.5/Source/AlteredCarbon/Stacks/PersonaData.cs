@@ -318,7 +318,7 @@ namespace AlteredCarbon
             }
         }
 
-        public void CopyFromPawn(Pawn pawn, ThingDef sourceStack, bool copyRaceGenderInfo = false)
+        public void CopyFromPawn(Pawn pawn, ThingDef sourceStack, bool copyRaceGenderInfo = false, bool canBackupPsychicStuff = true)
         {
             this.hostPawn = pawn;
             this.sourceStack = sourceStack ?? AC_DefOf.AC_FilledPersonaStack;
@@ -451,7 +451,7 @@ namespace AlteredCarbon
                     priorities[w] = pawn.workSettings.GetPriority(w);
                 }
             }
-            if (this.sourceStack == AC_DefOf.AC_FilledArchotechStack)
+            if (this.sourceStack == AC_DefOf.AC_FilledArchotechStack && canBackupPsychicStuff)
             {
                 if (pawn.HasPsylink)
                 {

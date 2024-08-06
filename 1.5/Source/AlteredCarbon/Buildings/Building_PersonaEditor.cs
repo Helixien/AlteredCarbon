@@ -7,8 +7,25 @@ using Verse;
 
 namespace AlteredCarbon
 {
+    public class CommandInfo
+    {
+        public string defaultLabel, defaultDesc, icon;
+        public Action targetAction;
+        public Action<LocalTargetInfo> action;
+        public List<ResearchProjectDef> lockedProjects;
+        public RecipeDef recipe;
+        public string defaultLabelCancel, defaultDescCancel;
+        public TargetingParameters targetParameters;
+        public Building building;
+    }
+
+    public interface IMatrixConnectable
+    {
+        Building_PersonaMatrix ConnectedMatrix { get; }
+    }
+
     [StaticConstructorOnStartup]
-    public class Building_PersonaEditor : Building_WorkTable
+    public class Building_PersonaEditor : Building_WorkTable, IMatrixConnectable
     {
         public bool autoRestoreIsEnabled = true;
         public Building_PersonaMatrix ConnectedMatrix => CompAffectedByFacilities.LinkedFacilitiesListForReading.OfType<Building_PersonaMatrix>().FirstOrDefault();
@@ -16,23 +33,13 @@ namespace AlteredCarbon
         public CompAffectedByFacilities CompAffectedByFacilities =>
             _compAffectedByFacilities ??= GetComp<CompAffectedByFacilities>();
 
-        public class CommandInfo
-        {
-            public string defaultLabel, defaultDesc, icon;
-            public Action targetAction;
-            public Action<LocalTargetInfo> action;
-            public List<ResearchProjectDef> lockedProjects;
-            public RecipeDef recipe;
-            public string defaultLabelCancel, defaultDescCancel;
-            public TargetingParameters targetParameters;
-        }
-
         public override IEnumerable<Gizmo> GetGizmos()
         {
             foreach (Gizmo g in base.GetGizmos())
             {
                 yield return g;
             }
+
             foreach (var g in GetCommands<Command_ActionOnStack>(new CommandInfo
             {
                 defaultLabel = "AC.WipeStack".Translate(),
@@ -44,7 +51,7 @@ namespace AlteredCarbon
                 recipe = AC_DefOf.AC_WipeFilledPersonaStack,
                 defaultLabelCancel = "AC.CancelStackReset".Translate(),
                 defaultDescCancel = "AC.CancelStackResetDesc".Translate(),
-                targetParameters = ForFilledStack(includeArchotechStack: false)
+                targetParameters = ForFilledStack(includeArchotechStack: false),
             }))
             {
                 yield return g;
@@ -61,7 +68,7 @@ namespace AlteredCarbon
                 recipe = AC_DefOf.AC_DuplicatePersonaStack,
                 defaultLabelCancel = "AC.CancelStackDuplication".Translate(),
                 defaultDescCancel = "AC.CancelStackDuplicationDesc".Translate(),
-                targetParameters = ForFilledStack(includeArchotechStack: false)
+                targetParameters = ForFilledStack(includeArchotechStack: false),
             }))
             {
                 yield return g;
@@ -78,7 +85,7 @@ namespace AlteredCarbon
                 recipe = AC_DefOf.AC_EditFilledPersonaStack,
                 defaultLabelCancel = "AC.CancelStackEdit".Translate(),
                 defaultDescCancel = "AC.CancelStackEditDesc".Translate(),
-                targetParameters = ForFilledStack(includeArchotechStack: AC_Utils.editStacksSettings.enableArchostackEditing)
+                targetParameters = ForFilledStack(includeArchotechStack: AC_Utils.editStacksSettings.enableArchostackEditing),
             }))
             {
                 yield return g;
@@ -95,7 +102,7 @@ namespace AlteredCarbon
                 recipe = AC_DefOf.AC_RestoreStackFromPersonaPrint,
                 defaultLabelCancel = "AC.CancelPersonaPrintRestoration".Translate(),
                 defaultDescCancel = "AC.CancelPersonaPrintRestorationDesc".Translate(),
-                targetParameters = ForPersonaPrint()
+                targetParameters = ForPersonaPrint(),
             }))
             {
                 yield return g;
@@ -113,10 +120,11 @@ namespace AlteredCarbon
                 },
                 isActive = () => autoRestoreIsEnabled
             };
-            TryDisableCommand(new CommandInfo
+            autoRestore.TryDisableCommand(new CommandInfo
             {
-                lockedProjects = new List<ResearchProjectDef> { AC_DefOf.AC_NeuralDigitalization }
-            }, autoRestore);
+                lockedProjects = new List<ResearchProjectDef> { AC_DefOf.AC_NeuralDigitalization },
+                building = this,
+            });
             yield return autoRestore;
         }
 
@@ -132,7 +140,8 @@ namespace AlteredCarbon
             {
                 info.targetAction();
             };
-            TryDisableCommand(info, command);
+            info.building = this;
+            command.TryDisableCommand(info);
             yield return command;
             var bills = this.billStack.Bills.Where(x => x.recipe == info.recipe).ToList();
             if (bills.Any())
@@ -151,22 +160,6 @@ namespace AlteredCarbon
                         }
                     }
                 };
-            }
-        }
-
-        private void TryDisableCommand(CommandInfo info, Command command)
-        {
-            if (powerComp.PowerOn is false)
-            {
-                command.Disable("NoPower".Translate().CapitalizeFirst());
-            }
-            if (info.lockedProjects != null)
-            {
-                command.LockBehindReseach(info.lockedProjects);
-            }
-            if (ConnectedMatrix is null)
-            {
-                command.Disable("AC.NoConnectedMatrix".Translate());
             }
         }
 

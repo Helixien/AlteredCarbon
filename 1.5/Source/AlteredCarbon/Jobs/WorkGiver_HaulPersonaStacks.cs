@@ -16,10 +16,10 @@ namespace AlteredCarbon
         }
         public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)
         {
-            var frames = pawn.Map.listerThings.AllThings.OfType<PersonaStack>().Where(x => x.autoLoad 
+            var prints = pawn.Map.listerThings.AllThings.OfType<PersonaStack>().Where(x => x.autoLoad 
                 && x.PersonaData.ContainsPersona
                 && pawn.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
-            return frames;
+            return prints;
         }
 
         public override bool HasJobOnThing(Pawn pawn, Thing t, bool forced = false)

@@ -92,4 +92,52 @@
 			</li>
 		</comps>
 	</HediffDef>
+	
+
+  <ThoughtDef>
+    <defName>AC_ScanningSickness</defName>
+    <workerClass>ThoughtWorker_Hediff</workerClass>
+    <hediff>AC_ScanningSickness</hediff>
+    <validWhileDespawned>true</validWhileDespawned>
+    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+    <stages>
+      <li>
+        <label>scanning sickness</label>
+        <description>Ever since that scan I've been dizzy and I can't think.</description>
+        <baseMoodEffect>-8</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+  
+  <HediffDef ParentName="DiseaseBase">
+    <defName>AC_ScanningSickness</defName>
+    <label>Scanning sickness</label>
+    <description>This person was scanned by a softscanner to produce a mechanoid subcore. The high-energy scanning device has caused disturbances in their brain chemistry which will take time to resolve themselves. There won't be any long-term damage.</description>
+    <initialSeverity>4</initialSeverity>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-1</severityPerDay>
+        <mechanitorFactor>2</mechanitorFactor>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <vomitMtbDays>1.5</vomitMtbDays>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <postFactor>0.75</postFactor>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <postFactor>0.75</postFactor>
+          </li>
+          <li>
+            <capacity>Manipulation</capacity>
+            <postFactor>0.75</postFactor>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
 </Defs>

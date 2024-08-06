@@ -854,6 +854,32 @@ namespace AlteredCarbon
                    || stackPersonaData.OriginalXenotypeDef != null && p.genes.xenotype != stackPersonaData.OriginalXenotypeDef;
         }
 
+        public static void TryDisableCommand(this Command command, CommandInfo info)
+        {
+            if (command.disabled is false)
+            {
+                if (info.building.PowerComp is CompPowerTrader powerComp && powerComp.PowerOn is false)
+                {
+                    command.Disable("NoPower".Translate().CapitalizeFirst());
+                }
+                if (info.lockedProjects != null)
+                {
+                    command.LockBehindReseach(info.lockedProjects);
+                }
+                if (info.building is IMatrixConnectable connectable)
+                {
+                    if (connectable.ConnectedMatrix is null)
+                    {
+                        command.Disable("AC.NoConnectedMatrix".Translate());
+                    }
+                    else if (connectable.ConnectedMatrix.Powered is false)
+                    {
+                        command.Disable("AC.ConnectedMatrixHasNoPower".Translate());
+                    }
+                }
+            }
+        }
+
         public static void CleanupList<T>(this List<T> list, Predicate<T> predicate = null)
         {
             if (list is null) return;
