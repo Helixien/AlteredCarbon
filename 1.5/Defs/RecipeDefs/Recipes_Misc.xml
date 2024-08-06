@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Persona Stack - Crafting====================== -->
+	<RecipeDef>
+		<defName>AC_MakeEmptyPersonaStack</defName>
+		<label>make persona stack</label>
+		<description>Make a persona stack.</description>
+		<jobString>Making persona stack.</jobString>
+		<workAmount>18500</workAmount>
+		<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+		<effectWorking>Cook</effectWorking>
+		<soundWorking>Recipe_Machining</soundWorking>
+		<unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentSpacer</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Plasteel</li>
+					</thingDefs>
+				</filter>
+				<count>12</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>ComponentSpacer</li>
+				<li>Plasteel</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<AC_EmptyPersonaStack>1</AC_EmptyPersonaStack>
+		</products>
+		<researchPrerequisite>AC_NeuralDigitalization</researchPrerequisite>
+		<workSkill>Crafting</workSkill>
+		<skillRequirements>
+			<Crafting>12</Crafting>
+		</skillRequirements>
+		<displayPriority>15</displayPriority>
+	</RecipeDef>
+	<!-- ================================ Persona Stacks - Destroy - Base ====================== -->
+	<RecipeDef Abstract="True" Name="AC_DestroyPersonaStacksBase">
+		<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+		<workSkill>Crafting</workSkill>
+		<effectWorking>ButcherMechanoid</effectWorking>
+		<soundWorking>Recipe_Machining</soundWorking>
+		<uiIconThing>AC_EmptyPersonaStack</uiIconThing>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>AC_BodyPartsUltra</li>
+					</categories>
+					<disallowedThingDefs>
+						<li MayRequire="hlx.UltratechAlteredCarbon">AC_EmptyArchotechStack</li>
+						<li MayRequire="hlx.UltratechAlteredCarbon">AC_FilledArchotechStack</li>
+					</disallowedThingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>AC_BodyPartsUltra</li>
+			</categories>
+		</fixedIngredientFilter>
+	</RecipeDef>
+	<!-- ================================ Persona Stacks - Destroy - Shredding ====================== -->
+	<RecipeDef ParentName="AC_DestroyPersonaStacksBase">
+		<defName>AC_ShredPersonaStacks</defName>
+		<label>shred persona stacks</label>
+		<description>Shred a persona stack to try to salvage usable material.</description>
+		<jobString>Shredding persona stacks.</jobString>
+		<workAmount>800</workAmount>
+		<skillRequirements>
+			<Crafting>8</Crafting>
+		</skillRequirements>
+		<displayPriority>2</displayPriority>
+		<products>
+			<ComponentSpacer>1</ComponentSpacer>
+			<Plasteel>4</Plasteel>
+		</products>
+	</RecipeDef>
+	<!-- ================================ Persona Stacks - Destroy - Smashing ====================== -->
+	<RecipeDef ParentName="AC_DestroyPersonaStacksBase">
+		<defName>AC_SmashPersonaStacks</defName>
+		<label>smash persona stacks</label>
+		<description>Smash a persona stack with simple hand tools to salvage usable material.</description>
+		<jobString>Smashing persona stacks.</jobString>
+		<workAmount>650</workAmount>
+		<skillRequirements>
+			<Crafting>2</Crafting>
+		</skillRequirements>
+		<displayPriority>2</displayPriority>
+		<products>
+			<Plasteel>2</Plasteel>
+		</products>
+	</RecipeDef>
+	<!-- ================================ Hacking - Decrypt Biocoded things ====================== -->
+	<RecipeDef ParentName="AC_RecipeNeuralEditing">
+		<defName>AC_HackBiocodedThings</defName>
+		<label>hack biocoded things</label>
+		<description>Attempt to hack and remove biocoding from weapons and equipment to make them usable. If unsuccessful, the item will break.</description>
+		<jobString>hacking biocoded things.</jobString>
+		<workerClass>AlteredCarbon.Recipe_HackBiocodedThings</workerClass>
+		<workAmount>22500</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Apparel_PowerArmorHelmet</li>
+						<li>Gun_TripleRocket</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Apparel_PowerArmorHelmet</li>
+				<li>Gun_TripleRocket</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<skillRequirements>
+			<Intellectual>10</Intellectual>
+		</skillRequirements>
+	</RecipeDef>
+</Defs>

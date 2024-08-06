@@ -2,23 +2,23 @@
 <Defs>
 	<!-- ================================ Hacking Effecter ====================== -->
 	<EffecterDef>
-		<defName>AC_Hacking</defName>
+		<defName>AC_NeuralEditing</defName>
 		<children>
 			<li>
 				<subEffecterClass>SubEffecter_SprayerContinuous</subEffecterClass>
-				<moteDef>AC_Mote_Hacking</moteDef>
+				<moteDef>AC_Mote_NeuralEditing</moteDef>
 				<spawnLocType>BetweenTouchingCells</spawnLocType>
 				<positionLerpFactor>0.6</positionLerpFactor>
 				<scale>0.3~0.5</scale>
-				<color>(0, 255, 0)</color>
-				<positionRadius>0.4</positionRadius>
-				<ticksBetweenMotes>20</ticksBetweenMotes>
+				<color>(0, 182, 239)</color>
+				<positionRadius>0.5</positionRadius>
+				<ticksBetweenMotes>15</ticksBetweenMotes>
 			</li>
 		</children>
 	</EffecterDef>
 	<!-- ================================ Hacking Motes ====================== -->
 	<ThingDef ParentName="MoteBase">
-		<defName>AC_Mote_Hacking</defName>
+		<defName>AC_Mote_NeuralEditing</defName>
 		<altitudeLayer>MoteOverhead</altitudeLayer>
 		<mote>
 			<fadeInTime>0.2</fadeInTime>

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<!-- ================================ Hacking ====================== -->
+	<!-- ================================ Neural Editing ====================== -->
 	<SoundDef>
-		<defName>AC_Interact_Hacking</defName>
+		<defName>AC_Interact_NeuralEditing</defName>
 		<sustain>True</sustain>
 		<context>MapOnly</context>
 		<maxSimultaneous>1</maxSimultaneous>
