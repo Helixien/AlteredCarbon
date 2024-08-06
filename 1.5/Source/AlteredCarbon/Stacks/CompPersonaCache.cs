@@ -8,9 +8,33 @@ namespace AlteredCarbon
 {
     public class CompPersonaCache : CompThingContainer
     {
+        public bool allowColonistPersonaStacks = true;
+        public bool allowStrangerPersonaStacks = true;
+        public bool allowHostilePersonaStacks = true;
+        public bool allowArchoStacks = true;
+        public List<PersonaStack> StoredStacks => innerContainer.OfType<PersonaStack>().ToList();
         public override bool Accepts(Thing thing)
         {
-            return thing is PersonaStack stack && stack.IsFilledStack && stack.autoLoad && Full is false;
+            if (thing is PersonaStack stack && stack.IsFilledStack && stack.autoLoad && Full is false)
+            {
+                if (!this.allowArchoStacks && stack.IsArchotechStack)
+                {
+                    return false;
+                }
+                if (this.allowColonistPersonaStacks && stack.PersonaData.faction != null && stack.PersonaData.faction == Faction.OfPlayer)
+                {
+                    return true;
+                }
+                if (this.allowHostilePersonaStacks && stack.PersonaData.faction.HostileTo(Faction.OfPlayer))
+                {
+                    return true;
+                }
+                if (this.allowStrangerPersonaStacks && (stack.PersonaData.faction is null || stack.PersonaData.faction != Faction.OfPlayer && !stack.PersonaData.faction.HostileTo(Faction.OfPlayer)))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public override bool Accepts(ThingDef thingDef)
@@ -42,6 +66,15 @@ namespace AlteredCarbon
         public override IEnumerable<StatDrawEntry> SpecialDisplayStats()
         {
             yield break;
+        }
+
+        public override void PostExposeData()
+        {
+            base.PostExposeData();
+            Scribe_Values.Look(ref this.allowColonistPersonaStacks, "allowColonistPersonaStacks", true);
+            Scribe_Values.Look(ref this.allowHostilePersonaStacks, "allowHostilePersonaStacks", true);
+            Scribe_Values.Look(ref this.allowStrangerPersonaStacks, "allowStrangerPersonaStacks", true);
+            Scribe_Values.Look(ref this.allowArchoStacks, "allowArchoStacks", true);
         }
     }
 }

@@ -103,6 +103,7 @@
     <Compile Include="HarmonyPatches\FactionGiftUtility_GetGoodwillChange_Patch2.cs" />
     <Compile Include="HarmonyPatches\ITab_Pawn_Log_SelPawnForCombatInfo_Patch.cs" />
     <Compile Include="HarmonyPatches\ITab_Pawn_Social_SelPawnForSocialInfo_Patch.cs" />
+    <Compile Include="HarmonyPatches\MentalBreakWorker_TryStart_Patch.cs" />
     <Compile Include="HarmonyPatches\ModCompat\GeneRipper_Building_GeneRipper_KillOccupant_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_MeleeVerbs_TryGetMeleeVerb_Patch.cs" />
     <Compile Include="HarmonyPatches\HediffSet_GetHediffsVerbs_Patch.cs" />
@@ -204,6 +205,7 @@
     <Compile Include="UI\Dialog_SelectXenogermForSleeve.cs" />
     <Compile Include="UI\GeneUtility.cs" />
     <Compile Include="UI\HotSwappableAttribute.cs" />
+    <Compile Include="UI\ITab_StackStorageContents.cs" />
     <Compile Include="UI\Window_BodyPartPicker.cs" />
     <Compile Include="Designators\Designator_ExtractStack.cs" />
     <Compile Include="HarmonyPatches\ReverseDesignatorDatabase_InitDesignators_Patch.cs" />

@@ -224,6 +224,9 @@
 			<ThingDef>AC_PersonaEditor</ThingDef>
 		</descriptionHyperlinks>
 		<designationCategory>Biotech</designationCategory>
+		<inspectorTabs>
+			<li>AlteredCarbon.ITab_StackStorageContents</li>
+		</inspectorTabs>
 		<comps>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>

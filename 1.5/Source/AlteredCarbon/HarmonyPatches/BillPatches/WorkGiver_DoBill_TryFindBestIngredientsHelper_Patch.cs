@@ -36,7 +36,8 @@ namespace AlteredCarbon
         {
             if (__result is false && WorkGiver_DoBill_TryFindBestBillIngredients_Patch.curBill is Bill bill)
             {
-                if (bill.recipe.Worker is Recipe_OperateOnPersonaStack)
+                if (bill.recipe.Worker is Recipe_OperateOnPersonaStack || 
+                    AC_Utils.installFilledStacksRecipes.Contains(bill.recipe))
                 {
                     var personaCaches = pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaCache);
                     foreach (var personaCache in personaCaches)

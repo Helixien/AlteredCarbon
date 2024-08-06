@@ -14,7 +14,8 @@ namespace AlteredCarbon
     {
         public static IEnumerable<Toil> Postfix(IEnumerable<Toil> __result, JobDriver_DoBill __instance)
         {
-            if (__instance.job.bill.recipe.Worker is Recipe_OperateOnPersonaStack or Recipe_OperateOnPersonaPrint)
+            if (__instance.job.bill.recipe.Worker is Recipe_OperateOnPersonaStack or Recipe_OperateOnPersonaPrint ||
+                AC_Utils.installFilledStacksRecipes.Contains(__instance.job.bill.recipe))
             {
                 var job = __instance.job;
                 var pawn = __instance.pawn;
@@ -68,8 +69,8 @@ namespace AlteredCarbon
             var jumpIfHaveTargetInQueue = Toils_Jump.JumpIfHaveTargetInQueue(ingredientInd, changeTargetToPersonaCacheIfNotSpawned);
             var decideShouldCarryItem = Toils_General.Do(delegate
             {
-                if (jobdriver.job.bill.recipe.Worker is Recipe_EditFilledPersonaStack
-                    or Recipe_DuplicatePersonaStack && jobdriver.job.targetB.Thing.def == AC_DefOf.AC_PersonaCache
+                if (jobdriver.job.bill.recipe.Worker is Recipe_EditFilledPersonaStack or Recipe_DuplicatePersonaStack
+                    && jobdriver.job.targetB.Thing.def == AC_DefOf.AC_PersonaCache
                     || jobdriver.job.bill.recipe.Worker is Recipe_RestoreStackFromPersonaPrint
                     && jobdriver.job.targetB.Thing.def == AC_DefOf.AC_PersonaMatrix)
                 {
@@ -97,7 +98,6 @@ namespace AlteredCarbon
                     var target = targetQueue[0].Thing;
                     if (target.Spawned is false)
                     {
-                        Log.Message("target.ParentHolder: " + target.ParentHolder);
                         if (target.ParentHolder is CompPersonaCache comp)
                         {
                             jobdriver.job.SetTarget(ingredientInd, comp.parent);
@@ -115,7 +115,7 @@ namespace AlteredCarbon
             var tryDropStackFromCache = Toils_General.Do(delegate
             {
                 var target = jobdriver.job.GetTarget(ingredientInd).Thing;
-                if (target is not ThingWithPersonaData)
+                if (target is Building)
                 {
                     var targetQueue = jobdriver.job.GetTargetQueue(ingredientInd);
                     target = targetQueue[0].Thing;

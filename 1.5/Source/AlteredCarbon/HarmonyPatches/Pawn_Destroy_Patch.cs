@@ -15,10 +15,14 @@ namespace AlteredCarbon
                     stackHediff.preventKill = true;
                     stackHediff.SpawnStack(placeMode: ThingPlaceMode.Direct, psycastEffect: true);
                 }
-                else
-                {
-                    stackHediff.PersonaData.TryQueueAutoRestoration();
-                }
+            }
+        }
+
+        public static void Postfix(Pawn __instance)
+        {
+            if (__instance.Destroyed && __instance.HasPersonaStack(out var stackHediff) && stackHediff.def != AC_DefOf.AC_ArchotechStack)
+            {
+                stackHediff.PersonaData.TryQueueAutoRestoration();
             }
         }
     }

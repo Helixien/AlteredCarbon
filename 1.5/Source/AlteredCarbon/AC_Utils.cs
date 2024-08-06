@@ -74,7 +74,7 @@ namespace AlteredCarbon
         };
         public static HashSet<RecipeDef> installFilledStacksRecipes = new HashSet<RecipeDef>
         {
-            AC_DefOf.AC_InstallPersonaStack
+            AC_DefOf.AC_InstallPersonaStack, AC_DefOf.AC_InstallArchotechStack
         };
 
         public static bool Wears(this Pawn pawn, ThingDef thingDef)
@@ -198,7 +198,6 @@ namespace AlteredCarbon
             };
             stacksPairs[AC_DefOf.AC_FilledArchotechStack] = AC_DefOf.AC_EmptyArchotechStack;
             installEmptyStacksRecipes.Add(AC_DefOf.AC_InstallEmptyArchotechStack);
-            installFilledStacksRecipes.Add(AC_DefOf.AC_InstallArchotechStack);
             unstackableRaces = GetUnstackableRaces();
             foreach (var gene in DefDatabase<GeneDef>.AllDefs)
             {

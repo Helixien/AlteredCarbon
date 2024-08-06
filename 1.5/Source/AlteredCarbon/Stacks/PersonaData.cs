@@ -1568,7 +1568,7 @@ namespace AlteredCarbon
         {
             foreach (var pawn in PawnsFinder.AllMapsWorldAndTemporary_AliveOrDead)
             {
-                if (IsPresetPawn(pawn) && pawn.HasPersonaStack(out _))
+                if (pawn.Destroyed is false && IsPresetPawn(pawn) && pawn.HasPersonaStack(out _))
                 {
                     return true;
                 }
@@ -1585,23 +1585,23 @@ namespace AlteredCarbon
             var prints = new List<PersonaPrint>();
             foreach (var map in Find.Maps)
             {
-                var localPrints = map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaPrint).Cast<PersonaPrint>().ToList();
+                prints.AddRange(map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaPrint).Cast<PersonaPrint>());
                 foreach (var matrix in map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).Cast<Building_PersonaMatrix>())
                 {
-                    localPrints.AddRange(matrix.StoredPersonaPrints);
+                    prints.AddRange(matrix.StoredPersonaPrints);
                 }
             }
             var foundPrint = prints.Where(x => x.CanAutoRestorePawn(this))
                 .OrderByDescending(x => x.PersonaData.lastTimeBackedUp).FirstOrDefault();
             if (foundPrint != null)
             {
-                Log.Message("Found: " + foundPrint);
                 var map = foundPrint.MapHeld;
                 var editors = map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaEditor)
                     .OfType<Building_PersonaEditor>().ToList();
                 foreach (var editor in editors)
                 {
-                    if (foundPrint.Spawned is false && foundPrint.ParentHolder != editor.ConnectedMatrix)
+                    if (foundPrint.Spawned is false && foundPrint.ParentHolder is Building_PersonaMatrix 
+                        && foundPrint.ParentHolder != editor.ConnectedMatrix)
                     {
                         continue;
                     }
@@ -1609,7 +1609,13 @@ namespace AlteredCarbon
                     {
                         continue;
                     }
-                    Log.Message("Found editor: " + editor);
+                    if (editor.CanAddOperationOn(foundPrint))
+                    {
+                        editor.billStack.AddBill(new Bill_OperateOnStack(foundPrint, AC_DefOf.AC_RestoreStackFromPersonaPrint, null));
+                        var pawnArg = GetDummyPawn.Named("PAWN");
+                        Find.LetterStack.ReceiveLetter("AC.RestoringQueued".Translate(pawnArg),
+                            "AC.RestoringQueuedDesc".Translate(pawnArg), LetterDefOf.NeutralEvent, editor);
+                    }
                     break;
                 }
             }

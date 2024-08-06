@@ -301,7 +301,10 @@ namespace AlteredCarbon
             base.Destroy(mode);
             if (PersonaData.ContainsPersona && dontKillThePawn is false)
             {
-                PersonaData.TryQueueAutoRestoration();
+                if (IsArchotechStack is false)
+                {
+                    PersonaData.TryQueueAutoRestoration();
+                }
                 KillInnerPawn();
             }
         }

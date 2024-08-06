@@ -229,12 +229,12 @@ namespace AlteredCarbon
             return true;
         }
 
-        public bool CanAddOperationOn(PersonaPrint personaStack)
+        public bool CanAddOperationOn(PersonaPrint personaPrint, bool allowMessages = true)
         {
-            var bill = this.billStack.Bills.OfType<Bill_OperateOnStack>().Where(x => x.thingWithPersonaData == personaStack).FirstOrDefault();
+            var bill = this.billStack.Bills.OfType<Bill_OperateOnStack>().Where(x => x.thingWithPersonaData == personaPrint).FirstOrDefault();
             if (bill != null)
             {
-                if (bill.recipe == AC_DefOf.AC_RestoreStackFromPersonaPrint)
+                if (bill.recipe == AC_DefOf.AC_RestoreStackFromPersonaPrint && allowMessages)
                 {
                     Messages.Message("AC.AlreadyOrderedToRestoreStack".Translate(), MessageTypeDefOf.CautionInput);
                 }
