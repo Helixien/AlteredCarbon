@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Rogian Arm-Blade - Base ====================== -->
+	<ThingDef Name="AC_RogianArmBaldes_Base" ParentName="BodyPartProstheticBase" Abstract="True">
+		<thingSetMakerTags>
+			<li>RewardStandardLowFreq</li>
+		</thingSetMakerTags>
+		<techHediffsTags>
+			<li>Advanced</li>
+		</techHediffsTags>
+	</ThingDef>
+	<!-- ================================ Rogian Arm-Blade - Hediff - Base ====================== -->
+	<HediffDef Name="AC_RogianArmBaldesHediff_Base" ParentName="ImplantHediffBase" Abstract="True">
+		<addedPartProps>
+			<solid>true</solid>
+		</addedPartProps>
+	</HediffDef>
+	<!-- ================================ Rogian Arm-Blade - Default ====================== -->
+	<ThingDef ParentName="AC_RogianArmBaldes_Base">
+		<defName>AC_RogianArmBlade</defName>
+		<label>rogian arm-blade</label>
+		<description>An advanced artificial combat focused arm. A razor-sharp, retractable blade powered by silenced nano-motors replace the radius and ulna. When extended the blade allows for devastating attacks, offering unparalleled swiftness and precision. When retracted neuromuscular synchronisation makes them appear and function like a normal arm.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>AC_InstallRogianArmBlade</RecipeDef>
+		</descriptionHyperlinks>
+		<thingSetMakerTags>
+			<li>RewardStandardLowFreq</li>
+		</thingSetMakerTags>
+		<costList>
+			<Steel>20</Steel>
+			<ComponentIndustrial>4</ComponentIndustrial>
+		</costList>
+		<techHediffsTags>
+			<li>Advanced</li>
+		</techHediffsTags>
+	</ThingDef>
+	<!-- ================================ Rogian Arm-Blade Hediff - Default ====================== -->
+	<HediffDef ParentName="ImplantHediffBase">
+		<defName>AC_RogianArmBlade</defName>
+		<label>arm-blade</label>
+		<labelNoun>an arm blade</labelNoun>
+		<description>An installed advanced artificial combat focused arm. A razor-sharp, retractable blade powered by silenced nano-motors replace the radius and ulna. When extended the blade allows for devastating attacks, offering unparalleled swiftness and precision. When retracted neuromuscular synchronisation makes them appear and function like a normal arm.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_RogianArmBlade</ThingDef>
+		</descriptionHyperlinks>
+		<addedPartProps>
+			<solid>true</solid>
+		</addedPartProps>
+		<comps>
+			<li Class="AlteredCarbon.HediffCompProperties_MeleeWeapon">
+				<weaponGraphicData>
+					<texPath>AbilityEffects/ArmBlade/ArmBlade</texPath>
+					<graphicClass>Graphic_Single</graphicClass>
+					<drawSize>(1, 1)</drawSize>
+				</weaponGraphicData>
+				<tools>
+					<li>
+						<label>arm blade (point)</label>
+						<capacities>
+							<li>Stab</li>
+						</capacities>
+						<power>25</power>
+						<cooldownTime>2</cooldownTime>
+						<armorPenetration>0.25</armorPenetration>
+						<alwaysTreatAsWeapon>true</alwaysTreatAsWeapon>
+						<soundMeleeHit>MeleeHit_BionicSlash</soundMeleeHit>
+						<soundMeleeMiss>MeleeMiss_BionicSlash</soundMeleeMiss>
+					</li>
+					<li>
+						<label>arm blade (edge)</label>
+						<capacities>
+							<li>Cut</li>
+						</capacities>
+						<power>25</power>
+						<cooldownTime>2</cooldownTime>
+						<armorPenetration>0.25</armorPenetration>
+						<alwaysTreatAsWeapon>true</alwaysTreatAsWeapon>
+						<soundMeleeHit>MeleeHit_BionicSlash</soundMeleeHit>
+						<soundMeleeMiss>MeleeMiss_BionicSlash</soundMeleeMiss>
+					</li>
+				</tools>
+			</li>
+		</comps>
+		<spawnThingOnRemoved>AC_RogianArmBlade</spawnThingOnRemoved>
+	</HediffDef>
+	<!-- ================================ Rogian Arm-Blade Recipe - Default ====================== -->
+	<RecipeDef ParentName="SurgeryInstallImplantBase">
+		<defName>AC_InstallRogianArmBlade</defName>
+		<label>Install arm blade</label>
+		<description>Install an rogian arm blade.</description>
+		<workerClass>AlteredCarbon.Recipe_InstallImplantAddon</workerClass>
+		<descriptionHyperlinks>
+			<ThingDef>AC_RogianArmBlade</ThingDef>
+			<HediffDef>AC_RogianArmBlade</HediffDef>
+		</descriptionHyperlinks>
+		<jobString>Installing arm blade.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AC_RogianArmBlade</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AC_RogianArmBlade</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Arm</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>AC_RogianArmBlade</addsHediff>
+	</RecipeDef>
+</Defs>

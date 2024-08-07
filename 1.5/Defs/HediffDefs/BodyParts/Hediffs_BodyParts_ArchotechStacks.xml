@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Archotech Stack Base ====================== -->
+	<ThingDef Name="AC_ArchotechStackBase" ParentName="AC_StackBase" Abstract="True">
+		<techLevel>Archotech</techLevel>
+		<statBases>
+			<Mass>0.2</Mass>
+			<DeteriorationRate>0</DeteriorationRate>
+			<MaxHitPoints>350</MaxHitPoints>
+			<Flammability>0</Flammability>
+			<MarketValue>3500</MarketValue>
+		</statBases>
+		<thingCategories Inherit="False">
+			<li>AC_BodyPartsUltra</li>
+		</thingCategories>
+		<techHediffsTags Inherit="False">
+			<li>Archotechstack</li>
+		</techHediffsTags>
+	</ThingDef>
+	<!-- ================================ Empty Archotech Stack ====================== -->
+	<ThingDef ParentName="AC_ArchotechStackBase">
+		<defName>AC_EmptyArchotechStack</defName>
+		<label>Empty archotech stack</label>
+		<description>An persona implant built by an archotech which can store a human consciousness, commonly referred to as a persona. Once implanted directly into a person's spine in the neck it will download their consciousness and safely store it. Unlike common persona implants, it is far more robust, will carry psylinks between bodies and if needed, act on its own to protect whoevers consciousness is stored inside it. Its internal workings are a mystery to all human minds, even those lucky or cursed enough to become its new inhabitant.</description>
+		<thingClass>AlteredCarbon.PersonaStack</thingClass>
+		<graphicData>
+			<texPath>Things/Item/ArchoStacks/ArchoStackEmpty</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<descriptionHyperlinks>
+			<RecipeDef>AC_InstallEmptyArchotechStack</RecipeDef>
+		</descriptionHyperlinks>
+		<stackLimit>10</stackLimit>
+		<thingSetMakerTags>
+			<li>RewardStandardLowFreq</li>
+		</thingSetMakerTags>
+		<tradeTags Inherit="False">
+			<li>AC_ArchotechStacks</li>
+			<li>ExoticMisc</li>
+		</tradeTags>
+	</ThingDef>
+	<!-- ================================ Archotech Stacks - Install Empty ====================== -->
+	<RecipeDef ParentName="SurgeryInstallImplantBase">
+		<defName>AC_InstallEmptyArchotechStack</defName>
+		<label>Install archotech stack</label>
+		<description>Install an empty archotech stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_EmptyArchotechStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_InstallPersonaStack</workerClass>
+		<jobString>Installing archotech stack.</jobString>
+		<uiIconThing>AC_EmptyArchotechStack</uiIconThing>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AC_EmptyArchotechStack</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AC_EmptyArchotechStack</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Neck</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>AC_ArchotechStack</addsHediff>
+	</RecipeDef>
+	<!-- ================================ Active Archotech Stack ====================== -->
+	<ThingDef ParentName="AC_ArchotechStackBase">
+		<defName>AC_FilledArchotechStack</defName>
+		<label>Archotech stack</label>
+		<description>An archotech persona implant with a human consciousness stored on it, commonly referred to as a persona. Can be implanted directly into a person's or sleeve’s spine in the neck to bring back the person stored on the stack.</description>
+		<thingClass>AlteredCarbon.PersonaStack</thingClass>
+		<graphicData>
+			<texPath>Things/Item/ArchoStacks/FriendlyArchoStack</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<descriptionHyperlinks>
+			<RecipeDef>AC_InstallArchotechStack</RecipeDef>
+		</descriptionHyperlinks>
+		<tickerType>Normal</tickerType>
+		<stackLimit>1</stackLimit>
+		<healthAffectsPrice>true</healthAffectsPrice>
+		<uiIconForStackCount>1</uiIconForStackCount>
+		<tradeNeverStack>false</tradeNeverStack>
+		<tradeTags Inherit="False"/>
+		<inspectorTabs>
+			<li>ITab_Pawn_Character</li>
+		</inspectorTabs>
+	</ThingDef>
+	<!-- ================================ Archotech Stack Hediff ====================== -->
+	<HediffDef ParentName="AC_ImplantStackBase">
+		<defName>AC_ArchotechStack</defName>
+		<label>Archotech stack</label>
+		<labelNoun>A archotech stack</labelNoun>
+		<description>An installed archotech stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_FilledArchotechStack</ThingDef>
+		</descriptionHyperlinks>
+		<hediffClass>AlteredCarbon.Hediff_PersonaStack</hediffClass>
+		<spawnThingOnRemoved>AC_FilledArchotechStack</spawnThingOnRemoved>
+		<isBad>false</isBad>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1.5</partEfficiency>
+			<betterThanNatural>true</betterThanNatural>
+		</addedPartProps>
+	</HediffDef>
+	<!-- ================================ Archostacks - Install Active ====================== -->
+	<RecipeDef ParentName="SurgeryInstallImplantBase">
+		<defName>AC_InstallArchotechStack</defName>
+		<label>Install archotech stack</label>
+		<description>Install an archotech stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_FilledArchotechStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_InstallFilledPersonaStack</workerClass>
+		<jobString>Installing archotech stack.</jobString>
+		<uiIconThing>AC_FilledArchotechStack</uiIconThing>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AC_FilledArchotechStack</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AC_FilledArchotechStack</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Neck</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>AC_ArchotechStack</addsHediff>
+	</RecipeDef>
+	<!-- ================================ Archostacks - Remove ====================== -->
+	<RecipeDef ParentName="SurgeryRemoveImplantBase">
+		<defName>AC_RemoveArchotechStack</defName>
+		<label>Remove archotech stack</label>
+		<description>Remove archotech stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_FilledArchotechStack</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Removing archotech stack.</jobString>
+		<workerClass>AlteredCarbon.Recipe_RemovePersonaStack</workerClass>
+		<uiIconThing>AC_FilledArchotechStack</uiIconThing>
+		<removesHediff>AC_ArchotechStack</removesHediff>
+	</RecipeDef>
+</Defs>

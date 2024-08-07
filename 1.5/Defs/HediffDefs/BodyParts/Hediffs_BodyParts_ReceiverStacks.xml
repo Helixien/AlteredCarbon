@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Receiver Stack ====================== -->
+	<ThingDef ParentName="AC_StackBase">
+		<defName>AC_ParroterStack</defName>
+		<label>Receiver stack</label>
+		<description>text.todo</description>
+		<graphicData>
+			<texPath>Things/Item/ParroterStack</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<descriptionHyperlinks>
+			<RecipeDef>AC_InstallParroterStack</RecipeDef>
+		</descriptionHyperlinks>
+		<healthAffectsPrice>true</healthAffectsPrice>
+		<stackLimit>10</stackLimit>
+		<costList>
+			<Plasteel>8</Plasteel>
+			<ComponentSpacer>2</ComponentSpacer>
+		</costList>
+		<thingSetMakerTags Inherit="False"/>
+		<tradeTags Inherit="False">
+			<li>AC_StacksUltra</li>
+			<li MayRequire="Ludeon.RimWorld.Royalty">ImplantEmpireRoyal</li>
+			<li>ExoticMisc</li>
+		</tradeTags>
+		<modExtensions Inherit="False"/>
+	</ThingDef>
+	<!-- ================================ Parroter Stack Hediff	====================== -->
+	<HediffDef ParentName="AC_ImplantStackBase">
+		<defName>AC_ParroterStack</defName>
+		<label>Receiver stack</label>
+		<labelNoun>a receiver stack</labelNoun>
+		<hediffClass>AlteredCarbon.Hediff_ParroterStack</hediffClass>
+		<description>An installed parroter stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_ParroterStack</ThingDef>
+		</descriptionHyperlinks>
+		<spawnThingOnRemoved>AC_ParroterStack</spawnThingOnRemoved>
+		<isBad>false</isBad>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1</partEfficiency>
+			<betterThanNatural>true</betterThanNatural>
+		</addedPartProps>
+	</HediffDef>
+	<!-- ================================ Parroter Stacks - Install ====================== -->
+	<RecipeDef ParentName="SurgeryInstallImplantBase">
+		<defName>AC_InstallParroterStack</defName>
+		<label>install parroter stack</label>
+		<description>Install a parroter stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_ParroterStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_InstallParroterStack</workerClass>
+		<jobString>Installing parroter stack.</jobString>
+		<uiIconThing>AC_ParroterStack</uiIconThing>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AC_ParroterStack</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AC_ParroterStack</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Neck</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>AC_ParroterStack</addsHediff>
+	</RecipeDef>
+	<!-- ================================ Parroter Stacks - Remove ====================== -->
+	<RecipeDef ParentName="SurgeryRemoveImplantBase">
+		<defName>AC_RemoveParroterStack</defName>
+		<label>remove parroter stack</label>
+		<description>Remove parroter stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_ParroterStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_RemoveParroterStack</workerClass>
+		<jobString>Removing parroter stack.</jobString>
+		<uiIconThing>AC_ParroterStack</uiIconThing>
+		<removesHediff>AC_ParroterStack</removesHediff>
+	</RecipeDef>
+</Defs>

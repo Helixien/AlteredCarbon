@@ -77,6 +77,7 @@
 		<graphicData>
 			<texPath>Things/Item/PersonaStacks/EmptyStack</texPath>
 			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.80</drawSize>
 		</graphicData>
 		<descriptionHyperlinks>
 			<RecipeDef>AC_InstallPersonaStack</RecipeDef>
@@ -91,8 +92,8 @@
 		</thingSetMakerTags>
 		<tradeTags Inherit="False">
 			<li>AC_StacksUltra</li>
-			<li MayRequire="Ludeon.RimWorld.Royalty">ImplantEmpireRoyal</li>
 			<li>ExoticMisc</li>
+			<li MayRequire="Ludeon.RimWorld.Royalty">ImplantEmpireRoyal</li>
 		</tradeTags>
 	</ThingDef>
 	<!-- ================================ Persona Stacks - Install Empty ====================== -->
@@ -126,7 +127,7 @@
 		</appliedOnFixedBodyParts>
 		<addsHediff>AC_PersonaStack</addsHediff>
 	</RecipeDef>
-	<!-- ================================ Filled Persona Stack ====================== -->
+	<!-- ================================ Active Persona Stack ====================== -->
 	<ThingDef ParentName="AC_StackBase">
 		<defName>AC_FilledPersonaStack</defName>
 		<label>persona stack</label>
@@ -152,10 +153,10 @@
 	<!-- ================================ Persona Stack Hediff ====================== -->
 	<HediffDef ParentName="AC_ImplantStackBase">
 		<defName>AC_PersonaStack</defName>
-		<label>persona stack</label>
-		<labelNoun>a persona stack</labelNoun>
-		<hediffClass>AlteredCarbon.Hediff_PersonaStack</hediffClass>
+		<label>Persona stack</label>
+		<labelNoun>A persona stack</labelNoun>
 		<description>An installed persona stack.</description>
+		<hediffClass>AlteredCarbon.Hediff_PersonaStack</hediffClass>
 		<descriptionHyperlinks>
 			<ThingDef>AC_FilledPersonaStack</ThingDef>
 		</descriptionHyperlinks>
@@ -167,7 +168,7 @@
 			<betterThanNatural>true</betterThanNatural>
 		</addedPartProps>
 	</HediffDef>
-	<!-- ================================ Persona Stacks - Install Filled ====================== -->
+	<!-- ================================ Persona Stacks - Install Active ====================== -->
 	<RecipeDef ParentName="SurgeryInstallImplantBase">
 		<defName>AC_InstallPersonaStack</defName>
 		<label>install filled persona stack</label>
@@ -210,93 +211,5 @@
 		<jobString>Removing persona stack.</jobString>
 		<uiIconThing>AC_FilledPersonaStack</uiIconThing>
 		<removesHediff>AC_PersonaStack</removesHediff>
-	</RecipeDef>
-	<!-- ================================ Parroter Stack ====================== -->
-	<ThingDef ParentName="AC_StackBase">
-		<defName>AC_ParroterStack</defName>
-		<label>parroter stack</label>
-		<description>text.todo</description>
-		<graphicData>
-			<texPath>Things/Item/ParroterStack</texPath>
-			<graphicClass>Graphic_StackCount</graphicClass>
-		</graphicData>
-		<descriptionHyperlinks>
-			<RecipeDef>AC_InstallParroterStack</RecipeDef>
-		</descriptionHyperlinks>
-		<healthAffectsPrice>true</healthAffectsPrice>
-		<stackLimit>10</stackLimit>
-		<costList>
-			<Plasteel>8</Plasteel>
-			<ComponentSpacer>2</ComponentSpacer>
-		</costList>
-		<thingSetMakerTags Inherit="False"/>
-		<tradeTags Inherit="False">
-			<li>AC_StacksUltra</li>
-			<li MayRequire="Ludeon.RimWorld.Royalty">ImplantEmpireRoyal</li>
-			<li>ExoticMisc</li>
-		</tradeTags>
-		<modExtensions Inherit="False"/>
-	</ThingDef>
-	<!-- ================================ Parroter Stack Hediff	====================== -->
-	<HediffDef ParentName="AC_ImplantStackBase">
-		<defName>AC_ParroterStack</defName>
-		<label>parroter stack</label>
-		<labelNoun>a parroter stack</labelNoun>
-		<hediffClass>AlteredCarbon.Hediff_ParroterStack</hediffClass>
-		<description>An installed parroter stack.</description>
-		<descriptionHyperlinks>
-			<ThingDef>AC_ParroterStack</ThingDef>
-		</descriptionHyperlinks>
-		<spawnThingOnRemoved>AC_ParroterStack</spawnThingOnRemoved>
-		<isBad>false</isBad>
-		<addedPartProps>
-			<solid>true</solid>
-			<partEfficiency>1</partEfficiency>
-			<betterThanNatural>true</betterThanNatural>
-		</addedPartProps>
-	</HediffDef>
-	<!-- ================================ Parroter Stacks - Install ====================== -->
-	<RecipeDef ParentName="SurgeryInstallImplantBase">
-		<defName>AC_InstallParroterStack</defName>
-		<label>install parroter stack</label>
-		<description>Install a parroter stack.</description>
-		<descriptionHyperlinks>
-			<ThingDef>AC_ParroterStack</ThingDef>
-		</descriptionHyperlinks>
-		<workerClass>AlteredCarbon.Recipe_InstallParroterStack</workerClass>
-		<jobString>Installing parroter stack.</jobString>
-		<uiIconThing>AC_ParroterStack</uiIconThing>
-		<ingredients>
-			<li>
-				<filter>
-					<thingDefs>
-						<li>AC_ParroterStack</li>
-					</thingDefs>
-				</filter>
-				<count>1</count>
-			</li>
-		</ingredients>
-		<fixedIngredientFilter>
-			<thingDefs>
-				<li>AC_ParroterStack</li>
-			</thingDefs>
-		</fixedIngredientFilter>
-		<appliedOnFixedBodyParts>
-			<li>Neck</li>
-		</appliedOnFixedBodyParts>
-		<addsHediff>AC_ParroterStack</addsHediff>
-	</RecipeDef>
-	<!-- ================================ Parroter Stacks - Remove ====================== -->
-	<RecipeDef ParentName="SurgeryRemoveImplantBase">
-		<defName>AC_RemoveParroterStack</defName>
-		<label>remove parroter stack</label>
-		<description>Remove parroter stack.</description>
-		<descriptionHyperlinks>
-			<ThingDef>AC_ParroterStack</ThingDef>
-		</descriptionHyperlinks>
-		<workerClass>AlteredCarbon.Recipe_RemoveParroterStack</workerClass>
-		<jobString>Removing parroter stack.</jobString>
-		<uiIconThing>AC_ParroterStack</uiIconThing>
-		<removesHediff>AC_ParroterStack</removesHediff>
 	</RecipeDef>
 </Defs>

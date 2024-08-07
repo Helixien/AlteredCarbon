@@ -1,15 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<!-- ================================ Persona Stack Degradation ====================== -->
-	<HediffDef>
-		<defName>AC_StackDegradation</defName>
-		<label>degradation</label>
-		<labelNoun>stack degradation</labelNoun>
-		<hediffClass>AlteredCarbon.Hediff_StackDegradation</hediffClass>
-		<description>Persona stack degradation caused by an unauthorized, aggressive edit.</description>
-		<isBad>false</isBad>
-		<defaultLabelColor>(1, 0, 0)</defaultLabelColor>
+	<!-- ================================ Scanning Sickness - Hediff ====================== -->
+	<HediffDef ParentName="DiseaseBase">
+		<defName>AC_ScanningSickness</defName>
+		<label>Snapshot sickness</label>
+		<description>text.todo</description>
+		<initialSeverity>4</initialSeverity>
+		<comps>
+			<li Class="HediffCompProperties_SeverityPerDay">
+				<severityPerDay>-1</severityPerDay>
+				<mechanitorFactor>2</mechanitorFactor>
+			</li>
+		</comps>
+		<stages>
+			<li>
+				<vomitMtbDays>1.5</vomitMtbDays>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<postFactor>0.75</postFactor>
+					</li>
+					<li>
+						<capacity>Moving</capacity>
+						<postFactor>0.75</postFactor>
+					</li>
+					<li>
+						<capacity>Manipulation</capacity>
+						<postFactor>0.75</postFactor>
+					</li>
+				</capMods>
+			</li>
+		</stages>
 	</HediffDef>
+	<!-- ================================ Scanning Sickness - Thought ====================== -->
+	<ThoughtDef>
+		<defName>AC_ScanningSickness</defName>
+		<workerClass>ThoughtWorker_Hediff</workerClass>
+		<hediff>AC_ScanningSickness</hediff>
+		<validWhileDespawned>true</validWhileDespawned>
+		<developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+		<stages>
+			<li>
+				<label>scanning sickness</label>
+				<description>Ever since that scan I've been dizzy and I can't think.</description>
+				<baseMoodEffect>-8</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
 	<!-- ================================ Degradation - Brain Trauma ====================== -->
 	<HediffDef>
 		<defName>AC_BrainTrauma</defName>

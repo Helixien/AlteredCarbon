@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
+	<!-- ================================ Persona Stack Degradation ====================== -->
+	<HediffDef>
+		<defName>AC_StackDegradation</defName>
+		<label>degradation</label>
+		<labelNoun>stack degradation</labelNoun>
+		<hediffClass>AlteredCarbon.Hediff_StackDegradation</hediffClass>
+		<description>Persona stack degradation caused by an unauthorized, aggressive edit.</description>
+		<isBad>false</isBad>
+		<defaultLabelColor>(1, 0, 0)</defaultLabelColor>
+	</HediffDef>
 	<!-- ================================ Needlecast Coma Hediff ====================== -->
 	<HediffDef ParentName="AC_SleeveBase">
 		<defName>AC_NeedlecastingStasis</defName>

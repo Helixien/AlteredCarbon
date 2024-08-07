@@ -256,7 +256,7 @@
 		<description>text.todo</description>
 		<thingClass>AlteredCarbon.Building_PersonaConnector</thingClass>
 		<graphicData>
-			<texPath>Things/Building/Misc/PersonaConnecto</texPath>
+			<texPath>Things/Building/Misc/PersonaConnector</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<drawSize>(2, 2)</drawSize>
 			<shadowData>
