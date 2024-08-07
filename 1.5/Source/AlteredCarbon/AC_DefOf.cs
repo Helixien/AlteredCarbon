@@ -117,5 +117,9 @@ namespace AlteredCarbon
         public static RecipeDef AC_RestoreStackFromPersonaPrint;
         public static ThingDef AC_PersonaConnector;
         public static HediffDef AC_ScanningSickness;
+        
+        public static HediffDef AC_VoiceSynthesizer;
+        public static HediffDef AC_MentalFuse;
+        public static HediffDef AC_Dreamcatcher;
     }
 }
