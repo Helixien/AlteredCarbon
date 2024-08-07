@@ -9,7 +9,7 @@
 		<tickerType>Normal</tickerType>
 		<drawerType>RealtimeOnly</drawerType>
 		<graphicData>
-			<texPath>Things/Building/Misc/StackArray/StackBackupTerminal</texPath>
+			<texPath>Things/Building/Misc/PersonaMatrix</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<drawSize>(4.5,4.5)</drawSize>
 			<shaderType>CutoutComplex</shaderType>
@@ -54,7 +54,7 @@
 		<constructEffect>ConstructMetal</constructEffect>
 		<blockWind>true</blockWind>
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
-		<uiIconPath>Things/Building/Misc/StackArray/StackBackupTerminal_MenuIcon</uiIconPath>
+		<uiIconPath>Things/Building/Misc/PersonaMatrix_MenuIcon</uiIconPath>
 		<uiIconScale>1.1</uiIconScale>
 		<building>
 			<ai_chillDestination>false</ai_chillDestination>
@@ -101,14 +101,14 @@
 			</li>
 		</comps>
 	</ThingDef>
-	<!-- ================================ Persona Matrix ====================== -->
+	<!-- ================================ Persona Editor ====================== -->
 	<ThingDef ParentName="BenchBase">
 		<defName>AC_PersonaEditor</defName>
 		<label>persona editor</label>
 		<description>A sophisticated workbench that allows the user to connect to persona stacks in order to alter the contained information, such as changing allegiance, or even wipe them clean. Can also strip the biocoding from items.\n\nAs the process is quite aggressive, there is a risk of the decryption process destroying the item.</description>
 		<thingClass>AlteredCarbon.Building_PersonaEditor</thingClass>
 		<graphicData>
-			<texPath>Things/Building/Misc/HackingWorkbench/HackingWorkbench</texPath>
+			<texPath>Things/Building/Misc/PersonaEditor</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<drawSize>(3.5,1.5)</drawSize>
 			<damageData>
@@ -190,7 +190,7 @@
 		<label>persona cache</label>
 		<description>text.todo</description>
 		<graphicData>
-			<texPath>VCEF_AlphaFish_a</texPath>
+			<texPath>Things/Building/Misc/PersonaCache</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<drawSize>(2, 2)</drawSize>
 		</graphicData>
@@ -253,10 +253,10 @@
 	<ThingDef ParentName="BuildingBase">
 		<defName>AC_PersonaConnector</defName>
 		<label>persona connector</label>
-		<description>to.do</description>
+		<description>text.todo</description>
 		<thingClass>AlteredCarbon.Building_PersonaConnector</thingClass>
 		<graphicData>
-			<texPath>VCEF_AlphaFish_a</texPath>
+			<texPath>Things/Building/Misc/PersonaConnecto</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<drawSize>(2, 2)</drawSize>
 			<shadowData>
