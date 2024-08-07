@@ -74,10 +74,7 @@ namespace AlteredCarbon
         public static ThoughtDef AC_WrongXenotype;
         public static ThoughtDef AC_NewSleeve;
         public static ThoughtDef AC_NewSleeveDouble;
-        public static ThoughtDef AC_MansBody;
-        public static ThoughtDef AC_WomansBody;
         public static DesignationDef AC_ExtractStackDesignation;
-        public static DamageDef AC_Deterioration;
         public static ThingDef AC_Mote_VatGlow;
         public static EffecterDef AC_Vat_Bubbles;
         public static LetterDef HumanPregnancy;
@@ -102,12 +99,8 @@ namespace AlteredCarbon
         public static JobDef AC_HaulCorpseToGestation;
         public static JobDef AC_CancelRepurposingBody;
         public static ResearchProjectDef AC_NeuralEditing;
-        public static EffecterDef AC_Hacking;
 
-        [MayRequireIdeology] public static PreceptDef AC_Stacking_Despised;
-        [MayRequireIdeology] public static PreceptDef AC_Sleeving_Despised;
         [MayRequireIdeology] public static PreceptDef AC_CrossSleeving_DontCare;
-        [MayRequireIdeology] public static PreceptDef AC_CrossSleeving_Despised;
         public static HistoryEventDef AC_EditedStack;
 
         public static RecipeDef AC_HackBiocodedThings;

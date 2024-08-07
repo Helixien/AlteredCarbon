@@ -76,6 +76,8 @@ namespace AlteredCarbon
         private Battle battleActive;
         private int battleExitTick;
 
+        public List<Hediff> savedHediffs = new List<Hediff>();
+
         public bool ContainsPersona => hostPawn != null || name != null;
 
         public static HashSet<Pawn> dummyPawns = new HashSet<Pawn>();
@@ -201,7 +203,6 @@ namespace AlteredCarbon
 
         private void DummyPawnCleanup()
         {
-            dummyPawn.abilities = new Pawn_AbilityTracker(dummyPawn);
             dummyPawn.genes.GenesListForReading.Where(x => x.def.aptitudes.NullOrEmpty() is false
             || x.def.forcedTraits.NullOrEmpty() is false || x.def.passionMod is not null).ToList()
                 .ForEach(x => dummyPawn.genes.RemoveGene(x));
@@ -515,6 +516,14 @@ namespace AlteredCarbon
                 battleActive = pawn.records.BattleActive;
                 battleExitTick = pawn.records.LastBattleTick;
             }
+            savedHediffs = new List<Hediff>();
+            foreach (var hediff in pawn.health.hediffSet.hediffs)
+            {
+                if (ModsConfig.AnomalyActive && hediff.def == HediffDefOf.Inhumanized)
+                {
+                    savedHediffs.Add(MakeCopy(hediff, hostPawn));
+                }
+            }
 
             pawnID = pawn.thingIDNumber;
 
@@ -652,6 +661,14 @@ namespace AlteredCarbon
             }
             AssignDummyPawnReferences();
         }
+
+        private Hediff MakeCopy(Hediff hediff, Pawn pawn)
+        {
+            var newHediff = HediffMaker.MakeHediff(hediff.def, pawn, hediff.Part);
+            newHediff.CopyFrom(hediff);
+            return newHediff;
+        }
+
         public void CopyDataFrom(PersonaData other, bool isDuplicateOperation = false)
         {
             sourceStack = other.sourceStack;
@@ -737,6 +754,11 @@ namespace AlteredCarbon
             getRescuedThoughtOnUndownedBecauseOfPlayer = other.getRescuedThoughtOnUndownedBecauseOfPlayer;
             recruitable = other.recruitable;
             records = other.records;
+            savedHediffs = new List<Hediff>();
+            foreach (var otherHediff in other.savedHediffs)
+            {
+                savedHediffs.Add(MakeCopy(otherHediff, hostPawn));
+            }
             battleActive = other.battleActive;
             battleExitTick = other.battleExitTick;
 
@@ -856,6 +878,14 @@ namespace AlteredCarbon
             SetGuestData(pawn);
             SetPawnSettings(pawn);
 
+            if (savedHediffs != null)
+            {
+                foreach (var hediff in savedHediffs) 
+                {
+                    var newCopy = MakeCopy(hediff, pawn);
+                    pawn.health.AddHediff(newCopy);
+                }
+            }
 
             if (ModCompatibility.IndividualityIsActive)
             {
@@ -1356,12 +1386,14 @@ namespace AlteredCarbon
         {
             if (IsNaturalAbility(pawn, def))
             {
+                Log.Message("Cannot store: " + def + " is natural ability");
                 return false;
             }
             if (IsPsycastAbility(def))
             {
                 return true;
             }
+            Log.Message("Cannot store: " + def + " is other ability");
             return false;
         }
 
@@ -1628,7 +1660,7 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref isCopied, "isCopied", false, false);
             Scribe_Values.Look(ref diedFromCombat, "diedFromCombat");
             Scribe_Deep.Look(ref name, "name", new object[0]);
-            Scribe_References.Look(ref hostPawn, "origPawn", true);
+            Scribe_References.Look(ref hostPawn, "hostPawn", true);
             Scribe_Values.Look(ref hostilityMode, "hostilityMode");
             Scribe_References.Look(ref areaRestriction, "areaRestriction", false);
             Scribe_Values.Look(ref medicalCareCategory, "medicalCareCategory", MedicalCareCategory.NoCare, false);
@@ -1690,6 +1722,7 @@ namespace AlteredCarbon
             Scribe_References.Look(ref battleActive, "battleActive");
             Scribe_Values.Look(ref battleExitTick, "battleExitTick", 0);
             Scribe_Values.Look(ref originalGender, "gender");
+            Scribe_Collections.Look(ref savedHediffs, "savedHediffs", LookMode.Deep);
             Scribe_Values.Look(ref lastTimeBackedUp, "lastTimeUpdated");
             if (ModsConfig.RoyaltyActive)
             {
@@ -1776,6 +1809,7 @@ namespace AlteredCarbon
                 priorities.CleanupDict();
                 favor.CleanupDict();
                 heirs.CleanupDict();
+                savedHediffs.CleanupList();
                 if (pawnID == 0 && hostPawn != null)
                 {
                     pawnID = hostPawn.thingIDNumber;

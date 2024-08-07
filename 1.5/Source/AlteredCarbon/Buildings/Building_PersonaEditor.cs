@@ -9,7 +9,7 @@ namespace AlteredCarbon
 {
     public class CommandInfo
     {
-        public string defaultLabel, defaultDesc, icon;
+        public string icon;
         public Action targetAction;
         public Action<LocalTargetInfo> action;
         public List<ResearchProjectDef> lockedProjects;
@@ -42,8 +42,6 @@ namespace AlteredCarbon
 
             foreach (var g in GetCommands<Command_ActionOnStack>(new CommandInfo
             {
-                defaultLabel = "AC.WipeStack".Translate(),
-                defaultDesc = "AC.WipeStackDesc".Translate(),
                 icon = "UI/Gizmos/WipeStack",
                 targetAction = BeginTargetingForWipingStack,
                 action = InstallWipeStackBill,
@@ -59,8 +57,6 @@ namespace AlteredCarbon
 
             foreach (var g in GetCommands<Command_ActionOnStack>(new CommandInfo
             {
-                defaultLabel = "AC.DuplicateStack".Translate(),
-                defaultDesc = "AC.DuplicateStackDesc".Translate(),
                 icon = "UI/Gizmos/DuplicateStack",
                 targetAction = BeginTargetingForDuplicatingStack,
                 action = InstallDuplicateStackBill,
@@ -76,8 +72,6 @@ namespace AlteredCarbon
 
             foreach (var g in GetCommands<Command_ActionOnStack>(new CommandInfo
             {
-                defaultLabel = "AC.EditStack".Translate(),
-                defaultDesc = "AC.EditStackDesc".Translate(),
                 icon = "UI/Gizmos/EditStack",
                 targetAction = BeginTargetingForEditingStack,
                 action = InstallEditBill,
@@ -93,8 +87,6 @@ namespace AlteredCarbon
 
             foreach (var g in GetCommands<Command_ActionOnPrint>(new CommandInfo
             {
-                defaultLabel = "AC.RestoreFromPersonaPrint".Translate(),
-                defaultDesc = "AC.RestoreFromPersonaPrintDesc".Translate(),
                 icon = "UI/Gizmos/RestoreFromPersonaPrint",
                 targetAction = BeginTargetingForRestoringFromPrint,
                 action = InstallRestoreFromPrintBill,
@@ -132,8 +124,8 @@ namespace AlteredCarbon
         {
             var command = (T)Activator.CreateInstance(typeof(T), new object[]
             { this, info.targetParameters, info.action });
-            command.defaultLabel = info.defaultLabel;
-            command.defaultDesc = info.defaultDesc;
+            command.defaultLabel = info.recipe.label;
+            command.defaultDesc = info.recipe.description;
             command.icon = ContentFinder<Texture2D>.Get(info.icon);
             command.activateSound = SoundDefOf.Tick_Tiny;
             command.action = delegate ()

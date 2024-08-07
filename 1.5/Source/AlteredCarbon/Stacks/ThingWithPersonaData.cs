@@ -55,8 +55,7 @@ namespace AlteredCarbon
             PawnKindDef pawnKind = GetPawnKind(faction);
             Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnKind, faction));
             PersonaData.CopyFromPawn(pawn, this.def, copyRaceGenderInfo: true);
-            PersonaData.OverwritePawn(pawn, this.def.GetModExtension<StackSavingOptionsModExtension>());
-            PersonaData.dummyPawn = pawn;
+            PersonaData.hostPawn = null;
             if (LookTargets_Patch.targets.TryGetValue(pawn, out List<LookTargets> targets))
             {
                 foreach (LookTargets target in targets)

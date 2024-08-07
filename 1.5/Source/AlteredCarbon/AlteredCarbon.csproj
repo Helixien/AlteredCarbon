@@ -95,6 +95,7 @@
     <Compile Include="HarmonyPatches\Apparel_Notify_PawnKilled_Patch.cs" />
     <Compile Include="HarmonyPatches\Building_GrowthVat_CanAcceptPawn_Patch.cs" />
     <Compile Include="HarmonyPatches\Building_SubcoreScanner_CanAcceptPawn_Patch.cs" />
+    <Compile Include="HarmonyPatches\CharacterCardUtility_DoLeftSection_Patch.cs" />
     <Compile Include="HarmonyPatches\CharacterCardUtility_DrawCharacterCard_Patch.cs" />
     <Compile Include="HarmonyPatches\CharacterCardUtility_LifestageAndXenotypeOptions_Patch.cs" />
     <Compile Include="HarmonyPatches\CompBiocodable_UnCode_Patch.cs" />

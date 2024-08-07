@@ -15,19 +15,7 @@
 	<AC.Childhood>Childhood</AC.Childhood>
 	<AC.Adulthood>Adulthood</AC.Adulthood>
 	<AC.AgeChronologicalTicks>Chronological age</AC.AgeChronologicalTicks>
-	<AC.DestroyStack>Destroy stack</AC.DestroyStack>
-	<AC.DestroyedStack>Destroyed stack</AC.DestroyedStack>
-	<AC.DestroyedStackDesc>An empty stack was destroyed by inept actions of {PAWN_labelShort}.</AC.DestroyedStackDesc>
-	<AC.DestroyedWipingStackDesc>A stack was destroyed by inept actions of {PAWN_labelShort}.</AC.DestroyedWipingStackDesc>
-	<AC.EmptyStack>Empty stack</AC.EmptyStack>
-	<AC.EmptyStackDesc>An empty stack.</AC.EmptyStackDesc>
-	<AC.EmptyStackConfirmation>Deleting Stack:\nWARNING! You are about to wipe this stack, killing the person saved on it. Are you sure you want to continue?</AC.EmptyStackConfirmation>
 	<AC.DestroyStackConfirmation>Destroying Stack:\nWARNING! You are about to destroy this stack. Are you sure you want to continue?</AC.DestroyStackConfirmation>
-	<AC.CannotCopyNoIntellectual>(requires intellectual skill of 10 or higher)</AC.CannotCopyNoIntellectual>
-	<AC.CannotCopyNoOtherEmptyStacks>(no empty stacks on the map)</AC.CannotCopyNoOtherEmptyStacks>
-	<AC.GoodwillChangedReason_ErasedPawn>erased {PAWN_labelShort}</AC.GoodwillChangedReason_ErasedPawn>
-	<AC.CantWipeStackTooDumb>Rest Stack (requires intellectual skill of 5 or higher)</AC.CantWipeStackTooDumb>
-	<AC.FailedPersonaStackDestroyed>Decrypt Ancient Stacks: Failed, persona stack destroyed!</AC.FailedPersonaStackDestroyed>
 	<AC.ScenPart_PawnsHavePersonaStack>{0} have a {1} chance of starting with a {2}.</AC.ScenPart_PawnsHavePersonaStack>
 	<AC.AutoLoad>Auto-load</AC.AutoLoad>
 	<AC.AutoLoadDesc>If active, haulers will automatically store this persona print in a persona matrix.</AC.AutoLoadDesc>
@@ -46,7 +34,6 @@
 	<!-- ================================ Sleeves ====================== -->
 	<AC.EmptySleeve>Empty sleeve</AC.EmptySleeve>
 	<AC.SleeveDeath>Sleeve Death</AC.SleeveDeath>
-	<AC.SleeveDeathDesc>Sleeve Death.</AC.SleeveDeathDesc>
 	<AC.PawnDiedBecauseOf>Sleeve of {PAWN_labelShort} has died. Cause: {1}.</AC.PawnDiedBecauseOf>
 	<AC.PawnDied>Sleeve of {1_labelShort} has died.</AC.PawnDied>
 	<AC.SleveOf>Sleeve of </AC.SleveOf>
@@ -70,38 +57,24 @@
 	<AC.FuelSleeveIsDeteriorating>Due to lack of neutroamine, the sleeve is deteriorating.</AC.FuelSleeveIsDeteriorating>
 	<AC.Race>Race</AC.Race>
 	<AC.Xenotype>Xenotype</AC.Xenotype>
-	<AC.ActiveBrainTemplateDesc>Active brain template: </AC.ActiveBrainTemplateDesc>
-	<AC.AwaitingBrainTemplateDesc>Awaiting brain template: </AC.AwaitingBrainTemplateDesc>
-	<AC.BrainTemplateIsUsedCurrently>Brain template is active and cannot be removed or changed during sleeve growth process. Abort sleeve growth in order to remove/change brain template.</AC.BrainTemplateIsUsedCurrently>
 	<AC.SleeveQuality>Sleeve quality</AC.SleeveQuality>
 	<AC.SleeveBeauty>Sleeve beauty</AC.SleeveBeauty>
-	<AC.PsychicSensitivity>Psychic sensitivity</AC.PsychicSensitivity>
 	<AC.SleeveCustomizationExplanation>When you press Accept, a sleeve will begin growing in this Sleeve incubator. During growth, it will require a constant power connection as well as neutroamine connection via neutro pipes. When the timer finishes, a Sleeve can be extracted and either used straight-away, or inserted into a Sleeve casket.</AC.SleeveCustomizationExplanation>
 	<AC.SaveTemplate>Save template</AC.SaveTemplate>
 	<AC.LoadTemplate>Load template</AC.LoadTemplate>
 	<AC.CancelSleeveBodyGrowing>Cancel the sleeve growing process.</AC.CancelSleeveBodyGrowing>
 	<AC.CancelSleeveBodyGrowingDesc>Cancel sleeve growing.</AC.CancelSleeveBodyGrowingDesc>
-	<AC.ReleaseSleeve>Release sleeve</AC.ReleaseSleeve>
-	<AC.NoHairAllowed>This race does not support hair!</AC.NoHairAllowed>
 	<AC.BodyShape>Body shape</AC.BodyShape>
-	<AC.BodyTypeReplace>Body type</AC.BodyTypeReplace>
 	<AC.Cancel>Cancel</AC.Cancel>
 	<AC.GrowthProgress>Growth progress: </AC.GrowthProgress>
 	<AC.HairColour>Hair colour</AC.HairColour>
 	<AC.HairType>Hair type</AC.HairType>
 	<AC.HeadShape>Head shape</AC.HeadShape>
-	<AC.HeadTypeReplace>Head type</AC.HeadTypeReplace>
 	<AC.BeardType>Beard type</AC.BeardType>
-	<AC.FaceTattoosType>Face tattoos type</AC.FaceTattoosType>
-	<AC.BodyTattoosType>Body tattoos type</AC.BodyTattoosType>
-	<AC.LevelOfBeauty>Level of beauty</AC.LevelOfBeauty>
-	<AC.LevelofQuality>Level of quality</AC.LevelofQuality>
-	<AC.RequireBiomass>Require neutroamine</AC.RequireBiomass>
 	<AC.SkinColour>Skin colour</AC.SkinColour>
 	<AC.TimeToGrow>Total time to grow: {0}</AC.TimeToGrow>
 	<AC.GrowCost>Total neutroamine needed: {0}</AC.GrowCost>
 	<AC.SelectRace>Select race</AC.SelectRace>
-	<AC.RaceTypeReplace>Race type</AC.RaceTypeReplace>
 	<AC.CloneSleeve>Clone sleeve</AC.CloneSleeve>
 	<AC.CloneSleeveDesc>Create a sleeve based on an existing pawn, including endogenes.</AC.CloneSleeveDesc>
 	<AC.IsRunningOutFuel>Sleeve incubator is running out neutroamine</AC.IsRunningOutFuel>
@@ -134,61 +107,17 @@
 	<AC.AllowHostilePersonaPrints>*Allow hostile persona prints</AC.AllowHostilePersonaPrints>
 	<AC.EjectAll>Eject all</AC.EjectAll>
 	<AC.EjectAllPersonaPrintsDesc>Drop all contained persona prints onto the ground.</AC.EjectAllPersonaPrintsDesc>
-	<!-- ================================ Gene Centrifuge ====================== -->
-	<AC.SeparateGene>Separate gene</AC.SeparateGene>
-	<AC.SeparateGeneDesc>Select a genepack from which to separate a gene from.</AC.SeparateGeneDesc>
-	<AC.SeparatingGenes>Separating Genes</AC.SeparatingGenes>
-	<AC.SelectGene>Select gene</AC.SelectGene>
-	<AC.SelectGeneExplanation>The selected gene will be separated from the rest of the gene pack.</AC.SelectGeneExplanation>
-	<AC.SeparateGeneExplanation>After successful separation two genepacks will be spawned. One only with the selected gene, the other one with the rest. This process is not perfect and there is a small chance of one of the gene packs being destroyed.</AC.SeparateGeneExplanation>
-	<AC.StartSeparating>Start gene separating</AC.StartSeparating>
-	<AC.FinishedSeparatingMessage>Gene centrifuge finished separating genepacks!</AC.FinishedSeparatingMessage>
-	<AC.FinishedSeparatingDestroyedMessage>Gene centrifuge finished separating genepacks! {0} was destroyed during the process.</AC.FinishedSeparatingDestroyedMessage>
-	<AC.SeparatingProgress>Separating: {0}</AC.SeparatingProgress>
-	<AC.CentrigureWorking>Gene centrifuge is working.</AC.CentrigureWorking>
-	<AC.CancelGeneSeparating>Cancel gene separating</AC.CancelGeneSeparating>
-	<AC.CancelGeneSeparatingDesc>Cancel separating genes.</AC.CancelGeneSeparatingDesc>
-	<AC.ContainsGenepack>Contains: {0}</AC.ContainsGenepack>
-	<AC.SelectAGeneToSeparate>Select a gene to separate.</AC.SelectAGeneToSeparate>
-	<!-- ================================ Xenogerm duplicator ====================== -->
-	<AC.DuplicateXenogerm>Duplicate xenogerm</AC.DuplicateXenogerm>
-	<AC.DuplicateXenogermDesc>Select a xenogerm to duplicate. Xenogerms with archite genes require archite capsules to be loaded.</AC.DuplicateXenogermDesc>
-	<AC.DuplicatorWorking>Xenogerm duplicator is working</AC.DuplicatorWorking>
-	<AC.CancelXenogermDuplication>Cancel xenogerm duplication</AC.CancelXenogermDuplication>
-	<AC.CancelXenogermDuplicationDesc>Cancel xenogerm duplication.</AC.CancelXenogermDuplicationDesc>
-	<AC.DuplicationProgress>Duplicating: {0}</AC.DuplicationProgress>
-	<AC.ContainsXenogerm>Contains: {0}</AC.ContainsXenogerm>
-	<AC.FinishedXenogermDuplicationMessage>Xenogerm duplicator finished duplicating xenogerm!</AC.FinishedXenogermDuplicationMessage>
-	<AC.NotEnoughArchiteCapsulesLoaded>Do you really want to duplicate the xenogerm? Not enough archite capsules are loaded to duplicate all any archite genes inside the xenogerm.</AC.NotEnoughArchiteCapsulesLoaded>
 	<!-- ================================ Other ====================== -->
 	<AC.CommandCallsNeuroformers>Call psylink neuroformers</AC.CommandCallsNeuroformers>
-	<AC.SleeveHealthPreview>Health</AC.SleeveHealthPreview>
 	<AC.SetBodyParts>Install body parts</AC.SetBodyParts>
-	<AC.OrganGrowingRecipesRequiresResearch>You need to research at least one organ growing recipe.</AC.OrganGrowingRecipesRequiresResearch>
-	<AC.NoBrainTemplatesFound>No brain templates found</AC.NoBrainTemplatesFound>
-	<AC.InsertBrainTemplate>Insert brain template</AC.InsertBrainTemplate>
-	<AC.InsertBrainTemplateDesc>Insert a brain template into the incubator.</AC.InsertBrainTemplateDesc>
-	<AC.RemoveCurrentBrainTemplate>Remove current brain template</AC.RemoveCurrentBrainTemplate>
-	<AC.FactionDemandsStacks>{FACTION_name} demands stacks of their members back.\n\n{0}</AC.FactionDemandsStacks>
-	<AC.AppeptFactionDemand>Accept: (+{0} goodwill)</AC.AppeptFactionDemand>
-	<AC.RejectFactionDemand>Reject: ({0} goodwill)</AC.RejectFactionDemand>
-	<AC.None>None</AC.None>
 	<AC.Copy>Copy</AC.Copy>
 	<AC.Original>Original</AC.Original>
-	<AC.Name>Name</AC.Name>
 	<AC.Search>Search</AC.Search>
 	<AC.AddFilter>Add filter</AC.AddFilter>
-	<AC.NoFilters>No filters</AC.NoFilters>
 	<AC.IsEmptySleeve>Is empty sleeve</AC.IsEmptySleeve>
 	<AC.OriginalGender>Original gender</AC.OriginalGender>
 	<AC.ChargeCuirassierBelt>Charge cuirassier belt</AC.ChargeCuirassierBelt>
 	<!-- ================================ Persona editor ====================== -->
-	<AC.HackStack>Hack stack</AC.HackStack>
-	<AC.HackStackDesc>Convert a stack to the players faction.</AC.HackStackDesc>
-	<AC.ConvertStack>Convert stack ideo</AC.ConvertStack>
-	<AC.ConvertStackDesc>Convert a stack to the players ideology.</AC.ConvertStackDesc>
-	<AC.WipeStack>Factory reset stack</AC.WipeStack>
-	<AC.WipeStackDesc>Factory reset a filled persona to be used on a new host. This process will deleted the pawn stored on it, effectively killing them.</AC.WipeStackDesc>
 	<AC.NoConnectedMatrix>Cannot use: No Persona Matrix nearby.</AC.NoConnectedMatrix>
 	<AC.ConnectedMatrixHasNoPower>Cannot use: Connected Persona Matrix is not powered.</AC.ConnectedMatrixHasNoPower>
 	<AC.WipingFriendlyStackWarning>Warning: The stack you are trying to factory reset does not belong to your faction.
@@ -200,19 +129,12 @@ If you make a copy of the content from a non-colonist stack from another faction
 	<AC.EditingFriendlyStackWarning>The stack you are trying to edit does not belong to your faction.
 
 If you edit the content from a non-colonist stack from another faction, their entire faction may become your enemy.</AC.EditingFriendlyStackWarning>
-	<AC.AlreadyOrderedToHackStack>This stack is set for hacking already on the persona editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToHackStack>
 	<AC.AlreadyOrderedToWipeStack>This stack is set for reseting already on a persona editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToWipeStack>
 	<AC.AlreadyOrderedToEditStack>This stack is set for editing already on a persona editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToEditStack>
 	<AC.AlreadyOrderedToDuplicateStack>This stack is set for duplicating already on a persona editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToDuplicateStack>
 	<AC.AlreadyOrderedToRestoreStack>This print is set for restoring already on a persona editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToRestoreStack>
-	<AC.FixedAncientStack>Decrypt Ancient Stacks: Fixed the ancient persona stack!</AC.FixedAncientStack>
-	<AC.UnlockedNewTechnology>Decrypt Ancient Stacks: Unlocked new technology - {0}!</AC.UnlockedNewTechnology>
-	<AC.GainedProgressToTechnology>Decrypt Ancient Stacks: Gained progress to technology - {0}!</AC.GainedProgressToTechnology>
-	<AC.GainedEmptyPersonaStack>Decrypt Ancient Stacks: Gained empty persona stack!</AC.GainedEmptyPersonaStack>
 	<AC.HackingBiocodedFailed>Hacking biocoded equipment: Failed, {0} destroyed!</AC.HackingBiocodedFailed>
 	<AC.HackingBiocodedSuccess>Hacking biocoded equipment: Successful! {0} is unlocked.</AC.HackingBiocodedSuccess>
-	<AC.EditStack>Edit stack</AC.EditStack>
-	<AC.EditStackDesc>Use exploits to edit the data stored on a filled persona stack.</AC.EditStackDesc>
 	<AC.EditPersonaStack>Edit Persona Stack</AC.EditPersonaStack>
 	<AC.PersonaStackEditExplanation>Persona Stacks feature advanced encryption to prevent outside forces from messing with the stored consciousness. Known exploits allow for some data to be edited and rewritten at the cost of stack degradation.</AC.PersonaStackEditExplanation>
 	<AC.Backstories>Backstories</AC.Backstories>
@@ -236,37 +158,24 @@ If you edit the content from a non-colonist stack from another faction, their en
 	<AC.CancelStackEditDesc>Cancel editing persona stack.</AC.CancelStackEditDesc>
 	<AC.CancelStackDuplication>Cancel stack duplication</AC.CancelStackDuplication>
 	<AC.CancelStackDuplicationDesc>Cancel stack duplicating.</AC.CancelStackDuplicationDesc>
-	<AC.RestoreFromPersonaPrint>Restore stack from persona print</AC.RestoreFromPersonaPrint>
-	<AC.RestoreFromPersonaPrintDesc>text.todo</AC.RestoreFromPersonaPrintDesc>
-	<AC.CannotRestoreBackupNoOtherEmptyStacks>no empty stacks in stockpile</AC.CannotRestoreBackupNoOtherEmptyStacks>
 	<AC.SuccessfullyRestoredStackFromBackup>{PAWN_nameDef} successfully restored persona stack from persona print.</AC.SuccessfullyRestoredStackFromBackup>
-	<AC.RestoreToStackAutomatically>Toggle if this person should be restored to a new stack automatically when the current stack is destroyed.</AC.RestoreToStackAutomatically>
 	<AC.EnableAutoRestore>Toggle automatic restoring</AC.EnableAutoRestore>
 	<AC.EnableAutoRestoreDesc>Allow to automatically restore stacks from persona prints if a pawn with an installed persona stack dies.</AC.EnableAutoRestoreDesc>
-	<AC.DuplicateStack>Duplicate Stack</AC.DuplicateStack>
-	<AC.DuplicateStackDesc>Make a exact copy of an existing filled persona stack.</AC.DuplicateStackDesc>
-	<AC.AlreadySetToDuplicate>Already set a stack to duplicate</AC.AlreadySetToDuplicate>
 	<AC.SuccessfullyDuplicatedStack>{PAWN_nameDef} successfully duplicated persona stack.</AC.SuccessfullyDuplicatedStack>
 	<AC.FailedToDuplicatedStack>{PAWN_nameDef} failed to duplicate persona stack.</AC.FailedToDuplicatedStack>
-	<AC.AlreadySetToRestore>Already set a persona print to restore</AC.AlreadySetToRestore>
-	<AC.NoStackToDuplicate>There are no stacks to duplicate</AC.NoStackToDuplicate>
-	<AC.NoPersonaPrintToRestore>There are no persona prints to restore</AC.NoPersonaPrintToRestore>
 	<AC.CancelStackDuplication>Cancel stack duplication</AC.CancelStackDuplication>
 	<AC.CancelStackDuplicationDesc>Cancel duplication of stored persona stack.</AC.CancelStackDuplicationDesc>
 	<AC.CancelPersonaPrintRestoration>Cancel persona print restoration</AC.CancelPersonaPrintRestoration>
 	<AC.CancelPersonaPrintRestorationDesc>Cancel stack restoration from persona print.</AC.CancelPersonaPrintRestorationDesc>
 	<!-- ================================ Mod Settings ====================== -->
-	<AC.General>General</AC.General>
 	<AC.EnableStackSpawning>Enable Stack Spawning</AC.EnableStackSpawning>
 	<AC.EnableStackSpawningDesc>If disabled, Persona Stacks and Archostacks will NOT spawn on any pawns. You can still craft them, get them as rewards or trade for them.</AC.EnableStackSpawningDesc>
 	<AC.EnableTechprintRequirement>Enable techprint requirements in research projects</AC.EnableTechprintRequirement>
 	<AC.EnableTechprintRequirementDesc>Only affects Royalty owners!</AC.EnableTechprintRequirementDesc>
-	<AC.SleeveGrowing>Sleeve Growing</AC.SleeveGrowing>
 	<AC.TimeToGrowSleeveMultiplier>Time to grow sleeve multiplicator:</AC.TimeToGrowSleeveMultiplier>
 	<AC.TimeToGrowSleeveMultiplierDesc>Multiplicator of the overall time needed to grow a new sleeve.</AC.TimeToGrowSleeveMultiplierDesc>
 	<AC.CostToGrowSleeveMultiplier>Cost to grow sleeve multiplicator:</AC.CostToGrowSleeveMultiplier>
 	<AC.CostToGrowSleeveMultiplierDesc>Multiplicator of the overall neutroamine cost needed to grow a new sleeve.</AC.CostToGrowSleeveMultiplierDesc>
-	<AC.StackEditing>Stack Editing</AC.StackEditing>
 	<AC.EnableStackDegradation>Enable Stack Degradation</AC.EnableStackDegradation>
 	<AC.EnableStackDegradationDesc>If disabled, Persona Stacks can be edited to your heart's content without having to worry about stack degradation.</AC.EnableStackDegradationDesc>
 	<AC.StackEditEditTimeValueMultiplier>Stack editing time gain multiplier:</AC.StackEditEditTimeValueMultiplier>
@@ -289,9 +198,6 @@ If you edit the content from a non-colonist stack from another faction, their en
 	<AC.CannotInstallStackInNonHumanlikes>Cannot install stacks into non-humanlikes.</AC.CannotInstallStackInNonHumanlikes>
 	<AC.CannotInstallFilledStackInChildren>Cannot install a filled stack into children.</AC.CannotInstallFilledStackInChildren>
 	<AC.CannotInstallAlreadyHaveStack>Cannot install stack: Already has a stack installed.</AC.CannotInstallAlreadyHaveStack>
-	<AC.Detonate>Detonate</AC.Detonate>
-	<AC.DetonateDesc>Trigger the installed cortex overseer to explode and kill the person it is installed in.</AC.DetonateDesc>
-	<AC.Deactivated>deactivated</AC.Deactivated>
 	<AC.RequiresArtificalParentPart>requires artifical parent part</AC.RequiresArtificalParentPart>
 	<!-- ================================ Mental Fuse ====================== -->
 	<AC.TriggeredMentalFuseLabel>Mental fuse ({PAWN_nameDef})</AC.TriggeredMentalFuseLabel>
