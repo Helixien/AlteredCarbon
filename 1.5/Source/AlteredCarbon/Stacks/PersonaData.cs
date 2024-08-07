@@ -187,6 +187,7 @@ namespace AlteredCarbon
                     faction, OriginalRace ?? ThingDefOf.Human, ticks, OriginalXenotypeDef != null
                     ? OriginalXenotypeDef : XenotypeDefOf.Baseliner);
                 dummyPawn.gender = dummyGender ?? originalGender;
+
             }
             dummyPawns.Add(dummyPawn);
             OverwritePawn(dummyPawn, null, overwriteOriginalPawn: false, copyFromOrigPawn: hostPawn != null

@@ -411,6 +411,7 @@ namespace AlteredCarbon
             if (ageBiologicalTicks != default)
             {
                 pawn.ageTracker.ageBiologicalTicksInt = ageBiologicalTicks;
+                pawn.ageTracker.RecalculateLifeStageIndex();
             }
             if (xenotypeDef != null)
             {
@@ -519,6 +520,7 @@ namespace AlteredCarbon
             {
                 dest.ageTracker = source.ageTracker.Clone();
                 dest.ageTracker.pawn = dest;
+                dest.ageTracker.RecalculateLifeStageIndex();
             }
 
             dest.genes.xenotype = source.genes.xenotype;
