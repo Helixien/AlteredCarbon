@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+	<!-- ================================ Aspiration - Become immortal ====================== -->
+	<VAspirE.AspirationDef>
+		<defName>AC_BecomeImmortal</defName>
+		<label>Become immortal</label>
+		<iconPath>VCEF_AlphaFish_a</iconPath>
+		<description>{0} wants to become immortal by having a persona stack implanted.</description>
+		<satisfiedHediff>
+			<li>AC_PersonaStack</li>
+			<li>AC_EmptyArchotechStack</li>
+		</satisfiedHediff>
+	</VAspirE.AspirationDef>
+	<!-- ================================ Aspiration - Have a duplicate ====================== -->
+	<VAspirE.AspirationDef>
+		<defName>AC_HaveADuplicate</defName>
+		<label>Have a duplicate</label>
+		<iconPath>VCEF_AlphaFish_a</iconPath>
+		<description>{0} wants to have a duplicate of themselves.</description>
+		<satisfiedRelation>AC_Original</satisfiedRelation>
+	</VAspirE.AspirationDef>
+	<!-- ================================ Aspiration - Own legendary sleeve ====================== -->
+	<VAspirE.AspirationDef>
+		<defName>AC_OwnLegendarySleeve</defName>
+		<label>Own a legendary sleeve</label>
+		<iconPath>VCEF_AlphaFish_a</iconPath>
+		<description>{0} wants to have their stack implanted into a sleeve of legendary quality.</description>
+	</VAspirE.AspirationDef>
+</Defs>
