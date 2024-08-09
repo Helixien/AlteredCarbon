@@ -22,8 +22,8 @@
 		</graphicData>
 		<size>(3,3)</size>
 		<statBases>
-			<MaxHitPoints>800</MaxHitPoints>
-			<WorkToBuild>18000</WorkToBuild>
+			<MaxHitPoints>500</MaxHitPoints>
+			<WorkToBuild>12000</WorkToBuild>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>1</Cleanliness>
 		</statBases>
@@ -127,7 +127,7 @@
 		<statBases>
 			<Mass>20</Mass>
 			<MaxHitPoints>180</MaxHitPoints>
-			<WorkToBuild>5000</WorkToBuild>
+			<WorkToBuild>4500</WorkToBuild>
 			<Flammability>0.5</Flammability>
 		</statBases>
 		<building>

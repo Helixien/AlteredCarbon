@@ -9,9 +9,9 @@
 	<!-- ================================ Neural Editing - Duplicate filled Persona stacks ====================== -->
 	<RecipeDef ParentName="AC_RecipeNeuralEditing">
 		<defName>AC_DuplicatePersonaStack</defName>
-		<label>Duplicate persona stack</label>
+		<label>Duplicate stack</label>
 		<description>Duplicate the content of a filled persona stack, effectively creating a "clone" or "duplicate" of the consciousness stored on the original stack.</description>
-		<jobString>Duplicating persona stack.</jobString>
+		<jobString>Duplicating stack.</jobString>
 		<workerClass>AlteredCarbon.Recipe_DuplicatePersonaStack</workerClass>
 		<workAmount>8000</workAmount>
 		<ingredients>
@@ -51,7 +51,7 @@
 	<!-- ================================ Neural Editing - Duplicate filled Persona stacks ====================== -->
 	<RecipeDef ParentName="AC_RecipeNeuralEditing">
 		<defName>AC_RestoreStackFromPersonaPrint</defName>
-		<label>Restore persona stack from print</label>
+		<label>Restore stack from print</label>
 		<description>Download the neural snapshot from a persona print to an empty persona stack, effectively birthing a new consciousness. If the person of whom the persona print was made is still alive or their original persona stack is still intact, this process will create a "duplicate" of them.</description>
 		<jobString>downloading persona print to stack.</jobString>
 		<workerClass>AlteredCarbon.Recipe_RestoreStackFromPersonaPrint</workerClass>
@@ -93,7 +93,7 @@
 	<!-- ================================ Neural Editing - Persona stacks ====================== -->
 	<RecipeDef ParentName="AC_RecipeNeuralEditing">
 		<defName>AC_EditFilledPersonaStack</defName>
-		<label>Modify persona stack</label>
+		<label>Modify stack</label>
 		<description>Modify the neural data stored on an active persona stack. This process can take not only time, but can also be very destructive on the consciousness stored on the selected stack.</description>
 		<jobString>Modifying persona stack.</jobString>
 		<workerClass>AlteredCarbon.Recipe_EditFilledPersonaStack</workerClass>

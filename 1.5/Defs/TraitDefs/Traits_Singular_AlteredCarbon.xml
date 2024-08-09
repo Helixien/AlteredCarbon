@@ -12,7 +12,7 @@
 		</degreeDatas>
 		<modExtensions>
 			<li Class="AlteredCarbon.StackSpawnModExtension">
-				<chanceToSpawnWithStack>100</chanceToSpawnWithStack>
+				<chanceToSpawnWithStack>75</chanceToSpawnWithStack>
 			</li>
 		</modExtensions>
 	</TraitDef>

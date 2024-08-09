@@ -9,7 +9,7 @@
 		<targetMode>Self</targetMode>
 		<iconPath>UI/Gizmos/Ability_FusilierSmoke</iconPath>
 		<cooldownTime>12500</cooldownTime>
-		<castTime>0</castTime>
+		<castTime>100</castTime>
 		<modExtensions>
 			<li Class="VFECore.Abilities.AbilityExtension_Explosion">
 				<explosionDamageDef>Smoke</explosionDamageDef>

@@ -18,7 +18,7 @@
 			<AccuracyShort>0.70</AccuracyShort>
 			<AccuracyMedium>0.42</AccuracyMedium>
 			<AccuracyLong>0.32</AccuracyLong>
-			<RangedWeapon_Cooldown>1.2</RangedWeapon_Cooldown>
+			<RangedWeapon_Cooldown>1.3</RangedWeapon_Cooldown>
 		</statBases>
 		<weaponTags>
 			<li>SimpleGun</li>

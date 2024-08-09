@@ -32,11 +32,6 @@
 			<Insulation_Heat>12</Insulation_Heat>
 			<EquipDelay>5</EquipDelay>
 		</statBases>
-		<costList>
-			<ComponentSpacer>2</ComponentSpacer>
-			<Plasteel>60</Plasteel>
-			<Uranium>5</Uranium>
-		</costList>
 		<apparel>
 			<bodyPartGroups>
 				<li>FullHead</li>
@@ -94,8 +89,9 @@
 			<displayPriority>135</displayPriority>
 		</recipeMaker>
 		<costList>
-			<ComponentSpacer>1</ComponentSpacer>
-			<Plasteel>35</Plasteel>
+			<ComponentSpacer>2</ComponentSpacer>
+			<Plasteel>60</Plasteel>
+			<Uranium>5</Uranium>
 		</costList>
 		<equippedStatOffsets>
 			<AimingDelayFactor>-0.2</AimingDelayFactor>
