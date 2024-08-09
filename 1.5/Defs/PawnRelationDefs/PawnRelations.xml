@@ -12,7 +12,7 @@
 		<soldThoughts>
 			<li>SoldMyLovedOne</li>
 		</soldThoughts>
-		<opinionOffset>30</opinionOffset>
+		<opinionOffset>15</opinionOffset>
 		<generationChanceFactor>0</generationChanceFactor>
 		<romanceChanceFactor>0.01</romanceChanceFactor>
 		<incestOpinionOffset>-50</incestOpinionOffset>
@@ -31,7 +31,7 @@
 		<soldThoughts>
 			<li>SoldMyLovedOne</li>
 		</soldThoughts>
-		<opinionOffset>30</opinionOffset>
+		<opinionOffset>15</opinionOffset>
 		<generationChanceFactor>0</generationChanceFactor>
 		<romanceChanceFactor>0.01</romanceChanceFactor>
 		<incestOpinionOffset>-50</incestOpinionOffset>
