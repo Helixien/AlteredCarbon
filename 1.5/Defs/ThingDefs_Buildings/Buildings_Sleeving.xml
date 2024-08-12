@@ -35,7 +35,7 @@
 				<li>Biotech</li>
 			</buildingTags>
 		</building>
-		<constructionSkillPrerequisite>10</constructionSkillPrerequisite>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 		<researchPrerequisites>
 			<li>AC_SleeveGestation</li>
 		</researchPrerequisites>
@@ -135,7 +135,7 @@
 				<li>Biotech</li>
 			</buildingTags>
 		</building>
-		<constructionSkillPrerequisite>10</constructionSkillPrerequisite>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 		<researchPrerequisites>
 			<li>AC_SleeveGestation</li>
 		</researchPrerequisites>
@@ -160,7 +160,7 @@
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
 				<shortCircuitInRain>true</shortCircuitInRain>
-				<basePowerConsumption>75</basePowerConsumption>
+				<basePowerConsumption>125</basePowerConsumption>
 				<idlePowerDraw>15</idlePowerDraw>
 			</li>
 			<li Class="CompProperties_AffectedByFacilities">

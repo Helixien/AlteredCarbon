@@ -11,7 +11,7 @@
 		<soldThoughts>
 			<li>AC_SoldMyOriginal</li>
 		</soldThoughts>
-		<opinionOffset>30</opinionOffset>
+		<opinionOffset>15</opinionOffset>
 		<generationChanceFactor>0</generationChanceFactor>
 		<romanceChanceFactor>0.1</romanceChanceFactor>
 		<incestOpinionOffset>-30</incestOpinionOffset>
@@ -30,7 +30,7 @@
 		<soldThoughts>
 			<li>AC_SoldMyCopy</li>
 		</soldThoughts>
-		<opinionOffset>30</opinionOffset>
+		<opinionOffset>15</opinionOffset>
 		<generationChanceFactor>0</generationChanceFactor>
 		<romanceChanceFactor>0.1</romanceChanceFactor>
 		<incestOpinionOffset>-30</incestOpinionOffset>

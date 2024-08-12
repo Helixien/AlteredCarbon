@@ -144,7 +144,7 @@
 						<capacities>
 							<li>Cut</li>
 						</capacities>
-						<power>25</power>
+						<power>22</power>
 						<cooldownTime>2</cooldownTime>
 						<armorPenetration>0.9</armorPenetration>
 						<alwaysTreatAsWeapon>true</alwaysTreatAsWeapon>

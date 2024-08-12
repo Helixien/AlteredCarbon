@@ -14,7 +14,7 @@
 		<tickerType>Normal</tickerType>
 		<techLevel>Ultra</techLevel>
 		<statBases>
-			<Mass>4</Mass>
+			<Mass>3.5</Mass>
 			<WorkToMake>35000</WorkToMake>
 			<Flammability>0.4</Flammability>
 			<EquipDelay>3</EquipDelay>
