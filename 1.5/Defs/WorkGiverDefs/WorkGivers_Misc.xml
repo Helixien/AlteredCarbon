@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Banking Stacks ====================== -->
+	<WorkGiverDef>
+		<defName>AC_HaulPersonaStacksToStorage</defName>
+		<label>Haul stacks</label>
+		<giverClass>AlteredCarbon.WorkGiver_HaulPersonaStacks</giverClass>
+		<workType>Hauling</workType>
+		<verb>bank</verb>
+		<gerund>banking</gerund>
+		<priorityInType>1000</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+	<!-- ================================ Extract Stacks ====================== -->
+	<WorkGiverDef>
+		<defName>AC_ExtractStack</defName>
+		<label>Extracting stack</label>
+		<giverClass>AlteredCarbon.WorkGiver_ExtractStack</giverClass>
+		<workType>Hauling</workType>
+		<verb>Extract stack</verb>
+		<gerund>Extracting stack</gerund>
+		<priorityInType>20</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+	<!-- ================================ Sleeve Gestator - Start ====================== -->
+	<WorkGiverDef>
+		<defName>AC_StartGestationProcess</defName>
+		<label>Start gestating process</label>
+		<giverClass>AlteredCarbon.WorkGiver_StartIncubatingProcess</giverClass>
+		<workType>BasicWorker</workType>
+		<priorityInType>50</priorityInType>
+		<verb>Start gestating process</verb>
+		<gerund>Starting gestating process at</gerund>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+		<prioritizeSustains>true</prioritizeSustains>
+	</WorkGiverDef>
+	<!-- ================================ Sleeve Gestator - Cancel ====================== -->
+	<WorkGiverDef>
+		<defName>AC_CancelGestationProcess</defName>
+		<label>Cancel gestating process</label>
+		<giverClass>AlteredCarbon.WorkGiver_CancelIncubatingProcess</giverClass>
+		<workType>BasicWorker</workType>
+		<priorityInType>50</priorityInType>
+		<verb>Cancel gestating process</verb>
+		<gerund>Canceling gestating process at</gerund>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+		<prioritizeSustains>true</prioritizeSustains>
+	</WorkGiverDef>
+	<!-- ================================ Sleeve Gestator - Hauling corpse to====================== -->
+	<WorkGiverDef>
+		<defName>AC_HaulCorpseToSleeveGrower</defName>
+		<label>Haul corpse to sleeve grower</label>
+		<giverClass>AlteredCarbon.WorkGiver_HaulCorpseToSleeveGrower</giverClass>
+		<workType>Hauling</workType>
+		<verb>Haul corpse to</verb>
+		<gerund>Hauling corpse to</gerund>
+		<priorityInType>1000</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+	<!-- ================================ Sleeve Gestator - Cancel Body Repurposing ====================== -->
+	<WorkGiverDef>
+		<defName>AC_CancelRepurposingBody</defName>
+		<label>Cancel repurposing body</label>
+		<giverClass>AlteredCarbon.WorkGiver_CancelRepurposingBody</giverClass>
+		<workType>BasicWorker</workType>
+		<priorityInType>50</priorityInType>
+		<verb>Cancel repurposing body</verb>
+		<gerund>Canceling repurposing body at</gerund>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+		<prioritizeSustains>true</prioritizeSustains>
+	</WorkGiverDef>
+	<!-- ================================ Persona Editor - Editing ====================== -->
+	<WorkGiverDef>
+		<defName>AC_DoNeuralEditing</defName>
+		<label>Neural editing</label>
+		<giverClass>WorkGiver_DoBill</giverClass>
+		<workType>Research</workType>
+		<priorityInType>50</priorityInType>
+		<fixedBillGiverDefs>
+			<li>AC_PersonaEditor</li>
+		</fixedBillGiverDefs>
+		<verb>Do neural editing</verb>
+		<gerund>Doing neural editing at</gerund>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+		<prioritizeSustains>true</prioritizeSustains>
+	</WorkGiverDef>
+	<!-- ================================ Persona Connector - Hauling to ====================== -->
+	<WorkGiverDef ParentName="HaulToBase">
+		<defName>AC_HaulToPersonaConnector</defName>
+		<label>Haul resources to persona connector</label>
+		<giverClass>AlteredCarbon.WorkGiver_HaulToPersonaConnector</giverClass>
+	</WorkGiverDef>
+</Defs>

@@ -1,40 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<!-- ================================ Duplicating - Original ====================== -->
+	<!-- ================================ Stack Duplicating - Original ====================== -->
 	<PawnRelationDef>
 		<defName>AC_Original</defName>
-		<label>original</label>
-		<importance>185</importance>
+		<label>Original</label>
+		<importance>195</importance>
 		<diedThought>AC_MyOriginalDied</diedThought>
 		<killedThought>AC_KilledMyOriginal</killedThought>
-		<lostThought>AC_MyOriginalLostMale</lostThought>
-		<lostThoughtFemale>AC_MyOriginalLostFemale</lostThoughtFemale>
+		<lostThought>AC_MyOriginalLost</lostThought>
 		<soldThoughts>
-			<li>SoldMyLovedOne</li>
+			<li>AC_SoldMyOriginal</li>
 		</soldThoughts>
 		<opinionOffset>30</opinionOffset>
 		<generationChanceFactor>0</generationChanceFactor>
-		<romanceChanceFactor>0.01</romanceChanceFactor>
-		<incestOpinionOffset>-50</incestOpinionOffset>
+		<romanceChanceFactor>0.1</romanceChanceFactor>
+		<incestOpinionOffset>-30</incestOpinionOffset>
+		<inbredChanceOnChild>0.8</inbredChanceOnChild>
 		<implied>false</implied>
 		<familyByBloodRelation>true</familyByBloodRelation>
 	</PawnRelationDef>
-	<!-- ================================ Duplicating - Copy ====================== -->
+	<!-- ================================ Stack Duplicating - Copy ====================== -->
 	<PawnRelationDef>
 		<defName>AC_Copy</defName>
-		<label>copy</label>
-		<importance>185</importance>
+		<label>Copy</label>
+		<importance>195</importance>
 		<diedThought>AC_MyCopyDied</diedThought>
 		<killedThought>AC_KilledMyCopy</killedThought>
-		<lostThought>AC_MyCopyLostMale</lostThought>
-		<lostThoughtFemale>AC_MyCopyLostFemale</lostThoughtFemale>
+		<lostThought>AC_MyCopyLost</lostThought>
 		<soldThoughts>
-			<li>SoldMyLovedOne</li>
+			<li>AC_SoldMyCopy</li>
 		</soldThoughts>
 		<opinionOffset>30</opinionOffset>
 		<generationChanceFactor>0</generationChanceFactor>
-		<romanceChanceFactor>0.01</romanceChanceFactor>
-		<incestOpinionOffset>-50</incestOpinionOffset>
+		<romanceChanceFactor>0.1</romanceChanceFactor>
+		<incestOpinionOffset>-30</incestOpinionOffset>
+		<inbredChanceOnChild>0.8</inbredChanceOnChild>
 		<implied>false</implied>
 		<familyByBloodRelation>true</familyByBloodRelation>
 	</PawnRelationDef>

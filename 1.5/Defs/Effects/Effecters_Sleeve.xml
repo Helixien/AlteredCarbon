@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-
-	<!-- ================================ Sleeve Gestator Glow ====================== -->
+	<!-- ================================ Sleeve Gestator - Glow ====================== -->
 	<ThingDef ParentName="MoteBase">
 		<defName>AC_Mote_VatGlow</defName>
 		<altitudeLayer>MoteOverhead</altitudeLayer>
@@ -16,7 +15,7 @@
 			<solidTime>0.2</solidTime>
 		</mote>
 	</ThingDef>
-	<!-- ================================ Sleeve Gestator Bubbles ====================== -->
+	<!-- ================================ Sleeve Gestator - Bubbles ====================== -->
 	<FleckDef ParentName="FleckBase_Thrown">
 		<defName>AC_Fleck_VatBubble</defName>
 		<graphicData>
@@ -48,26 +47,6 @@
 				<angle>0</angle>
 				<fleckUsesAngleForVelocity>true</fleckUsesAngleForVelocity>
 				<spawnLocType>OnSource</spawnLocType>
-			</li>
-		</children>
-	</EffecterDef>
-	<!-- ================================ Jump Wings Effect - Launch ====================== -->
-	<EffecterDef MayRequire="Ludeon.RimWorld.Royalty">
-		<defName>AC_JumpWingsLaunch</defName>
-		<children>
-			<li>
-				<subEffecterClass>SubEffecter_SoundTriggered</subEffecterClass>
-				<spawnLocType>OnSource</spawnLocType>
-				<soundDef>AC_JumpWingsLaunch</soundDef>
-			</li>
-			<li>
-				<subEffecterClass>SubEffecter_SprayerTriggeredDelayed</subEffecterClass>
-				<spawnLocType>OnSource</spawnLocType>
-				<fleckDef>JumpWarmupSmoke</fleckDef>
-				<initialDelayTicks>80</initialDelayTicks>
-				<speed>0.6~0.8</speed>
-				<angle>170~190</angle>
-				<absoluteAngle>true</absoluteAngle>
 			</li>
 		</children>
 	</EffecterDef>

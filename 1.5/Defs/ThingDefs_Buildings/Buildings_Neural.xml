@@ -105,7 +105,7 @@
 	<ThingDef ParentName="BenchBase">
 		<defName>AC_PersonaEditor</defName>
 		<label>persona editor</label>
-		<description>A sophisticated workbench that allows the user to connect to persona stacks in order to alter the contained information, such as changing allegiance, or even wipe them clean. Can also strip the biocoding from items.\n\nAs the process is quite aggressive, there is a risk of the decryption process destroying the item.</description>
+		<description>A sophisticated workbench that connects to a neural matrix and allows the user to interface with it. Allows the modification of neural stacks and other complex tasks, like resetting biocoding.</description>
 		<thingClass>AlteredCarbon.Building_PersonaEditor</thingClass>
 		<graphicData>
 			<texPath>Things/Building/Misc/PersonaEditor</texPath>
@@ -156,7 +156,7 @@
 		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
 		<passability>PassThroughOnly</passability>
 		<fillPercent>0.3</fillPercent>
-		<pathCost>42</pathCost>
+    <pathCost>50</pathCost>
 		<thingCategories>
 			<li>BuildingsMisc</li>
 		</thingCategories>
@@ -173,7 +173,7 @@
 				<compClass>CompPowerTrader</compClass>
 				<basePowerConsumption>350</basePowerConsumption>
 				<shortCircuitInRain>true</shortCircuitInRain>
-				<idlePowerDraw>50</idlePowerDraw>
+				<idlePowerDraw>25</idlePowerDraw>
 			</li>
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Breakdownable"/>
@@ -184,13 +184,13 @@
 			</li>
 		</comps>
 	</ThingDef>
-	<!-- ================================ Persona Cache ====================== -->
+	<!-- ================================ Stack Cache ====================== -->
 	<ThingDef ParentName="BuildingBase">
-		<defName>AC_PersonaCache</defName>
-		<label>persona cache</label>
-		<description>text.todo</description>
+		<defName>AC_StackCache</defName>
+		<label>Stack cache</label>
+		<description>This building can store stacks safely. When powered and connected to a neural matrix, it allows stored stacks to needlecast and slowly mend corruption.</description>
 		<graphicData>
-			<texPath>Things/Building/Misc/PersonaCache</texPath>
+			<texPath>Things/Building/Misc/StackCache</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<drawSize>(2, 2)</drawSize>
 		</graphicData>

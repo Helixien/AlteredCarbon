@@ -1,5 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
+	<!-- ================================ Needlecasting Thoughts ====================== -->
+	<ThoughtDef>
+		<defName>AC_NeedlecastingVictim</defName>
+		<hediff>AC_StackDegradation</hediff>
+		<stackLimit>1</stackLimit>
+		<durationDays>6</durationDays>
+		<validWhileDespawned>true</validWhileDespawned>
+		<developmentalStageFilter>Child, Adult</developmentalStageFilter>
+		<doNotApplyToQuestLodgers>true</doNotApplyToQuestLodgers>
+		<stages>
+			<li>
+				<label>What happened?</label>
+				<description>What... what happened? How did I get here?</description>
+				<baseMoodEffect>-12</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ Dreamcatcher Thoughts ====================== -->
+	<ThoughtDef>
+		<defName>AC_PleasantDream</defName>
+		<showBubble>true</showBubble>
+		<stackLimit>1</stackLimit>
+		<durationDays>0.25</durationDays>
+		<developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+		<stages>
+			<li>
+				<label>pleasant dream</label>
+				<description>My dreams were nothing but cozy and fulfilling. I slept great!</description>
+				<baseMoodEffect>5</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
 	<!-- ================================ Degradation Thoughts ====================== -->
 	<ThoughtDef>
 		<defName>AC_StackDegradationThought</defName>
@@ -40,6 +72,24 @@
 				<label>Stranger to myself</label>
 				<description>I feel like a stranger to myself. What memories are my own and which ones where altered? I cant live like this!</description>
 				<baseMoodEffect>-50</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	<!-- ================================ Erased Stack ====================== -->
+	<ThoughtDef ParentName="DeathMemory">
+		<defName>AC_ErasedStack</defName>
+		<durationDays>6</durationDays>
+		<stackLimit>5</stackLimit>
+		<doNotApplyToQuestLodgers>true</doNotApplyToQuestLodgers>
+		<nullifyingTraits>
+			<li>Psychopath</li>
+			<li>Bloodlust</li>
+		</nullifyingTraits>
+		<stages>
+			<li>
+				<label>erased a stack</label>
+				<description>text.todo</description>
+				<baseMoodEffect>-5</baseMoodEffect>
 			</li>
 		</stages>
 	</ThoughtDef>

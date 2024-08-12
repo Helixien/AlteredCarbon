@@ -8,12 +8,12 @@
 	</RecipeDef>
 	<!-- ================================ Neural Editing - Duplicate filled Persona stacks ====================== -->
 	<RecipeDef ParentName="AC_RecipeNeuralEditing">
-		<defName>AC_DuplicatePersonaStack</defName>
-		<label>Duplicate persona stack</label>
-		<description>Duplicate the content of a filled persona stack, effectively creating a "clone" or "duplicate" of the consciousness stored on the original stack.</description>
-		<jobString>Duplicating persona stack.</jobString>
-		<workerClass>AlteredCarbon.Recipe_DuplicatePersonaStack</workerClass>
-		<workAmount>8000</workAmount>
+		<defName>AC_DuplicateNeuralStack</defName>
+		<label>Duplicate stack</label>
+		<description>Duplicate the content of an active neural stack, effectively creating a "clone" or "duplicate" of the consciousness stored on the original stack.</description>
+		<jobString>Duplicating stack.</jobString>
+		<workerClass>AlteredCarbon.Recipe_DuplicateNeuralStack</workerClass>
+		<workAmount>15000</workAmount>
 		<ingredients>
 			<li>
 				<filter>
@@ -48,54 +48,12 @@
 			<Intellectual>10</Intellectual>
 		</skillRequirements>
 	</RecipeDef>
-	<!-- ================================ Neural Editing - Duplicate filled Persona stacks ====================== -->
-	<RecipeDef ParentName="AC_RecipeNeuralEditing">
-		<defName>AC_RestoreStackFromPersonaPrint</defName>
-		<label>Restore persona stack from print</label>
-		<description>Download the neural snapshot from a persona print to an empty persona stack, effectively birthing a new consciousness. If the person of whom the persona print was made is still alive or their original persona stack is still intact, this process will create a "duplicate" of them.</description>
-		<jobString>downloading persona print to stack.</jobString>
-		<workerClass>AlteredCarbon.Recipe_RestoreStackFromPersonaPrint</workerClass>
-		<workAmount>5000</workAmount>
-		<ingredients>
-			<li>
-				<filter>
-					<thingDefs>
-						<li>AC_EmptyPersonaStack</li>
-					</thingDefs>
-				</filter>
-				<count>1</count>
-			</li>
-			<li>
-				<filter>
-					<thingDefs>
-						<li>AC_PersonaPrint</li>
-					</thingDefs>
-				</filter>
-				<count>1</count>
-			</li>
-		</ingredients>
-		<fixedIngredientFilter>
-			<thingDefs>
-				<li>AC_EmptyPersonaStack</li>
-				<li>AC_PersonaPrint</li>
-			</thingDefs>
-		</fixedIngredientFilter>
-		<defaultIngredientFilter>
-			<thingDefs>
-				<li>AC_EmptyPersonaStack</li>
-				<li>AC_PersonaPrint</li>
-			</thingDefs>
-		</defaultIngredientFilter>
-		<skillRequirements>
-			<Intellectual>10</Intellectual>
-		</skillRequirements>
-	</RecipeDef>
 	<!-- ================================ Neural Editing - Persona stacks ====================== -->
 	<RecipeDef ParentName="AC_RecipeNeuralEditing">
-		<defName>AC_EditFilledPersonaStack</defName>
-		<label>Modify persona stack</label>
-		<description>Modify the neural data stored on an active persona stack. This process can take not only time, but can also be very destructive on the consciousness stored on the selected stack.</description>
-		<jobString>Modifying persona stack.</jobString>
+		<defName>AC_EditActivePersonaStack</defName>
+		<label>Modify stack</label>
+		<description>Modify the neural data stored on an active stack. This process can take not only time, but can also be very destructive on the consciousness stored on the selected stack.</description>
+		<jobString>Modifying stack.</jobString>
 		<workerClass>AlteredCarbon.Recipe_EditFilledPersonaStack</workerClass>
 		<workAmount>10000000000</workAmount>
 		<ingredients>
@@ -119,7 +77,7 @@
 			</thingDefs>
 		</defaultIngredientFilter>
 		<skillRequirements>
-			<Intellectual>10</Intellectual>
+			<Intellectual>12</Intellectual>
 		</skillRequirements>
 		<researchPrerequisites>
 			<li>AC_NeuralEditing</li>
@@ -128,11 +86,11 @@
 	<!-- ================================ Neural Editing - Wipe Persona stacks ====================== -->
 	<RecipeDef ParentName="AC_RecipeNeuralEditing">
 		<defName>AC_WipeFilledPersonaStack</defName>
-		<label>Erase persona stack</label>
-		<description>Erase all content from a selected active persona stack, effectively killing the consciousness stored on it. The stack can afterwards be reused for someone else.</description>
-		<jobString>Erasing persona stack.</jobString>
+		<label>Erase stack</label>
+		<description>Erase all content from a selected active neural stack, effectively killing the consciousness stored on it. The stack can afterwards be reused for someone else.</description>
+		<jobString>Erasing stack.</jobString>
 		<workerClass>AlteredCarbon.Recipe_WipeFilledPersonaStack</workerClass>
-		<workAmount>12500</workAmount>
+		<workAmount>10000</workAmount>
 		<ingredients>
 			<li>
 				<filter>

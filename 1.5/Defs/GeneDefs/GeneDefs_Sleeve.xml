@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
+	<!-- ================================ Sleeveliner Xenotype ====================== -->
+	<XenotypeDef>
+		<defName>AC_Sleeveliner</defName>
+		<label>Sleeveliner</label>
+		<description>An artificially gestated human with no or major significant genetic modifications.</description>
+		<iconPath>UI/Icons/Xenotypes/Baseliner</iconPath>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+	</XenotypeDef>
+	<!-- ================================ Sleeve Quality Category ====================== -->
+	<GeneCategoryDef>
+		<defName>AC_SleeveQuality</defName>
+		<label>Sleeve quality</label>
+		<displayPriorityInXenotype>505</displayPriorityInXenotype>
+	</GeneCategoryDef>
 	<!-- ================================ Sleeve Quality Base ====================== -->
 	<GeneDef Name="AC_SleeveQualityGeneBase" Abstract="True">
 		<displayCategory>AC_SleeveQuality</displayCategory>
@@ -17,8 +31,8 @@
 	<!-- ================================ Sleeve Quality Genes ====================== -->
 	<GeneDef ParentName="AC_SleeveQualityGeneBase">
 		<defName>AC_SleeveQuality_Awful</defName>
-		<label>awful quality</label>
-		<description>Carriers of this gene had their bodies gestated in a vat. As little effort as possible was put into it, resulting in awful quality.</description>
+		<label>Awful quality</label>
+		<description>Carriers of this gene had their bodies artificially gestated. As little effort as possible was put into it, resulting in awful quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_Awful</iconPath>
 		<displayOrderInCategory>0</displayOrderInCategory>
 		<biostatCpx>-4</biostatCpx>
@@ -40,8 +54,8 @@
 	</GeneDef>
 	<GeneDef ParentName="AC_SleeveQualityGeneBase">
 		<defName>AC_SleeveQuality_Poor</defName>
-		<label>poor quality</label>
-		<description>Carriers of this gene had their bodies gestated in a vat. Little effort was put into it, resulting in poor quality.</description>
+		<label>Poor quality</label>
+		<description>Carriers of this gene had their bodies artificially gestated. Little effort was put into it, resulting in poor quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Poor</iconPath>
 		<displayOrderInCategory>5</displayOrderInCategory>
 		<biostatCpx>-2</biostatCpx>
@@ -63,16 +77,16 @@
 	</GeneDef>
 	<GeneDef ParentName="AC_SleeveQualityGeneBase">
 		<defName>AC_SleeveQuality_Normal</defName>
-		<label>normal quality</label>
-		<description>Carriers of this gene had their bodies gestated in a vat. Enough effort was put into it to result in normal quality.</description>
+		<label>Normal quality</label>
+		<description>Carriers of this gene had their bodies artificially gestated. Enough effort was put into it to result in normal quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Normal</iconPath>
 		<displayOrderInCategory>10</displayOrderInCategory>
 		<biostatCpx>0</biostatCpx>
 	</GeneDef>
 	<GeneDef ParentName="AC_SleeveQualityGeneBase">
 		<defName>AC_SleeveQuality_Good</defName>
-		<label>good quality</label>
-		<description>Carriers of this gene had their bodies gestated in a vat. Above average effort was put into it, resulting in good quality.</description>
+		<label>Good quality</label>
+		<description>Carriers of this gene had their bodies artificially gestated. Above average effort was put into it, resulting in good quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Good</iconPath>
 		<displayOrderInCategory>15</displayOrderInCategory>
 		<biostatCpx>2</biostatCpx>
@@ -92,8 +106,8 @@
 	</GeneDef>
 	<GeneDef ParentName="AC_SleeveQualityGeneBase">
 		<defName>AC_SleeveQuality_Excellent</defName>
-		<label>excellent quality</label>
-		<description>Carriers of this gene had their bodies gestated in a vat. A good amount of effort was put into it, resulting in excellent quality.</description>
+		<label>Excellent quality</label>
+		<description>Carriers of this gene had their bodies artificially gestated. A good amount of effort was put into it, resulting in excellent quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Excellent</iconPath>
 		<displayOrderInCategory>20</displayOrderInCategory>
 		<biostatCpx>4</biostatCpx>
@@ -114,8 +128,8 @@
 	</GeneDef>
 	<GeneDef ParentName="AC_SleeveQualityGeneBase">
 		<defName>AC_SleeveQuality_Masterwork</defName>
-		<label>masterwork quality</label>
-		<description>Carriers of this gene had their bodies gestated in a vat. A lot of effort was put into it, resulting in masterwork quality.</description>
+		<label>Masterwork quality</label>
+		<description>Carriers of this gene had their bodies artificially gestated. A lot of effort was put into it, resulting in masterwork quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Masterwork</iconPath>
 		<displayOrderInCategory>25</displayOrderInCategory>
 		<biostatCpx>8</biostatCpx>
@@ -137,8 +151,8 @@
 	</GeneDef>
 	<GeneDef ParentName="AC_SleeveQualityGeneBase">
 		<defName>AC_SleeveQuality_Legendary</defName>
-		<label>legendary quality</label>
-		<description>Carriers of this gene had their bodies gestated in a vat. An extreme amount of effort was put into it, resulting in legendary quality.</description>
+		<label>Legendary quality</label>
+		<description>Carriers of this gene had their bodies artificially gestated. An extreme amount of effort was put into it, resulting in legendary quality.</description>
 		<iconPath>UI/Icons/Genes/Gene_SleeveQuality_ Legendary</iconPath>
 		<displayOrderInCategory>30</displayOrderInCategory>
 		<biostatCpx>12</biostatCpx>

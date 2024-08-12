@@ -42,35 +42,13 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-	<ThoughtDef>
-		<defName>AC_WrongGenderDouble</defName>
-		<durationDays>30</durationDays>
-		<stackLimit>1</stackLimit>
-		<nullifyingTraits>
-			<li>Bisexual</li>
-			<li>Masochist</li>
-			<li>Asexual</li>
-			<li>AC_FreeMind</li>
-		</nullifyingTraits>
-		<nullifyingPrecepts>
-			<li MayRequire="Ludeon.RimWorld.Ideology">AC_CrossSleeving_DontCare</li>
-		</nullifyingPrecepts>
-		<stages>
-			<li>
-				<label>different sleeve gender</label>
-				<description>The gender of my sleeve is not my own, this is wrong.</description>
-				<baseMoodEffect>-10</baseMoodEffect>
-			</li>
-		</stages>
-	</ThoughtDef>
+	<!-- ================================ Wrong Sleeve Gender - Pregnant ====================== -->
 	<ThoughtDef>
 		<defName>AC_WrongGenderPregnant</defName>
 		<durationDays>35</durationDays>
 		<stackLimit>1</stackLimit>
 		<nullifyingTraits>
-			<li>Bisexual</li>
 			<li>Masochist</li>
-			<li>Asexual</li>
 			<li>AC_FreeMind</li>
 		</nullifyingTraits>
 		<nullifyingPrecepts>
@@ -78,7 +56,7 @@
 		</nullifyingPrecepts>
 		<stages>
 			<li>
-				<label>AC_WrongGenderPregnant</label>
+				<label>I am pregnant!</label>
 				<description>I'm pregnant but my sleeve is the wrong gender.</description>
 				<baseMoodEffect>-5</baseMoodEffect>
 			</li>
@@ -87,7 +65,7 @@
 	<!-- ================================ New Sleeve ====================== -->
 	<ThoughtDef>
 		<defName>AC_NewSleeve</defName>
-		<durationDays>20</durationDays>
+		<durationDays>12</durationDays>
 		<stackLimit>1</stackLimit>
 		<nullifyingTraits>
 			<li>Transhumanist</li>
@@ -98,67 +76,6 @@
 				<label>New sleeve</label>
 				<description>I have a new body, this will take some getting used to.</description>
 				<baseMoodEffect>-2</baseMoodEffect>
-			</li>
-		</stages>
-	</ThoughtDef>
-	<ThoughtDef>
-		<defName>AC_NewSleeveDouble</defName>
-		<durationDays>20</durationDays>
-		<stackLimit>1</stackLimit>
-		<nullifyingTraits>
-			<li>Bisexual</li>
-			<li>Masochist</li>
-			<li>Asexual</li>
-			<li>AC_Sleever</li>
-		</nullifyingTraits>
-		<stages>
-			<li>
-				<label>New sleeve</label>
-				<description>I have a new body, this will take some getting used to.</description>
-				<baseMoodEffect>-5</baseMoodEffect>
-			</li>
-		</stages>
-	</ThoughtDef>
-	<!-- ================================ Wrong Sleeve Gender ====================== -->
-	<ThoughtDef>
-		<defName>AC_MansBody</defName>
-		<workerClass>AlteredCarbon.ThoughtWorker_MansBody</workerClass>
-		<stackLimit>1</stackLimit>
-		<nullifyingTraits>
-			<li>Bisexual</li>
-			<li>Masochist</li>
-			<li>Asexual</li>
-			<li>AC_FreeMind</li>
-		</nullifyingTraits>
-		<nullifyingPrecepts>
-			<li MayRequire="Ludeon.RimWorld.Ideology">AC_CrossSleeving_DontCare</li>
-		</nullifyingPrecepts>
-		<stages>
-			<li>
-				<label>A man’s body</label>
-				<description>I am in the body of a man, I don't like it!</description>
-				<baseMoodEffect>-3</baseMoodEffect>
-			</li>
-		</stages>
-	</ThoughtDef>
-	<ThoughtDef>
-		<defName>AC_WomansBody</defName>
-		<workerClass>AlteredCarbon.ThoughtWorker_WomansBody</workerClass>
-		<stackLimit>1</stackLimit>
-		<nullifyingTraits>
-			<li>Bisexual</li>
-			<li>Masochist</li>
-			<li>Asexual</li>
-			<li>AC_FreeMind</li>
-		</nullifyingTraits>
-		<nullifyingPrecepts>
-			<li MayRequire="Ludeon.RimWorld.Ideology">AC_CrossSleeving_DontCare</li>
-		</nullifyingPrecepts>
-		<stages>
-			<li>
-				<label>A woman's body</label>
-				<description>I am in the body of a woman, I don't like it!</description>
-				<baseMoodEffect>-3</baseMoodEffect>
 			</li>
 		</stages>
 	</ThoughtDef>
@@ -182,7 +99,7 @@
 	<!-- ================================ Duplication Thoughts - Lovers ====================== -->
 	<ThoughtDef>
 		<defName>AC_JustCopy</defName>
-		<durationDays>60</durationDays>
+		<durationDays>25</durationDays>
 		<stackLimit>1</stackLimit>
 		<nullifyingTraits>
 			<li>Transhumanist</li>
@@ -194,7 +111,7 @@
 		</nullifyingPrecepts>
 		<stages>
 			<li>
-				<label>Just a copy</label>
+				<label>I am a duplicate!</label>
 				<description>I am nothing more than a copy... What even am I?</description>
 				<baseMoodEffect>-15</baseMoodEffect>
 			</li>
@@ -245,28 +162,18 @@
 		</nullifyingTraits>
 		<stages>
 			<li>
-				<label>my original copy {0} died</label>
+				<label>my original version {0} died</label>
 				<description>My original copy is dead. I am alone again.</description>
 				<baseMoodEffect>-15</baseMoodEffect>
 			</li>
 		</stages>
 	</ThoughtDef>
 	<ThoughtDef ParentName="LostMemoryFamily">
-		<defName>AC_MyOriginalLostMale</defName>
+		<defName>AC_MyOriginalLost</defName>
 		<stages>
 			<li>
-				<label>my original copy {0} is missing</label>
-				<description>My original copy has gone missing. I hope he will get back to us someday.</description>
-				<baseMoodEffect>-14</baseMoodEffect>
-			</li>
-		</stages>
-	</ThoughtDef>
-	<ThoughtDef ParentName="LostMemoryFamily">
-		<defName>AC_MyOriginalLostFemale</defName>
-		<stages>
-			<li>
-				<label>my original copy {0} is missing</label>
-				<description>My original copy has gone missing. I hope she will get back to us someday.</description>
+				<label>my original version {0} is missing</label>
+				<description>My original copy has gone missing. I hope they will get back to us someday.</description>
 				<baseMoodEffect>-14</baseMoodEffect>
 			</li>
 		</stages>
@@ -300,21 +207,11 @@
 		</stages>
 	</ThoughtDef>
 	<ThoughtDef ParentName="LostMemoryFamily">
-		<defName>AC_MyCopyLostMale</defName>
+		<defName>AC_MyCopyLost</defName>
 		<stages>
 			<li>
 				<label>my copy {0} is missing</label>
-				<description>My copy has gone missing. I hope he will get back to us someday.</description>
-				<baseMoodEffect>-14</baseMoodEffect>
-			</li>
-		</stages>
-	</ThoughtDef>
-	<ThoughtDef ParentName="LostMemoryFamily">
-		<defName>AC_MyCopyLostFemale</defName>
-		<stages>
-			<li>
-				<label>my copy {0} is missing</label>
-				<description>My copy has gone missing. I hope she will get back to us someday.</description>
+				<description>My copy has gone missing. I hope they will get back to us someday.</description>
 				<baseMoodEffect>-14</baseMoodEffect>
 			</li>
 		</stages>
@@ -332,21 +229,4 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-<ThoughtDef ParentName="DeathMemory">
-    <defName>AC_ErasedStack</defName>
-    <durationDays>6</durationDays>
-    <stackLimit>5</stackLimit>
-    <doNotApplyToQuestLodgers>true</doNotApplyToQuestLodgers>
-    <nullifyingTraits>
-      <li>Psychopath</li>
-      <li>Bloodlust</li>
-    </nullifyingTraits>
-    <stages>
-      <li>
-        <label>persona stack erased</label>
-        <description>text.todo.</description>
-        <baseMoodEffect>-5</baseMoodEffect>
-      </li>
-    </stages>
-  </ThoughtDef>
 </Defs>

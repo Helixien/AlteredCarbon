@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<!-- ================================ Sleeve related traits ====================== -->
+	<!-- ================================ Free Mind ====================== -->
 	<TraitDef>
 		<defName>AC_FreeMind</defName>
 		<commonality>0.1</commonality>
 		<degreeDatas>
 			<li>
-				<label>free mind</label>
-				<description>{PAWN_nameDef} has always seen their body as nothing more than a vessel for the mind. {PAWN_pronoun} does not care about the gender, age or looks of their body.</description>
+				<label>Free mind</label>
+				<description>{PAWN_nameDef} has always seen {PAWN_possessive} body as nothing more than a vessel. {PAWN_pronoun} does not care about the gender, age or looks of {PAWN_possessive} body.</description>
 			</li>
 		</degreeDatas>
 		<modExtensions>
 			<li Class="AlteredCarbon.StackSpawnModExtension">
-				<chanceToSpawnWithStack>100</chanceToSpawnWithStack>
+				<chanceToSpawnWithStack>75</chanceToSpawnWithStack>
 			</li>
 		</modExtensions>
 	</TraitDef>
+	<!-- ================================ Sleever ====================== -->
 	<TraitDef>
 		<defName>AC_Sleever</defName>
 		<commonality>0.1</commonality>
 		<degreeDatas>
 			<li>
-				<label>sleever</label>
-				<description>{PAWN_nameDef} can change sleeves as easily as changing clothes. {PAWN_pronoun} doesn’t care how often {PAWN_pronoun} switches sleeves or what sleeve {PAWN_pronoun} is currently riding.</description>
+				<label>Sleever</label>
+				<description>{PAWN_nameDef} can change {PAWN_possessive} sleeves as easily as someone else may change their clothes. {PAWN_pronoun} doesn’t care how often {PAWN_pronoun} switches sleeves or what sleeve {PAWN_pronoun} is currently riding.</description>
 			</li>
 		</degreeDatas>
 		<modExtensions>

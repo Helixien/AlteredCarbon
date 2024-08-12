@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<Defs>
-	<GeneCategoryDef>
-		<defName>AC_SleeveQuality</defName>
-		<label>sleeve quality</label>
-		<displayPriorityInXenotype>505</displayPriorityInXenotype>
-	</GeneCategoryDef>
-</Defs>
