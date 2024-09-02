@@ -236,10 +236,6 @@ namespace AlteredCarbon
                 {
                     return "SubcoreScannerPawnHasSickness".Translate(HediffDefOf.ScanningSickness.label);
                 }
-                if (selPawn.health.hediffSet.HasHediff(AC_DefOf.AC_ScanningSickness))
-                {
-                    return "SubcoreScannerPawnHasSickness".Translate(AC_DefOf.AC_ScanningSickness.label);
-                }
                 if (selPawn.DevelopmentalStage.Baby())
                 {
                     return "SubcoreScannerBabyNotAllowed".Translate();

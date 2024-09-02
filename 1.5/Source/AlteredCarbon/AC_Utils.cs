@@ -241,7 +241,7 @@ namespace AlteredCarbon
                 info.recipe.defaultIngredientFilter.SetAllow(AC_DefOf.AC_AllowStacksHostile, true);
             }
 
-            foreach (IngredientCount li in AC_DefOf.AC_HackBiocodedThings.ingredients)
+            foreach (IngredientCount li in AC_DefOf.AC_ResetBiocodedThings.ingredients)
             {
                 li.filter = new ThingFilterBiocodable();
                 li.filter.thingDefs ??= new List<ThingDef>();
@@ -252,21 +252,21 @@ namespace AlteredCarbon
                     li.filter.thingDefs.Add(thingDef);
                 }
             }
-            AC_DefOf.AC_HackBiocodedThings.fixedIngredientFilter = new ThingFilterBiocodable();
-            AC_DefOf.AC_HackBiocodedThings.fixedIngredientFilter.thingDefs ??= new List<ThingDef>();
+            AC_DefOf.AC_ResetBiocodedThings.fixedIngredientFilter = new ThingFilterBiocodable();
+            AC_DefOf.AC_ResetBiocodedThings.fixedIngredientFilter.thingDefs ??= new List<ThingDef>();
             foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs.Where(x => x.comps != null && x.HasAssignableCompFrom(typeof(CompBiocodable))))
             {
-                AC_DefOf.AC_HackBiocodedThings.fixedIngredientFilter.thingDefs.Add(thingDef);
-                AC_DefOf.AC_HackBiocodedThings.fixedIngredientFilter.SetAllow(thingDef, true);
+                AC_DefOf.AC_ResetBiocodedThings.fixedIngredientFilter.thingDefs.Add(thingDef);
+                AC_DefOf.AC_ResetBiocodedThings.fixedIngredientFilter.SetAllow(thingDef, true);
             }
 
 
-            AC_DefOf.AC_HackBiocodedThings.defaultIngredientFilter = new ThingFilterBiocodable();
-            AC_DefOf.AC_HackBiocodedThings.defaultIngredientFilter.thingDefs ??= new List<ThingDef>();
+            AC_DefOf.AC_ResetBiocodedThings.defaultIngredientFilter = new ThingFilterBiocodable();
+            AC_DefOf.AC_ResetBiocodedThings.defaultIngredientFilter.thingDefs ??= new List<ThingDef>();
             foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs.Where(x => x.comps != null && x.HasAssignableCompFrom(typeof(CompBiocodable))))
             {
-                AC_DefOf.AC_HackBiocodedThings.defaultIngredientFilter.thingDefs.Add(thingDef);
-                AC_DefOf.AC_HackBiocodedThings.defaultIngredientFilter.SetAllow(thingDef, true);
+                AC_DefOf.AC_ResetBiocodedThings.defaultIngredientFilter.thingDefs.Add(thingDef);
+                AC_DefOf.AC_ResetBiocodedThings.defaultIngredientFilter.SetAllow(thingDef, true);
             }
             ApplySettings();
         }

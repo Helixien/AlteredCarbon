@@ -133,8 +133,8 @@ If you edit the content from a non-colonist stack from another faction, their en
 	<AC.AlreadyOrderedToEditStack>This stack is set for editing already on a neural editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToEditStack>
 	<AC.AlreadyOrderedToDuplicateStack>This stack is set for duplicating already on a neural editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToDuplicateStack>
 	<AC.AlreadyOrderedToRestoreStack>This print is set for restoring already on a neural editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToRestoreStack>
-	<AC.HackingBiocodedFailed>Hacking biocoded equipment: Failed, {0} destroyed!</AC.HackingBiocodedFailed>
-	<AC.HackingBiocodedSuccess>Hacking biocoded equipment: Successful! {0} is unlocked.</AC.HackingBiocodedSuccess>
+	<AC.ResettingBiocodedFailed>Resetting biocoded equipment: Failed, {0} destroyed!</AC.ResettingBiocodedFailed>
+	<AC.ResettingBiocodedSuccess>Resetting biocoded equipment: Successful! {0} is unlocked.</AC.ResettingBiocodedSuccess>
 	<AC.EditNeuralStack>Edit Neural Stack</AC.EditNeuralStack>
 	<AC.NeuralStackEditExplanation>Neural Stacks feature advanced encryption to prevent outside forces from messing with the stored consciousness. Known exploits allow for some data to be edited and rewritten at the cost of stack degradation.</AC.NeuralStackEditExplanation>
 	<AC.Backstories>Backstories</AC.Backstories>

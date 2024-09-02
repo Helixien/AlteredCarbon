@@ -19,7 +19,7 @@ namespace AlteredCarbon
                 var stacks = neuralEditor.Map.listerThings
                     .ThingsOfDef(AC_DefOf.AC_ActiveNeuralStack).OfType<NeuralStack>()
                     .Where(x => x.NeuralData.ContainsNeural).ToList();
-                foreach (var cache in neuralEditor.Map.listerThings.ThingsOfDef(AC_DefOf.AC_NeuralCache))
+                foreach (var cache in neuralEditor.Map.listerThings.ThingsOfDef(AC_DefOf.AC_StackCache))
                 {
                     var comp = cache.TryGetComp<CompNeuralCache>();
                     foreach (var thing in comp.innerContainer)

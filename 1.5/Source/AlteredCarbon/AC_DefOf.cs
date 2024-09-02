@@ -103,20 +103,19 @@ namespace AlteredCarbon
         [MayRequireIdeology] public static PreceptDef AC_CrossSleeving_DontCare;
         public static HistoryEventDef AC_EditedStack;
 
-        public static RecipeDef AC_HackBiocodedThings;
+        public static RecipeDef AC_ResetBiocodedThings;
         public static ThingDef AC_Apparel_DragoonHelmet;
         public static ThingDef AC_Apparel_FusilierHelmet;
         public static JobDef AC_ChargeCuirassierBelt;
         public static ThingDef AC_CuirassierBelt;
         [MayRequireAnomaly] public static HeadTypeDef CultEscapee;
         public static HistoryEventDef AC_ErasedStackEvent, AC_DuplicatedStackEvent;
-        public static ThingDef AC_NeuralCache;
+        public static ThingDef AC_StackCache;
         public static ThoughtDef AC_ErasedStack;
         public static ResearchProjectDef AC_NeuralDigitalization;
         //public static ThingDef AC_NeuralPrint;
         //public static RecipeDef AC_RestoreStackFromNeuralPrint;
         public static ThingDef AC_NeuralConnector;
-        public static HediffDef AC_ScanningSickness;
         
         public static HediffDef AC_VoiceSynthesizer;
         public static HediffDef AC_MentalFuse;

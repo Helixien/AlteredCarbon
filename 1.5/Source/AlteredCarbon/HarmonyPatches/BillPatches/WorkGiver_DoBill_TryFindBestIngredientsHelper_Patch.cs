@@ -39,7 +39,7 @@ namespace AlteredCarbon
                 if (bill.recipe.Worker is Recipe_OperateOnNeuralStack || 
                     AC_Utils.installActiveStacksRecipes.Contains(bill.recipe))
                 {
-                    var neuralCaches = pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_NeuralCache);
+                    var neuralCaches = pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_StackCache);
                     foreach (var neuralCache in neuralCaches)
                     {
                         var comp = neuralCache.TryGetComp<CompNeuralCache>();

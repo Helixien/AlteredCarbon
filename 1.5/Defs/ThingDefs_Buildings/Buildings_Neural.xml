@@ -146,7 +146,7 @@
 			<ComponentSpacer>2</ComponentSpacer>
 		</costList>
 		<recipes>
-			<li>AC_HackBiocodedThings</li>
+			<li>AC_ResetBiocodedThings</li>
 		</recipes>
 		<castEdgeShadows>true</castEdgeShadows>
 		<staticSunShadowHeight>0.20</staticSunShadowHeight>
@@ -303,7 +303,7 @@
 			<subcoreScannerStartEffect>SubcoreSoftscanner_Start</subcoreScannerStartEffect>
 			<subcoreScannerWorking>SubcoreSoftscanner_Working</subcoreScannerWorking>
 			<subcoreScannerComplete>SubcoreSoftscanner_Complete</subcoreScannerComplete>
-			<subcoreScannerHediff>AC_ScanningSickness</subcoreScannerHediff>
+			<subcoreScannerHediff>ScanningSickness</subcoreScannerHediff>
 		</building>
 		<statBases>
 			<MaxHitPoints>350</MaxHitPoints>

@@ -70,7 +70,7 @@ namespace AlteredCarbon
             var decideShouldCarryItem = Toils_General.Do(delegate
             {
                 if (jobdriver.job.bill.recipe.Worker is Recipe_EditActiveNeuralStack or Recipe_DuplicateNeuralStack
-                    && jobdriver.job.targetB.Thing.def == AC_DefOf.AC_NeuralCache
+                    && jobdriver.job.targetB.Thing.def == AC_DefOf.AC_StackCache
                     //|| jobdriver.job.bill.recipe.Worker is Recipe_RestoreStackFromNeuralPrint
                     && jobdriver.job.targetB.Thing.def == AC_DefOf.AC_NeuralMatrix)
                 {

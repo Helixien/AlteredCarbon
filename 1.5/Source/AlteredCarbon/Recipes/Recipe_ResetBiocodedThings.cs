@@ -5,7 +5,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
-    public class Recipe_HackBiocodedThings : RecipeWorker
+    public class Recipe_ResetBiocodedThings : RecipeWorker
     {
         public override void ConsumeIngredient(Thing ingredient, RecipeDef recipe, Map map)
         {
@@ -27,12 +27,12 @@ namespace AlteredCarbon
             {
                 var comp = biocodedThing.TryGetComp<CompBiocodable>();
                 comp.UnCode();
-                Messages.Message("AC.HackingBiocodedSuccess".Translate(name), biocodedThing, MessageTypeDefOf.PositiveEvent);
+                Messages.Message("AC.ResettingBiocodedSuccess".Translate(name), biocodedThing, MessageTypeDefOf.PositiveEvent);
             }
             else
             {
                 biocodedThing.Destroy();
-                Messages.Message("AC.HackingBiocodedFailed".Translate(name), billDoer, MessageTypeDefOf.NegativeEvent);
+                Messages.Message("AC.ResettingBiocodedFailed".Translate(name), billDoer, MessageTypeDefOf.NegativeEvent);
             }
         }
     }
