@@ -83,7 +83,7 @@
 	</RecipeDef>
 	<!-- ================================ Neural Stacks - Destroy - Shredding ====================== -->
 	<RecipeDef ParentName="AC_DestroyStacksBase">
-		<defName>AC_ShredNeuralStack</defName>
+		<defName>AC_ShredNeuralStacks</defName>
 		<label>Shred neural stack</label>
 		<description>Shred a neural stack to try to salvage usable material.</description>
 		<jobString>Shredding neural stack.</jobString>
@@ -99,7 +99,7 @@
 	</RecipeDef>
 	<!-- ================================ Neural Stacks - Destroy - Smashing ====================== -->
 	<RecipeDef ParentName="AC_DestroyStacksBase">
-		<defName>AC_SmashNerualStack</defName>
+		<defName>AC_SmashNeuralStacks</defName>
 		<label>Smash neural stack</label>
 		<description>Smash a neural stack with simple hand tools to salvage usable material.</description>
 		<jobString>Smashing neural stack.</jobString>
