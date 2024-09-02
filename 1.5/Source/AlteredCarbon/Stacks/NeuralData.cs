@@ -13,7 +13,7 @@ using Verse.AI;
 namespace AlteredCarbon
 {
     [HotSwappable]
-    public class PersonaData : IExposable
+    public class NeuralData : IExposable
     {
         public static bool debug => false;
         public ThingDef sourceStack;
@@ -78,7 +78,7 @@ namespace AlteredCarbon
 
         public List<Hediff> savedHediffs = new List<Hediff>();
 
-        public bool ContainsPersona => hostPawn != null || name != null;
+        public bool ContainsNeural => hostPawn != null || name != null;
 
         public static HashSet<Pawn> dummyPawns = new HashSet<Pawn>();
 
@@ -149,7 +149,7 @@ namespace AlteredCarbon
         public float stackDegradation;
         public float stackDegradationToAdd;
         public Pawn dummyPawn;
-        public PersonaData()
+        public NeuralData()
         {
             this.stackGroupID = AlteredCarbonManager.Instance.stacksRelationships.Count + 1;
             this.lastTimeBackedUp = GenTicks.TicksAbs;
@@ -284,7 +284,7 @@ namespace AlteredCarbon
 
         public void AppendInfoStack(StringBuilder stringBuilder)
         {
-            if (this.ContainsPersona)
+            if (this.ContainsNeural)
             {
                 if (this.faction != null)
                 {
@@ -323,7 +323,7 @@ namespace AlteredCarbon
         public void CopyFromPawn(Pawn pawn, ThingDef sourceStack, bool copyRaceGenderInfo = false, bool canBackupPsychicStuff = true)
         {
             this.hostPawn = pawn;
-            this.sourceStack = sourceStack ?? AC_DefOf.AC_FilledPersonaStack;
+            this.sourceStack = sourceStack ?? AC_DefOf.AC_ActiveNeuralStack;
             name = GetNameCopy(pawn.Name);
             this.kindDef = pawn.kindDef;
             if (pawn.playerSettings != null)
@@ -453,7 +453,7 @@ namespace AlteredCarbon
                     priorities[w] = pawn.workSettings.GetPriority(w);
                 }
             }
-            if (this.sourceStack == AC_DefOf.AC_FilledArchotechStack && canBackupPsychicStuff)
+            if (this.sourceStack == AC_DefOf.AC_ActiveArchotechStack && canBackupPsychicStuff)
             {
                 if (pawn.HasPsylink)
                 {
@@ -530,16 +530,16 @@ namespace AlteredCarbon
 
             if (copyRaceGenderInfo)
             {
-                if (pawn.HasPersonaStack(out var hediff))
+                if (pawn.HasNeuralStack(out var hediff))
                 {
-                    var personaData = hediff.PersonaData;
-                    OriginalRace = personaData.OriginalRace ?? pawn.def;
-                    OriginalGender = personaData.OriginalGender != Gender.None ? personaData.OriginalGender : pawn.gender;
-                    if (personaData.OriginalXenotypeName.NullOrEmpty())
+                    var neuralData = hediff.NeuralData;
+                    OriginalRace = neuralData.OriginalRace ?? pawn.def;
+                    OriginalGender = neuralData.OriginalGender != Gender.None ? neuralData.OriginalGender : pawn.gender;
+                    if (neuralData.OriginalXenotypeName.NullOrEmpty())
                     {
                         if (pawn.genes.xenotypeName.NullOrEmpty())
                         {
-                            OriginalXenotypeDef = personaData.OriginalXenotypeDef != null ? personaData.OriginalXenotypeDef : pawn.genes.xenotype;
+                            OriginalXenotypeDef = neuralData.OriginalXenotypeDef != null ? neuralData.OriginalXenotypeDef : pawn.genes.xenotype;
                         }
                         else
                         {
@@ -548,7 +548,7 @@ namespace AlteredCarbon
                     }
                     else
                     {
-                        OriginalXenotypeName = personaData.OriginalXenotypeName;
+                        OriginalXenotypeName = neuralData.OriginalXenotypeName;
                     }
                 }
                 else
@@ -670,7 +670,7 @@ namespace AlteredCarbon
             return newHediff;
         }
 
-        public void CopyDataFrom(PersonaData other, bool isDuplicateOperation = false)
+        public void CopyDataFrom(NeuralData other, bool isDuplicateOperation = false)
         {
             sourceStack = other.sourceStack;
             name = GetNameCopy(other.name);
@@ -806,7 +806,7 @@ namespace AlteredCarbon
             AssignDummyPawnReferences();
         }
 
-        public void CopyOriginalData(PersonaData other)
+        public void CopyOriginalData(NeuralData other)
         {
             OriginalGender = other.OriginalGender;
             OriginalRace = other.OriginalRace;
@@ -1064,7 +1064,7 @@ namespace AlteredCarbon
                 compAbilities.LearnedAbilities.RemoveAll(x => IsNaturalAbility(pawn, x.def) is false && IsPsycastAbility(x.def) is false);
             }
             pawn.psychicEntropy = new Pawn_PsychicEntropyTracker(pawn);
-            if (this.sourceStack == AC_DefOf.AC_FilledArchotechStack)
+            if (this.sourceStack == AC_DefOf.AC_ActiveArchotechStack)
             {
                 var hediff_Psylink = pawn.GetMainPsylinkSource() as Hediff_Psylink;
                 if (this.psylinkLevel.HasValue)
@@ -1561,35 +1561,35 @@ namespace AlteredCarbon
             if (pawn == null || pawn.Name == null) return false;
             return pawn != null && (hostPawn == pawn || pawn.thingIDNumber == pawnID || name != null && pawn.Name != null && name.ToStringFull == pawn.Name.ToStringFull);
         }
-        public bool IsPresetPawn(PersonaData otherPersonaData)
+        public bool IsPresetPawn(NeuralData otherNeuralData)
         {
             if (PawnID != 0)
             {
-                return PawnID == otherPersonaData.PawnID;
+                return PawnID == otherNeuralData.PawnID;
             }
             if (hostPawn != null)
             {
-                return hostPawn == otherPersonaData.hostPawn;
+                return hostPawn == otherNeuralData.hostPawn;
             }
             else if (name != null)
             {
-                return name == otherPersonaData.name;
+                return name == otherNeuralData.name;
             }
             return false;
         }
 
-        public bool AnyPersonaStackExist()
+        public bool AnyNeuralStackExist()
         {
             foreach (var map in Find.Maps)
             {
-                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_FilledPersonaStack).Cast<PersonaStack>()
-                    .Any(x => x.PersonaData.IsPresetPawn(this) && x.Spawned && !x.Destroyed))
+                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_ActiveNeuralStack).Cast<NeuralStack>()
+                    .Any(x => x.NeuralData.IsPresetPawn(this) && x.Spawned && !x.Destroyed))
                 {
                     return true;
                 }
-                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaCache)
-                    .Any(x => x.TryGetComp<CompPersonaCache>() is CompPersonaCache comp
-                    && comp.innerContainer.OfType<PersonaStack>().Any(y => y.PersonaData.IsPresetPawn(this))))
+                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_NeuralCache)
+                    .Any(x => x.TryGetComp<CompNeuralCache>() is CompNeuralCache comp
+                    && comp.innerContainer.OfType<NeuralStack>().Any(y => y.NeuralData.IsPresetPawn(this))))
                 {
                     return true;
                 }
@@ -1601,7 +1601,7 @@ namespace AlteredCarbon
         {
             foreach (var pawn in PawnsFinder.AllMapsWorldAndTemporary_AliveOrDead)
             {
-                if (pawn.Destroyed is false && IsPresetPawn(pawn) && pawn.HasPersonaStack(out _))
+                if (pawn.Destroyed is false && IsPresetPawn(pawn) && pawn.HasNeuralStack(out _))
                 {
                     return true;
                 }
@@ -1609,50 +1609,50 @@ namespace AlteredCarbon
             return false;
         }
 
-        public void TryQueueAutoRestoration()
-        {
-            if (AnyPawnExist() || AnyPersonaStackExist())
-            {
-                return;
-            }
-            var prints = new List<PersonaPrint>();
-            foreach (var map in Find.Maps)
-            {
-                prints.AddRange(map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaPrint).Cast<PersonaPrint>());
-                foreach (var matrix in map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).Cast<Building_PersonaMatrix>())
-                {
-                    prints.AddRange(matrix.StoredPersonaPrints);
-                }
-            }
-            var foundPrint = prints.Where(x => x.CanAutoRestorePawn(this))
-                .OrderByDescending(x => x.PersonaData.lastTimeBackedUp).FirstOrDefault();
-            if (foundPrint != null)
-            {
-                var map = foundPrint.MapHeld;
-                var editors = map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaEditor)
-                    .OfType<Building_PersonaEditor>().ToList();
-                foreach (var editor in editors)
-                {
-                    if (foundPrint.Spawned is false && foundPrint.ParentHolder is Building_PersonaMatrix 
-                        && foundPrint.ParentHolder != editor.ConnectedMatrix)
-                    {
-                        continue;
-                    }
-                    if (editor.autoRestoreIsEnabled is false)
-                    {
-                        continue;
-                    }
-                    if (editor.CanAddOperationOn(foundPrint))
-                    {
-                        editor.billStack.AddBill(new Bill_OperateOnStack(foundPrint, AC_DefOf.AC_RestoreStackFromPersonaPrint, null));
-                        var pawnArg = GetDummyPawn.Named("PAWN");
-                        Find.LetterStack.ReceiveLetter("AC.RestoringQueued".Translate(pawnArg),
-                            "AC.RestoringQueuedDesc".Translate(pawnArg), LetterDefOf.NeutralEvent, editor);
-                    }
-                    break;
-                }
-            }
-        }
+        //public void TryQueueAutoRestoration()
+        //{
+        //    if (AnyPawnExist() || AnyNeuralStackExist())
+        //    {
+        //        return;
+        //    }
+        //    var prints = new List<NeuralPrint>();
+        //    foreach (var map in Find.Maps)
+        //    {
+        //        prints.AddRange(map.listerThings.ThingsOfDef(AC_DefOf.AC_NeuralPrint).Cast<NeuralPrint>());
+        //        foreach (var matrix in map.listerThings.ThingsOfDef(AC_DefOf.AC_NeuralMatrix).Cast<Building_NeuralMatrix>())
+        //        {
+        //            prints.AddRange(matrix.StoredNeuralPrints);
+        //        }
+        //    }
+        //    var foundPrint = prints.Where(x => x.CanAutoRestorePawn(this))
+        //        .OrderByDescending(x => x.NeuralData.lastTimeBackedUp).FirstOrDefault();
+        //    if (foundPrint != null)
+        //    {
+        //        var map = foundPrint.MapHeld;
+        //        var editors = map.listerThings.ThingsOfDef(AC_DefOf.AC_NeuralEditor)
+        //            .OfType<Building_NeuralEditor>().ToList();
+        //        foreach (var editor in editors)
+        //        {
+        //            if (foundPrint.Spawned is false && foundPrint.ParentHolder is Building_NeuralMatrix 
+        //                && foundPrint.ParentHolder != editor.ConnectedMatrix)
+        //            {
+        //                continue;
+        //            }
+        //            if (editor.autoRestoreIsEnabled is false)
+        //            {
+        //                continue;
+        //            }
+        //            if (editor.CanAddOperationOn(foundPrint))
+        //            {
+        //                editor.billStack.AddBill(new Bill_OperateOnStack(foundPrint, AC_DefOf.AC_RestoreStackFromNeuralPrint, null));
+        //                var pawnArg = GetDummyPawn.Named("PAWN");
+        //                Find.LetterStack.ReceiveLetter("AC.RestoringQueued".Translate(pawnArg),
+        //                    "AC.RestoringQueuedDesc".Translate(pawnArg), LetterDefOf.NeutralEvent, editor);
+        //            }
+        //            break;
+        //        }
+        //    }
+        //}
 
         public void ExposeData()
         {

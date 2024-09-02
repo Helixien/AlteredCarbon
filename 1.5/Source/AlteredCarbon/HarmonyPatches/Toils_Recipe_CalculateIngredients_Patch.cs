@@ -17,7 +17,7 @@ namespace AlteredCarbon
                     for (int i = 0; i < job.placedThings.Count; i++)
                     {
                         var thing = job.placedThings[i].thing;
-                        if (thing is Corpse corpse && corpse.InnerPawn.HasPersonaStack(out var hediff))
+                        if (thing is Corpse corpse && corpse.InnerPawn.HasNeuralStack(out var hediff))
                         {
                             hediff.SpawnStack();
                         }

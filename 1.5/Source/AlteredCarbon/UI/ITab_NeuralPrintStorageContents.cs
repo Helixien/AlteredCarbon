@@ -7,15 +7,15 @@ using Verse.Sound;
 namespace AlteredCarbon
 {
     [HotSwappable]
-    public class ITab_PersonaPrintStorageContents : ITab
+    public class ITab_NeuralStackStorageContents : ITab
     {
         private static readonly Vector2 WinSize = new Vector2(432f, 480f);
         private Vector2 scrollPosition;
-        public Building_PersonaMatrix Building_PersonaMatrix => SelThing as Building_PersonaMatrix;
-        public ITab_PersonaPrintStorageContents()
+        public Building_NeuralMatrix Building_NeuralMatrix => SelThing as Building_NeuralMatrix;
+        public ITab_NeuralStackStorageContents()
         {
             size = WinSize;
-            labelKey = "AC.PersonaPrintStorage";
+            labelKey = "AC.NeuralStackStorage";
         }
 
         public override void FillTab()
@@ -27,21 +27,21 @@ namespace AlteredCarbon
             GUI.color = Color.white;
             float labelWidth = viewRect.width - 15f;
             float num = 0;
-            DoAllowOption(ref num, labelWidth, "AC.AllowColonistPersonaPrints", ref Building_PersonaMatrix.allowColonistPersonaPrints);
-            DoAllowOption(ref num, labelWidth, "AC.AllowStrangerPersonaPrints", ref Building_PersonaMatrix.allowStrangerPersonaPrints);
-            DoAllowOption(ref num, labelWidth, "AC.AllowHostilePersonaPrints", ref Building_PersonaMatrix.allowHostilePersonaPrints);
+            DoAllowOption(ref num, labelWidth, "AC.AllowColonistNeuralStacks", ref Building_NeuralMatrix.allowColonistNeuralStacks);
+            DoAllowOption(ref num, labelWidth, "AC.AllowStrangerNeuralStacks", ref Building_NeuralMatrix.allowStrangerNeuralStacks);
+            DoAllowOption(ref num, labelWidth, "AC.AllowHostileNeuralStacks", ref Building_NeuralMatrix.allowHostileNeuralStacks);
 
-            var storedPrints = Building_PersonaMatrix.StoredPersonaPrints.ToList();
-            Widgets.ListSeparator(ref num, viewRect.width - 15, "AC.PersonaPrintsStored".Translate(storedPrints.Count(), Building_PersonaMatrix.MaxFilledStackCapacity));
+            var storedStacks = Building_NeuralMatrix.StoredNeuralStacks.ToList();
+            Widgets.ListSeparator(ref num, viewRect.width - 15, "AC.NeuralStacksStored".Translate(storedStacks.Count(), Building_NeuralMatrix.MaxActiveStackCapacity));
             Rect scrollRect = new Rect(0, num, viewRect.width - 16, viewRect.height);
             Rect outerRect = scrollRect;
             outerRect.width += 16;
             outerRect.height -= 120;
-            scrollRect.height = storedPrints.Count() * 28f;
+            scrollRect.height = storedStacks.Count() * 28f;
             Widgets.BeginScrollView(outerRect, ref scrollPosition, scrollRect);
-            foreach (var print in storedPrints)
+            foreach (var stack in storedStacks)
             {
-                DrawThingRow(ref num, scrollRect.width, print);
+                DrawThingRow(ref num, scrollRect.width, stack);
             }
             Widgets.EndScrollView();
             GUI.EndGroup();
@@ -60,32 +60,32 @@ namespace AlteredCarbon
             Text.Anchor = TextAnchor.UpperLeft;
             num += 24f;
         }
-        private void DrawThingRow(ref float y, float width, PersonaPrint print)
+        private void DrawThingRow(ref float y, float width, NeuralStack stack)
         {
             Rect rect1 = new Rect(0.0f, y, width, 28f);
-            Widgets.InfoCardButton(0, y, print);
+            Widgets.InfoCardButton(0, y, stack);
             Rect rect2 = new Rect(rect1.width - 24, y, 24f, 24f);
-            TooltipHandler.TipRegion(rect2, "AC.EjectPersonaPrintTooltip".Translate());
+            TooltipHandler.TipRegion(rect2, "AC.EjectNeuralStackTooltip".Translate());
             if (Widgets.ButtonImage(rect2, ContentFinder<Texture2D>.Get("UI/Buttons/Drop", true)))
             {
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
-                Find.WindowStack.Add(new Dialog_MessageBox("AC.EjectPersonaPrintConfirmation".Translate(print.def.label + " (" + print.PersonaData.name.ToStringFull + ")"),
+                Find.WindowStack.Add(new Dialog_MessageBox("AC.EjectNeuralStackConfirmation".Translate(stack.def.label + " (" + stack.NeuralData.name.ToStringFull + ")"),
                      "Confirm".Translate(), delegate
                      {
-                         Building_PersonaMatrix.innerContainer.TryDrop(print, Building_PersonaMatrix.InteractionCell, Building_PersonaMatrix.Map, ThingPlaceMode.Near, 1, out Thing droppedThing);
+                         Building_NeuralMatrix.innerContainer.TryDrop(stack, Building_NeuralMatrix.InteractionCell, Building_NeuralMatrix.Map, ThingPlaceMode.Near, 1, out Thing droppedThing);
                      }, "GoBack".Translate(), null));
             }
-            Rect erasePersonaPrint = rect2;
-            erasePersonaPrint.x -= 28;
-            TooltipHandler.TipRegion(erasePersonaPrint, "AC.ErasePersonaPrintTooltip".Translate());
-            if (Widgets.ButtonImage(erasePersonaPrint, ContentFinder<Texture2D>.Get("UI/Icons/Erase", true)))
+            Rect eraseNeuralStack = rect2;
+            eraseNeuralStack.x -= 28;
+            TooltipHandler.TipRegion(eraseNeuralStack, "AC.EraseNeuralStackTooltip".Translate());
+            if (Widgets.ButtonImage(eraseNeuralStack, ContentFinder<Texture2D>.Get("UI/Icons/Erase", true)))
             {
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
-                Find.WindowStack.Add(new Dialog_MessageBox("AC.ErasePersonaPrintConfirmation".Translate(print.def.label + " (" + print.PersonaData.name.ToStringFull + ")"),
+                Find.WindowStack.Add(new Dialog_MessageBox("AC.EraseNeuralStackConfirmation".Translate(stack.def.label + " (" + stack.NeuralData.name.ToStringFull + ")"),
                      "Confirm".Translate(), delegate
                      {
-                         Building_PersonaMatrix.innerContainer.Remove(print);
-                         print.Destroy();
+                         Building_NeuralMatrix.innerContainer.Remove(stack);
+                         stack.Destroy();
                      }, "GoBack".Translate(), null));
             }
 
@@ -100,13 +100,13 @@ namespace AlteredCarbon
                 GUI.DrawTexture(rect1, TexUI.HighlightTex);
             }
             Rect thingIconRect = new Rect(24, y, 28f, 28f);
-            Widgets.ThingIcon(thingIconRect, print, 1f);
+            Widgets.ThingIcon(thingIconRect, stack, 1f);
             Text.Anchor = TextAnchor.MiddleLeft;
             GUI.color = ITab_Pawn_Gear.ThingLabelColor;
             Rect pawnLabelRect = new Rect(thingIconRect.xMax + 5, y, rect1.width - 36f, rect1.height);
-            TaggedString pawnLabel = print.PersonaData.PawnNameColored.Truncate(pawnLabelRect.width);
+            TaggedString pawnLabel = stack.NeuralData.PawnNameColored.Truncate(pawnLabelRect.width);
             Widgets.Label(pawnLabelRect, pawnLabel);
-            string str2 = print.DescriptionDetailed;
+            string str2 = stack.DescriptionDetailed;
             TooltipHandler.TipRegion(rect1, str2);
             y += 28f;
         }

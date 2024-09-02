@@ -21,20 +21,20 @@ namespace AlteredCarbon
                     yield return new CodeInstruction(OpCodes.Ldloc_S, 4);
                     yield return new CodeInstruction(OpCodes.Ldarg_1);
                     yield return new CodeInstruction(OpCodes.Call,
-                        AccessTools.Method(typeof(SymbolResolver_AncientShrinesGroup_Resolve_Patch), "TryAddPersonaPrint"));
+                        AccessTools.Method(typeof(SymbolResolver_AncientShrinesGroup_Resolve_Patch), "TryAddNeuralPrint"));
                 }
             }
         }
-        public static void TryAddPersonaPrint(PodContentsType? podContentsType, ResolveParams rp)
+        public static void TryAddNeuralPrint(PodContentsType? podContentsType, ResolveParams rp)
         {
-            if (AC_Utils.generalSettings.enablePersonaPrintsInAncientDangers && Rand.Chance(0.25f))
+            if (AC_Utils.generalSettings.enableNeuralPrintsInAncientDangers && Rand.Chance(0.25f))
             {
                 ResolveParams resolveParams = rp;
-                var personaPrint = ThingMaker.MakeThing(AC_DefOf.AC_PersonaPrint) as PersonaPrint;
+                var neuralPrint = ThingMaker.MakeThing(AC_DefOf.AC_NeuralPrint) as NeuralPrint;
                 var faction = podContentsType is null || podContentsType.Value != PodContentsType.AncientHostile ? Faction.OfAncients : Faction.OfAncientsHostile;
-                personaPrint.GeneratePersona(faction);
-                personaPrint.PersonaData.lastTimeBackedUp = null;
-                resolveParams.singleThingToSpawn = personaPrint;
+                neuralPrint.GenerateNeural(faction);
+                neuralPrint.NeuralData.lastTimeBackedUp = null;
+                resolveParams.singleThingToSpawn = neuralPrint;
                 BaseGen.symbolStack.Push("thing", resolveParams);
             }
         }

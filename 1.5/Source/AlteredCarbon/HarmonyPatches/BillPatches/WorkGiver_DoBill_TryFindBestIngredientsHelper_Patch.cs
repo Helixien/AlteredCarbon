@@ -36,13 +36,13 @@ namespace AlteredCarbon
         {
             if (__result is false && WorkGiver_DoBill_TryFindBestBillIngredients_Patch.curBill is Bill bill)
             {
-                if (bill.recipe.Worker is Recipe_OperateOnPersonaStack || 
-                    AC_Utils.installFilledStacksRecipes.Contains(bill.recipe))
+                if (bill.recipe.Worker is Recipe_OperateOnNeuralStack || 
+                    AC_Utils.installActiveStacksRecipes.Contains(bill.recipe))
                 {
-                    var personaCaches = pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaCache);
-                    foreach (var personaCache in personaCaches)
+                    var neuralCaches = pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_NeuralCache);
+                    foreach (var neuralCache in neuralCaches)
                     {
-                        var comp = personaCache.TryGetComp<CompPersonaCache>();
+                        var comp = neuralCache.TryGetComp<CompNeuralCache>();
                         var stacks = comp.innerContainer.ToList();
                         WorkGiver_DoBill.relevantThings.AddRange(stacks);
                     }
@@ -51,18 +51,18 @@ namespace AlteredCarbon
                         __result = true;
                     }
                 }
-                else if (bill.recipe.Worker is Recipe_OperateOnPersonaPrint)
-                {
-                    var personaMatrices = pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaMatrix).OfType<Building_PersonaMatrix>();
-                    foreach (var personaMatrix in personaMatrices)
-                    {
-                        WorkGiver_DoBill.relevantThings.AddRange(personaMatrix.StoredPersonaPrints);
-                    }
-                    if (foundAllIngredientsAndChoose(WorkGiver_DoBill.relevantThings))
-                    {
-                        __result = true;
-                    }
-                }
+                //else if (bill.recipe.Worker is Recipe_OperateOnNeuralPrint)
+                //{
+                //    var neuralMatrices = pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_NeuralMatrix).OfType<Building_NeuralMatrix>();
+                //    foreach (var neuralMatrix in neuralMatrices)
+                //    {
+                //        WorkGiver_DoBill.relevantThings.AddRange(neuralMatrix.StoredNeuralPrints);
+                //    }
+                //    if (foundAllIngredientsAndChoose(WorkGiver_DoBill.relevantThings))
+                //    {
+                //        __result = true;
+                //    }
+                //}
             }
         }
     }

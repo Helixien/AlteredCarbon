@@ -48,18 +48,18 @@ namespace AlteredCarbon
 
     public class Bill_InstallStack : Bill_Medical
 	{
-		public PersonaStack stackToInstall;
+		public NeuralStack stackToInstall;
 		public Bill_InstallStack()
 		{
 
 		}
 
-		public Bill_InstallStack(RecipeDef recipe, PersonaStack personaStack) : base(recipe, null)
+		public Bill_InstallStack(RecipeDef recipe, NeuralStack neuralStack) : base(recipe, null)
 		{
-			stackToInstall = personaStack;
+			stackToInstall = neuralStack;
 		}
-		public override string Label => this.stackToInstall.IsFilledStack 
-			? base.Label + " (" + (stackToInstall?.PersonaData?.PawnNameColored ?? "Destroyed".Translate()) + ")" : base.Label;
+		public override string Label => this.stackToInstall.IsActiveStack 
+			? base.Label + " (" + (stackToInstall?.NeuralData?.PawnNameColored ?? "Destroyed".Translate()) + ")" : base.Label;
 		public override void ExposeData()
 		{
 			base.ExposeData();

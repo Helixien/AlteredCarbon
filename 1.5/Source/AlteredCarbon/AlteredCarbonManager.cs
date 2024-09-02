@@ -30,14 +30,14 @@ namespace AlteredCarbon
 
         public void PreInit()
         {
-            stacksIndex ??= new Dictionary<int, PersonaStack>();
+            stacksIndex ??= new Dictionary<int, NeuralStack>();
             pawnsWithStacks ??= new HashSet<Pawn>();
             emptySleeves ??= new HashSet<Pawn>();
             deadPawns ??= new HashSet<Pawn>();
-            ResetStackLimitIfNeeded(AC_DefOf.AC_FilledPersonaStack);
-            if (AC_DefOf.AC_FilledArchotechStack != null)
+            ResetStackLimitIfNeeded(AC_DefOf.AC_ActiveNeuralStack);
+            if (AC_DefOf.AC_ActiveArchotechStack != null)
             {
-                ResetStackLimitIfNeeded(AC_DefOf.AC_FilledArchotechStack);
+                ResetStackLimitIfNeeded(AC_DefOf.AC_ActiveArchotechStack);
             }
         }
         public override void StartedNewGame()
@@ -77,9 +77,9 @@ namespace AlteredCarbon
             }
         }
 
-        public void ReplacePawnWithStack(Pawn pawn, PersonaStack stack)
+        public void ReplacePawnWithStack(Pawn pawn, NeuralStack stack)
         {
-            var stackData = stack.PersonaData.StackGroupData;
+            var stackData = stack.NeuralData.StackGroupData;
             if (stackData.originalPawn == pawn)
             {
                 stackData.originalPawn = null;
@@ -92,9 +92,9 @@ namespace AlteredCarbon
             }
         }
 
-        public void ReplaceStackWithPawn(PersonaStack stack, Pawn pawn)
+        public void ReplaceStackWithPawn(NeuralStack stack, Pawn pawn)
         {
-            var stackData = stack.PersonaData.StackGroupData;
+            var stackData = stack.NeuralData.StackGroupData;
             if (stackData.originalStack == stack)
             {
                 stackData.originalStack = null;
@@ -107,10 +107,10 @@ namespace AlteredCarbon
             }
         }
 
-        public void RegisterStack(PersonaStack stack)
+        public void RegisterStack(NeuralStack stack)
         {
-            var stackData = stack.PersonaData.StackGroupData;
-            if (stack.PersonaData.isCopied)
+            var stackData = stack.NeuralData.StackGroupData;
+            if (stack.NeuralData.isCopied)
             {
                 stackData.copiedStacks.Add(stack);
             }
@@ -118,15 +118,15 @@ namespace AlteredCarbon
             {
                 stackData.originalStack = stack;
             }
-            stack.PersonaData.hostPawn = null;
+            stack.NeuralData.hostPawn = null;
         }
 
         public void RegisterPawn(Pawn pawn)
         {
-            if (pawn.HasPersonaStack(out Hediff_PersonaStack hediff))
+            if (pawn.HasNeuralStack(out Hediff_NeuralStack hediff))
             {
-                var stackData = hediff.PersonaData.StackGroupData;
-                if (hediff.PersonaData.isCopied)
+                var stackData = hediff.NeuralData.StackGroupData;
+                if (hediff.NeuralData.isCopied)
                 {
                     stackData.copiedPawns.Add(pawn);
                 }
@@ -139,20 +139,20 @@ namespace AlteredCarbon
             }
         }
 
-        public void RegisterSleeve(Pawn pawn, PersonaStack stack)
+        public void RegisterSleeve(Pawn pawn, NeuralStack stack)
         {
             pawnsWithStacks.Remove(pawn);
             emptySleeves.Add(pawn);
             StacksIndex[pawn.thingIDNumber] = stack;
-            var stackData = stack.PersonaData.StackGroupData;
+            var stackData = stack.NeuralData.StackGroupData;
             stackData.deadPawns.Add(pawn);
         }
 
-        public int GetStackGroupID(PersonaStack personaStack)
+        public int GetStackGroupID(NeuralStack neuralStack)
         {
-            if (personaStack.PersonaData.stackGroupID != 0)
+            if (neuralStack.NeuralData.stackGroupID != 0)
             {
-                return personaStack.PersonaData.stackGroupID;
+                return neuralStack.NeuralData.stackGroupID;
             }
             return stacksRelationships.Count + 1;
         }
@@ -190,19 +190,19 @@ namespace AlteredCarbon
         public HashSet<Pawn> emptySleeves = new HashSet<Pawn>();
         public HashSet<Pawn> deadPawns = new HashSet<Pawn>();
 
-        private Dictionary<int, PersonaStack> stacksIndex;
-        public Dictionary<int, PersonaStack> StacksIndex
+        private Dictionary<int, NeuralStack> stacksIndex;
+        public Dictionary<int, NeuralStack> StacksIndex
         {
             get
             {
                 if (stacksIndex is null)
                 {
-                    stacksIndex = new Dictionary<int, PersonaStack>();
+                    stacksIndex = new Dictionary<int, NeuralStack>();
                 }
                 return stacksIndex;
             }
         }
         private List<int> pawnKeys = new List<int>();
-        private List<PersonaStack> stacksValues = new List<PersonaStack>();
+        private List<NeuralStack> stacksValues = new List<NeuralStack>();
     }
 }

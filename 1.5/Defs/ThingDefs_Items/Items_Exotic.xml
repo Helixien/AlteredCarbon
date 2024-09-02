@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-	<!--=============== Persona Print ====================-->
+	<!--=============== Neural Print ====================-->
+	<!-- disabled for now
 	<ThingDef ParentName="ResourceBase">
-		<defName>AC_PersonaPrint</defName>
-		<label>persona print</label>
+		<defName>AC_NeuralPrint</defName>
+		<label>neural print</label>
 		<description>text.todo.</description>
-		<thingClass>AlteredCarbon.PersonaPrint</thingClass>
+		<thingClass>AlteredCarbon.NeuralPrint</thingClass>
 		<graphicData>
-			<texPath>Things/Item/PersonaPrint/FriendlyPersonaPrint</texPath>
+			<texPath>Things/Item/NeuralPrint/FriendlyNeuralPrint</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<onGroundRandomRotateAngle>35</onGroundRandomRotateAngle>
 			<drawSize>0.80</drawSize>
@@ -39,40 +40,6 @@
 		<tradeTags>
 			<li>ExoticMisc</li>
 		</tradeTags>
-		<modExtensions>
-			<li Class="AlteredCarbon.StackSavingOptionsModExtension">
-				<ignoresTraits>
-					<li>Beauty</li>
-					<li>Immunity</li>
-					<li>AnnoyingVoice</li>
-					<li>CreepyBreathing</li>
-					<li>Tough</li>
-					<li>PsychicSensitivity</li>
-					<li>Delicate</li>
-					<li MayRequire="Ludeon.RimWorld.Anomaly">BodyMastery</li>
-					<li MayRequire="VanillaExpanded.VanillaExpanded.VPsycastsE">VPE_Thrall</li>
-					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_IronStomach</li>
-					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_BigBoned</li>
-					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_Dunce</li>
-					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_Squeamish</li>
-					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_ThickSkinned</li>
-					<li MayRequire="VanillaExpanded.VanillaTraitsExpanded">VTE_ThinSkinned</li>
-					<li MayRequire="OskarPotocki.VFE.Pirates">VFEP_WarcasketTrait</li>
-					<li MayRequire="OskarPotocki.VFE.Pirates">VFEP_Shellcasket</li>
-					<li MayRequire="sarg.alphagenes">AG_Beauty</li>
-					<li MayRequire="syrchalis.individuality">SYR_Agile</li>
-					<li MayRequire="syrchalis.individuality">SYR_KeenEye</li>
-					<li MayRequire="syrchalis.individuality">SYR_StrongBack</li>
-					<li MayRequire="Sierra.RTGT">RT_Nearsighted</li>
-					<li MayRequire="Sierra.RTGT">RT_Farsighted</li>
-					<li MayRequire="Sierra.RTGT">RT_Muscular</li>
-					<li MayRequire="Sierra.RTGT">RT_Frail</li>
-					<li MayRequire="Sierra.RTGT">RT_Hardy</li>
-					<li MayRequire="Sierra.RTGT">RT_Feeble</li>
-					<li MayRequire="Sierra.RTGT">RT_Healthy</li>
-					<li MayRequire="Sierra.RTGT">RT_ChronicallyIll</li>
-				</ignoresTraits>
-			</li>
-		</modExtensions>
 	</ThingDef>
+	-->
 </Defs>

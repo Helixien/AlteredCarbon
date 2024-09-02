@@ -21,14 +21,14 @@ namespace AlteredCarbon
 
     public interface IMatrixConnectable
     {
-        Building_PersonaMatrix ConnectedMatrix { get; }
+        Building_NeuralMatrix ConnectedMatrix { get; }
     }
 
     [StaticConstructorOnStartup]
-    public class Building_PersonaEditor : Building_WorkTable, IMatrixConnectable
+    public class Building_NeuralEditor : Building_WorkTable, IMatrixConnectable
     {
         public bool autoRestoreIsEnabled = true;
-        public Building_PersonaMatrix ConnectedMatrix => CompAffectedByFacilities.LinkedFacilitiesListForReading.OfType<Building_PersonaMatrix>().FirstOrDefault();
+        public Building_NeuralMatrix ConnectedMatrix => CompAffectedByFacilities.LinkedFacilitiesListForReading.OfType<Building_NeuralMatrix>().FirstOrDefault();
         private CompAffectedByFacilities _compAffectedByFacilities;
         public CompAffectedByFacilities CompAffectedByFacilities =>
             _compAffectedByFacilities ??= GetComp<CompAffectedByFacilities>();
@@ -46,10 +46,10 @@ namespace AlteredCarbon
                 targetAction = BeginTargetingForWipingStack,
                 action = InstallWipeStackBill,
                 lockedProjects = new List<ResearchProjectDef> { AC_DefOf.AC_NeuralEditing },
-                recipe = AC_DefOf.AC_WipeFilledPersonaStack,
+                recipe = AC_DefOf.AC_WipeActiveNeuralStack,
                 defaultLabelCancel = "AC.CancelStackReset".Translate(),
                 defaultDescCancel = "AC.CancelStackResetDesc".Translate(),
-                targetParameters = ForFilledStack(includeArchotechStack: false),
+                targetParameters = ForActiveStack(includeArchotechStack: false),
             }))
             {
                 yield return g;
@@ -61,10 +61,10 @@ namespace AlteredCarbon
                 targetAction = BeginTargetingForDuplicatingStack,
                 action = InstallDuplicateStackBill,
                 lockedProjects = new List<ResearchProjectDef> { AC_DefOf.AC_NeuralEditing },
-                recipe = AC_DefOf.AC_DuplicatePersonaStack,
+                recipe = AC_DefOf.AC_DuplicateNeuralStack,
                 defaultLabelCancel = "AC.CancelStackDuplication".Translate(),
                 defaultDescCancel = "AC.CancelStackDuplicationDesc".Translate(),
-                targetParameters = ForFilledStack(includeArchotechStack: false),
+                targetParameters = ForActiveStack(includeArchotechStack: false),
             }))
             {
                 yield return g;
@@ -75,49 +75,49 @@ namespace AlteredCarbon
                 icon = "UI/Gizmos/EditStack",
                 targetAction = BeginTargetingForEditingStack,
                 action = InstallEditBill,
-                lockedProjects = AC_DefOf.AC_EditFilledPersonaStack.researchPrerequisites,
-                recipe = AC_DefOf.AC_EditFilledPersonaStack,
+                lockedProjects = AC_DefOf.AC_EditActiveNeuralStack.researchPrerequisites,
+                recipe = AC_DefOf.AC_EditActiveNeuralStack,
                 defaultLabelCancel = "AC.CancelStackEdit".Translate(),
                 defaultDescCancel = "AC.CancelStackEditDesc".Translate(),
-                targetParameters = ForFilledStack(includeArchotechStack: AC_Utils.editStacksSettings.enableArchostackEditing),
+                targetParameters = ForActiveStack(includeArchotechStack: AC_Utils.editStacksSettings.enableArchostackEditing),
             }))
             {
                 yield return g;
             }
 
-            foreach (var g in GetCommands<Command_ActionOnPrint>(new CommandInfo
-            {
-                icon = "UI/Gizmos/RestoreFromPersonaPrint",
-                targetAction = BeginTargetingForRestoringFromPrint,
-                action = InstallRestoreFromPrintBill,
-                lockedProjects = new List<ResearchProjectDef> { AC_DefOf.AC_NeuralDigitalization },
-                recipe = AC_DefOf.AC_RestoreStackFromPersonaPrint,
-                defaultLabelCancel = "AC.CancelPersonaPrintRestoration".Translate(),
-                defaultDescCancel = "AC.CancelPersonaPrintRestorationDesc".Translate(),
-                targetParameters = ForPersonaPrint(),
-            }))
-            {
-                yield return g;
-            }
-
-            var autoRestore = new Command_Toggle()
-            {
-                defaultLabel = "AC.EnableAutoRestore".Translate(),
-                defaultDesc = "AC.EnableAutoRestoreDesc".Translate(),
-                icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EnableAutoRestore"),
-                activateSound = SoundDefOf.Tick_Tiny,
-                toggleAction = delegate ()
-                {
-                    autoRestoreIsEnabled = !autoRestoreIsEnabled;
-                },
-                isActive = () => autoRestoreIsEnabled
-            };
-            autoRestore.TryDisableCommand(new CommandInfo
-            {
-                lockedProjects = new List<ResearchProjectDef> { AC_DefOf.AC_NeuralDigitalization },
-                building = this,
-            });
-            yield return autoRestore;
+            //foreach (var g in GetCommands<Command_ActionOnPrint>(new CommandInfo
+            //{
+            //    icon = "UI/Gizmos/RestoreFromNeuralPrint",
+            //    targetAction = BeginTargetingForRestoringFromPrint,
+            //    action = InstallRestoreFromPrintBill,
+            //    lockedProjects = new List<ResearchProjectDef> { AC_DefOf.AC_NeuralDigitalization },
+            //    recipe = AC_DefOf.AC_RestoreStackFromNeuralPrint,
+            //    defaultLabelCancel = "AC.CancelNeuralPrintRestoration".Translate(),
+            //    defaultDescCancel = "AC.CancelNeuralPrintRestorationDesc".Translate(),
+            //    targetParameters = ForNeuralPrint(),
+            //}))
+            //{
+            //    yield return g;
+            //}
+            //
+            //var autoRestore = new Command_Toggle()
+            //{
+            //    defaultLabel = "AC.EnableAutoRestore".Translate(),
+            //    defaultDesc = "AC.EnableAutoRestoreDesc".Translate(),
+            //    icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EnableAutoRestore"),
+            //    activateSound = SoundDefOf.Tick_Tiny,
+            //    toggleAction = delegate ()
+            //    {
+            //        autoRestoreIsEnabled = !autoRestoreIsEnabled;
+            //    },
+            //    isActive = () => autoRestoreIsEnabled
+            //};
+            //autoRestore.TryDisableCommand(new CommandInfo
+            //{
+            //    lockedProjects = new List<ResearchProjectDef> { AC_DefOf.AC_NeuralDigitalization },
+            //    building = this,
+            //});
+            //yield return autoRestore;
         }
 
         private IEnumerable<Gizmo> GetCommands<T>(CommandInfo info) where T : Command_ActionOnThing
@@ -157,7 +157,7 @@ namespace AlteredCarbon
 
         private void BeginTargetingForWipingStack()
         {
-            Find.Targeter.BeginTargeting(ForFilledStack(includeArchotechStack: false), delegate (LocalTargetInfo x)
+            Find.Targeter.BeginTargeting(ForActiveStack(includeArchotechStack: false), delegate (LocalTargetInfo x)
             {
                 InstallWipeStackBill(x);
                 if (Event.current.shift)
@@ -169,7 +169,7 @@ namespace AlteredCarbon
 
         private void BeginTargetingForDuplicatingStack()
         {
-            Find.Targeter.BeginTargeting(ForFilledStack(includeArchotechStack: false), delegate (LocalTargetInfo x)
+            Find.Targeter.BeginTargeting(ForActiveStack(includeArchotechStack: false), delegate (LocalTargetInfo x)
             {
                 InstallDuplicateStackBill(x);
                 if (Event.current.shift)
@@ -181,38 +181,38 @@ namespace AlteredCarbon
 
         private void BeginTargetingForEditingStack()
         {
-            Find.Targeter.BeginTargeting(ForFilledStack(includeArchotechStack: AC_Utils.editStacksSettings.enableArchostackEditing), delegate (LocalTargetInfo x)
+            Find.Targeter.BeginTargeting(ForActiveStack(includeArchotechStack: AC_Utils.editStacksSettings.enableArchostackEditing), delegate (LocalTargetInfo x)
             {
                 InstallEditBill(x);
             });
         }
 
-        private void BeginTargetingForRestoringFromPrint()
-        {
-            Find.Targeter.BeginTargeting(ForPersonaPrint(), delegate (LocalTargetInfo x)
-            {
-                InstallRestoreFromPrintBill(x);
-                if (Event.current.shift)
-                {
-                    BeginTargetingForRestoringFromPrint();
-                }
-            });
-        }
+        //private void BeginTargetingForRestoringFromPrint()
+        //{
+        //    Find.Targeter.BeginTargeting(ForNeuralPrint(), delegate (LocalTargetInfo x)
+        //    {
+        //        InstallRestoreFromPrintBill(x);
+        //        if (Event.current.shift)
+        //        {
+        //            BeginTargetingForRestoringFromPrint();
+        //        }
+        //    });
+        //}
 
-        public bool CanAddOperationOn(PersonaStack personaStack)
+        public bool CanAddOperationOn(NeuralStack neuralStack)
         {
-            var bill = this.billStack.Bills.OfType<Bill_OperateOnStack>().Where(x => x.thingWithPersonaData == personaStack).FirstOrDefault();
+            var bill = this.billStack.Bills.OfType<Bill_OperateOnStack>().Where(x => x.thingWithNeuralData == neuralStack).FirstOrDefault();
             if (bill != null)
             {
-                if (bill.recipe == AC_DefOf.AC_WipeFilledPersonaStack)
+                if (bill.recipe == AC_DefOf.AC_WipeActiveNeuralStack)
                 {
                     Messages.Message("AC.AlreadyOrderedToWipeStack".Translate(), MessageTypeDefOf.CautionInput);
                 }
-                else if (bill.recipe == AC_DefOf.AC_EditFilledPersonaStack)
+                else if (bill.recipe == AC_DefOf.AC_EditActiveNeuralStack)
                 {
                     Messages.Message("AC.AlreadyOrderedToEditStack".Translate(), MessageTypeDefOf.CautionInput);
                 }
-                else if (bill.recipe == AC_DefOf.AC_DuplicatePersonaStack)
+                else if (bill.recipe == AC_DefOf.AC_DuplicateNeuralStack)
                 {
                     Messages.Message("AC.AlreadyOrderedToDuplicateStack".Translate(), MessageTypeDefOf.CautionInput);
                 }
@@ -221,108 +221,108 @@ namespace AlteredCarbon
             return true;
         }
 
-        public bool CanAddOperationOn(PersonaPrint personaPrint, bool allowMessages = true)
-        {
-            var bill = this.billStack.Bills.OfType<Bill_OperateOnStack>().Where(x => x.thingWithPersonaData == personaPrint).FirstOrDefault();
-            if (bill != null)
-            {
-                if (bill.recipe == AC_DefOf.AC_RestoreStackFromPersonaPrint && allowMessages)
-                {
-                    Messages.Message("AC.AlreadyOrderedToRestoreStack".Translate(), MessageTypeDefOf.CautionInput);
-                }
-                return false;
-            }
-            return true;
-        }
+        //public bool CanAddOperationOn(NeuralPrint neuralPrint, bool allowMessages = true)
+        //{
+        //    var bill = this.billStack.Bills.OfType<Bill_OperateOnStack>().Where(x => x.thingWithNeuralData == neuralPrint).FirstOrDefault();
+        //    if (bill != null)
+        //    {
+        //        if (bill.recipe == AC_DefOf.AC_RestoreStackFromNeuralPrint && allowMessages)
+        //        {
+        //            Messages.Message("AC.AlreadyOrderedToRestoreStack".Translate(), MessageTypeDefOf.CautionInput);
+        //        }
+        //        return false;
+        //    }
+        //    return true;
+        //}
 
-        private TargetingParameters ForFilledStack(bool includeArchotechStack)
+        private TargetingParameters ForActiveStack(bool includeArchotechStack)
         {
             TargetingParameters targetingParameters = new TargetingParameters
             {
                 canTargetItems = true,
                 mapObjectTargetsMustBeAutoAttackable = false,
-                validator = (TargetInfo x) => x.Thing is PersonaStack stack && stack.PersonaData.ContainsPersona && (includeArchotechStack ||
+                validator = (TargetInfo x) => x.Thing is NeuralStack stack && stack.NeuralData.ContainsNeural && (includeArchotechStack ||
                 stack.IsArchotechStack is false)
             };
             return targetingParameters;
         }
 
-        private TargetingParameters ForPersonaPrint()
-        {
-            TargetingParameters targetingParameters = new TargetingParameters
-            {
-                canTargetItems = true,
-                mapObjectTargetsMustBeAutoAttackable = false,
-                validator = (TargetInfo x) => x.Thing is PersonaPrint stack && stack.PersonaData.ContainsPersona
-            };
-            return targetingParameters;
-        }
+        //private TargetingParameters ForNeuralPrint()
+        //{
+        //    TargetingParameters targetingParameters = new TargetingParameters
+        //    {
+        //        canTargetItems = true,
+        //        mapObjectTargetsMustBeAutoAttackable = false,
+        //        validator = (TargetInfo x) => x.Thing is NeuralPrint stack && stack.NeuralData.ContainsNeural
+        //    };
+        //    return targetingParameters;
+        //}
 
         public void InstallWipeStackBill(LocalTargetInfo x)
         {
-            if (x.Thing is PersonaStack personaStack && CanAddOperationOn(personaStack))
+            if (x.Thing is NeuralStack neuralStack && CanAddOperationOn(neuralStack))
             {
-                if (personaStack.PersonaData.faction != null && personaStack.PersonaData.faction.HostileTo(Faction.OfPlayer) is false)
+                if (neuralStack.NeuralData.faction != null && neuralStack.NeuralData.faction.HostileTo(Faction.OfPlayer) is false)
                 {
                     Find.WindowStack.Add(new Dialog_MessageBox("AC.WipingFriendlyStackWarning".Translate(), "Cancel".Translate(), null,
                     "Confirm".Translate(), delegate ()
                     {
-                        billStack.AddBill(new Bill_OperateOnStack(personaStack, AC_DefOf.AC_WipeFilledPersonaStack, null));
+                        billStack.AddBill(new Bill_OperateOnStack(neuralStack, AC_DefOf.AC_WipeActiveNeuralStack, null));
                     }, null, false, null, null));
                 }
                 else
                 {
-                    billStack.AddBill(new Bill_OperateOnStack(personaStack, AC_DefOf.AC_WipeFilledPersonaStack, null));
+                    billStack.AddBill(new Bill_OperateOnStack(neuralStack, AC_DefOf.AC_WipeActiveNeuralStack, null));
                 }
             }
         }
 
         public void InstallDuplicateStackBill(LocalTargetInfo x)
         {
-            if (x.Thing is PersonaStack personaStack && CanAddOperationOn(personaStack))
+            if (x.Thing is NeuralStack neuralStack && CanAddOperationOn(neuralStack))
             {
-                if (personaStack.PersonaData.faction != null && personaStack.PersonaData.faction.HostileTo(Faction.OfPlayer) is false)
+                if (neuralStack.NeuralData.faction != null && neuralStack.NeuralData.faction.HostileTo(Faction.OfPlayer) is false)
                 {
                     Find.WindowStack.Add(new Dialog_MessageBox("AC.DuplicatingFriendlyStackWarning".Translate(), "Cancel".Translate(), null,
                     "Confirm".Translate(), delegate ()
                     {
-                        billStack.AddBill(new Bill_OperateOnStack(personaStack, AC_DefOf.AC_DuplicatePersonaStack, null));
+                        billStack.AddBill(new Bill_OperateOnStack(neuralStack, AC_DefOf.AC_DuplicateNeuralStack, null));
                     }, null, false, null, null));
                 }
                 else
                 {
-                    billStack.AddBill(new Bill_OperateOnStack(personaStack, AC_DefOf.AC_DuplicatePersonaStack, null));
+                    billStack.AddBill(new Bill_OperateOnStack(neuralStack, AC_DefOf.AC_DuplicateNeuralStack, null));
                 }
             }
         }
 
         private void InstallEditBill(LocalTargetInfo x)
         {
-            if (x.Thing is PersonaStack personaStack && CanAddOperationOn(personaStack))
+            if (x.Thing is NeuralStack neuralStack && CanAddOperationOn(neuralStack))
             {
-                if (personaStack.PersonaData.faction != null && personaStack.PersonaData.faction.HostileTo(Faction.OfPlayer) is false)
+                if (neuralStack.NeuralData.faction != null && neuralStack.NeuralData.faction.HostileTo(Faction.OfPlayer) is false)
                 {
                     Find.WindowStack.Add(new Dialog_MessageBox("AC.EditingFriendlyStackWarning".Translate(), "Cancel".Translate(), null,
                     "Confirm".Translate(), delegate ()
                     {
-                        Find.WindowStack.Add(new Window_StackEditor(this, personaStack));
+                        Find.WindowStack.Add(new Window_StackEditor(this, neuralStack));
                     }, null, false, null, null));
                 }
                 else
                 {
-                    Find.WindowStack.Add(new Window_StackEditor(this, personaStack));
+                    Find.WindowStack.Add(new Window_StackEditor(this, neuralStack));
                 }
             }
         }
 
 
-        public void InstallRestoreFromPrintBill(LocalTargetInfo x)
-        {
-            if (x.Thing is PersonaPrint personaStack && CanAddOperationOn(personaStack))
-            {
-                billStack.AddBill(new Bill_OperateOnStack(personaStack, AC_DefOf.AC_RestoreStackFromPersonaPrint, null));
-            }
-        }
+        //public void InstallRestoreFromPrintBill(LocalTargetInfo x)
+        //{
+        //    if (x.Thing is NeuralPrint neuralStack && CanAddOperationOn(neuralStack))
+        //    {
+        //        billStack.AddBill(new Bill_OperateOnStack(neuralStack, AC_DefOf.AC_RestoreStackFromNeuralPrint, null));
+        //    }
+        //}
 
         public override void ExposeData()
         {

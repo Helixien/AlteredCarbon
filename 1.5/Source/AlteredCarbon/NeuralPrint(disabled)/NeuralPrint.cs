@@ -8,7 +8,7 @@ using Verse;
 namespace AlteredCarbon
 {
     [HotSwappable]
-    public class PersonaPrint : ThingWithPersonaData
+    public class NeuralPrint : ThingWithNeuralData
     {
         public bool allowAutomaticRestoration = true;
 
@@ -17,7 +17,7 @@ namespace AlteredCarbon
             get
             {
                 var label = base.LabelNoCount;
-                label += " (" + this.PersonaData.PawnNameColored.ToStringSafe() + ")";
+                label += " (" + this.NeuralData.PawnNameColored.ToStringSafe() + ")";
                 return label;
             }
         }
@@ -25,17 +25,17 @@ namespace AlteredCarbon
         public override string GetInspectString()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            var personaData = PersonaData;
-            if (personaData.ContainsPersona)
+            var neuralData = NeuralData;
+            if (neuralData.ContainsNeural)
             {
-                if (personaData.faction != null)
+                if (neuralData.faction != null)
                 {
-                    stringBuilder.AppendLineTagged("AC.Faction".Translate() + ": " + personaData.faction.NameColored);
+                    stringBuilder.AppendLineTagged("AC.Faction".Translate() + ": " + neuralData.faction.NameColored);
                 }
-                stringBuilder.Append("AC.AgeChronologicalTicks".Translate() + ": " + (int)(personaData.ageChronologicalTicks / 3600000) + "\n");
+                stringBuilder.Append("AC.AgeChronologicalTicks".Translate() + ": " + (int)(neuralData.ageChronologicalTicks / 3600000) + "\n");
                 var tile = this.Spawned ? this.Tile : Find.AnyPlayerHomeMap.Tile;
-                var timeOfDate = personaData.lastTimeBackedUp == null ? (string)"Unknown".Translate()
-                    : GenDate.DateFullStringAt(personaData.lastTimeBackedUp.Value, Find.WorldGrid.LongLatOf(tile));
+                var timeOfDate = neuralData.lastTimeBackedUp == null ? (string)"Unknown".Translate()
+                    : GenDate.DateFullStringAt(neuralData.lastTimeBackedUp.Value, Find.WorldGrid.LongLatOf(tile));
                 stringBuilder.Append("AC.TimeOfBackup".Translate(timeOfDate));
             }
             stringBuilder.Append(base.GetInspectString());
@@ -46,31 +46,31 @@ namespace AlteredCarbon
         {
             get
             {
-                var personaData = PersonaData;
-                if (personaData.guestStatusInt == GuestStatus.Slave)
+                var neuralData = NeuralData;
+                if (neuralData.guestStatusInt == GuestStatus.Slave)
                 {
-                    return GetPersonaPrintGraphic(ref slaveGraphic, ref slaveGraphicData,
-                        "Things/Item/PersonaPrint/SlavePersonaPrint");
+                    return GetNeuralPrintGraphic(ref slaveGraphic, ref slaveGraphicData,
+                        "Things/Item/NeuralPrint/SlaveNeuralPrint");
                 }
-                else if (personaData.faction == Faction.OfPlayer)
+                else if (neuralData.faction == Faction.OfPlayer)
                 {
-                    return GetPersonaPrintGraphic(ref friendlyGraphic, ref friendlyGraphicData,
-                        "Things/Item/PersonaPrint/FriendlyPersonaPrint");
+                    return GetNeuralPrintGraphic(ref friendlyGraphic, ref friendlyGraphicData,
+                        "Things/Item/NeuralPrint/FriendlyNeuralPrint");
                 }
-                else if (personaData.faction is null || !personaData.faction.HostileTo(Faction.OfPlayer))
+                else if (neuralData.faction is null || !neuralData.faction.HostileTo(Faction.OfPlayer))
                 {
-                    return GetPersonaPrintGraphic(ref strangerGraphic, ref strangerGraphicData,
-                        "Things/Item/PersonaPrint/NeutralPersonaPrint");
+                    return GetNeuralPrintGraphic(ref strangerGraphic, ref strangerGraphicData,
+                        "Things/Item/NeuralPrint/NeutralNeuralPrint");
                 }
                 else
                 {
-                    return GetPersonaPrintGraphic(ref hostileGraphic, ref hostileGraphicData,
-                        "Things/Item/PersonaPrint/HostilePersonaPrint");
+                    return GetNeuralPrintGraphic(ref hostileGraphic, ref hostileGraphicData,
+                        "Things/Item/NeuralPrint/HostileNeuralPrint");
                 }
             }
         }
 
-        private Graphic GetPersonaPrintGraphic(ref Graphic graphic, ref GraphicData graphicData, string path)
+        private Graphic GetNeuralPrintGraphic(ref Graphic graphic, ref GraphicData graphicData, string path)
         {
             if (graphic is null)
             {
@@ -83,12 +83,12 @@ namespace AlteredCarbon
             return graphic;
         }
 
-        public bool CanAutoRestorePawn(PersonaData otherData)
+        public bool CanAutoRestorePawn(NeuralData otherData)
         {
             if (allowAutomaticRestoration)
             {
-                var personaData = PersonaData;
-                if (otherData.IsPresetPawn(personaData) is false)
+                var neuralData = NeuralData;
+                if (otherData.IsPresetPawn(neuralData) is false)
                 {
                     return false;
                 }
@@ -100,14 +100,14 @@ namespace AlteredCarbon
         public override void PreTraded(TradeAction action, Pawn playerNegotiator, ITrader trader)
         {
             base.PreTraded(action, playerNegotiator, trader);
-            if (AC_Utils.generalSettings.enableSoldPersonaPrintsCreatingPawnDuplicates
+            if (AC_Utils.generalSettings.enableSoldNeuralPrintsCreatingPawnDuplicates
                 && trader.Faction?.def.techLevel >= TechLevel.Spacer && Rand.Chance(0.15f))
             {
-                var copy = new PersonaData();
-                copy.CopyDataFrom(PersonaData);
+                var copy = new NeuralData();
+                copy.CopyDataFrom(NeuralData);
                 copy.faction = trader.Faction;
                 Rand.PushState(copy.GetHashCode());
-                GameComponent_AlteredCarbon.Instance.personaStacksToAppearAsWorldPawns[copy] =
+                GameComponent_AlteredCarbon.Instance.neuralStacksToAppearAsWorldPawns[copy] =
                     (int)(Find.TickManager.TicksGame + (new FloatRange(5f, 30f).RandomInRange * GenDate.TicksPerDay));
                 Rand.PopState();
             }
@@ -116,9 +116,9 @@ namespace AlteredCarbon
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             base.SpawnSetup(map, respawningAfterLoad);
-            if (!respawningAfterLoad && PersonaData.ContainsPersona is false)
+            if (!respawningAfterLoad && NeuralData.ContainsNeural is false)
             {
-                GeneratePersona();
+                GenerateNeural();
             }
         }
 
@@ -132,7 +132,7 @@ namespace AlteredCarbon
             {
                 defaultLabel = "AC.AutoLoad".Translate(),
                 defaultDesc = "AC.AutoLoadDesc".Translate(),
-                icon = ContentFinder<Texture2D>.Get("UI/Gizmos/AutoLoadPersonaPrint"),
+                icon = ContentFinder<Texture2D>.Get("UI/Gizmos/AutoLoadNeuralPrint"),
                 isActive = () => autoLoad,
                 toggleAction = delegate
                 {

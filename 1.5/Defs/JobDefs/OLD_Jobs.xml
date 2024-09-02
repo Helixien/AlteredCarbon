@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<!-- ================================ Hauling Persona Prints ====================== -->
+	<!-- ================================ Hauling Neural Prints ====================== -->
 	<JobDef>
 		<defName>AC_HaulThingsToContainer</defName>
 		<driverClass>AlteredCarbon.JobDriver_HaulThingsToContainer</driverClass>

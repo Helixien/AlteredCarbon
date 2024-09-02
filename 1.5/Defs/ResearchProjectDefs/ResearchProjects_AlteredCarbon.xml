@@ -12,7 +12,7 @@
 	<ResearchProjectDef ParentName="AC_ResearchBase">
 		<defName>AC_SleeveGestation</defName>
 		<label>sleeve gestation</label>
-		<description>Develop biotechnologies to create highly customizable synthetic bodies called sleeves for usage with persona stacks.</description>
+		<description>Develop biotechnologies to create highly customizable synthetic bodies called sleeves for usage with neural stacks.</description>
 		<baseCost>6000</baseCost>
 		<researchViewX>12.00</researchViewX>
 		<researchViewY>2.90</researchViewY>

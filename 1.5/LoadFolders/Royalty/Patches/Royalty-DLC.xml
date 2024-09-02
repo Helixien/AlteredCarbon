@@ -35,8 +35,8 @@
 			<li Class="PatchOperationAdd">
 				<xpath>/Defs/QuestScriptDef[defName="Intro_Deserter"]/root[@Class="QuestNode_Sequence"]/nodes/li[@Class="QuestNode_SetItemStashContents"]/items</xpath>
 				<value>
-					<li>AC_EmptyPersonaStack</li>
-					<li>AC_EmptyPersonaStack</li>
+					<li>AC_EmptyNeuralStack</li>
+					<li>AC_EmptyNeuralStack</li>
 				</value>
 			</li>
 			<!-- ================================ Add Stacks to traders ====================== -->
@@ -44,7 +44,7 @@
 				<xpath>/Defs/TraderKindDef[defName="Empire_Caravan_TributeCollector"]/stockGenerators</xpath>
 				<value>
 					<li Class="StockGenerator_BuySingleDef">
-						<thingDef>AC_EmptyPersonaStack</thingDef>
+						<thingDef>AC_EmptyNeuralStack</thingDef>
 					</li>
 					<li Class="StockGenerator_BuySingleDef">
 						<thingDef>AC_EmptyArchotechStack</thingDef>
@@ -55,7 +55,7 @@
 				<xpath>/Defs/TraderKindDef[defName="Empire_Caravan_TraderGeneral"]/stockGenerators</xpath>
 				<value>
 					<li Class="StockGenerator_BuySingleDef">
-						<thingDef>AC_EmptyPersonaStack</thingDef>
+						<thingDef>AC_EmptyNeuralStack</thingDef>
 					</li>
 					<li Class="StockGenerator_BuySingleDef">
 						<thingDef>AC_EmptyArchotechStack</thingDef>
@@ -66,7 +66,7 @@
 				<xpath>/Defs/TraderKindDef[defName="Orbital_Empire"]/stockGenerators</xpath>
 				<value>
 					<li Class="StockGenerator_BuySingleDef">
-						<thingDef>AC_EmptyPersonaStack</thingDef>
+						<thingDef>AC_EmptyNeuralStack</thingDef>
 					</li>
 					<li Class="StockGenerator_BuySingleDef">
 						<thingDef>AC_EmptyArchotechStack</thingDef>

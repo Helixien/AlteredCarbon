@@ -10,15 +10,15 @@ using Verse.Sound;
 
 namespace AlteredCarbon
 {
-    public class Recipe_WipeFilledPersonaStack : Recipe_OperateOnPersonaStack
+    public class Recipe_WipeActiveNeuralStack : Recipe_OperateOnNeuralStack
     {
         public override void Notify_IterationCompleted(Pawn billDoer, List<Thing> ingredients)
         {
             base.Notify_IterationCompleted(billDoer, ingredients);
-            var stack = PersonaStack(billDoer);
+            var stack = NeuralStack(billDoer);
             AC_DefOf.Message_NegativeEvent.PlayOneShot(stack);
-            if (stack.PersonaData.faction != null && billDoer != null && billDoer.Faction != null 
-                && billDoer.Faction != stack.PersonaData.faction)
+            if (stack.NeuralData.faction != null && billDoer != null && billDoer.Faction != null 
+                && billDoer.Faction != stack.NeuralData.faction)
             {
                 stack.EmptyStack(billDoer, true);
             }

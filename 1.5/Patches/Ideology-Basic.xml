@@ -10,8 +10,8 @@
 					<xpath>Defs</xpath>
 					<value>
 						<HistoryEventDef>
-							<defName>AC_InstalledPersonaStack</defName>
-							<label>installed persona stack</label>
+							<defName>AC_InstalledNeuralStack</defName>
+							<label>installed neural stack</label>
 						</HistoryEventDef>
 					</value>
 				</li>

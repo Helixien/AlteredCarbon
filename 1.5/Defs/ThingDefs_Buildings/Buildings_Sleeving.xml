@@ -99,7 +99,7 @@
 		<description>An open sarcophagus-like suspender designed to keep a sleeve in a state of suspended animation while still allowing medical access, such as installing implants or bionics.</description>
 		<descriptionHyperlinks>
 			<ThingDef>AC_SleeveGestator</ThingDef>
-			<ThingDef>AC_FilledPersonaStack</ThingDef>
+			<ThingDef>AC_ActiveNeuralStack</ThingDef>
 		</descriptionHyperlinks>
 		<thingClass>AlteredCarbon.Building_SleeveCasket</thingClass>
 		<graphicData>

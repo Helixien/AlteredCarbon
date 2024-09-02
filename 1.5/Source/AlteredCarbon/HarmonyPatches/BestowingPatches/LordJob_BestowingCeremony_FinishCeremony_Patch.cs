@@ -14,7 +14,7 @@ namespace AlteredCarbon
                 ThingOwner<Thing> innerContainer = __instance.bestower.inventory.innerContainer;
                 for (int num = innerContainer.Count - 1; num >= 0; num--)
                 {
-                    if (innerContainer[num].def == AC_DefOf.AC_EmptyPersonaStack)
+                    if (innerContainer[num].def == AC_DefOf.AC_EmptyNeuralStack)
                     {
                         innerContainer.TryDrop(innerContainer[num], ThingPlaceMode.Near, out Thing lastResultingThing);
                     }

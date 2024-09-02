@@ -25,10 +25,10 @@ namespace AlteredCarbon
             {2,  SkillUI.PassionMajorIcon }
         };
 
-        private Building_PersonaEditor personaEditor;
-        private PersonaStack personaStack;
-        private PersonaData personaData;
-        private PersonaData personaDataCopy;
+        private Building_NeuralEditor neuralEditor;
+        private NeuralStack neuralStack;
+        private NeuralData neuralData;
+        private NeuralData neuralDataCopy;
 
         private int backstoryChildIndex;
         private int backstoryAdultIndex;
@@ -66,18 +66,18 @@ namespace AlteredCarbon
         private float LeftPanelWidth => 450;
         public override Vector2 InitialSize => new Vector2(900, Mathf.Min(UI.screenHeight, 975));
         public bool stackRecruitable;
-        public Window_StackEditor(Building_PersonaEditor personaEditor, PersonaStack personaStack)
+        public Window_StackEditor(Building_NeuralEditor neuralEditor, NeuralStack neuralStack)
         {
-            this.personaEditor = personaEditor;
-            this.personaStack = personaStack;
-            personaData = new PersonaData();
-            personaData.CopyDataFrom(personaStack.PersonaData);
-            stackRecruitable = personaData.recruitable;
+            this.neuralEditor = neuralEditor;
+            this.neuralStack = neuralStack;
+            neuralData = new NeuralData();
+            neuralData.CopyDataFrom(neuralStack.NeuralData);
+            stackRecruitable = neuralData.recruitable;
 
             this.allChildhoodBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading
                 .Where(x => x.slot == BackstorySlot.Childhood && (x.spawnCategories?.Any(x => x == "ColonyAndroid" 
                 || x == "AwakenedAndroid") is false)).ToList();
-            if (personaData.adulthood != null)
+            if (neuralData.adulthood != null)
             {
                 this.allAdulthoodBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading
                 .Where(x => x.slot == BackstorySlot.Adulthood && (x.spawnCategories?.Any(x => x == "ColonyAndroid"
@@ -86,13 +86,13 @@ namespace AlteredCarbon
             allFactions = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction && x.Hidden is false).ToList();
             allIdeos = Find.IdeoManager.IdeosListForReading;
             allTraits = DefDatabase<TraitDef>.AllDefsListForReading;
-            var modExtension = personaStack.def.GetModExtension<StackSavingOptionsModExtension>();
+            var modExtension = neuralStack.def.GetModExtension<StackSavingOptionsModExtension>();
             if (modExtension != null)
             {
                 allTraits.RemoveAll(x => modExtension.ignoresTraits.Contains(x.defName));
             }
-            personaDataCopy = new PersonaData();
-            personaDataCopy.CopyDataFrom(personaData);
+            neuralDataCopy = new NeuralData();
+            neuralDataCopy.CopyDataFrom(neuralData);
             ResetIndices();
             this.forcePause = true;
             this.absorbInputAroundWindow = true;
@@ -100,18 +100,18 @@ namespace AlteredCarbon
 
         private void ResetIndices()
         {
-            this.backstoryChildIndex = allChildhoodBackstories.FindIndex(x => x == personaData.childhood);
-            if (personaData.adulthood != null)
+            this.backstoryChildIndex = allChildhoodBackstories.FindIndex(x => x == neuralData.childhood);
+            if (neuralData.adulthood != null)
             {
-                this.backstoryAdultIndex = allAdulthoodBackstories.FindIndex(x => x == personaData.adulthood);
+                this.backstoryAdultIndex = allAdulthoodBackstories.FindIndex(x => x == neuralData.adulthood);
             }
-            if (personaData.ideo != null)
+            if (neuralData.ideo != null)
             {
-                ideoIndex = Find.IdeoManager.IdeosListForReading.IndexOf(personaData.ideo);
+                ideoIndex = Find.IdeoManager.IdeosListForReading.IndexOf(neuralData.ideo);
             }
-            if (personaData.faction != null)
+            if (neuralData.faction != null)
             {
-                factionIndex = allFactions.IndexOf(personaData.faction);
+                factionIndex = allFactions.IndexOf(neuralData.faction);
             }
         }
 
@@ -149,18 +149,18 @@ namespace AlteredCarbon
             DrawAcceptCancelButtons(inRect);
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
-            personaData.RefreshDummyPawn();
+            neuralData.RefreshDummyPawn();
         }
 
         protected void DrawTitle(ref Vector2 pos, Rect inRect)
         {
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
-            var title = "AC.EditPersonaStack".Translate();
+            var title = "AC.EditNeuralStack".Translate();
             Widgets.Label(GetLabelRect(title, ref pos, labelWidthOverride: inRect.width - (Margin * 2f)), title);
             Text.Anchor = TextAnchor.UpperLeft;
             pos.y += 15;
-            var explanation = "AC.PersonaStackEditExplanation".Translate();
+            var explanation = "AC.NeuralStackEditExplanation".Translate();
             Text.Font = GameFont.Tiny;
             GUI.color = Color.grey;
             Widgets.Label(GetLabelRect(explanation, ref pos, labelWidthOverride: inRect.width - (Margin * 2f)), explanation);
@@ -183,12 +183,12 @@ namespace AlteredCarbon
         protected void DrawNamePanel(ref Vector2 pos)
         {
             DrawSectionTitle(ref pos, "Name".Translate(), LeftPanelWidth);
-            if (personaData.name is NameTriple nameTriple)
+            if (neuralData.name is NameTriple nameTriple)
             {
                 DoNameInput(ref pos, "FirstName".Translate().CapitalizeFirst(), ref nameTriple.firstInt, delegate
                 {
-                    var name = PawnBioAndNameGenerator.GeneratePawnName(personaData.GetDummyPawn, NameStyle.Full, null,
-                        forceNoNick: false, personaData.OriginalXenotypeDef);
+                    var name = PawnBioAndNameGenerator.GeneratePawnName(neuralData.GetDummyPawn, NameStyle.Full, null,
+                        forceNoNick: false, neuralData.OriginalXenotypeDef);
                     if (name is NameTriple nameTriple1)
                     {
                         nameTriple.firstInt = nameTriple1.firstInt;
@@ -200,8 +200,8 @@ namespace AlteredCarbon
                 });
                 DoNameInput(ref pos, "NickName".Translate().CapitalizeFirst(), ref nameTriple.nickInt, delegate
                 {
-                    var name = PawnBioAndNameGenerator.GeneratePawnName(personaData.GetDummyPawn, NameStyle.Full, null,
-                        forceNoNick: false, personaData.OriginalXenotypeDef);
+                    var name = PawnBioAndNameGenerator.GeneratePawnName(neuralData.GetDummyPawn, NameStyle.Full, null,
+                        forceNoNick: false, neuralData.OriginalXenotypeDef);
                     if (name is NameTriple nameTriple1)
                     {
                         nameTriple.nickInt = nameTriple1.nickInt;
@@ -213,8 +213,8 @@ namespace AlteredCarbon
                 });
                 DoNameInput(ref pos, "LastName".Translate().CapitalizeFirst(), ref nameTriple.lastInt, delegate
                 {
-                    var name = PawnBioAndNameGenerator.GeneratePawnName(personaData.GetDummyPawn, NameStyle.Full, null,
-                        forceNoNick: false, personaData.OriginalXenotypeDef);
+                    var name = PawnBioAndNameGenerator.GeneratePawnName(neuralData.GetDummyPawn, NameStyle.Full, null,
+                        forceNoNick: false, neuralData.OriginalXenotypeDef);
                     if (name is NameTriple nameTriple1)
                     {
                         nameTriple.lastInt = nameTriple1.lastInt;
@@ -225,13 +225,13 @@ namespace AlteredCarbon
                     }
                 });
             }
-            else if (personaData.name is NameSingle nameSingle)
+            else if (neuralData.name is NameSingle nameSingle)
             {
                 DoNameInput(ref pos, "Name".Translate().CapitalizeFirst(), ref nameSingle.nameInt, delegate
                 {
-                    var name = PawnBioAndNameGenerator.GeneratePawnName(personaData.GetDummyPawn, NameStyle.Full, null,
-                    forceNoNick: false, personaData.OriginalXenotypeDef);
-                    personaData.name = name;
+                    var name = PawnBioAndNameGenerator.GeneratePawnName(neuralData.GetDummyPawn, NameStyle.Full, null,
+                    forceNoNick: false, neuralData.OriginalXenotypeDef);
+                    neuralData.name = name;
                 });
             }
         }
@@ -261,16 +261,16 @@ namespace AlteredCarbon
             var maleLabel = "Male".Translate().CapitalizeFirst();
             var maleRect = new Rect(originalGenderRect.xMax + 15, originalGenderRect.y, Text.CalcSize(maleLabel).x + 15, originalGenderRect.height);
             Widgets.Label(maleRect, maleLabel);
-            if (Widgets.RadioButton(new Vector2(maleRect.xMax, maleRect.y), personaData.OriginalGender == Gender.Male))
+            if (Widgets.RadioButton(new Vector2(maleRect.xMax, maleRect.y), neuralData.OriginalGender == Gender.Male))
             {
-                personaData.OriginalGender = Gender.Male;
+                neuralData.OriginalGender = Gender.Male;
             }
             var femaleLabel = "Female".Translate().CapitalizeFirst();
             var femaleRect = new Rect(maleRect.xMax + 50, maleRect.y, Text.CalcSize(femaleLabel).x + 15, maleRect.height);
             Widgets.Label(femaleRect, femaleLabel);
-            if (Widgets.RadioButton(new Vector2(femaleRect.xMax, femaleRect.y), personaData.OriginalGender == Gender.Female))
+            if (Widgets.RadioButton(new Vector2(femaleRect.xMax, femaleRect.y), neuralData.OriginalGender == Gender.Female))
             {
-                personaData.OriginalGender = Gender.Female;
+                neuralData.OriginalGender = Gender.Female;
             }
         }
         protected void DrawBackstoryPanel(ref Vector2 pos)
@@ -289,24 +289,24 @@ namespace AlteredCarbon
             backstoryFilters.Add(NoSkillPenalties);
 
             DoSelectionButtons(ref pos, "Childhood".Translate(), ref backstoryChildIndex,
-                (BackstoryDef x) => x.TitleCapFor(personaData.OriginalGender), allChildhoodBackstories, delegate (BackstoryDef x)
+                (BackstoryDef x) => x.TitleCapFor(neuralData.OriginalGender), allChildhoodBackstories, delegate (BackstoryDef x)
                 {
                     SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
-                    personaData.childhood = x;
-                    this.backstoryChildIndex = allChildhoodBackstories.FindIndex(x => x == personaData.childhood);
+                    neuralData.childhood = x;
+                    this.backstoryChildIndex = allChildhoodBackstories.FindIndex(x => x == neuralData.childhood);
                 }, floatMenu: false, buttonOffsetFromTextOverride: 5f, labelWidthOverride: 80f, filter: null, includeInfoCard: false,
-                tooltipGetter: (BackstoryDef x) => x.FullDescriptionFor(personaData.GetDummyPawn).Resolve(),
+                tooltipGetter: (BackstoryDef x) => x.FullDescriptionFor(neuralData.GetDummyPawn).Resolve(),
                 filters: backstoryFilters);
-            if (personaData.adulthood != null)
+            if (neuralData.adulthood != null)
             {
                 DoSelectionButtons(ref pos, "Adulthood".Translate(), ref backstoryAdultIndex,
-                (BackstoryDef x) => x.TitleCapFor(personaData.OriginalGender), allAdulthoodBackstories, delegate (BackstoryDef x)
+                (BackstoryDef x) => x.TitleCapFor(neuralData.OriginalGender), allAdulthoodBackstories, delegate (BackstoryDef x)
                 {
                     SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
-                    personaData.adulthood = x;
-                    this.backstoryAdultIndex = allAdulthoodBackstories.FindIndex(x => x == personaData.adulthood);
+                    neuralData.adulthood = x;
+                    this.backstoryAdultIndex = allAdulthoodBackstories.FindIndex(x => x == neuralData.adulthood);
                 }, floatMenu: false, buttonOffsetFromTextOverride: 5f, labelWidthOverride: 80f, filter: null, includeInfoCard: false,
-                tooltipGetter: (BackstoryDef x) => x.FullDescriptionFor(personaData.GetDummyPawn).Resolve(),
+                tooltipGetter: (BackstoryDef x) => x.FullDescriptionFor(neuralData.GetDummyPawn).Resolve(),
                 filters: backstoryFilters);
             }
             else
@@ -321,11 +321,11 @@ namespace AlteredCarbon
             DoSelectionButtons(ref pos, "Faction".Translate(), ref factionIndex, (Faction x) => x.Name, allFactions,
                 delegate (Faction faction)
             {
-                if (personaData.faction != faction)
+                if (neuralData.faction != faction)
                 {
-                    personaData.isFactionLeader = false;
+                    neuralData.isFactionLeader = false;
                 }
-                personaData.faction = faction;
+                neuralData.faction = faction;
                 factionIndex = allFactions.IndexOf(faction);
             }, false, buttonOffsetFromTextOverride: 5f, labelWidthOverride: 80f, includeInfoCard: false, 
                 tooltipGetter: (Faction t) => t.def.Description, icon: (Faction t) => t.def.FactionIcon, 
@@ -334,11 +334,11 @@ namespace AlteredCarbon
             
             if (stackRecruitable is false)
             {
-                var unwaveringLoyal = personaData.recruitable;
+                var unwaveringLoyal = neuralData.recruitable;
                 var removeUnwaveringLoyalTrait = "AC.RemoveUnwaveringLoyalTrait".Translate();
                 var removeRect = GetLabelRect(removeUnwaveringLoyalTrait, ref pos, Text.CalcSize(removeUnwaveringLoyalTrait).x + 50);
                 Widgets.CheckboxLabeled(removeRect, removeUnwaveringLoyalTrait, ref unwaveringLoyal);
-                personaData.recruitable = unwaveringLoyal;
+                neuralData.recruitable = unwaveringLoyal;
             }
         }
 
@@ -349,7 +349,7 @@ namespace AlteredCarbon
             DoSelectionButtons(ref pos, "AC.Belief".Translate(), ref ideoIndex, (Ideo x) => x.name, allIdeos,
                 delegate (Ideo ideo)
                 {
-                    personaData.ChangeIdeo(ideo, personaData.certainty);
+                    neuralData.ChangeIdeo(ideo, neuralData.certainty);
                     ideoIndex = allIdeos.IndexOf(ideo);
                 }, false, buttonOffsetFromTextOverride: 5f, labelWidthOverride: 80f, includeInfoCard: false,
                 tooltipGetter: (Ideo t) => t.description, icon: (Ideo t) => t.Icon,
@@ -362,7 +362,7 @@ namespace AlteredCarbon
             Text.Anchor = TextAnchor.UpperLeft;
             var buttonOffset = 5f;
             Rect centaintySliderRect = new Rect(labelRect.xMax + buttonOffset, labelRect.y, (buttonWidth * 2) + buttonOffsetFromButton, buttonHeight);
-            personaData.certainty = Widgets.HorizontalSlider(centaintySliderRect, personaData.certainty, 0, 1f, true, personaData.certainty.ToStringPercent());
+            neuralData.certainty = Widgets.HorizontalSlider(centaintySliderRect, neuralData.certainty, 0, 1f, true, neuralData.certainty.ToStringPercent());
             var explanation = "AC.ChangingPawnIdeologyWarning".Translate();
             Text.Font = GameFont.Tiny;
             GUI.color = Color.grey;
@@ -373,7 +373,7 @@ namespace AlteredCarbon
 
         private void DrawSkillsPanel(ref Vector2 pos, Rect inRect)
         {
-            if (personaData.skills != null)
+            if (neuralData.skills != null)
             {
                 var skillsLabel = "Skills".Translate();
                 var resetButton = new Rect(inRect.width - 75 - Margin, pos.y, 75, 24);
@@ -386,10 +386,10 @@ namespace AlteredCarbon
                 if (Widgets.ButtonText(resetButton, "Reset".Translate()))
                 {
                     SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
-                    personaData.skills = new List<SkillRecord>();
-                    foreach (var skill in personaDataCopy.skills)
+                    neuralData.skills = new List<SkillRecord>();
+                    foreach (var skill in neuralDataCopy.skills)
                     {
-                        personaData.skills.Add(new SkillRecord
+                        neuralData.skills.Add(new SkillRecord
                         {
                             def = skill.def,
                             levelInt = skill.levelInt,
@@ -398,10 +398,10 @@ namespace AlteredCarbon
                             passion = skill.passion,
                         });
                     }
-                    personaData.RefreshDummyPawn();
+                    neuralData.RefreshDummyPawn();
                 }
 
-                var skillBoxHeight = personaData.skills.Count() * (Text.LineHeight + 5) + (this.Margin * 2) - 5;
+                var skillBoxHeight = neuralData.skills.Count() * (Text.LineHeight + 5) + (this.Margin * 2) - 5;
                 Rect traitsFill = new Rect(pos.x, pos.y, inRect.width - pos.x - Margin, skillBoxHeight);
                 Rect skillsContainer = new Rect(traitsFill.x, traitsFill.y, traitsFill.width, skillBoxHeight);
                 Widgets.DrawRectFast(traitsFill, Widgets.MenuSectionBGFillColor, null);
@@ -411,7 +411,7 @@ namespace AlteredCarbon
                 skillsContainer.x += this.Margin;
                 skillsContainer.y += this.Margin;
 
-                var rect = GenUI.DrawElementStackVertical(skillsContainer, Text.LineHeight, personaData.skills, delegate(Rect rect, SkillRecord skill)
+                var rect = GenUI.DrawElementStackVertical(skillsContainer, Text.LineHeight, neuralData.skills, delegate(Rect rect, SkillRecord skill)
                     {
                         Rect labelRect = new Rect(rect.x, rect.y, 110, rect.height);
                         Widgets.Label(labelRect, skill.def.skillLabel.CapitalizeFirst());
@@ -444,7 +444,7 @@ namespace AlteredCarbon
                             if (Widgets.ButtonImage(decrementSkillRect, ButtonPrevious))
                             {
                                 SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
-                                var minLevel = MinLevelOfSkill(personaData.GetDummyPawn, skill.def);
+                                var minLevel = MinLevelOfSkill(neuralData.GetDummyPawn, skill.def);
                                 if (skill.Level > minLevel)
                                 {
                                     skill.Level -= 1;
@@ -455,7 +455,7 @@ namespace AlteredCarbon
                             float fillPercent = Mathf.Max(0.01f, skill.Level / 20f);
                             Texture2D fillTex = SkillUI.SkillBarFillTex;
 
-                            var initialSkill = personaDataCopy.skills.First(x => x.def == skill.def);
+                            var initialSkill = neuralDataCopy.skills.First(x => x.def == skill.def);
 
                             float barSize = (skill.Level > 0 ? (float)skill.Level : 0) / 20f;
                             FillableBar(skillBar, barSize, SkillBarFill);
@@ -550,7 +550,7 @@ namespace AlteredCarbon
             DrawSectionTitle(ref pos, "Traits".Translate(), panelWidth);
             if (Widgets.ButtonImage(addTraitRect, StackAddTrait))
             {
-                var pawn = personaData.GetDummyPawn;
+                var pawn = neuralData.GetDummyPawn;
                 var traitCandidates = new List<Trait>();
                 foreach (var newTraitDef in allTraits)
                 {
@@ -560,7 +560,7 @@ namespace AlteredCarbon
                     {
                         continue;
                     }
-                    if (personaData.traits.Any((Trait tr) => newTraitDef.ConflictsWith(tr))
+                    if (neuralData.traits.Any((Trait tr) => newTraitDef.ConflictsWith(tr))
                         || (newTraitDef.requiredWorkTypes != null && pawn.OneOfWorkTypesIsDisabled(newTraitDef.requiredWorkTypes))
                         || pawn.WorkTagIsDisabled(newTraitDef.requiredWorkTags) || (newTraitDef.forcedPassions != null
                         && pawn.workSettings != null && newTraitDef.forcedPassions.Any((SkillDef p)
@@ -575,7 +575,7 @@ namespace AlteredCarbon
                             && (pawn.story.Adulthood == null || !pawn.story.Adulthood.DisallowsTrait(newTraitDef, degree)))
                         {
                             Trait trait = new Trait(newTraitDef, degree);
-                            if (personaData.traits.Any((Trait tr) => newTraitDef == tr.def && degree == tr.degree) is false
+                            if (neuralData.traits.Any((Trait tr) => newTraitDef == tr.def && degree == tr.degree) is false
                                 && (pawn.kindDef.disallowedTraitsWithDegree.NullOrEmpty()
                                 || !pawn.kindDef.disallowedTraitsWithDegree.Any((TraitRequirement t) => t.Matches(trait)))
                                 && (pawn.mindState == null || pawn.mindState.mentalBreaker == null
@@ -602,12 +602,12 @@ namespace AlteredCarbon
 
                 Find.WindowStack.Add(new Window_SelectItem<Trait>(traitCandidates.First(), traitCandidates, delegate (Trait trait)
                 {
-                    personaData.traits.Add(trait);
+                    neuralData.traits.Add(trait);
                 }, labelGetter: (Trait t) => t.LabelCap,
                     tooltipGetter: (Trait t) => t.TipString(pawn), filters: traitFilters, includeInfoCard: false));
             }
             Rect traitsContainer = new Rect(pos.x, pos.y, panelWidth, 100);
-            var rect = GenUI.DrawElementStack(traitsContainer, Text.LineHeight, personaData.traits.ToList(), delegate (Rect r, Trait trait)
+            var rect = GenUI.DrawElementStack(traitsContainer, Text.LineHeight, neuralData.traits.ToList(), delegate (Rect r, Trait trait)
             {
                 Color color3 = GUI.color;
                 GUI.color = StackElementBackground;
@@ -630,7 +630,7 @@ namespace AlteredCarbon
                 if (Mouse.IsOver(r))
                 {
                     Trait trLocal = trait;
-                    TooltipHandler.TipRegion(tip: new TipSignal(trLocal.TipString(personaData.GetDummyPawn)), rect: r);
+                    TooltipHandler.TipRegion(tip: new TipSignal(trLocal.TipString(neuralData.GetDummyPawn)), rect: r);
                 }
 
                 var buttonRect = new Rect(r.xMax - r.height, r.y, r.height, r.height);
@@ -638,7 +638,7 @@ namespace AlteredCarbon
                 if (Widgets.ButtonInvisible(buttonRect, true))
                 {
                     SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
-                    personaData.traits.Remove(trait);
+                    neuralData.traits.Remove(trait);
                 }
             }, trait => Text.CalcSize(trait.LabelCap).x + Text.LineHeight + 10f);
             pos.y += Mathf.Max(100, rect.height);
@@ -653,7 +653,7 @@ namespace AlteredCarbon
             editTime.y += Text.LineHeight + 5;
             if (AC_Utils.editStacksSettings.enableStackDegradation)
             {
-                string stackDegradation = Mathf.Min(1f, this.personaData.stackDegradation + GetDegradation()).ToStringPercent();
+                string stackDegradation = Mathf.Min(1f, this.neuralData.stackDegradation + GetDegradation()).ToStringPercent();
                 Text.Font = GameFont.Small;
                 Text.Anchor = TextAnchor.MiddleLeft;
                 Widgets.DrawHighlight(editTime);
@@ -701,13 +701,13 @@ namespace AlteredCarbon
             var acceptButtonRect = new Rect(inRect.width - (buttonWidth + (buttonWidth / 2f)), resetAllButtonRect.y, buttonWidth, 32);
             if (Widgets.ButtonText(acceptButtonRect, "AC.StartEditing".Translate()))
             {
-                personaData.editTime = GetEditTime();
+                neuralData.editTime = GetEditTime();
                 if (AC_Utils.editStacksSettings.enableStackDegradation)
                 {
-                    personaData.stackDegradationToAdd = GetDegradation();
+                    neuralData.stackDegradationToAdd = GetDegradation();
                 }
-                personaStack.personaDataRewritten = personaData;
-                personaEditor.billStack.AddBill(new Bill_EditStack(personaStack, AC_DefOf.AC_EditFilledPersonaStack, null));
+                neuralStack.neuralDataRewritten = neuralData;
+                neuralEditor.billStack.AddBill(new Bill_EditStack(neuralStack, AC_DefOf.AC_EditActiveNeuralStack, null));
                 this.Close();
             }
         }
@@ -715,19 +715,19 @@ namespace AlteredCarbon
         private int GetEditTime()
         {
             var time = 0;
-            if (personaDataCopy.name.ToStringFull != personaData.name.ToStringFull)
+            if (neuralDataCopy.name.ToStringFull != neuralData.name.ToStringFull)
             {
                 time += editTimeOffsetPerNameChange;
             }
-            if (personaDataCopy.OriginalGender != personaData.OriginalGender)
+            if (neuralDataCopy.OriginalGender != neuralData.OriginalGender)
             {
                 time += editTimeOffsetPerGenderChange;
             }
-            if (personaDataCopy.skills != null)
+            if (neuralDataCopy.skills != null)
             {
-                foreach (var origSkill in personaDataCopy.skills)
+                foreach (var origSkill in neuralDataCopy.skills)
                 {
-                    var curSkill = personaData.skills.FirstOrDefault(x => x.def == origSkill.def);
+                    var curSkill = neuralData.skills.FirstOrDefault(x => x.def == origSkill.def);
                     var skillLevelDiff = Mathf.Abs(curSkill.Level - origSkill.Level);
                     if (skillLevelDiff > 0)
                     {
@@ -740,10 +740,10 @@ namespace AlteredCarbon
                     }
                 }
             }
-            if (personaDataCopy.traits != null)
+            if (neuralDataCopy.traits != null)
             {
-                var origTraits = personaDataCopy.traits;
-                var curTraits = personaData.traits;
+                var origTraits = neuralDataCopy.traits;
+                var curTraits = neuralData.traits;
                 foreach (var trait in curTraits)
                 {
                     if (origTraits.Any(x => trait.def == x.def && trait.degree == x.degree) is false)
@@ -756,28 +756,28 @@ namespace AlteredCarbon
                 time += missingTraitsCount * editTimeOffsetPerTraitChange;
             }
 
-            if (personaDataCopy.childhood != personaData.childhood)
+            if (neuralDataCopy.childhood != neuralData.childhood)
             {
                 time += editTimeOffsetPerChildhoodChange;
             }
-            if (personaDataCopy.adulthood != personaData.adulthood)
+            if (neuralDataCopy.adulthood != neuralData.adulthood)
             {
                 time += editTimeOffsetPerAdulthoodChange;
             }
-            if (personaDataCopy.ideo != personaData.ideo)
+            if (neuralDataCopy.ideo != neuralData.ideo)
             {
                 time += editTimeOffsetPerIdeologyChange;
             }
-            var certaintyDiff = Mathf.Abs(personaDataCopy.certainty - personaData.certainty) * 100f;
+            var certaintyDiff = Mathf.Abs(neuralDataCopy.certainty - neuralData.certainty) * 100f;
             if (certaintyDiff > 0)
             {
                 time += (int)(certaintyDiff * editTimeOffsetPerCertaintyChange);
             }
-            if (personaDataCopy.faction != personaData.faction)
+            if (neuralDataCopy.faction != neuralData.faction)
             {
                 time += editTimeOffsetPerFactionChange;
             }
-            if (personaDataCopy.recruitable != personaData.recruitable)
+            if (neuralDataCopy.recruitable != neuralData.recruitable)
             {
                 time += editTimeOffsetPerUnwaveringLoyalChange;
             }
@@ -787,19 +787,19 @@ namespace AlteredCarbon
         private float GetDegradation()
         {
             var degradation = 0f;
-            if (personaDataCopy.name.ToStringFull != personaData.name.ToStringFull)
+            if (neuralDataCopy.name.ToStringFull != neuralData.name.ToStringFull)
             {
                 degradation += stackDegradationOffsetPerNameChange;
             }
-            if (personaDataCopy.OriginalGender != personaData.OriginalGender)
+            if (neuralDataCopy.OriginalGender != neuralData.OriginalGender)
             {
                 degradation += stackDegradationOffsetPerGenderChange;
             }
-            if (personaDataCopy.skills != null)
+            if (neuralDataCopy.skills != null)
             {
-                foreach (var origSkill in personaDataCopy.skills)
+                foreach (var origSkill in neuralDataCopy.skills)
                 {
-                    var curSkill = personaData.skills.FirstOrDefault(x => x.def == origSkill.def);
+                    var curSkill = neuralData.skills.FirstOrDefault(x => x.def == origSkill.def);
                     var skillLevelDiff = Mathf.Abs(curSkill.Level - origSkill.Level);
                     if (skillLevelDiff > 0)
                     {
@@ -813,10 +813,10 @@ namespace AlteredCarbon
                 }
             }
 
-            if (personaDataCopy.traits != null)
+            if (neuralDataCopy.traits != null)
             {
-                var origTraits = personaDataCopy.traits;
-                var curTraits = personaData.traits;
+                var origTraits = neuralDataCopy.traits;
+                var curTraits = neuralData.traits;
                 foreach (var trait in curTraits)
                 {
                     if (origTraits.Any(x => trait.def == x.def && trait.degree == x.degree) is false)
@@ -829,28 +829,28 @@ namespace AlteredCarbon
                 degradation += missingTraitsCount * stackDegradationOffsetPerTraitChange;
             }
 
-            if (personaDataCopy.childhood != personaData.childhood)
+            if (neuralDataCopy.childhood != neuralData.childhood)
             {
                 degradation += stackDegradationOffsetPerChildhoodChange;
             }
-            if (personaDataCopy.adulthood != personaData.adulthood)
+            if (neuralDataCopy.adulthood != neuralData.adulthood)
             {
                 degradation += stackDegradationOffsetPerChildhoodChange;
             }
-            if (personaDataCopy.ideo != personaData.ideo)
+            if (neuralDataCopy.ideo != neuralData.ideo)
             {
                 degradation += stackDegradationOffsetPerIdeologyChange;
             }
-            var certaintyDiff = Mathf.Abs(personaDataCopy.certainty - personaData.certainty) * 100f;
+            var certaintyDiff = Mathf.Abs(neuralDataCopy.certainty - neuralData.certainty) * 100f;
             if (certaintyDiff > 0)
             {
                 degradation += (int)(certaintyDiff * stackDegradationOffsetPerCertaintyChange);
             }
-            if (personaDataCopy.faction != personaData.faction)
+            if (neuralDataCopy.faction != neuralData.faction)
             {
                 degradation += stackDegradationOffsetPerFactionChange;
             }
-            if (personaDataCopy.recruitable != personaData.recruitable)
+            if (neuralDataCopy.recruitable != neuralData.recruitable)
             {
                 degradation += stackDegradationOffsetPerUnwaveringLoyalChange;
             }
@@ -860,7 +860,7 @@ namespace AlteredCarbon
         private void ResetAll()
         {
             SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
-            personaData.CopyDataFrom(personaDataCopy);
+            neuralData.CopyDataFrom(neuralDataCopy);
             ResetIndices();
         }
     }

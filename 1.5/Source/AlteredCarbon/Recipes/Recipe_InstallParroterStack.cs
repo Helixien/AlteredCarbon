@@ -28,7 +28,7 @@ namespace AlteredCarbon
         public override void ConsumeIngredient(Thing ingredient, RecipeDef recipe, Map map)
         {
             Thing.allowDestroyNonDestroyable = true;
-            if (ingredient is PersonaStack c)
+            if (ingredient is NeuralStack c)
             {
                 c.dontKillThePawn = true;
             }
@@ -46,7 +46,7 @@ namespace AlteredCarbon
                 {
                     foreach (var i in ingredients)
                     {
-                        if (i is PersonaStack c)
+                        if (i is NeuralStack c)
                         {
                             c.stackCount = 1;
                             c.mapIndexOrState = (sbyte)-1;

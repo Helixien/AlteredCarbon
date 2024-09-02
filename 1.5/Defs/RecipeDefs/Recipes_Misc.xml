@@ -60,7 +60,7 @@
 		<efficiencyStat>AC_StackShreddingEfficiency</efficiencyStat>
 		<effectWorking>ButcherMechanoid</effectWorking>
 		<soundWorking>Recipe_Machining</soundWorking>
-		<uiIconThing>AC_EmptyPersonaStack</uiIconThing>
+		<uiIconThing>AC_EmptyNeuralStack</uiIconThing>
 		<ingredients>
 			<li>
 				<filter>
@@ -69,7 +69,7 @@
 					</categories>
 					<disallowedThingDefs>
 						<li>AC_EmptyArchotechStack</li>
-						<li>AC_FilledArchotechStack</li>
+						<li>AC_ActiveArchotechStack</li>
 					</disallowedThingDefs>
 				</filter>
 				<count>1</count>

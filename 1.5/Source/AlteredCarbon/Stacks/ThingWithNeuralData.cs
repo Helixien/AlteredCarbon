@@ -6,23 +6,23 @@ using Verse;
 
 namespace AlteredCarbon
 {
-    public abstract class ThingWithPersonaData : ThingWithComps
+    public abstract class ThingWithNeuralData : ThingWithComps
     {
         public bool autoLoad = true;
-        private PersonaData personaData;
-        public PersonaData PersonaData
+        private NeuralData neuralData;
+        public NeuralData NeuralData
         {
             get
             {
-                if (personaData is null)
+                if (neuralData is null)
                 {
-                    personaData = new PersonaData();
+                    neuralData = new NeuralData();
                 }
-                return personaData;
+                return neuralData;
             }
             set
             {
-                personaData = value;
+                neuralData = value;
             }
         }
 
@@ -44,18 +44,18 @@ namespace AlteredCarbon
             return copy;
         }
 
-        public void GeneratePersona()
+        public void GenerateNeural()
         {
             Faction faction = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction).RandomElement();
-            GeneratePersona(faction);
+            GenerateNeural(faction);
         }
 
-        public void GeneratePersona(Faction faction)
+        public void GenerateNeural(Faction faction)
         {
             PawnKindDef pawnKind = GetPawnKind(faction);
             Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnKind, faction));
-            PersonaData.CopyFromPawn(pawn, this.def, copyRaceGenderInfo: true);
-            PersonaData.hostPawn = null;
+            NeuralData.CopyFromPawn(pawn, this.def, copyRaceGenderInfo: true);
+            NeuralData.hostPawn = null;
             if (LookTargets_Patch.targets.TryGetValue(pawn, out List<LookTargets> targets))
             {
                 foreach (LookTargets target in targets)
@@ -87,7 +87,7 @@ namespace AlteredCarbon
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Deep.Look(ref personaData, "personaData");
+            Scribe_Deep.Look(ref neuralData, "neuralData");
             Scribe_Values.Look(ref autoLoad, "autoLoad", true);
         }
     }

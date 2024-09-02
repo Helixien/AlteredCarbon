@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<!-- ================================ Persona Stack - Base ====================== -->
+	<!-- ================================ Neural Stack - Base ====================== -->
 	<ThingDef Name="AC_StackBase" ParentName="BodyPartArchotechBase" Abstract="True">
 		<graphicData Inherit="False">
 			<onGroundRandomRotateAngle>35</onGroundRandomRotateAngle>
@@ -68,19 +68,19 @@
 			</li>
 		</comps>
 	</HediffDef>
-	<!-- ================================ Empty Persona Stack ====================== -->
+	<!-- ================================ Empty Neural Stack ====================== -->
 	<ThingDef ParentName="AC_StackBase">
-		<defName>AC_EmptyPersonaStack</defName>
-		<label>empty persona stack</label>
-		<description>An ultratech persona implant which can store a human consciousness, commonly referred to as a persona. Once implanted directly into a person's spine in the neck it will download their consciousness and safely store it. While the death of an organic or inorganic body is no longer a concern, being a fragile piece of technology, blunt force trauma and bullets to the neck area should be avoided at all cost./n/nExtremely rare, heavily restricted and hard to produce, these implants are rare on non-ultratech worlds.</description>
-		<thingClass>AlteredCarbon.PersonaStack</thingClass>
+		<defName>AC_EmptyNeuralStack</defName>
+		<label>empty neural stack</label>
+		<description>An ultratech neural implant which can store a human consciousness, commonly referred to as a neural. Once implanted directly into a person's spine in the neck it will download their consciousness and safely store it. While the death of an organic or inorganic body is no longer a concern, being a fragile piece of technology, blunt force trauma and bullets to the neck area should be avoided at all cost./n/nExtremely rare, heavily restricted and hard to produce, these implants are rare on non-ultratech worlds.</description>
+		<thingClass>AlteredCarbon.NeuralStack</thingClass>
 		<graphicData>
-			<texPath>Things/Item/PersonaStacks/EmptyStack</texPath>
+			<texPath>Things/Item/NeuralStacks/EmptyStack</texPath>
 			<graphicClass>Graphic_StackCount</graphicClass>
 			<drawSize>0.80</drawSize>
 		</graphicData>
 		<descriptionHyperlinks>
-			<RecipeDef>AC_InstallPersonaStack</RecipeDef>
+			<RecipeDef>AC_InstallNeuralStack</RecipeDef>
 		</descriptionHyperlinks>
 		<stackLimit>10</stackLimit>
 		<costList>
@@ -96,22 +96,22 @@
 			<li MayRequire="Ludeon.RimWorld.Royalty">ImplantEmpireRoyal</li>
 		</tradeTags>
 	</ThingDef>
-	<!-- ================================ Persona Stacks - Install Empty ====================== -->
+	<!-- ================================ Neural Stacks - Install Empty ====================== -->
 	<RecipeDef ParentName="SurgeryInstallImplantBase">
-		<defName>AC_InstallEmptyPersonaStack</defName>
-		<label>install empty persona stack</label>
-		<description>Install an empty persona stack.</description>
+		<defName>AC_InstallEmptyNeuralStack</defName>
+		<label>install empty neural stack</label>
+		<description>Install an empty neural stack.</description>
 		<descriptionHyperlinks>
-			<ThingDef>AC_EmptyPersonaStack</ThingDef>
+			<ThingDef>AC_EmptyNeuralStack</ThingDef>
 		</descriptionHyperlinks>
-		<workerClass>AlteredCarbon.Recipe_InstallPersonaStack</workerClass>
-		<jobString>Installing persona stack.</jobString>
-		<uiIconThing>AC_EmptyPersonaStack</uiIconThing>
+		<workerClass>AlteredCarbon.Recipe_InstallNeuralStack</workerClass>
+		<jobString>Installing neural stack.</jobString>
+		<uiIconThing>AC_EmptyNeuralStack</uiIconThing>
 		<ingredients>
 			<li>
 				<filter>
 					<thingDefs>
-						<li>AC_EmptyPersonaStack</li>
+						<li>AC_EmptyNeuralStack</li>
 					</thingDefs>
 				</filter>
 				<count>1</count>
@@ -119,26 +119,26 @@
 		</ingredients>
 		<fixedIngredientFilter>
 			<thingDefs>
-				<li>AC_EmptyPersonaStack</li>
+				<li>AC_EmptyNeuralStack</li>
 			</thingDefs>
 		</fixedIngredientFilter>
 		<appliedOnFixedBodyParts>
 			<li>Neck</li>
 		</appliedOnFixedBodyParts>
-		<addsHediff>AC_PersonaStack</addsHediff>
+		<addsHediff>AC_NeuralStack</addsHediff>
 	</RecipeDef>
-	<!-- ================================ Active Persona Stack ====================== -->
+	<!-- ================================ Active Neural Stack ====================== -->
 	<ThingDef ParentName="AC_StackBase">
-		<defName>AC_FilledPersonaStack</defName>
-		<label>persona stack</label>
-		<description>An ultratech persona implant with a human consciousness stored on it, commonly referred to as a persona. Can be implanted directly into a person's or sleeve’s spine in the neck to bring back the person stored on the stack.</description>
-		<thingClass>AlteredCarbon.PersonaStack</thingClass>
+		<defName>AC_ActiveNeuralStack</defName>
+		<label>neural stack</label>
+		<description>An ultratech neural implant with a human consciousness stored on it, commonly referred to as a neural. Can be implanted directly into a person's or sleeve’s spine in the neck to bring back the person stored on the stack.</description>
+		<thingClass>AlteredCarbon.NeuralStack</thingClass>
 		<graphicData>
-			<texPath>Things/Item/PersonaStacks/FriendlyStack</texPath>
+			<texPath>Things/Item/NeuralStacks/FriendlyStack</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<descriptionHyperlinks>
-			<RecipeDef>AC_InstallPersonaStack</RecipeDef>
+			<RecipeDef>AC_InstallNeuralStack</RecipeDef>
 		</descriptionHyperlinks>
 		<tickerType>Normal</tickerType>
 		<uiIconForStackCount>1</uiIconForStackCount>
@@ -150,17 +150,17 @@
 			<li>ITab_Pawn_Character</li>
 		</inspectorTabs>
 	</ThingDef>
-	<!-- ================================ Persona Stack Hediff ====================== -->
+	<!-- ================================ Neural Stack Hediff ====================== -->
 	<HediffDef ParentName="AC_ImplantStackBase">
-		<defName>AC_PersonaStack</defName>
-		<label>Persona stack</label>
-		<labelNoun>A persona stack</labelNoun>
-		<description>An installed persona stack.</description>
-		<hediffClass>AlteredCarbon.Hediff_PersonaStack</hediffClass>
+		<defName>AC_NeuralStack</defName>
+		<label>Neural stack</label>
+		<labelNoun>A neural stack</labelNoun>
+		<description>An installed neural stack.</description>
+		<hediffClass>AlteredCarbon.Hediff_NeuralStack</hediffClass>
 		<descriptionHyperlinks>
-			<ThingDef>AC_FilledPersonaStack</ThingDef>
+			<ThingDef>AC_ActiveNeuralStack</ThingDef>
 		</descriptionHyperlinks>
-		<spawnThingOnRemoved>AC_FilledPersonaStack</spawnThingOnRemoved>
+		<spawnThingOnRemoved>AC_ActiveNeuralStack</spawnThingOnRemoved>
 		<isBad>false</isBad>
 		<addedPartProps>
 			<solid>true</solid>
@@ -168,22 +168,22 @@
 			<betterThanNatural>true</betterThanNatural>
 		</addedPartProps>
 	</HediffDef>
-	<!-- ================================ Persona Stacks - Install Active ====================== -->
+	<!-- ================================ Neural Stacks - Install Active ====================== -->
 	<RecipeDef ParentName="SurgeryInstallImplantBase">
-		<defName>AC_InstallPersonaStack</defName>
-		<label>install filled persona stack</label>
-		<description>Install a persona stack.</description>
+		<defName>AC_InstallNeuralStack</defName>
+		<label>install active neural stack</label>
+		<description>Install a neural stack.</description>
 		<descriptionHyperlinks>
-			<ThingDef>AC_FilledPersonaStack</ThingDef>
+			<ThingDef>AC_ActiveNeuralStack</ThingDef>
 		</descriptionHyperlinks>
-		<workerClass>AlteredCarbon.Recipe_InstallFilledPersonaStack</workerClass>
-		<jobString>Installing persona stack.</jobString>
-		<uiIconThing>AC_FilledPersonaStack</uiIconThing>
+		<workerClass>AlteredCarbon.Recipe_InstallActiveNeuralStack</workerClass>
+		<jobString>Installing neural stack.</jobString>
+		<uiIconThing>AC_ActiveNeuralStack</uiIconThing>
 		<ingredients>
 			<li>
 				<filter>
 					<thingDefs>
-						<li>AC_FilledPersonaStack</li>
+						<li>AC_ActiveNeuralStack</li>
 					</thingDefs>
 				</filter>
 				<count>1</count>
@@ -191,25 +191,25 @@
 		</ingredients>
 		<fixedIngredientFilter>
 			<thingDefs>
-				<li>AC_FilledPersonaStack</li>
+				<li>AC_ActiveNeuralStack</li>
 			</thingDefs>
 		</fixedIngredientFilter>
 		<appliedOnFixedBodyParts>
 			<li>Neck</li>
 		</appliedOnFixedBodyParts>
-		<addsHediff>AC_PersonaStack</addsHediff>
+		<addsHediff>AC_NeuralStack</addsHediff>
 	</RecipeDef>
-	<!-- ================================ Persona Stacks - Remove ====================== -->
+	<!-- ================================ Neural Stacks - Remove ====================== -->
 	<RecipeDef ParentName="SurgeryRemoveImplantBase">
-		<defName>AC_RemovePersonaStack</defName>
-		<label>remove persona stack</label>
-		<description>Remove persona stack.</description>
+		<defName>AC_RemoveNeuralStack</defName>
+		<label>remove neural stack</label>
+		<description>Remove neural stack.</description>
 		<descriptionHyperlinks>
-			<ThingDef>AC_FilledPersonaStack</ThingDef>
+			<ThingDef>AC_ActiveNeuralStack</ThingDef>
 		</descriptionHyperlinks>
-		<workerClass>AlteredCarbon.Recipe_RemovePersonaStack</workerClass>
-		<jobString>Removing persona stack.</jobString>
-		<uiIconThing>AC_FilledPersonaStack</uiIconThing>
-		<removesHediff>AC_PersonaStack</removesHediff>
+		<workerClass>AlteredCarbon.Recipe_RemoveNeuralStack</workerClass>
+		<jobString>Removing neural stack.</jobString>
+		<uiIconThing>AC_ActiveNeuralStack</uiIconThing>
+		<removesHediff>AC_NeuralStack</removesHediff>
 	</RecipeDef>
 </Defs>

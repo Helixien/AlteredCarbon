@@ -8,15 +8,15 @@ using Verse;
 
 namespace AlteredCarbon
 {
-    public class Building_PersonaMatrix : Building, IThingHolder
+    public class Building_NeuralMatrix : Building, IThingHolder
     {
         public CompPowerTrader compPower;
-        public const int MaxFilledStackCapacity = 25;
-        public bool allowColonistPersonaPrints = true;
-        public bool allowStrangerPersonaPrints = true;
-        public bool allowHostilePersonaPrints = true;
+        public const int MaxActiveStackCapacity = 25;
+        public bool allowColonistNeuralStacks = true;
+        public bool allowStrangerNeuralStacks = true;
+        public bool allowHostileNeuralStacks = true;
 
-        public Building_PersonaMatrix()
+        public Building_NeuralMatrix()
         {
             this.innerContainer = new ThingOwner<Thing>(this, false, LookMode.Deep);
         }
@@ -42,9 +42,9 @@ namespace AlteredCarbon
         }
         public bool Powered => this.compPower.PowerOn;
 
-        public bool HasAnyContents => StoredPersonaPrints.Any();
+        public bool HasAnyContents => StoredNeuralStacks.Any();
 
-        public IEnumerable<PersonaPrint> StoredPersonaPrints => this.innerContainer.OfType<PersonaPrint>();
+        public IEnumerable<NeuralStack> StoredNeuralStacks => this.innerContainer.OfType<NeuralStack>();
 
         public override IEnumerable<Gizmo> GetGizmos()
         {
@@ -54,13 +54,13 @@ namespace AlteredCarbon
             }
             if (Faction == Faction.OfPlayer)
             {
-                var prints = StoredPersonaPrints.ToList();
-                if (prints.Any())
+                var stacks = StoredNeuralStacks.ToList();
+                if (stacks.Any())
                 {
                     var ejectAll = new Command_Action();
                     ejectAll.defaultLabel = "AC.EjectAll".Translate();
-                    ejectAll.defaultDesc = "AC.EjectAllPersonaPrintsDesc".Translate();
-                    ejectAll.icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EjectAllPersonaPrints");
+                    ejectAll.defaultDesc = "AC.EjectAllNeuralStacksDesc".Translate();
+                    ejectAll.icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EjectAllNeuralStacks");
                     ejectAll.action = delegate
                     {
                         EjectContents();
@@ -74,10 +74,10 @@ namespace AlteredCarbon
         {
             var sb = new StringBuilder();
             sb.Append(base.GetInspectString() + "\n");
-            sb.AppendLine("AC.PersonaPrintsStored".Translate(StoredPersonaPrints.Count(), MaxFilledStackCapacity));
-            if (StoredPersonaPrints.Any())
+            sb.AppendLine("AC.NeuralStacksStored".Translate(StoredNeuralStacks.Count(), MaxActiveStackCapacity));
+            if (StoredNeuralStacks.Any())
             {
-                var lastTimeUpdated = StoredPersonaPrints.Select(x => x.PersonaData.lastTimeBackedUp).Max();
+                var lastTimeUpdated = StoredNeuralStacks.Select(x => x.NeuralData.lastTimeBackedUp).Max();
                 if (lastTimeUpdated.HasValue)
                 {
                     Vector2 vector = Find.WorldGrid.LongLatOf(this.Map.Tile);
@@ -88,13 +88,14 @@ namespace AlteredCarbon
         }
 
 
-        public void PerformStackBackup(Hediff_PersonaStack hediff_PersonaStack)
-        {
-            var stackCopyTo = (PersonaStack)ThingMaker.MakeThing(AC_DefOf.AC_FilledPersonaStack);
-            this.innerContainer.TryAdd(stackCopyTo);
-            stackCopyTo.PersonaData.CopyDataFrom(hediff_PersonaStack.PersonaData);
-            AlteredCarbonManager.Instance.RegisterStack(stackCopyTo);
-        }
+        //public void PerformStackBackup(Hediff_NeuralStack hediff_NeuralStack)
+        //{
+        //    var stackCopyTo = (NeuralStack)ThingMaker.MakeThing(AC_DefOf.AC_ActiveNeuralStack);
+        //    this.innerContainer.TryAdd(stackCopyTo);
+        //    stackCopyTo.NeuralData.CopyDataFrom(hediff_NeuralStack.NeuralData);
+        //    AlteredCarbonManager.Instance.RegisterStack(stackCopyTo);
+        //}
+
         public ThingOwner GetDirectlyHeldThings()
         {
             return this.innerContainer;
@@ -110,7 +111,7 @@ namespace AlteredCarbon
             this.innerContainer.ThingOwnerTick(true);
         }
 
-        public bool HasFreeSpace => this.innerContainer.Count < MaxFilledStackCapacity;
+        public bool HasFreeSpace => this.innerContainer.Count < MaxActiveStackCapacity;
         public override void ExposeData()
         {
             base.ExposeData();
@@ -119,34 +120,34 @@ namespace AlteredCarbon
                 this
             });
             Scribe_Values.Look(ref this.contentsKnown, "contentsKnown", false);
-            Scribe_Values.Look(ref this.allowColonistPersonaPrints, "allowColonistPersonaPrints", true);
-            Scribe_Values.Look(ref this.allowHostilePersonaPrints, "allowHostilePersonaPrints", true);
-            Scribe_Values.Look(ref this.allowStrangerPersonaPrints, "allowStrangerPersonaPrints", true);
+            Scribe_Values.Look(ref this.allowColonistNeuralStacks, "allowColonistNeuralStacks", true);
+            Scribe_Values.Look(ref this.allowHostileNeuralStacks, "allowHostileNeuralStacks", true);
+            Scribe_Values.Look(ref this.allowStrangerNeuralStacks, "allowStrangerNeuralStacks", true);
         }
 
         public bool Accepts(Thing thing)
         {
             Predicate<Thing> validator = delegate (Thing x)
             {
-                var personaPrint = thing as PersonaPrint;
-                if (personaPrint is null)
+                var neuralStack = thing as NeuralStack;
+                if (neuralStack is null)
                 {
                     return false;
                 }
-                if (!personaPrint.PersonaData.ContainsPersona)
+                if (!neuralStack.NeuralData.ContainsNeural)
                 {
                     return false;
                 }
 
-                if (this.allowColonistPersonaPrints && personaPrint.PersonaData.faction != null && personaPrint.PersonaData.faction == Faction.OfPlayer)
+                if (this.allowColonistNeuralStacks && neuralStack.NeuralData.faction != null && neuralStack.NeuralData.faction == Faction.OfPlayer)
                 {
                     return true;
                 }
-                if (this.allowHostilePersonaPrints && personaPrint.PersonaData.faction.HostileTo(Faction.OfPlayer))
+                if (this.allowHostileNeuralStacks && neuralStack.NeuralData.faction.HostileTo(Faction.OfPlayer))
                 {
                     return true;
                 }
-                if (this.allowStrangerPersonaPrints && (personaPrint.PersonaData.faction is null || personaPrint.PersonaData.faction != Faction.OfPlayer && !personaPrint.PersonaData.faction.HostileTo(Faction.OfPlayer)))
+                if (this.allowStrangerNeuralStacks && (neuralStack.NeuralData.faction is null || neuralStack.NeuralData.faction != Faction.OfPlayer && !neuralStack.NeuralData.faction.HostileTo(Faction.OfPlayer)))
                 {
                     return true;
                 }

@@ -13,9 +13,9 @@ namespace AlteredCarbon
     {
         public static bool Prefix(StatWorker_MarketValue __instance, ref float __result, StatRequest req, bool applyPostProcess = true)
         {
-            if (req.Thing is ThingWithPersonaData thingWithStack)
+            if (req.Thing is ThingWithNeuralData thingWithStack)
             {
-                __result =  __instance.GetBaseValueFor(req) * PawnQualityPriceFactor(thingWithStack.PersonaData.GetDummyPawn);
+                __result =  __instance.GetBaseValueFor(req) * PawnQualityPriceFactor(thingWithStack.NeuralData.GetDummyPawn);
                 return false;
             }
             return true;

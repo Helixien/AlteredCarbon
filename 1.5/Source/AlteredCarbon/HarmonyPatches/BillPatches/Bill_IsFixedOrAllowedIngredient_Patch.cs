@@ -12,14 +12,14 @@ namespace AlteredCarbon
     {
 		private static bool Prefix(ref bool __result, Bill __instance, Thing thing)
 		{
-			if (__instance is Bill_InstallStack installStack && thing is PersonaStack)
+			if (__instance is Bill_InstallStack installStack && thing is NeuralStack)
             {
 				__result = thing == installStack.stackToInstall;
 				return false;
 			}
-			else if (__instance is Bill_OperateOnStack operateOnStack && thing is ThingWithPersonaData data && data.PersonaData.ContainsPersona)
+			else if (__instance is Bill_OperateOnStack operateOnStack && thing is ThingWithNeuralData data && data.NeuralData.ContainsNeural)
             {
-				__result = thing == operateOnStack.thingWithPersonaData;
+				__result = thing == operateOnStack.thingWithNeuralData;
 				return false;
 			}
             return true;

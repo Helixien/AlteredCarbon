@@ -11,7 +11,7 @@ namespace AlteredCarbon
     {
         private static readonly Vector2 WinSize = new Vector2(432f, 480f);
         private Vector2 scrollPosition;
-        public CompPersonaCache CompPersonaCache => SelThing.TryGetComp<CompPersonaCache>();
+        public CompNeuralCache CompNeuralCache => SelThing.TryGetComp<CompNeuralCache>();
         public ITab_StackStorageContents()
         {
             size = WinSize;
@@ -26,23 +26,23 @@ namespace AlteredCarbon
             GUI.color = Color.white;
             float labelWidth = viewRect.width - 15f;
             float num = 0;
-            DoAllowOption(ref num, labelWidth, "AC.AllowColonistStacks", ref CompPersonaCache.allowColonistPersonaStacks);
-            DoAllowOption(ref num, labelWidth, "AC.AllowStrangerStacks", ref CompPersonaCache.allowStrangerPersonaStacks);
-            DoAllowOption(ref num, labelWidth, "AC.AllowHostileStacks", ref CompPersonaCache.allowHostilePersonaStacks);
-            DoAllowOption(ref num, labelWidth, "AC.AllowArchoStacks", ref CompPersonaCache.allowArchoStacks);
+            DoAllowOption(ref num, labelWidth, "AC.AllowColonistStacks", ref CompNeuralCache.allowColonistNeuralStacks);
+            DoAllowOption(ref num, labelWidth, "AC.AllowStrangerStacks", ref CompNeuralCache.allowStrangerNeuralStacks);
+            DoAllowOption(ref num, labelWidth, "AC.AllowHostileStacks", ref CompNeuralCache.allowHostileNeuralStacks);
+            DoAllowOption(ref num, labelWidth, "AC.AllowArchoStacks", ref CompNeuralCache.allowArchoStacks);
 
-            var storedStacks = CompPersonaCache.StoredStacks.ToList();
-            Widgets.ListSeparator(ref num, viewRect.width - 15, "AC.PersonaStacksInCache".Translate(storedStacks.Count(), CompPersonaCache.Props.stackLimit));
+            var storedStacks = CompNeuralCache.StoredStacks.ToList();
+            Widgets.ListSeparator(ref num, viewRect.width - 15, "AC.NeuralStacksInCache".Translate(storedStacks.Count(), CompNeuralCache.Props.stackLimit));
             Rect scrollRect = new Rect(0, num, viewRect.width - 16, viewRect.height);
             Rect outerRect = scrollRect;
             outerRect.width += 16;
             outerRect.height -= 120;
             scrollRect.height = storedStacks.Count() * 28f;
             Widgets.BeginScrollView(outerRect, ref scrollPosition, scrollRect);
-            foreach (PersonaStack personaStack in storedStacks)
+            foreach (NeuralStack neuralStack in storedStacks)
             {
-                bool showDuplicateStatus = storedStacks.Count(x => x.PersonaData.stackGroupID == personaStack.PersonaData.stackGroupID) > 1;
-                DrawThingRow(ref num, scrollRect.width, personaStack, showDuplicateStatus);
+                bool showDuplicateStatus = storedStacks.Count(x => x.NeuralData.stackGroupID == neuralStack.NeuralData.stackGroupID) > 1;
+                DrawThingRow(ref num, scrollRect.width, neuralStack, showDuplicateStatus);
             }
             Widgets.EndScrollView();
             GUI.EndGroup();
@@ -62,31 +62,31 @@ namespace AlteredCarbon
 
             num += 24f;
         }
-        private void DrawThingRow(ref float y, float width, PersonaStack personaStack, bool showDuplicateStatus)
+        private void DrawThingRow(ref float y, float width, NeuralStack neuralStack, bool showDuplicateStatus)
         {
             Rect rect1 = new Rect(0.0f, y, width, 28f);
-            Widgets.InfoCardButton(0, y, personaStack);
+            Widgets.InfoCardButton(0, y, neuralStack);
             Rect rect2 = new Rect(rect1.width - 24, y, 24f, 24f);
             TooltipHandler.TipRegion(rect2, "AC.EjectStackTooltip".Translate());
             if (Widgets.ButtonImage(rect2, ContentFinder<Texture2D>.Get("UI/Buttons/Drop", true)))
             {
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
-                Find.WindowStack.Add(new Dialog_MessageBox("AC.EjectStackConfirmation".Translate(personaStack.def.label + " (" + personaStack.PersonaData.name.ToStringFull + ")"),
+                Find.WindowStack.Add(new Dialog_MessageBox("AC.EjectStackConfirmation".Translate(neuralStack.def.label + " (" + neuralStack.NeuralData.name.ToStringFull + ")"),
                      "Confirm".Translate(), delegate
                      {
-                         CompPersonaCache.innerContainer.TryDrop(personaStack, SelThing.InteractionCell, SelThing.Map, ThingPlaceMode.Near, 1, out Thing droppedThing);
+                         CompNeuralCache.innerContainer.TryDrop(neuralStack, SelThing.InteractionCell, SelThing.Map, ThingPlaceMode.Near, 1, out Thing droppedThing);
                      }, "GoBack".Translate(), null));
             }
             Rect installStackRect = rect2;
             installStackRect.x -= 28;
 
-            TooltipHandler.TipRegion(installStackRect, personaStack.IsArchotechStack ? "AC.InstallArchoStack".Translate() : "AC.InstallStack".Translate());
+            TooltipHandler.TipRegion(installStackRect, neuralStack.IsArchotechStack ? "AC.InstallArchoStack".Translate() : "AC.InstallStack".Translate());
             if (Widgets.ButtonImage(installStackRect, ContentFinder<Texture2D>.Get("UI/Icons/Install", true)))
             {
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
-                Find.Targeter.BeginTargeting(personaStack.ForPawn(), delegate (LocalTargetInfo x)
+                Find.Targeter.BeginTargeting(neuralStack.ForPawn(), delegate (LocalTargetInfo x)
                 {
-                    personaStack.InstallStackRecipe(x.Pawn, AC_Utils.stackRecipesByDef[personaStack.def].recipe);
+                    neuralStack.InstallStackRecipe(x.Pawn, AC_Utils.stackRecipesByDef[neuralStack.def].recipe);
                 });
             }
             rect1.width -= 54f;
@@ -100,17 +100,17 @@ namespace AlteredCarbon
                 GUI.DrawTexture(rect1, TexUI.HighlightTex);
             }
             Rect thingIconRect = new Rect(24, y, 28f, 28f);
-            Widgets.ThingIcon(thingIconRect, personaStack, 1f);
+            Widgets.ThingIcon(thingIconRect, neuralStack, 1f);
             Text.Anchor = TextAnchor.MiddleLeft;
             GUI.color = ITab_Pawn_Gear.ThingLabelColor;
             Rect pawnLabelRect = new Rect(thingIconRect.xMax + 5, y, rect1.width - 36f, rect1.height);
-            TaggedString pawnLabel = personaStack.PersonaData.PawnNameColored.Truncate(pawnLabelRect.width);
+            TaggedString pawnLabel = neuralStack.NeuralData.PawnNameColored.Truncate(pawnLabelRect.width);
             if (showDuplicateStatus)
             {
-                pawnLabel += " (" + (personaStack.PersonaData.isCopied ? "AC.Copy".Translate() : "AC.Original".Translate()) + ")";
+                pawnLabel += " (" + (neuralStack.NeuralData.isCopied ? "AC.Copy".Translate() : "AC.Original".Translate()) + ")";
             }
             Widgets.Label(pawnLabelRect, pawnLabel);
-            string str2 = personaStack.DescriptionDetailed;
+            string str2 = neuralStack.DescriptionDetailed;
             TooltipHandler.TipRegion(rect1, str2);
             y += 28f;
         }

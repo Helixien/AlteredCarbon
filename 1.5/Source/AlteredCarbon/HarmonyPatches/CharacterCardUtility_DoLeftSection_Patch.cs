@@ -27,9 +27,9 @@ namespace AlteredCarbon
 
         public static List<Ability> FilterAbilities(List<Ability> abilities, Pawn pawn)
         {
-            if (PersonaData.dummyPawns.Contains(pawn))
+            if (NeuralData.dummyPawns.Contains(pawn))
             {
-                var filteredAbilities = abilities.Where(x => PersonaData.CanStoreAbility(pawn, x.def)).ToList();
+                var filteredAbilities = abilities.Where(x => NeuralData.CanStoreAbility(pawn, x.def)).ToList();
                 return filteredAbilities;
             }
             return abilities;

@@ -6,7 +6,7 @@ using Verse;
 namespace AlteredCarbon
 {
 
-    public class Recipe_RemovePersonaStack : Recipe_Surgery
+    public class Recipe_RemoveNeuralStack : Recipe_Surgery
 	{
 		public override IEnumerable<BodyPartRecord> GetPartsToApplyOn(Pawn pawn, RecipeDef recipe)
 		{
@@ -32,13 +32,13 @@ namespace AlteredCarbon
 					return;
 				}
 
-				if (pawn.HasPersonaStack(out var hediff))
+				if (pawn.HasNeuralStack(out var hediff))
 				{
-					var personaStack = ThingMaker.MakeThing(hediff.def.spawnThingOnRemoved) as PersonaStack;
-					personaStack.PersonaData.CopyFromPawn(hediff.pawn, hediff.SourceStack);
-					personaStack.PersonaData.CopyOriginalData(hediff.PersonaData);
-                    personaStack.PersonaData.RefreshDummyPawn();
-                    GenPlace.TryPlaceThing(personaStack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
+					var neuralStack = ThingMaker.MakeThing(hediff.def.spawnThingOnRemoved) as NeuralStack;
+					neuralStack.NeuralData.CopyFromPawn(hediff.pawn, hediff.SourceStack);
+					neuralStack.NeuralData.CopyOriginalData(hediff.NeuralData);
+                    neuralStack.NeuralData.RefreshDummyPawn();
+                    GenPlace.TryPlaceThing(neuralStack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
 					hediff.preventSpawningStack = true;
                     pawn.health.RemoveHediff(hediff);
                     hediff.preventSpawningStack = false;
@@ -47,16 +47,16 @@ namespace AlteredCarbon
                     {
                         pawn.TakeDamage(new DamageInfo(DamageDefOf.SurgicalCut, 99999f, 999f, -1f, null, head));
                     }
-					AlteredCarbonManager.Instance.ReplacePawnWithStack(pawn, personaStack);
-					AlteredCarbonManager.Instance.RegisterSleeve(pawn, personaStack);
+					AlteredCarbonManager.Instance.ReplacePawnWithStack(pawn, neuralStack);
+					AlteredCarbonManager.Instance.RegisterSleeve(pawn, neuralStack);
 					AlteredCarbonManager.Instance.deadPawns.Add(pawn);
-					personaStack.PersonaData.hostPawn = null;
+					neuralStack.NeuralData.hostPawn = null;
                     if (LookTargets_Patch.targets.TryGetValue(pawn, out var targets))
 					{
 						foreach (var target in targets)
 						{
 							target.targets.Remove(pawn);
-							target.targets.Add(personaStack);
+							target.targets.Add(neuralStack);
 						}
 					}
 				}

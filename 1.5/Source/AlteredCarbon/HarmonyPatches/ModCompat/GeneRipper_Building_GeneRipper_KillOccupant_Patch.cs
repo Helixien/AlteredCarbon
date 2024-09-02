@@ -16,7 +16,7 @@ namespace AlteredCarbon
         public static MethodBase TargetMethod() => targetMethod;
         public static void Postfix(Building __instance, Pawn occupant)
         {
-            if (occupant.MapHeld is null && occupant.HasPersonaStack(out var stack))
+            if (occupant.MapHeld is null && occupant.HasNeuralStack(out var stack))
             {
                 stack.SpawnStack(mapToSpawn: __instance.Map);
             }

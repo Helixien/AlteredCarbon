@@ -10,36 +10,36 @@ namespace AlteredCarbon
 {
 
     [HotSwappable]
-    public class PersonaStack : ThingWithPersonaData
+    public class NeuralStack : ThingWithNeuralData
     {
-        public PersonaData personaDataRewritten;
+        public NeuralData neuralDataRewritten;
 
         public override Graphic Graphic
         {
             get
             {
-                PersonaData personaData = PersonaData;
-                if (personaData.ContainsPersona)
+                NeuralData neuralData = NeuralData;
+                if (neuralData.ContainsNeural)
                 {
-                    if (personaData.guestStatusInt == GuestStatus.Slave)
+                    if (neuralData.guestStatusInt == GuestStatus.Slave)
                     {
                         return GetStackGraphic(ref slaveGraphic, ref slaveGraphicData, 
-                            "Things/Item/ArchoStacks/SlaveArchoStack", "Things/Item/PersonaStacks/SlaveStack");
+                            "Things/Item/ArchoStacks/SlaveArchoStack", "Things/Item/NeuralStacks/SlaveStack");
                     }
-                    else if (personaData.faction == Faction.OfPlayer)
+                    else if (neuralData.faction == Faction.OfPlayer)
                     {
                         return GetStackGraphic(ref friendlyGraphic, ref friendlyGraphicData,
-                            "Things/Item/ArchoStacks/FriendlyArchoStack", "Things/Item/PersonaStacks/FriendlyStack");
+                            "Things/Item/ArchoStacks/FriendlyArchoStack", "Things/Item/NeuralStacks/FriendlyStack");
                     }
-                    else if (personaData.faction is null || !personaData.faction.HostileTo(Faction.OfPlayer))
+                    else if (neuralData.faction is null || !neuralData.faction.HostileTo(Faction.OfPlayer))
                     {
                         return GetStackGraphic(ref strangerGraphic, ref strangerGraphicData,
-                            "Things/Item/ArchoStacks/NeutralArchoStack", "Things/Item/PersonaStacks/NeutralStack");
+                            "Things/Item/ArchoStacks/NeutralArchoStack", "Things/Item/NeuralStacks/NeutralStack");
                     }
                     else
                     {
                         return GetStackGraphic(ref hostileGraphic, ref hostileGraphicData,
-                            "Things/Item/ArchoStacks/HostileArchoStack", "Things/Item/PersonaStacks/HostileStack");
+                            "Things/Item/ArchoStacks/HostileArchoStack", "Things/Item/NeuralStacks/HostileStack");
                     }
                 }
                 else
@@ -68,9 +68,9 @@ namespace AlteredCarbon
             get
             {
                 var label = base.LabelNoCount;
-                if (this.IsFilledStack)
+                if (this.IsActiveStack)
                 {
-                    label += " (" + this.PersonaData.PawnNameColored.ToStringSafe() + ")";
+                    label += " (" + this.NeuralData.PawnNameColored.ToStringSafe() + ")";
                 }
                 return label;
             }
@@ -79,7 +79,7 @@ namespace AlteredCarbon
         public override string GetInspectString()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            PersonaData.AppendInfoStack(stringBuilder);
+            NeuralData.AppendInfoStack(stringBuilder);
             stringBuilder.Append(base.GetInspectString());
             return stringBuilder.ToString().TrimEndNewlines();
         }
@@ -100,16 +100,16 @@ namespace AlteredCarbon
                 }
             }
         }
-        public bool IsFilledStack => this.def == AC_DefOf.AC_FilledPersonaStack || this.def == AC_DefOf.AC_FilledArchotechStack;
-        public bool IsArchotechStack => this.def == AC_DefOf.AC_EmptyArchotechStack || this.def == AC_DefOf.AC_FilledArchotechStack;
+        public bool IsActiveStack => this.def == AC_DefOf.AC_ActiveNeuralStack || this.def == AC_DefOf.AC_ActiveArchotechStack;
+        public bool IsArchotechStack => this.def == AC_DefOf.AC_EmptyArchotechStack || this.def == AC_DefOf.AC_ActiveArchotechStack;
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             try
             {
-                if (!respawningAfterLoad && !PersonaData.ContainsPersona && IsFilledStack)
+                if (!respawningAfterLoad && !NeuralData.ContainsNeural && IsActiveStack)
                 {
-                    GeneratePersona();
-                    PersonaData.stackGroupID = AlteredCarbonManager.Instance.GetStackGroupID(this);
+                    GenerateNeural();
+                    NeuralData.stackGroupID = AlteredCarbonManager.Instance.GetStackGroupID(this);
                     AlteredCarbonManager.Instance.RegisterStack(this);
                 }
             }
@@ -117,7 +117,7 @@ namespace AlteredCarbon
             {
                 Log.Error("Exception spawning " + this + ": " + ex);
             }
-            if (def == AC_DefOf.AC_FilledPersonaStack && stackCount != 1)
+            if (def == AC_DefOf.AC_ActiveNeuralStack && stackCount != 1)
             {
                 stackCount = 1;
             }
@@ -180,7 +180,7 @@ namespace AlteredCarbon
                             {
                                 if (AC_Utils.CanImplantStackTo(installInfo.recipe.addsHediff, x.Pawn, this, true))
                                 {
-                                    Recipe_InstallPersonaStack.ApplyPersonaStack(installInfo.recipe, x.Pawn, x.Pawn.GetNeck(), this);
+                                    Recipe_InstallNeuralStack.ApplyNeuralStack(installInfo.recipe, x.Pawn, x.Pawn.GetNeck(), this);
                                     this.Destroy();
                                 }
                             });
@@ -189,7 +189,7 @@ namespace AlteredCarbon
                 }
             }
 
-            if (this.IsFilledStack)
+            if (this.IsActiveStack)
             {
                 yield return new Command_Toggle
                 {
@@ -207,13 +207,13 @@ namespace AlteredCarbon
 
         public void InstallStackRecipe(Pawn medPawn, RecipeDef recipe)
         {
-            if (medPawn.HasPersonaStack(out var stackHediff) && (stackHediff.def == recipe.addsHediff || stackHediff.def == AC_DefOf.AC_ArchotechStack))
+            if (medPawn.HasNeuralStack(out var stackHediff) && (stackHediff.def == recipe.addsHediff || stackHediff.def == AC_DefOf.AC_ArchotechStack))
             {
                 if (stackHediff.def != recipe.addsHediff)
                 {
                     Messages.Message("AC.PawnStackCannotDowngrade".Translate(medPawn.Named("PAWN")), MessageTypeDefOf.CautionInput);
                 }
-                else if (stackHediff.def == AC_DefOf.AC_PersonaStack)
+                else if (stackHediff.def == AC_DefOf.AC_NeuralStack)
                 {
                     Messages.Message("AC.PawnAlreadyHasStack".Translate(medPawn.Named("PAWN")), MessageTypeDefOf.CautionInput);
                 }
@@ -299,27 +299,27 @@ namespace AlteredCarbon
                 return;
             }
             base.Destroy(mode);
-            if (PersonaData.ContainsPersona && dontKillThePawn is false)
+            if (NeuralData.ContainsNeural && dontKillThePawn is false)
             {
-                if (IsArchotechStack is false)
-                {
-                    PersonaData.TryQueueAutoRestoration();
-                }
+                //if (IsArchotechStack is false)
+                //{
+                //    NeuralData.TryQueueAutoRestoration();
+                //}
                 KillInnerPawn();
             }
         }
 
         public void KillInnerPawn(bool affectFactionRelationship = false, Pawn affecter = null)
         {
-            if (PersonaData.ContainsPersona)
+            if (NeuralData.ContainsNeural)
             {
                 Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(PawnKindDefOf.Colonist, Faction.OfPlayer));
-                PersonaData.OverwritePawn(pawn, def.GetModExtension<StackSavingOptionsModExtension>());
+                NeuralData.OverwritePawn(pawn, def.GetModExtension<StackSavingOptionsModExtension>());
                 if (affectFactionRelationship)
                 {
-                    PersonaData.faction.TryAffectGoodwillWith(affecter.Faction, PersonaData.faction.GoodwillToMakeHostile(affecter.Faction), canSendMessage: true, reason: AC_DefOf.AC_ErasedStackEvent);
+                    NeuralData.faction.TryAffectGoodwillWith(affecter.Faction, NeuralData.faction.GoodwillToMakeHostile(affecter.Faction), canSendMessage: true, reason: AC_DefOf.AC_ErasedStackEvent);
                 }
-                if (PersonaData.isFactionLeader)
+                if (NeuralData.isFactionLeader)
                 {
                     pawn.Faction.leader = pawn;
                 }
@@ -337,9 +337,9 @@ namespace AlteredCarbon
         {
             Thing newStack = ThingMaker.MakeThing(this.GetEmptyStackVariant());
             GenPlace.TryPlaceThing(newStack, affecter.Position, affecter.Map, ThingPlaceMode.Near);
-            if (PersonaData.hostPawn != null)
+            if (NeuralData.hostPawn != null)
             {
-                AlteredCarbonManager.Instance.StacksIndex.Remove(PersonaData.PawnID);
+                AlteredCarbonManager.Instance.StacksIndex.Remove(NeuralData.PawnID);
             }
             KillInnerPawn(affectFactionRelationship, affecter);
             foreach (Pawn otherPawn in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_Colonists)
@@ -353,7 +353,7 @@ namespace AlteredCarbon
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Deep.Look(ref personaDataRewritten, "personaDataRewritten");
+            Scribe_Deep.Look(ref neuralDataRewritten, "neuralDataRewritten");
         }
     }
 }

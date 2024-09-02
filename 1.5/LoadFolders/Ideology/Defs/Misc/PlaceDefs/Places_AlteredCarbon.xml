@@ -29,10 +29,10 @@
 				<li>place_job->shuttle pilot</li>
 				<li>place_job->luciferium distributor</li>
 				<li>place_job->security guard</li>
-				<li>place_personalWeapon->taser</li>
-				<li>place_personalWeapon->coil gun</li>
-				<li>place_personalWeapon->charge pistol</li>
-				<li>place_personalWeapon->baton</li>
+				<li>place_neurallWeapon->taser</li>
+				<li>place_neurallWeapon->coil gun</li>
+				<li>place_neurallWeapon->charge pistol</li>
+				<li>place_neurallWeapon->baton</li>
 				<li>place_massWeapon->[anEMPAttack]</li>
 				<li>place_massWeapon->a deadly bioweapon</li>
 				<li>place_massWeapon->a structural disintegration bacterium</li>
@@ -66,8 +66,8 @@
 				<li>place_job->luciferium distributor</li>
 				<li>place_job->virtual celebrity</li>
 				<li>place_job->shuttle pilot</li>
-				<li>place_personalWeapon->vibro-knife</li>
-				<li>place_personalWeapon->charge pistol</li>
+				<li>place_neurallWeapon->vibro-knife</li>
+				<li>place_neurallWeapon->charge pistol</li>
 				<li>place_massWeapon->a structural disintegration bacterium</li>
 				<li>place_massWeapon->a smuggled orbital bombardment targeter</li>
 				<li>place_foeLeader->entertainment mogul</li>

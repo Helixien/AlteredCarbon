@@ -9,35 +9,35 @@ using Verse;
 namespace AlteredCarbon
 {
     [HotSwappable]
-    public class Hediff_PersonaStack : Hediff_Implant
+    public class Hediff_NeuralStack : Hediff_Implant
     {
         public Ability_ArchotechStackSkip skipAbility;
         public ThingDef SourceStack
         {
             get
             {
-                if (this.def == AC_DefOf.AC_PersonaStack)
+                if (this.def == AC_DefOf.AC_NeuralStack)
                 {
-                    return AC_DefOf.AC_FilledPersonaStack;
+                    return AC_DefOf.AC_ActiveNeuralStack;
                 }
-                return AC_DefOf.AC_FilledArchotechStack;
+                return AC_DefOf.AC_ActiveArchotechStack;
             }
         }
-        private PersonaData personaData;
-        public PersonaData PersonaData
+        private NeuralData neuralData;
+        public NeuralData NeuralData
         {
             get
             {
-                if (personaData is null)
+                if (neuralData is null)
                 {
-                    personaData = new PersonaData();
-                    personaData.CopyFromPawn(pawn, SourceStack, copyRaceGenderInfo: true);
+                    neuralData = new NeuralData();
+                    neuralData.CopyFromPawn(pawn, SourceStack, copyRaceGenderInfo: true);
                 }
-                return personaData;
+                return neuralData;
             }
             set
             {
-                personaData = value;
+                neuralData = value;
             }
         }
 
@@ -76,7 +76,7 @@ namespace AlteredCarbon
 
             foreach (var hediff in pawn.health.hediffSet.hediffs.ToList())
             {
-                if (hediff != this && hediff is Hediff_PersonaStack otherStack)
+                if (hediff != this && hediff is Hediff_NeuralStack otherStack)
                 {
                     otherStack.preventKill = otherStack.preventSpawningStack = true;
                     pawn.health.RemoveHediff(otherStack);
@@ -92,7 +92,7 @@ namespace AlteredCarbon
             if (AlteredCarbonManager.Instance.PawnsWithStacks.Contains(pawn) is false)
             {
                 AlteredCarbonManager.Instance.RegisterPawn(pawn);
-                AlteredCarbonManager.Instance.TryAddRelationships(pawn, this.PersonaData.StackGroupData);
+                AlteredCarbonManager.Instance.TryAddRelationships(pawn, this.NeuralData.StackGroupData);
             }
             CreateSkipAbilityIfMissing();
         }
@@ -113,18 +113,18 @@ namespace AlteredCarbon
 
         public override void Notify_PawnDied(DamageInfo? dinfo, Hediff culprit = null)
         {
-            if (!PersonaData.ContainsPersona)
+            if (!NeuralData.ContainsNeural)
             {
-                PersonaData.CopyFromPawn(this.pawn, SourceStack);
+                NeuralData.CopyFromPawn(this.pawn, SourceStack);
             }
             base.Notify_PawnDied(dinfo, culprit);
         }
 
         public override void Notify_PawnKilled()
         {
-            if (!PersonaData.ContainsPersona)
+            if (!NeuralData.ContainsNeural)
             {
-                PersonaData.CopyFromPawn(this.pawn, SourceStack);
+                NeuralData.CopyFromPawn(this.pawn, SourceStack);
             }
             base.Notify_PawnKilled();
         }
@@ -160,35 +160,35 @@ namespace AlteredCarbon
             try
             {
                 var stackDef = SourceStack;
-                var personaStack = ThingMaker.MakeThing(stackDef) as PersonaStack;
-                personaStack.PersonaData.CopyFromPawn(this.pawn, stackDef);
-                personaStack.PersonaData.CopyOriginalData(PersonaData);
+                var neuralStack = ThingMaker.MakeThing(stackDef) as NeuralStack;
+                neuralStack.NeuralData.CopyFromPawn(this.pawn, stackDef);
+                neuralStack.NeuralData.CopyOriginalData(NeuralData);
                 mapToSpawn ??= this.pawn.MapHeld;
                 if (mapToSpawn != null)
                 {
-                    GenPlace.TryPlaceThing(personaStack, this.pawn.PositionHeld, (Map)mapToSpawn, placeMode);
+                    GenPlace.TryPlaceThing(neuralStack, this.pawn.PositionHeld, (Map)mapToSpawn, placeMode);
                     if (psycastEffect)
                     {
-                        FleckMaker.Static(personaStack.Position, personaStack.Map, AC_DefOf.PsycastAreaEffect, 3f);
+                        FleckMaker.Static(neuralStack.Position, neuralStack.Map, AC_DefOf.PsycastAreaEffect, 3f);
                     }
                 }
                 else if (caravan != null)
                 {
-                    CaravanInventoryUtility.GiveThing(caravan, personaStack);
+                    CaravanInventoryUtility.GiveThing(caravan, neuralStack);
                 }
                 else
                 {
-                    Log.Error("Failed to spawn persona stack from " + pawn);
+                    Log.Error("Failed to spawn neural stack from " + pawn);
                 }
                 var degradationHediff = pawn.health.hediffSet.GetFirstHediff<Hediff_StackDegradation>();
                 if (degradationHediff != null)
                 {
-                    personaStack.PersonaData.stackDegradation = degradationHediff.stackDegradation;
+                    neuralStack.NeuralData.stackDegradation = degradationHediff.stackDegradation;
                     pawn.health.RemoveHediff(degradationHediff);
                 }
                 pawn.health.RemoveHediff(this);
-                AlteredCarbonManager.Instance.RegisterStack(personaStack);
-                AlteredCarbonManager.Instance.RegisterSleeve(this.pawn, personaStack);
+                AlteredCarbonManager.Instance.RegisterStack(neuralStack);
+                AlteredCarbonManager.Instance.RegisterSleeve(this.pawn, neuralStack);
                 if (destroyPawn)
                 {
                     if (this.pawn.Dead)
@@ -221,7 +221,7 @@ namespace AlteredCarbon
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Deep.Look(ref personaData, "personaData");
+            Scribe_Deep.Look(ref neuralData, "neuralData");
             Scribe_Deep.Look(ref skipAbility, "skipAbility");
             Scribe_References.Look(ref needleCastingInto, "needleCastingInto");
             if (Scribe.mode == LoadSaveMode.PostLoadInit)

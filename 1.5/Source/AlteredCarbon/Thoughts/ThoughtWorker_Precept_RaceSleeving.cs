@@ -7,6 +7,6 @@ public class ThoughtWorker_Precept_RaceSleeving : ThoughtWorker_Precept
 {
     public override ThoughtState ShouldHaveThought(Pawn p)
     {
-        return p.HasPersonaStack(out var stack) && (stack.PersonaData.OriginalRace != p.def);
+        return p.HasNeuralStack(out var stack) && (stack.NeuralData.OriginalRace != p.def);
     }
 }

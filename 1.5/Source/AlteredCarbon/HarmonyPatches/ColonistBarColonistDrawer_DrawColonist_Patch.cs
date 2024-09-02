@@ -17,7 +17,7 @@ namespace AlteredCarbon
         public static bool Prefix(ColonistBarColonistDrawer __instance, Rect rect, Pawn colonist, Map pawnMap, bool highlight, bool reordering,
             Dictionary<string, string> ___pawnLabelsCache, Vector2 ___PawnTextureSize, Texture2D ___MoodBGTex)
         {
-            if (colonist.Dead && colonist.HasPersonaStack())
+            if (colonist.Dead && colonist.HasNeuralStack())
             {
                 float alpha = Find.ColonistBar.GetEntryRectAlpha(rect);
                 __instance.ApplyEntryInAnotherMapAlphaFactor(pawnMap, ref alpha);

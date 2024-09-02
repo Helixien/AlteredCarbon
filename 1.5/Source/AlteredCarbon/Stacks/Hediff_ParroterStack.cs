@@ -6,8 +6,8 @@ namespace AlteredCarbon
     [HotSwappable]
     public class Hediff_ParroterStack : Hediff_Implant
     {
-        public PersonaData originalPawnData;
-        public PersonaData needlePawnData;
+        public NeuralData originalPawnData;
+        public NeuralData needlePawnData;
         public override void ExposeData()
         {
             base.ExposeData();

@@ -86,8 +86,8 @@
   <ItemGroup>
     <Compile Include="AlteredCarbonSettingsWorker_EditStack.cs" />
     <Compile Include="AlteredCarbonSettingsWorker_SleeveGrowing.cs" />
-    <Compile Include="Buildings\Building_PersonaConnector.cs" />
-    <Compile Include="Buildings\Building_PersonaEditor.cs" />
+    <Compile Include="Buildings\Building_NeuralConnector.cs" />
+    <Compile Include="Buildings\Building_NeuralEditor.cs" />
     <Compile Include="Buildings\Building_Incubator.cs" />
     <Compile Include="Buildings\Building_SleeveGestator.cs" />
     <Compile Include="CompApparelAbilities.cs" />
@@ -114,7 +114,6 @@
     <Compile Include="HarmonyPatches\RestUtility_WakeUp_Patch.cs" />
     <Compile Include="HarmonyPatches\StatWorker_MarketValue_GetExplanationUnfinalized_Patch.cs" />
     <Compile Include="HarmonyPatches\StatWorker_MarketValue_GetValueUnfinalized_Patch.cs" />
-    <Compile Include="HarmonyPatches\SymbolResolver_AncientShrinesGroup_Resolve_Patch.cs" />
     <Compile Include="HarmonyPatches\ThoughtWorker_AnnoyingVoice_CurrentSocialStateInternal_Patch.cs" />
     <Compile Include="HarmonyPatches\TradeUtility_PlayerSellableNow_Patch.cs" />
     <Compile Include="HarmonyPatches\TransferableUIUtility_DoExtraIcons_Patch.cs" />
@@ -145,27 +144,22 @@
     <Compile Include="HarmonyPatches\Pawn_IdeoTracker_ExposeData_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnRenderer_EquipmentRender_Patch.cs" />
     <Compile Include="Jobs\WorkGiver_HaulCorpseToSleeveGrower.cs" />
-    <Compile Include="Jobs\WorkGiver_HaulPersonaStacks.cs" />
-    <Compile Include="Jobs\WorkGiver_HaulPersonaPrints.cs" />
+    <Compile Include="Jobs\WorkGiver_HaulNeuralStacks.cs" />
     <Compile Include="HarmonyPatches\BillPatches\JobDriver_DoBill_MakeNewToils_Patch.cs" />
-    <Compile Include="Jobs\WorkGiver_HaulToPersonaConnector.cs" />
+    <Compile Include="Jobs\WorkGiver_HaulToNeuralConnector.cs" />
     <Compile Include="Recipes\Bill_EditStack.cs" />
-    <Compile Include="Recipes\Recipe_DuplicatePersonaStack.cs" />
+    <Compile Include="Recipes\Recipe_DuplicateNeuralStack.cs" />
     <Compile Include="Recipes\Recipe_InstallParroterStack.cs" />
-    <Compile Include="Recipes\Recipe_OperateOnPersonaPrint.cs" />
-    <Compile Include="Recipes\Recipe_OperateOnPersonaStack.cs" />
+    <Compile Include="Recipes\Recipe_OperateOnNeuralStack.cs" />
     <Compile Include="Recipes\Recipe_RemoveParroterStack.cs" />
-    <Compile Include="Recipes\Recipe_EditFilledPersonaStack.cs" />
-    <Compile Include="Recipes\Recipe_RestoreStackFromPersonaPrint.cs" />
+    <Compile Include="Recipes\Recipe_EditActiveNeuralStack.cs" />
     <Compile Include="SleevePreset.cs" />
-    <Compile Include="Stacks\CompPersonaCache.cs" />
+    <Compile Include="Stacks\CompNeuralCache.cs" />
     <Compile Include="Stacks\Hediff_ParroterStack.cs" />
-    <Compile Include="Stacks\PersonaPrint.cs" />
     <Compile Include="Stacks\RJWData.cs" />
-    <Compile Include="Stacks\ThingWithPersonaData.cs" />
+    <Compile Include="Stacks\ThingWithNeuralData.cs" />
     <Compile Include="Stacks\Thought_StackDegradation.cs" />
     <Compile Include="UI\Alert_ColonistStackNeedsExtracting.cs" />
-    <Compile Include="UI\Command_ActionOnPrint.cs" />
     <Compile Include="UI\Command_ActionOnStack.cs" />
     <Compile Include="HarmonyPatches\Building_GeneExtractor_CanAcceptPawn_Patch.cs" />
     <Compile Include="HarmonyPatches\ChildcareUtility_SwaddleBaby_Patch.cs" />
@@ -204,7 +198,7 @@
     <Compile Include="Recipes\Bill_OperateOnStack.cs" />
     <Compile Include="Stacks\Ability_ArchotechStackSkip.cs" />
     <Compile Include="Stacks\Hediff_StackDegradation.cs" />
-    <Compile Include="Stacks\ScenPart_PersonaStack.cs" />
+    <Compile Include="Stacks\ScenPart_NeuralStack.cs" />
     <Compile Include="UI\Command_ActionOnThing.cs" />
     <Compile Include="UI\Dialog_PresetList.cs" />
     <Compile Include="UI\Dialog_SelectXenogermForSleeve.cs" />
@@ -228,7 +222,7 @@
     <Compile Include="HarmonyPatches\BedPatches\BedPatches.cs" />
     <Compile Include="HarmonyPatches\BillPatches\Bill_IsFixedOrAllowedIngredient_Patch.cs" />
     <Compile Include="HarmonyPatches\SituationalThoughtHandler_CheckRecalculateMoodThoughts_Patch.cs" />
-    <Compile Include="Recipes\Recipe_WipeFilledPersonaStack.cs" />
+    <Compile Include="Recipes\Recipe_WipeActiveNeuralStack.cs" />
     <Compile Include="Recipes\SpecialThingFilterWorker_StacksHostile.cs" />
     <Compile Include="Recipes\SpecialThingFilterWorker_StacksColonist.cs" />
     <Compile Include="Recipes\Bill_InstallStack.cs" />
@@ -240,7 +234,7 @@
     <Compile Include="UI\Window_SleeveCustomization.cs" />
     <Compile Include="ExcludeRacesModExtension.cs" />
     <Compile Include="Stacks\PsychologyData.cs" />
-    <Compile Include="Stacks\PersonaData.cs" />
+    <Compile Include="Stacks\NeuralData.cs" />
     <Compile Include="Stacks\StackGroupData.cs" />
     <Compile Include="Thoughts\ThoughtWorker_WomansBody.cs" />
     <Compile Include="Thoughts\ThoughtWorker_MansBody.cs" />
@@ -248,13 +242,13 @@
     <Compile Include="HarmonyPatches\ColonistBarColonistDrawer_DrawColonist_Patch.cs" />
     <Compile Include="Jobs\JobDriver_ExtractStack.cs" />
     <Compile Include="HarmonyPatches\FloatMenuMakerMap_AddHumanlikeOrders_Patch.cs" />
-    <Compile Include="Stacks\PersonaStack.cs" />
+    <Compile Include="Stacks\NeuralStack.cs" />
     <Compile Include="HarmonyPatches\BestowingPatches\QuestPart_BestowingCeremony_MakeLord_Patch.cs" />
     <Compile Include="Stacks\StackSavingOptionsModExtension.cs" />
     <Compile Include="StackSpawnModExtension.cs" />
-    <Compile Include="Recipes\Recipe_RemovePersonaStack.cs" />
-    <Compile Include="Recipes\Recipe_InstallPersonaStack.cs" />
-    <Compile Include="Stacks\Hediff_PersonaStack.cs" />
+    <Compile Include="Recipes\Recipe_RemoveNeuralStack.cs" />
+    <Compile Include="Recipes\Recipe_InstallNeuralStack.cs" />
+    <Compile Include="Stacks\Hediff_NeuralStack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AlteredCarbonManager.cs" />
     <Compile Include="AC_Utils.cs" />
@@ -264,7 +258,7 @@
     <Compile Include="HarmonyPatches\PathFinder_FindPath_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_PathFollower_CostToMoveIntoCell_Patch.cs" />
     <Compile Include="HarmonyPatches\ShotReport_HitReportFor_Patch.cs" />
-    <Compile Include="Buildings\Building_PersonaMatrix.cs" />
+    <Compile Include="Buildings\Building_NeuralMatrix.cs" />
     <Compile Include="GameComponent_AlteredCarbon.cs" />
     <Compile Include="HarmonyPatches\PawnUtility_GetPosture_Patch.cs" />
     <Compile Include="Jobs\JobDriver_CancelRepurposingBody.cs" />
@@ -284,7 +278,7 @@
     <Compile Include="Thoughts\ThoughtWorker_Precept_StackDuplicating_Social.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_XenoSleeving_Social.cs" />
     <Compile Include="UI\Dialog_InfoCardStack.cs" />
-    <Compile Include="UI\ITab_PersonaPrintStorageContents.cs" />
+    <Compile Include="UI\ITab_NeuralPrintStorageContents.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_ArchotechStack.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_NoStack.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_NoStack_Social.cs" />
@@ -305,6 +299,9 @@
       <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <Publicize Include="Assembly-CSharp;VAspirE" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NeuralPrint%28disabled%29\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

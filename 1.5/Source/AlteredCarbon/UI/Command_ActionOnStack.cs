@@ -8,7 +8,7 @@ namespace AlteredCarbon
 {
     public class Command_ActionOnStack : Command_ActionOnThing
     {
-        public Command_ActionOnStack(Building_PersonaEditor personaEditor, TargetingParameters targetParameters, Action<LocalTargetInfo> actionOnStack) : base(personaEditor, targetParameters, actionOnStack)
+        public Command_ActionOnStack(Building_NeuralEditor neuralEditor, TargetingParameters targetParameters, Action<LocalTargetInfo> actionOnStack) : base(neuralEditor, targetParameters, actionOnStack)
         {
         }
 
@@ -16,29 +16,29 @@ namespace AlteredCarbon
         {
             get
             {
-                var stacks = personaEditor.Map.listerThings
-                    .ThingsOfDef(AC_DefOf.AC_FilledPersonaStack).OfType<PersonaStack>()
-                    .Where(x => x.PersonaData.ContainsPersona).ToList();
-                foreach (var cache in personaEditor.Map.listerThings.ThingsOfDef(AC_DefOf.AC_PersonaCache))
+                var stacks = neuralEditor.Map.listerThings
+                    .ThingsOfDef(AC_DefOf.AC_ActiveNeuralStack).OfType<NeuralStack>()
+                    .Where(x => x.NeuralData.ContainsNeural).ToList();
+                foreach (var cache in neuralEditor.Map.listerThings.ThingsOfDef(AC_DefOf.AC_NeuralCache))
                 {
-                    var comp = cache.TryGetComp<CompPersonaCache>();
+                    var comp = cache.TryGetComp<CompNeuralCache>();
                     foreach (var thing in comp.innerContainer)
                     {
-                        if (thing is PersonaStack stack && stack.def == AC_DefOf.AC_FilledPersonaStack && stack.PersonaData.ContainsPersona)
+                        if (thing is NeuralStack stack && stack.def == AC_DefOf.AC_ActiveNeuralStack && stack.NeuralData.ContainsNeural)
                         {
                             stacks.Add(stack);
                         }
                     }
                 }
-                foreach (PersonaStack personaStack in stacks)
+                foreach (NeuralStack neuralStack in stacks)
                 {
-                    if (targetParameters is null || targetParameters.CanTarget(personaStack))
+                    if (targetParameters is null || targetParameters.CanTarget(neuralStack))
                     {
-                        yield return new FloatMenuOption(personaStack.PersonaData.PawnNameColored, delegate ()
+                        yield return new FloatMenuOption(neuralStack.NeuralData.PawnNameColored, delegate ()
                         {
-                            actionOnStack(personaStack);
+                            actionOnStack(neuralStack);
                             Find.Targeter.StopTargeting();
-                        }, iconThing: personaStack, iconColor: personaStack.DrawColor);
+                        }, iconThing: neuralStack, iconColor: neuralStack.DrawColor);
                     }
                 }
             }

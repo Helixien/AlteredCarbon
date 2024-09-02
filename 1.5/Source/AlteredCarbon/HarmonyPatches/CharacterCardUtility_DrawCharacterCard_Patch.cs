@@ -30,7 +30,7 @@ namespace AlteredCarbon
 
         public static bool ShouldPreventButtons(Pawn pawn)
         {
-            return PersonaData.lastDummyPawn == pawn;
+            return NeuralData.lastDummyPawn == pawn;
         }
     }
 }

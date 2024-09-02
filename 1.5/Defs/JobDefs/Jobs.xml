@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<!-- ================================ Persona Stack Jobs ====================== -->
+	<!-- ================================ Neural Stack Jobs ====================== -->
 	<JobDef>
 		<defName>AC_ExtractStack</defName>
 		<driverClass>AlteredCarbon.JobDriver_ExtractStack</driverClass>
-		<reportString>extracts persona stack from target.</reportString>
+		<reportString>extracts neural stack from target.</reportString>
 	</JobDef>
 	<!-- ================================ Sleeve Jobs ====================== -->
 	<JobDef>

@@ -33,7 +33,7 @@ namespace AlteredCarbon
         public static Dictionary<string, List<GeneDef>> genesByCategories = new Dictionary<string, List<GeneDef>>();
         public static Dictionary<ThingDef, ThingDef> stacksPairs = new Dictionary<ThingDef, ThingDef>
         {
-            { AC_DefOf.AC_FilledPersonaStack, AC_DefOf.AC_EmptyPersonaStack },
+            { AC_DefOf.AC_ActiveNeuralStack, AC_DefOf.AC_EmptyNeuralStack },
         };
         
         public static readonly List<GeneDef> sleeveQualities = new List<GeneDef>
@@ -50,18 +50,18 @@ namespace AlteredCarbon
         public static Dictionary<ThingDef, StackInstallInfo> stackRecipesByDef = new Dictionary<ThingDef, StackInstallInfo>
         {
             {
-                AC_DefOf.AC_FilledPersonaStack, new StackInstallInfo
+                AC_DefOf.AC_ActiveNeuralStack, new StackInstallInfo
                 {
-                    recipe = AC_DefOf.AC_InstallPersonaStack,
+                    recipe = AC_DefOf.AC_InstallNeuralStack,
                     installLabel = "AC.InstallStack".Translate(),
                     installDesc = "AC.InstallStackDesc".Translate(),
                     installIcon = ContentFinder<Texture2D>.Get("UI/Gizmos/InstallStack")
                 }
             },
             {
-                AC_DefOf.AC_EmptyPersonaStack, new StackInstallInfo
+                AC_DefOf.AC_EmptyNeuralStack, new StackInstallInfo
                 {
-                    recipe = AC_DefOf.AC_InstallEmptyPersonaStack,
+                    recipe = AC_DefOf.AC_InstallEmptyNeuralStack,
                     installLabel = "AC.InstallStack".Translate(),
                     installDesc = "AC.InstallEmptyStackDesc".Translate(),
                     installIcon = ContentFinder<Texture2D>.Get("UI/Gizmos/InstallStack")
@@ -70,11 +70,11 @@ namespace AlteredCarbon
         };
         public static HashSet<RecipeDef> installEmptyStacksRecipes = new HashSet<RecipeDef>
         {
-            AC_DefOf.AC_InstallEmptyPersonaStack
+            AC_DefOf.AC_InstallEmptyNeuralStack
         };
-        public static HashSet<RecipeDef> installFilledStacksRecipes = new HashSet<RecipeDef>
+        public static HashSet<RecipeDef> installActiveStacksRecipes = new HashSet<RecipeDef>
         {
-            AC_DefOf.AC_InstallPersonaStack, AC_DefOf.AC_InstallArchotechStack
+            AC_DefOf.AC_InstallNeuralStack, AC_DefOf.AC_InstallArchotechStack
         };
 
         public static bool Wears(this Pawn pawn, ThingDef thingDef)
@@ -109,8 +109,8 @@ namespace AlteredCarbon
                 }
                 return def == AC_DefOf.AC_SleeveGestator
                     || def == AC_DefOf.AC_SleeveCasket || def == AC_DefOf.AC_SleeveCasket
-                    || def == AC_DefOf.AC_PersonaMatrix
-                    || def == AC_DefOf.AC_PersonaEditor;
+                    || def == AC_DefOf.AC_NeuralMatrix
+                    || def == AC_DefOf.AC_NeuralEditor;
             }
             return false;
         }
@@ -182,7 +182,7 @@ namespace AlteredCarbon
             var field = typeof(OverlayDrawer).GetField("NeedsPowerMat", BindingFlags.Static | BindingFlags.NonPublic);
             field.SetValue(null, MaterialPool.MatFrom("UI/Overlays/NeedsPower", ShaderDatabase.MetaOverlay));
             AddHarmonyLogging();
-            stackRecipesByDef[AC_DefOf.AC_FilledArchotechStack] = new StackInstallInfo
+            stackRecipesByDef[AC_DefOf.AC_ActiveArchotechStack] = new StackInstallInfo
             {
                 recipe = AC_DefOf.AC_InstallArchotechStack,
                 installLabel = "AC.InstallArchotechStack".Translate(),
@@ -196,7 +196,7 @@ namespace AlteredCarbon
                 installDesc = "AC.InstallEmptyArchotechStackDesc".Translate(),
                 installIcon = ContentFinder<Texture2D>.Get("UI/Gizmos/InstallArchoStack")
             };
-            stacksPairs[AC_DefOf.AC_FilledArchotechStack] = AC_DefOf.AC_EmptyArchotechStack;
+            stacksPairs[AC_DefOf.AC_ActiveArchotechStack] = AC_DefOf.AC_EmptyArchotechStack;
             installEmptyStacksRecipes.Add(AC_DefOf.AC_InstallEmptyArchotechStack);
             unstackableRaces = GetUnstackableRaces();
             foreach (var gene in DefDatabase<GeneDef>.AllDefs)
@@ -311,9 +311,9 @@ namespace AlteredCarbon
             }
         }
 
-        public static bool CanImplantStackTo(HediffDef stackToImplant, Pawn pawn, PersonaStack personaStack = null, bool throwMessages = false)
+        public static bool CanImplantStackTo(HediffDef stackToImplant, Pawn pawn, NeuralStack neuralStack = null, bool throwMessages = false)
         {
-            if (personaStack != null && pawn.IsEmptySleeve() && personaStack.IsFilledStack is false)
+            if (neuralStack != null && pawn.IsEmptySleeve() && neuralStack.IsActiveStack is false)
             {
                 if (throwMessages)
                 {
@@ -333,16 +333,16 @@ namespace AlteredCarbon
             }
             if (pawn.DevelopmentalStage != DevelopmentalStage.Adult)
             {
-                if (personaStack != null && personaStack.IsFilledStack)
+                if (neuralStack != null && neuralStack.IsActiveStack)
                 {
                     if (throwMessages)
                     {
-                        Messages.Message("AC.CannotInstallFilledStackInChildren".Translate(), MessageTypeDefOf.RejectInput);
+                        Messages.Message("AC.CannotInstallActiveStackInChildren".Translate(), MessageTypeDefOf.RejectInput);
                     }
                     return false;
                 }
             }
-            if (pawn.HasPersonaStack(out var stackHediff)
+            if (pawn.HasNeuralStack(out var stackHediff)
                 && (stackHediff.def == AC_DefOf.AC_ArchotechStack || stackToImplant == stackHediff.def))
             {
                 if (throwMessages)
@@ -353,34 +353,34 @@ namespace AlteredCarbon
             }
             if (ModCompatibility.IsAndroid(pawn))
             {
-                if (pawn.genes.HasActiveGene(AC_DefOf.AC_PersonaModule))
+                if (pawn.genes.HasActiveGene(AC_DefOf.AC_NeuralModule))
                 {
                     return true;
                 }
                 else if (throwMessages)
                 {
-                    Messages.Message("AC.CannotInstallStackOnAndroidWithoutPersonaModule".Translate(), MessageTypeDefOf.RejectInput);
+                    Messages.Message("AC.CannotInstallStackOnAndroidWithoutNeuralModule".Translate(), MessageTypeDefOf.RejectInput);
                     return false;
                 }
             }
             return true;
         }
-        public static ThingDef GetEmptyStackVariant(this PersonaStack personaStack)
+        public static ThingDef GetEmptyStackVariant(this NeuralStack neuralStack)
         {
-            if (personaStack.def == AC_DefOf.AC_FilledArchotechStack)
+            if (neuralStack.def == AC_DefOf.AC_ActiveArchotechStack)
             {
                 return AC_DefOf.AC_EmptyArchotechStack;
             }
-            return AC_DefOf.AC_EmptyPersonaStack;
+            return AC_DefOf.AC_EmptyNeuralStack;
         }
 
-        public static ThingDef GetFilledStackVariant(this PersonaStack personaStack)
+        public static ThingDef GetActiveStackVariant(this NeuralStack neuralStack)
         {
-            if (personaStack.def == AC_DefOf.AC_EmptyArchotechStack)
+            if (neuralStack.def == AC_DefOf.AC_EmptyArchotechStack)
             {
-                return AC_DefOf.AC_FilledArchotechStack;
+                return AC_DefOf.AC_ActiveArchotechStack;
             }
-            return AC_DefOf.AC_FilledPersonaStack;
+            return AC_DefOf.AC_ActiveNeuralStack;
         }
         public static void RefreshGraphic(this Pawn pawn)
         {
@@ -642,9 +642,9 @@ namespace AlteredCarbon
             return map.listerThings.ThingsOfDef(ThingDefOf.Xenogerm).OfType<Xenogerm>().Where(x => 
             x.PositionHeld.Fogged(map) is false && !x.IsForbidden(Faction.OfPlayer));
         }
-        public static bool HasPersonaStack(this Pawn pawn)
+        public static bool HasNeuralStack(this Pawn pawn)
         {
-            return pawn.HasPersonaStack(out _);
+            return pawn.HasNeuralStack(out _);
         }
 
         public static void ResetInitialComponents(this Pawn pawn)
@@ -692,7 +692,7 @@ namespace AlteredCarbon
                 {
                     foreach (var ability in oldAbilities)
                     {
-                        if (PersonaData.IsNaturalAbility(pawn, ability))
+                        if (NeuralData.IsNaturalAbility(pawn, ability))
                         {
                             pawn.abilities.GainAbility(ability);
                         }
@@ -706,7 +706,7 @@ namespace AlteredCarbon
                 {
                     foreach (var ability in oldAbilities)
                     {
-                        if (PersonaData.IsPsycastAbility(ability))
+                        if (NeuralData.IsPsycastAbility(ability))
                         {
                             pawn.abilities.GainAbility(ability);
                         }
@@ -741,37 +741,37 @@ namespace AlteredCarbon
             return pawn.health.hediffSet.hediffs.OfType<Hediff_MissingPart>();
         }
 
-        public static Hediff_PersonaStack GetPersonaStack(this Pawn pawn)
+        public static Hediff_NeuralStack GetNeuralStack(this Pawn pawn)
         {
-            if (pawn.HasPersonaStack(out var hediff))
+            if (pawn.HasNeuralStack(out var hediff))
             {
                 return hediff;
             }
             return null;
         }
-        public static bool HasPersonaStack(this Pawn pawn, out Hediff_PersonaStack hediff_PersonaStack)
+        public static bool HasNeuralStack(this Pawn pawn, out Hediff_NeuralStack hediff_NeuralStack)
         {
             if (pawn?.health?.hediffSet != null)
             {
-                if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_PersonaStack) is Hediff_PersonaStack hediff)
+                if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_NeuralStack) is Hediff_NeuralStack hediff)
                 {
-                    hediff_PersonaStack = hediff;
+                    hediff_NeuralStack = hediff;
                     return true;
                 }
-                else if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_ArchotechStack) is Hediff_PersonaStack hediff2)
+                else if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_ArchotechStack) is Hediff_NeuralStack hediff2)
                 {
-                    hediff_PersonaStack = hediff2;
+                    hediff_NeuralStack = hediff2;
                     return true;
                 }
             }
-            hediff_PersonaStack = null;
+            hediff_NeuralStack = null;
             return false;
         }
         public static bool IsCopy(this Pawn pawn)
         {
-            if (pawn.HasPersonaStack(out var hediff))
+            if (pawn.HasNeuralStack(out var hediff))
             {
-                var stackGroupData = hediff.PersonaData.StackGroupData;
+                var stackGroupData = hediff.NeuralData.StackGroupData;
                 if (stackGroupData.copiedPawns.Contains(pawn))
                 {
                     return true;
@@ -826,7 +826,7 @@ namespace AlteredCarbon
         public static bool HasStackInsideOrOutside(this Pawn pawn)
         {
             return AlteredCarbonManager.Instance.StacksIndex.ContainsKey(pawn.thingIDNumber)
-                || AlteredCarbonManager.Instance.PawnsWithStacks.Contains(pawn) || pawn.HasPersonaStack();
+                || AlteredCarbonManager.Instance.PawnsWithStacks.Contains(pawn) || pawn.HasNeuralStack();
         }
 
         public static bool UsesSleeve(this Pawn pawn)
@@ -849,10 +849,10 @@ namespace AlteredCarbon
             return true;
         }
 
-        public static bool SleeveMatchesOriginalXenotype(this Pawn p, PersonaData stackPersonaData)
+        public static bool SleeveMatchesOriginalXenotype(this Pawn p, NeuralData stackNeuralData)
         {
-            return stackPersonaData.OriginalXenotypeName != null && p.genes.xenotypeName != stackPersonaData.OriginalXenotypeName
-                   || stackPersonaData.OriginalXenotypeDef != null && p.genes.xenotype != stackPersonaData.OriginalXenotypeDef;
+            return stackNeuralData.OriginalXenotypeName != null && p.genes.xenotypeName != stackNeuralData.OriginalXenotypeName
+                   || stackNeuralData.OriginalXenotypeDef != null && p.genes.xenotype != stackNeuralData.OriginalXenotypeDef;
         }
 
         public static void TryDisableCommand(this Command command, CommandInfo info)

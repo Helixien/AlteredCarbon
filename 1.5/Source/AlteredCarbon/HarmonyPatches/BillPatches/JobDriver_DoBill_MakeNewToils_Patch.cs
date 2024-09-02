@@ -14,8 +14,8 @@ namespace AlteredCarbon
     {
         public static IEnumerable<Toil> Postfix(IEnumerable<Toil> __result, JobDriver_DoBill __instance)
         {
-            if (__instance.job.bill.recipe.Worker is Recipe_OperateOnPersonaStack or Recipe_OperateOnPersonaPrint ||
-                AC_Utils.installFilledStacksRecipes.Contains(__instance.job.bill.recipe))
+            if (__instance.job.bill.recipe.Worker is Recipe_OperateOnNeuralStack //or Recipe_OperateOnNeuralPrint 
+                || AC_Utils.installActiveStacksRecipes.Contains(__instance.job.bill.recipe))
             {
                 var job = __instance.job;
                 var pawn = __instance.pawn;
@@ -64,15 +64,15 @@ namespace AlteredCarbon
             var extractTarget = Toils_JobTransforms.ExtractNextTargetFromQueue(ingredientInd);
             Toil getToHaulTarget = Toils_Goto.GotoThing(ingredientInd, PathEndMode.ClosestTouch)
                 .FailOnDespawnedNullOrForbidden(ingredientInd).FailOnSomeonePhysicallyInteracting(ingredientInd);
-            var changeTargetToPersonaCacheIfNotSpawned = ToilMaker.MakeToil("Do");
+            var changeTargetToNeuralCacheIfNotSpawned = ToilMaker.MakeToil("Do");
             var gotoWorkbench = Toils_Goto.GotoThing(billGiverInd, PathEndMode.InteractionCell).FailOnDestroyedOrNull(ingredientInd); ;
-            var jumpIfHaveTargetInQueue = Toils_Jump.JumpIfHaveTargetInQueue(ingredientInd, changeTargetToPersonaCacheIfNotSpawned);
+            var jumpIfHaveTargetInQueue = Toils_Jump.JumpIfHaveTargetInQueue(ingredientInd, changeTargetToNeuralCacheIfNotSpawned);
             var decideShouldCarryItem = Toils_General.Do(delegate
             {
-                if (jobdriver.job.bill.recipe.Worker is Recipe_EditFilledPersonaStack or Recipe_DuplicatePersonaStack
-                    && jobdriver.job.targetB.Thing.def == AC_DefOf.AC_PersonaCache
-                    || jobdriver.job.bill.recipe.Worker is Recipe_RestoreStackFromPersonaPrint
-                    && jobdriver.job.targetB.Thing.def == AC_DefOf.AC_PersonaMatrix)
+                if (jobdriver.job.bill.recipe.Worker is Recipe_EditActiveNeuralStack or Recipe_DuplicateNeuralStack
+                    && jobdriver.job.targetB.Thing.def == AC_DefOf.AC_NeuralCache
+                    //|| jobdriver.job.bill.recipe.Worker is Recipe_RestoreStackFromNeuralPrint
+                    && jobdriver.job.targetB.Thing.def == AC_DefOf.AC_NeuralMatrix)
                 {
                     Pawn actor = jobdriver.pawn;
                     Job curJob = actor.jobs.curJob;
@@ -90,7 +90,7 @@ namespace AlteredCarbon
                     jobdriver.JumpToToil(jumpIfHaveTargetInQueue);
                 }
             });
-            changeTargetToPersonaCacheIfNotSpawned.initAction = delegate
+            changeTargetToNeuralCacheIfNotSpawned.initAction = delegate
             {
                 var targetQueue = jobdriver.job.GetTargetQueue(ingredientInd);
                 if (targetQueue.Any())
@@ -98,11 +98,11 @@ namespace AlteredCarbon
                     var target = targetQueue[0].Thing;
                     if (target.Spawned is false)
                     {
-                        if (target.ParentHolder is CompPersonaCache comp)
+                        if (target.ParentHolder is CompNeuralCache comp)
                         {
                             jobdriver.job.SetTarget(ingredientInd, comp.parent);
                         }
-                        else if (target.ParentHolder is Building_PersonaMatrix matrix)
+                        else if (target.ParentHolder is Building_NeuralMatrix matrix)
                         {
                             jobdriver.job.SetTarget(ingredientInd, matrix);
                         }
@@ -121,11 +121,11 @@ namespace AlteredCarbon
                     target = targetQueue[0].Thing;
                     if (target.Spawned is false)
                     {
-                        if (target.ParentHolder is CompPersonaCache comp)
+                        if (target.ParentHolder is CompNeuralCache comp)
                         {
                             comp.innerContainer.TryDrop(target, ThingPlaceMode.Near, out var targetThing);
                         }
-                        else if (target.ParentHolder is Building_PersonaMatrix matrix)
+                        else if (target.ParentHolder is Building_NeuralMatrix matrix)
                         {
                             matrix.innerContainer.TryDrop(target, ThingPlaceMode.Near, out var targetThing);
                         }
@@ -134,7 +134,7 @@ namespace AlteredCarbon
                 }
             });
 
-            yield return changeTargetToPersonaCacheIfNotSpawned;
+            yield return changeTargetToNeuralCacheIfNotSpawned;
             yield return extractTarget;
             yield return JobDriver_DoBill.JumpIfTargetInsideBillGiver(jumpIfHaveTargetInQueue, ingredientInd, billGiverInd);
             yield return decideShouldCarryItem;

@@ -10,8 +10,8 @@ namespace AlteredCarbon
         {
 
         }
-        public Bill_EditStack(PersonaStack personaStack, RecipeDef recipe, Precept_ThingStyle precept = null) 
-            : base(personaStack, recipe, precept)
+        public Bill_EditStack(NeuralStack neuralStack, RecipeDef recipe, Precept_ThingStyle precept = null) 
+            : base(neuralStack, recipe, precept)
         {
         }
 
@@ -23,8 +23,8 @@ namespace AlteredCarbon
 
         public override float GetWorkAmount(Thing thing = null)
         {
-            var personaStack = thingWithPersonaData as PersonaStack;
-            var time = (float)personaStack.personaDataRewritten.editTime;
+            var neuralStack = thingWithNeuralData as NeuralStack;
+            var time = (float)neuralStack.neuralDataRewritten.editTime;
             if (this.curBillDoer != null)
             {
                 var level = curBillDoer.skills.GetSkill(SkillDefOf.Intellectual).Level;

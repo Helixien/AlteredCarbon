@@ -8,16 +8,16 @@ namespace AlteredCarbon
     {
         public static void Prefix(Corpse __instance)
         {
-            if (__instance.InnerPawn.HasPersonaStack(out var stackHediff))
+            if (__instance.InnerPawn.HasNeuralStack(out var stackHediff))
             {
                 if (stackHediff.def == AC_DefOf.AC_ArchotechStack)
                 {
                     stackHediff.SpawnStack(placeMode: ThingPlaceMode.Direct, psycastEffect: true);
                 }
-                else
-                {
-                    stackHediff.PersonaData.TryQueueAutoRestoration();
-                }
+                //else
+                //{
+                //    stackHediff.NeuralData.TryQueueAutoRestoration();
+                //}
             }
         }
     }

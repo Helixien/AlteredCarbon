@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<!-- ================================ Persona Stack Degradation ====================== -->
+	<!-- ================================ Neural Stack Degradation ====================== -->
 	<HediffDef>
 		<defName>AC_StackDegradation</defName>
 		<label>degradation</label>
 		<labelNoun>stack degradation</labelNoun>
 		<hediffClass>AlteredCarbon.Hediff_StackDegradation</hediffClass>
-		<description>Persona stack degradation caused by an unauthorized, aggressive edit.</description>
+		<description>Neural stack degradation caused by an unauthorized, aggressive edit.</description>
 		<isBad>false</isBad>
 		<defaultLabelColor>(1, 0, 0)</defaultLabelColor>
 	</HediffDef>

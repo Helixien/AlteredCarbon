@@ -3,7 +3,7 @@
 	<!-- ================================ Stack category ====================== -->
 	<ThingCategoryDef>
 		<defName>AC_BodyPartsUltra</defName>
-		<label>persona stack</label>
+		<label>neural stack</label>
 		<parent>Items</parent>
 	</ThingCategoryDef>
 </Defs>

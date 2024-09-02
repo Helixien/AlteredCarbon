@@ -13,31 +13,31 @@ namespace AlteredCarbon
         public static Pawn lastPawn;
         public static bool Prefix(ref Pawn __result)
         {
-            var personaData = TryGetPersonaData();
-            if (personaData != null)
+            var neuralData = TryGetNeuralData();
+            if (neuralData != null)
             {
                 if (__result != lastPawn)
                 {
                     lastPawn = __result;
-                    personaData.RefreshDummyPawn();
+                    neuralData.RefreshDummyPawn();
                 }
                 else if (Time.frameCount - lastTimeUpdated >= 60)
                 {
                     lastTimeUpdated = Time.frameCount;
-                    personaData.RefreshDummyPawn();
+                    neuralData.RefreshDummyPawn();
                 }
-                __result = personaData.GetDummyPawn;
+                __result = neuralData.GetDummyPawn;
                 return false;
             }
             return true;
         }
 
-        public static PersonaData TryGetPersonaData()
+        public static NeuralData TryGetNeuralData()
         {
             var selectedThing = Find.Selector.SingleSelectedThing;
-            if (selectedThing is PersonaPrint personaPrint)
+            if (selectedThing is ThingWithNeuralData thingWithNeural)
             {
-                return personaPrint.PersonaData;
+                return thingWithNeural.NeuralData;
             }
             return null;
         }

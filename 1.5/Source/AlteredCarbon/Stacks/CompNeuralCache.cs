@@ -6,30 +6,30 @@ using Verse;
 
 namespace AlteredCarbon
 {
-    public class CompPersonaCache : CompThingContainer
+    public class CompNeuralCache : CompThingContainer
     {
-        public bool allowColonistPersonaStacks = true;
-        public bool allowStrangerPersonaStacks = true;
-        public bool allowHostilePersonaStacks = true;
+        public bool allowColonistNeuralStacks = true;
+        public bool allowStrangerNeuralStacks = true;
+        public bool allowHostileNeuralStacks = true;
         public bool allowArchoStacks = true;
-        public List<PersonaStack> StoredStacks => innerContainer.OfType<PersonaStack>().ToList();
+        public List<NeuralStack> StoredStacks => innerContainer.OfType<NeuralStack>().ToList();
         public override bool Accepts(Thing thing)
         {
-            if (thing is PersonaStack stack && stack.IsFilledStack && stack.autoLoad && Full is false)
+            if (thing is NeuralStack stack && stack.IsActiveStack && stack.autoLoad && Full is false)
             {
                 if (!this.allowArchoStacks && stack.IsArchotechStack)
                 {
                     return false;
                 }
-                if (this.allowColonistPersonaStacks && stack.PersonaData.faction != null && stack.PersonaData.faction == Faction.OfPlayer)
+                if (this.allowColonistNeuralStacks && stack.NeuralData.faction != null && stack.NeuralData.faction == Faction.OfPlayer)
                 {
                     return true;
                 }
-                if (this.allowHostilePersonaStacks && stack.PersonaData.faction.HostileTo(Faction.OfPlayer))
+                if (this.allowHostileNeuralStacks && stack.NeuralData.faction.HostileTo(Faction.OfPlayer))
                 {
                     return true;
                 }
-                if (this.allowStrangerPersonaStacks && (stack.PersonaData.faction is null || stack.PersonaData.faction != Faction.OfPlayer && !stack.PersonaData.faction.HostileTo(Faction.OfPlayer)))
+                if (this.allowStrangerNeuralStacks && (stack.NeuralData.faction is null || stack.NeuralData.faction != Faction.OfPlayer && !stack.NeuralData.faction.HostileTo(Faction.OfPlayer)))
                 {
                     return true;
                 }
@@ -48,7 +48,7 @@ namespace AlteredCarbon
             {
                 var ejectAll = new Command_Action();
                 ejectAll.defaultLabel = "AC.EjectAll".Translate();
-                ejectAll.defaultDesc = "AC.EjectAllPersonaStacksDesc".Translate();
+                ejectAll.defaultDesc = "AC.EjectAllNeuralStacksDesc".Translate();
                 ejectAll.icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EjectAllStacks");
                 ejectAll.action = delegate
                 {
@@ -60,7 +60,7 @@ namespace AlteredCarbon
 
         public override string CompInspectStringExtra()
         {
-            return "AC.PersonaStacksStored".Translate(innerContainer.Count(), Props.stackLimit);
+            return "AC.NeuralStacksStored".Translate(innerContainer.Count(), Props.stackLimit);
         }
 
         public override IEnumerable<StatDrawEntry> SpecialDisplayStats()
@@ -71,9 +71,9 @@ namespace AlteredCarbon
         public override void PostExposeData()
         {
             base.PostExposeData();
-            Scribe_Values.Look(ref this.allowColonistPersonaStacks, "allowColonistPersonaStacks", true);
-            Scribe_Values.Look(ref this.allowHostilePersonaStacks, "allowHostilePersonaStacks", true);
-            Scribe_Values.Look(ref this.allowStrangerPersonaStacks, "allowStrangerPersonaStacks", true);
+            Scribe_Values.Look(ref this.allowColonistNeuralStacks, "allowColonistNeuralStacks", true);
+            Scribe_Values.Look(ref this.allowHostileNeuralStacks, "allowHostileNeuralStacks", true);
+            Scribe_Values.Look(ref this.allowStrangerNeuralStacks, "allowStrangerNeuralStacks", true);
             Scribe_Values.Look(ref this.allowArchoStacks, "allowArchoStacks", true);
         }
     }

@@ -7,6 +7,6 @@ public class ThoughtWorker_Precept_XenoSleeving_Social : ThoughtWorker_Precept_S
 {
     public override ThoughtState ShouldHaveThought(Pawn p, Pawn otherPawn)
     {
-        return otherPawn.HasPersonaStack(out var stack) && otherPawn.SleeveMatchesOriginalXenotype(stack.PersonaData);
+        return otherPawn.HasNeuralStack(out var stack) && otherPawn.SleeveMatchesOriginalXenotype(stack.NeuralData);
     }
 }

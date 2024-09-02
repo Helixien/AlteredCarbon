@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
 	<!-- ================================ Stacks ====================== -->
-	<AC.InstallStack>Implant persona stack</AC.InstallStack>
-	<AC.InstallStackDesc>Select a pawn or empty sleeve to implant the persona stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallStackDesc>
-	<AC.InstallEmptyStackDesc>Select a pawn to implant the empty persona stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallEmptyStackDesc>
+	<AC.InstallStack>Implant neural stack</AC.InstallStack>
+	<AC.InstallStackDesc>Select a pawn or empty sleeve to implant the neural stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallStackDesc>
+	<AC.InstallEmptyStackDesc>Select a pawn to implant the empty neural stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallEmptyStackDesc>
 	<AC.InstallArchotechStack>Implant archotech stack</AC.InstallArchotechStack>
 	<AC.InstallArchotechStackDesc>Select a pawn or empty sleeve to implant the archotech stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallArchotechStackDesc>
 	<AC.InstallEmptyArchotechStackDesc>Select a pawn to implant the empty archotech stack in via surgery. The surgery will automatically be created in the health tab of the selected pawn or sleeve.</AC.InstallEmptyArchotechStackDesc>
 	<AC.DesignatorExtractStack>Extract stack</AC.DesignatorExtractStack>
-	<AC.DesignatorExtractStackDesc>Extract persona stacks from dead bodies</AC.DesignatorExtractStackDesc>
-	<AC.MessageMustDesignateHasStack>The body should have a persona stack</AC.MessageMustDesignateHasStack>
+	<AC.DesignatorExtractStackDesc>Extract neural stacks from dead bodies</AC.DesignatorExtractStackDesc>
+	<AC.MessageMustDesignateHasStack>The body should have a neural stack</AC.MessageMustDesignateHasStack>
 	<AC.ExtractStack>Extract stack</AC.ExtractStack>
 	<AC.Faction>Faction</AC.Faction>
 	<AC.Childhood>Childhood</AC.Childhood>
 	<AC.Adulthood>Adulthood</AC.Adulthood>
 	<AC.AgeChronologicalTicks>Chronological age</AC.AgeChronologicalTicks>
 	<AC.DestroyStackConfirmation>Destroying Stack:\nWARNING! You are about to destroy this stack. Are you sure you want to continue?</AC.DestroyStackConfirmation>
-	<AC.ScenPart_PawnsHavePersonaStack>{0} have a {1} chance of starting with a {2}.</AC.ScenPart_PawnsHavePersonaStack>
+	<AC.ScenPart_PawnsHaveNeuralStack>{0} have a {1} chance of starting with a {2}.</AC.ScenPart_PawnsHaveNeuralStack>
 	<AC.AutoLoad>Auto-load</AC.AutoLoad>
-	<AC.AutoLoadDesc>If active, haulers will automatically store this persona print in a persona matrix.</AC.AutoLoadDesc>
+	<AC.AutoLoadDesc>If active, haulers will automatically store this neural print in a neural matrix.</AC.AutoLoadDesc>
 	<AC.SleeveWithStack>Sleeve with stack installed inside.</AC.SleeveWithStack>
-	<AC.PawnAlreadyHasStack>{PAWN_nameDef} already has a persona stack installed!</AC.PawnAlreadyHasStack>
+	<AC.PawnAlreadyHasStack>{PAWN_nameDef} already has a neural stack installed!</AC.PawnAlreadyHasStack>
 	<AC.PawnAlreadyHasArchotechStack>{PAWN_nameDef} already has an archotech stack installed!</AC.PawnAlreadyHasArchotechStack>
 	<AC.PawnStackCannotDowngrade>{PAWN_nameDef} already has an archotech stack installed!</AC.PawnStackCannotDowngrade>
-	<AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>Cannot install persona stack - neck is missing or another implant installed in the neck.</AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>
-	<AC.EjectAllPersonaStacksDesc>Drop all contained persona stacks onto the ground.</AC.EjectAllPersonaStacksDesc>
-	<AC.PersonaStacksStored>Persona stacks stored: {0}/{1}</AC.PersonaStacksStored>
+	<AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>Cannot install neural stack - neck is missing or another implant installed in the neck.</AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>
+	<AC.EjectAllNeuralStacksDesc>Drop all contained neural stacks onto the ground.</AC.EjectAllNeuralStacksDesc>
+	<AC.NeuralStacksStored>Neural stacks stored: {0}/{1}</AC.NeuralStacksStored>
 	<!-- ================================ Prints ====================== -->
 	<AC.AllowAutomaticRestoration>Allow automatic restoration</AC.AllowAutomaticRestoration>
 	<AC.AllowAutomaticRestorationDesc>Toggle this button to allow/disallow automatic restoration.</AC.AllowAutomaticRestorationDesc>
 	<AC.RestoringQueued>Restoring queued: {PAWN_nameDef} </AC.RestoringQueued>
-	<AC.RestoringQueuedDesc>Stack of {PAWN_nameDef} has been destroyed. {PAWN_possessive} latest persona print backup has been queued to be restored.</AC.RestoringQueuedDesc>
+	<AC.RestoringQueuedDesc>Stack of {PAWN_nameDef} has been destroyed. {PAWN_possessive} latest neural print backup has been queued to be restored.</AC.RestoringQueuedDesc>
 	<!-- ================================ Sleeves ====================== -->
 	<AC.EmptySleeve>Empty sleeve</AC.EmptySleeve>
 	<AC.SleeveDeath>Sleeve Death</AC.SleeveDeath>
@@ -85,7 +85,7 @@
 	<AC.SleeveGrowerIsOccupied>Sleeve grower is occupied.</AC.SleeveGrowerIsOccupied>
 	<AC.CancelRepurposingCorpse>Cancel repurposing corpse</AC.CancelRepurposingCorpse>
 	<AC.CancelRepurposingCorpseDesc>Cancel repurposing corpse into a empty sleeve.</AC.CancelRepurposingCorpseDesc>
-	<AC.PersonaStackMustBeRemovedFirst>Persona stack must be removed first.</AC.PersonaStackMustBeRemovedFirst>
+	<AC.NeuralStackMustBeRemovedFirst>Neural stack must be removed first.</AC.NeuralStackMustBeRemovedFirst>
 	<AC.CannotRepurposeCorspeWithoutHead>Cannot repurpose corpse with missing head.</AC.CannotRepurposeCorspeWithoutHead>
 	<AC.SleeveDesignCouldntBeFullyLoaded>Saved Sleeve Design could not be fully loaded. Missing required xenogerm!</AC.SleeveDesignCouldntBeFullyLoaded>
 	<AC.PawnBodyCouldntBeFullyCopied>A {PAWN_nameDef} body couldn't be copied fully. The following xenogenes were skipped: {1}</AC.PawnBodyCouldntBeFullyCopied>
@@ -93,20 +93,20 @@
 	<AC.FinishedGrowingSleeve>Sleeve Incubator: Finished growing sleeve!</AC.FinishedGrowingSleeve>
 	<AC.SleeveAge>Age:</AC.SleeveAge>
 	<AC.YearsOld>{0} years old</AC.YearsOld>
-	<!-- ================================ Persona Matrix ====================== -->
+	<!-- ================================ Neural Matrix ====================== -->
 	<AC.TimeOfBackup>Time of backup: {0}</AC.TimeOfBackup>
-	<AC.EjectPersonaPrintTooltip>Eject this persona print from the matrix.</AC.EjectPersonaPrintTooltip>
-	<AC.EjectPersonaPrintConfirmation>Do you really want to eject {0}? It will be immediately ejected onto the ground nearby.</AC.EjectPersonaPrintConfirmation>
-	<AC.ErasePersonaPrintTooltip>Erase this persona print irreversibly.</AC.ErasePersonaPrintTooltip>
-	<AC.ErasePersonaPrintConfirmation>Do you really want to erase {0}? It will be immediately destroyed.</AC.ErasePersonaPrintConfirmation>
-	<AC.PersonaPrintStorage>Contents</AC.PersonaPrintStorage>
-	<AC.PersonaPrintsStored>Persona prints stored: {0}/{1}</AC.PersonaPrintsStored>
+	<AC.EjectNeuralPrintTooltip>Eject this neural print from the matrix.</AC.EjectNeuralPrintTooltip>
+	<AC.EjectNeuralPrintConfirmation>Do you really want to eject {0}? It will be immediately ejected onto the ground nearby.</AC.EjectNeuralPrintConfirmation>
+	<AC.EraseNeuralPrintTooltip>Erase this neural print irreversibly.</AC.EraseNeuralPrintTooltip>
+	<AC.EraseNeuralPrintConfirmation>Do you really want to erase {0}? It will be immediately destroyed.</AC.EraseNeuralPrintConfirmation>
+	<AC.NeuralPrintStorage>Contents</AC.NeuralPrintStorage>
+	<AC.NeuralPrintsStored>Neural prints stored: {0}/{1}</AC.NeuralPrintsStored>
 	<AC.LastBackup>Last Backup: {0}</AC.LastBackup>
-	<AC.AllowColonistPersonaPrints>*Allow colonist persona prints</AC.AllowColonistPersonaPrints>
-	<AC.AllowStrangerPersonaPrints>*Allow stranger persona prints</AC.AllowStrangerPersonaPrints>
-	<AC.AllowHostilePersonaPrints>*Allow hostile persona prints</AC.AllowHostilePersonaPrints>
+	<AC.AllowColonistNeuralPrints>*Allow colonist neural prints</AC.AllowColonistNeuralPrints>
+	<AC.AllowStrangerNeuralPrints>*Allow stranger neural prints</AC.AllowStrangerNeuralPrints>
+	<AC.AllowHostileNeuralPrints>*Allow hostile neural prints</AC.AllowHostileNeuralPrints>
 	<AC.EjectAll>Eject all</AC.EjectAll>
-	<AC.EjectAllPersonaPrintsDesc>Drop all contained persona prints onto the ground.</AC.EjectAllPersonaPrintsDesc>
+	<AC.EjectAllNeuralPrintsDesc>Drop all contained neural prints onto the ground.</AC.EjectAllNeuralPrintsDesc>
 	<!-- ================================ Other ====================== -->
 	<AC.CommandCallsNeuroformers>Call psylink neuroformers</AC.CommandCallsNeuroformers>
 	<AC.SetBodyParts>Install body parts</AC.SetBodyParts>
@@ -117,9 +117,9 @@
 	<AC.IsEmptySleeve>Is empty sleeve</AC.IsEmptySleeve>
 	<AC.OriginalGender>Original gender</AC.OriginalGender>
 	<AC.ChargeCuirassierBelt>Charge cuirassier belt</AC.ChargeCuirassierBelt>
-	<!-- ================================ Persona editor ====================== -->
-	<AC.NoConnectedMatrix>Cannot use: No Persona Matrix nearby.</AC.NoConnectedMatrix>
-	<AC.ConnectedMatrixHasNoPower>Cannot use: Connected Persona Matrix is not powered.</AC.ConnectedMatrixHasNoPower>
+	<!-- ================================ Neural editor ====================== -->
+	<AC.NoConnectedMatrix>Cannot use: No Neural Matrix nearby.</AC.NoConnectedMatrix>
+	<AC.ConnectedMatrixHasNoPower>Cannot use: Connected Neural Matrix is not powered.</AC.ConnectedMatrixHasNoPower>
 	<AC.WipingFriendlyStackWarning>Warning: The stack you are trying to factory reset does not belong to your faction.
 
 If you erase the content from a non-colonist stack from another faction, their entire faction may become your enemy.</AC.WipingFriendlyStackWarning>
@@ -129,14 +129,14 @@ If you make a copy of the content from a non-colonist stack from another faction
 	<AC.EditingFriendlyStackWarning>The stack you are trying to edit does not belong to your faction.
 
 If you edit the content from a non-colonist stack from another faction, their entire faction may become your enemy.</AC.EditingFriendlyStackWarning>
-	<AC.AlreadyOrderedToWipeStack>This stack is set for reseting already on a persona editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToWipeStack>
-	<AC.AlreadyOrderedToEditStack>This stack is set for editing already on a persona editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToEditStack>
-	<AC.AlreadyOrderedToDuplicateStack>This stack is set for duplicating already on a persona editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToDuplicateStack>
-	<AC.AlreadyOrderedToRestoreStack>This print is set for restoring already on a persona editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToRestoreStack>
+	<AC.AlreadyOrderedToWipeStack>This stack is set for reseting already on a neural editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToWipeStack>
+	<AC.AlreadyOrderedToEditStack>This stack is set for editing already on a neural editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToEditStack>
+	<AC.AlreadyOrderedToDuplicateStack>This stack is set for duplicating already on a neural editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToDuplicateStack>
+	<AC.AlreadyOrderedToRestoreStack>This print is set for restoring already on a neural editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToRestoreStack>
 	<AC.HackingBiocodedFailed>Hacking biocoded equipment: Failed, {0} destroyed!</AC.HackingBiocodedFailed>
 	<AC.HackingBiocodedSuccess>Hacking biocoded equipment: Successful! {0} is unlocked.</AC.HackingBiocodedSuccess>
-	<AC.EditPersonaStack>Edit Persona Stack</AC.EditPersonaStack>
-	<AC.PersonaStackEditExplanation>Persona Stacks feature advanced encryption to prevent outside forces from messing with the stored consciousness. Known exploits allow for some data to be edited and rewritten at the cost of stack degradation.</AC.PersonaStackEditExplanation>
+	<AC.EditNeuralStack>Edit Neural Stack</AC.EditNeuralStack>
+	<AC.NeuralStackEditExplanation>Neural Stacks feature advanced encryption to prevent outside forces from messing with the stored consciousness. Known exploits allow for some data to be edited and rewritten at the cost of stack degradation.</AC.NeuralStackEditExplanation>
 	<AC.Backstories>Backstories</AC.Backstories>
 	<AC.NoDisabledWorkTypes>No disabled work types</AC.NoDisabledWorkTypes>
 	<AC.NoSkillPenalties>No skill penalties</AC.NoSkillPenalties>
@@ -148,28 +148,28 @@ If you edit the content from a non-colonist stack from another faction, their en
 	<AC.ChangingPawnIdeologyWarning>Changing a pawn ideology will also remove any roles assosiated from them.</AC.ChangingPawnIdeologyWarning>
 	<AC.TotalTimeToEdit>Total time to edit: {0}</AC.TotalTimeToEdit>
 	<AC.TotalStackDegradation>Expected stack degradation: {0}</AC.TotalStackDegradation>
-	<AC.Tutorial>WARNING: The more you edit,the higher the stack degradation will be, causing the stored pawns personality to become more and more unstable. Stack degradation will go away over time after being installed in a body, but can take years.</AC.Tutorial>
+	<AC.Tutorial>WARNING: The more you edit,the higher the stack degradation will be, causing the stored pawns neurallity to become more and more unstable. Stack degradation will go away over time after being installed in a body, but can take years.</AC.Tutorial>
 	<AC.ResetAll>Reset all</AC.ResetAll>
 	<AC.StackDegradation>Stack degradation: {0}</AC.StackDegradation>
 	<AC.StartEditing>Start editing</AC.StartEditing>
 	<AC.CancelStackReset>Cancel stack reset</AC.CancelStackReset>
-	<AC.CancelStackResetDesc>Cancel reseting persona stack.</AC.CancelStackResetDesc>
+	<AC.CancelStackResetDesc>Cancel reseting neural stack.</AC.CancelStackResetDesc>
 	<AC.CancelStackEdit>Cancel stack edit</AC.CancelStackEdit>
-	<AC.CancelStackEditDesc>Cancel editing persona stack.</AC.CancelStackEditDesc>
+	<AC.CancelStackEditDesc>Cancel editing neural stack.</AC.CancelStackEditDesc>
 	<AC.CancelStackDuplication>Cancel stack duplication</AC.CancelStackDuplication>
 	<AC.CancelStackDuplicationDesc>Cancel stack duplicating.</AC.CancelStackDuplicationDesc>
-	<AC.SuccessfullyRestoredStackFromBackup>{PAWN_nameDef} successfully restored persona stack from persona print.</AC.SuccessfullyRestoredStackFromBackup>
+	<AC.SuccessfullyRestoredStackFromBackup>{PAWN_nameDef} successfully restored neural stack from neural print.</AC.SuccessfullyRestoredStackFromBackup>
 	<AC.EnableAutoRestore>Toggle automatic restoring</AC.EnableAutoRestore>
-	<AC.EnableAutoRestoreDesc>Allow to automatically restore stacks from persona prints if a pawn with an installed persona stack dies.</AC.EnableAutoRestoreDesc>
-	<AC.SuccessfullyDuplicatedStack>{PAWN_nameDef} successfully duplicated persona stack.</AC.SuccessfullyDuplicatedStack>
-	<AC.FailedToDuplicatedStack>{PAWN_nameDef} failed to duplicate persona stack.</AC.FailedToDuplicatedStack>
+	<AC.EnableAutoRestoreDesc>Allow to automatically restore stacks from neural prints if a pawn with an installed neural stack dies.</AC.EnableAutoRestoreDesc>
+	<AC.SuccessfullyDuplicatedStack>{PAWN_nameDef} successfully duplicated neural stack.</AC.SuccessfullyDuplicatedStack>
+	<AC.FailedToDuplicatedStack>{PAWN_nameDef} failed to duplicate neural stack.</AC.FailedToDuplicatedStack>
 	<AC.CancelStackDuplication>Cancel stack duplication</AC.CancelStackDuplication>
-	<AC.CancelStackDuplicationDesc>Cancel duplication of stored persona stack.</AC.CancelStackDuplicationDesc>
-	<AC.CancelPersonaPrintRestoration>Cancel persona print restoration</AC.CancelPersonaPrintRestoration>
-	<AC.CancelPersonaPrintRestorationDesc>Cancel stack restoration from persona print.</AC.CancelPersonaPrintRestorationDesc>
+	<AC.CancelStackDuplicationDesc>Cancel duplication of stored neural stack.</AC.CancelStackDuplicationDesc>
+	<AC.CancelNeuralPrintRestoration>Cancel neural print restoration</AC.CancelNeuralPrintRestoration>
+	<AC.CancelNeuralPrintRestorationDesc>Cancel stack restoration from neural print.</AC.CancelNeuralPrintRestorationDesc>
 	<!-- ================================ Mod Settings ====================== -->
 	<AC.EnableStackSpawning>Enable Stack Spawning</AC.EnableStackSpawning>
-	<AC.EnableStackSpawningDesc>If disabled, Persona Stacks and Archostacks will NOT spawn on any pawns. You can still craft them, get them as rewards or trade for them.</AC.EnableStackSpawningDesc>
+	<AC.EnableStackSpawningDesc>If disabled, Neural Stacks and Archostacks will NOT spawn on any pawns. You can still craft them, get them as rewards or trade for them.</AC.EnableStackSpawningDesc>
 	<AC.EnableTechprintRequirement>Enable techprint requirements in research projects</AC.EnableTechprintRequirement>
 	<AC.EnableTechprintRequirementDesc>Only affects Royalty owners!</AC.EnableTechprintRequirementDesc>
 	<AC.TimeToGrowSleeveMultiplier>Time to grow sleeve multiplicator:</AC.TimeToGrowSleeveMultiplier>
@@ -177,7 +177,7 @@ If you edit the content from a non-colonist stack from another faction, their en
 	<AC.CostToGrowSleeveMultiplier>Cost to grow sleeve multiplicator:</AC.CostToGrowSleeveMultiplier>
 	<AC.CostToGrowSleeveMultiplierDesc>Multiplicator of the overall neutroamine cost needed to grow a new sleeve.</AC.CostToGrowSleeveMultiplierDesc>
 	<AC.EnableStackDegradation>Enable Stack Degradation</AC.EnableStackDegradation>
-	<AC.EnableStackDegradationDesc>If disabled, Persona Stacks can be edited to your heart's content without having to worry about stack degradation.</AC.EnableStackDegradationDesc>
+	<AC.EnableStackDegradationDesc>If disabled, Neural Stacks can be edited to your heart's content without having to worry about stack degradation.</AC.EnableStackDegradationDesc>
 	<AC.StackEditEditTimeValueMultiplier>Stack editing time gain multiplier:</AC.StackEditEditTimeValueMultiplier>
 	<AC.StackEditEditTimeValueMultiplierDesc>Multiplicator of the overall stack editing time.</AC.StackEditEditTimeValueMultiplierDesc>
 	<AC.StackEditDegradationValueMultiplier>Stack Degradation gain multiplier:</AC.StackEditDegradationValueMultiplier>
@@ -187,16 +187,16 @@ If you edit the content from a non-colonist stack from another faction, their en
 	<AC.ColonistStackNeedsExtracting>Colonist stack needs extracting.</AC.ColonistStackNeedsExtracting>
 	<AC.ColonistStackNeedsExtractingDesc>These colonists are incapacitated on the ground:\n\n{0}\nSend another colonist to rescue them and carry them back to bed.\n\n(To rescue, select another colonist, then right click on the victim and select Rescue.)</AC.ColonistStackNeedsExtractingDesc>
 	<AC.SleeveDeathDoesNotCauseGearTainting>Sleeve death doesn't cause gear to be tainted</AC.SleeveDeathDoesNotCauseGearTainting>
-	<AC.EnableSoldPersonaPrintsCreatingPawnDuplicates>Selling persona prints can create duplicates</AC.EnableSoldPersonaPrintsCreatingPawnDuplicates>
-	<AC.EnableSoldPersonaPrintsCreatingPawnDuplicatesDesc>text.todo</AC.EnableSoldPersonaPrintsCreatingPawnDuplicatesDesc>
-	<AC.EnablePersonaPrintsInAncientDangers>Enable persona prints spawning in ancient dangers</AC.EnablePersonaPrintsInAncientDangers>
-	<AC.EnablePersonaPrintsInAncientDangersDesc>text.todo</AC.EnablePersonaPrintsInAncientDangersDesc>
+	<AC.EnableSoldNeuralPrintsCreatingPawnDuplicates>Selling neural prints can create duplicates</AC.EnableSoldNeuralPrintsCreatingPawnDuplicates>
+	<AC.EnableSoldNeuralPrintsCreatingPawnDuplicatesDesc>text.todo</AC.EnableSoldNeuralPrintsCreatingPawnDuplicatesDesc>
+	<AC.EnableNeuralPrintsInAncientDangers>Enable neural prints spawning in ancient dangers</AC.EnableNeuralPrintsInAncientDangers>
+	<AC.EnableNeuralPrintsInAncientDangersDesc>text.todo</AC.EnableNeuralPrintsInAncientDangersDesc>
 	<!-- ================================ Warnings ====================== -->
-	<AC.CannotInstallStackOnAndroidWithoutPersonaModule>Cannot install stacks into androids without a persona module.</AC.CannotInstallStackOnAndroidWithoutPersonaModule>
+	<AC.CannotInstallStackOnAndroidWithoutNeuralModule>Cannot install stacks into androids without a neural module.</AC.CannotInstallStackOnAndroidWithoutNeuralModule>
 	<AC.CannotInstallEmptyStackInEmptySleeve>Cannot install an empty stack into an empty sleeve.</AC.CannotInstallEmptyStackInEmptySleeve>
 	<AC.CannotInstallStackInBodyOfThisRace>Cannot install stacks into this race: {0}.</AC.CannotInstallStackInBodyOfThisRace>
 	<AC.CannotInstallStackInNonHumanlikes>Cannot install stacks into non-humanlikes.</AC.CannotInstallStackInNonHumanlikes>
-	<AC.CannotInstallFilledStackInChildren>Cannot install a filled stack into children.</AC.CannotInstallFilledStackInChildren>
+	<AC.CannotInstallActiveStackInChildren>Cannot install an active stack into children.</AC.CannotInstallActiveStackInChildren>
 	<AC.CannotInstallAlreadyHaveStack>Cannot install stack: Already has a stack installed.</AC.CannotInstallAlreadyHaveStack>
 	<AC.RequiresArtificalParentPart>requires artifical parent part</AC.RequiresArtificalParentPart>
 	<!-- ================================ Mental Fuse ====================== -->
@@ -204,22 +204,22 @@ If you edit the content from a non-colonist stack from another faction, their en
 	<AC.TriggeredMentalFuseText>{PAWN_nameDef}'s mental fuse has triggered, preventing a mental break.</AC.TriggeredMentalFuseText>
 	<AC.MentalFuseTraumaLabel>Mental fuse trauma</AC.MentalFuseTraumaLabel>
 	<AC.MentalFuseTraumaText>{PAWN_nameDef}'s mental fuse has caused permanent damage in {PAWN_objective} brain. This damage has caused {PAWN_objective} to develop strange savant-like abilities.</AC.MentalFuseTraumaText>
-	<!-- ================================ Persona Connector ====================== -->
-	<AC.RequiresPersonaStackInstalled>Requires persona stack installed.</AC.RequiresPersonaStackInstalled>
-	<AC.CreatePersonaPrint>Create persona print</AC.CreatePersonaPrint>
+	<!-- ================================ Neural Connector ====================== -->
+	<AC.RequiresNeuralStackInstalled>Requires neural stack installed.</AC.RequiresNeuralStackInstalled>
+	<AC.CreateNeuralPrint>Create neural print</AC.CreateNeuralPrint>
 	<AC.CreateSkilltrainer>Create skilltrainer</AC.CreateSkilltrainer>
 	<AC.NotSufficientSkillLevels>Not sufficient skill levels</AC.NotSufficientSkillLevels>
-	<AC.CreatingPersonaPrintCompleted>Creating persona print completed for {PAWN_nameDef}.</AC.CreatingPersonaPrintCompleted>
-	<AC.CreatingSkilltrainerCompleted>Creating skilltrainer completed for {PAWN_nameDef}. {PAWN_nameDef}'s brain has been destroyed by the persona connector.</AC.CreatingSkilltrainerCompleted>
+	<AC.CreatingNeuralPrintCompleted>Creating neural print completed for {PAWN_nameDef}.</AC.CreatingNeuralPrintCompleted>
+	<AC.CreatingSkilltrainerCompleted>Creating skilltrainer completed for {PAWN_nameDef}. {PAWN_nameDef}'s brain has been destroyed by the neural connector.</AC.CreatingSkilltrainerCompleted>
 	<AC.ConfirmSkilltrainerPawn>Scanning {PAWN_nameDef} to create a skilltrainer will kill {PAWN_objective}. Are you sure you want to continue?</AC.ConfirmSkilltrainerPawn>
 	<AC.ConfirmCancelSkilltrainerPawn>Cancelling a skilltrainer process will still kill {PAWN_nameDef}. Are you sure you want to continue?</AC.ConfirmCancelSkilltrainerPawn>
-	<!-- ================================ Persona Cache ====================== -->
-	<AC.EjectStackTooltip>Eject this persona stack from the array.</AC.EjectStackTooltip>
+	<!-- ================================ Neural Cache ====================== -->
+	<AC.EjectStackTooltip>Eject this neural stack from the array.</AC.EjectStackTooltip>
 	<AC.EjectStackConfirmation>Do you really want to eject {0}? It will be immediately ejected onto the ground nearby.</AC.EjectStackConfirmation>
 	<AC.StackStorage>Contents</AC.StackStorage>
-	<AC.PersonaStacksInCache>Persona Stacks in cache: ({0}/{1})</AC.PersonaStacksInCache>
-	<AC.AllowColonistStacks>*Allow colonist persona stacks</AC.AllowColonistStacks>
-	<AC.AllowStrangerStacks>*Allow stranger persona stacks</AC.AllowStrangerStacks>
-	<AC.AllowHostileStacks>*Allow hostile persona stacks</AC.AllowHostileStacks>
+	<AC.NeuralStacksInCache>Neural Stacks in cache: ({0}/{1})</AC.NeuralStacksInCache>
+	<AC.AllowColonistStacks>*Allow colonist neural stacks</AC.AllowColonistStacks>
+	<AC.AllowStrangerStacks>*Allow stranger neural stacks</AC.AllowStrangerStacks>
+	<AC.AllowHostileStacks>*Allow hostile neural stacks</AC.AllowHostileStacks>
 	<AC.AllowArchoStacks>*Allow archo stacks</AC.AllowArchoStacks>
 </LanguageData>

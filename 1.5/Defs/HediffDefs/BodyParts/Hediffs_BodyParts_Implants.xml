@@ -5,7 +5,7 @@
 	<ThingDef ParentName="BodyPartBionicBase">
 		<defName>AC_VoiceSynthesizer</defName>
 		<label>voice synthesizer</label>
-		<description>An ultratech vocal synthesiser, designed for seamless vocal transformation. Embedded with adaptive sound modulation, it allows the user to alter their voice at will, ranging from subtle inflections to entirely different personas.</description>
+		<description>An ultratech vocal synthesiser, designed for seamless vocal transformation. Embedded with adaptive sound modulation, it allows the user to alter their voice at will, ranging from subtle inflections to entirely different neurals.</description>
 		<descriptionHyperlinks>
 			<RecipeDef>AC_InstallVoiceSynthesizer</RecipeDef>
 		</descriptionHyperlinks>

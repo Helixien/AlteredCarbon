@@ -2,9 +2,9 @@
 <Defs>
 	<!-- ================================ Add stacks to all starting pawns ====================== -->
 	<ScenPartDef>
-		<defName>AC_StarterPersonaStacks</defName>
-		<label>starter persona stack</label>
-		<scenPartClass>AlteredCarbon.ScenPart_PersonaStack</scenPartClass>
+		<defName>AC_StarterNeuralStacks</defName>
+		<label>starter neural stack</label>
+		<scenPartClass>AlteredCarbon.ScenPart_NeuralStack</scenPartClass>
 		<category>PlayerPawnModifier</category>
 		<selectionWeight>1.0</selectionWeight>
 		<summaryPriority>459</summaryPriority>

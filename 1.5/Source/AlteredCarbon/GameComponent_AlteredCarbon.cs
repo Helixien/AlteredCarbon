@@ -22,34 +22,34 @@ namespace AlteredCarbon
         private void Init()
         {
             Instance = this;
-            personaStacksToAppearAsWorldPawns ??= new();
+            neuralStacksToAppearAsWorldPawns ??= new();
         }
 
-        public Dictionary<PersonaData, int> personaStacksToAppearAsWorldPawns;
+        public Dictionary<NeuralData, int> neuralStacksToAppearAsWorldPawns;
 
         public override void ExposeData()
         {
             Instance = this;
             base.ExposeData();
-            Scribe_Collections.Look(ref this.personaStacksToAppearAsWorldPawns, "personaStacksToAppearAsWorldPawns", 
-                LookMode.Deep, LookMode.Value, ref personaDataValues, ref intKeys);
+            Scribe_Collections.Look(ref this.neuralStacksToAppearAsWorldPawns, "neuralStacksToAppearAsWorldPawns", 
+                LookMode.Deep, LookMode.Value, ref neuralDataValues, ref intKeys);
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
-                this.personaStacksToAppearAsWorldPawns ??= new Dictionary<PersonaData, int>();
+                this.neuralStacksToAppearAsWorldPawns ??= new Dictionary<NeuralData, int>();
             }
         }
 
         public bool CanBackup(Pawn pawn)
         {
-            return pawn.Dead is false && pawn.IsColonist && pawn.HasPersonaStack(out var hediff_PersonaStack)
-                && hediff_PersonaStack.def != AC_DefOf.AC_ArchotechStack;
+            return pawn.Dead is false && pawn.IsColonist && pawn.HasNeuralStack(out var hediff_NeuralStack)
+                && hediff_NeuralStack.def != AC_DefOf.AC_ArchotechStack;
         }
 
         public void Backup(Pawn pawn)
         {
-            if (pawn.HasPersonaStack(out var stackHediff))
+            if (pawn.HasNeuralStack(out var stackHediff))
             {
-                var copy = new PersonaData();
+                var copy = new NeuralData();
                 copy.CopyFromPawn(pawn, stackHediff.SourceStack, copyRaceGenderInfo: true);
                 copy.isCopied = true;
                 copy.lastTimeBackedUp = Find.TickManager.TicksAbs;
@@ -60,18 +60,18 @@ namespace AlteredCarbon
         public override void GameComponentTick()
         {
             base.GameComponentTick();
-            foreach (var data in personaStacksToAppearAsWorldPawns.ToList())
+            foreach (var data in neuralStacksToAppearAsWorldPawns.ToList())
             {
                 if (Find.TickManager.TicksGame >= data.Value)
                 {
                     var pawn = data.Key.GetDummyPawn;
                     Find.WorldPawns.AddPawn(pawn);
-                    personaStacksToAppearAsWorldPawns.Remove(data.Key);
+                    neuralStacksToAppearAsWorldPawns.Remove(data.Key);
                 }
             }
         }
 
         private List<int> intKeys;
-        private List<PersonaData> personaDataValues;
+        private List<NeuralData> neuralDataValues;
     }
 }

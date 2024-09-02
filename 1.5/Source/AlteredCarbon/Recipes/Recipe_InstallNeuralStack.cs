@@ -9,7 +9,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
-    public class Recipe_InstallFilledPersonaStack : Recipe_InstallPersonaStack
+    public class Recipe_InstallActiveNeuralStack : Recipe_InstallNeuralStack
     {
         public override bool AvailableOnNow(Thing thing, BodyPartRecord part = null)
         {
@@ -18,7 +18,7 @@ namespace AlteredCarbon
     }
 
     [HotSwappable]
-    public class Recipe_InstallPersonaStack : Recipe_Surgery
+    public class Recipe_InstallNeuralStack : Recipe_Surgery
     {
         public override bool AvailableOnNow(Thing thing, BodyPartRecord part = null)
         {
@@ -48,7 +48,7 @@ namespace AlteredCarbon
         public override void ConsumeIngredient(Thing ingredient, RecipeDef recipe, Map map)
         {
             Thing.allowDestroyNonDestroyable = true;
-            if (ingredient is PersonaStack c)
+            if (ingredient is NeuralStack c)
             {
                 c.dontKillThePawn = true;
             }
@@ -65,7 +65,7 @@ namespace AlteredCarbon
                 {
                     foreach (var i in ingredients)
                     {
-                        if (i is PersonaStack c)
+                        if (i is NeuralStack c)
                         {
                             c.stackCount = 1;
                             c.mapIndexOrState = (sbyte)-1;
@@ -75,7 +75,7 @@ namespace AlteredCarbon
                     return;
                 }
                 TaleRecorder.RecordTale(TaleDefOf.DidSurgery, billDoer, pawn);
-                if (pawn.HasPersonaStack(out var stackHediff))
+                if (pawn.HasNeuralStack(out var stackHediff))
                 {
                     var emptyStack = AC_Utils.stacksPairs[stackHediff.SourceStack];
                     var stack = ThingMaker.MakeThing(emptyStack);
@@ -83,21 +83,21 @@ namespace AlteredCarbon
                     stackHediff.preventKill = true;
                     pawn.health.RemoveHediff(stackHediff);
                 }
-                ApplyPersonaStack(recipe, pawn, part, ingredients.OfType<PersonaStack>().FirstOrDefault());
+                ApplyNeuralStack(recipe, pawn, part, ingredients.OfType<NeuralStack>().FirstOrDefault());
             }
         }
 
-        public static void ApplyPersonaStack(RecipeDef recipe, Pawn pawn, BodyPartRecord part, PersonaStack personaStack)
+        public static void ApplyNeuralStack(RecipeDef recipe, Pawn pawn, BodyPartRecord part, NeuralStack neuralStack)
         {
             pawnToInstallStack = pawn;
-            var hediff = HediffMaker.MakeHediff(recipe.addsHediff, pawn) as Hediff_PersonaStack;
-            if (personaStack.PersonaData.ContainsPersona)
+            var hediff = HediffMaker.MakeHediff(recipe.addsHediff, pawn) as Hediff_NeuralStack;
+            if (neuralStack.NeuralData.ContainsNeural)
             {
-                hediff.PersonaData = personaStack.PersonaData;
+                hediff.NeuralData = neuralStack.NeuralData;
                 if (pawn.IsEmptySleeve() is false)
                 {
-                    var copy = new PersonaData();
-                    copy.CopyFromPawn(pawn, hediff.PersonaData.sourceStack);
+                    var copy = new NeuralData();
+                    copy.CopyFromPawn(pawn, hediff.NeuralData.sourceStack);
                     var dummyPawn = copy.GetDummyPawn;
                     GenSpawn.Spawn(dummyPawn, pawn.Position, pawn.Map);
                     Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.pawnToSkip = dummyPawn;
@@ -105,13 +105,13 @@ namespace AlteredCarbon
                     dummyPawn.Corpse.DeSpawn();
                 }
 
-                AlteredCarbonManager.Instance.StacksIndex.Remove(hediff.PersonaData.PawnID);
-                AlteredCarbonManager.Instance.ReplaceStackWithPawn(personaStack, pawn);
+                AlteredCarbonManager.Instance.StacksIndex.Remove(hediff.NeuralData.PawnID);
+                AlteredCarbonManager.Instance.ReplaceStackWithPawn(neuralStack, pawn);
                 if (AlteredCarbonManager.Instance.emptySleeves.Contains(pawn))
                 {
                     AlteredCarbonManager.Instance.emptySleeves.Remove(pawn);
                 }
-                hediff.PersonaData.OverwritePawn(pawn, personaStack.def.GetModExtension<StackSavingOptionsModExtension>(), copyFromOrigPawn: false);
+                hediff.NeuralData.OverwritePawn(pawn, neuralStack.def.GetModExtension<StackSavingOptionsModExtension>(), copyFromOrigPawn: false);
                 pawn.health.AddHediff(hediff, part);
                 ApplyMindEffects(pawn, hediff);
             }
@@ -122,20 +122,20 @@ namespace AlteredCarbon
 
             if (ModsConfig.IdeologyActive)
             {
-                Find.HistoryEventsManager.RecordEvent(new HistoryEvent(AC_DefOf.AC_InstalledPersonaStack, pawn.Named(HistoryEventArgsNames.Doer)));
+                Find.HistoryEventsManager.RecordEvent(new HistoryEvent(AC_DefOf.AC_InstalledNeuralStack, pawn.Named(HistoryEventArgsNames.Doer)));
             }
 
-            if (hediff.PersonaData.ideo?.HasPrecept(AC_DefOf.AC_CrossSleeving_DontCare) ?? false)
+            if (hediff.NeuralData.ideo?.HasPrecept(AC_DefOf.AC_CrossSleeving_DontCare) ?? false)
             {
-                hediff.PersonaData.thoughts?.RemoveAll(x => x.def == AC_DefOf.AC_WrongGender);
-                hediff.PersonaData.thoughts?.RemoveAll(x => x.def == AC_DefOf.AC_WrongGenderDouble);
-                hediff.PersonaData.thoughts?.RemoveAll(x => x.def == AC_DefOf.AC_WrongGenderPregnant);
+                hediff.NeuralData.thoughts?.RemoveAll(x => x.def == AC_DefOf.AC_WrongGender);
+                hediff.NeuralData.thoughts?.RemoveAll(x => x.def == AC_DefOf.AC_WrongGenderDouble);
+                hediff.NeuralData.thoughts?.RemoveAll(x => x.def == AC_DefOf.AC_WrongGenderPregnant);
             }
         }
 
-        public static void ApplyMindEffects(Pawn pawn, Hediff_PersonaStack hediff)
+        public static void ApplyMindEffects(Pawn pawn, Hediff_NeuralStack hediff)
         {
-            if (AC_Utils.editStacksSettings.enableStackDegradation && hediff.PersonaData.stackDegradation > 0)
+            if (AC_Utils.editStacksSettings.enableStackDegradation && hediff.NeuralData.stackDegradation > 0)
             {
                 var stackDegradationHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_StackDegradation) as Hediff_StackDegradation;
                 if (stackDegradationHediff is null)
@@ -144,9 +144,9 @@ namespace AlteredCarbon
                     stackDegradationHediff = HediffMaker.MakeHediff(AC_DefOf.AC_StackDegradation, pawn, neckRecord) as Hediff_StackDegradation;
                     pawn.health.AddHediff(stackDegradationHediff, neckRecord);
                 }
-                stackDegradationHediff.stackDegradation = hediff.PersonaData.stackDegradation;
+                stackDegradationHediff.stackDegradation = hediff.NeuralData.stackDegradation;
 
-                var brainTraumaChance = (hediff.PersonaData.stackDegradation - 0.8f) * 5f;
+                var brainTraumaChance = (hediff.NeuralData.stackDegradation - 0.8f) * 5f;
                 if (brainTraumaChance > 0 && Rand.Chance(brainTraumaChance))
                 {
                     pawn.health.AddHediff(AC_DefOf.AC_BrainTrauma, pawn.health.hediffSet.GetBrain());
@@ -156,7 +156,7 @@ namespace AlteredCarbon
 
             bool isAndroid = pawn.IsAndroid();
 
-            if (pawn.gender != hediff.PersonaData.OriginalGender)
+            if (pawn.gender != hediff.NeuralData.OriginalGender)
             {
                 if (pawn.story.traits.HasTrait(TraitDefOf.BodyPurist))
                 {
@@ -168,11 +168,11 @@ namespace AlteredCarbon
                 }
             }
 
-            if (ModCompatibility.AlienRacesIsActive && hediff.PersonaData.OriginalRace != null && pawn.kindDef.race != hediff.PersonaData.OriginalRace)
+            if (ModCompatibility.AlienRacesIsActive && hediff.NeuralData.OriginalRace != null && pawn.kindDef.race != hediff.NeuralData.OriginalRace)
             {
                 pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_WrongRace);
             }
-            if (pawn.SleeveMatchesOriginalXenotype(hediff.PersonaData))
+            if (pawn.SleeveMatchesOriginalXenotype(hediff.NeuralData))
             {
                 pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_WrongXenotype);
             }
@@ -198,9 +198,9 @@ namespace AlteredCarbon
                 }
             }
 
-            if (hediff.PersonaData.diedFromCombat.HasValue && hediff.PersonaData.diedFromCombat.Value)
+            if (hediff.NeuralData.diedFromCombat.HasValue && hediff.NeuralData.diedFromCombat.Value)
             {
-                hediff.PersonaData.diedFromCombat = null;
+                hediff.NeuralData.diedFromCombat = null;
             }
 
             if (pawn.story.traits.HasTrait(AC_DefOf.AC_Sleever) is false)

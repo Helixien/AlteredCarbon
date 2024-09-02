@@ -19,7 +19,7 @@ namespace AlteredCarbon
 				}
 			}
 
-			else if (AC_Utils.installFilledStacksRecipes.Contains(__instance) && thing is Pawn pawn2)
+			else if (AC_Utils.installActiveStacksRecipes.Contains(__instance) && thing is Pawn pawn2)
             {
 				if (AC_Utils.CanImplantStackTo(__instance.addsHediff, pawn2) is false)
 				{

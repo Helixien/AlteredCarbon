@@ -10,7 +10,7 @@ namespace AlteredCarbon
         public static bool Prefix(HediffComp_DissolveGearOnDeath __instance)
         {
             if (Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.pawnToSkip != null && __instance.Pawn == Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.pawnToSkip
-                || Recipe_InstallPersonaStack.pawnToInstallStack != null && __instance.Pawn == Recipe_InstallPersonaStack.pawnToInstallStack)
+                || Recipe_InstallNeuralStack.pawnToInstallStack != null && __instance.Pawn == Recipe_InstallNeuralStack.pawnToInstallStack)
             {
                 return false;
             }
@@ -24,7 +24,7 @@ namespace AlteredCarbon
         public static bool Prefix(HediffComp_DissolveGearOnDeath __instance)
         {
             if (Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.pawnToSkip != null && __instance.Pawn == Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.pawnToSkip
-                || Recipe_InstallPersonaStack.pawnToInstallStack != null && __instance.Pawn == Recipe_InstallPersonaStack.pawnToInstallStack)
+                || Recipe_InstallNeuralStack.pawnToInstallStack != null && __instance.Pawn == Recipe_InstallNeuralStack.pawnToInstallStack)
             {
                 return false;
             }

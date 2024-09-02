@@ -10,7 +10,7 @@
 	<Operation Class="ModSettingsFramework.PatchOperationModOption">
 		<defaultValue>True</defaultValue>
 		<label>Enable stack spawning</label>
-		<tooltip>When enabled, persona stacks will have a low chance to spawn with fitting pawns of different factions. (Default: True)</tooltip>
+		<tooltip>When enabled, neural stacks will have a low chance to spawn with fitting pawns of different factions. (Default: True)</tooltip>
 		<id>AC_StackSpawning</id>
 		<category>AC_General</category>
 		<order>5</order>

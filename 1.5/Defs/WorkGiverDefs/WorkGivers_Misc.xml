@@ -2,9 +2,9 @@
 <Defs>
 	<!-- ================================ Banking Stacks ====================== -->
 	<WorkGiverDef>
-		<defName>AC_HaulPersonaStacksToStorage</defName>
+		<defName>AC_HaulNeuralStacksToStorage</defName>
 		<label>Haul stacks</label>
-		<giverClass>AlteredCarbon.WorkGiver_HaulPersonaStacks</giverClass>
+		<giverClass>AlteredCarbon.WorkGiver_HaulNeuralStacks</giverClass>
 		<workType>Hauling</workType>
 		<verb>bank</verb>
 		<gerund>banking</gerund>
@@ -81,7 +81,7 @@
 		</requiredCapacities>
 		<prioritizeSustains>true</prioritizeSustains>
 	</WorkGiverDef>
-	<!-- ================================ Persona Editor - Editing ====================== -->
+	<!-- ================================ Neural Editor - Editing ====================== -->
 	<WorkGiverDef>
 		<defName>AC_DoNeuralEditing</defName>
 		<label>Neural editing</label>
@@ -89,7 +89,7 @@
 		<workType>Research</workType>
 		<priorityInType>50</priorityInType>
 		<fixedBillGiverDefs>
-			<li>AC_PersonaEditor</li>
+			<li>AC_NeuralEditor</li>
 		</fixedBillGiverDefs>
 		<verb>Do neural editing</verb>
 		<gerund>Doing neural editing at</gerund>
@@ -98,10 +98,10 @@
 		</requiredCapacities>
 		<prioritizeSustains>true</prioritizeSustains>
 	</WorkGiverDef>
-	<!-- ================================ Persona Connector - Hauling to ====================== -->
+	<!-- ================================ Neural Connector - Hauling to ====================== -->
 	<WorkGiverDef ParentName="HaulToBase">
-		<defName>AC_HaulToPersonaConnector</defName>
-		<label>Haul resources to persona connector</label>
-		<giverClass>AlteredCarbon.WorkGiver_HaulToPersonaConnector</giverClass>
+		<defName>AC_HaulToNeuralConnector</defName>
+		<label>Haul resources to neural connector</label>
+		<giverClass>AlteredCarbon.WorkGiver_HaulToNeuralConnector</giverClass>
 	</WorkGiverDef>
 </Defs>

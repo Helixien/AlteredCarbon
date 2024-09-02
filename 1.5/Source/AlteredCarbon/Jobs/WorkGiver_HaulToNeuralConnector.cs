@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace AlteredCarbon
 {
-    public class WorkGiver_HaulToPersonaConnector : WorkGiver_Scanner
+    public class WorkGiver_HaulToNeuralConnector : WorkGiver_Scanner
     {
-        public override ThingRequest PotentialWorkThingRequest => ThingRequest.ForDef(AC_DefOf.AC_PersonaConnector);
+        public override ThingRequest PotentialWorkThingRequest => ThingRequest.ForDef(AC_DefOf.AC_NeuralConnector);
 
         public override bool HasJobOnThing(Pawn pawn, Thing t, bool forced = false)
         {
@@ -15,7 +15,7 @@ namespace AlteredCarbon
             {
                 return false;
             }
-            if (!(t is Building_PersonaConnector { State: SubcoreScannerState.WaitingForIngredients } Building_PersonaConnector))
+            if (!(t is Building_NeuralConnector { State: SubcoreScannerState.WaitingForIngredients } Building_NeuralConnector))
             {
                 return false;
             }
@@ -23,16 +23,16 @@ namespace AlteredCarbon
             {
                 return false;
             }
-            return FindIngredients(pawn, Building_PersonaConnector).Thing != null;
+            return FindIngredients(pawn, Building_NeuralConnector).Thing != null;
         }
 
         public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
         {
-            if (!(t is Building_PersonaConnector { State: SubcoreScannerState.WaitingForIngredients } Building_PersonaConnector))
+            if (!(t is Building_NeuralConnector { State: SubcoreScannerState.WaitingForIngredients } Building_NeuralConnector))
             {
                 return null;
             }
-            ThingCount thingCount = FindIngredients(pawn, Building_PersonaConnector);
+            ThingCount thingCount = FindIngredients(pawn, Building_NeuralConnector);
             if (thingCount.Thing != null)
             {
                 Job job = HaulAIUtility.HaulToContainerJob(pawn, thingCount.Thing, t);
@@ -42,7 +42,7 @@ namespace AlteredCarbon
             return null;
         }
 
-        private ThingCount FindIngredients(Pawn pawn, Building_PersonaConnector scanner)
+        private ThingCount FindIngredients(Pawn pawn, Building_NeuralConnector scanner)
         {
             Thing thing = GenClosest.ClosestThingReachable(pawn.Position, pawn.Map, ThingRequest.ForGroup(ThingRequestGroup.HaulableEver), PathEndMode.ClosestTouch, TraverseParms.For(pawn), 9999f, Validator);
             if (thing == null)

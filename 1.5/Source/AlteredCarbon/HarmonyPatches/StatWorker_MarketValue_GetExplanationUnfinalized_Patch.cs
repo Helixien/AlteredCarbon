@@ -12,9 +12,9 @@ namespace AlteredCarbon
     {
         public static bool Prefix(StatWorker_MarketValue __instance, ref string __result, StatRequest req, ToStringNumberSense numberSense)
         {
-            if (req.Thing is ThingWithPersonaData thingWithStack)
+            if (req.Thing is ThingWithNeuralData thingWithStack)
             {
-                Pawn pawn = thingWithStack.PersonaData.GetDummyPawn;
+                Pawn pawn = thingWithStack.NeuralData.GetDummyPawn;
                 StringBuilder stringBuilder = new StringBuilder();
                 float baseValueFor = __instance.GetBaseValueFor(req);
                 if (baseValueFor != 0f || __instance.stat.showZeroBaseValue)

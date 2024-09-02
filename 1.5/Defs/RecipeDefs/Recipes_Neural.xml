@@ -6,7 +6,7 @@
 		<effectWorking>AC_NeuralEditing</effectWorking>
 		<soundWorking>AC_Interact_NeuralEditing</soundWorking>
 	</RecipeDef>
-	<!-- ================================ Neural Editing - Duplicate filled Persona stacks ====================== -->
+	<!-- ================================ Neural Editing - Duplicate active Neural stacks ====================== -->
 	<RecipeDef ParentName="AC_RecipeNeuralEditing">
 		<defName>AC_DuplicateNeuralStack</defName>
 		<label>Duplicate stack</label>
@@ -18,7 +18,7 @@
 			<li>
 				<filter>
 					<thingDefs>
-						<li>AC_EmptyPersonaStack</li>
+						<li>AC_EmptyNeuralStack</li>
 					</thingDefs>
 				</filter>
 				<count>1</count>
@@ -26,7 +26,7 @@
 			<li>
 				<filter>
 					<thingDefs>
-						<li>AC_FilledPersonaStack</li>
+						<li>AC_ActiveNeuralStack</li>
 					</thingDefs>
 				</filter>
 				<count>1</count>
@@ -34,33 +34,33 @@
 		</ingredients>
 		<fixedIngredientFilter>
 			<thingDefs>
-				<li>AC_EmptyPersonaStack</li>
-				<li>AC_FilledPersonaStack</li>
+				<li>AC_EmptyNeuralStack</li>
+				<li>AC_ActiveNeuralStack</li>
 			</thingDefs>
 		</fixedIngredientFilter>
 		<defaultIngredientFilter>
 			<thingDefs>
-				<li>AC_EmptyPersonaStack</li>
-				<li>AC_FilledPersonaStack</li>
+				<li>AC_EmptyNeuralStack</li>
+				<li>AC_ActiveNeuralStack</li>
 			</thingDefs>
 		</defaultIngredientFilter>
 		<skillRequirements>
 			<Intellectual>10</Intellectual>
 		</skillRequirements>
 	</RecipeDef>
-	<!-- ================================ Neural Editing - Persona stacks ====================== -->
+	<!-- ================================ Neural Editing - Neural stacks ====================== -->
 	<RecipeDef ParentName="AC_RecipeNeuralEditing">
-		<defName>AC_EditActivePersonaStack</defName>
+		<defName>AC_EditActiveNeuralStack</defName>
 		<label>Modify stack</label>
 		<description>Modify the neural data stored on an active stack. This process can take not only time, but can also be very destructive on the consciousness stored on the selected stack.</description>
 		<jobString>Modifying stack.</jobString>
-		<workerClass>AlteredCarbon.Recipe_EditFilledPersonaStack</workerClass>
+		<workerClass>AlteredCarbon.Recipe_EditActiveNeuralStack</workerClass>
 		<workAmount>10000000000</workAmount>
 		<ingredients>
 			<li>
 				<filter>
 					<thingDefs>
-						<li>AC_FilledPersonaStack</li>
+						<li>AC_ActiveNeuralStack</li>
 					</thingDefs>
 				</filter>
 				<count>1</count>
@@ -68,12 +68,12 @@
 		</ingredients>
 		<fixedIngredientFilter>
 			<thingDefs>
-				<li>AC_FilledPersonaStack</li>
+				<li>AC_ActiveNeuralStack</li>
 			</thingDefs>
 		</fixedIngredientFilter>
 		<defaultIngredientFilter>
 			<thingDefs>
-				<li>AC_FilledPersonaStack</li>
+				<li>AC_ActiveNeuralStack</li>
 			</thingDefs>
 		</defaultIngredientFilter>
 		<skillRequirements>
@@ -83,19 +83,19 @@
 			<li>AC_NeuralEditing</li>
 		</researchPrerequisites>
 	</RecipeDef>
-	<!-- ================================ Neural Editing - Wipe Persona stacks ====================== -->
+	<!-- ================================ Neural Editing - Wipe Neural stacks ====================== -->
 	<RecipeDef ParentName="AC_RecipeNeuralEditing">
-		<defName>AC_WipeFilledPersonaStack</defName>
+		<defName>AC_WipeActiveNeuralStack</defName>
 		<label>Erase stack</label>
 		<description>Erase all content from a selected active neural stack, effectively killing the consciousness stored on it. The stack can afterwards be reused for someone else.</description>
 		<jobString>Erasing stack.</jobString>
-		<workerClass>AlteredCarbon.Recipe_WipeFilledPersonaStack</workerClass>
+		<workerClass>AlteredCarbon.Recipe_WipeActiveNeuralStack</workerClass>
 		<workAmount>10000</workAmount>
 		<ingredients>
 			<li>
 				<filter>
 					<thingDefs>
-						<li>AC_FilledPersonaStack</li>
+						<li>AC_ActiveNeuralStack</li>
 					</thingDefs>
 				</filter>
 				<count>1</count>
@@ -103,12 +103,12 @@
 		</ingredients>
 		<fixedIngredientFilter>
 			<thingDefs>
-				<li>AC_FilledPersonaStack</li>
+				<li>AC_ActiveNeuralStack</li>
 			</thingDefs>
 		</fixedIngredientFilter>
 		<defaultIngredientFilter>
 			<thingDefs>
-				<li>AC_FilledPersonaStack</li>
+				<li>AC_ActiveNeuralStack</li>
 			</thingDefs>
 		</defaultIngredientFilter>
 		<skillRequirements>

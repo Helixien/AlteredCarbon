@@ -13,8 +13,8 @@ namespace AlteredCarbon
 	{
 		public override bool Matches(Thing t)
 		{
-			var stack = t as PersonaStack;
-			if (stack != null && stack.PersonaData.ContainsPersona && stack.PersonaData.faction.HostileTo(Faction.OfPlayer))
+			var stack = t as NeuralStack;
+			if (stack != null && stack.NeuralData.ContainsNeural && stack.NeuralData.faction.HostileTo(Faction.OfPlayer))
 			{
 				return true;
 			}

@@ -10,12 +10,12 @@ namespace AlteredCarbon
     [HotSwappable]
     public abstract class Command_ActionOnThing : Command_Action
     {
-        protected Building_PersonaEditor personaEditor;
+        protected Building_NeuralEditor neuralEditor;
         protected TargetingParameters targetParameters;
         protected Action<LocalTargetInfo> actionOnStack;
-        public Command_ActionOnThing(Building_PersonaEditor personaEditor, TargetingParameters targetParameters, Action<LocalTargetInfo> actionOnStack)
+        public Command_ActionOnThing(Building_NeuralEditor neuralEditor, TargetingParameters targetParameters, Action<LocalTargetInfo> actionOnStack)
         {
-            this.personaEditor = personaEditor;
+            this.neuralEditor = neuralEditor;
             this.targetParameters = targetParameters;
             this.actionOnStack = actionOnStack;
         }

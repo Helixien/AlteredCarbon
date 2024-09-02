@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 	<VREAndroids.AndroidGeneDef ParentName="VREA_HardwareBase">
-		<defName>AC_PersonaModule</defName>
-		<label>persona module</label>
-		<description>Androids have a persona module for interfacing for common persona stacks. They can be used as shells for shellwalkers.</description>
-		<iconPath>UI/Icons/Genes/Hardware/Gene_PersonaModule</iconPath>
+		<defName>AC_NeuralModule</defName>
+		<label>neural module</label>
+		<description>Androids have a neural module for interfacing for common neural stacks. They can be used as shells for shellwalkers.</description>
+		<iconPath>UI/Icons/Genes/Hardware/Gene_NeuralModule</iconPath>
 		<displayOrderInCategory>10</displayOrderInCategory>
 		<biostatCpx>1</biostatCpx>
 		<isCoreComponent>false</isCoreComponent>

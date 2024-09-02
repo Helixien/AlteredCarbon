@@ -5,9 +5,9 @@
 		<defName>AC_BecomeImmortal</defName>
 		<label>Become immortal</label>
 		<iconPath>VCEF_AlphaFish_a</iconPath>
-		<description>{0} wants to become immortal by having a persona stack implanted.</description>
+		<description>{0} wants to become immortal by having a neural stack implanted.</description>
 		<satisfiedHediff>
-			<li>AC_PersonaStack</li>
+			<li>AC_NeuralStack</li>
 			<li>AC_EmptyArchotechStack</li>
 		</satisfiedHediff>
 	</VAspirE.AspirationDef>
