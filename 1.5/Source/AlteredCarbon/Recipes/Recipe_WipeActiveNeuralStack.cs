@@ -15,10 +15,11 @@ namespace AlteredCarbon
         public override void Notify_IterationCompleted(Pawn billDoer, List<Thing> ingredients)
         {
             base.Notify_IterationCompleted(billDoer, ingredients);
-            var stack = NeuralStack(billDoer);
+            var stack = Thing(billDoer) as NeuralStack;
             AC_DefOf.Message_NegativeEvent.PlayOneShot(stack);
-            if (stack.NeuralData.faction != null && billDoer != null && billDoer.Faction != null 
-                && billDoer.Faction != stack.NeuralData.faction)
+            var neuralData = NeuralData(billDoer);
+            if (neuralData.faction != null && billDoer != null && billDoer.Faction != null 
+                && billDoer.Faction != neuralData.faction)
             {
                 stack.EmptyStack(billDoer, true);
             }

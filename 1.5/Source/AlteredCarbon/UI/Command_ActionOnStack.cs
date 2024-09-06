@@ -2,13 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Verse;
 
 namespace AlteredCarbon
 {
+    [HotSwappable]
     public class Command_ActionOnStack : Command_ActionOnThing
     {
-        public Command_ActionOnStack(Building_NeuralEditor neuralEditor, TargetingParameters targetParameters, Action<LocalTargetInfo> actionOnStack) : base(neuralEditor, targetParameters, actionOnStack)
+        public Command_ActionOnStack(Building_NeuralEditor neuralEditor, CommandInfo info) : base(neuralEditor, info)
         {
         }
 
@@ -16,32 +18,76 @@ namespace AlteredCarbon
         {
             get
             {
-                var stacks = neuralEditor.Map.listerThings
-                    .ThingsOfDef(AC_DefOf.AC_ActiveNeuralStack).OfType<NeuralStack>()
-                    .Where(x => x.NeuralData.ContainsNeural).ToList();
+                var things = Things;
+                foreach (NeuralStack neuralStack in Things.OfType<NeuralStack>())
+                {
+                    if (things.Contains(neuralStack))
+                    {
+                        yield return new FloatMenuOption(neuralStack.NeuralData.PawnNameColored, delegate ()
+                        {
+                            info.action(neuralStack);
+                            Find.Targeter.StopTargeting();
+                        }, iconThing: neuralStack, iconColor: neuralStack.DrawColor);
+                    }
+                }
+                foreach (Pawn pawn in Things.OfType<Pawn>())
+                {
+                    if (things.Contains(pawn))
+                    {
+                        yield return new FloatMenuOption(pawn.NameShortColored, delegate ()
+                        {
+                            info.action(pawn);
+                            Find.Targeter.StopTargeting();
+                        }, iconThing: pawn, iconColor: Color.white);
+                    }
+                }
+            }
+        }
+
+        public override HashSet<Thing> Things
+        {
+            get
+            {
+                var things = neuralEditor.Map.listerThings.AllThings.OfType<NeuralStack>()
+                    .Where(x => StackValidator(x))
+                    .Cast<Thing>().ToHashSet();
                 foreach (var cache in neuralEditor.Map.listerThings.ThingsOfDef(AC_DefOf.AC_StackCache))
                 {
                     var comp = cache.TryGetComp<CompNeuralCache>();
                     foreach (var thing in comp.innerContainer)
                     {
-                        if (thing is NeuralStack stack && stack.def == AC_DefOf.AC_ActiveNeuralStack && stack.NeuralData.ContainsNeural)
+                        if (thing is NeuralStack stack && StackValidator(stack))
                         {
-                            stacks.Add(stack);
+                            things.Add(stack);
                         }
                     }
                 }
-                foreach (NeuralStack neuralStack in stacks)
+                if (info.neuralConnectorIntegration)
                 {
-                    if (targetParameters is null || targetParameters.CanTarget(neuralStack))
+                    var matrix = neuralEditor.ConnectedMatrix;
+                    if (matrix != null && matrix.Powered)
                     {
-                        yield return new FloatMenuOption(neuralStack.NeuralData.PawnNameColored, delegate ()
+                        var compFacility = matrix.GetComp<CompFacility>();
+                        var connector = compFacility.LinkedBuildings
+                            .OfType<Building_NeuralConnector>().FirstOrDefault(x => x.PowerOn);
+                        if (connector != null)
                         {
-                            actionOnStack(neuralStack);
-                            Find.Targeter.StopTargeting();
-                        }, iconThing: neuralStack, iconColor: neuralStack.DrawColor);
+                            foreach (var pawn in neuralEditor.Map.mapPawns.AllHumanlike
+                                .Where(x => x.HasNeuralStack(out var hediff)
+                                && (info.enableArchostacks || hediff.def != AC_DefOf.AC_ArchotechStack)))
+                            {
+                                things.Add(pawn);
+                            }
+                        }
                     }
                 }
+                return things.Where(x => x.PositionHeld.Fogged(x.MapHeld) is false).ToHashSet();
             }
+        }
+
+        private bool StackValidator(NeuralStack x)
+        {
+            return x.NeuralData.ContainsData && (info.enableArchostacks || x.IsArchotechStack is false);
         }
     }
 }

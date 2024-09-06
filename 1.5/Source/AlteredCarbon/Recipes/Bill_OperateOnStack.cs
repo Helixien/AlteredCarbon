@@ -6,21 +6,22 @@ namespace AlteredCarbon
 {
     public class Bill_OperateOnStack : Bill_Production
     {
-        public ThingWithNeuralData thingWithNeuralData;
+        public Thing thingWithStack;
         public Bill_OperateOnStack()
         {
 
         }
-        public Bill_OperateOnStack(ThingWithNeuralData thingWithNeuralData, RecipeDef recipe, Precept_ThingStyle precept = null)
+        public Bill_OperateOnStack(Thing thing, RecipeDef recipe, Precept_ThingStyle precept = null)
             : base(recipe, precept)
         {
-            this.thingWithNeuralData = thingWithNeuralData;
+            this.thingWithStack = thing;
         }
-        public override string Label => base.Label + " (" + (thingWithNeuralData?.NeuralData?.PawnNameColored ?? "Destroyed".Translate()) + ")";
+
+        public override string Label => base.Label + " (" + (thingWithStack.GetNeuralData()?.PawnNameColored ?? "Destroyed".Translate()) + ")";
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_References.Look(ref thingWithNeuralData, "neuralStack");
+            Scribe_References.Look(ref thingWithStack, "thingWithStack");
         }
 
         public override void Notify_IterationCompleted(Pawn billDoer, List<Thing> ingredients)
@@ -31,7 +32,7 @@ namespace AlteredCarbon
         public override Bill Clone()
         {
             var obj = base.Clone() as Bill_OperateOnStack;
-            obj.thingWithNeuralData = thingWithNeuralData;
+            obj.thingWithStack = thingWithStack;
             return obj;
         }
     }

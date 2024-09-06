@@ -13,9 +13,14 @@ namespace AlteredCarbon
 
         }
 
-        public NeuralStack NeuralStack(Pawn billDoer)
+        public NeuralData NeuralData(Pawn billDoer)
         {
-            return (billDoer.jobs.curJob.bill as Bill_OperateOnStack).thingWithNeuralData as NeuralStack;
+            return Thing(billDoer).GetNeuralData();
+        }
+
+        public Thing Thing(Pawn billDoer)
+        {
+            return (billDoer.jobs.curJob.bill as Bill_OperateOnStack).thingWithStack;
         }
     }
 }

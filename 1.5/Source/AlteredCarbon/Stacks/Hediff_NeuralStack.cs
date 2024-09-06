@@ -113,7 +113,7 @@ namespace AlteredCarbon
 
         public override void Notify_PawnDied(DamageInfo? dinfo, Hediff culprit = null)
         {
-            if (!NeuralData.ContainsNeural)
+            if (!NeuralData.ContainsData)
             {
                 NeuralData.CopyFromPawn(this.pawn, SourceStack);
             }
@@ -122,7 +122,7 @@ namespace AlteredCarbon
 
         public override void Notify_PawnKilled()
         {
-            if (!NeuralData.ContainsNeural)
+            if (!NeuralData.ContainsData)
             {
                 NeuralData.CopyFromPawn(this.pawn, SourceStack);
             }

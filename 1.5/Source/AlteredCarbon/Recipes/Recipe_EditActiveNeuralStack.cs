@@ -11,20 +11,30 @@ namespace AlteredCarbon
         public override void Notify_IterationCompleted(Pawn billDoer, List<Thing> ingredients)
         {
             base.Notify_IterationCompleted(billDoer, ingredients);
-            var stack = NeuralStack(billDoer);
-            var faction = stack.NeuralData.faction;
+            var origData = NeuralData(billDoer);
+            var rewrittenData = origData.neuralDataRewritten;
+            var faction = origData.faction;
             if (faction != null && faction != Faction.OfPlayer) 
             {
                 Faction.OfPlayer.TryAffectGoodwillWith(faction, faction.GoodwillToMakeHostile(Faction.OfPlayer), canSendMessage: true, !faction.temporary, AC_DefOf.AC_EditedStack);
             }
-            stack.NeuralData = stack.neuralDataRewritten;
-            stack.NeuralData.stackDegradation += stack.neuralDataRewritten.stackDegradationToAdd;
-            stack.neuralDataRewritten.stackDegradationToAdd = 0;
-            stack.NeuralData.stackDegradation = Mathf.Clamp01(stack.NeuralData.stackDegradation);
-            stack.neuralDataRewritten = null;
-            if (stack.Spawned)
+            rewrittenData.stackDegradation += rewrittenData.stackDegradationToAdd;
+            rewrittenData.stackDegradationToAdd = 0;
+            rewrittenData.stackDegradation = Mathf.Clamp01(rewrittenData.stackDegradation);
+            rewrittenData.neuralDataRewritten = null;
+            var thing = Thing(billDoer);
+            if (thing is NeuralStack stack)
             {
-                stack.Map.mapDrawer.MapMeshDirty(stack.Position, MapMeshFlagDefOf.Things);
+                stack.NeuralData = rewrittenData;
+                if (stack.Spawned)
+                {
+                    stack.Map.mapDrawer.MapMeshDirty(stack.Position, MapMeshFlagDefOf.Things);
+                }
+            }
+            else if (thing is Pawn pawn && pawn.HasNeuralStack(out var hediff))
+            {
+                hediff.NeuralData = rewrittenData;
+                hediff.NeuralData.OverwritePawn(pawn, hediff.SourceStack.GetModExtension<StackSavingOptionsModExtension>(), copyFromOrigPawn: false);
             }
         }
     }

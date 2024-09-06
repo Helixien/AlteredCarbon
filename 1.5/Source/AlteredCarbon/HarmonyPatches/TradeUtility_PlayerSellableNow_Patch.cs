@@ -9,7 +9,7 @@ namespace AlteredCarbon
     {
         public static void Postfix(ref bool __result, Thing t, ITrader trader)
         {
-            if (t is NeuralStack neuralStack && neuralStack.NeuralData.ContainsNeural)
+            if (t is NeuralStack neuralStack && neuralStack.NeuralData.ContainsData)
             {
                 if (TradeSession.giftMode is false)
                 {

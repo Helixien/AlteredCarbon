@@ -11,7 +11,7 @@ namespace AlteredCarbon
     {
         public static bool Prefix(Dialog_InfoCard __instance, Rect inRect)
         {
-            if (__instance.thing is ThingWithNeuralData neuralStack && neuralStack.NeuralData.ContainsNeural)
+            if (__instance.thing is ThingWithNeuralData neuralStack && neuralStack.NeuralData.ContainsData)
             {
                 DoWindowContents(__instance, inRect);
                 return false;

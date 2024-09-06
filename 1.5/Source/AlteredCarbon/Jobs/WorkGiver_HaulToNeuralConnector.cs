@@ -28,11 +28,12 @@ namespace AlteredCarbon
 
         public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
         {
-            if (!(t is Building_NeuralConnector { State: SubcoreScannerState.WaitingForIngredients } Building_NeuralConnector))
+            if (!(t is Building_NeuralConnector { State: SubcoreScannerState.WaitingForIngredients }
+            building))
             {
                 return null;
             }
-            ThingCount thingCount = FindIngredients(pawn, Building_NeuralConnector);
+            ThingCount thingCount = FindIngredients(pawn, building);
             if (thingCount.Thing != null)
             {
                 Job job = HaulAIUtility.HaulToContainerJob(pawn, thingCount.Thing, t);

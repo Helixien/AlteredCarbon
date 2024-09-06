@@ -26,7 +26,7 @@ namespace AlteredCarbon
         };
 
         private Building_NeuralEditor neuralEditor;
-        private NeuralStack neuralStack;
+        private Thing thingWithStack;
         private NeuralData neuralData;
         private NeuralData neuralDataCopy;
 
@@ -66,12 +66,12 @@ namespace AlteredCarbon
         private float LeftPanelWidth => 450;
         public override Vector2 InitialSize => new Vector2(900, Mathf.Min(UI.screenHeight, 975));
         public bool stackRecruitable;
-        public Window_StackEditor(Building_NeuralEditor neuralEditor, NeuralStack neuralStack)
+        public Window_StackEditor(Building_NeuralEditor neuralEditor, Thing thingWithStack)
         {
             this.neuralEditor = neuralEditor;
-            this.neuralStack = neuralStack;
+            this.thingWithStack = thingWithStack;
             neuralData = new NeuralData();
-            neuralData.CopyDataFrom(neuralStack.NeuralData);
+            neuralData.CopyDataFrom(thingWithStack.GetNeuralData());
             stackRecruitable = neuralData.recruitable;
 
             this.allChildhoodBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading
@@ -86,7 +86,7 @@ namespace AlteredCarbon
             allFactions = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction && x.Hidden is false).ToList();
             allIdeos = Find.IdeoManager.IdeosListForReading;
             allTraits = DefDatabase<TraitDef>.AllDefsListForReading;
-            var modExtension = neuralStack.def.GetModExtension<StackSavingOptionsModExtension>();
+            var modExtension = thingWithStack.GetStackSource().GetModExtension<StackSavingOptionsModExtension>();
             if (modExtension != null)
             {
                 allTraits.RemoveAll(x => modExtension.ignoresTraits.Contains(x.defName));
@@ -706,8 +706,8 @@ namespace AlteredCarbon
                 {
                     neuralData.stackDegradationToAdd = GetDegradation();
                 }
-                neuralStack.neuralDataRewritten = neuralData;
-                neuralEditor.billStack.AddBill(new Bill_EditStack(neuralStack, AC_DefOf.AC_EditActiveNeuralStack, null));
+                neuralData.neuralDataRewritten = neuralData;
+                neuralEditor.billStack.AddBill(new Bill_EditStack(thingWithStack, AC_DefOf.AC_EditActiveNeuralStack, null));
                 this.Close();
             }
         }

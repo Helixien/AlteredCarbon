@@ -17,7 +17,7 @@ namespace AlteredCarbon
         public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)
         {
             var prints = pawn.Map.listerThings.AllThings.OfType<NeuralStack>().Where(x => x.autoLoad 
-                && x.NeuralData.ContainsNeural
+                && x.NeuralData.ContainsData
                 && pawn.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
             return prints;
         }

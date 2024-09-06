@@ -91,7 +91,7 @@ namespace AlteredCarbon
         public static BodyPartDef Neck;
 
         public static ThingDef AC_NeuralMatrix;
-        public static RecipeDef AC_DuplicateNeuralStack;
+        public static RecipeDef AC_DuplicateNeuralStack, AC_DuplicateNeuralStackPawn;
         public static JobDef AC_HaulThingsToContainer;
         public static ResearchProjectDef Xenogermination;
         public static JobDef AC_HaulCorpseToGestation;

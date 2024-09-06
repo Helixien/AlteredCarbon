@@ -10,7 +10,7 @@ namespace AlteredCarbon
     {
         public static void Postfix(ref float __result, Thing anyThing, int count, float singlePrice, Faction theirFaction)
         {
-            if (anyThing is NeuralStack neuralStack && neuralStack.NeuralData.ContainsNeural)
+            if (anyThing is NeuralStack neuralStack && neuralStack.NeuralData.ContainsData)
             {
                 __result = 0;
             }

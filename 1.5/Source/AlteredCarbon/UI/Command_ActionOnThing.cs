@@ -11,16 +11,33 @@ namespace AlteredCarbon
     public abstract class Command_ActionOnThing : Command_Action
     {
         protected Building_NeuralEditor neuralEditor;
-        protected TargetingParameters targetParameters;
-        protected Action<LocalTargetInfo> actionOnStack;
-        public Command_ActionOnThing(Building_NeuralEditor neuralEditor, TargetingParameters targetParameters, Action<LocalTargetInfo> actionOnStack)
+        protected CommandInfo info;
+
+        public Command_ActionOnThing(Building_NeuralEditor neuralEditor, CommandInfo info)
         {
             this.neuralEditor = neuralEditor;
-            this.targetParameters = targetParameters;
-            this.actionOnStack = actionOnStack;
+            this.info = info;
         }
 
+        public abstract HashSet<Thing> Things { get; }
         public abstract IEnumerable<FloatMenuOption> FloatMenuOptions {  get; }
+
+        public void BeginTargeting()
+        {
+            Find.Targeter.BeginTargeting(new TargetingParameters
+            {
+                canTargetPawns = true,
+                canTargetItems = true,
+                validator = (TargetInfo x) => Things.Contains(x.Thing),
+            }, delegate (LocalTargetInfo x)
+            {
+                info.action(x);
+                if (Event.current.shift)
+                {
+                    BeginTargeting();
+                }
+            });
+        }
 
         public override void ProcessInput(Event ev)
         {

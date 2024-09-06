@@ -143,6 +143,8 @@
     <Compile Include="HarmonyPatches\Pawn_GuestTracker_Notify_PawnUndowned_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_IdeoTracker_ExposeData_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnRenderer_EquipmentRender_Patch.cs" />
+    <Compile Include="Jobs\WorkGiver_CarryToNeuralConnector.cs" />
+    <Compile Include="Jobs\WorkGiver_EnterNeuralConnector.cs" />
     <Compile Include="Jobs\WorkGiver_HaulCorpseToSleeveGrower.cs" />
     <Compile Include="Jobs\WorkGiver_HaulNeuralStacks.cs" />
     <Compile Include="HarmonyPatches\BillPatches\JobDriver_DoBill_MakeNewToils_Patch.cs" />

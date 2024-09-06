@@ -91,7 +91,7 @@ namespace AlteredCarbon
         {
             pawnToInstallStack = pawn;
             var hediff = HediffMaker.MakeHediff(recipe.addsHediff, pawn) as Hediff_NeuralStack;
-            if (neuralStack.NeuralData.ContainsNeural)
+            if (neuralStack.NeuralData.ContainsData)
             {
                 hediff.NeuralData = neuralStack.NeuralData;
                 if (pawn.IsEmptySleeve() is false)

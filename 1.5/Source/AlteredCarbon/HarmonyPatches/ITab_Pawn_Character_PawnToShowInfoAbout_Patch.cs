@@ -35,7 +35,7 @@ namespace AlteredCarbon
         public static NeuralData TryGetNeuralData()
         {
             var selectedThing = Find.Selector.SingleSelectedThing;
-            if (selectedThing is ThingWithNeuralData stack && stack.NeuralData.ContainsNeural)
+            if (selectedThing is ThingWithNeuralData stack && stack.NeuralData.ContainsData)
             {
                 return stack.NeuralData;
             }

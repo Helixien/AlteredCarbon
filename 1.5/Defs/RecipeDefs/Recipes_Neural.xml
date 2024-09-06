@@ -7,13 +7,19 @@
 		<soundWorking>AC_Interact_NeuralEditing</soundWorking>
 	</RecipeDef>
 	<!-- ================================ Neural Editing - Duplicate active Neural stacks ====================== -->
-	<RecipeDef ParentName="AC_RecipeNeuralEditing">
-		<defName>AC_DuplicateNeuralStack</defName>
+	<RecipeDef ParentName="AC_RecipeNeuralEditing" Name="AC_DuplicateNeuralStackBase" Abstract="True">
 		<label>Duplicate stack</label>
 		<description>Duplicate the content of an active neural stack, effectively creating a "clone" or "duplicate" of the consciousness stored on the original stack.</description>
 		<jobString>Duplicating stack.</jobString>
 		<workerClass>AlteredCarbon.Recipe_DuplicateNeuralStack</workerClass>
 		<workAmount>15000</workAmount>
+		<skillRequirements>
+			<Intellectual>10</Intellectual>
+		</skillRequirements>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="AC_DuplicateNeuralStackBase">
+		<defName>AC_DuplicateNeuralStack</defName>
 		<ingredients>
 			<li>
 				<filter>
@@ -44,9 +50,30 @@
 				<li>AC_ActiveNeuralStack</li>
 			</thingDefs>
 		</defaultIngredientFilter>
-		<skillRequirements>
-			<Intellectual>10</Intellectual>
-		</skillRequirements>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="AC_DuplicateNeuralStackBase">
+		<defName>AC_DuplicateNeuralStackPawn</defName>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AC_EmptyNeuralStack</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AC_EmptyNeuralStack</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<defaultIngredientFilter>
+			<thingDefs>
+				<li>AC_EmptyNeuralStack</li>
+			</thingDefs>
+		</defaultIngredientFilter>
 	</RecipeDef>
 	<!-- ================================ Neural Editing - Neural stacks ====================== -->
 	<RecipeDef ParentName="AC_RecipeNeuralEditing">

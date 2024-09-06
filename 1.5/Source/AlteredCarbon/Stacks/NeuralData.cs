@@ -15,6 +15,8 @@ namespace AlteredCarbon
     [HotSwappable]
     public class NeuralData : IExposable
     {
+        public NeuralData neuralDataRewritten;
+
         public static bool debug => false;
         public ThingDef sourceStack;
         public Name name;
@@ -78,7 +80,7 @@ namespace AlteredCarbon
 
         public List<Hediff> savedHediffs = new List<Hediff>();
 
-        public bool ContainsNeural => hostPawn != null || name != null;
+        public bool ContainsData => hostPawn != null || name != null;
 
         public static HashSet<Pawn> dummyPawns = new HashSet<Pawn>();
 
@@ -283,7 +285,7 @@ namespace AlteredCarbon
 
         public void AppendInfoStack(StringBuilder stringBuilder)
         {
-            if (this.ContainsNeural)
+            if (this.ContainsData)
             {
                 if (this.faction != null)
                 {
@@ -1807,6 +1809,8 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref stackDegradation, "stackDegradation");
             Scribe_Values.Look(ref stackDegradationToAdd, "stackDegradationToAdd");
             Scribe_Values.Look(ref dummyGender, "dummyGender");
+            Scribe_Deep.Look(ref neuralDataRewritten, "neuralDataRewritten");
+
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 times.CleanupList();

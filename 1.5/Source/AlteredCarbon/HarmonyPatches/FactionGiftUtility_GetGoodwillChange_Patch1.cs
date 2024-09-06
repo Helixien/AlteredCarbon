@@ -16,7 +16,7 @@ namespace AlteredCarbon
                 ThingOwner directlyHeldThings = pod.GetDirectlyHeldThings();
                 for (int i = 0; i < directlyHeldThings.Count; i++)
                 {
-                    if (directlyHeldThings[i] is NeuralStack neuralStack && neuralStack.NeuralData.ContainsNeural 
+                    if (directlyHeldThings[i] is NeuralStack neuralStack && neuralStack.NeuralData.ContainsData 
                         && neuralStack.NeuralData.faction == giveTo.Faction)
                     {
                         __result += 8;

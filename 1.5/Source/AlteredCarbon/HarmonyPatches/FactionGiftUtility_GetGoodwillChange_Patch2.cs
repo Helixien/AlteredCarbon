@@ -15,7 +15,7 @@ namespace AlteredCarbon
             {
                 if (tradeables[i].ActionToDo == TradeAction.PlayerSells)
                 {
-                    if (tradeables[i].AnyThing is NeuralStack neuralStack && neuralStack.NeuralData.ContainsNeural
+                    if (tradeables[i].AnyThing is NeuralStack neuralStack && neuralStack.NeuralData.ContainsData
                         && neuralStack.NeuralData.faction == theirFaction)
                     {
                         __result += 8;

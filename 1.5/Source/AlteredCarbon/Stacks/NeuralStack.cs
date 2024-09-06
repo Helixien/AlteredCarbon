@@ -11,14 +11,12 @@ namespace AlteredCarbon
     [HotSwappable]
     public class NeuralStack : ThingWithNeuralData
     {
-        public NeuralData neuralDataRewritten;
-
         public override Graphic Graphic
         {
             get
             {
                 NeuralData neuralData = NeuralData;
-                if (neuralData.ContainsNeural)
+                if (neuralData.ContainsData)
                 {
                     if (neuralData.guestStatusInt == GuestStatus.Slave)
                     {
@@ -122,7 +120,7 @@ namespace AlteredCarbon
         {
             try
             {
-                if (!respawningAfterLoad && !NeuralData.ContainsNeural && IsActiveStack)
+                if (!respawningAfterLoad && !NeuralData.ContainsData && IsActiveStack)
                 {
                     GenerateNeural();
                     NeuralData.stackGroupID = AlteredCarbonManager.Instance.GetStackGroupID(this);
@@ -343,7 +341,7 @@ namespace AlteredCarbon
                 return;
             }
             base.Destroy(mode);
-            if (NeuralData.ContainsNeural && dontKillThePawn is false)
+            if (NeuralData.ContainsData && dontKillThePawn is false)
             {
                 //if (IsArchotechStack is false)
                 //{
@@ -355,7 +353,7 @@ namespace AlteredCarbon
 
         public void KillInnerPawn(bool affectFactionRelationship = false, Pawn affecter = null)
         {
-            if (NeuralData.ContainsNeural)
+            if (NeuralData.ContainsData)
             {
                 Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(PawnKindDefOf.Colonist, Faction.OfPlayer));
                 NeuralData.OverwritePawn(pawn, def.GetModExtension<StackSavingOptionsModExtension>());
@@ -397,7 +395,6 @@ namespace AlteredCarbon
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Deep.Look(ref neuralDataRewritten, "neuralDataRewritten");
             Scribe_Deep.Look(ref casterPawn, "casterPawn");
             Scribe_References.Look(ref hediff, "hediff");
         }

@@ -87,15 +87,6 @@ namespace AlteredCarbon
             return sb.ToString().TrimEndNewlines();
         }
 
-
-        //public void PerformStackBackup(Hediff_NeuralStack hediff_NeuralStack)
-        //{
-        //    var stackCopyTo = (NeuralStack)ThingMaker.MakeThing(AC_DefOf.AC_ActiveNeuralStack);
-        //    this.innerContainer.TryAdd(stackCopyTo);
-        //    stackCopyTo.NeuralData.CopyDataFrom(hediff_NeuralStack.NeuralData);
-        //    AlteredCarbonManager.Instance.RegisterStack(stackCopyTo);
-        //}
-
         public ThingOwner GetDirectlyHeldThings()
         {
             return this.innerContainer;
@@ -134,7 +125,7 @@ namespace AlteredCarbon
                 {
                     return false;
                 }
-                if (!neuralStack.NeuralData.ContainsNeural)
+                if (!neuralStack.NeuralData.ContainsData)
                 {
                     return false;
                 }

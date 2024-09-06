@@ -104,4 +104,30 @@
 		<label>Haul resources to neural connector</label>
 		<giverClass>AlteredCarbon.WorkGiver_HaulToNeuralConnector</giverClass>
 	</WorkGiverDef>
+
+	<WorkGiverDef>
+		<defName>AC_EnterNeuralConnector</defName>
+		<label>enter neural connector</label>
+		<giverClass>AlteredCarbon.WorkGiver_EnterNeuralConnector</giverClass>
+		<verb>enter</verb>
+		<gerund>entering</gerund>
+		<priorityInType>90</priorityInType>
+		<requiredCapacities>
+			<li>Moving</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+
+	<WorkGiverDef>
+		<defName>AC_CarryToNeuralConnector</defName>
+		<label>carry to neural connector</label>
+		<giverClass>AlteredCarbon.WorkGiver_CarryToNeuralConnector</giverClass>
+		<workType>Hauling</workType>
+		<verb>carry</verb>
+		<gerund>carrying</gerund>
+		<priorityInType>90</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+
 </Defs>

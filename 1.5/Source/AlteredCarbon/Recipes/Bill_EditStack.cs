@@ -10,8 +10,8 @@ namespace AlteredCarbon
         {
 
         }
-        public Bill_EditStack(NeuralStack neuralStack, RecipeDef recipe, Precept_ThingStyle precept = null) 
-            : base(neuralStack, recipe, precept)
+        public Bill_EditStack(Thing thingWithStack, RecipeDef recipe, Precept_ThingStyle precept = null) 
+            : base(thingWithStack, recipe, precept)
         {
         }
 
@@ -23,7 +23,7 @@ namespace AlteredCarbon
 
         public override float GetWorkAmount(Thing thing = null)
         {
-            var neuralStack = thingWithNeuralData as NeuralStack;
+            var neuralStack = thing.GetNeuralData();
             var time = (float)neuralStack.neuralDataRewritten.editTime;
             if (this.curBillDoer != null)
             {

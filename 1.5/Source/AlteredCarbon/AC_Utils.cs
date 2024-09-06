@@ -855,6 +855,32 @@ namespace AlteredCarbon
                    || stackNeuralData.OriginalXenotypeDef != null && p.genes.xenotype != stackNeuralData.OriginalXenotypeDef;
         }
 
+        public static NeuralData GetNeuralData(this Thing thingWithStack)
+        {
+            if (thingWithStack is ThingWithNeuralData thingWithNeuralData)
+            {
+                return thingWithNeuralData.NeuralData;
+            }
+            else if (thingWithStack is Pawn pawn && pawn.HasNeuralStack(out var hediff))
+            {
+                return hediff.NeuralData;
+            }
+            return null;
+        }
+
+        public static ThingDef GetStackSource(this Thing thingWithStack)
+        {
+            if (thingWithStack is ThingWithNeuralData thingWithNeuralData)
+            {
+                return thingWithNeuralData.def;
+            }
+            else if (thingWithStack is Pawn pawn && pawn.HasNeuralStack(out var hediff))
+            {
+                return hediff.SourceStack;
+            }
+            return null;
+        }
+
         public static void TryDisableCommand(this Command command, CommandInfo info)
         {
             if (command.disabled is false)
