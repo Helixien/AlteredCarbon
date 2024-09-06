@@ -64,7 +64,6 @@ namespace AlteredCarbon
 			return true;
 		}
 
-
         public static bool IsAndroid(this Pawn pawn)
 		{
 			if (VanillaRacesExpandedAndroidIsActive)
@@ -135,17 +134,22 @@ namespace AlteredCarbon
             }
         }
 
-        public static List<Def> GetAspirations(Pawn pawn)
+        public static List<string> GetAspirations(Pawn pawn)
         {
 			var need = pawn.needs.TryGetNeed<VAspirE.Need_Fulfillment>();
             if (need != null)
             {
-                return need.Aspirations.Cast<Def>().ToList();
+				var list = new List<string>();
+				foreach (var asp in need.Aspirations)
+				{
+					list.Add(asp.defName);
+				}
+                return list;
             }
             return null;
         }
 
-        public static void SetAspirations(Pawn pawn, List<Def> aspirations)
+        public static void SetAspirations(Pawn pawn, List<string> aspirations)
         {
             var need = pawn.needs.TryGetNeed<VAspirE.Need_Fulfillment>();
             if (need != null)
@@ -153,9 +157,13 @@ namespace AlteredCarbon
 				need.Aspirations.Clear();
 				if (aspirations != null)
 				{
-                    foreach (var aspiration in aspirations.Cast<VAspirE.AspirationDef>())
+                    foreach (var aspiration in aspirations)
                     {
-                        need.Aspirations.Add(aspiration);
+						var def = DefDatabase<VAspirE.AspirationDef>.GetNamed(aspiration);
+						if (def != null)
+						{
+                            need.Aspirations.Add(def);
+                        }
                     }
                 }
             }

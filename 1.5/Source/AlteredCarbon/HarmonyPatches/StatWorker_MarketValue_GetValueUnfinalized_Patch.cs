@@ -15,7 +15,7 @@ namespace AlteredCarbon
         {
             if (req.Thing is ThingWithNeuralData thingWithStack)
             {
-                __result =  __instance.GetBaseValueFor(req) * PawnQualityPriceFactor(thingWithStack.NeuralData.GetDummyPawn);
+                __result =  __instance.GetBaseValueFor(req) * PawnQualityPriceFactor(thingWithStack.NeuralData.DummyPawn);
                 return false;
             }
             return true;

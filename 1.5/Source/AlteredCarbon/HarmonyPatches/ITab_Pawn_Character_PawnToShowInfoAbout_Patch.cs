@@ -26,7 +26,7 @@ namespace AlteredCarbon
                     lastTimeUpdated = Time.frameCount;
                     neuralData.RefreshDummyPawn();
                 }
-                __result = neuralData.GetDummyPawn;
+                __result = neuralData.DummyPawn;
                 return false;
             }
             return true;

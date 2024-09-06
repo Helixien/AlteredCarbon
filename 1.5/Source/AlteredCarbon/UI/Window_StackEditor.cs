@@ -187,7 +187,7 @@ namespace AlteredCarbon
             {
                 DoNameInput(ref pos, "FirstName".Translate().CapitalizeFirst(), ref nameTriple.firstInt, delegate
                 {
-                    var name = PawnBioAndNameGenerator.GeneratePawnName(neuralData.GetDummyPawn, NameStyle.Full, null,
+                    var name = PawnBioAndNameGenerator.GeneratePawnName(neuralData.DummyPawn, NameStyle.Full, null,
                         forceNoNick: false, neuralData.OriginalXenotypeDef);
                     if (name is NameTriple nameTriple1)
                     {
@@ -200,7 +200,7 @@ namespace AlteredCarbon
                 });
                 DoNameInput(ref pos, "NickName".Translate().CapitalizeFirst(), ref nameTriple.nickInt, delegate
                 {
-                    var name = PawnBioAndNameGenerator.GeneratePawnName(neuralData.GetDummyPawn, NameStyle.Full, null,
+                    var name = PawnBioAndNameGenerator.GeneratePawnName(neuralData.DummyPawn, NameStyle.Full, null,
                         forceNoNick: false, neuralData.OriginalXenotypeDef);
                     if (name is NameTriple nameTriple1)
                     {
@@ -213,7 +213,7 @@ namespace AlteredCarbon
                 });
                 DoNameInput(ref pos, "LastName".Translate().CapitalizeFirst(), ref nameTriple.lastInt, delegate
                 {
-                    var name = PawnBioAndNameGenerator.GeneratePawnName(neuralData.GetDummyPawn, NameStyle.Full, null,
+                    var name = PawnBioAndNameGenerator.GeneratePawnName(neuralData.DummyPawn, NameStyle.Full, null,
                         forceNoNick: false, neuralData.OriginalXenotypeDef);
                     if (name is NameTriple nameTriple1)
                     {
@@ -229,7 +229,7 @@ namespace AlteredCarbon
             {
                 DoNameInput(ref pos, "Name".Translate().CapitalizeFirst(), ref nameSingle.nameInt, delegate
                 {
-                    var name = PawnBioAndNameGenerator.GeneratePawnName(neuralData.GetDummyPawn, NameStyle.Full, null,
+                    var name = PawnBioAndNameGenerator.GeneratePawnName(neuralData.DummyPawn, NameStyle.Full, null,
                     forceNoNick: false, neuralData.OriginalXenotypeDef);
                     neuralData.name = name;
                 });
@@ -295,7 +295,7 @@ namespace AlteredCarbon
                     neuralData.childhood = x;
                     this.backstoryChildIndex = allChildhoodBackstories.FindIndex(x => x == neuralData.childhood);
                 }, floatMenu: false, buttonOffsetFromTextOverride: 5f, labelWidthOverride: 80f, filter: null, includeInfoCard: false,
-                tooltipGetter: (BackstoryDef x) => x.FullDescriptionFor(neuralData.GetDummyPawn).Resolve(),
+                tooltipGetter: (BackstoryDef x) => x.FullDescriptionFor(neuralData.DummyPawn).Resolve(),
                 filters: backstoryFilters);
             if (neuralData.adulthood != null)
             {
@@ -306,7 +306,7 @@ namespace AlteredCarbon
                     neuralData.adulthood = x;
                     this.backstoryAdultIndex = allAdulthoodBackstories.FindIndex(x => x == neuralData.adulthood);
                 }, floatMenu: false, buttonOffsetFromTextOverride: 5f, labelWidthOverride: 80f, filter: null, includeInfoCard: false,
-                tooltipGetter: (BackstoryDef x) => x.FullDescriptionFor(neuralData.GetDummyPawn).Resolve(),
+                tooltipGetter: (BackstoryDef x) => x.FullDescriptionFor(neuralData.DummyPawn).Resolve(),
                 filters: backstoryFilters);
             }
             else
@@ -444,7 +444,7 @@ namespace AlteredCarbon
                             if (Widgets.ButtonImage(decrementSkillRect, ButtonPrevious))
                             {
                                 SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
-                                var minLevel = MinLevelOfSkill(neuralData.GetDummyPawn, skill.def);
+                                var minLevel = MinLevelOfSkill(neuralData.DummyPawn, skill.def);
                                 if (skill.Level > minLevel)
                                 {
                                     skill.Level -= 1;
@@ -550,7 +550,7 @@ namespace AlteredCarbon
             DrawSectionTitle(ref pos, "Traits".Translate(), panelWidth);
             if (Widgets.ButtonImage(addTraitRect, StackAddTrait))
             {
-                var pawn = neuralData.GetDummyPawn;
+                var pawn = neuralData.DummyPawn;
                 var traitCandidates = new List<Trait>();
                 foreach (var newTraitDef in allTraits)
                 {
@@ -630,7 +630,7 @@ namespace AlteredCarbon
                 if (Mouse.IsOver(r))
                 {
                     Trait trLocal = trait;
-                    TooltipHandler.TipRegion(tip: new TipSignal(trLocal.TipString(neuralData.GetDummyPawn)), rect: r);
+                    TooltipHandler.TipRegion(tip: new TipSignal(trLocal.TipString(neuralData.DummyPawn)), rect: r);
                 }
 
                 var buttonRect = new Rect(r.xMax - r.height, r.y, r.height, r.height);

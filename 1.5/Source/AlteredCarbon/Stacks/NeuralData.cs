@@ -20,8 +20,8 @@ namespace AlteredCarbon
         public Name name;
         public PawnKindDef kindDef;
         public Pawn hostPawn;
-        private int hostilityMode;
-        private Area areaRestriction;
+        private HostilityResponseMode hostilityMode;
+        private Dictionary<Map, Area> allowedAreas = new Dictionary<Map, Area>();
         private MedicalCareCategory medicalCareCategory;
         private bool selfTend;
         public long ageBiologicalTicks;
@@ -136,7 +136,7 @@ namespace AlteredCarbon
         private List<IExposable> expertiseRecords;
 
         // Vanilla Aspiration Expanded
-        private List<Def> aspirations = new List<Def>();
+        private List<string> aspirations = new List<string>();
         private List<int> aspirationsCompletedTicks = new List<int>();
 
         // misc
@@ -157,7 +157,7 @@ namespace AlteredCarbon
 
         public static Pawn lastDummyPawn;
 
-        public Pawn GetDummyPawn
+        public Pawn DummyPawn
         {
             get
             {
@@ -187,7 +187,6 @@ namespace AlteredCarbon
                     faction, OriginalRace ?? ThingDefOf.Human, ticks, OriginalXenotypeDef != null
                     ? OriginalXenotypeDef : XenotypeDefOf.Baseliner);
                 dummyPawn.gender = dummyGender ?? originalGender;
-
             }
             dummyPawns.Add(dummyPawn);
             OverwritePawn(dummyPawn, null, overwriteOriginalPawn: false, copyFromOrigPawn: hostPawn != null
@@ -228,7 +227,7 @@ namespace AlteredCarbon
             get
             {
                 var title = TitleShort;
-                var pawnName = name?.ToStringShort.Colorize(PawnNameColorUtility.PawnNameColorOf(GetDummyPawn));
+                var pawnName = name?.ToStringShort.Colorize(PawnNameColorUtility.PawnNameColorOf(DummyPawn));
                 return title.NullOrEmpty() ? pawnName : pawnName + ", " + title.CapitalizeFirst();
             }
         }
@@ -328,8 +327,8 @@ namespace AlteredCarbon
             this.kindDef = pawn.kindDef;
             if (pawn.playerSettings != null)
             {
-                hostilityMode = (int)pawn.playerSettings.hostilityResponse;
-                areaRestriction = pawn.playerSettings.AreaRestrictionInPawnCurrentMap;
+                hostilityMode = pawn.playerSettings.hostilityResponse;
+                allowedAreas = pawn.playerSettings.allowedAreas;
                 medicalCareCategory = pawn.playerSettings.medCare;
                 selfTend = pawn.playerSettings.selfTend;
             }
@@ -677,7 +676,7 @@ namespace AlteredCarbon
             kindDef = other.kindDef;
             hostPawn = other.hostPawn;
             hostilityMode = other.hostilityMode;
-            areaRestriction = other.areaRestriction;
+            allowedAreas = other.allowedAreas;
             ageChronologicalTicks = other.ageChronologicalTicks;
             ageBiologicalTicks = other.ageBiologicalTicks;
             medicalCareCategory = other.medicalCareCategory;
@@ -953,8 +952,8 @@ namespace AlteredCarbon
             {
                 pawn.playerSettings = new Pawn_PlayerSettings(pawn);
             }
-            pawn.playerSettings.hostilityResponse = (HostilityResponseMode)hostilityMode;
-            pawn.playerSettings.AreaRestrictionInPawnCurrentMap = areaRestriction;
+            pawn.playerSettings.hostilityResponse = hostilityMode;
+            pawn.playerSettings.allowedAreas = allowedAreas.CopyDict();
             pawn.playerSettings.medCare = medicalCareCategory;
             pawn.playerSettings.selfTend = selfTend;
             pawn.foodRestriction = new Pawn_FoodRestrictionTracker(pawn);
@@ -1645,7 +1644,7 @@ namespace AlteredCarbon
         //            if (editor.CanAddOperationOn(foundPrint))
         //            {
         //                editor.billStack.AddBill(new Bill_OperateOnStack(foundPrint, AC_DefOf.AC_RestoreStackFromNeuralPrint, null));
-        //                var pawnArg = GetDummyPawn.Named("PAWN");
+        //                var pawnArg = DummyPawn.Named("PAWN");
         //                Find.LetterStack.ReceiveLetter("AC.RestoringQueued".Translate(pawnArg),
         //                    "AC.RestoringQueuedDesc".Translate(pawnArg), LetterDefOf.NeutralEvent, editor);
         //            }
@@ -1663,7 +1662,24 @@ namespace AlteredCarbon
             Scribe_Deep.Look(ref name, "name", new object[0]);
             Scribe_References.Look(ref hostPawn, "hostPawn", true);
             Scribe_Values.Look(ref hostilityMode, "hostilityMode");
-            Scribe_References.Look(ref areaRestriction, "areaRestriction", false);
+            Scribe_Collections.Look(ref allowedAreas, "allowedAreas", LookMode.Reference, LookMode.Reference, ref allowedAreasKeys, ref allowedAreasValues);
+            if (Scribe.mode == LoadSaveMode.Saving && allowedAreas != null)
+            {
+                allowedAreas.RemoveAll((KeyValuePair<Map, Area> kvp) => kvp.Key == null || kvp.Value == null);
+            }
+            if (Scribe.mode == LoadSaveMode.ResolvingCrossRefs && allowedAreas == null)
+            {
+                allowedAreas = new Dictionary<Map, Area>();
+            }
+            if (Scribe.mode == LoadSaveMode.LoadingVars || Scribe.mode == LoadSaveMode.ResolvingCrossRefs || Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                Area refee = null;
+                Scribe_References.Look(ref refee, "areaAllowed");
+                if (refee != null && Find.AnyPlayerHomeMap != null)
+                {
+                    allowedAreas.Add(Find.AnyPlayerHomeMap, refee);
+                }
+            }
             Scribe_Values.Look(ref medicalCareCategory, "medicalCareCategory", MedicalCareCategory.NoCare, false);
             Scribe_Values.Look(ref selfTend, "selfTend", false, false);
             Scribe_Values.Look(ref ageBiologicalTicks, "ageBiologicalTicks", 0, false);
@@ -1764,7 +1780,7 @@ namespace AlteredCarbon
 
             if (ModCompatibility.VanillaAspirationsExpandedIsActive)
             {
-                Scribe_Collections.Look(ref aspirations, "aspirations", LookMode.Def);
+                Scribe_Collections.Look(ref aspirations, "aspirations", LookMode.Value);
                 Scribe_Collections.Look(ref aspirationsCompletedTicks, nameof(aspirationsCompletedTicks), LookMode.Value);
             }
 
@@ -1792,7 +1808,6 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref stackDegradation, "stackDegradation");
             Scribe_Values.Look(ref stackDegradationToAdd, "stackDegradationToAdd");
             Scribe_Values.Look(ref dummyGender, "dummyGender");
-            Scribe_Deep.Look(ref dummyPawn, "dummyPawn");
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 times.CleanupList();
@@ -1826,6 +1841,10 @@ namespace AlteredCarbon
             }
         }
 
+        private List<Map> allowedAreasKeys;
+
+        private List<Area> allowedAreasValues;
+
         public bool IsDummyPawn(Pawn pawn)
         {
             return pawn == dummyPawn || dummyPawns.Contains(pawn);
@@ -1837,7 +1856,7 @@ namespace AlteredCarbon
             {
                 if (dummyPawns.Contains(hostPawn) is false)
                 {
-                    var dummyPawn = GetDummyPawn;
+                    var dummyPawn = DummyPawn;
                     if (skills != null)
                     {
                         foreach (var skill in skills)

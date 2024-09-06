@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Defs>
 	<!-- ================================ Aspiration - Become immortal ====================== -->
+	<!--
 	<VAspirE.AspirationDef>
 		<defName>AC_BecomeImmortal</defName>
 		<label>Become immortal</label>
@@ -11,6 +12,7 @@
 			<li>AC_EmptyArchotechStack</li>
 		</satisfiedHediff>
 	</VAspirE.AspirationDef>
+	-->
 	<!-- ================================ Aspiration - Have a duplicate ====================== -->
 	<VAspirE.AspirationDef>
 		<defName>AC_HaveADuplicate</defName>

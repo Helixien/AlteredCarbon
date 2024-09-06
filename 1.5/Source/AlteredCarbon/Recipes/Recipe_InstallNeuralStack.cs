@@ -98,7 +98,7 @@ namespace AlteredCarbon
                 {
                     var copy = new NeuralData();
                     copy.CopyFromPawn(pawn, hediff.NeuralData.sourceStack);
-                    var dummyPawn = copy.GetDummyPawn;
+                    var dummyPawn = copy.DummyPawn;
                     GenSpawn.Spawn(dummyPawn, pawn.Position, pawn.Map);
                     Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.pawnToSkip = dummyPawn;
                     dummyPawn.Kill(null, hediff);

@@ -8,7 +8,6 @@ using Verse;
 
 namespace AlteredCarbon
 {
-
     [HotSwappable]
     public class NeuralStack : ThingWithNeuralData
     {
@@ -98,8 +97,25 @@ namespace AlteredCarbon
                     GenPlace.TryPlaceThing(this, pos, map, ThingPlaceMode.Near);
                     FleckMaker.Static(this.Position, this.Map, AC_DefOf.PsycastAreaEffect, 3f);
                 }
+
+                if (hediff?.skipAbility != null && hediff.pawn.health.hediffSet.hediffs.Contains(hediff))
+                {
+                    hediff.pawn.positionInt = Position;
+                    hediff.pawn.mapIndexOrState = (sbyte)Find.Maps.IndexOf(Map);
+                }
+                else
+                {
+                    casterPawn = NeuralData.DummyPawn;
+                    casterPawn.positionInt = Position;
+                    casterPawn.mapIndexOrState = (sbyte)Find.Maps.IndexOf(Map);
+                    PawnComponentsUtility.AddComponentsForSpawn(casterPawn);
+                    PawnComponentsUtility.AddAndRemoveDynamicComponents(casterPawn);
+                    hediff = casterPawn.health.AddHediff(AC_DefOf.AC_ArchotechStack) as Hediff_NeuralStack;
+                }
+                casterPawn.jobs.JobTrackerTick();
             }
         }
+
         public bool IsActiveStack => this.def == AC_DefOf.AC_ActiveNeuralStack || this.def == AC_DefOf.AC_ActiveArchotechStack;
         public bool IsArchotechStack => this.def == AC_DefOf.AC_EmptyArchotechStack || this.def == AC_DefOf.AC_ActiveArchotechStack;
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
@@ -134,6 +150,9 @@ namespace AlteredCarbon
             return targetingParameters;
         }
 
+        private Pawn casterPawn;
+        private Hediff_NeuralStack hediff;
+
         public override IEnumerable<Gizmo> GetGizmos()
         {
             foreach (Gizmo g in base.GetGizmos())
@@ -160,6 +179,31 @@ namespace AlteredCarbon
                     }
                 };
                 yield return installStack;
+                if (IsArchotechStack && IsActiveStack)
+                {
+                    hediff.NeuralData = NeuralData;
+                    hediff.skipAbility.archoStackForAbility = this;
+                    var gizmo = hediff.skipAbility.GetGizmo() as VFECore.Abilities.Command_Ability;
+                    var archoSkip = new VFECore.Abilities.Command_Ability(hediff.pawn, hediff.skipAbility)
+                    {
+                        defaultLabel = gizmo.defaultLabel,
+                        defaultDesc = gizmo.defaultDesc,
+                        activateSound = gizmo.activateSound,
+                        icon = gizmo.icon,
+                        action = delegate ()
+                        {
+                            Find.Targeter.BeginTargeting(ForPawn(), delegate (LocalTargetInfo x)
+                            {
+                                if (AC_Utils.CanImplantStackTo(AC_Utils.stackRecipesByDef[this.def].recipe.addsHediff,
+                                    x.Pawn, this, true) && Ability_ArchotechStackSkip.Validate(x, true))
+                                {
+                                    hediff.skipAbility.CreateCastJob(x);
+                                }
+                            });
+                        }
+                    };
+                    yield return archoSkip;
+                }
                 if (DebugSettings.godMode)
                 {
                     yield return new Command_Action
@@ -354,6 +398,8 @@ namespace AlteredCarbon
         {
             base.ExposeData();
             Scribe_Deep.Look(ref neuralDataRewritten, "neuralDataRewritten");
+            Scribe_Deep.Look(ref casterPawn, "casterPawn");
+            Scribe_References.Look(ref hediff, "hediff");
         }
     }
 }

@@ -59,7 +59,7 @@ namespace AlteredCarbon
             else if (__instance.tab == Dialog_InfoCard.InfoCardTab.Character)
             {
                 var stack = __instance.thing as ThingWithNeuralData;
-                CharacterCardUtility.DrawCharacterCard(cardRect, stack.NeuralData.GetDummyPawn);
+                CharacterCardUtility.DrawCharacterCard(cardRect, stack.NeuralData.DummyPawn);
             }
         }
     }

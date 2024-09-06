@@ -64,7 +64,7 @@ namespace AlteredCarbon
             {
                 if (Find.TickManager.TicksGame >= data.Value)
                 {
-                    var pawn = data.Key.GetDummyPawn;
+                    var pawn = data.Key.DummyPawn;
                     Find.WorldPawns.AddPawn(pawn);
                     neuralStacksToAppearAsWorldPawns.Remove(data.Key);
                 }

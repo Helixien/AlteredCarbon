@@ -14,7 +14,7 @@ namespace AlteredCarbon
         {
             if (req.Thing is ThingWithNeuralData thingWithStack)
             {
-                Pawn pawn = thingWithStack.NeuralData.GetDummyPawn;
+                Pawn pawn = thingWithStack.NeuralData.DummyPawn;
                 StringBuilder stringBuilder = new StringBuilder();
                 float baseValueFor = __instance.GetBaseValueFor(req);
                 if (baseValueFor != 0f || __instance.stat.showZeroBaseValue)

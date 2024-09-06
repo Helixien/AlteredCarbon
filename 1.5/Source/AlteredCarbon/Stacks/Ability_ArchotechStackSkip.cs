@@ -10,13 +10,19 @@ namespace AlteredCarbon
     [HotSwappable]
     public class Ability_ArchotechStackSkip : Ability
     {
+        public NeuralStack archoStackForAbility;
         public Hediff_NeuralStack Hediff_NeuralStack => pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_ArchotechStack) as Hediff_NeuralStack;
         public override bool ValidateTarget(LocalTargetInfo target, bool showMessages = true)
+        {
+            return Validate(target, showMessages);
+        }
+
+        public static bool Validate(LocalTargetInfo target, bool showMessages)
         {
             var pawnTarget = target.Pawn;
             if (pawnTarget != null)
             {
-                if (AC_Utils.CanImplantStackTo(Hediff_NeuralStack.def, pawnTarget, null, showMessages))
+                if (AC_Utils.CanImplantStackTo(AC_DefOf.AC_ArchotechStack, pawnTarget, null, showMessages))
                 {
                     return true;
                 }
@@ -32,35 +38,47 @@ namespace AlteredCarbon
             if (pawnTarget != null)
             {
                 var sourceHediff = Hediff_NeuralStack;
-
-                if (pawnTarget.Faction != null && CasterPawn.Faction != null && pawnTarget.Faction != CasterPawn.Faction)
+                SkipTo(CasterPawn.Faction, pawnTarget, pawn, sourceHediff.NeuralData, cooldown);
+                if (archoStackForAbility is not null)
                 {
-                    pawnTarget.Faction.TryAffectGoodwillWith(CasterPawn.Faction, pawnTarget.Faction.GoodwillToMakeHostile(CasterPawn.Faction), reason: AC_DefOf.AC_UsedArchotechStack, lookTarget: pawnTarget);
+                    Thing.allowDestroyNonDestroyable = true;
+                    archoStackForAbility.Destroy();
+                    Thing.allowDestroyNonDestroyable = false;
                 }
-
-                if (pawnTarget.HasNeuralStack(out var stackHediff))
+                else
                 {
-                    stackHediff.preventKill = true;
-                    pawnTarget.health.RemoveHediff(stackHediff);
+                    sourceHediff.preventSpawningStack = true;
+                    pawn.health.RemoveHediff(sourceHediff);
+                    sourceHediff.preventSpawningStack = false;
+                    AlteredCarbonManager.Instance.deadPawns.Add(pawn);
+                    pawn.GetComp<CompAbilities>().currentlyCasting = null;
                 }
-
-                BodyPartRecord neckRecord = pawnTarget.GetNeck();
-                var copyHediff = HediffMaker.MakeHediff(sourceHediff.def, pawnTarget, neckRecord) as Hediff_NeuralStack;
-                copyHediff.NeuralData = sourceHediff.NeuralData;
-                copyHediff.NeuralData.CopyFromPawn(pawn, sourceHediff.SourceStack);
-                pawnTarget.health.AddHediff(copyHediff, neckRecord);
-                copyHediff.NeuralData.OverwritePawn(pawnTarget, null);
-
-                sourceHediff.preventSpawningStack = true;
-                pawn.health.RemoveHediff(sourceHediff);
-                sourceHediff.preventSpawningStack = false;
-
-                Recipe_InstallNeuralStack.ApplyMindEffects(pawnTarget, copyHediff);
-
-                copyHediff.skipAbility.cooldown = sourceHediff.skipAbility.cooldown;
-                AlteredCarbonManager.Instance.deadPawns.Add(pawn);
-                pawn.GetComp<CompAbilities>().currentlyCasting = null;
+                archoStackForAbility = null;
             }
+        }
+
+        public static void SkipTo(Faction casterFaction, Pawn pawnTarget, Pawn pawnSource, NeuralData sourceData, int cooldown)
+        {
+            if (pawnTarget.Faction != null && casterFaction != null && pawnTarget.Faction != casterFaction)
+            {
+                pawnTarget.Faction.TryAffectGoodwillWith(casterFaction, pawnTarget.Faction.GoodwillToMakeHostile(casterFaction), reason: AC_DefOf.AC_UsedArchotechStack, lookTarget: pawnTarget);
+            }
+            if (pawnTarget.HasNeuralStack(out var stackHediff))
+            {
+                stackHediff.preventKill = true;
+                pawnTarget.health.RemoveHediff(stackHediff);
+            }
+            BodyPartRecord neckRecord = pawnTarget.GetNeck();
+            var copyHediff = HediffMaker.MakeHediff(AC_DefOf.AC_ArchotechStack, pawnTarget, neckRecord) as Hediff_NeuralStack;
+            copyHediff.NeuralData = sourceData;
+            if (pawnSource != null)
+            {
+                copyHediff.NeuralData.CopyFromPawn(pawnSource, AC_DefOf.AC_ActiveArchotechStack);
+            }
+            pawnTarget.health.AddHediff(copyHediff, neckRecord);
+            copyHediff.NeuralData.OverwritePawn(pawnTarget, null);
+            Recipe_InstallNeuralStack.ApplyMindEffects(pawnTarget, copyHediff);
+            copyHediff.skipAbility.cooldown = cooldown;
         }
     }
 }

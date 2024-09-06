@@ -11,7 +11,7 @@ namespace AlteredCarbon
         {
             if (p.HasNeuralStack(out var hediff_NeuralStack) && (p.Dead || p.Destroyed))
             {
-                p = hediff_NeuralStack.NeuralData.GetDummyPawn;
+                p = hediff_NeuralStack.NeuralData.DummyPawn;
             }
         }
     }
