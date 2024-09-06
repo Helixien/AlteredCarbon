@@ -1150,7 +1150,6 @@ namespace AlteredCarbon
                     if (OriginalGender == pawn.gender)
                     {
                         thoughts.RemoveAll(x => x.def == AC_DefOf.AC_WrongGender);
-                        thoughts.RemoveAll(x => x.def == AC_DefOf.AC_WrongGenderDouble);
                         thoughts.RemoveAll(x => x.def == AC_DefOf.AC_WrongGenderPregnant);
                     }
                     if (ModCompatibility.AlienRacesIsActive && OriginalRace == pawn.kindDef.race)

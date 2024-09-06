@@ -31,36 +31,15 @@ namespace AlteredCarbon
 				{
 					return;
 				}
-
 				if (pawn.HasNeuralStack(out var hediff))
 				{
-					var neuralStack = ThingMaker.MakeThing(hediff.def.spawnThingOnRemoved) as NeuralStack;
-					neuralStack.NeuralData.CopyFromPawn(hediff.pawn, hediff.SourceStack);
-					neuralStack.NeuralData.CopyOriginalData(hediff.NeuralData);
-                    neuralStack.NeuralData.RefreshDummyPawn();
-                    GenPlace.TryPlaceThing(neuralStack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
-					hediff.preventSpawningStack = true;
-                    pawn.health.RemoveHediff(hediff);
-                    hediff.preventSpawningStack = false;
+					hediff.SpawnStack(destroyPawn: false, placeMode: ThingPlaceMode.Direct, caravan: null, psycastEffect: false, mapToSpawn: pawn.Map);
                     var head = pawn.health.hediffSet.GetNotMissingParts().FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Head);
                     if (head != null)
                     {
                         pawn.TakeDamage(new DamageInfo(DamageDefOf.SurgicalCut, 99999f, 999f, -1f, null, head));
                     }
-					AlteredCarbonManager.Instance.ReplacePawnWithStack(pawn, neuralStack);
-					AlteredCarbonManager.Instance.RegisterSleeve(pawn, neuralStack);
-					AlteredCarbonManager.Instance.deadPawns.Add(pawn);
-					neuralStack.NeuralData.hostPawn = null;
-                    if (LookTargets_Patch.targets.TryGetValue(pawn, out var targets))
-					{
-						foreach (var target in targets)
-						{
-							target.targets.Remove(pawn);
-							target.targets.Add(neuralStack);
-						}
-					}
 				}
-
 			}
 			if (flag)
 			{

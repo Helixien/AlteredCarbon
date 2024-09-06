@@ -128,7 +128,6 @@ namespace AlteredCarbon
             if (hediff.NeuralData.ideo?.HasPrecept(AC_DefOf.AC_CrossSleeving_DontCare) ?? false)
             {
                 hediff.NeuralData.thoughts?.RemoveAll(x => x.def == AC_DefOf.AC_WrongGender);
-                hediff.NeuralData.thoughts?.RemoveAll(x => x.def == AC_DefOf.AC_WrongGenderDouble);
                 hediff.NeuralData.thoughts?.RemoveAll(x => x.def == AC_DefOf.AC_WrongGenderPregnant);
             }
         }
@@ -158,14 +157,7 @@ namespace AlteredCarbon
 
             if (pawn.gender != hediff.NeuralData.OriginalGender)
             {
-                if (pawn.story.traits.HasTrait(TraitDefOf.BodyPurist))
-                {
-                    pawn.needs.mood.thoughts.memories.TryGainMemory(isAndroid ? AC_DefOf.AC_WrongShellGenderDouble : AC_DefOf.AC_WrongGenderDouble);
-                }
-                else
-                {
-                    pawn.needs.mood.thoughts.memories.TryGainMemory(isAndroid ? AC_DefOf.AC_WrongShellGender : AC_DefOf.AC_WrongGender);
-                }
+                pawn.needs.mood.thoughts.memories.TryGainMemory(isAndroid ? AC_DefOf.AC_WrongShellGender : AC_DefOf.AC_WrongGender);
             }
 
             if (ModCompatibility.AlienRacesIsActive && hediff.NeuralData.OriginalRace != null && pawn.kindDef.race != hediff.NeuralData.OriginalRace)
@@ -177,18 +169,7 @@ namespace AlteredCarbon
                 pawn.needs.mood.thoughts.memories.TryGainMemory(AC_DefOf.AC_WrongXenotype);
             }
 
-            var naturalMood = pawn.story.traits.GetTrait(AC_DefOf.NaturalMood);
-            var nerves = pawn.story.traits.GetTrait(AC_DefOf.Nerves);
-            if ((naturalMood != null && naturalMood.Degree == -2)
-                    || pawn.story.traits.HasTrait(TraitDefOf.BodyPurist)
-                    || (nerves != null && nerves.Degree == -2))
-            {
-                pawn.needs.mood.thoughts.memories.TryGainMemory(isAndroid ? AC_DefOf.AC_NewShellDouble : AC_DefOf.AC_NewSleeveDouble);
-            }
-            else
-            {
-                pawn.needs.mood.thoughts.memories.TryGainMemory(isAndroid ? AC_DefOf.AC_NewShell : AC_DefOf.AC_NewSleeve);
-            }
+            pawn.needs.mood.thoughts.memories.TryGainMemory(isAndroid ? AC_DefOf.AC_NewShell : AC_DefOf.AC_NewSleeve);
 
             if (ModCompatibility.VanillaRacesExpandedAndroidIsActive)
             {

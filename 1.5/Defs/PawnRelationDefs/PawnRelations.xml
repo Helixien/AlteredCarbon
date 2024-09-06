@@ -8,9 +8,6 @@
 		<diedThought>AC_MyOriginalDied</diedThought>
 		<killedThought>AC_KilledMyOriginal</killedThought>
 		<lostThought>AC_MyOriginalLost</lostThought>
-		<soldThoughts>
-			<li>AC_SoldMyOriginal</li>
-		</soldThoughts>
 		<opinionOffset>15</opinionOffset>
 		<generationChanceFactor>0</generationChanceFactor>
 		<romanceChanceFactor>0.1</romanceChanceFactor>
@@ -27,9 +24,6 @@
 		<diedThought>AC_MyCopyDied</diedThought>
 		<killedThought>AC_KilledMyCopy</killedThought>
 		<lostThought>AC_MyCopyLost</lostThought>
-		<soldThoughts>
-			<li>AC_SoldMyCopy</li>
-		</soldThoughts>
 		<opinionOffset>15</opinionOffset>
 		<generationChanceFactor>0</generationChanceFactor>
 		<romanceChanceFactor>0.1</romanceChanceFactor>

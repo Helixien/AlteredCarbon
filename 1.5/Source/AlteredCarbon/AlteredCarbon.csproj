@@ -170,7 +170,6 @@
     <Compile Include="HarmonyPatches\BedPatches\FeedPatientUtility_ShouldBeFed_Patch.cs" />
     <Compile Include="HarmonyPatches\Fire_DoFireDamage_Patch.cs" />
     <Compile Include="HarmonyPatches\HediffComp_DissolveGearOnDeath_Notify_PawnDied_Patch.cs" />
-    <Compile Include="HarmonyPatches\Hediff_PostAdd_Patch.cs" />
     <Compile Include="HarmonyPatches\Hediff_Psylink_TryGiveAbilityOfLevel_Patch.cs" />
     <Compile Include="HarmonyPatches\Ideo_Notify_MemberDied_Patch.cs" />
     <Compile Include="HarmonyPatches\Ideo_RecacheColonistBelieverCount_Patch.cs" />

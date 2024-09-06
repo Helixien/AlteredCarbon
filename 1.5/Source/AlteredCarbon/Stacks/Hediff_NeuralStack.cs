@@ -149,18 +149,29 @@ namespace AlteredCarbon
             }
         }
         public bool preventSpawningStack;
-        public void SpawnStack(bool destroyPawn = false, ThingPlaceMode placeMode = ThingPlaceMode.Near, 
+        public NeuralStack SpawnStack(bool destroyPawn = false, ThingPlaceMode placeMode = ThingPlaceMode.Near, 
             Caravan caravan = null, bool psycastEffect = false, Map mapToSpawn = null)
         {
             if (preventSpawningStack)
             {
-                return;
+                return null;
             }
             preventSpawningStack = true;
             try
             {
+                float partHealth = pawn.health.hediffSet.GetPartHealth(part);
+                if (partHealth <= 0)
+                {
+                    preventSpawningStack = false;
+                    return null;
+                }
+                var healthRatio = partHealth / part.def.GetMaxHealth(pawn);
                 var stackDef = SourceStack;
                 var neuralStack = ThingMaker.MakeThing(stackDef) as NeuralStack;
+                if (neuralStack.IsArchotechStack is false)
+                {
+                    neuralStack.HitPoints = (int)(neuralStack.MaxHitPoints * healthRatio);
+                }
                 neuralStack.NeuralData.CopyFromPawn(this.pawn, stackDef);
                 neuralStack.NeuralData.CopyOriginalData(NeuralData);
                 mapToSpawn ??= this.pawn.MapHeld;
@@ -189,6 +200,17 @@ namespace AlteredCarbon
                 pawn.health.RemoveHediff(this);
                 AlteredCarbonManager.Instance.RegisterStack(neuralStack);
                 AlteredCarbonManager.Instance.RegisterSleeve(this.pawn, neuralStack);
+                AlteredCarbonManager.Instance.ReplacePawnWithStack(pawn, neuralStack);
+                AlteredCarbonManager.Instance.deadPawns.Add(pawn);
+                neuralStack.NeuralData.hostPawn = null;
+                if (LookTargets_Patch.targets.TryGetValue(pawn, out var targets))
+                {
+                    foreach (var target in targets)
+                    {
+                        target.targets.Remove(pawn);
+                        target.targets.Add(neuralStack);
+                    }
+                }
                 if (destroyPawn)
                 {
                     if (this.pawn.Dead)
@@ -200,12 +222,14 @@ namespace AlteredCarbon
                         this.pawn.Destroy();
                     }
                 }
+                return neuralStack;
             }
             catch (Exception ex)
             {
                 Log.Error("Error spawning stack: " + this + " - " + ex.ToString());
             }
             preventSpawningStack = false;
+            return null;
         }
 
         [HarmonyPatch(typeof(HediffSet), "ExposeData")]

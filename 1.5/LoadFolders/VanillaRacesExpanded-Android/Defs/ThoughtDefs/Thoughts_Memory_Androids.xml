@@ -17,22 +17,6 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-	<ThoughtDef>
-		<defName>AC_NewShellDouble</defName>
-		<durationDays>35</durationDays>
-		<stackLimit>1</stackLimit>
-		<nullifyingTraits>
-			<li>Transhumanist</li>
-			<li>AC_Shellwalker</li>
-		</nullifyingTraits>
-		<stages>
-			<li>
-				<label>shell body</label>
-				<description>I am in an android body, this feels so different. I will need time to get used to it.</description>
-				<baseMoodEffect>-12</baseMoodEffect>
-			</li>
-		</stages>
-	</ThoughtDef>
 	<!-- ================================ Wrong Shell Gender ====================== -->
 	<ThoughtDef>
 		<defName>AC_WrongShellGender</defName>
@@ -49,24 +33,6 @@
 				<label>different shell gender</label>
 				<description>The gender of my shell is not my own, this feels wrong.</description>
 				<baseMoodEffect>-5</baseMoodEffect>
-			</li>
-		</stages>
-	</ThoughtDef>
-	<ThoughtDef>
-		<defName>AC_WrongShellGenderDouble</defName>
-		<durationDays>30</durationDays>
-		<stackLimit>1</stackLimit>
-		<nullifyingTraits>
-			<li>Bisexual</li>
-			<li>Masochist</li>
-			<li>Asexual</li>
-			<li>AC_FreeMind</li>
-		</nullifyingTraits>
-		<stages>
-			<li>
-				<label>different shell gender</label>
-				<description>The gender of my shell is not my own, this is wrong.</description>
-				<baseMoodEffect>-10</baseMoodEffect>
 			</li>
 		</stages>
 	</ThoughtDef>

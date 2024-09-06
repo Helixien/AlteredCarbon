@@ -68,12 +68,10 @@ namespace AlteredCarbon
         public static SpecialThingFilterDef AC_AllowStacksStranger;
         public static SpecialThingFilterDef AC_AllowStacksHostile;
         public static ThoughtDef AC_WrongGender;
-        public static ThoughtDef AC_WrongGenderDouble;
         public static ThoughtDef AC_WrongGenderPregnant;
 		[MayRequireHARMod] public static ThoughtDef AC_WrongRace;
         public static ThoughtDef AC_WrongXenotype;
         public static ThoughtDef AC_NewSleeve;
-        public static ThoughtDef AC_NewSleeveDouble;
         public static DesignationDef AC_ExtractStackDesignation;
         public static ThingDef AC_Mote_VatGlow;
         public static EffecterDef AC_Vat_Bubbles;
@@ -84,7 +82,7 @@ namespace AlteredCarbon
         public static RecipeDef ButcherCorpseFlesh;
         public static TraitDef AC_Sleever;
         [MayRequireVREAndroidMod] public static GeneDef AC_NeuralModule;
-        [MayRequireVREAndroidMod] public static ThoughtDef AC_NewShell, AC_NewShellDouble, AC_WantsShell, AC_WrongShellGender, AC_WrongShellGenderDouble;
+        [MayRequireVREAndroidMod] public static ThoughtDef AC_NewShell, AC_WantsShell, AC_WrongShellGender;
         [MayRequireVREAndroidMod] public static TraitDef AC_Shellwalker;
         public static SoundDef Message_NegativeEvent;
         public static XenotypeDef AC_Sleeveliner;
