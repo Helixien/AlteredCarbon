@@ -41,28 +41,29 @@ namespace AlteredCarbon
         private List<TraitDef> allTraits;
 
         public static int editTimeOffsetPerNameChange = 4000;
-        public static int editTimeOffsetPerGenderChange = 10000;
+        public static int editTimeOffsetPerGenderChange = 8000;
         public static int editTimeOffsetPerSkillLevelChange = 500;
-        public static int editTimeOffsetPerSkillPassionChange = 2000;
-        public static int editTimeOffsetPerTraitChange = 2400;
-        public static int editTimeOffsetPerChildhoodChange = 10000;
-        public static int editTimeOffsetPerAdulthoodChange = 10000;
-        public static int editTimeOffsetPerIdeologyChange = 5000;
+        public static int editTimeOffsetPerSkillPassionChange = 4000;
+        public static int editTimeOffsetPerTraitChange = 4000;
+        public static int editTimeOffsetPerChildhoodChange = 8000;
+        public static int editTimeOffsetPerAdulthoodChange = 8000;
+        public static int editTimeOffsetPerIdeologyChange = 6000;
         public static int editTimeOffsetPerCertaintyChange = 10;
-        public static int editTimeOffsetPerFactionChange = 5000;
-        public static int editTimeOffsetPerUnwaveringLoyalChange = 2400;
+        public static int editTimeOffsetPerFactionChange = 6000;
+        public static int editTimeOffsetPerUnwaveringLoyalChange = 5000;
 
-        public static float stackDegradationOffsetPerNameChange = 0.25f;
+        public static float stackDegradationOffsetPerNameChange = 0.10f;
         public static float stackDegradationOffsetPerGenderChange = 0.5f;
-        public static float stackDegradationOffsetPerSkillLevelChange = 0.03f;
-        public static float stackDegradationOffsetPerSkillPassionChange = 0.1f;
-        public static float stackDegradationOffsetPerTraitChange = 0.15f;
+        public static float stackDegradationOffsetPerSkillLevelChange = 0.05f;
+        public static float stackDegradationOffsetPerSkillPassionChange = 0.10f;
+        public static float stackDegradationOffsetPerTraitChange = 0.10f;
         public static float stackDegradationOffsetPerChildhoodChange = 0.5f;
         public static float stackDegradationOffsetPerAdulthoodChange = 0.5f;
-        public static float stackDegradationOffsetPerIdeologyChange = 0.25f;
+        public static float stackDegradationOffsetPerIdeologyChange = 0.20f;
         public static float stackDegradationOffsetPerCertaintyChange = 0.01f;
-        public static float stackDegradationOffsetPerFactionChange = 0.25f;
-        public static float stackDegradationOffsetPerUnwaveringLoyalChange = 0.25f;
+        public static float stackDegradationOffsetPerFactionChange = 0.20f;
+        public static float stackDegradationOffsetPerUnwaveringLoyalChange = 0.30f;
+
         private float LeftPanelWidth => 450;
         public override Vector2 InitialSize => new Vector2(900, Mathf.Min(UI.screenHeight, 975));
         public bool stackRecruitable;

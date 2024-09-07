@@ -440,11 +440,9 @@ namespace AlteredCarbon
                 }
             }
             childhood = pawn.story?.Childhood;
-            if (pawn.story?.Adulthood != null)
-            {
-                adulthood = pawn.story.Adulthood;
-            }
+            adulthood = pawn.story?.Adulthood;
             title = pawn.story?.title;
+
             priorities = new Dictionary<WorkTypeDef, int>();
             if (pawn.workSettings != null && pawn.workSettings.priorities != null)
             {

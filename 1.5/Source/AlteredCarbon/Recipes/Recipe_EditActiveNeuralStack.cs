@@ -19,6 +19,10 @@ namespace AlteredCarbon
             {
                 Faction.OfPlayer.TryAffectGoodwillWith(faction, faction.GoodwillToMakeHostile(Faction.OfPlayer), canSendMessage: true, !faction.temporary, AC_DefOf.AC_EditedStack);
             }
+
+            int intellectualSkill = billDoer.skills.GetSkill(SkillDefOf.Intellectual).Level;
+            float degradationOffset = GetDegradationOffset(intellectualSkill);
+            rewrittenData.stackDegradationToAdd *= (1 - degradationOffset);
             rewrittenData.stackDegradation += rewrittenData.stackDegradationToAdd;
             rewrittenData.stackDegradationToAdd = 0;
             rewrittenData.stackDegradation = Mathf.Clamp01(rewrittenData.stackDegradation);
@@ -36,6 +40,22 @@ namespace AlteredCarbon
             {
                 rewrittenData.OverwritePawn(pawn, hediff.SourceStack.GetModExtension<StackSavingOptionsModExtension>(), copyFromOrigPawn: false);
                 hediff.NeuralData = rewrittenData;
+            }
+        }
+
+        private float GetDegradationOffset(int intellectualSkill)
+        {
+            switch (intellectualSkill)
+            {
+                case 13: return 0.05f;
+                case 14: return 0.10f;
+                case 15: return 0.15f;
+                case 16: return 0.20f;
+                case 17: return 0.25f;
+                case 18: return 0.30f;
+                case 19: return 0.35f;
+                case 20: return 0.40f;
+                default: return intellectualSkill >= 12 ? 0f : 0f;
             }
         }
     }
