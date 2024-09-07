@@ -3,6 +3,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
+    [HotSwappable]
     public class Bill_EditStack : Bill_OperateOnStack
     {
         public Pawn curBillDoer;
@@ -23,8 +24,8 @@ namespace AlteredCarbon
 
         public override float GetWorkAmount(Thing thing = null)
         {
-            var neuralStack = thing.GetNeuralData();
-            var time = (float)neuralStack.neuralDataRewritten.editTime;
+            var neuralStack = thingWithStack.GetNeuralData();
+            var time = (float)neuralStack.editTime;
             if (this.curBillDoer != null)
             {
                 var level = curBillDoer.skills.GetSkill(SkillDefOf.Intellectual).Level;

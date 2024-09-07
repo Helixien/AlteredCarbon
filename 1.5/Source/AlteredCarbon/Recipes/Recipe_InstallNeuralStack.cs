@@ -93,11 +93,11 @@ namespace AlteredCarbon
             var hediff = HediffMaker.MakeHediff(recipe.addsHediff, pawn) as Hediff_NeuralStack;
             if (neuralStack.NeuralData.ContainsData)
             {
-                hediff.NeuralData = neuralStack.NeuralData;
+                var data = hediff.NeuralData = neuralStack.NeuralData;
                 if (pawn.IsEmptySleeve() is false)
                 {
                     var copy = new NeuralData();
-                    copy.CopyFromPawn(pawn, hediff.NeuralData.sourceStack);
+                    copy.CopyFromPawn(pawn, data.sourceStack);
                     var dummyPawn = copy.DummyPawn;
                     GenSpawn.Spawn(dummyPawn, pawn.Position, pawn.Map);
                     Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.pawnToSkip = dummyPawn;
@@ -105,13 +105,13 @@ namespace AlteredCarbon
                     dummyPawn.Corpse.DeSpawn();
                 }
 
-                AlteredCarbonManager.Instance.StacksIndex.Remove(hediff.NeuralData.PawnID);
+                AlteredCarbonManager.Instance.StacksIndex.Remove(data.PawnID);
                 AlteredCarbonManager.Instance.ReplaceStackWithPawn(neuralStack, pawn);
                 if (AlteredCarbonManager.Instance.emptySleeves.Contains(pawn))
                 {
                     AlteredCarbonManager.Instance.emptySleeves.Remove(pawn);
                 }
-                hediff.NeuralData.OverwritePawn(pawn, neuralStack.def.GetModExtension<StackSavingOptionsModExtension>(), copyFromOrigPawn: false);
+                data.OverwritePawn(pawn, neuralStack.def.GetModExtension<StackSavingOptionsModExtension>(), copyFromOrigPawn: false);
                 pawn.health.AddHediff(hediff, part);
                 ApplyMindEffects(pawn, hediff);
             }

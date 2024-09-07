@@ -8,7 +8,6 @@ namespace AlteredCarbon
     {
         public static void Prefix(Corpse __instance)
         {
-            Log.Message("done: " + __instance);
             if (__instance.InnerPawn.HasNeuralStack(out var stackHediff))
             {
                 if (stackHediff.def == AC_DefOf.AC_ArchotechStack)
@@ -20,11 +19,6 @@ namespace AlteredCarbon
                 //    stackHediff.NeuralData.TryQueueAutoRestoration();
                 //}
             }
-            else
-            {
-                Log.Message(__instance.InnerPawn + " - has no stack");
-            }
-            
         }
     }
 }

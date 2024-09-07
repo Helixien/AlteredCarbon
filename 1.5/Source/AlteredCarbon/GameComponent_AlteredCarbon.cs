@@ -39,24 +39,6 @@ namespace AlteredCarbon
             }
         }
 
-        public bool CanBackup(Pawn pawn)
-        {
-            return pawn.Dead is false && pawn.IsColonist && pawn.HasNeuralStack(out var hediff_NeuralStack)
-                && hediff_NeuralStack.def != AC_DefOf.AC_ArchotechStack;
-        }
-
-        public void Backup(Pawn pawn)
-        {
-            if (pawn.HasNeuralStack(out var stackHediff))
-            {
-                var copy = new NeuralData();
-                copy.CopyFromPawn(pawn, stackHediff.SourceStack, copyRaceGenderInfo: true);
-                copy.isCopied = true;
-                copy.lastTimeBackedUp = Find.TickManager.TicksAbs;
-                copy.RefreshDummyPawn();
-            }
-        }
-
         public override void GameComponentTick()
         {
             base.GameComponentTick();

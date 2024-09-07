@@ -426,7 +426,6 @@ namespace AlteredCarbon
             };
             }
             SubcoreScannerState state = State;
-            Log.Message(state + " - " + Occupant);
             if (state == SubcoreScannerState.Occupied)
             {
                 if (connectorMode != NeuralConnectorMode.NotSet)

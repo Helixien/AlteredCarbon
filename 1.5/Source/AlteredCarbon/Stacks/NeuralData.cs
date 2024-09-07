@@ -365,7 +365,6 @@ namespace AlteredCarbon
                     }
                 }
             }
-
             if (pawn.relations != null)
             {
                 if (debug) Log.Message("CopyFromPawn START");

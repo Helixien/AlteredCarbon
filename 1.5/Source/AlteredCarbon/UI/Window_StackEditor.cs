@@ -72,7 +72,6 @@ namespace AlteredCarbon
             this.thingWithStack = thingWithStack;
             neuralData = new NeuralData();
             var toCopyFrom = thingWithStack.GetNeuralData();
-            Log.Message("toCopyFrom: " + toCopyFrom.traits.Select(x => x.def).ToStringSafeEnumerable());
             neuralData.CopyDataFrom(toCopyFrom);
             stackRecruitable = neuralData.recruitable;
 
@@ -95,7 +94,6 @@ namespace AlteredCarbon
             }
             neuralDataCopy = new NeuralData();
             neuralDataCopy.CopyDataFrom(neuralData);
-            Log.Message("neuralDataCopy: " + toCopyFrom.traits.Select(x => x.def).ToStringSafeEnumerable());
             ResetIndices();
             this.forcePause = true;
             this.absorbInputAroundWindow = true;
@@ -152,7 +150,6 @@ namespace AlteredCarbon
             DrawAcceptCancelButtons(inRect);
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
-            neuralData.RefreshDummyPawn();
         }
 
         protected void DrawTitle(ref Vector2 pos, Rect inRect)
@@ -401,7 +398,6 @@ namespace AlteredCarbon
                             passion = skill.passion,
                         });
                     }
-                    neuralData.RefreshDummyPawn();
                 }
 
                 var skillBoxHeight = neuralData.skills.Count() * (Text.LineHeight + 5) + (this.Margin * 2) - 5;
@@ -704,12 +700,13 @@ namespace AlteredCarbon
             var acceptButtonRect = new Rect(inRect.width - (buttonWidth + (buttonWidth / 2f)), resetAllButtonRect.y, buttonWidth, 32);
             if (Widgets.ButtonText(acceptButtonRect, "AC.StartEditing".Translate()))
             {
-                neuralData.editTime = GetEditTime();
+                var origData = thingWithStack.GetNeuralData();
+                origData.editTime = GetEditTime();
                 if (AC_Utils.editStacksSettings.enableStackDegradation)
                 {
-                    neuralData.stackDegradationToAdd = GetDegradation();
+                    origData.stackDegradationToAdd = GetDegradation();
                 }
-                neuralData.neuralDataRewritten = neuralData;
+                origData.neuralDataRewritten = neuralData;
                 var recipe = thingWithStack is Pawn ? AC_DefOf.AC_EditActiveNeuralStackPawn : AC_DefOf.AC_EditActiveNeuralStack;
                 neuralEditor.billStack.AddBill(new Bill_EditStack(thingWithStack, recipe, null));
                 this.Close();

@@ -71,12 +71,12 @@ namespace AlteredCarbon
             BodyPartRecord neckRecord = pawnTarget.GetNeck();
             var copyHediff = HediffMaker.MakeHediff(AC_DefOf.AC_ArchotechStack, pawnTarget, neckRecord) as Hediff_NeuralStack;
             copyHediff.NeuralData = sourceData;
+            pawnTarget.health.AddHediff(copyHediff, neckRecord);
             if (pawnSource != null)
             {
-                copyHediff.NeuralData.CopyFromPawn(pawnSource, AC_DefOf.AC_ActiveArchotechStack);
+                sourceData.CopyFromPawn(pawnSource, AC_DefOf.AC_ActiveArchotechStack);
             }
-            pawnTarget.health.AddHediff(copyHediff, neckRecord);
-            copyHediff.NeuralData.OverwritePawn(pawnTarget, null);
+            sourceData.OverwritePawn(pawnTarget, null);
             Recipe_InstallNeuralStack.ApplyMindEffects(pawnTarget, copyHediff);
             copyHediff.skipAbility.cooldown = cooldown;
         }

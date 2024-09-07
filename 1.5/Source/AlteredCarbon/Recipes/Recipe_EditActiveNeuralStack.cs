@@ -6,6 +6,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
+    [HotSwappable]
     public class Recipe_EditActiveNeuralStack : Recipe_OperateOnNeuralStack
     {
         public override void Notify_IterationCompleted(Pawn billDoer, List<Thing> ingredients)
@@ -33,8 +34,8 @@ namespace AlteredCarbon
             }
             else if (thing is Pawn pawn && pawn.HasNeuralStack(out var hediff))
             {
+                rewrittenData.OverwritePawn(pawn, hediff.SourceStack.GetModExtension<StackSavingOptionsModExtension>(), copyFromOrigPawn: false);
                 hediff.NeuralData = rewrittenData;
-                hediff.NeuralData.OverwritePawn(pawn, hediff.SourceStack.GetModExtension<StackSavingOptionsModExtension>(), copyFromOrigPawn: false);
             }
         }
     }

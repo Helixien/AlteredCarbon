@@ -32,13 +32,10 @@ namespace AlteredCarbon
                 {
                     neuralData = new NeuralData();
                     neuralData.CopyFromPawn(pawn, SourceStack, copyRaceGenderInfo: true);
-                    Log.Message("3.1: " + neuralData.traits.Select(x => x.def).ToStringSafeEnumerable());
                 }
-                else
+                else if (pawn.IsEmptySleeve() is false && NeuralData.dummyPawns.Contains(pawn) is false)
                 {
-                    Log.Message("1.1: " + neuralData.traits.Select(x => x.def).ToStringSafeEnumerable());
-                    neuralData.CopyFromPawn(this.pawn, SourceStack);
-                    Log.Message("2.1: " + neuralData.traits.Select(x => x.def).ToStringSafeEnumerable());
+                    neuralData.CopyFromPawn(pawn, SourceStack);
                 }
                 return neuralData;
             }

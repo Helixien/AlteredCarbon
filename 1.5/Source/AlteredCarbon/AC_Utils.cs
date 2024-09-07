@@ -859,16 +859,12 @@ namespace AlteredCarbon
         {
             if (thingWithStack is ThingWithNeuralData thingWithNeuralData)
             {
-                Log.Message("thingWithNeuralData: " + thingWithNeuralData);
-
                 return thingWithNeuralData.NeuralData;
             }
             else if (thingWithStack is Pawn pawn && pawn.HasNeuralStack(out var hediff))
             {
-                Log.Message("Hediff: " + hediff);
                 return hediff.NeuralData;
             }
-            Log.Message("null: " + null);
             return null;
         }
 
