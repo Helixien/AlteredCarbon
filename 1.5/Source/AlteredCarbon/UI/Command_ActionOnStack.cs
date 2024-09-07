@@ -51,7 +51,7 @@ namespace AlteredCarbon
                 var things = neuralEditor.Map.listerThings.AllThings.OfType<NeuralStack>()
                     .Where(x => StackValidator(x))
                     .Cast<Thing>().ToHashSet();
-                foreach (var cache in neuralEditor.Map.listerThings.ThingsOfDef(AC_DefOf.AC_StackCache))
+                foreach (var cache in neuralEditor.Map.GetAllStackCaches())
                 {
                     var comp = cache.TryGetComp<CompNeuralCache>();
                     foreach (var thing in comp.innerContainer)

@@ -51,20 +51,11 @@ namespace AlteredCarbon
             yield return Toils_Construct.MakeSolidThingFromBlueprintIfNecessary(TargetIndex.B, TargetIndex.C);
             yield return Toils_Haul.DepositHauledThingInContainer(TargetIndex.B, TargetIndex.C, delegate
             {
-                var matrix = Container as Building_NeuralMatrix;
-                if (matrix != null)
+                var comp = Container.TryGetComp<CompThingContainer>();
+                if (comp != null)
                 {
-                    MoteMaker.ThrowText(Container.DrawPos, pawn.Map, "InsertedThing".Translate($"{matrix.innerContainer.Count} / " +
-                        $"{Building_NeuralMatrix.MaxActiveStackCapacity}"));
-                }
-                else
-                {
-                    var comp = Container.TryGetComp<CompThingContainer>();
-                    if (comp != null)
-                    {
-                        MoteMaker.ThrowText(Container.DrawPos, pawn.Map, "InsertedThing".Translate($"{comp.innerContainer.Count} / " +
-                            $"{comp.Props.stackLimit}"));
-                    }
+                    MoteMaker.ThrowText(Container.DrawPos, pawn.Map, "InsertedThing".Translate($"{comp.innerContainer.Count} / " +
+                        $"{comp.Props.stackLimit}"));
                 }
 
             });

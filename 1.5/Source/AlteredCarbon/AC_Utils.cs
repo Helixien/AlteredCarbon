@@ -77,6 +77,21 @@ namespace AlteredCarbon
             AC_DefOf.AC_InstallNeuralStack, AC_DefOf.AC_InstallArchotechStack
         };
 
+        public static HashSet<ThingDef> stackCaches = new HashSet<ThingDef>
+        {
+            AC_DefOf.AC_StackCache, AC_DefOf.AC_NeuralMatrix
+        };
+
+        public static List<Thing> GetAllStackCaches(this Map map)
+        {
+            var list = new List<Thing>();
+            foreach (var def in stackCaches)
+            {
+                list.AddRange(map.listerThings.ThingsOfDef(def));
+            }
+            return list;
+        }
+
         public static bool Wears(this Pawn pawn, ThingDef thingDef)
         {
             return pawn.Wears(thingDef, out _);

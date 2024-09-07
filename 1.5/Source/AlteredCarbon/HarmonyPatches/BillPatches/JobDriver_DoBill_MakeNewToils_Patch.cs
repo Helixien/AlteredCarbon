@@ -81,9 +81,8 @@ namespace AlteredCarbon
             var decideShouldCarryItem = Toils_General.Do(delegate
             {
                 if (jobdriver.job.bill.recipe.Worker is Recipe_EditActiveNeuralStack or Recipe_DuplicateNeuralStack
-                    && jobdriver.job.targetB.Thing.def == AC_DefOf.AC_StackCache
-                    //|| jobdriver.job.bill.recipe.Worker is Recipe_RestoreStackFromNeuralPrint
-                    && jobdriver.job.targetB.Thing.def == AC_DefOf.AC_NeuralMatrix)
+                    && (jobdriver.job.targetB.Thing.def == AC_DefOf.AC_StackCache 
+                    || jobdriver.job.targetB.Thing.def == AC_DefOf.AC_NeuralMatrix))
                 {
                     Pawn actor = jobdriver.pawn;
                     Job curJob = actor.jobs.curJob;
@@ -135,10 +134,6 @@ namespace AlteredCarbon
                         if (target.ParentHolder is CompNeuralCache comp)
                         {
                             comp.innerContainer.TryDrop(target, ThingPlaceMode.Near, out var targetThing);
-                        }
-                        else if (target.ParentHolder is Building_NeuralMatrix matrix)
-                        {
-                            matrix.innerContainer.TryDrop(target, ThingPlaceMode.Near, out var targetThing);
                         }
                         jobdriver.JumpToToil(extractTarget);
                     }

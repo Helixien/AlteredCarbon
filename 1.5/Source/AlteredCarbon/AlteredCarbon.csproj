@@ -206,6 +206,7 @@
     <Compile Include="UI\GeneUtility.cs" />
     <Compile Include="UI\HotSwappableAttribute.cs" />
     <Compile Include="UI\ITab_StackStorageContents.cs" />
+    <Compile Include="UI\NeuralMatrixManagement.cs" />
     <Compile Include="UI\Window_BodyPartPicker.cs" />
     <Compile Include="Designators\Designator_ExtractStack.cs" />
     <Compile Include="HarmonyPatches\ReverseDesignatorDatabase_InitDesignators_Patch.cs" />
@@ -279,7 +280,6 @@
     <Compile Include="Thoughts\ThoughtWorker_Precept_StackDuplicating_Social.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_XenoSleeving_Social.cs" />
     <Compile Include="UI\Dialog_InfoCardStack.cs" />
-    <Compile Include="UI\ITab_NeuralPrintStorageContents.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_ArchotechStack.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_NoStack.cs" />
     <Compile Include="Thoughts\ThoughtWorker_Precept_NoStack_Social.cs" />

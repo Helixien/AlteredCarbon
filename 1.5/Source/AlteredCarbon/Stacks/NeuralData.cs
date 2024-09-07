@@ -1584,7 +1584,7 @@ namespace AlteredCarbon
                 {
                     return true;
                 }
-                if (map.listerThings.ThingsOfDef(AC_DefOf.AC_StackCache)
+                if (map.GetAllStackCaches()
                     .Any(x => x.TryGetComp<CompNeuralCache>() is CompNeuralCache comp
                     && comp.innerContainer.OfType<NeuralStack>().Any(y => y.NeuralData.IsPresetPawn(this))))
                 {

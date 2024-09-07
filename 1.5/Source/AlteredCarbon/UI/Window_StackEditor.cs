@@ -1,15 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using RimWorld;
-using UnityEngine;
 using Verse;
 using Verse.Sound;
 using static AlteredCarbon.UIHelper;
 
 namespace AlteredCarbon
 {
+    using System;
+    using System.Collections.Generic;
+    using UnityEngine;
+
     [StaticConstructorOnStartup]
     [HotSwappable]
     public class Window_StackEditor : Window

@@ -80,9 +80,6 @@
 				<li>Biotech</li>
 			</buildingTags>
 		</building>
-		<inspectorTabs>
-			<li>AlteredCarbon.ITab_NeuralStackStorageContents</li>
-		</inspectorTabs>
 		<comps>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
@@ -97,6 +94,11 @@
 			<li Class="CompProperties_Breakdownable"/>
 			<li Class="CompProperties_Facility">
 				<maxSimultaneous>1</maxSimultaneous>
+			</li>
+			<li Class="CompProperties_ThingContainer">
+				<compClass>AlteredCarbon.CompNeuralCache</compClass>
+				<stackLimit>10</stackLimit>
+				<drawContainedThing>false</drawContainedThing>
 			</li>
 		</comps>
 	</ThingDef>
@@ -245,6 +247,7 @@
 			<li Class="CompProperties_ThingContainer">
 				<compClass>AlteredCarbon.CompNeuralCache</compClass>
 				<stackLimit>10</stackLimit>
+				<drawContainedThing>false</drawContainedThing>
 			</li>
 		</comps>
 	</ThingDef>

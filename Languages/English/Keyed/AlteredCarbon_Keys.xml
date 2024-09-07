@@ -18,7 +18,7 @@
 	<AC.DestroyStackConfirmation>Destroying Stack:\nWARNING! You are about to destroy this stack. Are you sure you want to continue?</AC.DestroyStackConfirmation>
 	<AC.ScenPart_PawnsHaveNeuralStack>{0} have a {1} chance of starting with a {2}.</AC.ScenPart_PawnsHaveNeuralStack>
 	<AC.AutoLoad>Auto-load</AC.AutoLoad>
-	<AC.AutoLoadDesc>If active, haulers will automatically store this neural print in a neural matrix.</AC.AutoLoadDesc>
+	<AC.AutoLoadDesc>If active, haulers will automatically store this neural stack in a neural matrix.</AC.AutoLoadDesc>
 	<AC.SleeveWithStack>Sleeve with stack installed inside.</AC.SleeveWithStack>
 	<AC.PawnAlreadyHasStack>{PAWN_nameDef} already has a neural stack installed!</AC.PawnAlreadyHasStack>
 	<AC.PawnAlreadyHasArchotechStack>{PAWN_nameDef} already has an archotech stack installed!</AC.PawnAlreadyHasArchotechStack>
@@ -26,11 +26,11 @@
 	<AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>Cannot install neural stack - neck is missing or another implant installed in the neck.</AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>
 	<AC.EjectAllNeuralStacksDesc>Drop all contained neural stacks onto the ground.</AC.EjectAllNeuralStacksDesc>
 	<AC.NeuralStacksStored>Neural stacks stored: {0}/{1}</AC.NeuralStacksStored>
-	<!-- ================================ Prints ====================== -->
+	<!-- ================================ Stacks ====================== -->
 	<AC.AllowAutomaticRestoration>Allow automatic restoration</AC.AllowAutomaticRestoration>
 	<AC.AllowAutomaticRestorationDesc>Toggle this button to allow/disallow automatic restoration.</AC.AllowAutomaticRestorationDesc>
 	<AC.RestoringQueued>Restoring queued: {PAWN_nameDef} </AC.RestoringQueued>
-	<AC.RestoringQueuedDesc>Stack of {PAWN_nameDef} has been destroyed. {PAWN_possessive} latest neural print backup has been queued to be restored.</AC.RestoringQueuedDesc>
+	<AC.RestoringQueuedDesc>Stack of {PAWN_nameDef} has been destroyed. {PAWN_possessive} latest neural stack backup has been queued to be restored.</AC.RestoringQueuedDesc>
 	<!-- ================================ Sleeves ====================== -->
 	<AC.EmptySleeve>Empty sleeve</AC.EmptySleeve>
 	<AC.SleeveDeath>Sleeve Death</AC.SleeveDeath>
@@ -95,18 +95,20 @@
 	<AC.YearsOld>{0} years old</AC.YearsOld>
 	<!-- ================================ Neural Matrix ====================== -->
 	<AC.TimeOfBackup>Time of backup: {0}</AC.TimeOfBackup>
-	<AC.EjectNeuralPrintTooltip>Eject this neural print from the matrix.</AC.EjectNeuralPrintTooltip>
-	<AC.EjectNeuralPrintConfirmation>Do you really want to eject {0}? It will be immediately ejected onto the ground nearby.</AC.EjectNeuralPrintConfirmation>
-	<AC.EraseNeuralPrintTooltip>Erase this neural print irreversibly.</AC.EraseNeuralPrintTooltip>
-	<AC.EraseNeuralPrintConfirmation>Do you really want to erase {0}? It will be immediately destroyed.</AC.EraseNeuralPrintConfirmation>
-	<AC.NeuralPrintStorage>Contents</AC.NeuralPrintStorage>
-	<AC.NeuralPrintsStored>Neural prints stored: {0}/{1}</AC.NeuralPrintsStored>
+	<AC.EjectNeuralStackTooltip>Eject this neural stack from the matrix.</AC.EjectNeuralStackTooltip>
+	<AC.EjectNeuralStackConfirmation>Do you really want to eject {0}? It will be immediately ejected onto the ground nearby.</AC.EjectNeuralStackConfirmation>
+	<AC.EraseNeuralStackTooltip>Erase this neural stack irreversibly.</AC.EraseNeuralStackTooltip>
+	<AC.EraseNeuralStackConfirmation>Do you really want to erase {0}? It will be immediately destroyed.</AC.EraseNeuralStackConfirmation>
+	<AC.NeuralStackStorage>Contents</AC.NeuralStackStorage>
+	<AC.NeuralStacksStored>Neural stacks stored: {0}/{1}</AC.NeuralStacksStored>
 	<AC.LastBackup>Last Backup: {0}</AC.LastBackup>
-	<AC.AllowColonistNeuralPrints>*Allow colonist neural prints</AC.AllowColonistNeuralPrints>
-	<AC.AllowStrangerNeuralPrints>*Allow stranger neural prints</AC.AllowStrangerNeuralPrints>
-	<AC.AllowHostileNeuralPrints>*Allow hostile neural prints</AC.AllowHostileNeuralPrints>
+	<AC.AllowColonistNeuralStacks>*Allow colonist neural stacks</AC.AllowColonistNeuralStacks>
+	<AC.AllowStrangerNeuralStacks>*Allow stranger neural stacks</AC.AllowStrangerNeuralStacks>
+	<AC.AllowHostileNeuralStacks>*Allow hostile neural stacks</AC.AllowHostileNeuralStacks>
 	<AC.EjectAll>Eject all</AC.EjectAll>
-	<AC.EjectAllNeuralPrintsDesc>Drop all contained neural prints onto the ground.</AC.EjectAllNeuralPrintsDesc>
+	<AC.EjectAllNeuralStacksDesc>Drop all contained neural stacks onto the ground.</AC.EjectAllNeuralStacksDesc>
+	<AC.ManageNeuralMatrix>Manage Neural Matrix</AC.ManageNeuralMatrix>
+	<AC.ManageNeuralMatrixDesc>text.todo</AC.ManageNeuralMatrixDesc>
 	<!-- ================================ Other ====================== -->
 	<AC.CommandCallsNeuroformers>Call psylink neuroformers</AC.CommandCallsNeuroformers>
 	<AC.SetBodyParts>Install body parts</AC.SetBodyParts>
@@ -132,7 +134,7 @@ If you edit the content from a non-colonist stack from another faction, their en
 	<AC.AlreadyOrderedToWipeStack>This stack is set for reseting already on a neural editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToWipeStack>
 	<AC.AlreadyOrderedToEditStack>This stack is set for editing already on a neural editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToEditStack>
 	<AC.AlreadyOrderedToDuplicateStack>This stack is set for duplicating already on a neural editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToDuplicateStack>
-	<AC.AlreadyOrderedToRestoreStack>This print is set for restoring already on a neural editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToRestoreStack>
+	<AC.AlreadyOrderedToRestoreStack>This stack is set for restoring already on a neural editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToRestoreStack>
 	<AC.ResettingBiocodedFailed>Resetting biocoded equipment: Failed, {0} destroyed!</AC.ResettingBiocodedFailed>
 	<AC.ResettingBiocodedSuccess>Resetting biocoded equipment: Successful! {0} is unlocked.</AC.ResettingBiocodedSuccess>
 	<AC.EditNeuralStack>Edit Neural Stack</AC.EditNeuralStack>
@@ -158,20 +160,20 @@ If you edit the content from a non-colonist stack from another faction, their en
 	<AC.CancelStackEditDesc>Cancel editing neural stack.</AC.CancelStackEditDesc>
 	<AC.CancelStackDuplication>Cancel stack duplication</AC.CancelStackDuplication>
 	<AC.CancelStackDuplicationDesc>Cancel stack duplicating.</AC.CancelStackDuplicationDesc>
-	<AC.SuccessfullyRestoredStackFromBackup>{PAWN_nameDef} successfully restored neural stack from neural print.</AC.SuccessfullyRestoredStackFromBackup>
+	<AC.SuccessfullyRestoredStackFromBackup>{PAWN_nameDef} successfully restored neural stack from neural stack.</AC.SuccessfullyRestoredStackFromBackup>
 	<AC.EnableAutoRestore>Toggle automatic restoring</AC.EnableAutoRestore>
-	<AC.EnableAutoRestoreDesc>Allow to automatically restore stacks from neural prints if a pawn with an installed neural stack dies.</AC.EnableAutoRestoreDesc>
+	<AC.EnableAutoRestoreDesc>Allow to automatically restore stacks from neural stacks if a pawn with an installed neural stack dies.</AC.EnableAutoRestoreDesc>
 	<AC.SuccessfullyDuplicatedStack>{PAWN_nameDef} successfully duplicated neural stack.</AC.SuccessfullyDuplicatedStack>
 	<AC.FailedToDuplicatedStack>{PAWN_nameDef} failed to duplicate neural stack.</AC.FailedToDuplicatedStack>
 	<AC.CancelStackDuplication>Cancel stack duplication</AC.CancelStackDuplication>
 	<AC.CancelStackDuplicationDesc>Cancel duplication of stored neural stack.</AC.CancelStackDuplicationDesc>
-	<AC.CancelNeuralPrintRestoration>Cancel neural print restoration</AC.CancelNeuralPrintRestoration>
-	<AC.CancelNeuralPrintRestorationDesc>Cancel stack restoration from neural print.</AC.CancelNeuralPrintRestorationDesc>
+	<AC.CancelNeuralStackRestoration>Cancel neural stack restoration</AC.CancelNeuralStackRestoration>
+	<AC.CancelNeuralStackRestorationDesc>Cancel stack restoration from neural stack.</AC.CancelNeuralStackRestorationDesc>
 	<!-- ================================ Mod Settings ====================== -->
 	<AC.EnableStackSpawning>Enable Stack Spawning</AC.EnableStackSpawning>
 	<AC.EnableStackSpawningDesc>If disabled, Neural Stacks and Archostacks will NOT spawn on any pawns. You can still craft them, get them as rewards or trade for them.</AC.EnableStackSpawningDesc>
-	<AC.EnableTechprintRequirement>Enable techprint requirements in research projects</AC.EnableTechprintRequirement>
-	<AC.EnableTechprintRequirementDesc>Only affects Royalty owners!</AC.EnableTechprintRequirementDesc>
+	<AC.EnableTechstackRequirement>Enable techstack requirements in research projects</AC.EnableTechstackRequirement>
+	<AC.EnableTechstackRequirementDesc>Only affects Royalty owners!</AC.EnableTechstackRequirementDesc>
 	<AC.TimeToGrowSleeveMultiplier>Time to grow sleeve multiplicator:</AC.TimeToGrowSleeveMultiplier>
 	<AC.TimeToGrowSleeveMultiplierDesc>Multiplicator of the overall time needed to grow a new sleeve.</AC.TimeToGrowSleeveMultiplierDesc>
 	<AC.CostToGrowSleeveMultiplier>Cost to grow sleeve multiplicator:</AC.CostToGrowSleeveMultiplier>
@@ -187,10 +189,10 @@ If you edit the content from a non-colonist stack from another faction, their en
 	<AC.ColonistStackNeedsExtracting>Colonist stack needs extracting.</AC.ColonistStackNeedsExtracting>
 	<AC.ColonistStackNeedsExtractingDesc>These colonists are incapacitated on the ground:\n\n{0}\nSend another colonist to rescue them and carry them back to bed.\n\n(To rescue, select another colonist, then right click on the victim and select Rescue.)</AC.ColonistStackNeedsExtractingDesc>
 	<AC.SleeveDeathDoesNotCauseGearTainting>Sleeve death doesn't cause gear to be tainted</AC.SleeveDeathDoesNotCauseGearTainting>
-	<AC.EnableSoldNeuralPrintsCreatingPawnDuplicates>Selling neural prints can create duplicates</AC.EnableSoldNeuralPrintsCreatingPawnDuplicates>
-	<AC.EnableSoldNeuralPrintsCreatingPawnDuplicatesDesc>text.todo</AC.EnableSoldNeuralPrintsCreatingPawnDuplicatesDesc>
-	<AC.EnableNeuralPrintsInAncientDangers>Enable neural prints spawning in ancient dangers</AC.EnableNeuralPrintsInAncientDangers>
-	<AC.EnableNeuralPrintsInAncientDangersDesc>text.todo</AC.EnableNeuralPrintsInAncientDangersDesc>
+	<AC.EnableSoldNeuralStacksCreatingPawnDuplicates>Selling neural stacks can create duplicates</AC.EnableSoldNeuralStacksCreatingPawnDuplicates>
+	<AC.EnableSoldNeuralStacksCreatingPawnDuplicatesDesc>text.todo</AC.EnableSoldNeuralStacksCreatingPawnDuplicatesDesc>
+	<AC.EnableNeuralStacksInAncientDangers>Enable neural stacks spawning in ancient dangers</AC.EnableNeuralStacksInAncientDangers>
+	<AC.EnableNeuralStacksInAncientDangersDesc>text.todo</AC.EnableNeuralStacksInAncientDangersDesc>
 	<!-- ================================ Warnings ====================== -->
 	<AC.CannotInstallStackOnAndroidWithoutNeuralModule>Cannot install stacks into androids without a neural module.</AC.CannotInstallStackOnAndroidWithoutNeuralModule>
 	<AC.CannotInstallEmptyStackInEmptySleeve>Cannot install an empty stack into an empty sleeve.</AC.CannotInstallEmptyStackInEmptySleeve>
@@ -206,10 +208,10 @@ If you edit the content from a non-colonist stack from another faction, their en
 	<AC.MentalFuseTraumaText>{PAWN_nameDef}'s mental fuse has caused permanent damage in {PAWN_objective} brain. This damage has caused {PAWN_objective} to develop strange savant-like abilities.</AC.MentalFuseTraumaText>
 	<!-- ================================ Neural Connector ====================== -->
 	<AC.RequiresNeuralStackInstalled>Requires neural stack installed.</AC.RequiresNeuralStackInstalled>
-	<AC.CreateNeuralPrint>Create neural print</AC.CreateNeuralPrint>
+	<AC.CreateNeuralStack>Create neural stack</AC.CreateNeuralStack>
 	<AC.CreateSkilltrainer>Create skilltrainer</AC.CreateSkilltrainer>
 	<AC.NotSufficientSkillLevels>Not sufficient skill levels</AC.NotSufficientSkillLevels>
-	<AC.CreatingNeuralPrintCompleted>Creating neural print completed for {PAWN_nameDef}.</AC.CreatingNeuralPrintCompleted>
+	<AC.CreatingNeuralStackCompleted>Creating neural stack completed for {PAWN_nameDef}.</AC.CreatingNeuralStackCompleted>
 	<AC.CreatingSkilltrainerCompleted>Creating skilltrainer completed for {PAWN_nameDef}. {PAWN_nameDef}'s brain has been destroyed by the neural connector.</AC.CreatingSkilltrainerCompleted>
 	<AC.ConfirmSkilltrainerPawn>Scanning {PAWN_nameDef} to create a skilltrainer will kill {PAWN_objective}. Are you sure you want to continue?</AC.ConfirmSkilltrainerPawn>
 	<AC.ConfirmCancelSkilltrainerPawn>Cancelling a skilltrainer process will still kill {PAWN_nameDef}. Are you sure you want to continue?</AC.ConfirmCancelSkilltrainerPawn>

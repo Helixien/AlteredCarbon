@@ -52,10 +52,15 @@ namespace AlteredCarbon
                 ejectAll.icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EjectAllStacks");
                 ejectAll.action = delegate
                 {
-                    innerContainer.TryDropAll(parent.InteractionCell, parent.Map, ThingPlaceMode.Near);
+                    EjectContents();
                 };
                 yield return ejectAll;
             }
+        }
+
+        public void EjectContents()
+        {
+            innerContainer.TryDropAll(parent.InteractionCell, parent.Map, ThingPlaceMode.Near);
         }
 
         public override string CompInspectStringExtra()

@@ -36,7 +36,7 @@ namespace AlteredCarbon
 
         private static IEnumerable<Thing> GetNeuralCaches(Pawn hauler, Thing stack)
         {
-            var storages = hauler.Map.listerThings.ThingsOfDef(AC_DefOf.AC_StackCache)
+            var storages = hauler.Map.GetAllStackCaches()
                 .Where(x => x.TryGetComp<CompNeuralCache>() is CompNeuralCache comp
                 && comp.Accepts(stack) && hauler.CanReserveAndReach(x, PathEndMode.Touch, Danger.Deadly));
             return storages;
