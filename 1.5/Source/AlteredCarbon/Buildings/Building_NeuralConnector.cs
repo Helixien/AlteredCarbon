@@ -14,12 +14,13 @@ namespace AlteredCarbon
     {
         public enum NeuralConnectorMode
         {
-            CreateNeuralPrint, CreateSkilltrainer
+            NotSet, CreateNeuralPrint, CreateSkilltrainer
         }
 
         private NeuralConnectorMode connectorMode;
 
         public Building_NeuralMatrix ConnectedMatrix => CompAffectedByFacilities.LinkedFacilitiesListForReading.OfType<Building_NeuralMatrix>().FirstOrDefault();
+        public Building_NeuralEditor ConnectedEditor => ConnectedMatrix?.GetComp<CompFacility>().LinkedBuildings.OfType<Building_NeuralEditor>().FirstOrDefault();
         private CompAffectedByFacilities _compAffectedByFacilities;
         public CompAffectedByFacilities CompAffectedByFacilities =>
             _compAffectedByFacilities ??= GetComp<CompAffectedByFacilities>();
@@ -119,15 +120,20 @@ namespace AlteredCarbon
         {
             get
             {
-                if (!initScanner || !PowerOn || ConnectedMatrix is null || ConnectedMatrix.Powered is false)
+                var occupant = Occupant;
+                if (!initScanner && (occupant is null || !PowerOn || ConnectedMatrix is null || ConnectedMatrix.Powered is false))
                 {
                     return SubcoreScannerState.Inactive;
+                }
+                if (occupant != null && connectorMode == NeuralConnectorMode.NotSet)
+                {
+                    return SubcoreScannerState.Occupied;
                 }
                 if (!AllRequiredIngredientsLoaded)
                 {
                     return SubcoreScannerState.WaitingForIngredients;
                 }
-                if (Occupant == null)
+                if (occupant == null)
                 {
                     return SubcoreScannerState.WaitingForOccupant;
                 }
@@ -173,6 +179,16 @@ namespace AlteredCarbon
             return 0;
         }
 
+        public bool IsRequiredForBills(Pawn pawn)
+        {
+            var neuralEditor = ConnectedEditor;
+            if (neuralEditor != null && neuralEditor.Powered)
+            {
+                return neuralEditor.billStack.Bills.Any(x => x is Bill_OperateOnStack operateOnStack && operateOnStack.thingWithStack == pawn);
+            }
+            return false;
+        }
+
         public override AcceptanceReport CanAcceptPawn(Pawn selPawn)
         {
             if (!selPawn.IsColonist && !selPawn.IsSlaveOfColony && !selPawn.IsPrisonerOfColony)
@@ -186,6 +202,10 @@ namespace AlteredCarbon
             if (!PowerOn)
             {
                 return "CannotUseNoPower".Translate();
+            }
+            if (IsRequiredForBills(selPawn))
+            {
+                return true;
             }
             if (State != SubcoreScannerState.WaitingForOccupant)
             {
@@ -261,7 +281,10 @@ namespace AlteredCarbon
                 {
                     Find.Selector.Select(pawn, playSound: false, forceDesignatorDeselect: false);
                 }
-                fabricationTicksLeft = FabricationTicks;
+                if (connectorMode != NeuralConnectorMode.NotSet)
+                {
+                    fabricationTicksLeft = FabricationTicks;
+                }
             }
         }
 
@@ -311,6 +334,7 @@ namespace AlteredCarbon
             }
             selectedPawn = null;
             initScanner = false;
+            connectorMode = NeuralConnectorMode.NotSet;
         }
 
         private void KillOccupant()
@@ -402,50 +426,46 @@ namespace AlteredCarbon
             };
             }
             SubcoreScannerState state = State;
+            Log.Message(state + " - " + Occupant);
             if (state == SubcoreScannerState.Occupied)
             {
-                fabricationTicksLeft--;
-                if (fabricationTicksLeft <= 0)
+                if (connectorMode != NeuralConnectorMode.NotSet)
                 {
-                    //if (connectorMode == NeuralConnectorMode.CreateNeuralPrint)
-                    //{
-                    //    var print = ThingMaker.MakeThing(def.building.subcoreScannerOutputDef) as NeuralPrint;
-                    //    var stack = Occupant.GetNeuralStack();
-                    //    print.NeuralData.CopyFromPawn(Occupant, stack.sourceDef, true, false);
-                    //    var matrix = ConnectedMatrix;
-                    //    if (matrix.TryAcceptThing(print) is false)
-                    //    {
-                    //        GenPlace.TryPlaceThing(print, InteractionCell, base.Map, ThingPlaceMode.Near);
-                    //    }
-                    //    Messages.Message("AC.CreatingNeuralPrintCompleted".Translate(Occupant.Named("PAWN")), Occupant, MessageTypeDefOf.PositiveEvent);
-                    //}
-                    //else if (connectorMode == NeuralConnectorMode.CreateSkilltrainer)
-                    //{
+                    fabricationTicksLeft--;
+                    if (fabricationTicksLeft <= 0)
+                    {
                         var skill = Occupant.skills.skills.Where(x => x.Level >= 10).RandomElement();
                         var def = ThingDef.Named(ThingDefGenerator_Neurotrainer.NeurotrainerDefPrefix + "_" + skill.def.defName);
                         var skilTrainer = ThingMaker.MakeThing(def);
                         GenPlace.TryPlaceThing(skilTrainer, InteractionCell, base.Map, ThingPlaceMode.Near);
                         Messages.Message("AC.CreatingSkilltrainerCompleted".Translate(Occupant.Named("PAWN")), Occupant, MessageTypeDefOf.PositiveEvent);
-                    //}
-                    EjectContents();
-                    if (def.building.subcoreScannerComplete != null)
-                    {
-                        def.building.subcoreScannerComplete.PlayOneShot(this);
+                        FinishWork();
                     }
                 }
+                else
+                {
+                    if (IsRequiredForBills(Occupant) is false)
+                    {
+                        FinishWork();
+                    }
+                }
+ 
                 if (workingMote == null || workingMote.Destroyed)
                 {
                     workingMote = MoteMaker.MakeAttachedOverlay(this, MotePerRotation[base.Rotation], Vector3.zero);
                 }
                 workingMote.Maintain();
-                if (progressBarEffecter == null)
+                if (connectorMode != NeuralConnectorMode.NotSet)
                 {
-                    progressBarEffecter = EffecterDefOf.ProgressBar.Spawn();
+                    if (progressBarEffecter == null)
+                    {
+                        progressBarEffecter = EffecterDefOf.ProgressBar.Spawn();
+                    }
+                    progressBarEffecter.EffectTick(this, TargetInfo.Invalid);
+                    MoteProgressBar mote = ((SubEffecter_ProgressBar)progressBarEffecter.children[0]).mote;
+                    mote.progress = 1f - (float)fabricationTicksLeft / (float)FabricationTicks;
+                    mote.offsetZ = -0.8f;
                 }
-                progressBarEffecter.EffectTick(this, TargetInfo.Invalid);
-                MoteProgressBar mote = ((SubEffecter_ProgressBar)progressBarEffecter.children[0]).mote;
-                mote.progress = 1f - (float)fabricationTicksLeft / (float)FabricationTicks;
-                mote.offsetZ = -0.8f;
                 if (def.building.subcoreScannerWorking != null)
                 {
                     if (sustainerWorking == null || sustainerWorking.Ended)
@@ -464,6 +484,7 @@ namespace AlteredCarbon
                 effectHusk = null;
                 progressBarEffecter?.Cleanup();
                 progressBarEffecter = null;
+                connectorMode = NeuralConnectorMode.NotSet;
             }
             if (state == SubcoreScannerState.Occupied)
             {
@@ -484,6 +505,14 @@ namespace AlteredCarbon
             }
         }
 
+        private void FinishWork()
+        {
+            EjectContents();
+            if (this.def.building.subcoreScannerComplete != null)
+            {
+                this.def.building.subcoreScannerComplete.PlayOneShot(this);
+            }
+        }
 
         public override IEnumerable<Gizmo> GetGizmos()
         {
@@ -644,8 +673,11 @@ namespace AlteredCarbon
                     stringBuilder.Append("SubcoreScannerWaitingForOccupant".Translate());
                     break;
                 case SubcoreScannerState.Occupied:
-                    stringBuilder.AppendLineIfNotEmpty();
-                    stringBuilder.Append("SubcoreScannerCompletesIn".Translate() + ": " + fabricationTicksLeft.ToStringTicksToPeriod());
+                    if (connectorMode != NeuralConnectorMode.NotSet)
+                    {
+                        stringBuilder.AppendLineIfNotEmpty();
+                        stringBuilder.Append("SubcoreScannerCompletesIn".Translate() + ": " + fabricationTicksLeft.ToStringTicksToPeriod());
+                    }
                     break;
             }
             return stringBuilder.ToString();

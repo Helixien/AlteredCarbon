@@ -76,13 +76,22 @@
 		</defaultIngredientFilter>
 	</RecipeDef>
 	<!-- ================================ Neural Editing - Neural stacks ====================== -->
-	<RecipeDef ParentName="AC_RecipeNeuralEditing">
-		<defName>AC_EditActiveNeuralStack</defName>
+	<RecipeDef ParentName="AC_RecipeNeuralEditing" Name="AC_EditActiveNeuralStackBase" Abstract="True">
 		<label>Modify stack</label>
 		<description>Modify the neural data stored on an active stack. This process can take not only time, but can also be very destructive on the consciousness stored on the selected stack.</description>
 		<jobString>Modifying stack.</jobString>
 		<workerClass>AlteredCarbon.Recipe_EditActiveNeuralStack</workerClass>
 		<workAmount>10000000000</workAmount>
+		<skillRequirements>
+			<Intellectual>12</Intellectual>
+		</skillRequirements>
+		<researchPrerequisites>
+			<li>AC_NeuralEditing</li>
+		</researchPrerequisites>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="AC_EditActiveNeuralStackBase">
+		<defName>AC_EditActiveNeuralStack</defName>
 		<ingredients>
 			<li>
 				<filter>
@@ -103,12 +112,10 @@
 				<li>AC_ActiveNeuralStack</li>
 			</thingDefs>
 		</defaultIngredientFilter>
-		<skillRequirements>
-			<Intellectual>12</Intellectual>
-		</skillRequirements>
-		<researchPrerequisites>
-			<li>AC_NeuralEditing</li>
-		</researchPrerequisites>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="AC_EditActiveNeuralStackBase">
+		<defName>AC_EditActiveNeuralStackPawn</defName>
 	</RecipeDef>
 	<!-- ================================ Neural Editing - Wipe Neural stacks ====================== -->
 	<RecipeDef ParentName="AC_RecipeNeuralEditing">

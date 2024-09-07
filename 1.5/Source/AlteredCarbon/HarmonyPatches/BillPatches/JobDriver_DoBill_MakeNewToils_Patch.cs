@@ -19,6 +19,17 @@ namespace AlteredCarbon
             {
                 var job = __instance.job;
                 var pawn = __instance.pawn;
+                __instance.FailOn(() =>
+                {
+                    if (__instance.job.bill is Bill_OperateOnStack operateOnStack)
+                    {
+                        if (operateOnStack.ShouldDoNow() is false)
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                });
                 Toil gotoBillGiver = Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.InteractionCell);
                 Toil toil = ToilMaker.MakeToil("MakeNewToils");
                 toil.initAction = delegate

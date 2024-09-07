@@ -35,7 +35,7 @@ namespace AlteredCarbon
         public static VFECore.Abilities.AbilityDef AC_ArchotechStackSkip;
         public static HediffDef AC_StackDegradation;
         public static HediffDef AC_BrainTrauma;
-        public static RecipeDef AC_EditActiveNeuralStack;
+        public static RecipeDef AC_EditActiveNeuralStack, AC_EditActiveNeuralStackPawn;
         public static HistoryEventDef AC_UsedArchotechStack;
         public static ThoughtDef AC_StackDegradationThought;
         [MayRequireIdeology] public static HistoryEventDef AC_InstalledNeuralStack;

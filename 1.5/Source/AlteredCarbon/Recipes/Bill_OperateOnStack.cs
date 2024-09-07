@@ -17,6 +17,15 @@ namespace AlteredCarbon
             this.thingWithStack = thing;
         }
 
+        public override bool ShouldDoNow()
+        {
+            if (thingWithStack is Pawn patient && 
+                (patient.ParentHolder is not Building_NeuralConnector connector || connector.PowerOn is false))
+            {
+                return false;
+            }
+            return base.ShouldDoNow();
+        }
         public override string Label => base.Label + " (" + (thingWithStack.GetNeuralData()?.PawnNameColored ?? "Destroyed".Translate()) + ")";
         public override void ExposeData()
         {

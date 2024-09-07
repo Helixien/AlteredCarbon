@@ -32,7 +32,13 @@ namespace AlteredCarbon
         private CompAffectedByFacilities _compAffectedByFacilities;
         public CompAffectedByFacilities CompAffectedByFacilities =>
             _compAffectedByFacilities ??= GetComp<CompAffectedByFacilities>();
-
+        public bool Powered => this.compPower.PowerOn;
+        private CompPowerTrader compPower;
+        public override void SpawnSetup(Map map, bool respawningAfterLoad)
+        {
+            base.SpawnSetup(map, respawningAfterLoad);
+            compPower = GetComp<CompPowerTrader>();
+        }
         public override IEnumerable<Gizmo> GetGizmos()
         {
             foreach (Gizmo g in base.GetGizmos())
@@ -74,7 +80,8 @@ namespace AlteredCarbon
                 recipe = AC_DefOf.AC_EditActiveNeuralStack,
                 defaultLabelCancel = "AC.CancelStackEdit".Translate(),
                 defaultDescCancel = "AC.CancelStackEditDesc".Translate(),
-                enableArchostacks = AC_Utils.editStacksSettings.enableArchostackEditing
+                enableArchostacks = AC_Utils.editStacksSettings.enableArchostackEditing,
+                neuralConnectorIntegration = true
             }))
             {
                 yield return g;
@@ -128,7 +135,7 @@ namespace AlteredCarbon
                 {
                     Messages.Message("AC.AlreadyOrderedToWipeStack".Translate(), MessageTypeDefOf.CautionInput);
                 }
-                else if (bill.recipe == AC_DefOf.AC_EditActiveNeuralStack)
+                else if (bill.recipe == AC_DefOf.AC_EditActiveNeuralStack || bill.recipe == AC_DefOf.AC_EditActiveNeuralStackPawn)
                 {
                     Messages.Message("AC.AlreadyOrderedToEditStack".Translate(), MessageTypeDefOf.CautionInput);
                 }
@@ -143,63 +150,52 @@ namespace AlteredCarbon
 
         public void InstallWipeStackBill(LocalTargetInfo x)
         {
-            var neuralData = x.Thing.GetNeuralData();
-            if (neuralData != null && CanAddOperationOn(x.Thing))
+            HandleStackBill(x, "AC.WipingFriendlyStackWarning", () =>
             {
-                if (neuralData.faction != null && neuralData.faction.HostileTo(Faction.OfPlayer) is false)
-                {
-                    Find.WindowStack.Add(new Dialog_MessageBox("AC.WipingFriendlyStackWarning".Translate(), "Cancel".Translate(), null,
-                    "Confirm".Translate(), delegate ()
-                    {
-                        billStack.AddBill(new Bill_OperateOnStack(x.Thing, AC_DefOf.AC_WipeActiveNeuralStack, null));
-                    }, null, false, null, null));
-                }
-                else
-                {
-                    billStack.AddBill(new Bill_OperateOnStack(x.Thing, AC_DefOf.AC_WipeActiveNeuralStack, null));
-                }
-            }
+                billStack.AddBill(new Bill_OperateOnStack(x.Thing, AC_DefOf.AC_WipeActiveNeuralStack, null));
+            });
         }
 
         public void InstallDuplicateStackBill(LocalTargetInfo x)
         {
-            var neuralData = x.Thing.GetNeuralData();
-            if (neuralData != null && CanAddOperationOn(x.Thing))
+            HandleStackBill(x, "AC.DuplicatingFriendlyStackWarning", () =>
             {
-                var recipe = x.Thing is Pawn ? AC_DefOf.AC_DuplicateNeuralStackPawn : AC_DefOf.AC_DuplicateNeuralStack;
-                if (neuralData.faction != null && neuralData.faction.HostileTo(Faction.OfPlayer) is false)
-                {
-                    Find.WindowStack.Add(new Dialog_MessageBox("AC.DuplicatingFriendlyStackWarning".Translate(), "Cancel".Translate(), null,
-                    "Confirm".Translate(), delegate ()
-                    {
-                        billStack.AddBill(new Bill_OperateOnStack(x.Thing, recipe, null));
-                    }, null, false, null, null));
-                }
-                else
-                {
-                    billStack.AddBill(new Bill_OperateOnStack(x.Thing, recipe, null));
-                }
-            }
+                billStack.AddBill(new Bill_OperateOnStack(x.Thing, x.Thing is Pawn 
+                    ? AC_DefOf.AC_DuplicateNeuralStackPawn : AC_DefOf.AC_DuplicateNeuralStack, null));
+            });
         }
 
         private void InstallEditBill(LocalTargetInfo x)
         {
+            HandleStackBill(x, "AC.EditingFriendlyStackWarning", () =>
+            {
+                Find.WindowStack.Add(new Window_StackEditor(this, x.Thing));
+            });
+        }
+
+        private void HandleStackBill(LocalTargetInfo x, string warningKey, Action action)
+        {
             var neuralData = x.Thing.GetNeuralData();
             if (neuralData != null && CanAddOperationOn(x.Thing))
             {
-                if (neuralData.faction != null && neuralData.faction.HostileTo(Faction.OfPlayer) is false)
+                if (FriendlyToPlayerFaction(neuralData))
                 {
-                    Find.WindowStack.Add(new Dialog_MessageBox("AC.EditingFriendlyStackWarning".Translate(), "Cancel".Translate(), null,
+                    Find.WindowStack.Add(new Dialog_MessageBox(warningKey.Translate(), "Cancel".Translate(), null,
                     "Confirm".Translate(), delegate ()
                     {
-                        Find.WindowStack.Add(new Window_StackEditor(this, x.Thing));
+                        action.Invoke();
                     }, null, false, null, null));
                 }
                 else
                 {
-                    Find.WindowStack.Add(new Window_StackEditor(this, x.Thing));
+                    action.Invoke();
                 }
             }
+        }
+
+        private bool FriendlyToPlayerFaction(NeuralData neuralData)
+        {
+            return neuralData.faction != null && neuralData.faction != Faction.OfPlayer && neuralData.faction.HostileTo(Faction.OfPlayer) is false;
         }
 
         public override void ExposeData()

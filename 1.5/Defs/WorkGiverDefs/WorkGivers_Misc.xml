@@ -111,6 +111,7 @@
 		<giverClass>AlteredCarbon.WorkGiver_EnterNeuralConnector</giverClass>
 		<verb>enter</verb>
 		<gerund>entering</gerund>
+		<workType>BasicWorker</workType>
 		<priorityInType>90</priorityInType>
 		<requiredCapacities>
 			<li>Moving</li>

@@ -71,7 +71,9 @@ namespace AlteredCarbon
             this.neuralEditor = neuralEditor;
             this.thingWithStack = thingWithStack;
             neuralData = new NeuralData();
-            neuralData.CopyDataFrom(thingWithStack.GetNeuralData());
+            var toCopyFrom = thingWithStack.GetNeuralData();
+            Log.Message("toCopyFrom: " + toCopyFrom.traits.Select(x => x.def).ToStringSafeEnumerable());
+            neuralData.CopyDataFrom(toCopyFrom);
             stackRecruitable = neuralData.recruitable;
 
             this.allChildhoodBackstories = DefDatabase<BackstoryDef>.AllDefsListForReading
@@ -93,6 +95,7 @@ namespace AlteredCarbon
             }
             neuralDataCopy = new NeuralData();
             neuralDataCopy.CopyDataFrom(neuralData);
+            Log.Message("neuralDataCopy: " + toCopyFrom.traits.Select(x => x.def).ToStringSafeEnumerable());
             ResetIndices();
             this.forcePause = true;
             this.absorbInputAroundWindow = true;
@@ -707,7 +710,8 @@ namespace AlteredCarbon
                     neuralData.stackDegradationToAdd = GetDegradation();
                 }
                 neuralData.neuralDataRewritten = neuralData;
-                neuralEditor.billStack.AddBill(new Bill_EditStack(thingWithStack, AC_DefOf.AC_EditActiveNeuralStack, null));
+                var recipe = thingWithStack is Pawn ? AC_DefOf.AC_EditActiveNeuralStackPawn : AC_DefOf.AC_EditActiveNeuralStack;
+                neuralEditor.billStack.AddBill(new Bill_EditStack(thingWithStack, recipe, null));
                 this.Close();
             }
         }
