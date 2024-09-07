@@ -161,7 +161,6 @@
     <Compile Include="Stacks\RJWData.cs" />
     <Compile Include="Stacks\ThingWithNeuralData.cs" />
     <Compile Include="Stacks\Thought_StackDegradation.cs" />
-    <Compile Include="HarmonyPatches\BillPatches\WorkGiver_DoBill_TryStartNewDoBillJob_Patch.cs" />
     <Compile Include="UI\Alert_ColonistStackNeedsExtracting.cs" />
     <Compile Include="UI\Command_ActionOnStack.cs" />
     <Compile Include="HarmonyPatches\Building_GeneExtractor_CanAcceptPawn_Patch.cs" />
