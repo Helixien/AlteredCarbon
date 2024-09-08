@@ -11,19 +11,19 @@ namespace AlteredCarbon
     public static class ITab_Pawn_Log_Static
     {
         [TweakValue("Interface", 0f, 1000f)]
-        private static float ShowAllX = 60f;
+        private static float ShowAllX = 18;
 
         [TweakValue("Interface", 0f, 1000f)]
         private static float ShowAllWidth = 100f;
 
         [TweakValue("Interface", 0f, 1000f)]
-        private static float ShowCombatX = 445f;
+        private static float ShowCombatX = 270;
 
         [TweakValue("Interface", 0f, 1000f)]
         private static float ShowCombatWidth = 115f;
 
         [TweakValue("Interface", 0f, 1000f)]
-        private static float ShowSocialX = 330f;
+        private static float ShowSocialX = 140;
 
         [TweakValue("Interface", 0f, 1000f)]
         private static float ShowSocialWidth = 105f;
@@ -32,7 +32,7 @@ namespace AlteredCarbon
         private static float ToolbarHeight = 2f;
 
         [TweakValue("Interface", 0f, 100f)]
-        private static float ButtonOffset = 60f;
+        private static float ButtonOffset = 25;
         private static bool showAll;
         private static bool showCombat = true;
         private static bool showSocial = true;
@@ -120,7 +120,7 @@ namespace AlteredCarbon
                 Rect rect7 = rect6;
                 rect7.yMin += scrollPosition.y;
                 rect7.height = rect.height;
-                Widgets.BeginScrollView(rect, ref scrollPosition, rect6);
+                Widgets.BeginScrollView(new Rect(rect.x - 370 + 15, rect.y, rect.width, rect.height), ref scrollPosition, rect6);
                 float num2 = 0f;
                 foreach (ITab_Pawn_Log_Utility.LogLineDisplayable item3 in cachedLogDisplay)
                 {

@@ -29,14 +29,14 @@
 	<!-- ================================ Stacks ====================== -->
 	<AC.AllowAutomaticRestoration>Allow automatic restoration</AC.AllowAutomaticRestoration>
 	<AC.AllowAutomaticRestorationDesc>Toggle this button to allow/disallow automatic restoration.</AC.AllowAutomaticRestorationDesc>
-	<AC.RestoringQueued>Restoring queued: {PAWN_nameDef} </AC.RestoringQueued>
+	<AC.RestoringQueued>Restoring queued: {PAWN_nameDef}</AC.RestoringQueued>
 	<AC.RestoringQueuedDesc>Stack of {PAWN_nameDef} has been destroyed. {PAWN_possessive} latest neural stack backup has been queued to be restored.</AC.RestoringQueuedDesc>
 	<!-- ================================ Sleeves ====================== -->
 	<AC.EmptySleeve>Empty sleeve</AC.EmptySleeve>
 	<AC.SleeveDeath>Sleeve Death</AC.SleeveDeath>
 	<AC.PawnDiedBecauseOf>Sleeve of {PAWN_labelShort} has died. Cause: {1}.</AC.PawnDiedBecauseOf>
 	<AC.PawnDied>Sleeve of {1_labelShort} has died.</AC.PawnDied>
-	<AC.SleveOf>Sleeve of </AC.SleveOf>
+	<AC.SleveOf>Sleeve of</AC.SleveOf>
 	<AC.TakeToSleeveCasketOrMedicalBed>Take empty sleeve to sleeve casket or medical bed</AC.TakeToSleeveCasketOrMedicalBed>
 	<AC.CannotTakeToSleeveCasketOrMedicalBed>Cannot take: No reachable, un-reserved sleeve casket or medical bed in safe temperature.</AC.CannotTakeToSleeveCasketOrMedicalBed>
 	<!-- ================================ Sleeve Incubator ====================== -->
@@ -50,7 +50,7 @@
 	<AC.XenogermExplanation>Selected xenogerm will be consumed in the process. If no xenogerm is selected, the sleeve will be grown as a "Baseliner".</AC.XenogermExplanation>
 	<AC.GeneOptionsExplanation>Available options depend on the genes of the selected xenogerm. Chosen options will be used as active genes, while conflicting ones will be dormant.</AC.GeneOptionsExplanation>
 	<AC.BodyOptionsExplanation>Baseliner skins and hair colour options are always available. Chosen options will be used as active genes, while conflicting ones will be dormant.</AC.BodyOptionsExplanation>
-	<AC.ConvertGenesToGermline>Grow non-archotech genes in xenogerm as germline genes: </AC.ConvertGenesToGermline>
+	<AC.ConvertGenesToGermline>Grow non-archotech genes in xenogerm as germline genes:</AC.ConvertGenesToGermline>
 	<AC.PowerSleeveWillBeLostIn>Due to lack of power, the sleeve will be lost in {0}.</AC.PowerSleeveWillBeLostIn>
 	<AC.FuelSleeveWillBeLostIn>Due to lack of neutroamine, the sleeve will be lost in {0}.</AC.FuelSleeveWillBeLostIn>
 	<AC.FuelSleeveWillBeDeteriorated>Due to lack of neutroamine, the sleeve will begin to deteriorate in {0}</AC.FuelSleeveWillBeDeteriorated>
@@ -66,7 +66,7 @@
 	<AC.CancelSleeveBodyGrowingDesc>Cancel sleeve growing.</AC.CancelSleeveBodyGrowingDesc>
 	<AC.BodyShape>Body shape</AC.BodyShape>
 	<AC.Cancel>Cancel</AC.Cancel>
-	<AC.GrowthProgress>Growth progress: </AC.GrowthProgress>
+	<AC.GrowthProgress>Growth progress:</AC.GrowthProgress>
 	<AC.HairColour>Hair colour</AC.HairColour>
 	<AC.HairType>Hair type</AC.HairType>
 	<AC.HeadShape>Head shape</AC.HeadShape>
@@ -102,13 +102,29 @@
 	<AC.NeuralStackStorage>Contents</AC.NeuralStackStorage>
 	<AC.NeuralStacksStored>Neural stacks stored: {0}/{1}</AC.NeuralStacksStored>
 	<AC.LastBackup>Last Backup: {0}</AC.LastBackup>
-	<AC.AllowColonistNeuralStacks>*Allow colonist neural stacks</AC.AllowColonistNeuralStacks>
-	<AC.AllowStrangerNeuralStacks>*Allow stranger neural stacks</AC.AllowStrangerNeuralStacks>
-	<AC.AllowHostileNeuralStacks>*Allow hostile neural stacks</AC.AllowHostileNeuralStacks>
 	<AC.EjectAll>Eject all</AC.EjectAll>
 	<AC.EjectAllNeuralStacksDesc>Drop all contained neural stacks onto the ground.</AC.EjectAllNeuralStacksDesc>
 	<AC.ManageNeuralMatrix>Manage Neural Matrix</AC.ManageNeuralMatrix>
 	<AC.ManageNeuralMatrixDesc>text.todo</AC.ManageNeuralMatrixDesc>
+	<AC.NeuralMatrixManagement>Neural Matrix Management</AC.NeuralMatrixManagement>
+	<AC.StorageFilters>Storage filters</AC.StorageFilters>
+	<AC.AllowColonistNeuralStacks>Allow colonist stacks</AC.AllowColonistNeuralStacks>
+	<AC.AllowStrangerNeuralStacks>Allow stranger stacks</AC.AllowStrangerNeuralStacks>
+	<AC.AllowHostileNeuralStacks>Allow hostile stacks</AC.AllowHostileNeuralStacks>
+	<AC.StacksStored>Stacks stored: {0} / {1}</AC.StacksStored>
+	<AC.StacksRegistered>Stacks registered: todo</AC.StacksRegistered>
+	<AC.Status>Status</AC.Status>
+	<AC.StackInformation>Stack Information</AC.StackInformation>
+	<AC.CurrentlyStatus>Currently Status</AC.CurrentlyStatus>
+	<AC.OriginalGender>Original Gender</AC.OriginalGender>
+	<AC.Male>Male</AC.Male>
+	<AC.NeedlecastingRange>Needlecasting range</AC.NeedlecastingRange>
+	<AC.LocalOnly>Local only</AC.LocalOnly>
+	<AC.StackDegradation>Stack Degradation</AC.StackDegradation>
+	<AC.NeuralMatrixManagementText>When you press Accept, the selected stack will be edite Ionist with the intellectual skill. The stack can not be installed or used until the editing is completed. When you press Accept, the selected stack will be edite Ionist with the intellectual skill. The stack can not be installed or used until the editing is completed.</AC.NeuralMatrixManagementText>
+	<AC.StackConfiguration>Stack Configuration</AC.StackConfiguration>
+	<AC.AutobankStack>Autobank Stack</AC.AutobankStack>
+
 	<!-- ================================ Other ====================== -->
 	<AC.CommandCallsNeuroformers>Call psylink neuroformers</AC.CommandCallsNeuroformers>
 	<AC.SetBodyParts>Install body parts</AC.SetBodyParts>

@@ -206,7 +206,7 @@
     <Compile Include="UI\FilterManager.cs" />
     <Compile Include="UI\GeneUtility.cs" />
     <Compile Include="UI\HotSwappableAttribute.cs" />
-    <Compile Include="UI\ITab_Pawn_Log.cs" />
+    <Compile Include="UI\ITab_Pawn_Log_Static.cs" />
     <Compile Include="UI\ITab_StackStorageContents.cs" />
     <Compile Include="UI\Window_NeuralMatrixManagement.cs" />
     <Compile Include="UI\Window_BodyPartPicker.cs" />
