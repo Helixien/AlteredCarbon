@@ -27,7 +27,7 @@ namespace AlteredCarbon
 
 		public override AcceptanceReport CanDesignateCell(IntVec3 c)
 		{
-			if (!c.InBounds(base.Map))
+			if (!c.InBounds(Map))
 			{
 				return false;
 			}
@@ -44,7 +44,7 @@ namespace AlteredCarbon
 
 		public override AcceptanceReport CanDesignateThing(Thing t)
 		{
-			if (base.Map.designationManager.DesignationOn(t, Designation) != null)
+			if (Map.designationManager.DesignationOn(t, Designation) != null)
 			{
 				return false;
 			}
@@ -55,16 +55,16 @@ namespace AlteredCarbon
 
 		public override void DesignateThing(Thing t)
 		{
-			base.Map.designationManager.AddDesignation(new Designation(t, Designation));
+            Map.designationManager.AddDesignation(new Designation(t, Designation));
 		}
 
 		private IEnumerable<Thing> PawnsWithStacksInCell(IntVec3 c)
 		{
-			if (c.Fogged(base.Map))
+			if (c.Fogged(Map))
 			{
 				yield break;
 			}
-			List<Thing> thingList = c.GetThingList(base.Map);
+			List<Thing> thingList = c.GetThingList(Map);
 			for (int i = 0; i < thingList.Count; i++)
 			{
 				if (CanDesignateThing(thingList[i]).Accepted)

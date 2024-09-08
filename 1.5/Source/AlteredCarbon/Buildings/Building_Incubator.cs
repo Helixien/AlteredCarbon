@@ -61,13 +61,13 @@ namespace AlteredCarbon
 		public override void SpawnSetup(Map map, bool respawningAfterLoad)
 		{
 			base.SpawnSetup(map, respawningAfterLoad);
-			if (base.Faction != null && base.Faction.IsPlayer)
+			if (Faction != null && Faction.IsPlayer)
 			{
 				contentsKnown = true;
 			}
-			powerTrader = base.GetComp<CompPowerTrader>();
-			breakdownable = base.GetComp<CompBreakdownable>();
-			compRefuelable = base.GetComp<CompRefuelable>();
+			powerTrader = GetComp<CompPowerTrader>();
+			breakdownable = GetComp<CompBreakdownable>();
+			compRefuelable = GetComp<CompRefuelable>();
 		}
 
 		public override void TickRare()
@@ -186,9 +186,9 @@ namespace AlteredCarbon
 		}
 		public virtual void EjectContents()
 		{
-			if (!base.Destroyed)
+			if (!Destroyed)
 			{
-				SoundStarter.PlayOneShot(SoundDefOf.CryptosleepCasket_Eject, SoundInfo.InMap(new TargetInfo(base.Position, base.Map, false), 0));
+				SoundStarter.PlayOneShot(SoundDefOf.CryptosleepCasket_Eject, SoundInfo.InMap(new TargetInfo(Position, Map, false), 0));
 			}
 			contentsKnown = true;
 		}

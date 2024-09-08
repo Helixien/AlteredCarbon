@@ -13,7 +13,7 @@ namespace AlteredCarbon
 
     public class HediffComp_MeleeWeapon : HediffComp_VerbGiver
     {
-        public HediffCompProperties_MeleeWeapon Props => base.props as HediffCompProperties_MeleeWeapon;
+        public HediffCompProperties_MeleeWeapon Props => props as HediffCompProperties_MeleeWeapon;
         private Graphic cachedGraphic;
         public Graphic Graphic
         {

@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using Verse;
 using Verse.Sound;
+using static AlteredCarbon.UIHelper;
 
 namespace AlteredCarbon
 {
@@ -20,13 +21,12 @@ namespace AlteredCarbon
         public Func<T, string> labelGetter;
         public Func<T, string> tooltipGetter;
         public bool includeInfoCard;
-        public List<Func<T, (string, bool)>> filters;
-        public Func<T, (string, bool)> currentFilter;
+        public FilterManager<T> filterManager;
         public Func<T, Texture2D> icon;
         public Func<T, Color?> iconColor;
         public Func<T, string> labelGetterPostfix;
-        public Window_SelectItem(T currentItem, List<T> items, Action<T> actionOnSelect, bool alphabetOrder = true, 
-            List<Func<T, (string, bool)>> filters = null, Func<T, string> labelGetter = null, Func<T, string> tooltipGetter = null, 
+        public Window_SelectItem(T currentItem, List<T> items, Action<T> actionOnSelect, bool alphabetOrder = true,
+            List<Func<T, (string, bool)>> filters = null, Func<T, string> labelGetter = null, Func<T, string> tooltipGetter = null,
             bool includeInfoCard = true, Func<T, Texture2D> icon = null, Func<T, Color?> iconColor = null, Func<T, string> labelGetterPostfix = null)
         {
             doCloseX = true;
@@ -38,13 +38,21 @@ namespace AlteredCarbon
             this.labelGetter = labelGetter;
             this.tooltipGetter = tooltipGetter;
             this.includeInfoCard = includeInfoCard;
-            this.filters = filters;
             this.icon = icon;
             this.iconColor = iconColor;
             this.labelGetterPostfix = labelGetterPostfix;
             chosen = currentItem;
             currentItems = GetItems();
+            if (filters != null)
+            {
+                filterManager = new FilterManager<T>(
+                    filters, () => chosen,
+                    newItems => currentItems = newItems,
+                    GetItems
+                );
+            }
         }
+
         string searchKey;
         public string GetLabel(T item) => labelGetter != null ? labelGetter(item) : item is Def def ? def.label : "";
 
@@ -52,9 +60,9 @@ namespace AlteredCarbon
         public List<T> GetItems()
         {
             var items = searchKey.NullOrEmpty() ? allItems : allItems.Where(x => GetLabel(x).ToLower().Contains(searchKey.ToLower())).ToList();
-            if (currentFilter != null)
+            if (filterManager?.currentFilter != null)
             {
-                items = items.Where(x => currentFilter(x).Item2).ToList();
+                items = items.Where(x => filterManager.currentFilter(x).Item2).ToList();
             }
             if (alphabetOrder)
             {
@@ -62,6 +70,7 @@ namespace AlteredCarbon
             }
             return items;
         }
+
         public override void DoWindowContents(Rect inRect)
         {
             Text.Font = GameFont.Small;
@@ -76,51 +85,16 @@ namespace AlteredCarbon
                 currentItems = GetItems();
             }
             Text.Anchor = TextAnchor.UpperLeft;
-            if (filters != null)
-            {
-                var addFilterRect = new Rect(inRect.xMax - 300, inRect.y, 100, 24);
-                Widgets.DrawAtlas(addFilterRect, UIHelper.FilterAtlas);
-                Text.Font = GameFont.Tiny;
-                if (addFilterRect.Contains(Event.current.mousePosition))
-                {
-                    GUI.color = UIHelper.ColorButtonHighlight;
-                }
-                else
-                {
-                    GUI.color = UIHelper.ColorText;
-                }
-                Text.Anchor = TextAnchor.MiddleLeft;
-                Widgets.Label(new Rect(addFilterRect.x + 10, addFilterRect.y, addFilterRect.width + 20, addFilterRect.height), "AC.AddFilter".Translate());
-                GUI.DrawTexture(new Rect(addFilterRect.xMax - 20, addFilterRect.y + 6, 11, 8), UIHelper.DropdownIndicator);
-                GUI.color = Color.white;
-                if (Widgets.ButtonInvisible(addFilterRect))
-                {
-                    FloatMenuUtility.MakeMenu(filters, x => x(chosen).Item1, x => delegate 
-                    {
-                        currentFilter = x;
-                        currentItems = GetItems();
-                    });
-                }
-                if (currentFilter != null)
-                {
-                    var currentFilterRect = new Rect(addFilterRect.xMax + 15, addFilterRect.y, 180, addFilterRect.height);
-                    Widgets.DrawAtlas(currentFilterRect, UIHelper.FilterAtlas);
-                    var filterLabel = currentFilter(chosen).Item1;
-                    var filterLabelRect = new Rect(currentFilterRect.x + 10, currentFilterRect.y, currentFilterRect.width - 30,
-                        currentFilterRect.height);
-                    Widgets.Label(filterLabelRect, filterLabel);
-                    var removeX = new Rect(filterLabelRect.xMax, filterLabelRect.y + 8, 9f, 9f);
-                    GUI.DrawTexture(removeX, UIHelper.ButtonCloseSmall);
-                    if (Widgets.ButtonInvisible(currentFilterRect))
-                    {
-                        currentFilter = null;
-                    }
-                }
-                Text.Font = GameFont.Small;
-                Text.Anchor = TextAnchor.UpperLeft;
-            }
-
-
+            filterManager?.DoFilters(inRect);
+            //filters?.DoFilters(
+            //    inRect,                   // The rectangle for layout
+            //    currentFilter,            // The current filter in use
+            //    newFilter => currentFilter = newFilter,  // Setter Action for currentFilter
+            //    chosen,                   // The currently chosen item
+            //    currentItems,             // The current list of items
+            //    newItems => currentItems = newItems,     // Setter Action for currentItems
+            //    GetItems                  // Function to refresh the list of items
+            //);
             Rect outRect = new Rect(inRect.x, searchRect.yMax + 15, inRect.width, inRect.height - (32 + 15 + 24 + 15));
             Rect viewRect = new Rect(0f, 0f, outRect.width - 16f, (float)currentItems.Count * 35f);
             Widgets.BeginScrollView(outRect, ref scrollPosition, viewRect);
@@ -130,17 +104,6 @@ namespace AlteredCarbon
                 if (yPos + 35 >= scrollPosition.y && yPos <= scrollPosition.y + outRect.height)
                 {
                     Rect iconRect = new Rect(0f, yPos, 0, 32);
-                    //if (item is Def def && includeInfoCard)
-                    //{
-                    //    iconRect.width = 24;
-                    //    Widgets.InfoCardButton(iconRect, def);
-                    //}
-                    //if (item is ThingDef thingDef2)
-                    //{
-                    //    iconRect.x += 24;
-                    //    Widgets.ThingIcon(iconRect, thingDef2);
-                    //}
-
                     var label = GetLabel(item);
                     var size = Text.CalcSize(label);
                     Rect rect = new Rect(5, yPos, size.x + 35, size.y);

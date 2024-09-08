@@ -247,7 +247,7 @@ namespace AlteredCarbon
             var inputRect = new Rect(nameRect.xMax, nameRect.y, 250, 24);
             CharacterCardUtility.DoNameInputRect(inputRect, ref name, 250);
             var randomizeButton = new Rect(inputRect.xMax + 5, inputRect.y, 24, 24);
-            if (Widgets.ButtonImage(randomizeButton, UIHelper.RandomizeSleeve))
+            if (Widgets.ButtonImage(randomizeButton, RandomizeSleeve))
             {
                 SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                 randomizeAction();

@@ -57,7 +57,19 @@ namespace AlteredCarbon
         public override void ApplySettings()
         {
             base.ApplySettings();
-            AC_Utils.ApplySettings();
+            if (enableTechprintRequirement is false)
+            {
+                foreach (var researchProjectDef in DefDatabase<ResearchProjectDef>.AllDefs)
+                {
+                    if (researchProjectDef.modContentPack == AlteredCarbonMod.modContentPack)
+                    {
+                        researchProjectDef.techprintCount = 0;
+                        researchProjectDef.techprintCommonality = 0;
+                        researchProjectDef.techprintMarketValue = 0;
+                        researchProjectDef.heldByFactionCategoryTags = null;
+                    }
+                }
+            }
         }
     }
 }

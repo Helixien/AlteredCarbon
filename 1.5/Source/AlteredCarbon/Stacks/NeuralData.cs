@@ -258,6 +258,10 @@ namespace AlteredCarbon
             }
         }
 
+        public bool Friendly => faction != null && (faction != Faction.OfPlayer && faction.HostileTo(Faction.OfPlayer) is false);
+        public bool Colonist => faction != null && faction == Faction.OfPlayer;
+        public bool Hostile => faction != null && (faction != Faction.OfPlayer && faction.HostileTo(Faction.OfPlayer));
+
         private Color GetFactionRelationColor(Faction faction)
         {
             if (faction == null)
@@ -1384,14 +1388,12 @@ namespace AlteredCarbon
         {
             if (IsNaturalAbility(pawn, def))
             {
-                Log.Message("Cannot store: " + def + " is natural ability");
                 return false;
             }
             if (IsPsycastAbility(def))
             {
                 return true;
             }
-            Log.Message("Cannot store: " + def + " is other ability");
             return false;
         }
 

@@ -322,6 +322,11 @@ namespace AlteredCarbon
             }
         }
 
+		public static Hediff MakeRJWPart(HediffDef hediffDef, Pawn pawn, BodyPartRecord part)
+		{
+			return rjw.SexPartAdder.MakePart(hediffDef, pawn, part);
+        }
+
 		public static List<Color> GetRacialColorPresets(ThingDef thingDef, string channelName)
 		{
 			ColorGenerator generator = null;

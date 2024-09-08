@@ -203,10 +203,12 @@
     <Compile Include="UI\Command_ActionOnThing.cs" />
     <Compile Include="UI\Dialog_PresetList.cs" />
     <Compile Include="UI\Dialog_SelectXenogermForSleeve.cs" />
+    <Compile Include="UI\FilterManager.cs" />
     <Compile Include="UI\GeneUtility.cs" />
     <Compile Include="UI\HotSwappableAttribute.cs" />
+    <Compile Include="UI\ITab_Pawn_Log.cs" />
     <Compile Include="UI\ITab_StackStorageContents.cs" />
-    <Compile Include="UI\NeuralMatrixManagement.cs" />
+    <Compile Include="UI\Window_NeuralMatrixManagement.cs" />
     <Compile Include="UI\Window_BodyPartPicker.cs" />
     <Compile Include="Designators\Designator_ExtractStack.cs" />
     <Compile Include="HarmonyPatches\ReverseDesignatorDatabase_InitDesignators_Patch.cs" />

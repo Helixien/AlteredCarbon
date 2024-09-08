@@ -75,7 +75,7 @@ namespace AlteredCarbon
 
         public float HeldPawnDrawPos_Y => DrawPos.y + 1f / 26f;
 
-        public float HeldPawnBodyAngle => base.Rotation.AsAngle;
+        public float HeldPawnBodyAngle => Rotation.AsAngle;
 
         public PawnPosture HeldPawnPosture => PawnPosture.LayingOnGroundFaceUp;
 
@@ -311,7 +311,7 @@ namespace AlteredCarbon
             Pawn occupant = Occupant;
             if (occupant == null)
             {
-                innerContainer.TryDropAll(InteractionCell, base.Map, ThingPlaceMode.Near);
+                innerContainer.TryDropAll(InteractionCell, Map, ThingPlaceMode.Near);
             }
             else
             {
@@ -327,7 +327,7 @@ namespace AlteredCarbon
                 {
                     if (innerContainer[num] is Pawn || innerContainer[num] is Corpse)
                     {
-                        innerContainer.TryDrop(innerContainer[num], InteractionCell, base.Map, ThingPlaceMode.Near, 1, out var _);
+                        innerContainer.TryDrop(innerContainer[num], InteractionCell, Map, ThingPlaceMode.Near, 1, out var _);
                     }
                 }
                 innerContainer.ClearAndDestroyContents();
@@ -436,7 +436,7 @@ namespace AlteredCarbon
                         var skill = Occupant.skills.skills.Where(x => x.Level >= 10).RandomElement();
                         var def = ThingDef.Named(ThingDefGenerator_Neurotrainer.NeurotrainerDefPrefix + "_" + skill.def.defName);
                         var skilTrainer = ThingMaker.MakeThing(def);
-                        GenPlace.TryPlaceThing(skilTrainer, InteractionCell, base.Map, ThingPlaceMode.Near);
+                        GenPlace.TryPlaceThing(skilTrainer, InteractionCell, Map, ThingPlaceMode.Near);
                         Messages.Message("AC.CreatingSkilltrainerCompleted".Translate(Occupant.Named("PAWN")), Occupant, MessageTypeDefOf.PositiveEvent);
                         FinishWork();
                     }
@@ -451,7 +451,7 @@ namespace AlteredCarbon
  
                 if (workingMote == null || workingMote.Destroyed)
                 {
-                    workingMote = MoteMaker.MakeAttachedOverlay(this, MotePerRotation[base.Rotation], Vector3.zero);
+                    workingMote = MoteMaker.MakeAttachedOverlay(this, MotePerRotation[Rotation], Vector3.zero);
                 }
                 workingMote.Maintain();
                 if (connectorMode != NeuralConnectorMode.NotSet)
@@ -492,9 +492,9 @@ namespace AlteredCarbon
                     if (effectStart == null)
                     {
                         effectStart = def.building.subcoreScannerStartEffect.Spawn();
-                        effectStart.Trigger(this, new TargetInfo(InteractionCell, base.Map));
+                        effectStart.Trigger(this, new TargetInfo(InteractionCell, Map));
                     }
-                    effectStart.EffectTick(this, new TargetInfo(InteractionCell, base.Map));
+                    effectStart.EffectTick(this, new TargetInfo(InteractionCell, Map));
                 }
             }
             else
@@ -551,7 +551,7 @@ namespace AlteredCarbon
                 });
                 yield return command_Action;
             }
-            else if (base.SelectedPawn == null)
+            else if (SelectedPawn == null)
             {
                 Command_Action command_Action2 = new Command_Action();
                 command_Action2.defaultLabel = "InsertPerson".Translate() + "...";
@@ -560,7 +560,7 @@ namespace AlteredCarbon
                 command_Action2.action = delegate
                 {
                     List<FloatMenuOption> list = new List<FloatMenuOption>();
-                    IReadOnlyList<Pawn> allPawnsSpawned = base.Map.mapPawns.AllPawnsSpawned;
+                    IReadOnlyList<Pawn> allPawnsSpawned = Map.mapPawns.AllPawnsSpawned;
                     for (int j = 0; j < allPawnsSpawned.Count; j++)
                     {
                         Pawn pawn = allPawnsSpawned[j];

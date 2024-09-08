@@ -19,7 +19,7 @@ namespace AlteredCarbon
         public string installDesc;
         public Texture2D installIcon;
     }
-    [HotSwappable]
+
     [StaticConstructorOnStartup]
     public static class AC_Utils
     {
@@ -187,13 +187,29 @@ namespace AlteredCarbon
             //    catch { }
             //}
         }
+
+        public static void PatchAll()
+        {
+            AccessTools.GetTypesFromAssembly(typeof(AC_Utils).Assembly).Do(delegate (Type type)
+            {
+                try
+                {
+                    harmony.CreateClassProcessor(type).Patch();
+                }
+                catch (Exception e)
+                {
+                    Log.Error("Error patching " + type + " - " + e.ToString());
+                }
+            });
+        }
+
         static AC_Utils()
         {
             generalSettings = AlteredCarbonMod.modContentPack.Patches.OfType<AlteredCarbonSettingsWorker_General>().First();
             sleeveGrowingSettings = AlteredCarbonMod.modContentPack.Patches.OfType<AlteredCarbonSettingsWorker_SleeveGrowing>().First();
             editStacksSettings = AlteredCarbonMod.modContentPack.Patches.OfType<AlteredCarbonSettingsWorker_EditStack>().First();
             harmony = new Harmony("Altered.Carbon");
-            harmony.PatchAll();
+            PatchAll();
             var field = typeof(OverlayDrawer).GetField("NeedsPowerMat", BindingFlags.Static | BindingFlags.NonPublic);
             field.SetValue(null, MaterialPool.MatFrom("UI/Overlays/NeedsPower", ShaderDatabase.MetaOverlay));
             AddHarmonyLogging();
@@ -282,24 +298,6 @@ namespace AlteredCarbon
             {
                 AC_DefOf.AC_ResetBiocodedThings.defaultIngredientFilter.thingDefs.Add(thingDef);
                 AC_DefOf.AC_ResetBiocodedThings.defaultIngredientFilter.SetAllow(thingDef, true);
-            }
-            ApplySettings();
-        }
-
-        public static void ApplySettings()
-        {
-            if (AC_Utils.generalSettings.enableTechprintRequirement is false)
-            {
-                foreach (var researchProjectDef in DefDatabase<ResearchProjectDef>.AllDefs)
-                {
-                    if (researchProjectDef.modContentPack == AlteredCarbonMod.modContentPack)
-                    {
-                        researchProjectDef.techprintCount = 0;
-                        researchProjectDef.techprintCommonality = 0;
-                        researchProjectDef.techprintMarketValue = 0;
-                        researchProjectDef.heldByFactionCategoryTags = null;
-                    }
-                }
             }
         }
 
@@ -637,7 +635,7 @@ namespace AlteredCarbon
         public static void SavePresets()
         {
             Scribe.saver.InitSaving(PawnTemplatesPath, "PawnTemplates");
-            Scribe_Collections.Look(ref AC_Utils.presets, "presets", LookMode.Value, LookMode.Deep);
+            Scribe_Collections.Look(ref presets, "presets", LookMode.Value, LookMode.Deep);
             Scribe.saver.FinalizeSaving();
         }
 
@@ -647,7 +645,7 @@ namespace AlteredCarbon
             if (info.Exists)
             {
                 Scribe.loader.InitLoading(PawnTemplatesPath);
-                Scribe_Collections.Look(ref AC_Utils.presets, "presets", LookMode.Value, LookMode.Deep);
+                Scribe_Collections.Look(ref presets, "presets", LookMode.Value, LookMode.Deep);
                 Scribe.loader.FinalizeLoading();
             }
         }
@@ -834,7 +832,7 @@ namespace AlteredCarbon
         public static Hediff MakeHediff(HediffDef hediffDef, Pawn pawn, BodyPartRecord part)
         {
             return ModCompatibility.RimJobWorldIsActive
-                ? rjw.SexPartAdder.MakePart(hediffDef, pawn, part)
+                ? ModCompatibility.MakeRJWPart(hediffDef, pawn, part)
                 : HediffMaker.MakeHediff(hediffDef, pawn, part);
         }
 
@@ -981,7 +979,7 @@ namespace AlteredCarbon
 
         public static T Clone<T>(this T obj)
         {
-            var inst = obj.GetType().GetMethod("MemberwiseClone", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+            var inst = obj.GetType().GetMethod("MemberwiseClone", BindingFlags.Instance | BindingFlags.NonPublic);
             return (T)inst?.Invoke(obj, null);
         }
     }

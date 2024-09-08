@@ -34,11 +34,5 @@ namespace AlteredCarbon
             sleeveGrowingTimeMultiplier = 1f;
             sleeveGrowingCostMultiplier = 1f;
         }
-
-        public override void ApplySettings()
-        {
-            base.ApplySettings();
-            AC_Utils.ApplySettings();
-        }
     }
 }

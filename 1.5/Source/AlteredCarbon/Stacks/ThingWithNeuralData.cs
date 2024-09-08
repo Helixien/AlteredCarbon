@@ -6,7 +6,13 @@ using Verse;
 
 namespace AlteredCarbon
 {
-    public abstract class ThingWithNeuralData : ThingWithComps
+    public interface IStackHolder
+    {
+        public NeuralData NeuralData { get; set; }
+        public Thing ThingHolder { get; }
+        public Pawn Pawn { get; }
+    }
+    public abstract class ThingWithNeuralData : ThingWithComps, IStackHolder
     {
         public bool autoLoad = true;
         private NeuralData neuralData;
@@ -26,6 +32,8 @@ namespace AlteredCarbon
             }
         }
 
+        public Thing ThingHolder => this;
+        public Pawn Pawn => NeuralData.DummyPawn;
         protected GraphicData hostileGraphicData;
         protected GraphicData friendlyGraphicData;
         protected GraphicData strangerGraphicData;

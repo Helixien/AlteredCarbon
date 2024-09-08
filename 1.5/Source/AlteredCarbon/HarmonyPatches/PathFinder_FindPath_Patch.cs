@@ -25,7 +25,7 @@ namespace AlteredCarbon
                     yield return new CodeInstruction(OpCodes.Ldloc_S, 41);
                     yield return new CodeInstruction(OpCodes.Ldloc_S, 42);
                     yield return new CodeInstruction(OpCodes.Ldloc_S, 46);
-                    yield return new CodeInstruction(OpCodes.Call, typeof(PathFinder_FindPath_Patch).GetMethod(nameof(PathFinder_FindPath_Patch.ChangePathCostIfNeeded)));
+                    yield return new CodeInstruction(OpCodes.Call, typeof(PathFinder_FindPath_Patch).GetMethod(nameof(ChangePathCostIfNeeded)));
                     yield return new CodeInstruction(OpCodes.Stloc_S, 46);
                 }
             }

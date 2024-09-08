@@ -178,7 +178,7 @@ namespace AlteredCarbon
             var neuralData = x.Thing.GetNeuralData();
             if (neuralData != null && CanAddOperationOn(x.Thing))
             {
-                if (FriendlyToPlayerFaction(neuralData))
+                if (neuralData.Friendly)
                 {
                     Find.WindowStack.Add(new Dialog_MessageBox(warningKey.Translate(), "Cancel".Translate(), null,
                     "Confirm".Translate(), delegate ()
@@ -191,11 +191,6 @@ namespace AlteredCarbon
                     action.Invoke();
                 }
             }
-        }
-
-        private bool FriendlyToPlayerFaction(NeuralData neuralData)
-        {
-            return neuralData.faction != null && neuralData.faction != Faction.OfPlayer && neuralData.faction.HostileTo(Faction.OfPlayer) is false;
         }
 
         public override void ExposeData()

@@ -170,7 +170,7 @@ namespace AlteredCarbon
             {
                 yield return gizmo;
             }
-            if (base.Faction == Faction.OfPlayer)
+            if (Faction == Faction.OfPlayer)
             {
                 if (innerContainer.Count > 0 && incubatorState == IncubatorState.Growing && corpseToRepurpose is null
                     && (InnerPawn is null || InnerPawn?.Dead is false))
@@ -523,7 +523,7 @@ namespace AlteredCarbon
 
         public float HeldPawnDrawPos_Y => DrawPos.y + 3f / 74f;
 
-        public float HeldPawnBodyAngle => base.Rotation.AsAngle;
+        public float HeldPawnBodyAngle => Rotation.AsAngle;
 
         public PawnPosture HeldPawnPosture => PawnPosture.Standing;
 
@@ -642,13 +642,13 @@ namespace AlteredCarbon
             if (this.IsHashIntervalTick(132))
             {
                 var offset = new Vector3(0, 1, -0.5f);
-                MoteMaker.MakeStaticMote(DrawPos + offset, base.MapHeld, AC_DefOf.AC_Mote_VatGlow, 1.6f);
+                MoteMaker.MakeStaticMote(DrawPos + offset, MapHeld, AC_DefOf.AC_Mote_VatGlow, 1.6f);
             }
 
             if (bubbleEffecter == null || Rand.Chance(0.01f))
             {
                 var offset = new Vector3(0, 0, -0.5f);
-                bubbleEffecter = AC_DefOf.AC_Vat_Bubbles.Spawn(this.TrueCenter().ToIntVec3(), base.MapHeld, offset);
+                bubbleEffecter = AC_DefOf.AC_Vat_Bubbles.Spawn(this.TrueCenter().ToIntVec3(), MapHeld, offset);
             }
             bubbleEffecter.EffectTick(this, this);
 

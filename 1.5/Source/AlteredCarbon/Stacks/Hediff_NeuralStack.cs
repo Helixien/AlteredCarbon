@@ -9,7 +9,7 @@ using Verse;
 namespace AlteredCarbon
 {
     [HotSwappable]
-    public class Hediff_NeuralStack : Hediff_Implant
+    public class Hediff_NeuralStack : Hediff_Implant, IStackHolder
     {
         public Ability_ArchotechStackSkip skipAbility;
         public ThingDef SourceStack
@@ -44,6 +44,9 @@ namespace AlteredCarbon
                 neuralData = value;
             }
         }
+
+        public Thing ThingHolder => this.pawn;
+        public Pawn Pawn => this.pawn;
 
         public Hediff_ParroterStack needleCastingInto;
 

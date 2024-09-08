@@ -22,7 +22,7 @@ namespace AlteredCarbon
         {
             base.SpawnSetup(map, respawningAfterLoad);
             //this.compRefuelable = base.GetComp<CompRefuelable>();
-            this.compPower = base.GetComp<CompPowerTrader>();
+            this.compPower = GetComp<CompPowerTrader>();
         }
 
         public Graphic topGraphic;
