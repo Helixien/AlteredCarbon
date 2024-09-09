@@ -279,17 +279,15 @@ namespace AlteredCarbon
         protected void DrawBackstoryPanel(ref Vector2 pos)
         {
             DrawSectionTitle(ref pos, "AC.Backstories".Translate(), LeftPanelWidth);
-            var backstoryFilters = new List<Func<BackstoryDef, (string, bool)>>();
-            (string, bool) NoDisabledWorkTypes(BackstoryDef backstoryDef)
-            {
-                return ("AC.NoDisabledWorkTypes".Translate(), backstoryDef.workDisables == WorkTags.None);
-            }
-            backstoryFilters.Add(NoDisabledWorkTypes);
-            (string, bool) NoSkillPenalties(BackstoryDef backstoryDef)
-            {
-                return ("AC.NoSkillPenalties".Translate(), backstoryDef.skillGains is null || backstoryDef.skillGains.Any(x => x.amount < 0) is false);
-            }
-            backstoryFilters.Add(NoSkillPenalties);
+            // Create a list of Filter<BackstoryDef> instead of Func<BackstoryDef, (string, bool)>
+            var backstoryFilters = new List<Filter<BackstoryDef>>();
+
+            // Define the filters using the new Filter<BackstoryDef> structure
+            backstoryFilters.Add(new Filter<BackstoryDef>("AC.NoDisabledWorkTypes".Translate(),
+                backstoryDef => backstoryDef.workDisables == WorkTags.None));
+
+            backstoryFilters.Add(new Filter<BackstoryDef>("AC.NoSkillPenalties".Translate(),
+                backstoryDef => backstoryDef.skillGains is null || backstoryDef.skillGains.Any(x => x.amount < 0) is false));
 
             DoSelectionButtons(ref pos, "Childhood".Translate(), ref backstoryChildIndex,
                 (BackstoryDef x) => x.TitleCapFor(neuralData.OriginalGender), allChildhoodBackstories, delegate (BackstoryDef x)
@@ -589,18 +587,17 @@ namespace AlteredCarbon
                         }
                     }
                 }
-                var traitFilters = new List<Func<Trait, (string, bool)>>();
-                (string, bool) NoDisabledWorkTypes(Trait trait)
-                {
-                    return ("AC.NoDisabledWorkTypes".Translate(), trait.def.disabledWorkTags == WorkTags.None && trait.def.disabledWorkTypes.NullOrEmpty());
-                }
-                traitFilters.Add(NoDisabledWorkTypes);
-                (string, bool) NoSkillPenalties(Trait trait)
-                {
-                    return ("AC.NoSkillPenalties".Translate(), trait.def.DataAtDegree(trait.degree).skillGains is null
-                        || trait.def.DataAtDegree(trait.degree).skillGains.Any(x => x.amount < 0) is false);
-                }
-                traitFilters.Add(NoSkillPenalties);
+                // Create a list of Filter<Trait> instead of Func<Trait, (string, bool)>
+                var traitFilters = new List<Filter<Trait>>();
+
+                // Define the filters using the new Filter<T> structure
+                traitFilters.Add(new Filter<Trait>("AC.NoDisabledWorkTypes".Translate(),
+                    trait => trait.def.disabledWorkTags == WorkTags.None && trait.def.disabledWorkTypes.NullOrEmpty()));
+
+                traitFilters.Add(new Filter<Trait>("AC.NoSkillPenalties".Translate(),
+                    trait => trait.def.DataAtDegree(trait.degree).skillGains is null
+                        || trait.def.DataAtDegree(trait.degree).skillGains.Any(x => x.amount < 0) is false));
+
 
                 Find.WindowStack.Add(new Window_SelectItem<Trait>(traitCandidates.First(), traitCandidates, delegate (Trait trait)
                 {

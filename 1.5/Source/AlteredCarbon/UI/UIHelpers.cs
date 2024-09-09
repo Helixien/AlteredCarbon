@@ -59,8 +59,8 @@ namespace AlteredCarbon
 
         public static void DoSelectionButtons<T>(ref Vector2 pos, string label, ref int index, Func<T, string> labelGetter, List<T> list,
             Action<T> selectAction, bool floatMenu, float? buttonOffsetFromTextOverride = null, float? labelWidthOverride = null,
-            Func<T, bool> filter = null, bool includeInfoCard = true, Func<T, string> tooltipGetter = null, 
-            List<Func<T, (string, bool)>> filters = null, Func<T, Texture2D> icon = null, Func<T, Color?> iconColor = null, 
+            Func<T, bool> filter = null, bool includeInfoCard = true, Func<T, string> tooltipGetter = null,
+            List<Filter<T>> filters = null, Func<T, Texture2D> icon = null, Func<T, Color?> iconColor = null,
             Func<T, string> labelGetterPostfix = null)
         {
             if (list.Any())

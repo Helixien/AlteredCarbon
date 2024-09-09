@@ -5,11 +5,9 @@ using System.Linq;
 using UnityEngine;
 using Verse;
 using Verse.Sound;
-using static AlteredCarbon.UIHelper;
 
 namespace AlteredCarbon
 {
-    [HotSwappable]
     public class Window_SelectItem<T> : Window
     {
         private Vector2 scrollPosition;
@@ -25,8 +23,16 @@ namespace AlteredCarbon
         public Func<T, Texture2D> icon;
         public Func<T, Color?> iconColor;
         public Func<T, string> labelGetterPostfix;
+
+        // Search key for filtering
+        string searchKey;
+
+        // List of currently filtered items
+        List<T> currentItems;
+
+        // Constructor
         public Window_SelectItem(T currentItem, List<T> items, Action<T> actionOnSelect, bool alphabetOrder = true,
-            List<Func<T, (string, bool)>> filters = null, Func<T, string> labelGetter = null, Func<T, string> tooltipGetter = null,
+            List<Filter<T>> filters = null, Func<T, string> labelGetter = null, Func<T, string> tooltipGetter = null,
             bool includeInfoCard = true, Func<T, Texture2D> icon = null, Func<T, Color?> iconColor = null, Func<T, string> labelGetterPostfix = null)
         {
             doCloseX = true;
@@ -43,26 +49,27 @@ namespace AlteredCarbon
             this.labelGetterPostfix = labelGetterPostfix;
             chosen = currentItem;
             currentItems = GetItems();
+
             if (filters != null)
             {
                 filterManager = new FilterManager<T>(
-                    filters, () => chosen,
+                    filters,
                     newItems => currentItems = newItems,
                     GetItems
                 );
             }
         }
 
-        string searchKey;
+        // Get label for each item
         public string GetLabel(T item) => labelGetter != null ? labelGetter(item) : item is Def def ? def.label : "";
 
-        List<T> currentItems;
+        // Retrieve current filtered items
         public List<T> GetItems()
         {
             var items = searchKey.NullOrEmpty() ? allItems : allItems.Where(x => GetLabel(x).ToLower().Contains(searchKey.ToLower())).ToList();
             if (filterManager?.currentFilter != null)
             {
-                items = items.Where(x => filterManager.currentFilter(x).Item2).ToList();
+                items = items.Where(x => filterManager.currentFilter.Logic(x)).ToList();
             }
             if (alphabetOrder)
             {
@@ -73,6 +80,7 @@ namespace AlteredCarbon
 
         public override void DoWindowContents(Rect inRect)
         {
+            // Search field
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.MiddleLeft;
             var searchLabel = new Rect(inRect.x, inRect.y, 60, 24);
@@ -85,40 +93,34 @@ namespace AlteredCarbon
                 currentItems = GetItems();
             }
             Text.Anchor = TextAnchor.UpperLeft;
+
+            // Apply filter management
             filterManager?.DoFilters(inRect);
-            //filters?.DoFilters(
-            //    inRect,                   // The rectangle for layout
-            //    currentFilter,            // The current filter in use
-            //    newFilter => currentFilter = newFilter,  // Setter Action for currentFilter
-            //    chosen,                   // The currently chosen item
-            //    currentItems,             // The current list of items
-            //    newItems => currentItems = newItems,     // Setter Action for currentItems
-            //    GetItems                  // Function to refresh the list of items
-            //);
+
             Rect outRect = new Rect(inRect.x, searchRect.yMax + 15, inRect.width, inRect.height - (32 + 15 + 24 + 15));
             Rect viewRect = new Rect(0f, 0f, outRect.width - 16f, (float)currentItems.Count * 35f);
             Widgets.BeginScrollView(outRect, ref scrollPosition, viewRect);
             float yPos = 0f;
+
             foreach (T item in currentItems)
             {
                 if (yPos + 35 >= scrollPosition.y && yPos <= scrollPosition.y + outRect.height)
                 {
-                    Rect iconRect = new Rect(0f, yPos, 0, 32);
                     var label = GetLabel(item);
                     var size = Text.CalcSize(label);
                     Rect rect = new Rect(5, yPos, size.x + 35, size.y);
 
-                    Text.Anchor = TextAnchor.MiddleLeft;
+                    // Draw icon with label
                     if (icon != null)
                     {
-                        UIHelper.LabelWithIcon(rect, label, icon(item), iconColor != null ? iconColor(item) : null, labelIconScale: 1f,
-                            labelRectShift: 35);
+                        UIHelper.LabelWithIcon(rect, label, icon(item), iconColor != null ? iconColor(item) : null, labelIconScale: 1f, labelRectShift: 35);
                     }
                     else
                     {
                         Widgets.Label(rect, label);
                     }
 
+                    // Add label postfix if provided
                     if (labelGetterPostfix != null)
                     {
                         label = labelGetterPostfix(item);
@@ -126,13 +128,17 @@ namespace AlteredCarbon
                         var postfixRect = new Rect(rect.xMax, yPos, size.x, size.y);
                         Widgets.Label(postfixRect, label);
                     }
+
+                    // Add tooltip if provided
                     if (tooltipGetter != null)
                     {
                         TooltipHandler.TipRegion(rect, tooltipGetter(item));
                     }
+
                     Text.Anchor = TextAnchor.UpperLeft;
                     var radioButtonPos = new Vector2(inRect.xMax - 50, rect.y);
 
+                    // Radio button for item selection
                     if (Widgets.RadioButton(radioButtonPos, chosen.Equals(item)))
                     {
                         chosen = item;
@@ -143,7 +149,7 @@ namespace AlteredCarbon
 
             Widgets.EndScrollView();
 
-
+            // Cancel button
             var cancelButtonRect = new Rect(inRect.x + 35, inRect.yMax - 32, 200, 32);
             if (Widgets.ButtonText(cancelButtonRect, "Cancel".Translate()))
             {
@@ -151,6 +157,7 @@ namespace AlteredCarbon
                 this.Close();
             }
 
+            // Accept button
             var acceptButtonRect = new Rect(inRect.xMax - 200 - 35, cancelButtonRect.y, 200, 32);
             if (Widgets.ButtonText(acceptButtonRect, "Accept".Translate()))
             {

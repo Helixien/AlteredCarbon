@@ -1,25 +1,34 @@
 ﻿using RimWorld;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Verse;
 
 namespace AlteredCarbon
 {
-    [HotSwappable]
+    public class Filter<T>
+    {
+        public string Name { get; }
+        public Func<T, bool> Logic { get; }
+
+        public Filter(string name, Func<T, bool> logic)
+        {
+            Name = name;
+            Logic = logic;
+        }
+    }
+
     public class FilterManager<T>
     {
-        private List<Func<T, (string, bool)>> filters;
-        public Func<T, (string, bool)> currentFilter;
-        private Func<T> chosenAction;
+        private List<Filter<T>> filters;  // Update to use the Filter<T> class
+        public Filter<T> currentFilter;   // Now points to a Filter<T> object, not a Func
         private Action<List<T>> setCurrentItems;
         private Func<List<T>> getItems;
 
-        public FilterManager(List<Func<T, (string, bool)>> filters, Func<T> chosenAction,
-            Action<List<T>> setCurrentItems, Func<List<T>> getItems)
+        public FilterManager(List<Filter<T>> filters, Action<List<T>> setCurrentItems, Func<List<T>> getItems)
         {
             this.filters = filters;
-            this.chosenAction = chosenAction;
             this.setCurrentItems = setCurrentItems;
             this.getItems = getItems;
         }
@@ -34,9 +43,9 @@ namespace AlteredCarbon
             else
             {
                 // Adjust the addFilterRect position to account for the currentFilterRect width
-                var filterLabel = currentFilter(chosenAction()).Item1;
+                var filterLabel = currentFilter.Name;  // Get the filter name directly
                 Vector2 labelSize = Text.CalcSize(filterLabel);
-                addFilterRect = new Rect(inRect.xMax - (labelSize.x + 135), inRect.y, 100, 24);
+                addFilterRect = new Rect(inRect.xMax - (labelSize.x + 145), inRect.y, 100, 24);
             }
 
             Widgets.DrawAtlas(addFilterRect, UIHelper.FilterAtlas);
@@ -58,22 +67,21 @@ namespace AlteredCarbon
 
             if (Widgets.ButtonInvisible(addFilterRect))
             {
-                FloatMenuUtility.MakeMenu(filters, x => x(chosenAction()).Item1, x => delegate
+                FloatMenuUtility.MakeMenu(filters, x => x.Name, x => delegate
                 {
-                    currentFilter = x;
+                    currentFilter = x;  // Set the current filter as the selected filter
                     setCurrentItems(getItems());
                 });
             }
 
             if (currentFilter != null)
             {
-                // Dynamically calculate the width of currentFilterRect based on the label size
-                Vector2 labelSize = Text.CalcSize(currentFilter(chosenAction()).Item1);
-                var currentFilterRect = new Rect(addFilterRect.xMax + 15, addFilterRect.y, 
+                Vector2 labelSize = Text.CalcSize(currentFilter.Name);
+                var currentFilterRect = new Rect(addFilterRect.xMax + 15, addFilterRect.y,
                     labelSize.x + 40, addFilterRect.height);
                 Widgets.DrawAtlas(currentFilterRect, UIHelper.FilterAtlas);
                 var filterLabelRect = new Rect(currentFilterRect.x + 10, currentFilterRect.y, labelSize.x, currentFilterRect.height);
-                Widgets.Label(filterLabelRect, currentFilter(chosenAction()).Item1);
+                Widgets.Label(filterLabelRect, currentFilter.Name);
                 var removeX = new Rect(filterLabelRect.xMax + 10, filterLabelRect.y + 8, 9f, 9f);
                 GUI.DrawTexture(removeX, UIHelper.ButtonCloseSmall);
 

@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 using RimWorld;
+using RimWorld.Planet;
 
 namespace AlteredCarbon
 {
@@ -16,7 +17,7 @@ namespace AlteredCarbon
         private IStackHolder selectedStack;
         private FilterManager<IStackHolder> filterManager;
         private List<IStackHolder> allItems, currentItems;
-        private List<TabRecord> tabsList = new List<TabRecord>();
+        private List<TabRecord> tabsList = new();
 
         public enum StackTab : byte
         {
@@ -35,32 +36,99 @@ namespace AlteredCarbon
             this.doWindowBackground = true;
             this.forcePause = true;
             this.absorbInputAroundWindow = true;
-            var filters = new List<Func<IStackHolder, (string, bool)>>
-            {
-                stackHolder => ("AC.Tracked".Translate(), stackHolder.ThingHolder is Pawn || stackHolder.NeuralData.trackedToMatrix == matrix),
-                stackHolder => ("AC.Untracked".Translate(), stackHolder.ThingHolder is not Pawn && stackHolder.NeuralData.trackedToMatrix != matrix),
-                stackHolder => ("AC.Colonists".Translate(), stackHolder.NeuralData.Colonist),
-                stackHolder => ("AC.Friendly".Translate(), stackHolder.NeuralData.Friendly),
-                stackHolder => ("AC.Hostile".Translate(), stackHolder.NeuralData.Hostile),
-                //stackHolder => ("AC.Needlecasting".Translate(), stackHolder.NeuralData.Needlecasting),
-                //stackHolder => ("AC.Sleeved".Translate(), stackHolder.NeuralData.Sleeved),
-                stackHolder => ("AC.Archostack".Translate(), stackHolder.ThingHolder is NeuralStack stack && stack.IsArchotechStack),
-                //stackHolder => ("AC.Duplicates".Translate(), stackHolder.NeuralData.IsDuplicate)
-            };
-
-            this.filterManager = new FilterManager<IStackHolder>(filters, () => selectedStack,
-                    newItems => currentItems = newItems,
-                    GetItems);
-
+            CreateFilters();
             RefreshItems();
+        }
+        private void CreateFilters()
+        {
+            var filters = new List<Filter<IStackHolder>>
+                {
+                    new("AC.Tracked".Translate(), stackHolder => stackHolder.ThingHolder is Pawn
+                        || stackHolder.NeuralData.trackedToMatrix == matrix),
+                    new("AC.Untracked".Translate(), stackHolder => stackHolder.ThingHolder is not Pawn
+                        && stackHolder.NeuralData.trackedToMatrix != matrix),
+                    new("AC.Colonists".Translate(), stackHolder => stackHolder.NeuralData.Colonist),
+                    new("AC.Friendly".Translate(), stackHolder => stackHolder.NeuralData.Friendly),
+                    new("AC.Hostile".Translate(), stackHolder => stackHolder.NeuralData.Hostile),
+                    new("AC.Needlecasting".Translate(), stackHolder => (stackHolder as Hediff_NeuralStack)?.needleCastingInto != null),
+                    new("AC.Sleeved".Translate(), stackHolder => stackHolder.ThingHolder is Pawn),
+                    new("AC.Archostack".Translate(), stackHolder => stackHolder.ThingHolder is NeuralStack stack
+                        && stack.IsArchotechStack),
+                    new("AC.Duplicates".Translate(), stackHolder => stackHolder.Pawn.IsCopy())
+                };
+
+            // Initialize the filter manager with the new Filter class
+            this.filterManager = new FilterManager<IStackHolder>(
+                filters,                         // List of filters
+                newItems => currentItems = newItems,  // Action to set filtered items
+                GetItems                         // Function to retrieve items
+            );
+        }
+
+
+        public enum StackState
+        {
+            Sleeved,
+            Dead,
+            Needlecasting,
+            Stored,
+            Dormant,
+            Lost
+        }
+
+        string GetStackStateStatus(IStackHolder stack)
+        {
+            var states = GetStates(stack);
+            return string.Join(", ", states.Select(state => (string)(state switch
+            {
+                StackState.Sleeved => "AC.Sleeved".Translate(),
+                StackState.Dead => "AC.Dead".Translate(),
+                StackState.Needlecasting => "AC.Needlecasting".Translate(),
+                StackState.Stored => "AC.Stored".Translate(),
+                StackState.Dormant => "AC.Dormant".Translate(),
+                StackState.Lost => "AC.Lost".Translate(),
+                _ => string.Empty
+            })));
+        }
+
+        IEnumerable<StackState> GetStates(IStackHolder stackHolder)
+        {
+            if (stackHolder.ThingHolder is NeuralStack neuralStack)
+            {
+                if (neuralStack.ParentHolder is CompNeuralCache)
+                {
+                    yield return StackState.Stored;
+                }
+                yield return StackState.Dormant;
+            }
+            else if (stackHolder.ThingHolder is Pawn pawn)
+            {
+                if (pawn.Dead)
+                {
+                    yield return StackState.Dead;
+                }
+                var hediff = stackHolder as Hediff_NeuralStack;
+                if (hediff.needleCastingInto != null)
+                {
+                    yield return StackState.Needlecasting;
+                }
+                if (pawn.IsWorldPawn())
+                {
+                    var situation = Find.WorldPawns.GetSituation(pawn);
+                    if (situation == WorldPawnSituation.Kidnapped)
+                    {
+                        yield return StackState.Lost;
+                    }
+                }
+            }
         }
 
         private void RefreshItems()
         {
             var items = matrix.AllNeuralStacks.Concat(matrix.Map.listerThings.GetThingsOfType<NeuralStack>()
                 .Where(x => x.Fogged() is false && x.IsActiveStack && x.NeuralData.trackedToMatrix == matrix)).Cast<IStackHolder>();
-            var hediffs = matrix.Map.mapPawns.AllHumanlike
-                .Where(x => x.PositionHeld.Fogged(x.MapHeld) is false)
+            var hediffs = PawnsFinder.AllMapsWorldAndTemporary_AliveOrDead.Where(x => x.Faction == Faction.OfPlayer)
+                .Where(x => x.Spawned is false || x.PositionHeld.Fogged(x.MapHeld) is false)
                 .Select(pawn => pawn.GetNeuralStack()).Where(x => x != null && x.NeuralData.trackedToMatrix == matrix)
                 .Cast<IStackHolder>();
 
@@ -94,7 +162,7 @@ namespace AlteredCarbon
             var items = new List<IStackHolder>();
             if (filterManager.currentFilter != null)
             {
-                items = allItems.Where(x => filterManager.currentFilter(x).Item2).ToList();
+                items = allItems.Where(x => filterManager.currentFilter.Logic(x)).ToList();
             }
             else
             {
@@ -103,12 +171,12 @@ namespace AlteredCarbon
             return items.OrderBy(x => x.NeuralData.PawnNameColored.ToString()).ToList();
         }
 
-        public override Vector2 InitialSize => new Vector2(1000f, 750f);
+        public override Vector2 InitialSize => new(1000f, 750f);
 
         public override void DoWindowContents(Rect inRect)
         {
-            Rect leftRect = new Rect(inRect.x, inRect.y, 350, inRect.height);
-            Rect rightRect = new Rect(leftRect.xMax + 15, inRect.y, inRect.width - leftRect.width - 15, inRect.height);
+            Rect leftRect = new(inRect.x, inRect.y, 350, inRect.height);
+            Rect rightRect = new(leftRect.xMax + 15, inRect.y, inRect.width - leftRect.width - 15, inRect.height);
             DrawLeftPanel(leftRect);
             if (selectedStack != null)
             {
@@ -156,8 +224,8 @@ namespace AlteredCarbon
 
             var trackedItems = currentItems.Where(item => item.ThingHolder is Pawn || item.NeuralData.trackedToMatrix == matrix).ToList();
             var untrackedItems = currentItems.Where(x => trackedItems.Contains(x) is false).ToList();
-            Rect outRect = new Rect(rect.x, leftRect.y, rect.width, rect.height - 40f - leftRect.y);
-            Rect viewRect = new Rect(0f, 0f, rect.width - 16f, (25 + (trackedItems.Count + untrackedItems.Count)
+            Rect outRect = new(rect.x, leftRect.y, rect.width, rect.height - 40f - leftRect.y);
+            Rect viewRect = new(0f, 0f, rect.width - 16f, (25 + (trackedItems.Count + untrackedItems.Count)
                 * 52f) + (untrackedItems.Any() ? 5 : 0));
             Widgets.BeginScrollView(outRect, ref scrollPosition, viewRect);
             float curY = 0f;
@@ -227,30 +295,31 @@ namespace AlteredCarbon
             {
                 var data = stack.NeuralData;
                 var thing = stack.ThingHolder;
-                if (thing is Pawn && thing.Spawned is false)
+                if (thing is Pawn && thing.Spawned is false && thing.ParentHolder is Thing holderThing)
                 {
-                    thing = thing.ParentHolder as Thing;
+                    thing = holderThing;
                 }
                 cachedValues[stack] = cache = new(thing, data.PawnNameColored, data.faction?.Name);
             }
 
-            Rect iconRect = new Rect(rect.x, rect.y, rect.height, rect.height);
+            Rect iconRect = new(rect.x, rect.y, rect.height, rect.height);
             Widgets.ThingIcon(iconRect, cache.thing);
 
             float iconSize = 25f;
             float totalIconsWidth = (iconSize + 5f) * 4;
 
-            Rect nameRect = new Rect(iconRect.xMax, rect.y, rect.width - iconRect.width - totalIconsWidth, 24);
+            Rect nameRect = new(iconRect.xMax, rect.y, rect.width - iconRect.width - totalIconsWidth, 24);
             Widgets.Label(nameRect, cache.pawnName);
             Text.Font = GameFont.Tiny;
             GUI.color = Color.grey;
-            Rect factionRect = new Rect(nameRect.x, nameRect.yMax - 5, nameRect.width, 15);
+            Rect factionRect = new(nameRect.x, nameRect.yMax - 5, nameRect.width, 15);
             if (stack.NeuralData.faction != null)
             {
                 Widgets.Label(factionRect, "AC.Faction".Translate() + ": " + cache.factionName);
             }
-            Rect statusRect = new Rect(nameRect.x, factionRect.yMax, nameRect.width, factionRect.height);
-            Widgets.Label(statusRect, "AC.Status".Translate() + ": todo");
+            Rect statusRect = new(nameRect.x, factionRect.yMax, nameRect.width, factionRect.height);
+
+            Widgets.Label(statusRect, "AC.Status".Translate() + ": " + GetStackStateStatus(stack).ToLower().CapitalizeFirst());
             Text.Font = GameFont.Small;
             GUI.color = Color.white;
 
@@ -258,7 +327,7 @@ namespace AlteredCarbon
             float iconXPos = rect.xMax - totalIconsWidth;
             float iconYPos = rect.y + (rect.height - iconSize) / 2f;
 
-            Rect iconRectWithOffset = new Rect(iconXPos, iconYPos, iconSize, iconSize);
+            Rect iconRectWithOffset = new(iconXPos, iconYPos, iconSize, iconSize);
 
             if (Widgets.ButtonImage(iconRectWithOffset, needlecastIcon, tooltip: "AC.TooltipNeedlecast".Translate(cache.pawnName)))
             {
@@ -368,12 +437,12 @@ namespace AlteredCarbon
         {
             // Drawing the bottom Stack Information and Stack Configuration
             float bottomSectionHeight = 140f;
-            Rect bottomRect = new Rect(rect.x, rect.yMax + 15, rect.width, bottomSectionHeight);
+            Rect bottomRect = new(rect.x, rect.yMax + 15, rect.width, bottomSectionHeight);
             Widgets.DrawMenuSection(bottomRect);
 
-            Rect stackInfoRect = new Rect(bottomRect.x + 10f, bottomRect.y + 10f, bottomRect.width / 2 - 20f,
+            Rect stackInfoRect = new(bottomRect.x + 10f, bottomRect.y + 10f, bottomRect.width / 2 - 20f,
                 bottomRect.height - 20f);
-            Rect stackConfigRect = new Rect(bottomRect.x + bottomRect.width / 2 + 10f, bottomRect.y + 10f, bottomRect.width / 2 - 20f, bottomRect.height - 20f);
+            Rect stackConfigRect = new(bottomRect.x + bottomRect.width / 2 + 10f, bottomRect.y + 10f, bottomRect.width / 2 - 20f, bottomRect.height - 20f);
 
             // Draw Stack Information
             Text.Anchor = TextAnchor.UpperLeft;
@@ -385,7 +454,7 @@ namespace AlteredCarbon
             Text.Font = GameFont.Small;
             var neuralData = selectedStack.NeuralData;
             float infoContentY = stackInfoRect.y + Text.LineHeight + 5f; // Adjust Y position after header
-            Rect infoContentRect = new Rect(stackInfoRect.x, infoContentY, stackInfoRect.width, stackInfoRect.height - Text.LineHeight - 5f);
+            Rect infoContentRect = new(stackInfoRect.x, infoContentY, stackInfoRect.width, stackInfoRect.height - Text.LineHeight - 5f);
             Widgets.Label(infoContentRect,
                 "AC.CurrentlyStatus".Translate() + ": todo" + "\n" +
                 "AC.OriginalGender".Translate() + ": " + neuralData.OriginalGender.ToString() + "\n" +
@@ -403,7 +472,7 @@ namespace AlteredCarbon
                 Text.Font = GameFont.Small;
                 float configContentY = stackConfigRect.y + Text.LineHeight + 5f; // Adjust Y position after header
                 float checkboxHeight = 24f;
-                Rect autobankRect = new Rect(stackConfigRect.x, configContentY, stackConfigRect.width, checkboxHeight);
+                Rect autobankRect = new(stackConfigRect.x, configContentY, stackConfigRect.width, checkboxHeight);
                 Widgets.CheckboxLabeled(autobankRect, "AC.AutobankStack".Translate(), ref neuralStack.autoLoad);
             }
 
@@ -411,14 +480,14 @@ namespace AlteredCarbon
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Tiny;
             GUI.color = Color.grey;
-            Rect descriptionRect = new Rect(rect.x, bottomRect.yMax, rect.width - 150f, 45f);
+            Rect descriptionRect = new(rect.x, bottomRect.yMax, rect.width - 150f, 45f);
             string descriptionText = "AC.NeuralMatrixManagementText".Translate();
             Widgets.Label(descriptionRect, descriptionText);
             Text.Font = GameFont.Small;
             GUI.color = Color.white;
 
             // Drawing the Close button
-            Rect closeButtonRect = new Rect(rect.xMax - 150f, panelRect.height - 30f, 150, 30f);
+            Rect closeButtonRect = new(rect.xMax - 150f, panelRect.height - 30f, 150, 30f);
             if (Widgets.ButtonText(closeButtonRect, "Close".Translate()))
             {
                 Close();
