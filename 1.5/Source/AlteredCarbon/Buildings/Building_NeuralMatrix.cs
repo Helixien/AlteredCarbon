@@ -61,6 +61,7 @@ namespace AlteredCarbon
             {
                 defaultLabel = "AC.ManageNeuralMatrix".Translate(),
                 defaultDesc = "AC.ManageNeuralMatrixDesc".Translate(),
+                icon = ContentFinder<Texture2D>.Get("UI/Gizmos/ManageNeuralMatrix"),
                 action = delegate
                 {
                     Find.WindowStack.Add(new Window_NeuralMatrixManagement(this));
@@ -82,7 +83,7 @@ namespace AlteredCarbon
                 var ejectAll = new Command_Action();
                 ejectAll.defaultLabel = "AC.EjectAll".Translate();
                 ejectAll.defaultDesc = "AC.EjectAllNeuralStacksDesc".Translate();
-                ejectAll.icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EjectAllNeuralStacks");
+                ejectAll.icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EjectAllStacks");
                 ejectAll.action = delegate
                 {
                     compCache.EjectContents();

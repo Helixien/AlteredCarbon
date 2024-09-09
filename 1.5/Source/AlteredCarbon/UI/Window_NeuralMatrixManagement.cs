@@ -88,7 +88,7 @@ namespace AlteredCarbon
                 StackState.Dormant => "AC.Dormant".Translate(),
                 StackState.Lost => "AC.Lost".Translate(),
                 _ => string.Empty
-            })));
+            }))).ToLower().CapitalizeFirst();
         }
 
         IEnumerable<StackState> GetStates(IStackHolder stackHolder)
@@ -319,7 +319,7 @@ namespace AlteredCarbon
             }
             Rect statusRect = new(nameRect.x, factionRect.yMax, nameRect.width, factionRect.height);
 
-            Widgets.Label(statusRect, "AC.Status".Translate() + ": " + GetStackStateStatus(stack).ToLower().CapitalizeFirst());
+            Widgets.Label(statusRect, "AC.Status".Translate() + ": " + GetStackStateStatus(stack));
             Text.Font = GameFont.Small;
             GUI.color = Color.white;
 
@@ -456,7 +456,7 @@ namespace AlteredCarbon
             float infoContentY = stackInfoRect.y + Text.LineHeight + 5f; // Adjust Y position after header
             Rect infoContentRect = new(stackInfoRect.x, infoContentY, stackInfoRect.width, stackInfoRect.height - Text.LineHeight - 5f);
             Widgets.Label(infoContentRect,
-                "AC.CurrentlyStatus".Translate() + ": todo" + "\n" +
+                "AC.CurrentlyStatus".Translate() + ": " + GetStackStateStatus(selectedStack) + "\n" +
                 "AC.OriginalGender".Translate() + ": " + neuralData.OriginalGender.ToString() + "\n" +
                 "AC.NeedlecastingRange".Translate() + ": todo" + "\n" +
                 "AC.StackDegradation".Translate() + ": " + neuralData.stackDegradation.ToStringPercent().Colorize(Color.red));
