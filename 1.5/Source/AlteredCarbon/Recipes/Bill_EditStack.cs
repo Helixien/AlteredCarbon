@@ -24,7 +24,7 @@ namespace AlteredCarbon
 
         public override float GetWorkAmount(Thing thing = null)
         {
-            var neuralStack = thingWithStack.GetNeuralData();
+            var neuralStack = targetThing.GetNeuralData();
             var time = (float)neuralStack.editTime;
             if (this.curBillDoer != null)
             {

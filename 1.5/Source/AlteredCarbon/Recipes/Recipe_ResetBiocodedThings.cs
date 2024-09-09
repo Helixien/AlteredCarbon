@@ -15,24 +15,24 @@ namespace AlteredCarbon
         {
             base.Notify_IterationCompleted(billDoer, ingredients);
             var biocodedThing = ingredients.FirstOrDefault(x => x.TryGetComp<CompBiocodable>() != null);
-            var baseFailChance = 0.3f;
+            var baseFailChance = 0.5f;
             var intelSkill = billDoer.skills.GetSkill(SkillDefOf.Intellectual)?.Level ?? 0;
-            var diff = intelSkill - 10;
-            for (var i = 0; i < diff; i++)
+            if (intelSkill >= 10)
             {
-                baseFailChance -= 0.03f;
+                var skillOffset = intelSkill - 10;
+                baseFailChance -= 0.05f * skillOffset;
             }
-            var name = biocodedThing.LabelShort;
             if (!Rand.Chance(baseFailChance))
             {
                 var comp = biocodedThing.TryGetComp<CompBiocodable>();
+                Log.Message(comp + " - " + biocodedThing);
                 comp.UnCode();
-                Messages.Message("AC.ResettingBiocodedSuccess".Translate(name), biocodedThing, MessageTypeDefOf.PositiveEvent);
+                Messages.Message("AC.ResettingBiocodedSuccess".Translate(biocodedThing.LabelShort), biocodedThing, MessageTypeDefOf.PositiveEvent);
             }
             else
             {
                 biocodedThing.Destroy();
-                Messages.Message("AC.ResettingBiocodedFailed".Translate(name), billDoer, MessageTypeDefOf.NegativeEvent);
+                Messages.Message("AC.ResettingBiocodedFailed".Translate(biocodedThing.LabelShort), billDoer, MessageTypeDefOf.NegativeEvent);
             }
         }
     }

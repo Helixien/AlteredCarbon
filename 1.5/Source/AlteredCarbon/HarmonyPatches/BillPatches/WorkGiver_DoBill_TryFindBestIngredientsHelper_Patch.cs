@@ -37,7 +37,7 @@ namespace AlteredCarbon
         {
             if (__result is false && WorkGiver_DoBill_TryFindBestBillIngredients_Patch.curBill is Bill bill)
             {
-                var requiredStack = bill is Bill_OperateOnStack operate ? operate.thingWithStack as NeuralStack
+                var requiredStack = bill is Bill_OperateOnStack operate ? operate.targetThing as NeuralStack
                     : bill is Bill_InstallStack installStack ? installStack.stackToInstall : null;
                 if (requiredStack != null)
                 {

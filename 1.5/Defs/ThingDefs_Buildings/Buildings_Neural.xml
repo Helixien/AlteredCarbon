@@ -147,9 +147,6 @@
 			<Plasteel>10</Plasteel>
 			<ComponentSpacer>2</ComponentSpacer>
 		</costList>
-		<recipes>
-			<li>AC_ResetBiocodedThings</li>
-		</recipes>
 		<castEdgeShadows>true</castEdgeShadows>
 		<staticSunShadowHeight>0.20</staticSunShadowHeight>
 		<hasInteractionCell>true</hasInteractionCell>
@@ -157,7 +154,10 @@
 		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
 		<passability>PassThroughOnly</passability>
 		<fillPercent>0.3</fillPercent>
-    <pathCost>50</pathCost>
+		<pathCost>50</pathCost>
+		<recipes>
+			<li>AC_ResetBiocodedThings</li>
+		</recipes>
 		<thingCategories>
 			<li>BuildingsMisc</li>
 		</thingCategories>

@@ -184,7 +184,7 @@ namespace AlteredCarbon
             var neuralEditor = ConnectedEditor;
             if (neuralEditor != null && neuralEditor.Powered)
             {
-                return neuralEditor.billStack.Bills.Any(x => x is Bill_OperateOnStack operateOnStack && operateOnStack.thingWithStack == pawn);
+                return neuralEditor.billStack.Bills.Any(x => x is Bill_OperateOnStack operateOnStack && operateOnStack.targetThing == pawn);
             }
             return false;
         }

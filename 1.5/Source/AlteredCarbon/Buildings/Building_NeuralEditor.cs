@@ -86,6 +86,19 @@ namespace AlteredCarbon
             {
                 yield return g;
             }
+
+
+            foreach (var g in GetCommands<Command_ActionOnBiocoding>(new CommandInfo
+            {
+                icon = "UI/Gizmos/ResetBiocoding",
+                action = InstallResetBiocodingBill,
+                recipe = AC_DefOf.AC_ResetBiocodedThings,
+                defaultLabelCancel = "AC.CancelBiocodingReset".Translate(),
+                defaultDescCancel = "AC.CancelBiocodingResetDesc".Translate(),
+            }))
+            {
+                yield return g;
+            }
         }
 
         private IEnumerable<Gizmo> GetCommands<T>(CommandInfo info) where T : Command_ActionOnThing
@@ -126,9 +139,9 @@ namespace AlteredCarbon
             }
         }
 
-        public bool CanAddOperationOn(Thing neuralStack)
+        public bool CanAddOperationOn(Thing thing)
         {
-            var bill = this.billStack.Bills.OfType<Bill_OperateOnStack>().Where(x => x.thingWithStack == neuralStack).FirstOrDefault();
+            var bill = this.billStack.Bills.OfType<Bill_OperateOnThing>().Where(x => x.targetThing == thing).FirstOrDefault();
             if (bill != null)
             {
                 if (bill.recipe == AC_DefOf.AC_WipeActiveNeuralStack)
@@ -143,9 +156,21 @@ namespace AlteredCarbon
                 {
                     Messages.Message("AC.AlreadyOrderedToDuplicateStack".Translate(), MessageTypeDefOf.CautionInput);
                 }
+                else if (bill.recipe == AC_DefOf.AC_ResetBiocodedThings)
+                {
+                    Messages.Message("AC.AlreadyOrderedToResetBiocodedThing".Translate(), MessageTypeDefOf.CautionInput);
+                }
                 return false;
             }
             return true;
+        }
+
+        public void InstallResetBiocodingBill(LocalTargetInfo x)
+        {
+            if (CanAddOperationOn(x.Thing))
+            {
+                billStack.AddBill(new Bill_OperateOnThing(x.Thing, AC_DefOf.AC_ResetBiocodedThings, null));
+            }
         }
 
         public void InstallWipeStackBill(LocalTargetInfo x)

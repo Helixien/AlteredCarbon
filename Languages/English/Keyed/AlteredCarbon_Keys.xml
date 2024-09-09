@@ -170,6 +170,7 @@ If you edit the content from a non-colonist stack from another faction, their en
 	<AC.AlreadyOrderedToEditStack>This stack is set for editing already on a neural editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToEditStack>
 	<AC.AlreadyOrderedToDuplicateStack>This stack is set for duplicating already on a neural editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToDuplicateStack>
 	<AC.AlreadyOrderedToRestoreStack>This stack is set for restoring already on a neural editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToRestoreStack>
+	<AC.AlreadyOrderedToResetBiocodedThing>This biocoded thing is set for resetting already on a neural editor. Remove the bill in order to add new operation on it.</AC.AlreadyOrderedToResetBiocodedThing>
 	<AC.ResettingBiocodedFailed>Resetting biocoded equipment: Failed, {0} destroyed!</AC.ResettingBiocodedFailed>
 	<AC.ResettingBiocodedSuccess>Resetting biocoded equipment: Successful! {0} is unlocked.</AC.ResettingBiocodedSuccess>
 	<AC.EditNeuralStack>Edit Neural Stack</AC.EditNeuralStack>
@@ -195,6 +196,8 @@ If you edit the content from a non-colonist stack from another faction, their en
 	<AC.CancelStackEditDesc>Cancel editing neural stack.</AC.CancelStackEditDesc>
 	<AC.CancelStackDuplication>Cancel stack duplication</AC.CancelStackDuplication>
 	<AC.CancelStackDuplicationDesc>Cancel stack duplicating.</AC.CancelStackDuplicationDesc>
+	<AC.CancelBiocodingReset>Cancel biocoding reset.</AC.CancelBiocodingReset>
+	<AC.CancelBiocodingResetDesc>Cancel reseting biocoded thing.</AC.CancelBiocodingResetDesc>
 	<AC.SuccessfullyRestoredStackFromBackup>{PAWN_nameDef} successfully restored neural stack from neural stack.</AC.SuccessfullyRestoredStackFromBackup>
 	<AC.EnableAutoRestore>Toggle automatic restoring</AC.EnableAutoRestore>
 	<AC.EnableAutoRestoreDesc>Allow to automatically restore stacks from neural stacks if a pawn with an installed neural stack dies.</AC.EnableAutoRestoreDesc>

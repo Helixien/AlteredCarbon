@@ -27,7 +27,7 @@ namespace AlteredCarbon
                         {
                             info.action(neuralStack);
                             Find.Targeter.StopTargeting();
-                        }, iconThing: neuralStack, iconColor: neuralStack.DrawColor);
+                        }, iconThing: neuralStack, iconColor: Color.white);
                     }
                 }
                 foreach (Pawn pawn in Things.OfType<Pawn>())

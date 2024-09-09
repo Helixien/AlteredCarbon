@@ -20,7 +20,7 @@ namespace AlteredCarbon
 
         public Thing Thing(Pawn billDoer)
         {
-            return (billDoer.jobs.curJob.bill as Bill_OperateOnStack).thingWithStack;
+            return (billDoer.jobs.curJob.bill as Bill_OperateOnStack).targetThing;
         }
     }
 }
