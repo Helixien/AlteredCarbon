@@ -112,7 +112,7 @@
 	<AC.AllowStrangerNeuralStacks>Allow stranger stacks</AC.AllowStrangerNeuralStacks>
 	<AC.AllowHostileNeuralStacks>Allow hostile stacks</AC.AllowHostileNeuralStacks>
 	<AC.StacksStored>Stacks stored: {0} / {1}</AC.StacksStored>
-	<AC.StacksRegistered>Stacks registered: todo</AC.StacksRegistered>
+	<AC.StacksTracked>Stacks tracked: {0}</AC.StacksTracked>
 	<AC.Status>Status</AC.Status>
 	<AC.StackInformation>Stack Information</AC.StackInformation>
 	<AC.CurrentlyStatus>Currently Status</AC.CurrentlyStatus>
@@ -124,6 +124,21 @@
 	<AC.NeuralMatrixManagementText>When you press Accept, the selected stack will be edite Ionist with the intellectual skill. The stack can not be installed or used until the editing is completed. When you press Accept, the selected stack will be edite Ionist with the intellectual skill. The stack can not be installed or used until the editing is completed.</AC.NeuralMatrixManagementText>
 	<AC.StackConfiguration>Stack Configuration</AC.StackConfiguration>
 	<AC.AutobankStack>Autobank Stack</AC.AutobankStack>
+	<AC.Tracked>Tracked</AC.Tracked>
+	<AC.Untracked>Untracked</AC.Untracked>
+	<AC.Colonists>Colonists</AC.Colonists>
+	<AC.Friendly>Friendly</AC.Friendly>
+	<AC.Hostile>Hostile</AC.Hostile>
+	<AC.Needlecasting>Needlecasting</AC.Needlecasting>
+	<AC.Sleeved>Sleeved</AC.Sleeved>
+	<AC.Archostack>Archostack</AC.Archostack>
+	<AC.Duplicates>Duplicates</AC.Duplicates>
+	<AC.TooltipTrackStack>Track {0} stack to manage it.</AC.TooltipTrackStack>
+	<AC.TooltipImplantStack>Select a sleeve to implant {0} stack in.</AC.TooltipImplantStack>
+	<AC.TooltipRemoveStack>Remove stack from storage.</AC.TooltipRemoveStack>
+	<AC.TooltipNeedlecast>Needlecast {0} into a controllable sleeve.</AC.TooltipNeedlecast>
+	<AC.TooltipStopManaging>Stop tracking {0} stack.</AC.TooltipStopManaging>
+	<AC.TooltipStopNeedlecasting>Stop needlecasting {0} into {1}.</AC.TooltipStopNeedlecasting>
 
 	<!-- ================================ Other ====================== -->
 	<AC.CommandCallsNeuroformers>Call psylink neuroformers</AC.CommandCallsNeuroformers>

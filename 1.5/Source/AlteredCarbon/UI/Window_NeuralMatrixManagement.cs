@@ -34,23 +34,38 @@ namespace AlteredCarbon
             this.doCloseX = true;
             this.doWindowBackground = true;
             this.forcePause = true;
-
-            var items = matrix.AllNeuralStacks.Cast<IStackHolder>();
-            var hediffs = matrix.Map.mapPawns.AllHumanlike.Select(x => x.GetNeuralStack()).Where(x => x != null).Cast<IStackHolder>();
-            allItems = currentItems = [.. items, .. hediffs];
-
-            var filters = new List<Func<IStackHolder, (string, bool)>>();
-
-            (string, bool) Friendly(IStackHolder stackHolder)
+            this.absorbInputAroundWindow = true;
+            var filters = new List<Func<IStackHolder, (string, bool)>>
             {
-                return ("AC.Friendly".Translate(), stackHolder.NeuralData.Friendly);
-            }
-
-            filters.Add(Friendly);
+                stackHolder => ("AC.Tracked".Translate(), stackHolder.ThingHolder is Pawn || stackHolder.NeuralData.trackedToMatrix == matrix),
+                stackHolder => ("AC.Untracked".Translate(), stackHolder.ThingHolder is not Pawn && stackHolder.NeuralData.trackedToMatrix != matrix),
+                stackHolder => ("AC.Colonists".Translate(), stackHolder.NeuralData.Colonist),
+                stackHolder => ("AC.Friendly".Translate(), stackHolder.NeuralData.Friendly),
+                stackHolder => ("AC.Hostile".Translate(), stackHolder.NeuralData.Hostile),
+                //stackHolder => ("AC.Needlecasting".Translate(), stackHolder.NeuralData.Needlecasting),
+                //stackHolder => ("AC.Sleeved".Translate(), stackHolder.NeuralData.Sleeved),
+                stackHolder => ("AC.Archostack".Translate(), stackHolder.ThingHolder is NeuralStack stack && stack.IsArchotechStack),
+                //stackHolder => ("AC.Duplicates".Translate(), stackHolder.NeuralData.IsDuplicate)
+            };
 
             this.filterManager = new FilterManager<IStackHolder>(filters, () => selectedStack,
                     newItems => currentItems = newItems,
                     GetItems);
+
+            RefreshItems();
+        }
+
+        private void RefreshItems()
+        {
+            var items = matrix.AllNeuralStacks.Concat(matrix.Map.listerThings.GetThingsOfType<NeuralStack>()
+                .Where(x => x.Fogged() is false && x.IsActiveStack && x.NeuralData.trackedToMatrix == matrix)).Cast<IStackHolder>();
+            var hediffs = matrix.Map.mapPawns.AllHumanlike
+                .Where(x => x.PositionHeld.Fogged(x.MapHeld) is false)
+                .Select(pawn => pawn.GetNeuralStack()).Where(x => x != null && x.NeuralData.trackedToMatrix == matrix)
+                .Cast<IStackHolder>();
+
+            allItems = [.. items, .. hediffs];
+            currentItems = GetItems();
         }
 
         private void CreateTabs()
@@ -76,11 +91,16 @@ namespace AlteredCarbon
 
         public List<IStackHolder> GetItems()
         {
+            var items = new List<IStackHolder>();
             if (filterManager.currentFilter != null)
             {
-                return allItems.Where(x => filterManager.currentFilter(x).Item2).ToList();
+                items = allItems.Where(x => filterManager.currentFilter(x).Item2).ToList();
             }
-            return allItems;
+            else
+            {
+                items = allItems;
+            }
+            return items.OrderBy(x => x.NeuralData.PawnNameColored.ToString()).ToList();
         }
 
         public override Vector2 InitialSize => new Vector2(1000f, 750f);
@@ -110,19 +130,19 @@ namespace AlteredCarbon
             Text.Font = GameFont.Small;
 
             leftRect.y += 15f;
-            Widgets.CheckboxLabeled(leftRect, "AC.AllowColonistNeuralStacks".Translate(), ref matrix.compCache.allowColonistNeuralStacks);
-            leftRect.y += 30f;
-            Widgets.CheckboxLabeled(leftRect, "AC.AllowStrangerNeuralStacks".Translate(), ref matrix.compCache.allowStrangerNeuralStacks);
-            leftRect.y += 30f;
-            Widgets.CheckboxLabeled(leftRect, "AC.AllowHostileNeuralStacks".Translate(), ref matrix.compCache.allowHostileNeuralStacks);
-            leftRect.y += 40f;
+
+            DrawCheckboxAndUpdateCaches(ref matrix.compCache.allowColonistNeuralStacks, "AC.AllowColonistNeuralStacks", ref leftRect, (comp, val) => comp.allowColonistNeuralStacks = val);
+            DrawCheckboxAndUpdateCaches(ref matrix.compCache.allowStrangerNeuralStacks, "AC.AllowStrangerNeuralStacks", ref leftRect, (comp, val) => comp.allowStrangerNeuralStacks = val);
+            DrawCheckboxAndUpdateCaches(ref matrix.compCache.allowHostileNeuralStacks, "AC.AllowHostileNeuralStacks", ref leftRect, (comp, val) => comp.allowHostileNeuralStacks = val);
+            leftRect.y += 10f;
 
             Text.Font = GameFont.Tiny;
             GUI.color = Color.grey;
             Text.Anchor = TextAnchor.MiddleLeft;
             Widgets.Label(leftRect, "AC.StacksStored".Translate(matrix.AllNeuralStacks.Count(), matrix.AllNeuralCaches.Sum(x => x.Props.stackLimit)));
             leftRect.y += 15f;
-            Widgets.Label(leftRect, "AC.StacksRegistered".Translate());
+            Widgets.Label(leftRect, "AC.StacksTracked".Translate(allItems.Where(x =>
+            x.NeuralData.trackedToMatrix == matrix).Count()));
             GUI.color = Color.white;
             Text.Font = GameFont.Small;
 
@@ -134,15 +154,51 @@ namespace AlteredCarbon
             GUI.color = Color.white;
             leftRect.y += 5f;
 
+            var trackedItems = currentItems.Where(item => item.ThingHolder is Pawn || item.NeuralData.trackedToMatrix == matrix).ToList();
+            var untrackedItems = currentItems.Where(x => trackedItems.Contains(x) is false).ToList();
             Rect outRect = new Rect(rect.x, leftRect.y, rect.width, rect.height - 40f - leftRect.y);
-            Rect viewRect = new Rect(0f, 0f, rect.width - 16f, currentItems.Count() * 52f);
+            Rect viewRect = new Rect(0f, 0f, rect.width - 16f, (25 + (trackedItems.Count + untrackedItems.Count)
+                * 52f) + (untrackedItems.Any() ? 5 : 0));
             Widgets.BeginScrollView(outRect, ref scrollPosition, viewRect);
-
             float curY = 0f;
-            for (int i = 0; i < currentItems.Count(); i++)
+            DrawStackEntries(trackedItems, ref curY, viewRect.width);
+            if (untrackedItems.Any())
             {
-                var stack = currentItems[i];
-                var stackEntryRect = new Rect(0f, curY, viewRect.width, 50f);
+                curY += 5f;
+                DrawSection(ref curY, "AC.Untracked".Translate() + ":", viewRect.width, rect);
+                DrawStackEntries(untrackedItems, ref curY, viewRect.width);
+            }
+            Widgets.EndScrollView();
+        }
+
+        public void DrawCheckboxAndUpdateCaches(ref bool value, string translationKey, ref Rect rect, Action<CompNeuralCache, bool> updateField)
+        {
+            Widgets.CheckboxLabeled(rect, translationKey.Translate(), ref value);
+            foreach (var comp in matrix.AllNeuralCaches)
+            {
+                updateField(comp, value);
+            }
+            rect.y += 30f;
+        }
+
+
+        public void DrawSection(ref float curY, string header, float viewWidth, Rect rect)
+        {
+            GUI.color = Color.grey;
+            Widgets.Label(new Rect(0f, curY, viewWidth, 24), header);
+            curY += 20; // Move down to leave space after the header
+            // Draw the grey separator line
+            GUI.DrawTexture(new Rect(0f, curY, rect.width, 2f), BaseContent.WhiteTex);
+            GUI.color = Color.white;
+            curY += 5f;
+        }
+        public void DrawStackEntries(List<IStackHolder> items, ref float curY, float viewWidth)
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                var stack = items[i];
+                var stackEntryRect = new Rect(0f, curY, viewWidth, 50f);
+
                 if (stack == selectedStack)
                 {
                     Widgets.DrawHighlightSelected(stackEntryRect);
@@ -151,16 +207,15 @@ namespace AlteredCarbon
                 {
                     Widgets.DrawHighlight(stackEntryRect);
                 }
-                Widgets.DrawHighlightIfMouseover(stackEntryRect);
                 DrawStackEntry(stackEntryRect, stack);
                 curY += 52;
             }
-
-            Widgets.EndScrollView();
         }
+
 
         private Dictionary<IStackHolder, (Thing thing, TaggedString pawnName, string factionName)> cachedValues = new();
 
+        private static readonly Texture2D addIcon = ContentFinder<Texture2D>.Get("UI/Icons/Add", true);
         private static readonly Texture2D needlecastIcon = ContentFinder<Texture2D>.Get("UI/Icons/Needlecast", true);
         private static readonly Texture2D installStackIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallStack", true);
         private static readonly Texture2D downArrowIcon = ContentFinder<Texture2D>.Get("UI/Icons/Drop", true);
@@ -171,7 +226,12 @@ namespace AlteredCarbon
             if (cachedValues.TryGetValue(stack, out var cache) is false)
             {
                 var data = stack.NeuralData;
-                cachedValues[stack] = cache = new(stack.ThingHolder, data.PawnNameColored, data.faction?.Name);
+                var thing = stack.ThingHolder;
+                if (thing is Pawn && thing.Spawned is false)
+                {
+                    thing = thing.ParentHolder as Thing;
+                }
+                cachedValues[stack] = cache = new(thing, data.PawnNameColored, data.faction?.Name);
             }
 
             Rect iconRect = new Rect(rect.x, rect.y, rect.height, rect.height);
@@ -200,26 +260,66 @@ namespace AlteredCarbon
 
             Rect iconRectWithOffset = new Rect(iconXPos, iconYPos, iconSize, iconSize);
 
-            if (Widgets.ButtonImage(iconRectWithOffset, needlecastIcon))
+            if (Widgets.ButtonImage(iconRectWithOffset, needlecastIcon, tooltip: "AC.TooltipNeedlecast".Translate(cache.pawnName)))
             {
+
+            }
+
+            if (stack.ThingHolder is NeuralStack neuralStack)
+            {
+                if (AC_Utils.stackRecipesByDef.TryGetValue(neuralStack.def, out var installInfo))
+                {
+                    iconRectWithOffset.x += iconSpacing;
+                    if (Widgets.ButtonImage(iconRectWithOffset, installStackIcon, tooltip: "AC.TooltipImplantStack".Translate(cache.pawnName)))
+                    {
+                        Close();
+                        Find.Targeter.BeginTargeting(neuralStack.ForPawn(), delegate (LocalTargetInfo x)
+                        {
+                            if (AC_Utils.CanImplantStackTo(installInfo.recipe.addsHediff, x.Pawn, neuralStack, true))
+                            {
+                                neuralStack.InstallStackRecipe(x.Pawn, installInfo.recipe);
+                            }
+                        });
+                    }
+                }
+
+                if (neuralStack.ParentHolder is CompNeuralCache)
+                {
+                    iconRectWithOffset.x += iconSpacing;
+                    if (Widgets.ButtonImage(iconRectWithOffset, downArrowIcon, tooltip: "AC.TooltipRemoveStack".Translate()))
+                    {
+                        neuralStack.ParentHolder.GetDirectlyHeldThings().TryDrop(neuralStack, ThingPlaceMode.Near, out _);
+                        RefreshItems();
+                    }
+                }
             }
 
             iconRectWithOffset.x += iconSpacing;
-            if (Widgets.ButtonImage(iconRectWithOffset, installStackIcon))
+            if (stack.NeuralData.trackedToMatrix != null)
             {
+                if (Widgets.ButtonImage(iconRectWithOffset, trashIcon, tooltip: "AC.TooltipStopManaging".Translate(cache.pawnName)))
+                {
+                    stack.NeuralData.trackedToMatrix = null;
+                    RefreshItems();
+                }
+            }
+            else
+            {
+                if (Widgets.ButtonImage(iconRectWithOffset, addIcon, tooltip: "AC.TooltipTrackStack".Translate(cache.pawnName)))
+                {
+                    stack.NeuralData.trackedToMatrix = matrix;
+                    RefreshItems();
+                }
             }
 
-            iconRectWithOffset.x += iconSpacing;
-            if (Widgets.ButtonImage(iconRectWithOffset, downArrowIcon))
+            if (Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.clickCount == 2
+                    && Mouse.IsOver(rect))
             {
+                Event.current.Use();
+                Close();
+                CameraJumper.TryJumpAndSelect(stack.ThingHolder);
             }
-
-            iconRectWithOffset.x += iconSpacing;
-            if (Widgets.ButtonImage(iconRectWithOffset, trashIcon))
-            {
-            }
-
-            if (Widgets.ButtonInvisible(rect))
+            else if (selectedStack != stack && Widgets.ButtonInvisible(rect))
             {
                 selectedStack = stack;
             }

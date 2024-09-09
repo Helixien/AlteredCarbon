@@ -8,6 +8,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
+    [HotSwappable]
     [HarmonyPatch(typeof(WorkGiver_DoBill), "TryFindBestIngredientsHelper")]
     public static class WorkGiver_DoBill_TryFindBestIngredientsHelper_Patch
     {
@@ -36,33 +37,45 @@ namespace AlteredCarbon
         {
             if (__result is false && WorkGiver_DoBill_TryFindBestBillIngredients_Patch.curBill is Bill bill)
             {
-                if (bill.recipe.Worker is Recipe_OperateOnNeuralStack || 
-                    AC_Utils.installActiveStacksRecipes.Contains(bill.recipe))
+                var requiredStack = bill is Bill_OperateOnStack operate ? operate.thingWithStack as NeuralStack
+                    : bill is Bill_InstallStack installStack ? installStack.stackToInstall : null;
+                if (requiredStack != null)
                 {
                     var neuralCaches = pawn.Map.GetAllStackCaches();
                     foreach (var neuralCache in neuralCaches)
                     {
                         var comp = neuralCache.TryGetComp<CompNeuralCache>();
                         var stacks = comp.innerContainer.ToList();
-                        WorkGiver_DoBill.relevantThings.AddRange(stacks);
+                        if (stacks.Contains(requiredStack))
+                        {
+                            WorkGiver_DoBill.relevantThings.Add(requiredStack);
+                        }
                     }
                     if (foundAllIngredientsAndChoose(WorkGiver_DoBill.relevantThings))
                     {
+                        WorkGiver_DoBill.relevantThings.Clear();
                         __result = true;
                     }
                 }
-                //else if (bill.recipe.Worker is Recipe_OperateOnNeuralPrint)
-                //{
-                //    var neuralMatrices = pawn.Map.listerThings.ThingsOfDef(AC_DefOf.AC_NeuralMatrix).OfType<Building_NeuralMatrix>();
-                //    foreach (var neuralMatrix in neuralMatrices)
-                //    {
-                //        WorkGiver_DoBill.relevantThings.AddRange(neuralMatrix.StoredNeuralPrints);
-                //    }
-                //    if (foundAllIngredientsAndChoose(WorkGiver_DoBill.relevantThings))
-                //    {
-                //        __result = true;
-                //    }
-                //}
+                else
+                {
+                    if (bill.recipe.Worker is Recipe_OperateOnNeuralStack ||
+                        AC_Utils.installActiveStacksRecipes.Contains(bill.recipe))
+                    {
+                        var neuralCaches = pawn.Map.GetAllStackCaches();
+                        foreach (var neuralCache in neuralCaches)
+                        {
+                            var comp = neuralCache.TryGetComp<CompNeuralCache>();
+                            var stacks = comp.innerContainer.ToList();
+                            WorkGiver_DoBill.relevantThings.AddRange(stacks);
+                        }
+                        if (foundAllIngredientsAndChoose(WorkGiver_DoBill.relevantThings))
+                        {
+                            WorkGiver_DoBill.relevantThings.Clear();
+                            __result = true;
+                        }
+                    }
+                }
             }
         }
     }

@@ -150,7 +150,9 @@
     <Compile Include="HarmonyPatches\BillPatches\JobDriver_DoBill_MakeNewToils_Patch.cs" />
     <Compile Include="Jobs\WorkGiver_HaulToNeuralConnector.cs" />
     <Compile Include="Recipes\Bill_EditStack.cs" />
+    <Compile Include="HarmonyPatches\HealthCardUtility_GenerateSurgeryOption_Patch.cs" />
     <Compile Include="Recipes\Recipe_DuplicateNeuralStack.cs" />
+    <Compile Include="Recipes\Recipe_InstallImplantAddon.cs" />
     <Compile Include="Recipes\Recipe_InstallParroterStack.cs" />
     <Compile Include="Recipes\Recipe_OperateOnNeuralStack.cs" />
     <Compile Include="Recipes\Recipe_RemoveParroterStack.cs" />

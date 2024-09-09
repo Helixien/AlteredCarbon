@@ -15,7 +15,7 @@ namespace AlteredCarbon
 			if (__instance is Bill_InstallStack installStack && thing is NeuralStack)
             {
 				__result = thing == installStack.stackToInstall;
-				return false;
+                return false;
 			}
 			else if (__instance is Bill_OperateOnStack operateOnStack && thing is ThingWithNeuralData data 
 				&& data.NeuralData.ContainsData)

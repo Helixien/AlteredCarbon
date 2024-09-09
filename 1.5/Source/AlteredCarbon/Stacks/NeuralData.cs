@@ -16,7 +16,7 @@ namespace AlteredCarbon
     public class NeuralData : IExposable
     {
         public NeuralData neuralDataRewritten;
-
+        public Building_NeuralMatrix trackedToMatrix;
         public static bool debug => false;
         public ThingDef sourceStack;
         public Name name;
@@ -1809,7 +1809,7 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref stackDegradationToAdd, "stackDegradationToAdd");
             Scribe_Values.Look(ref dummyGender, "dummyGender");
             Scribe_Deep.Look(ref neuralDataRewritten, "neuralDataRewritten");
-
+            Scribe_References.Look(ref trackedToMatrix, "trackedToMatrix");
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 times.CleanupList();

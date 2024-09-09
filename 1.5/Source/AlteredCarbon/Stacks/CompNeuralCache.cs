@@ -6,7 +6,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
-    public class CompNeuralCache : CompThingContainer
+    public class CompNeuralCache : CompThingContainer, INotifyHauledTo
     {
         public bool allowColonistNeuralStacks = true;
         public bool allowStrangerNeuralStacks = true;
@@ -80,6 +80,26 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref this.allowHostileNeuralStacks, "allowHostileNeuralStacks", true);
             Scribe_Values.Look(ref this.allowStrangerNeuralStacks, "allowStrangerNeuralStacks", true);
             Scribe_Values.Look(ref this.allowArchoStacks, "allowArchoStacks", true);
+        }
+
+        public void Notify_HauledTo(Pawn hauler, Thing thing, int count)
+        {
+            if (thing is NeuralStack stack)
+            {
+                if (parent is Building_NeuralMatrix matrix)
+                {
+                    stack.NeuralData.trackedToMatrix = matrix;
+                }
+                else
+                {
+                    var compFacility = parent.GetComp<CompAffectedByFacilities>();
+                    matrix = compFacility.LinkedFacilitiesListForReading.OfType<Building_NeuralMatrix>().FirstOrDefault();
+                    if (matrix != null)
+                    {
+                        stack.NeuralData.trackedToMatrix = matrix;
+                    }
+                }
+            }
         }
     }
 }

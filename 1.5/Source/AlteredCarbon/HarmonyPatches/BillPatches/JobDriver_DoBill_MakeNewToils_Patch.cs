@@ -112,10 +112,6 @@ namespace AlteredCarbon
                         {
                             jobdriver.job.SetTarget(ingredientInd, comp.parent);
                         }
-                        else if (target.ParentHolder is Building_NeuralMatrix matrix)
-                        {
-                            jobdriver.job.SetTarget(ingredientInd, matrix);
-                        }
                         jobdriver.JumpToToil(decideShouldCarryItem);
                     }
                 }
