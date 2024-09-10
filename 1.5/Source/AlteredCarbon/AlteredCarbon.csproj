@@ -159,14 +159,14 @@
     <Compile Include="Recipes\Bill_OperateOnThing.cs" />
     <Compile Include="Recipes\Recipe_DuplicateNeuralStack.cs" />
     <Compile Include="Recipes\Recipe_InstallImplantAddon.cs" />
-    <Compile Include="Recipes\Recipe_InstallParroterStack.cs" />
+    <Compile Include="Recipes\Recipe_InstallRemoteStack.cs" />
     <Compile Include="Recipes\Recipe_OperateOnNeuralStack.cs" />
-    <Compile Include="Recipes\Recipe_RemoveParroterStack.cs" />
+    <Compile Include="Recipes\Recipe_RemoveRemoteStack.cs" />
     <Compile Include="Recipes\Recipe_EditActiveNeuralStack.cs" />
     <Compile Include="SaveDataHandler.cs" />
     <Compile Include="SleevePreset.cs" />
     <Compile Include="Stacks\CompNeuralCache.cs" />
-    <Compile Include="Stacks\Hediff_ParroterStack.cs" />
+    <Compile Include="Stacks\Hediff_RemoteStack.cs" />
     <Compile Include="Stacks\RJWData.cs" />
     <Compile Include="Stacks\ThingWithNeuralData.cs" />
     <Compile Include="Thoughts\Thought_StackDegradation.cs" />

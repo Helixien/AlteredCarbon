@@ -49,7 +49,7 @@ namespace AlteredCarbon
         public Thing ThingHolder => this.pawn;
         public Pawn Pawn => this.pawn;
 
-        public Hediff_ParroterStack needleCastingInto;
+        public Hediff_RemoteStack needleCastingInto;
 
         public override IEnumerable<Gizmo> GetGizmos()
         {

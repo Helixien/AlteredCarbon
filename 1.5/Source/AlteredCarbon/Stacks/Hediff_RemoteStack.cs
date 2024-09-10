@@ -4,10 +4,11 @@ using Verse;
 namespace AlteredCarbon
 {
     [HotSwappable]
-    public class Hediff_ParroterStack : Hediff_Implant
+    public class Hediff_RemoteStack : Hediff_Implant
     {
         public NeuralData originalPawnData;
         public NeuralData needlePawnData;
+
         public override void ExposeData()
         {
             base.ExposeData();

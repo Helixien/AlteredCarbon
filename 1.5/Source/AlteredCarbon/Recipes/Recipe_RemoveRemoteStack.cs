@@ -4,7 +4,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
-    public class Recipe_RemoveParroterStack : Recipe_Surgery
+    public class Recipe_RemoveRemoteStack : Recipe_Surgery
 	{
 		public override IEnumerable<BodyPartRecord> GetPartsToApplyOn(Pawn pawn, RecipeDef recipe)
 		{

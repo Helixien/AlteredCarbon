@@ -7,7 +7,7 @@ using Verse;
 namespace AlteredCarbon
 {
     [HotSwappable]
-    public class Recipe_InstallParroterStack : Recipe_Surgery
+    public class Recipe_InstallRemoteStack : Recipe_Surgery
     {
         public override IEnumerable<BodyPartRecord> GetPartsToApplyOn(Pawn pawn, RecipeDef recipe)
         {
