@@ -46,14 +46,6 @@ namespace AlteredCarbon
             }
         }
 
-        public override string GetInspectString()
-        {
-            var test = base.GetInspectString();
-            test += "\nIs copy: " + pawn.IsCopy();
-            test += "\nIs original: " + pawn.IsOriginal();
-            return test;
-        }
-
         public Thing ThingHolder => this.pawn;
         public Pawn Pawn => this.pawn;
 

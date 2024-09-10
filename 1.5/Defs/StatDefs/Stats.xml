@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<StatDef>
+		<defName>AC_StackShreddingEfficiency</defName>
+		<label>stack shredding efficiency</label>
+		<description>The amount of materials yielded when this person shreds a neural stack for resources.</description>
+		<category>PawnWork</category>
+		<toStringStyle>PercentZero</toStringStyle>
+		<minValue>0</minValue>
+		<maxValue>1.50</maxValue>
+		<defaultBaseValue>1</defaultBaseValue>
+		<skillNeedFactors>
+			<li Class="SkillNeed_BaseBonus">
+				<skill>Crafting</skill>
+				<baseValue>0.50</baseValue>
+				<bonusPerLevel>0.025</bonusPerLevel>
+			</li>
+		</skillNeedFactors>
+		<capacityFactors>
+			<li>
+				<capacity>Sight</capacity>
+				<weight>0.60</weight>
+				<max>1.00</max>
+			</li>
+			<li>
+				<capacity>Manipulation</capacity>
+				<weight>0.90</weight>
+			</li>
+		</capacityFactors>
+		<displayPriorityInCategory>4520</displayPriorityInCategory>
+	</StatDef>
+
+</Defs>
