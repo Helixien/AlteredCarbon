@@ -2,12 +2,14 @@
 using System.Reflection;
 using HarmonyLib;
 using RimWorld;
+using Verse;
 
 namespace AlteredCarbon
 {
     [HarmonyPatch]
     public static class CompBiocodable_UnCode_Patch
     {
+        public static Pawn disableKillEffect;
         [HarmonyTargetMethods]
         public static IEnumerable<MethodBase> TargetMethods()
         {
@@ -17,7 +19,7 @@ namespace AlteredCarbon
 
         public static bool Prefix(CompBiocodable __instance)
         {
-            if (__instance.CodedPawn != null && __instance.CodedPawn.HasStackInsideOrOutside())
+            if (__instance.CodedPawn != null && disableKillEffect == __instance.CodedPawn)
             {
                 return false;
             }

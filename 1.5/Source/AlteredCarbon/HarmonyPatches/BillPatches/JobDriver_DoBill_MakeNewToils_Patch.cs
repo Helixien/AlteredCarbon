@@ -17,10 +17,27 @@ namespace AlteredCarbon
             if (__instance.job.bill.recipe.Worker is Recipe_OperateOnNeuralStack //or Recipe_OperateOnNeuralPrint 
                 || AC_Utils.installActiveStacksRecipes.Contains(__instance.job.bill.recipe))
             {
+                __instance.AddEndCondition(delegate
+                {
+                    Thing thing = __instance.GetActor().jobs.curJob.GetTarget(TargetIndex.A).Thing;
+                    return (!(thing is Building) || thing.Spawned) ? JobCondition.Ongoing : JobCondition.Incompletable;
+                });
+                __instance.FailOnBurningImmobile(TargetIndex.A);
                 var job = __instance.job;
                 var pawn = __instance.pawn;
                 __instance.FailOn(() =>
                 {
+                    if (job.GetTarget(TargetIndex.A).Thing is IBillGiver billGiver)
+                    {
+                        if (job.bill.DeletedOrDereferenced)
+                        {
+                            return true;
+                        }
+                        if (!billGiver.CurrentlyUsableForBills())
+                        {
+                            return true;
+                        }
+                    }
                     if (__instance.job.bill is Bill_OperateOnStack operateOnStack)
                     {
                         if (operateOnStack.ShouldDoNow() is false)

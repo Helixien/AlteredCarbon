@@ -26,6 +26,7 @@ namespace AlteredCarbon
                         things.Add(thing);
                     }
                 }
+                Log.Message(things.ToStringSafeEnumerable());
                 return things.Where(x => x.PositionHeld.Fogged(x.MapHeld) is false).ToHashSet();
             }
         }

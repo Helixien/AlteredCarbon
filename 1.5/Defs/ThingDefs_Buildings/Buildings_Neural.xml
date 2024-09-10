@@ -156,7 +156,6 @@
 		<fillPercent>0.3</fillPercent>
 		<pathCost>50</pathCost>
 		<recipes>
-			<li>AC_ResetBiocodedThings</li>
 		</recipes>
 		<thingCategories>
 			<li>BuildingsMisc</li>

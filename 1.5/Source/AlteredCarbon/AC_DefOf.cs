@@ -118,5 +118,6 @@ namespace AlteredCarbon
         public static HediffDef AC_VoiceSynthesizer;
         public static HediffDef AC_MentalFuse;
         public static HediffDef AC_Dreamcatcher;
+        public static ThingCategoryDef WeaponsMelee;
     }
 }

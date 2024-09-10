@@ -807,26 +807,29 @@ namespace AlteredCarbon
         {
             return AlteredCarbonManager.Instance.emptySleeves.Contains(pawn);
         }
+
+        public static void SetKillEffects(this Pawn pawn, bool disable)
+        {
+            var effectValue = disable ? pawn : null;
+
+            Pawn_DoKillSideEffects.disableKillEffect = effectValue;
+            Faction_Notify_LeaderDied_Patch.disableKillEffect = effectValue;
+            PawnDiedOrDownedThoughtsUtility_AppendThoughts_ForHumanlike_Patch.disableKillEffect = effectValue;
+            PawnDiedOrDownedThoughtsUtility_AppendThoughts_Relations_Patch.disableKillEffect = effectValue;
+            Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.disableKillEffect = effectValue;
+            Pawn_RoyaltyTracker_Notify_PawnKilled_Patch.disableKillEffect = effectValue;
+            Ideo_Notify_MemberDied_Patch.disableKillEffect = effectValue;
+            CompBiocodable_UnCode_Patch.disableKillEffect = effectValue;
+        }
+
         public static void DisableKillEffects(this Pawn pawn)
         {
-            Pawn_DoKillSideEffects.disableKillEffect = pawn;
-            Faction_Notify_LeaderDied_Patch.disableKillEffect = pawn;
-            PawnDiedOrDownedThoughtsUtility_AppendThoughts_ForHumanlike_Patch.disableKillEffect = pawn;
-            PawnDiedOrDownedThoughtsUtility_AppendThoughts_Relations_Patch.disableKillEffect = pawn;
-            Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.disableKillEffect = pawn;
-            Pawn_RoyaltyTracker_Notify_PawnKilled_Patch.disableKillEffect = pawn;
-            Ideo_Notify_MemberDied_Patch.disableKillEffect = pawn;
+            SetKillEffects(pawn, true);
         }
 
         public static void EnableKillEffects(this Pawn pawn)
         {
-            Pawn_DoKillSideEffects.disableKillEffect = null;
-            Faction_Notify_LeaderDied_Patch.disableKillEffect = null;
-            PawnDiedOrDownedThoughtsUtility_AppendThoughts_ForHumanlike_Patch.disableKillEffect = null;
-            PawnDiedOrDownedThoughtsUtility_AppendThoughts_Relations_Patch.disableKillEffect = null;
-            Pawn_HealthTracker_NotifyPlayerOfKilled_Patch.disableKillEffect = null;
-            Pawn_RoyaltyTracker_Notify_PawnKilled_Patch.disableKillEffect = null;
-            Ideo_Notify_MemberDied_Patch.disableKillEffect = null;
+            SetKillEffects(pawn, false);
         }
 
         public static Hediff MakeHediff(HediffDef hediffDef, Pawn pawn, BodyPartRecord part)

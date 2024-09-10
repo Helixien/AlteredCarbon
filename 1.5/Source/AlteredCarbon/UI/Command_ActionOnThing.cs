@@ -27,6 +27,7 @@ namespace AlteredCarbon
             {
                 canTargetPawns = true,
                 canTargetItems = true,
+                mapObjectTargetsMustBeAutoAttackable = false,
                 validator = (TargetInfo x) => Things.Contains(x.Thing),
             }, delegate (LocalTargetInfo x)
             {

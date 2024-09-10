@@ -93,6 +93,7 @@
     <Compile Include="CompApparelAbilities.cs" />
     <Compile Include="HarmonyPatches\Alert_ColonistLeftUnburied_IsCorpseOfColonist_Patch.cs" />
     <Compile Include="HarmonyPatches\Apparel_Notify_PawnKilled_Patch.cs" />
+    <Compile Include="HarmonyPatches\Tradeable_TraderWillTrade_Patch.cs" />
     <Compile Include="HarmonyPatches\Building_GrowthVat_CanAcceptPawn_Patch.cs" />
     <Compile Include="HarmonyPatches\Building_SubcoreScanner_CanAcceptPawn_Patch.cs" />
     <Compile Include="HarmonyPatches\CharacterCardUtility_DoLeftSection_Patch.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="UI\HotSwappableAttribute.cs" />
     <Compile Include="UI\ITab_Pawn_Log_Static.cs" />
     <Compile Include="UI\ITab_StackStorageContents.cs" />
+    <Compile Include="HarmonyPatches\ThingListGroupHelper_Includes_Patch.cs" />
     <Compile Include="UI\Window_NeuralMatrixManagement.cs" />
     <Compile Include="UI\Window_BodyPartPicker.cs" />
     <Compile Include="Designators\Designator_ExtractStack.cs" />
