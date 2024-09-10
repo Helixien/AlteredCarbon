@@ -21,12 +21,11 @@ namespace AlteredCarbon
                 foreach (var thing in neuralEditor.Map.listerThings.AllThings)
                 {
                     var comp = thing.TryGetComp<CompBiocodable>();
-                    if (comp != null && comp.CodedPawn != null)
+                    if (comp != null && comp is not CompBladelinkWeapon && comp.CodedPawn != null)
                     {
                         things.Add(thing);
                     }
                 }
-                Log.Message(things.ToStringSafeEnumerable());
                 return things.Where(x => x.PositionHeld.Fogged(x.MapHeld) is false).ToHashSet();
             }
         }

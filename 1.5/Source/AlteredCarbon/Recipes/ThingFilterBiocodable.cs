@@ -8,7 +8,7 @@ namespace AlteredCarbon
         public override bool Allows(Thing t)
         {
             var comp = t.TryGetComp<CompBiocodable>();
-            if (comp != null && comp.Biocoded)
+            if (comp != null && comp is not CompBladelinkWeapon && comp.Biocoded)
             {
                 return true;
             }

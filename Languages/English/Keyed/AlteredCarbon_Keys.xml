@@ -262,4 +262,8 @@ If you edit the content from a non-colonist stack from another faction, their en
 	<AC.AllowStrangerStacks>*Allow stranger neural stacks</AC.AllowStrangerStacks>
 	<AC.AllowHostileStacks>*Allow hostile neural stacks</AC.AllowHostileStacks>
 	<AC.AllowArchoStacks>*Allow archo stacks</AC.AllowArchoStacks>
+	<AC.BiocodableEquipWarning>Once imprinted to a user, the weapon can not be used by anyone else until its biocoding is reset again.
+
+Are you sure you want to equip this time?</AC.BiocodableEquipWarning>
+	<AC.BiocodingNotYetImprinted>Biocoding: Not yet imprinted.</AC.BiocodingNotYetImprinted>
 </LanguageData>

@@ -6,6 +6,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
+
     [HarmonyPatch(typeof(TraitSet), "GainTrait")]
     public static class TraitSet_GainTrait_Patch
     {

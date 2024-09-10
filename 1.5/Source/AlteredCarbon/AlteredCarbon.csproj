@@ -93,6 +93,10 @@
     <Compile Include="CompApparelAbilities.cs" />
     <Compile Include="HarmonyPatches\Alert_ColonistLeftUnburied_IsCorpseOfColonist_Patch.cs" />
     <Compile Include="HarmonyPatches\Apparel_Notify_PawnKilled_Patch.cs" />
+    <Compile Include="HarmonyPatches\CompBiocodable_CompInspectStringExtra_Patch.cs" />
+    <Compile Include="HarmonyPatches\CompBiocodable_PostExposeData_Patch.cs" />
+    <Compile Include="HarmonyPatches\CompBiocodable_Notify_Equipped_Patch.cs" />
+    <Compile Include="HarmonyPatches\EquipmentUtility_GetPersonaWeaponConfirmationText_EquipmentUtility.cs" />
     <Compile Include="HarmonyPatches\Tradeable_TraderWillTrade_Patch.cs" />
     <Compile Include="HarmonyPatches\Building_GrowthVat_CanAcceptPawn_Patch.cs" />
     <Compile Include="HarmonyPatches\Building_SubcoreScanner_CanAcceptPawn_Patch.cs" />
@@ -159,6 +163,7 @@
     <Compile Include="Recipes\Recipe_OperateOnNeuralStack.cs" />
     <Compile Include="Recipes\Recipe_RemoveParroterStack.cs" />
     <Compile Include="Recipes\Recipe_EditActiveNeuralStack.cs" />
+    <Compile Include="SaveDataHandler.cs" />
     <Compile Include="SleevePreset.cs" />
     <Compile Include="Stacks\CompNeuralCache.cs" />
     <Compile Include="Stacks\Hediff_ParroterStack.cs" />

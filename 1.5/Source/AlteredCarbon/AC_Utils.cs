@@ -290,8 +290,8 @@ namespace AlteredCarbon
                 AC_DefOf.AC_ResetBiocodedThings.fixedIngredientFilter.thingDefs.Add(thingDef);
                 AC_DefOf.AC_ResetBiocodedThings.fixedIngredientFilter.SetAllow(thingDef, true);
             }
-
-
+            
+            
             AC_DefOf.AC_ResetBiocodedThings.defaultIngredientFilter = new ThingFilterBiocodable();
             AC_DefOf.AC_ResetBiocodedThings.defaultIngredientFilter.thingDefs ??= new List<ThingDef>();
             foreach (ThingDef thingDef in DefDatabase<ThingDef>.AllDefs.Where(x => x.comps != null && x.HasAssignableCompFrom(typeof(CompBiocodable))))

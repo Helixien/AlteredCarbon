@@ -25,9 +25,8 @@ namespace AlteredCarbon
             if (!Rand.Chance(baseFailChance))
             {
                 var comp = biocodedThing.TryGetComp<CompBiocodable>();
-                Log.Message("1: " + comp + " - " + biocodedThing + " - " + comp.codedPawn);
                 comp.UnCode();
-                Log.Message("2: " + comp + " - " + biocodedThing + " - " + comp.codedPawn);
+                CompBiocodable_PostExposeData_Patch.wasBiocoded.Set(comp, true);
                 Messages.Message("AC.ResettingBiocodedSuccess".Translate(biocodedThing.LabelShort), biocodedThing, MessageTypeDefOf.PositiveEvent);
             }
             else
