@@ -108,9 +108,9 @@
 	<AC.ManageNeuralMatrixDesc>text.todo</AC.ManageNeuralMatrixDesc>
 	<AC.NeuralMatrixManagement>Neural Matrix Management</AC.NeuralMatrixManagement>
 	<AC.StorageFilters>Storage filters</AC.StorageFilters>
-	<AC.AllowColonistNeuralStacks>Allow colonist stacks</AC.AllowColonistNeuralStacks>
-	<AC.AllowStrangerNeuralStacks>Allow stranger stacks</AC.AllowStrangerNeuralStacks>
-	<AC.AllowHostileNeuralStacks>Allow hostile stacks</AC.AllowHostileNeuralStacks>
+	<AC.AllowColonistNeuralStacks>*Allow colonist stacks</AC.AllowColonistNeuralStacks>
+	<AC.AllowStrangerNeuralStacks>*Allow stranger stacks</AC.AllowStrangerNeuralStacks>
+	<AC.AllowHostileNeuralStacks>*Allow hostile stacks</AC.AllowHostileNeuralStacks>
 	<AC.StacksStored>Stacks stored: {0} / {1}</AC.StacksStored>
 	<AC.StacksTracked>Stacks tracked: {0}</AC.StacksTracked>
 	<AC.Status>Status</AC.Status>
@@ -261,7 +261,6 @@ If you edit the content from a non-colonist stack from another faction, their en
 	<AC.AllowColonistStacks>*Allow colonist neural stacks</AC.AllowColonistStacks>
 	<AC.AllowStrangerStacks>*Allow stranger neural stacks</AC.AllowStrangerStacks>
 	<AC.AllowHostileStacks>*Allow hostile neural stacks</AC.AllowHostileStacks>
-	<AC.AllowArchoStacks>*Allow archo stacks</AC.AllowArchoStacks>
 	<AC.BiocodableEquipWarning>Once imprinted to a user, the weapon can not be used by anyone else until its biocoding is reset again.
 
 Are you sure you want to equip this time?</AC.BiocodableEquipWarning>

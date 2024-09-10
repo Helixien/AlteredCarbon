@@ -17,7 +17,7 @@ namespace AlteredCarbon
     {
         public NeuralData neuralDataRewritten;
         public Building_NeuralMatrix trackedToMatrix;
-        public static bool debug => false;
+        public static bool debug => true;
         public ThingDef sourceStack;
         public Name name;
         public PawnKindDef kindDef;
@@ -191,7 +191,7 @@ namespace AlteredCarbon
                 dummyPawn.gender = dummyGender ?? originalGender;
             }
             dummyPawns.Add(dummyPawn);
-            OverwritePawn(dummyPawn, null, overwriteOriginalPawn: false, copyFromOrigPawn: hostPawn != null
+            OverwritePawn(dummyPawn, null, changeGlobalData: false, copyFromOrigPawn: hostPawn != null
                 && hostPawn.Dead is false && hostPawn.IsEmptySleeve() is false);
             if (hostPawn != null)
             {
@@ -833,8 +833,8 @@ namespace AlteredCarbon
             return null;
         }
 
-        public void OverwritePawn(Pawn pawn, StackSavingOptionsModExtension extension, bool overwriteOriginalPawn = true, 
-            bool copyFromOrigPawn = true)
+        public void OverwritePawn(Pawn pawn, StackSavingOptionsModExtension extension,
+            bool changeGlobalData = true, bool copyFromOrigPawn = true)
         {
             if (copyFromOrigPawn && hostPawn != null)
             {
@@ -850,7 +850,7 @@ namespace AlteredCarbon
             {
                 pawn.SetFaction(faction);
             }
-            if (isFactionLeader && overwriteOriginalPawn && pawn.Faction != null)
+            if (isFactionLeader && changeGlobalData && pawn.Faction != null)
             {
                 pawn.Faction.leader = pawn;
             }
@@ -859,7 +859,7 @@ namespace AlteredCarbon
             OverwriteTraits(pawn, extension);
             ResetRelationships(pawn);
 
-            if (overwriteOriginalPawn)
+            if (changeGlobalData)
             {
                 OverwriteRelationships(pawn);
                 this.hostPawn = pawn;
@@ -883,7 +883,7 @@ namespace AlteredCarbon
 
             if (savedHediffs != null)
             {
-                foreach (var hediff in savedHediffs) 
+                foreach (var hediff in savedHediffs)
                 {
                     var newCopy = MakeCopy(hediff, pawn);
                     pawn.health.AddHediff(newCopy);
@@ -1181,6 +1181,7 @@ namespace AlteredCarbon
 
         private void OverwriteRelationships(Pawn pawn)
         {
+            Log.Message(pawn + " - is copy: " + pawn.IsCopy() + " is original: " + pawn.IsOriginal());
             var allPotentialRelatedPawns = new HashSet<Pawn>();
             allPotentialRelatedPawns.AddRange(PawnsFinder.AllMapsWorldAndTemporary_AliveOrDead);
             if (relations != null)
@@ -1451,12 +1452,13 @@ namespace AlteredCarbon
         }
         private void ReplaceSocialReferences(Pawn relatedPawn, Pawn newReference, Pawn oldOriginPawn)
         {
+
             bool replacedReferences = false;
-           if (relatedPawn.CanThink())
+            if (relatedPawn.CanThink())
             {
                 foreach (Thought_Memory thought in relatedPawn.needs.mood.thoughts.memories.Memories)
                 {
-                    if (oldOriginPawn != null && thought.otherPawn == oldOriginPawn 
+                    if (oldOriginPawn != null && thought.otherPawn == oldOriginPawn
                         || oldOriginPawn is null && IsPresetPawn(thought.otherPawn))
                     {
                         var other = thought.otherPawn;
@@ -1504,8 +1506,8 @@ namespace AlteredCarbon
 
             if (replacedReferences && relatedPawn.needs?.mood?.thoughts != null)
             {
-                if (debug) Log.Message("END ReplacePawnRelations: relatedPawn relations: " + relatedPawn.GetFullName() + " - " + string.Join(", ", relatedPawn.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
-                if (debug) Log.Message("END ReplacePawnRelations: newReference relations: " + newReference.GetFullName() + " - " + string.Join(", ", newReference.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
+                if (debug) Log.Message("END replacing relations: relatedPawn relations: " + relatedPawn.GetFullName() + " - " + string.Join(", ", relatedPawn.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
+                if (debug) Log.Message("END replacing relations: newReference relations: " + newReference.GetFullName() + " - " + string.Join(", ", newReference.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
                 relatedPawn.needs.mood.thoughts.situational.Notify_SituationalThoughtsDirty();
             }
         }
@@ -1533,9 +1535,9 @@ namespace AlteredCarbon
                 }
             }
 
-            if (debug) Log.Message("2 ReplacePawnRelations: relatedPawn: " + relatedPawn.GetFullName() + " - " + string.Join(", ", relatedPawn.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
-            if (debug) Log.Message("2 ReplacePawnRelations: newReference: " + newReference.GetFullName() + " - " + string.Join(", ", newReference.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
-            if (debug) Log.Message("2 ReplacePawnRelations: otherPawn: " + otherPawn.GetFullName() + " - " + string.Join(", ", otherPawn.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
+            if (debug) Log.Message("2 replacing relations: relatedPawn: " + relatedPawn.GetFullName() + " - " + string.Join(", ", relatedPawn.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
+            if (debug) Log.Message("2 replacing relations: newReference: " + newReference.GetFullName() + " - " + string.Join(", ", newReference.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
+            if (debug) Log.Message("2 replacing relations: otherPawn: " + otherPawn.GetFullName() + " - " + string.Join(", ", otherPawn.relations.DirectRelations.Select(x => x.def + " - " + x.otherPawn.GetFullName())));
         }
 
         public void ChangeIdeo(Ideo newIdeo, float certainty)
@@ -1695,7 +1697,7 @@ namespace AlteredCarbon
             Scribe_References.Look(ref faction, "faction", true);
             Scribe_Values.Look(ref isFactionLeader, "isFactionLeader", false, false);
 
-            Scribe_Collections.Look(ref skills, "skills",LookMode.Deep);
+            Scribe_Collections.Look(ref skills, "skills", LookMode.Deep);
             Scribe_Defs.Look(ref childhood, "childhood");
             Scribe_Defs.Look(ref adulthood, "adulthood");
             Scribe_Values.Look(ref title, "title", null, false);
@@ -1890,4 +1892,3 @@ namespace AlteredCarbon
         }
     }
 }
-

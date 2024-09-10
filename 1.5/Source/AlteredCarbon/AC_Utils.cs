@@ -803,6 +803,29 @@ namespace AlteredCarbon
             return false;
         }
 
+        public static bool IsOriginal(this Pawn pawn)
+        {
+            if (pawn.HasNeuralStack(out var hediff))
+            {
+                var stackGroupData = hediff.NeuralData.StackGroupData;
+                if (stackGroupData.originalPawn == pawn)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                foreach (var stackGroup in AlteredCarbonManager.Instance.stacksRelationships)
+                {
+                    if (stackGroup.Value.originalPawn == pawn)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         public static bool IsEmptySleeve(this Pawn pawn)
         {
             return AlteredCarbonManager.Instance.emptySleeves.Contains(pawn);
@@ -871,7 +894,7 @@ namespace AlteredCarbon
                    || stackNeuralData.OriginalXenotypeDef != null && p.genes.xenotype != stackNeuralData.OriginalXenotypeDef;
         }
 
-        public static NeuralData GetNeuralData(this Thing thingWithStack)
+        public static NeuralData GetNeuralData(this Thing thingWithStack, bool refresh = false)
         {
             if (thingWithStack is ThingWithNeuralData thingWithNeuralData)
             {
@@ -879,6 +902,10 @@ namespace AlteredCarbon
             }
             else if (thingWithStack is Pawn pawn && pawn.HasNeuralStack(out var hediff))
             {
+                if (refresh)
+                {
+                    hediff.NeuralData.CopyFromPawn(pawn, hediff.SourceStack);
+                }
                 return hediff.NeuralData;
             }
             return null;

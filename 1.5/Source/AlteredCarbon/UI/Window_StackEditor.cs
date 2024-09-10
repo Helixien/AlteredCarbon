@@ -74,7 +74,7 @@ namespace AlteredCarbon
             this.neuralEditor = neuralEditor;
             this.thingWithStack = thingWithStack;
             neuralData = new NeuralData();
-            var toCopyFrom = thingWithStack.GetNeuralData();
+            var toCopyFrom = thingWithStack.GetNeuralData(refresh: true);
             neuralData.CopyDataFrom(toCopyFrom);
             stackRecruitable = neuralData.recruitable;
 

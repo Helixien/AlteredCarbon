@@ -11,16 +11,11 @@ namespace AlteredCarbon
         public bool allowColonistNeuralStacks = true;
         public bool allowStrangerNeuralStacks = true;
         public bool allowHostileNeuralStacks = true;
-        public bool allowArchoStacks = true;
         public List<NeuralStack> StoredStacks => innerContainer.OfType<NeuralStack>().ToList();
         public override bool Accepts(Thing thing)
         {
             if (thing is NeuralStack stack && stack.IsActiveStack && stack.autoLoad && Full is false)
             {
-                if (!this.allowArchoStacks && stack.IsArchotechStack)
-                {
-                    return false;
-                }
                 if (this.allowColonistNeuralStacks && stack.NeuralData.faction != null && stack.NeuralData.faction == Faction.OfPlayer)
                 {
                     return true;
@@ -79,7 +74,6 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref this.allowColonistNeuralStacks, "allowColonistNeuralStacks", true);
             Scribe_Values.Look(ref this.allowHostileNeuralStacks, "allowHostileNeuralStacks", true);
             Scribe_Values.Look(ref this.allowStrangerNeuralStacks, "allowStrangerNeuralStacks", true);
-            Scribe_Values.Look(ref this.allowArchoStacks, "allowArchoStacks", true);
         }
 
         public void Notify_HauledTo(Pawn hauler, Thing thing, int count)
@@ -92,14 +86,19 @@ namespace AlteredCarbon
                 }
                 else
                 {
-                    var compFacility = parent.GetComp<CompAffectedByFacilities>();
-                    matrix = compFacility.LinkedFacilitiesListForReading.OfType<Building_NeuralMatrix>().FirstOrDefault();
+                    matrix = GetMatrix();
                     if (matrix != null)
                     {
                         stack.NeuralData.trackedToMatrix = matrix;
                     }
                 }
             }
+        }
+
+        public Building_NeuralMatrix GetMatrix()
+        {
+            var compFacility = parent.GetComp<CompAffectedByFacilities>();
+            return compFacility.LinkedFacilitiesListForReading.OfType<Building_NeuralMatrix>().FirstOrDefault();
         }
     }
 }

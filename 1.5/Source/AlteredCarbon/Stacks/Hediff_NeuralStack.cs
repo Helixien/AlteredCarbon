@@ -33,16 +33,25 @@ namespace AlteredCarbon
                     neuralData = new NeuralData();
                     neuralData.CopyFromPawn(pawn, SourceStack, copyRaceGenderInfo: true);
                 }
-                else if (pawn.IsEmptySleeve() is false && NeuralData.dummyPawns.Contains(pawn) is false)
-                {
-                    neuralData.CopyFromPawn(pawn, SourceStack);
-                }
                 return neuralData;
             }
             set
             {
+                if (value.hostPawn != null)
+                {
+                    value.CopyFromPawn(value.hostPawn, value.sourceStack);
+                    Log.Message("Copying from pawn: " + value.hostPawn);
+                }
                 neuralData = value;
             }
+        }
+
+        public override string GetInspectString()
+        {
+            var test = base.GetInspectString();
+            test += "\nIs copy: " + pawn.IsCopy();
+            test += "\nIs original: " + pawn.IsOriginal();
+            return test;
         }
 
         public Thing ThingHolder => this.pawn;

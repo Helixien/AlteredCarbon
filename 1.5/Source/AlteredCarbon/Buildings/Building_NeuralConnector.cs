@@ -9,6 +9,7 @@ using Verse.Sound;
 
 namespace AlteredCarbon
 {
+    [HotSwappable]
     [StaticConstructorOnStartup]
     public class Building_NeuralConnector : Building_Enterable, IThingHolderWithDrawnPawn, IThingHolder, IMatrixConnectable
     {
@@ -81,7 +82,7 @@ namespace AlteredCarbon
 
         public bool PowerOn => this.TryGetComp<CompPowerTrader>().PowerOn;
 
-        public override Vector3 PawnDrawOffset => Vector3.zero;
+        public override Vector3 PawnDrawOffset => new Vector3(0.5f, 0, 0.5f);
 
         public Pawn Occupant
         {

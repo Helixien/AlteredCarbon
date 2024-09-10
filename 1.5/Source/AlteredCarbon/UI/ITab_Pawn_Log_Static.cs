@@ -120,7 +120,7 @@ namespace AlteredCarbon
                 Rect rect7 = rect6;
                 rect7.yMin += scrollPosition.y;
                 rect7.height = rect.height;
-                Widgets.BeginScrollView(new Rect(rect.x - 370 + 15, rect.y, rect.width, rect.height), ref scrollPosition, rect6);
+                Widgets.BeginScrollView(new Rect(rect.x - 455, rect.y, rect.width, rect.height), ref scrollPosition, rect6);
                 float num2 = 0f;
                 foreach (ITab_Pawn_Log_Utility.LogLineDisplayable item3 in cachedLogDisplay)
                 {

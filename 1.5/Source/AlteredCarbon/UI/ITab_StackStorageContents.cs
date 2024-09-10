@@ -17,6 +17,7 @@ namespace AlteredCarbon
             size = WinSize;
             labelKey = "AC.StackStorage";
         }
+
         public override void FillTab()
         {
             Text.Font = GameFont.Small;
@@ -29,7 +30,6 @@ namespace AlteredCarbon
             DoAllowOption(ref num, labelWidth, "AC.AllowColonistStacks", ref CompNeuralCache.allowColonistNeuralStacks);
             DoAllowOption(ref num, labelWidth, "AC.AllowStrangerStacks", ref CompNeuralCache.allowStrangerNeuralStacks);
             DoAllowOption(ref num, labelWidth, "AC.AllowHostileStacks", ref CompNeuralCache.allowHostileNeuralStacks);
-            DoAllowOption(ref num, labelWidth, "AC.AllowArchoStacks", ref CompNeuralCache.allowArchoStacks);
 
             var storedStacks = CompNeuralCache.StoredStacks.ToList();
             Widgets.ListSeparator(ref num, viewRect.width - 15, "AC.NeuralStacksInCache".Translate(storedStacks.Count(), CompNeuralCache.Props.stackLimit));
