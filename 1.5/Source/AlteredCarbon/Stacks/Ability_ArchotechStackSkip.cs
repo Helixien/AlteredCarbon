@@ -76,7 +76,7 @@ namespace AlteredCarbon
             {
                 sourceData.CopyFromPawn(pawnSource, AC_DefOf.AC_ActiveArchotechStack);
             }
-            sourceData.OverwritePawn(pawnTarget, null);
+            sourceData.OverwritePawn(pawnTarget);
             Recipe_InstallNeuralStack.ApplyMindEffects(pawnTarget, copyHediff);
             copyHediff.skipAbility.cooldown = cooldown;
         }

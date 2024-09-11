@@ -9,6 +9,16 @@ namespace AlteredCarbon
     [HotSwappable]
     public class Recipe_InstallRemoteStack : Recipe_Surgery
     {
+        public override bool AvailableOnNow(Thing thing, BodyPartRecord part = null)
+        {
+            var pawn = thing as Pawn;
+            if (AC_Utils.CanImplantStackTo(this.recipe.addsHediff, pawn))
+            {
+                return base.AvailableOnNow(thing, part);
+            }
+            return false;
+        }
+
         public override IEnumerable<BodyPartRecord> GetPartsToApplyOn(Pawn pawn, RecipeDef recipe)
         {
             return MedicalRecipesUtility.GetFixedPartsToApplyOn(recipe, pawn, delegate (BodyPartRecord record)
@@ -25,19 +35,6 @@ namespace AlteredCarbon
             });
         }
 
-        public override void ConsumeIngredient(Thing ingredient, RecipeDef recipe, Map map)
-        {
-            Thing.allowDestroyNonDestroyable = true;
-            if (ingredient is NeuralStack c)
-            {
-                c.dontKillThePawn = true;
-            }
-            base.ConsumeIngredient(ingredient, recipe, map);
-            Thing.allowDestroyNonDestroyable = false;
-        }
-
-        public static Pawn pawnToInstallStack;
-
         public override void ApplyOnPawn(Pawn pawn, BodyPartRecord part, Pawn billDoer, List<Thing> ingredients, Bill bill)
         {
             if (billDoer != null)
@@ -46,8 +43,9 @@ namespace AlteredCarbon
                 {
                     foreach (var i in ingredients)
                     {
-                        if (i is NeuralStack c)
+                        if (i.def == AC_DefOf.AC_RemoteStack)
                         {
+                            var c = i;
                             c.stackCount = 1;
                             c.mapIndexOrState = (sbyte)-1;
                             GenPlace.TryPlaceThing(c, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
@@ -56,6 +54,8 @@ namespace AlteredCarbon
                     return;
                 }
                 TaleRecorder.RecordTale(TaleDefOf.DidSurgery, billDoer, pawn);
+                var hediff = HediffMaker.MakeHediff(recipe.addsHediff, pawn);
+                pawn.health.AddHediff(hediff, part);
             }
         }
     }

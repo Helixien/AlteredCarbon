@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ================================ Receiver Stack ====================== -->
+	<ThingDef ParentName="AC_StackBase">
+		<defName>AC_RemoteStack</defName>
+		<label>Remote stack</label>
+		<description>text.todo</description>
+		<graphicData>
+			<texPath>Things/Item/RemoteStack</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<descriptionHyperlinks>
+			<RecipeDef>AC_InstallRemoteStack</RecipeDef>
+		</descriptionHyperlinks>
+		<healthAffectsPrice>true</healthAffectsPrice>
+		<stackLimit>10</stackLimit>
+		<costList>
+			<Plasteel>8</Plasteel>
+			<ComponentSpacer>2</ComponentSpacer>
+		</costList>
+		<thingSetMakerTags Inherit="False"/>
+		<tradeTags Inherit="False">
+			<li>AC_StacksUltra</li>
+			<li MayRequire="Ludeon.RimWorld.Royalty">ImplantEmpireRoyal</li>
+			<li>ExoticMisc</li>
+		</tradeTags>
+		<modExtensions Inherit="False"/>
+	</ThingDef>
+	<!-- ================================ Remote Stack Hediff	====================== -->
+	<HediffDef ParentName="AC_ImplantStackBase">
+		<defName>AC_RemoteStack</defName>
+		<label>Remote stack</label>
+		<labelNoun>a remote stack</labelNoun>
+		<hediffClass>AlteredCarbon.Hediff_RemoteStack</hediffClass>
+		<description>An installed remote stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_RemoteStack</ThingDef>
+		</descriptionHyperlinks>
+		<spawnThingOnRemoved>AC_RemoteStack</spawnThingOnRemoved>
+		<isBad>false</isBad>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1</partEfficiency>
+			<betterThanNatural>true</betterThanNatural>
+		</addedPartProps>
+	</HediffDef>
+	<!-- ================================ Remote Stacks - Install ====================== -->
+	<RecipeDef ParentName="SurgeryInstallImplantBase">
+		<defName>AC_InstallRemoteStack</defName>
+		<label>install remote stack</label>
+		<description>Install a remote stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_RemoteStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_InstallRemoteStack</workerClass>
+		<jobString>Installing remote stack.</jobString>
+		<uiIconThing>AC_RemoteStack</uiIconThing>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AC_RemoteStack</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AC_RemoteStack</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Neck</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>AC_RemoteStack</addsHediff>
+	</RecipeDef>
+	<!-- ================================ Remote Stacks - Remove ====================== -->
+	<RecipeDef ParentName="SurgeryRemoveImplantBase">
+		<defName>AC_RemoveRemoteStack</defName>
+		<label>remove remote stack</label>
+		<description>Remove remote stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_RemoteStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_RemoveRemoteStack</workerClass>
+		<jobString>Removing remote stack.</jobString>
+		<uiIconThing>AC_RemoteStack</uiIconThing>
+		<removesHediff>AC_RemoteStack</removesHediff>
+	</RecipeDef>
+</Defs>

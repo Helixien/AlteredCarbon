@@ -90,11 +90,7 @@ namespace AlteredCarbon
             allFactions = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction && x.Hidden is false).ToList();
             allIdeos = Find.IdeoManager.IdeosListForReading;
             allTraits = DefDatabase<TraitDef>.AllDefsListForReading;
-            var modExtension = thingWithStack.GetStackSource().GetModExtension<StackSavingOptionsModExtension>();
-            if (modExtension != null)
-            {
-                allTraits.RemoveAll(x => modExtension.ignoresTraits.Contains(x.defName));
-            }
+            allTraits.RemoveAll(x => AC_DefOf.AC_StackSavingOptions.ignoresTraits.Contains(x.defName));
             neuralDataCopy = new NeuralData();
             neuralDataCopy.CopyDataFrom(neuralData);
             ResetIndices();

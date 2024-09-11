@@ -4,6 +4,7 @@ using System.Linq;
 using HarmonyLib;
 using RimWorld;
 using RimWorld.Planet;
+using UnityEngine;
 using Verse;
 
 namespace AlteredCarbon
@@ -66,15 +67,60 @@ namespace AlteredCarbon
                 {
                     if (needleCastingInto is not null)
                     {
-
+                        yield return new Command_Action
+                        {
+                            defaultLabel = "AC.EndNeedlecasting".Translate(),
+                            defaultDesc = "AC.EndNeedlecastingDesc".Translate(),
+                            icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EndNeedlecasting"),
+                            action = delegate
+                            {
+                                EndNeedlecasting();
+                            }
+                        };
                     }
                     else
                     {
-
+                        yield return new Command_NeedlecastAction(this.pawn, new CommandInfo
+                        {
+                            icon = "UI/Gizmos/Needlecasting",
+                            action = NeedlecastTo
+                        })
+                        {
+                            defaultLabel = "AC.Needlecasting".Translate(),
+                            defaultDesc = "AC.NeedlecastingDesc".Translate()
+                        };
                     }
                 }
             }
             yield break;
+        }
+
+        private void EndNeedlecasting()
+        {
+            needleCastingInto.EndNeedlecast();
+            needleCastingInto = null;
+        }
+
+        public void NeedlecastTo(LocalTargetInfo target)
+        {
+            var pawnTarget = target.Pawn;
+            needleCastingInto = pawnTarget.GetRemoteStack();
+            var data = NeuralData;
+            data.CopyFromPawn(pawn, SourceStack);
+            needleCastingInto.Needlecast(this);
+            pawn.health.AddHediff(AC_DefOf.AC_NeedlecastingStasis);
+        }
+
+        public bool InNeedlecastingRange(GlobalTargetInfo target)
+        {
+            var range = 1f + NeedleCastRangeBoost();
+            var distance = Find.WorldGrid.ApproxDistanceInTiles(pawn.Tile, target.Tile);
+            return distance <= range;
+        }
+
+        public float NeedleCastRangeBoost()
+        {
+            return 0f;
         }
 
         public override void PostAdd(DamageInfo? dinfo)

@@ -26,6 +26,11 @@
 	<AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>Cannot install neural stack - neck is missing or another implant installed in the neck.</AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled>
 	<AC.EjectAllNeuralStacksDesc>Drop all contained neural stacks onto the ground.</AC.EjectAllNeuralStacksDesc>
 	<AC.NeuralStacksStored>Neural stacks stored: {0}/{1}</AC.NeuralStacksStored>
+	<AC.Needlecasting>Needlecasting</AC.Needlecasting>
+	<AC.NeedlecastingDesc>text.todo</AC.NeedlecastingDesc>
+	<AC.EndNeedlecasting>End needlecasting</AC.EndNeedlecasting>
+	<AC.EndNeedlecastingDesc>text.todo</AC.EndNeedlecastingDesc>
+	
 	<!-- ================================ Stacks ====================== -->
 	<AC.AllowAutomaticRestoration>Allow automatic restoration</AC.AllowAutomaticRestoration>
 	<AC.AllowAutomaticRestorationDesc>Toggle this button to allow/disallow automatic restoration.</AC.AllowAutomaticRestorationDesc>
@@ -239,6 +244,8 @@ If you edit the content from a non-colonist stack from another faction, their en
 	<AC.CannotInstallActiveStackInChildren>Cannot install an active stack into children.</AC.CannotInstallActiveStackInChildren>
 	<AC.CannotInstallAlreadyHaveStack>Cannot install stack: Already has a stack installed.</AC.CannotInstallAlreadyHaveStack>
 	<AC.RequiresArtificalParentPart>requires artifical parent part</AC.RequiresArtificalParentPart>
+	<AC.CannotInstallNeuralStackWithRemoteStack>Cannot install neural stack while remote stack is present.</AC.CannotInstallNeuralStackWithRemoteStack>
+	<AC.CannotInstallRemoteStackWithNeuralStack>Cannot install remote stack while neutral stack is present.</AC.CannotInstallRemoteStackWithNeuralStack>
 	<!-- ================================ Mental Fuse ====================== -->
 	<AC.TriggeredMentalFuseLabel>Mental fuse ({PAWN_nameDef})</AC.TriggeredMentalFuseLabel>
 	<AC.TriggeredMentalFuseText>{PAWN_nameDef}'s mental fuse has triggered, preventing a mental break.</AC.TriggeredMentalFuseText>

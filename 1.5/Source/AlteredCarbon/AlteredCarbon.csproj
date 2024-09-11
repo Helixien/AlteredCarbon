@@ -211,6 +211,7 @@
     <Compile Include="Stacks\Hediff_StackDegradation.cs" />
     <Compile Include="Stacks\ScenPart_NeuralStack.cs" />
     <Compile Include="UI\Command_ActionOnThing.cs" />
+    <Compile Include="UI\Command_NeedlecastAction.cs" />
     <Compile Include="UI\Dialog_PresetList.cs" />
     <Compile Include="UI\Dialog_SelectXenogermForSleeve.cs" />
     <Compile Include="UI\FilterManager.cs" />
@@ -221,7 +222,7 @@
     <Compile Include="HarmonyPatches\ThingListGroupHelper_Includes_Patch.cs" />
     <Compile Include="UI\Window_NeuralMatrixManagement.cs" />
     <Compile Include="UI\Window_BodyPartPicker.cs" />
-    <Compile Include="Designators\Designator_ExtractStack.cs" />
+    <Compile Include="UI\Designator_ExtractStack.cs" />
     <Compile Include="HarmonyPatches\ReverseDesignatorDatabase_InitDesignators_Patch.cs" />
     <Compile Include="Jobs\JobDriver_CancelIncubatingProcess.cs" />
     <Compile Include="Jobs\JobDriver_StartIncubatingProcess.cs" />

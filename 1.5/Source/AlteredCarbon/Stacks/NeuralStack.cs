@@ -356,7 +356,7 @@ namespace AlteredCarbon
             if (NeuralData.ContainsData)
             {
                 Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(PawnKindDefOf.Colonist, Faction.OfPlayer));
-                NeuralData.OverwritePawn(pawn, def.GetModExtension<StackSavingOptionsModExtension>());
+                NeuralData.OverwritePawn(pawn);
                 if (affectFactionRelationship)
                 {
                     NeuralData.faction.TryAffectGoodwillWith(affecter.Faction, NeuralData.faction.GoodwillToMakeHostile(affecter.Faction), canSendMessage: true, reason: AC_DefOf.AC_ErasedStackEvent);

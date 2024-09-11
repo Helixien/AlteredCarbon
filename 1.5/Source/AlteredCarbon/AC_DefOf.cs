@@ -119,5 +119,9 @@ namespace AlteredCarbon
         public static HediffDef AC_MentalFuse;
         public static HediffDef AC_Dreamcatcher;
         public static ThingCategoryDef WeaponsMelee;
+        [DefAlias("AC_RemoteStack")] public static HediffDef AC_RemoteStackHediff;
+        public static ThingDef AC_RemoteStack;
+        public static StackSavingOptions AC_StackSavingOptions;
+        public static HediffDef AC_NeedlecastingStasis, AC_NeedlecastingSickness;
     }
 }

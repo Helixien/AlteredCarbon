@@ -326,6 +326,21 @@ namespace AlteredCarbon
 
         public static bool CanImplantStackTo(HediffDef stackToImplant, Pawn pawn, NeuralStack neuralStack = null, bool throwMessages = false)
         {
+            if (typeof(Hediff_NeuralStack).IsAssignableFrom(stackToImplant.hediffClass) && pawn.HasRemoteStack())
+            {
+                if (throwMessages)
+                {
+                    Messages.Message("AC.CannotInstallNeuralStackWithRemoteStack".Translate(), MessageTypeDefOf.RejectInput);
+                }
+                return false;
+            }
+            if (stackToImplant == AC_DefOf.AC_RemoteStackHediff && pawn.HasNeuralStack())
+            {
+                if (throwMessages)
+                {
+                    Messages.Message("AC.CannotInstallRemoteStackWithNeuralStack".Translate(), MessageTypeDefOf.RejectInput);
+                }
+            }
             if (neuralStack != null && pawn.IsEmptySleeve() && neuralStack.IsActiveStack is false)
             {
                 if (throwMessages)
@@ -336,12 +351,18 @@ namespace AlteredCarbon
             }
             if (unstackableRaces.Contains(pawn.def))
             {
-                Messages.Message("AC.CannotInstallStackInBodyOfThisRace".Translate(pawn.def.label), MessageTypeDefOf.RejectInput);
+                if (throwMessages)
+                {
+                    Messages.Message("AC.CannotInstallStackInBodyOfThisRace".Translate(pawn.def.label), MessageTypeDefOf.RejectInput);
+                }
                 return false;
             }
             if (pawn.RaceProps.Humanlike is false)
             {
-                Messages.Message("AC.CannotInstallStackInNonHumanlikes".Translate(), MessageTypeDefOf.RejectInput);
+                if (throwMessages)
+                {
+                    Messages.Message("AC.CannotInstallStackInNonHumanlikes".Translate(), MessageTypeDefOf.RejectInput);
+                }
                 return false;
             }
             if (pawn.DevelopmentalStage != DevelopmentalStage.Adult)
@@ -370,14 +391,18 @@ namespace AlteredCarbon
                 {
                     return true;
                 }
-                else if (throwMessages)
+                else
                 {
-                    Messages.Message("AC.CannotInstallStackOnAndroidWithoutNeuralModule".Translate(), MessageTypeDefOf.RejectInput);
+                    if (throwMessages)
+                    {
+                        Messages.Message("AC.CannotInstallStackOnAndroidWithoutNeuralModule".Translate(), MessageTypeDefOf.RejectInput);
+                    }
                     return false;
                 }
             }
             return true;
         }
+
         public static ThingDef GetEmptyStackVariant(this NeuralStack neuralStack)
         {
             if (neuralStack.def == AC_DefOf.AC_ActiveArchotechStack)
@@ -659,6 +684,10 @@ namespace AlteredCarbon
         {
             return pawn.HasNeuralStack(out _);
         }
+        public static bool HasRemoteStack(this Pawn pawn)
+        {
+            return pawn.HasRemoteStack(out _);
+        }
 
         public static void ResetInitialComponents(this Pawn pawn)
         {
@@ -780,6 +809,30 @@ namespace AlteredCarbon
             hediff_NeuralStack = null;
             return false;
         }
+
+        public static Hediff_RemoteStack GetRemoteStack(this Pawn pawn)
+        {
+            if (pawn.HasRemoteStack(out var hediff))
+            {
+                return hediff;
+            }
+            return null;
+        }
+
+        public static bool HasRemoteStack(this Pawn pawn, out Hediff_RemoteStack hediff_RemoteStack)
+        {
+            if (pawn?.health?.hediffSet != null)
+            {
+                if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_RemoteStackHediff) is Hediff_RemoteStack hediff)
+                {
+                    hediff_RemoteStack = hediff;
+                    return true;
+                }
+            }
+            hediff_RemoteStack = null;
+            return false;
+        }
+
         public static bool IsCopy(this Pawn pawn)
         {
             if (pawn.HasNeuralStack(out var hediff))
@@ -928,23 +981,27 @@ namespace AlteredCarbon
         {
             if (command.disabled is false)
             {
-                if (info.building.PowerComp is CompPowerTrader powerComp && powerComp.PowerOn is false)
-                {
-                    command.Disable("NoPower".Translate().CapitalizeFirst());
-                }
                 if (info.lockedProjects != null)
                 {
                     command.LockBehindReseach(info.lockedProjects);
                 }
-                if (info.building is IMatrixConnectable connectable)
+                if (info.building != null)
                 {
-                    if (connectable.ConnectedMatrix is null)
+                    if (info.building.PowerComp is CompPowerTrader powerComp && powerComp.PowerOn is false)
                     {
-                        command.Disable("AC.NoConnectedMatrix".Translate());
+                        command.Disable("NoPower".Translate().CapitalizeFirst());
                     }
-                    else if (connectable.ConnectedMatrix.Powered is false)
+
+                    if (info.building is IMatrixConnectable connectable)
                     {
-                        command.Disable("AC.ConnectedMatrixHasNoPower".Translate());
+                        if (connectable.ConnectedMatrix is null)
+                        {
+                            command.Disable("AC.NoConnectedMatrix".Translate());
+                        }
+                        else if (connectable.ConnectedMatrix.Powered is false)
+                        {
+                            command.Disable("AC.ConnectedMatrixHasNoPower".Translate());
+                        }
                     }
                 }
             }

@@ -379,10 +379,9 @@ namespace AlteredCarbon
                 }
             }
 
-            // Needlecast icon
             if (Widgets.ButtonImage(iconRectWithOffset, needlecastIcon, tooltip: "AC.TooltipNeedlecast".Translate(cache.pawnName)))
             {
-                // Handle needlecast action
+
             }
 
             if (Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.clickCount == 2

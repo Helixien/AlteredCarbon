@@ -10,7 +10,7 @@ namespace AlteredCarbon
     [HotSwappable]
     public class Command_ActionOnStack : Command_ActionOnThing
     {
-        public Command_ActionOnStack(Building_NeuralEditor neuralEditor, CommandInfo info) : base(neuralEditor, info)
+        public Command_ActionOnStack(Thing source, CommandInfo info) : base(source, info)
         {
         }
 
@@ -21,25 +21,20 @@ namespace AlteredCarbon
                 var things = Things;
                 foreach (NeuralStack neuralStack in Things.OfType<NeuralStack>())
                 {
-                    if (things.Contains(neuralStack))
+                    yield return new FloatMenuOption(neuralStack.NeuralData.PawnNameColored, delegate ()
                     {
-                        yield return new FloatMenuOption(neuralStack.NeuralData.PawnNameColored, delegate ()
-                        {
-                            info.action(neuralStack);
-                            Find.Targeter.StopTargeting();
-                        }, iconThing: neuralStack, iconColor: Color.white);
-                    }
+                        info.action(neuralStack);
+                        Find.Targeter.StopTargeting();
+                    }, iconThing: neuralStack, iconColor: Color.white);
                 }
+
                 foreach (Pawn pawn in Things.OfType<Pawn>())
                 {
-                    if (things.Contains(pawn))
+                    yield return new FloatMenuOption(pawn.NameShortColored, delegate ()
                     {
-                        yield return new FloatMenuOption(pawn.NameShortColored, delegate ()
-                        {
-                            info.action(pawn);
-                            Find.Targeter.StopTargeting();
-                        }, iconThing: pawn, iconColor: Color.white);
-                    }
+                        info.action(pawn);
+                        Find.Targeter.StopTargeting();
+                    }, iconThing: pawn, iconColor: Color.white);
                 }
             }
         }
@@ -48,10 +43,10 @@ namespace AlteredCarbon
         {
             get
             {
-                var things = neuralEditor.Map.listerThings.AllThings.OfType<NeuralStack>()
+                var things = source.Map.listerThings.AllThings.OfType<NeuralStack>()
                     .Where(x => StackValidator(x))
                     .Cast<Thing>().ToHashSet();
-                foreach (var cache in neuralEditor.Map.GetAllStackCaches())
+                foreach (var cache in source.Map.GetAllStackCaches())
                 {
                     var comp = cache.TryGetComp<CompNeuralCache>();
                     foreach (var thing in comp.innerContainer)
@@ -64,7 +59,7 @@ namespace AlteredCarbon
                 }
                 if (info.neuralConnectorIntegration)
                 {
-                    var matrix = neuralEditor.ConnectedMatrix;
+                    var matrix = (source as IMatrixConnectable).ConnectedMatrix;
                     if (matrix != null && matrix.Powered)
                     {
                         var compFacility = matrix.GetComp<CompFacility>();
@@ -72,7 +67,7 @@ namespace AlteredCarbon
                             .OfType<Building_NeuralConnector>().FirstOrDefault(x => x.PowerOn);
                         if (connector != null)
                         {
-                            foreach (var pawn in neuralEditor.Map.mapPawns.AllHumanlike
+                            foreach (var pawn in source.Map.mapPawns.AllHumanlike
                                 .Where(x => x.HasNeuralStack(out var hediff)
                                 && (info.enableArchostacks || hediff.def != AC_DefOf.AC_ArchotechStack)))
                             {
