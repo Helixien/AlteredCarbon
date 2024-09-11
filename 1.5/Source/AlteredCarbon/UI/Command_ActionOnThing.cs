@@ -9,13 +9,23 @@ namespace AlteredCarbon
     [HotSwappable]
     public abstract class Command_ActionOnThing : Command_Action
     {
-        protected Building_NeuralEditor neuralEditor;
+        protected Thing source;
         protected CommandInfo info;
 
-        public Command_ActionOnThing(Building_NeuralEditor neuralEditor, CommandInfo info)
+        public Command_ActionOnThing(Thing source, CommandInfo info)
         {
-            this.neuralEditor = neuralEditor;
             this.info = info;
+            this.source = source;
+            this.icon = ContentFinder<Texture2D>.Get(info.icon);
+            this.activateSound = SoundDefOf.Tick_Tiny;
+            this.action = delegate ()
+            {
+                if (this.Things.Any())
+                {
+                    this.BeginTargeting();
+                }
+            };
+            this.TryDisableCommand(info);
         }
 
         public abstract HashSet<Thing> Things { get; }
@@ -44,10 +54,11 @@ namespace AlteredCarbon
             if (ev.button == 0)
             {
                 var list = FloatMenuOptions.ToList();
-                if (list.Any())
+                if (list.Any() is false)
                 {
-                    Find.WindowStack.Add(new FloatMenu(list));
+                    list.Add(new FloatMenuOption("None".Translate(), null));
                 }
+                Find.WindowStack.Add(new FloatMenu(list));
             }
             base.ProcessInput(ev);
         }

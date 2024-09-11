@@ -191,7 +191,7 @@ namespace AlteredCarbon
                 dummyPawn.gender = dummyGender ?? originalGender;
             }
             dummyPawns.Add(dummyPawn);
-            OverwritePawn(dummyPawn, null, changeGlobalData: false, copyFromOrigPawn: hostPawn != null
+            OverwritePawn(dummyPawn, changeGlobalData: false, copyFromOrigPawn: hostPawn != null
                 && hostPawn.Dead is false && hostPawn.IsEmptySleeve() is false);
             if (hostPawn != null)
             {
@@ -360,8 +360,7 @@ namespace AlteredCarbon
                 {
                     if (trait.sourceGene is null && trait.suppressedByGene is null)
                     {
-                        var extension = this.sourceStack.GetModExtension<StackSavingOptionsModExtension>();
-                        if (extension != null && extension.ignoresTraits != null && extension.ignoresTraits.Contains(trait.def.defName))
+                        if (AC_DefOf.AC_StackSavingOptions.ignoresTraits.Contains(trait.def.defName))
                         {
                             continue;
                         }
@@ -806,8 +805,7 @@ namespace AlteredCarbon
             return null;
         }
 
-        public void OverwritePawn(Pawn pawn, StackSavingOptionsModExtension extension,
-            bool changeGlobalData = true, bool copyFromOrigPawn = true)
+        public void OverwritePawn(Pawn pawn, bool changeGlobalData = true, bool copyFromOrigPawn = true)
         {
             if (copyFromOrigPawn && hostPawn != null)
             {
@@ -829,7 +827,7 @@ namespace AlteredCarbon
             }
 
             OverwriteThoughts(pawn);
-            OverwriteTraits(pawn, extension);
+            OverwriteTraits(pawn);
             ResetRelationships(pawn);
 
             if (changeGlobalData)
@@ -1088,13 +1086,10 @@ namespace AlteredCarbon
             }
         }
 
-        private void OverwriteTraits(Pawn pawn, StackSavingOptionsModExtension extension)
+        private void OverwriteTraits(Pawn pawn)
         {
             var traitsToRemove = pawn.story.traits.allTraits.Where(x => x.sourceGene is null).ToList();
-            if (extension != null)
-            {
-                traitsToRemove.RemoveAll(x => extension.ignoresTraits.Contains(x.def.defName));
-            }
+            traitsToRemove.RemoveAll(x => AC_DefOf.AC_StackSavingOptions.ignoresTraits.Contains(x.def.defName));
             foreach (var trait in traitsToRemove)
             {
                 pawn.story.traits.RemoveTrait(trait);
@@ -1103,7 +1098,7 @@ namespace AlteredCarbon
             {
                 foreach (Trait trait in traits)
                 {
-                    if (extension != null && extension.ignoresTraits != null && extension.ignoresTraits.Contains(trait.def.defName))
+                    if (AC_DefOf.AC_StackSavingOptions.ignoresTraits.Contains(trait.def.defName))
                     {
                         continue;
                     }

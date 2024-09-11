@@ -45,6 +45,7 @@ namespace AlteredCarbon
                 return (!pawn.health.hediffSet.hediffs.Any((Hediff x) => x.Part == record && (x.def == recipe.addsHediff || !recipe.CompatibleWithHediff(x.def)))) ? true : false;
             });
         }
+
         public override void ConsumeIngredient(Thing ingredient, RecipeDef recipe, Map map)
         {
             Thing.allowDestroyNonDestroyable = true;
@@ -111,7 +112,7 @@ namespace AlteredCarbon
                 {
                     AlteredCarbonManager.Instance.emptySleeves.Remove(pawn);
                 }
-                data.OverwritePawn(pawn, neuralStack.def.GetModExtension<StackSavingOptionsModExtension>(), copyFromOrigPawn: false);
+                data.OverwritePawn(pawn, copyFromOrigPawn: false);
                 pawn.health.AddHediff(hediff, part);
                 ApplyMindEffects(pawn, hediff);
             }

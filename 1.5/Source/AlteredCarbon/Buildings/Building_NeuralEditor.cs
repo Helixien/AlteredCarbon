@@ -107,17 +107,7 @@ namespace AlteredCarbon
             { this, info });
             command.defaultLabel = info.recipe.label;
             command.defaultDesc = info.recipe.description;
-            command.icon = ContentFinder<Texture2D>.Get(info.icon);
-            command.activateSound = SoundDefOf.Tick_Tiny;
-            command.action = delegate ()
-            {
-                if (command.Things.Any())
-                {
-                    command.BeginTargeting();
-                }
-            };
             info.building = this;
-            command.TryDisableCommand(info);
             yield return command;
             var bills = this.billStack.Bills.Where(x => x.recipe.label == info.recipe.label).ToList();
             if (bills.Any())

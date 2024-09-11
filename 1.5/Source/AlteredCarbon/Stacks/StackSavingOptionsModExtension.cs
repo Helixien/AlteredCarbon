@@ -7,7 +7,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
-    public class StackSavingOptionsModExtension : DefModExtension
+    public class StackSavingOptions : Def
     {
         public List<string> ignoresTraits;
     }
