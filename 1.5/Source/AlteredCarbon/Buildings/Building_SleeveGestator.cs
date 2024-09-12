@@ -481,7 +481,7 @@ namespace AlteredCarbon
 
             if (pawn.Dead)
             {
-                pawn.MakeEmptySleeve(keepNaturalAbilities: true, keepPsycastAbilities: true);
+                pawn.CreateEmptySleeve(keepNaturalAbilities: true, keepPsycastAbilities: true);
                 ResurrectionUtility.TryResurrect(pawn);
                 innerContainer.TryAddOrTransfer(pawn);
                 if (Find.WorldPawns.Contains(pawn))
@@ -533,7 +533,7 @@ namespace AlteredCarbon
             var pawn = InnerPawn;
             PawnComponentsUtility.AddComponentsForSpawn(pawn);
             pawn.filth.GainFilth(ThingDefOf.Filth_Slime);
-            pawn.health.AddHediff(AC_DefOf.AC_EmptySleeve);
+            pawn.MakeEmptySleeve();
             innerContainer.TryDrop(StoredPawnOrCorpse, this.InteractionCell, Map, ThingPlaceMode.Direct, 1, out Thing resultingThing);
         }
 

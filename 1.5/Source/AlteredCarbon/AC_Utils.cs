@@ -463,7 +463,7 @@ namespace AlteredCarbon
         {
             var clone = CreateEmptyPawn(source.kindDef, source.Faction);
             CopyBody(source, clone, copyAgeInfo: true, copyGenesFully: true, copyHealth: true);
-            clone.MakeEmptySleeve(keepNaturalAbilities: true, keepPsycastAbilities: true);
+            clone.CreateEmptySleeve(keepNaturalAbilities: true, keepPsycastAbilities: true);
             CopyAbilities(source, clone);
             return clone;
         }
@@ -723,7 +723,7 @@ namespace AlteredCarbon
             pawn.story.traits = new TraitSet(pawn);
         }
 
-        public static void MakeEmptySleeve(this Pawn pawn, bool keepNaturalAbilities, bool keepPsycastAbilities)
+        public static void CreateEmptySleeve(this Pawn pawn, bool keepNaturalAbilities, bool keepPsycastAbilities)
         {
             var entropy = pawn.psychicEntropy.currentEntropy;
             var psyfocus = pawn.psychicEntropy.currentPsyfocus;
@@ -883,6 +883,12 @@ namespace AlteredCarbon
         public static bool IsEmptySleeve(this Pawn pawn)
         {
             return AlteredCarbonManager.Instance.emptySleeves.Contains(pawn);
+        }
+
+        public static void MakeEmptySleeve(this Pawn pawn)
+        {
+            pawn.health.AddHediff(AC_DefOf.AC_EmptySleeve);
+            AlteredCarbonManager.Instance.emptySleeves.Add(pawn);
         }
 
         public static void SetKillEffects(this Pawn pawn, bool disable)

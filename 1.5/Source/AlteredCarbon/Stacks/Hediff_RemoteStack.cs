@@ -10,6 +10,7 @@ namespace AlteredCarbon
         public NeuralData originalPawnData;
         public Hediff_NeuralStack sourceHediff;
         public NeuralStack sourceStack;
+        private bool wasEmptySleeve;
         public INeedlecastable Source
         {
             get
@@ -24,7 +25,7 @@ namespace AlteredCarbon
 
         public bool CanBeConnected(INeedlecastable needlecastable)
         {
-            if (pawn.Dead || pawn.Downed || pawn.IsLost())
+            if (pawn.Dead || pawn.Downed && pawn.IsEmptySleeve() is false || pawn.IsLost())
             {
                 return false;
             }
@@ -43,7 +44,6 @@ namespace AlteredCarbon
                 }
                 else
                 {
-                    Log.Message("comp: " + comp);
                     var matrix = comp.GetMatrix();
                     if (matrix is null || matrix.Powered is false || stack.NeuralData.trackedToMatrix != matrix)
                     {
@@ -83,10 +83,30 @@ namespace AlteredCarbon
             Scribe_Deep.Look(ref originalPawnData, "originalPawnData");
             Scribe_References.Look(ref sourceHediff, "sourceHediff");
             Scribe_References.Look(ref sourceStack, "sourceStack");
+            Scribe_Values.Look(ref wasEmptySleeve, "wasEmptySleeve");
+        }
+
+        public bool Needlecasted => sourceHediff != null || sourceStack != null;
+
+        public override void PostRemoved()
+        {
+            base.PostRemoved();
+            if (Needlecasted)
+            {
+                EndNeedlecasting();
+            }
         }
 
         public void Needlecast(INeedlecastable needlecastable)
         {
+            wasEmptySleeve = pawn.IsEmptySleeve();
+            if (wasEmptySleeve)
+            {
+                AlteredCarbonManager.Instance.emptySleeves.Remove(pawn);
+                var hediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_EmptySleeve);
+                pawn.health.RemoveHediff(hediff);
+            }
+
             originalPawnData = new NeuralData();
             if (needlecastable is Hediff_NeuralStack source)
             {
@@ -121,18 +141,6 @@ namespace AlteredCarbon
                     }
                 }
             }
-
-        }
-
-        public bool Needlecasted => sourceHediff != null || sourceStack != null;
-
-        public override void PostRemoved()
-        {
-            base.PostRemoved();
-            if (Needlecasted)
-            {
-                EndNeedlecasting();
-            }
         }
 
         public void EndNeedlecasting()
@@ -154,6 +162,10 @@ namespace AlteredCarbon
                 sourceStack = null;
             }
             originalPawnData = null;
+            if (wasEmptySleeve)
+            {
+                pawn.MakeEmptySleeve();
+            }
         }
 
         private void UpdateSourcePawn()

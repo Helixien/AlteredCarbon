@@ -851,22 +851,13 @@ namespace AlteredCarbon
             SetStoryData(pawn);
             SetGuestData(pawn);
             SetPawnSettings(pawn);
-
-            if (savedHediffs != null)
-            {
-                foreach (var hediff in savedHediffs)
-                {
-                    var newCopy = MakeCopy(hediff, pawn);
-                    pawn.health.AddHediff(newCopy);
-                }
-            }
+            SetHediffs(pawn);
 
             if (ModCompatibility.IndividualityIsActive)
             {
                 ModCompatibility.SetSyrTraitsSexuality(pawn, sexuality);
                 ModCompatibility.SetSyrTraitsRomanceFactor(pawn, romanceFactor);
             }
-
             if (ModCompatibility.PsychologyIsActive && psychologyData != null)
             {
                 ModCompatibility.SetPsychologyData(pawn, psychologyData);
@@ -883,6 +874,26 @@ namespace AlteredCarbon
             {
                 ModCompatibility.SetAspirations(pawn, aspirations);
                 ModCompatibility.SetCompletedAspirations(pawn, aspirationsCompletedTicks);
+            }
+        }
+
+        private void SetHediffs(Pawn pawn)
+        {
+            foreach (var hediff in pawn.health.hediffSet.hediffs.ToList())
+            {
+                if (ModsConfig.AnomalyActive && hediff.def == HediffDefOf.Inhumanized)
+                {
+                    pawn.health.RemoveHediff(hediff);
+                }
+            }
+
+            if (savedHediffs != null)
+            {
+                foreach (var hediff in savedHediffs)
+                {
+                    var newCopy = MakeCopy(hediff, pawn);
+                    pawn.health.AddHediff(newCopy);
+                }
             }
         }
 

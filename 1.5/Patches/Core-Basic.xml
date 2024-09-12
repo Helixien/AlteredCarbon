@@ -37,6 +37,25 @@
 					<li>AC_ShredNeuralStacks</li>
 				</value>
 			</li>
+			<li Class="PatchOperationConditional">
+				<xpath>/Defs/ThingDef[defName="CryptosleepCasket"]/comps/li[@Class="CompProperties_AffectedByFacilities"]/linkableFacilities</xpath>
+				<nomatch Class="PatchOperationAdd">
+					<xpath>Defs/ThingDef[defName="CryptosleepCasket"]/comps</xpath>
+					<value>
+						<li Class="CompProperties_AffectedByFacilities">
+							<linkableFacilities>
+								<li>AC_NeuralMatrix</li>
+							</linkableFacilities>
+						</li>
+					</value>
+				</nomatch>
+				<match Class="PatchOperationAdd">
+					<xpath>/Defs/ThingDef[defName="CryptosleepCasket"]/comps/li[@Class="CompProperties_AffectedByFacilities"]/linkableFacilities</xpath>
+					<value>
+						<li>AC_NeuralMatrix</li>
+					</value>
+				</match>
+			</li>
 		</operations>
 	</Operation>
 </Patch>

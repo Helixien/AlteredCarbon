@@ -4,7 +4,6 @@ using UnityEngine;
 using System.Linq;
 using System;
 using RimWorld;
-using RimWorld.Planet;
 
 namespace AlteredCarbon
 {
@@ -50,18 +49,18 @@ namespace AlteredCarbon
                     new("AC.Colonists".Translate(), stackHolder => stackHolder.NeuralData.Colonist),
                     new("AC.Friendly".Translate(), stackHolder => stackHolder.NeuralData.Friendly),
                     new("AC.Hostile".Translate(), stackHolder => stackHolder.NeuralData.Hostile),
-                    new("AC.Needlecasting".Translate(), stackHolder => (stackHolder as Hediff_NeuralStack)?.needleCastingInto != null),
+                    new("AC.Needlecasting".Translate(), stackHolder => (stackHolder as INeedlecastable).Needlecasting),
                     new("AC.Sleeved".Translate(), stackHolder => stackHolder.ThingHolder is Pawn),
                     new("AC.Archostack".Translate(), stackHolder => stackHolder.ThingHolder is NeuralStack stack
                         && stack.IsArchotechStack),
                     new("AC.Duplicates".Translate(), stackHolder => stackHolder.Pawn.IsCopy())
                 };
 
-            // Initialize the filter manager with the new Filter class
+
             this.filterManager = new FilterManager<IStackHolder>(
-                filters,                         // List of filters
-                newItems => currentItems = newItems,  // Action to set filtered items
-                GetItems                         // Function to retrieve items
+                filters,
+                newItems => currentItems = newItems,
+                GetItems
             );
         }
 
@@ -108,8 +107,8 @@ namespace AlteredCarbon
                 {
                     yield return StackState.Dead;
                 }
-                var hediff = stackHolder as Hediff_NeuralStack;
-                if (hediff.Needlecasting)
+                var needleCastable = stackHolder as INeedlecastable;
+                if (needleCastable.Needlecasting)
                 {
                     yield return StackState.Needlecasting;
                 }
@@ -126,7 +125,8 @@ namespace AlteredCarbon
                 .Where(x => x.Fogged() is false && x.IsActiveStack && x.NeuralData.trackedToMatrix == matrix)).Cast<IStackHolder>();
             var hediffs = PawnsFinder.AllMapsWorldAndTemporary_AliveOrDead.Where(x => x.Faction == Faction.OfPlayer)
                 .Where(x => x.Spawned is false || x.PositionHeld.Fogged(x.MapHeld) is false)
-                .Select(pawn => pawn.GetNeuralStack()).Where(x => x != null && x.NeuralData.trackedToMatrix == matrix)
+                .Select(pawn => pawn.GetNeuralStack()).Where(x => x != null
+                && x.NeuralData.trackedToMatrix == matrix)
                 .Cast<IStackHolder>();
 
             allItems = [.. items, .. hediffs];
@@ -251,8 +251,8 @@ namespace AlteredCarbon
         {
             GUI.color = Color.grey;
             Widgets.Label(new Rect(0f, curY, viewWidth, 24), header);
-            curY += 20; // Move down to leave space after the header
-            // Draw the grey separator line
+            curY += 20;
+
             GUI.DrawTexture(new Rect(0f, curY, rect.width, 2f), BaseContent.WhiteTex);
             GUI.color = Color.white;
             curY += 5f;
@@ -321,12 +321,12 @@ namespace AlteredCarbon
             Text.Font = GameFont.Small;
             GUI.color = Color.white;
             float iconSpacing = iconSize + 5f;
-            float iconXPos = rect.xMax; // Start from the right side
+            float iconXPos = rect.xMax;
             float iconYPos = rect.y + (rect.height - iconSize) / 2f;
 
-            Rect iconRectWithOffset = new(iconXPos - iconSize, iconYPos, iconSize, iconSize); // Place the first icon at the rightmost position
+            Rect iconRectWithOffset = new(iconXPos - iconSize, iconYPos, iconSize, iconSize);
 
-            // Stop managing/tracking icons
+
             if (stack.NeuralData.trackedToMatrix != null)
             {
                 if (Widgets.ButtonImage(iconRectWithOffset, trashIcon, tooltip: "AC.TooltipStopManaging".Translate(cache.pawnName)))
@@ -344,7 +344,7 @@ namespace AlteredCarbon
                 }
             }
 
-            // Move left for the next icon
+
             iconRectWithOffset.x -= iconSpacing;
 
             if (stack.ThingHolder is NeuralStack neuralStack)
@@ -458,7 +458,7 @@ namespace AlteredCarbon
 
         private void DrawBottom(Rect rect, Rect panelRect)
         {
-            // Drawing the bottom Stack Information and Stack Configuration
+
             float bottomSectionHeight = 140f;
             Rect bottomRect = new(rect.x, rect.yMax + 15, rect.width, bottomSectionHeight);
             Widgets.DrawMenuSection(bottomRect);
@@ -467,14 +467,13 @@ namespace AlteredCarbon
                 bottomRect.height - 20f);
             Rect stackConfigRect = new(bottomRect.x + bottomRect.width / 2 + 10f, bottomRect.y + 10f, bottomRect.width / 2 - 20f, bottomRect.height - 20f);
 
-            // Draw Stack Information
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Medium;
             Widgets.Label(stackInfoRect, "AC.StackInformation".Translate());
 
             Text.Font = GameFont.Tiny;
             var neuralData = selectedStack.NeuralData;
-            float infoContentY = stackInfoRect.y + Text.LineHeight + 10f; // Adjust Y position after header
+            float infoContentY = stackInfoRect.y + Text.LineHeight + 10f;
             Rect infoContentRect = new(stackInfoRect.x, infoContentY, stackInfoRect.width, stackInfoRect.height - Text.LineHeight - 5f);
             Widgets.Label(infoContentRect,
                 "AC.CurrentlyStatus".Translate() + ": " + GetStackStateStatus(selectedStack) + "\n" +
@@ -483,21 +482,17 @@ namespace AlteredCarbon
                 "AC.StackDegradation".Translate() + ": " + neuralData.stackDegradation.ToStringPercent().Colorize(Color.red));
             Text.Font = GameFont.Small;
 
-            // Draw Stack Configuration
-
             if (selectedStack.ThingHolder is NeuralStack neuralStack)
             {
                 Text.Font = GameFont.Medium;
                 Widgets.Label(stackConfigRect, "AC.StackConfiguration".Translate());
                 Text.Font = GameFont.Small;
-                float configContentY = stackConfigRect.y + Text.LineHeight + 5f; // Adjust Y position after header
+                float configContentY = stackConfigRect.y + Text.LineHeight + 5f;
                 float checkboxHeight = 24f;
                 Rect autobankRect = new(stackConfigRect.x, configContentY, stackConfigRect.width, checkboxHeight);
                 Widgets.CheckboxLabeled(autobankRect, "AC.AutobankStack".Translate(), ref neuralStack.autoLoad);
             }
 
-
-            // Drawing the Close button
             Rect closeButtonRect = new(rect.xMax - 150f, panelRect.height - 30f, 150, 30f);
             if (Widgets.ButtonText(closeButtonRect, "Close".Translate()))
             {
