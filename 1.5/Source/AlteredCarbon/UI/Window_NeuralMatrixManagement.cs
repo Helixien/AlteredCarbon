@@ -109,7 +109,7 @@ namespace AlteredCarbon
                     yield return StackState.Dead;
                 }
                 var hediff = stackHolder as Hediff_NeuralStack;
-                if (hediff.needleCastingInto != null)
+                if (hediff.Needlecasting)
                 {
                     yield return StackState.Needlecasting;
                 }
@@ -281,6 +281,7 @@ namespace AlteredCarbon
         private Dictionary<IStackHolder, (Thing thing, TaggedString pawnName, string factionName)> cachedValues = new();
 
         private static readonly Texture2D addIcon = ContentFinder<Texture2D>.Get("UI/Icons/Add", true);
+        private static readonly Texture2D cancelIcon = ContentFinder<Texture2D>.Get("UI/Icons/Cancel", true);
         private static readonly Texture2D needlecastIcon = ContentFinder<Texture2D>.Get("UI/Icons/Needlecast", true);
         private static readonly Texture2D installStackIcon = ContentFinder<Texture2D>.Get("UI/Icons/InstallStack", true);
         private static readonly Texture2D downArrowIcon = ContentFinder<Texture2D>.Get("UI/Icons/Drop", true);
@@ -375,9 +376,32 @@ namespace AlteredCarbon
                 }
             }
 
-            if (Widgets.ButtonImage(iconRectWithOffset, needlecastIcon, tooltip: "AC.TooltipNeedlecast".Translate(cache.pawnName)))
+            if (stack is Hediff_NeuralStack hediff)
             {
-
+                if (hediff.Needlecasting)
+                {
+                    if (Widgets.ButtonImage(iconRectWithOffset, cancelIcon, tooltip:
+                        "AC.TooltipStopNeedlecasting".Translate(cache.pawnName, hediff.needleCastingInto.originalPawnData.name.ToStringShort)))
+                    {
+                        hediff.needleCastingInto.EndNeedlecasting();
+                    }
+                }
+                else
+                {
+                    if (Widgets.ButtonImage(iconRectWithOffset, needlecastIcon, tooltip: "AC.TooltipNeedlecast".Translate(cache.pawnName)))
+                    {
+                        var connectablePawns = hediff.GetAllConnectablePawns();
+                        var floatList = new List<FloatMenuOption>();
+                        foreach (var otherPawn in connectablePawns)
+                        {
+                            floatList.Add(new FloatMenuOption(otherPawn.NameShortColored, delegate ()
+                            {
+                                hediff.NeedlecastTo(otherPawn);
+                            }, iconThing: otherPawn, iconColor: Color.white));
+                        }
+                        Find.WindowStack.Add(new FloatMenu(floatList));
+                    }
+                }
             }
 
             if (Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.clickCount == 2

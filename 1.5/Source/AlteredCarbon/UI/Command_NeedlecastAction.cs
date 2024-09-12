@@ -19,7 +19,7 @@ namespace AlteredCarbon
             {
                 var sourcePawn = (source as Pawn);
                 var neuralStack = sourcePawn.GetNeuralStack();
-                return neuralStack.GetAllConnectablePawns();
+                return neuralStack.GetAllConnectablePawns().Cast<Thing>().ToHashSet();
             }
         }
 

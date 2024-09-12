@@ -51,7 +51,7 @@ namespace AlteredCarbon
         public Pawn Pawn => this.pawn;
 
         public Hediff_RemoteStack needleCastingInto;
-
+        public bool Needlecasting => needleCastingInto != null;
         public override IEnumerable<Gizmo> GetGizmos()
         {
             if (this.def == AC_DefOf.AC_ArchotechStack)
@@ -71,7 +71,7 @@ namespace AlteredCarbon
         {
             if (pawn.ParentHolder is Building_CryptosleepCasket && pawn.IsColonist || pawn.IsColonistPlayerControlled)
             {
-                if (needleCastingInto is not null)
+                if (Needlecasting)
                 {
                     yield return new Command_Action
                     {
@@ -99,9 +99,9 @@ namespace AlteredCarbon
             }
         }
 
-        public HashSet<Thing> GetAllConnectablePawns()
+        public HashSet<Pawn> GetAllConnectablePawns()
         {
-            var connectablePawns = new HashSet<Thing>();
+            var connectablePawns = new HashSet<Pawn>();
             foreach (var otherPawn in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive)
             {
                 if (otherPawn.HasRemoteStack(out var remoteStack) && remoteStack.source is null
@@ -188,7 +188,7 @@ namespace AlteredCarbon
         {
             base.PostRemoved();
 
-            if (needleCastingInto != null)
+            if (Needlecasting)
             {
                 needleCastingInto.EndNeedlecasting();
             }
