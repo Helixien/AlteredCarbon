@@ -14,29 +14,20 @@ namespace AlteredCarbon
         {
             if (pawn.Dead || pawn.Downed)
             {
-                Log.Message($"[CanBeConnected] Connection failed: {pawn.Name.ToStringShort} is Dead ({pawn.Dead}) or Downed ({pawn.Downed})");
                 return false;
             }
-
             if (sourcePawn == null || sourcePawn.Dead)
             {
-                Log.Message($"[CanBeConnected] Connection failed: sourcePawn is null or {sourcePawn?.Name.ToStringShort} is Dead ({sourcePawn?.Dead})");
                 return false;
             }
-
             if (!InNeedlecastingRange(sourcePawn))
             {
-                Log.Message($"[CanBeConnected] Connection failed: {sourcePawn.Name.ToStringShort} is not in needlecasting range of {pawn.Name.ToStringShort}.");
                 return false;
             }
-
             if (pawn.IsLost() || sourcePawn.IsLost())
             {
-                Log.Message($"[CanBeConnected] Connection failed: {pawn.Name.ToStringShort} is Lost ({pawn.IsLost()}) or {sourcePawn.Name.ToStringShort} is Lost ({sourcePawn.IsLost()})");
                 return false;
             }
-
-            Log.Message($"[CanBeConnected] Connection successful between {pawn.Name.ToStringShort} and {sourcePawn.Name.ToStringShort}.");
             return true;
         }
 
@@ -81,10 +72,21 @@ namespace AlteredCarbon
         public override void Tick()
         {
             base.Tick();
-            if (Needlecasted() && CanBeConnected(source.pawn) is false)
+            if (pawn.IsHashIntervalTick(30))
             {
-                EndNeedlecasting();
+                if (Needlecasted())
+                {
+                    if (CanBeConnected(source.pawn) is false)
+                    {
+                        EndNeedlecasting();
+                    }
+                    else
+                    {
+                        UpdateSourcePawn();
+                    }
+                }
             }
+
         }
 
         private bool Needlecasted()
@@ -103,17 +105,22 @@ namespace AlteredCarbon
 
         public void EndNeedlecasting()
         {
+            UpdateSourcePawn();
+            originalPawnData.OverwritePawn(pawn, copyFromOrigPawn: false);
+            var coma = source.pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_NeedlecastingStasis);
+            source.needleCastingInto = null;
+            source.pawn.health.RemoveHediff(coma);
+            source.pawn.health.AddHediff(AC_DefOf.AC_NeedlecastingSickness);
+            source = null;
+            originalPawnData = null;
+        }
+
+        private void UpdateSourcePawn()
+        {
             var newPawnData = new NeuralData();
             newPawnData.CopyFromPawn(pawn, source.SourceStack);
             source.NeuralData = newPawnData;
             newPawnData.OverwritePawn(source.pawn, copyFromOrigPawn: false);
-            originalPawnData.OverwritePawn(pawn, copyFromOrigPawn: false);
-            var coma = source.pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_NeedlecastingStasis);
-            source.pawn.health.RemoveHediff(coma);
-            source.pawn.health.AddHediff(AC_DefOf.AC_NeedlecastingSickness);
-            source.needleCastingInto = null;
-            source = null;
-            originalPawnData = null;
         }
 
         public override IEnumerable<Gizmo> GetGizmos()

@@ -93,6 +93,7 @@
     <Compile Include="CompApparelAbilities.cs" />
     <Compile Include="HarmonyPatches\Alert_ColonistLeftUnburied_IsCorpseOfColonist_Patch.cs" />
     <Compile Include="HarmonyPatches\Apparel_Notify_PawnKilled_Patch.cs" />
+    <Compile Include="HarmonyPatches\Building_CryptosleepCasket_GetGizmos_Patch.cs" />
     <Compile Include="HarmonyPatches\CompBiocodable_CompInspectStringExtra_Patch.cs" />
     <Compile Include="HarmonyPatches\CompBiocodable_PostExposeData_Patch.cs" />
     <Compile Include="HarmonyPatches\CompBiocodable_Notify_Equipped_Patch.cs" />

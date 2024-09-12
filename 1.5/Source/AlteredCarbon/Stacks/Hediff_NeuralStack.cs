@@ -61,38 +61,56 @@ namespace AlteredCarbon
                     yield return skipAbility.GetGizmo();
                 }
             }
-            else
+            foreach (var g in GetNeedleCastingGizmos())
             {
-                if (pawn.IsColonistPlayerControlled)
+                yield return g;
+            }
+        }
+
+        public IEnumerable<Gizmo> GetNeedleCastingGizmos()
+        {
+            if (pawn.ParentHolder is Building_CryptosleepCasket && pawn.IsColonist || pawn.IsColonistPlayerControlled)
+            {
+                if (needleCastingInto is not null)
                 {
-                    if (needleCastingInto is not null)
+                    yield return new Command_Action
                     {
-                        yield return new Command_Action
+                        defaultLabel = "AC.EndNeedlecasting".Translate(),
+                        defaultDesc = "AC.EndNeedlecastingDesc".Translate(),
+                        icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EndNeedlecasting"),
+                        action = delegate
                         {
-                            defaultLabel = "AC.EndNeedlecasting".Translate(),
-                            defaultDesc = "AC.EndNeedlecastingDesc".Translate(),
-                            icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EndNeedlecasting"),
-                            action = delegate
-                            {
-                                needleCastingInto.EndNeedlecasting();
-                            }
-                        };
-                    }
-                    else
+                            needleCastingInto.EndNeedlecasting();
+                        }
+                    };
+                }
+                else
+                {
+                    yield return new Command_NeedlecastAction(this.pawn, new CommandInfo
                     {
-                        yield return new Command_NeedlecastAction(this.pawn, new CommandInfo
-                        {
-                            icon = "UI/Gizmos/Needlecasting",
-                            action = NeedlecastTo
-                        })
-                        {
-                            defaultLabel = "AC.Needlecasting".Translate(),
-                            defaultDesc = "AC.NeedlecastingDesc".Translate()
-                        };
-                    }
+                        icon = "UI/Gizmos/Needlecasting",
+                        action = NeedlecastTo
+                    })
+                    {
+                        defaultLabel = "AC.Needlecasting".Translate(),
+                        defaultDesc = "AC.NeedlecastingDesc".Translate()
+                    };
                 }
             }
-            yield break;
+        }
+
+        public HashSet<Thing> GetAllConnectablePawns()
+        {
+            var connectablePawns = new HashSet<Thing>();
+            foreach (var otherPawn in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive)
+            {
+                if (otherPawn.HasRemoteStack(out var remoteStack) && remoteStack.source is null
+                    && remoteStack.CanBeConnected(pawn))
+                {
+                    connectablePawns.Add(otherPawn);
+                }
+            }
+            return connectablePawns;
         }
 
         public void NeedlecastTo(LocalTargetInfo target)

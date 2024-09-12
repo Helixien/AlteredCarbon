@@ -3,6 +3,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
+
     [HarmonyPatch(typeof(HediffSet), nameof(HediffSet.DirtyCache))]
     public static class HediffSet_DirtyCache_Patch
     {

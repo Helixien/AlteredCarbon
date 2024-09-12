@@ -18,7 +18,7 @@ namespace AlteredCarbon
             get
             {
                 var things = new HashSet<Thing>();
-                foreach (var thing in source.Map.listerThings.AllThings)
+                foreach (var thing in source.MapHeld.listerThings.AllThings)
                 {
                     var comp = thing.TryGetComp<CompBiocodable>();
                     if (comp != null && comp is not CompBladelinkWeapon && comp.CodedPawn != null)

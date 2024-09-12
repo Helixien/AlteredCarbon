@@ -43,10 +43,10 @@ namespace AlteredCarbon
         {
             get
             {
-                var things = source.Map.listerThings.AllThings.OfType<NeuralStack>()
+                var things = source.MapHeld.listerThings.AllThings.OfType<NeuralStack>()
                     .Where(x => StackValidator(x))
                     .Cast<Thing>().ToHashSet();
-                foreach (var cache in source.Map.GetAllStackCaches())
+                foreach (var cache in source.MapHeld.GetAllStackCaches())
                 {
                     var comp = cache.TryGetComp<CompNeuralCache>();
                     foreach (var thing in comp.innerContainer)
@@ -67,7 +67,7 @@ namespace AlteredCarbon
                             .OfType<Building_NeuralConnector>().FirstOrDefault(x => x.PowerOn);
                         if (connector != null)
                         {
-                            foreach (var pawn in source.Map.mapPawns.AllHumanlike
+                            foreach (var pawn in source.MapHeld.mapPawns.AllHumanlike
                                 .Where(x => x.HasNeuralStack(out var hediff)
                                 && (info.enableArchostacks || hediff.def != AC_DefOf.AC_ArchotechStack)))
                             {
