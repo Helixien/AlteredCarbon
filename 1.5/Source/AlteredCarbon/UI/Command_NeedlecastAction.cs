@@ -18,11 +18,12 @@ namespace AlteredCarbon
             get
             {
                 var things = new HashSet<Thing>();
-                var neuralStack = (source as Pawn).GetNeuralStack();
+                var sourcePawn = (source as Pawn);
+                var neuralStack = sourcePawn.GetNeuralStack();
                 foreach (var pawn in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive)
                 {
                     if (pawn.HasRemoteStack(out var remoteStack) && remoteStack.source is null
-                        && neuralStack.InNeedlecastingRange(pawn))
+                        && remoteStack.CanBeConnected(sourcePawn))
                     {
                         things.Add(pawn);
                     }

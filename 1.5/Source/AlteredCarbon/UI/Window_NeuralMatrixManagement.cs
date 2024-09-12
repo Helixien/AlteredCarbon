@@ -113,13 +113,9 @@ namespace AlteredCarbon
                 {
                     yield return StackState.Needlecasting;
                 }
-                if (pawn.IsWorldPawn())
+                if (pawn.IsLost())
                 {
-                    var situation = Find.WorldPawns.GetSituation(pawn);
-                    if (situation == WorldPawnSituation.Kidnapped)
-                    {
-                        yield return StackState.Lost;
-                    }
+                    yield return StackState.Lost;
                 }
             }
         }

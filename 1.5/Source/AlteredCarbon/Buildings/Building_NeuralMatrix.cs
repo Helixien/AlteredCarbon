@@ -31,7 +31,14 @@ namespace AlteredCarbon
             base.Destroy(mode);
         }
         public bool Powered => this.compPower.PowerOn;
+        public float NeedleCastRangeBoost()
+        {
+            if (Powered)
+            {
 
+            }
+            return 0f;
+        }
         public IEnumerable<NeuralStack> StoredNeuralStacks => compCache.innerContainer.OfType<NeuralStack>();
         public IEnumerable<NeuralStack> AllNeuralStacks => AllNeuralCaches.SelectMany(x => x.innerContainer.OfType<NeuralStack>());
         public List<Thing> LinkedBuildings => compFacility.LinkedBuildings;

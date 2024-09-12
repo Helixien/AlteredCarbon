@@ -74,7 +74,7 @@ namespace AlteredCarbon
                             icon = ContentFinder<Texture2D>.Get("UI/Gizmos/EndNeedlecasting"),
                             action = delegate
                             {
-                                EndNeedlecasting();
+                                needleCastingInto.EndNeedlecasting();
                             }
                         };
                     }
@@ -95,12 +95,6 @@ namespace AlteredCarbon
             yield break;
         }
 
-        private void EndNeedlecasting()
-        {
-            needleCastingInto.EndNeedlecast();
-            needleCastingInto = null;
-        }
-
         public void NeedlecastTo(LocalTargetInfo target)
         {
             var pawnTarget = target.Pawn;
@@ -109,18 +103,6 @@ namespace AlteredCarbon
             data.CopyFromPawn(pawn, SourceStack);
             needleCastingInto.Needlecast(this);
             pawn.health.AddHediff(AC_DefOf.AC_NeedlecastingStasis);
-        }
-
-        public bool InNeedlecastingRange(GlobalTargetInfo target)
-        {
-            var range = 1f + NeedleCastRangeBoost();
-            var distance = Find.WorldGrid.ApproxDistanceInTiles(pawn.Tile, target.Tile);
-            return distance <= range;
-        }
-
-        public float NeedleCastRangeBoost()
-        {
-            return 0f;
         }
 
         public override void PostAdd(DamageInfo? dinfo)
@@ -187,6 +169,12 @@ namespace AlteredCarbon
         public override void PostRemoved()
         {
             base.PostRemoved();
+
+            if (needleCastingInto != null)
+            {
+                needleCastingInto.EndNeedlecasting();
+            }
+
             if (!preventKill && !this.pawn.Dead)
             {
                 this.pawn.Kill(null);

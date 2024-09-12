@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using RimWorld;
+using RimWorld.Planet;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -1023,6 +1024,19 @@ namespace AlteredCarbon
                     list.RemoveAt(i);
                 }
             }
+        }
+
+        public static bool IsLost(this Pawn pawn)
+        {
+            if (pawn.IsWorldPawn())
+            {
+                var situation = Find.WorldPawns.GetSituation(pawn);
+                if (situation == WorldPawnSituation.Kidnapped)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public static void CleanupDict<K, V>(this Dictionary<K, V> dict, Predicate<KeyValuePair<K, V>> predicate = null)

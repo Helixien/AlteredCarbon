@@ -106,6 +106,7 @@
     <Compile Include="HarmonyPatches\FactionGiftUtility_GetBaseGoodwillChange_Patch.cs" />
     <Compile Include="HarmonyPatches\FactionGiftUtility_GetGoodwillChange_Patch1.cs" />
     <Compile Include="HarmonyPatches\FactionGiftUtility_GetGoodwillChange_Patch2.cs" />
+    <Compile Include="HarmonyPatches\HediffSet_DirtyCache_Patch.cs" />
     <Compile Include="HarmonyPatches\InspectPaneUtility_ToggleTab_Patch.cs" />
     <Compile Include="HarmonyPatches\ITab_Pawn_Log_SelPawnForCombatInfo_Patch.cs" />
     <Compile Include="HarmonyPatches\ITab_Pawn_Social_SelPawnForSocialInfo_Patch.cs" />
