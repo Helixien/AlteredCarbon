@@ -376,27 +376,27 @@ namespace AlteredCarbon
                 }
             }
 
-            if (stack is Hediff_NeuralStack hediff)
+            if (stack is INeedlecastable needleCastable)
             {
-                if (hediff.Needlecasting)
+                if (needleCastable.Needlecasting)
                 {
                     if (Widgets.ButtonImage(iconRectWithOffset, cancelIcon, tooltip:
-                        "AC.TooltipStopNeedlecasting".Translate(cache.pawnName, hediff.needleCastingInto.originalPawnData.name.ToStringShort)))
+                        "AC.TooltipStopNeedlecasting".Translate(cache.pawnName, needleCastable.NeedleCastingInto.originalPawnData.name.ToStringShort)))
                     {
-                        hediff.needleCastingInto.EndNeedlecasting();
+                        needleCastable.NeedleCastingInto.EndNeedlecasting();
                     }
                 }
                 else
                 {
                     if (Widgets.ButtonImage(iconRectWithOffset, needlecastIcon, tooltip: "AC.TooltipNeedlecast".Translate(cache.pawnName)))
                     {
-                        var connectablePawns = hediff.GetAllConnectablePawns();
+                        var connectablePawns = needleCastable.GetAllConnectablePawns();
                         var floatList = new List<FloatMenuOption>();
                         foreach (var otherPawn in connectablePawns)
                         {
                             floatList.Add(new FloatMenuOption(otherPawn.NameShortColored, delegate ()
                             {
-                                hediff.NeedlecastTo(otherPawn);
+                                needleCastable.NeedlecastTo(otherPawn);
                             }, iconThing: otherPawn, iconColor: Color.white));
                         }
                         Find.WindowStack.Add(new FloatMenu(floatList));

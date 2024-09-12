@@ -12,6 +12,7 @@ namespace AlteredCarbon
         public bool allowStrangerNeuralStacks = true;
         public bool allowHostileNeuralStacks = true;
         public List<NeuralStack> StoredStacks => innerContainer.OfType<NeuralStack>().ToList();
+
         public override bool Accepts(Thing thing)
         {
             if (thing is NeuralStack stack && stack.IsActiveStack && stack.autoLoad && Full is false)
@@ -80,23 +81,20 @@ namespace AlteredCarbon
         {
             if (thing is NeuralStack stack)
             {
-                if (parent is Building_NeuralMatrix matrix)
+                var matrix = GetMatrix();
+                if (matrix != null)
                 {
                     stack.NeuralData.trackedToMatrix = matrix;
-                }
-                else
-                {
-                    matrix = GetMatrix();
-                    if (matrix != null)
-                    {
-                        stack.NeuralData.trackedToMatrix = matrix;
-                    }
                 }
             }
         }
 
         public Building_NeuralMatrix GetMatrix()
         {
+            if (parent is Building_NeuralMatrix matrix)
+            {
+                return matrix;
+            }
             var compFacility = parent.GetComp<CompAffectedByFacilities>();
             return compFacility.LinkedFacilitiesListForReading.OfType<Building_NeuralMatrix>().FirstOrDefault();
         }

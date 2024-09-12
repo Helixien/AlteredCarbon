@@ -9,8 +9,18 @@ using Verse;
 
 namespace AlteredCarbon
 {
+    public interface INeedlecastable
+    {
+        public Thing ThingHolder { get; }
+        public HashSet<Pawn> GetAllConnectablePawns();
+        public bool Needlecasting { get; }
+        public Hediff_RemoteStack NeedleCastingInto {  get; }
+        public void NeedlecastTo(LocalTargetInfo target);
+        public NeuralData NeuralData { get; set; }
+    }
+
     [HotSwappable]
-    public class Hediff_NeuralStack : Hediff_Implant, IStackHolder
+    public class Hediff_NeuralStack : Hediff_Implant, IStackHolder, INeedlecastable
     {
         public Ability_ArchotechStackSkip skipAbility;
         public ThingDef SourceStack
@@ -49,8 +59,8 @@ namespace AlteredCarbon
 
         public Thing ThingHolder => this.pawn;
         public Pawn Pawn => this.pawn;
-
         public Hediff_RemoteStack needleCastingInto;
+        public Hediff_RemoteStack NeedleCastingInto => needleCastingInto;
         public bool Needlecasting => needleCastingInto != null;
         public override IEnumerable<Gizmo> GetGizmos()
         {
@@ -104,8 +114,8 @@ namespace AlteredCarbon
             var connectablePawns = new HashSet<Pawn>();
             foreach (var otherPawn in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive)
             {
-                if (otherPawn.HasRemoteStack(out var remoteStack) && remoteStack.source is null
-                    && remoteStack.CanBeConnected(pawn))
+                if (otherPawn.HasRemoteStack(out var remoteStack) && remoteStack.Needlecasted is false
+                    && remoteStack.CanBeConnected(this))
                 {
                     connectablePawns.Add(otherPawn);
                 }
@@ -115,10 +125,8 @@ namespace AlteredCarbon
 
         public void NeedlecastTo(LocalTargetInfo target)
         {
-            var pawnTarget = target.Pawn;
-            needleCastingInto = pawnTarget.GetRemoteStack();
-            var data = NeuralData;
-            data.CopyFromPawn(pawn, SourceStack);
+            needleCastingInto = target.Pawn.GetRemoteStack();
+            NeuralData.CopyFromPawn(pawn, SourceStack);
             needleCastingInto.Needlecast(this);
             pawn.health.AddHediff(AC_DefOf.AC_NeedlecastingStasis);
         }

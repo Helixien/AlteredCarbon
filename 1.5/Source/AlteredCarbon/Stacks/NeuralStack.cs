@@ -9,7 +9,7 @@ using Verse;
 namespace AlteredCarbon
 {
     [HotSwappable]
-    public class NeuralStack : ThingWithNeuralData
+    public class NeuralStack : ThingWithNeuralData, INeedlecastable
     {
         public override Graphic Graphic
         {
@@ -340,6 +340,10 @@ namespace AlteredCarbon
             {
                 return;
             }
+            if (Needlecasting)
+            {
+                needleCastingInto.EndNeedlecasting();
+            }
             base.Destroy(mode);
             if (NeuralData.ContainsData && dontKillThePawn is false)
             {
@@ -391,12 +395,36 @@ namespace AlteredCarbon
             Destroy();
         }
 
+        public Hediff_RemoteStack needleCastingInto;
+        public Hediff_RemoteStack NeedleCastingInto => needleCastingInto;
+        public bool Needlecasting => needleCastingInto != null;
+        public HashSet<Pawn> GetAllConnectablePawns()
+        {
+            var connectablePawns = new HashSet<Pawn>();
+            foreach (var otherPawn in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive)
+            {
+                if (otherPawn.HasRemoteStack(out var remoteStack) && remoteStack.Needlecasted is false
+                    && remoteStack.CanBeConnected(this))
+                {
+                    connectablePawns.Add(otherPawn);
+                }
+            }
+            return connectablePawns;
+        }
+
+        public void NeedlecastTo(LocalTargetInfo target)
+        {
+            var pawnTarget = target.Pawn;
+            needleCastingInto = pawnTarget.GetRemoteStack();
+            needleCastingInto.Needlecast(this);
+        }
 
         public override void ExposeData()
         {
             base.ExposeData();
             Scribe_Deep.Look(ref casterPawn, "casterPawn");
             Scribe_References.Look(ref hediff, "hediff");
+            Scribe_References.Look(ref needleCastingInto, "needleCastingInto");
         }
     }
 }

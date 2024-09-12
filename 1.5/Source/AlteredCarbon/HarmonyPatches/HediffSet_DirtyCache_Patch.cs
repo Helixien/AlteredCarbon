@@ -12,16 +12,16 @@ namespace AlteredCarbon
         {
             if (looking) return;
             looking = true;
-            if (__instance.pawn.HasRemoteStack(out var remote) && remote.source != null 
-                && remote.CanBeConnected(remote.source.pawn) is false)
+            if (__instance.pawn.HasRemoteStack(out var remote) && remote.Needlecasted)
             {
-                Log.Message(__instance.pawn + " can't connect to " + remote.source.pawn);
-                remote.EndNeedlecasting();
+                if (remote.CanBeConnected(remote.Source) is false)
+                {
+                    remote.EndNeedlecasting();
+                }
             }
             else if (__instance.pawn.HasNeuralStack(out var neural) && neural.needleCastingInto != null 
-                && neural.needleCastingInto.CanBeConnected(__instance.pawn) is false)
+                && neural.needleCastingInto.CanBeConnected(neural) is false)
             {
-                Log.Message(__instance.pawn + " can't connect to " + neural.needleCastingInto.pawn);
                 neural.needleCastingInto.EndNeedlecasting();
             }
             looking = false;

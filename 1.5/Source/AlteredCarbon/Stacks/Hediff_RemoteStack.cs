@@ -8,30 +8,57 @@ namespace AlteredCarbon
     public class Hediff_RemoteStack : Hediff_Implant
     {
         public NeuralData originalPawnData;
-        public Hediff_NeuralStack source;
-
-        public bool CanBeConnected(Pawn sourcePawn)
+        public Hediff_NeuralStack sourceHediff;
+        public NeuralStack sourceStack;
+        public INeedlecastable Source
         {
-            if (pawn.Dead || pawn.Downed)
+            get
+            {
+                if (sourceStack != null)
+                {
+                    return sourceStack;
+                }
+                return sourceHediff;
+            }
+        }
+
+        public bool CanBeConnected(INeedlecastable needlecastable)
+        {
+            if (pawn.Dead || pawn.Downed || pawn.IsLost())
             {
                 return false;
             }
-            if (sourcePawn == null || sourcePawn.Dead)
+            if (needlecastable is Hediff_NeuralStack hediff)
             {
-                return false;
+                if (hediff.pawn.Dead || hediff.pawn.IsLost())
+                {
+                    return false;
+                }
             }
-            if (!InNeedlecastingRange(sourcePawn))
+            else if (needlecastable is NeuralStack stack)
             {
-                return false;
+                if (stack.Destroyed || stack.ParentHolder is not CompNeuralCache comp)
+                {
+                    return false;
+                }
+                else
+                {
+                    Log.Message("comp: " + comp);
+                    var matrix = comp.GetMatrix();
+                    if (matrix is null || matrix.Powered is false || stack.NeuralData.trackedToMatrix != matrix)
+                    {
+                        return false;
+                    }
+                }
             }
-            if (pawn.IsLost() || sourcePawn.IsLost())
+            if (!InNeedlecastingRange(needlecastable.ThingHolder))
             {
                 return false;
             }
             return true;
         }
 
-        public bool InNeedlecastingRange(Pawn sourcePawn)
+        public bool InNeedlecastingRange(Thing source)
         {
             var matrices = Find.Maps.SelectMany(x => x.listerThings.GetThingsOfType<Building_NeuralMatrix>()).ToList();
             foreach (var mat in matrices)
@@ -40,7 +67,7 @@ namespace AlteredCarbon
                 {
                     var rangeCovered = 1f + mat.NeedleCastRangeBoost();
                     var distance = Find.WorldGrid.ApproxDistanceInTiles(mat.Tile, pawn.Tile);
-                    var distance2 = Find.WorldGrid.ApproxDistanceInTiles(mat.Tile, sourcePawn.Tile);
+                    var distance2 = Find.WorldGrid.ApproxDistanceInTiles(mat.Tile, source.Tile);
                     if (distance <= rangeCovered && distance2 <= rangeCovered)
                     {
                         return true;
@@ -54,18 +81,26 @@ namespace AlteredCarbon
         {
             base.ExposeData();
             Scribe_Deep.Look(ref originalPawnData, "originalPawnData");
-            Scribe_References.Look(ref source, "source");
+            Scribe_References.Look(ref sourceHediff, "sourceHediff");
+            Scribe_References.Look(ref sourceStack, "sourceStack");
         }
 
-        public void Needlecast(Hediff_NeuralStack source)
+        public void Needlecast(INeedlecastable needlecastable)
         {
-            this.source = source;
             originalPawnData = new NeuralData();
-            var sourceStack = source.SourceStack;
-            originalPawnData.CopyFromPawn(pawn, sourceStack);
+            if (needlecastable is Hediff_NeuralStack source)
+            {
+                this.sourceHediff = source;
+                originalPawnData.CopyFromPawn(pawn, source.SourceStack);
+            }
+            else if (needlecastable is NeuralStack stack)
+            {
+                this.sourceStack = stack;
+                originalPawnData.CopyFromPawn(pawn, stack.def);
+            }
 
             var needlePawnData = new NeuralData();
-            needlePawnData.CopyDataFrom(source.NeuralData);
+            needlePawnData.CopyDataFrom(needlecastable.NeuralData);
             needlePawnData.OverwritePawn(pawn);
         }
 
@@ -74,9 +109,9 @@ namespace AlteredCarbon
             base.Tick();
             if (pawn.IsHashIntervalTick(30))
             {
-                if (Needlecasted())
+                if (Needlecasted)
                 {
-                    if (CanBeConnected(source.pawn) is false)
+                    if (CanBeConnected(Source) is false)
                     {
                         EndNeedlecasting();
                     }
@@ -89,15 +124,12 @@ namespace AlteredCarbon
 
         }
 
-        private bool Needlecasted()
-        {
-            return source != null;
-        }
+        public bool Needlecasted => sourceHediff != null || sourceStack != null;
 
         public override void PostRemoved()
         {
             base.PostRemoved();
-            if (Needlecasted())
+            if (Needlecasted)
             {
                 EndNeedlecasting();
             }
@@ -107,20 +139,39 @@ namespace AlteredCarbon
         {
             UpdateSourcePawn();
             originalPawnData.OverwritePawn(pawn, copyFromOrigPawn: false);
-            var coma = source.pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_NeedlecastingStasis);
-            source.needleCastingInto = null;
-            source.pawn.health.RemoveHediff(coma);
-            source.pawn.health.AddHediff(AC_DefOf.AC_NeedlecastingSickness);
-            source = null;
+            var source = Source;
+            if (source is Hediff_NeuralStack hediff)
+            {
+                var coma = hediff.pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_NeedlecastingStasis);
+                hediff.needleCastingInto = null;
+                hediff.pawn.health.RemoveHediff(coma);
+                hediff.pawn.health.AddHediff(AC_DefOf.AC_NeedlecastingSickness);
+                sourceHediff = null;
+            }
+            else if (source is NeuralStack stack)
+            {
+                stack.needleCastingInto = null;
+                sourceStack = null;
+            }
             originalPawnData = null;
         }
 
         private void UpdateSourcePawn()
         {
             var newPawnData = new NeuralData();
-            newPawnData.CopyFromPawn(pawn, source.SourceStack);
-            source.NeuralData = newPawnData;
-            newPawnData.OverwritePawn(source.pawn, copyFromOrigPawn: false);
+            var source = Source;
+            newPawnData.trackedToMatrix = source.NeuralData.trackedToMatrix;
+            if (source is Hediff_NeuralStack hediff)
+            {
+                newPawnData.CopyFromPawn(pawn, hediff.SourceStack);
+                hediff.NeuralData = newPawnData;
+                newPawnData.OverwritePawn(hediff.pawn, copyFromOrigPawn: false);
+            }
+            else if (source is NeuralStack stack)
+            {
+                newPawnData.CopyFromPawn(pawn, stack.def);
+                stack.NeuralData = newPawnData;
+            }
         }
 
         public override IEnumerable<Gizmo> GetGizmos()

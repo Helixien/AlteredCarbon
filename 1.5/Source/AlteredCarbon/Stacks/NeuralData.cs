@@ -496,7 +496,7 @@ namespace AlteredCarbon
             {
                 if (ModsConfig.AnomalyActive && hediff.def == HediffDefOf.Inhumanized)
                 {
-                    savedHediffs.Add(MakeCopy(hediff, hostPawn));
+                    savedHediffs.Add(MakeCopy(hediff, hostPawn ?? DummyPawn));
                 }
             }
 
@@ -732,7 +732,7 @@ namespace AlteredCarbon
             savedHediffs = new List<Hediff>();
             foreach (var otherHediff in other.savedHediffs)
             {
-                savedHediffs.Add(MakeCopy(otherHediff, hostPawn));
+                savedHediffs.Add(MakeCopy(otherHediff, hostPawn ?? DummyPawn));
             }
             battleActive = other.battleActive;
             battleExitTick = other.battleExitTick;
