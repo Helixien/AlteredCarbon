@@ -4,7 +4,7 @@
 	<ThingDef ParentName="BuildingBase">
 		<defName>AC_SleeveGestator</defName>
 		<label>sleeve gestator</label>
-		<description>text.todo</description>
+		<description>An exceedingly complex vat of nutrients that is capable of gestating sleeves, empty shells without a mind of their own. Neutroamine is used in order to grow the body through its different stages and the incubator must remain powered throughout this process. Should it lose power for extended periods, the gestation process will fail. \n\nSimple, low grade sleeves can be churned out quite quickly for minimal resources. However, more complex and sophisticated sleeves take longer and require more nutrients to ensure the body is properly formed. \n\nOnce the sleeve has finished growing, it should be extracted and cared for as it is incapable of independent movement or thought, including feeding itself.</description>
 		<descriptionHyperlinks>
 			<ThingDef>AC_SleeveCasket</ThingDef>
 			<ThingDef>GeneAssembler</ThingDef>
@@ -105,30 +105,42 @@
 		<graphicData>
 			<texPath>Things/Building/Furniture/Bed/SleeveCasket</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
-			<drawSize>(3,4)</drawSize>
+			<drawSize>(2,2)</drawSize>
 		</graphicData>
 		<size>(1,2)</size>
 		<uiIconPath>Things/Building/Furniture/Bed/SleeveCasket_MenuIcon</uiIconPath>
 		<uiIconScale>1.0</uiIconScale>
 		<defaultPlacingRot>South</defaultPlacingRot>
 		<designationCategory>Biotech</designationCategory>
+		<pathCost>35</pathCost>
+		<canOverlapZones>false</canOverlapZones>
+		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+		<tickerType>Normal</tickerType>
+		<drawerType>RealtimeOnly</drawerType>
+		<passability>PassThroughOnly</passability>
+		<castEdgeShadows>True</castEdgeShadows>
+		<fillPercent>0.5</fillPercent>
+		<thingCategories>
+			<li>BuildingsMisc</li>
+		</thingCategories>
 		<statBases>
-			<MarketValue>1520</MarketValue>
+			<MarketValue>1500</MarketValue>
 			<MaxHitPoints>250</MaxHitPoints>
 			<WorkToBuild>6000</WorkToBuild>
 			<Mass>50</Mass>
 			<Flammability>0.5</Flammability>
-			<BedRestEffectiveness>1.2</BedRestEffectiveness>
-			<Comfort>0.1</Comfort>
-			<ImmunityGainSpeedFactor>1.25</ImmunityGainSpeedFactor>
+			<BedRestEffectiveness>1</BedRestEffectiveness>
+			<Comfort>0.5</Comfort>
+			<ImmunityGainSpeedFactor>1.11</ImmunityGainSpeedFactor>
 			<MedicalTendQualityOffset>0.10</MedicalTendQualityOffset>
-			<SurgerySuccessChanceFactor>1.5</SurgerySuccessChanceFactor>
+			<SurgerySuccessChanceFactor>1.2</SurgerySuccessChanceFactor>
+			<BirthRitualQualityOffset MayRequire="Ludeon.RimWorld.Biotech">3</BirthRitualQualityOffset>
 		</statBases>
 		<building>
 			<bed_showSleeperBody>false</bed_showSleeperBody>
 			<buildingSizeCategory>Small</buildingSizeCategory>
 			<bed_humanlike>true</bed_humanlike>
-			<bed_healPerDay>2</bed_healPerDay>
+			<bed_healPerDay>10</bed_healPerDay>
 			<bed_defaultMedical>true</bed_defaultMedical>
 			<ai_chillDestination>false</ai_chillDestination>
 			<buildingTags>
@@ -145,17 +157,6 @@
 			<Uranium>5</Uranium>
 			<ComponentSpacer>2</ComponentSpacer>
 		</costList>
-		<pathCost>35</pathCost>
-		<canOverlapZones>false</canOverlapZones>
-		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
-		<tickerType>Normal</tickerType>
-		<drawerType>RealtimeOnly</drawerType>
-		<passability>PassThroughOnly</passability>
-		<castEdgeShadows>True</castEdgeShadows>
-		<fillPercent>0.5</fillPercent>
-		<thingCategories>
-			<li>BuildingsMisc</li>
-		</thingCategories>
 		<comps>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
