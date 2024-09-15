@@ -236,6 +236,7 @@ namespace AlteredCarbon
                 return title.NullOrEmpty() ? pawnName : pawnName + ", " + title.CapitalizeFirst();
             }
         }
+
         public string TitleShort
         {
             get
@@ -637,8 +638,6 @@ namespace AlteredCarbon
             {
                 this.stackDegradation = stackDegradationHediff.stackDegradation;
             }
-
-            AssignDummyPawnReferences();
         }
 
         private Hediff MakeCopy(Hediff hediff, Pawn pawn)
@@ -951,11 +950,7 @@ namespace AlteredCarbon
             pawn.foodRestriction = new Pawn_FoodRestrictionTracker(pawn);
             pawn.foodRestriction.CurrentFoodPolicy = foodPolicy;
             pawn.outfits = new Pawn_OutfitTracker(pawn);
-            try
-            {
-                pawn.outfits.curApparelPolicy = apparelPolicy;
-            }
-            catch { }
+            pawn.outfits.curApparelPolicy = apparelPolicy;
             pawn.drugs = new Pawn_DrugPolicyTracker(pawn);
             pawn.drugs.CurrentPolicy = drugPolicy;
             pawn.ageTracker.AgeChronologicalTicks = ageChronologicalTicks;
@@ -1043,7 +1038,7 @@ namespace AlteredCarbon
                     {
                         pawn.abilities.GainAbility(ability);
                     }
-                    else if (IsPsycastAbility(ability))
+                    else if (IsPsycastAbility(ability) && sourceStack != AC_DefOf.AC_ActiveArchotechStack)
                     {
                         pawn.abilities.GainAbility(ability);
                     }
@@ -1054,10 +1049,10 @@ namespace AlteredCarbon
             {
                 compAbilities.LearnedAbilities.RemoveAll(x => IsNaturalAbility(pawn, x.def) is false && IsPsycastAbility(x.def) is false);
             }
-            pawn.psychicEntropy = new Pawn_PsychicEntropyTracker(pawn);
+
             if (this.sourceStack == AC_DefOf.AC_ActiveArchotechStack)
             {
-                var hediff_Psylink = pawn.GetMainPsylinkSource() as Hediff_Psylink;
+                var hediff_Psylink = pawn.GetMainPsylinkSource();
                 if (this.psylinkLevel.HasValue)
                 {
                     if (hediff_Psylink == null)
@@ -1070,6 +1065,10 @@ namespace AlteredCarbon
                     }
                     var levelOffset = this.psylinkLevel.Value - hediff_Psylink.level;
                     hediff_Psylink.level = (int)Mathf.Clamp(hediff_Psylink.level + levelOffset, hediff_Psylink.def.minSeverity, hediff_Psylink.def.maxSeverity);
+                }
+                else if (hediff_Psylink != null)
+                {
+                    pawn.health.RemoveHediff(hediff_Psylink);
                 }
 
                 pawn.psychicEntropy.currentEntropy = currentEntropy;

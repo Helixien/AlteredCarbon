@@ -109,7 +109,7 @@ namespace AlteredCarbon
 
             var needlePawnData = new NeuralData();
             originalPawnData = new NeuralData();
-            originalPawnData.CopyFromPawn(pawn, AC_DefOf.AC_ActiveNeuralStack, copyRaceGenderInfo: true);
+            originalPawnData.CopyFromPawn(pawn, needlecastable.NeuralData.sourceStack, copyRaceGenderInfo: true);
             if (needlecastable is Hediff_NeuralStack source)
             {
                 this.sourceHediff = source;
