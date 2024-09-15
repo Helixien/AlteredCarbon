@@ -146,6 +146,7 @@
 			<buildingTags>
 				<li>Biotech</li>
 			</buildingTags>
+			<bed_UseSheetColor>false</bed_UseSheetColor>
 		</building>
 		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 		<researchPrerequisites>

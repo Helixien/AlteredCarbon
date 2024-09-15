@@ -52,6 +52,14 @@ namespace AlteredCarbon
                 };
                 yield return ejectAll;
             }
+            var matrix = GetMatrix();
+            if (matrix != null)
+            {
+                foreach (var g in matrix.GetManageMatrix())
+                {
+                    yield return g;
+                }
+            }
         }
 
         public void EjectContents()

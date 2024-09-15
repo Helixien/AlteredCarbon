@@ -346,16 +346,23 @@ namespace AlteredCarbon
 
 
             iconRectWithOffset.x -= iconSpacing;
-
-            if (stack.ThingHolder is NeuralStack neuralStack)
+            var neuralStack = stack.ThingHolder as NeuralStack;
+            var needleCastable = stack as INeedlecastable;
+            var needleCasting = needleCastable.Needlecasting;
+            bool isRemoveButtonActive = true;
+            if (needleCasting)
+            {
+                isRemoveButtonActive = false;
+            }
+            if (neuralStack != null)
             {
                 if (neuralStack.ParentHolder is CompNeuralCache)
                 {
-                    if (Widgets.ButtonImage(iconRectWithOffset, downArrowIcon, tooltip: "AC.TooltipRemoveStack".Translate()))
+                    DrawButton(iconRectWithOffset, downArrowIcon, tooltip: "AC.TooltipRemoveStack".Translate(), isRemoveButtonActive, delegate
                     {
                         neuralStack.ParentHolder.GetDirectlyHeldThings().TryDrop(neuralStack, ThingPlaceMode.Near, out _);
                         RefreshItems();
-                    }
+                    });
                     iconRectWithOffset.x -= iconSpacing;
                 }
 
@@ -376,32 +383,34 @@ namespace AlteredCarbon
                 }
             }
 
-            if (stack is INeedlecastable needleCastable)
+
+            bool isNeedlecastingButtonActive = true;
+            if (neuralStack != null && neuralStack.ParentHolder is not CompNeuralCache)
             {
-                if (needleCastable.Needlecasting)
-                {
-                    if (Widgets.ButtonImage(iconRectWithOffset, cancelIcon, tooltip:
-                        "AC.TooltipStopNeedlecasting".Translate(cache.pawnName, needleCastable.NeedleCastingInto.originalPawnData.name.ToStringShort)))
-                    {
-                        needleCastable.NeedleCastingInto.EndNeedlecasting();
-                    }
-                }
-                else
-                {
-                    if (Widgets.ButtonImage(iconRectWithOffset, needlecastIcon, tooltip: "AC.TooltipNeedlecast".Translate(cache.pawnName)))
-                    {
-                        var connectablePawns = needleCastable.GetAllConnectablePawns();
-                        var floatList = new List<FloatMenuOption>();
-                        foreach (var otherPawn in connectablePawns)
-                        {
-                            floatList.Add(new FloatMenuOption(otherPawn.NameShortColored, delegate ()
-                            {
-                                needleCastable.NeedlecastTo(otherPawn);
-                            }, iconThing: otherPawn, iconColor: Color.white));
-                        }
-                        Find.WindowStack.Add(new FloatMenu(floatList));
-                    }
-                }
+                isNeedlecastingButtonActive = false;
+            }
+            if (needleCasting)
+            {
+                DrawButton(iconRectWithOffset, cancelIcon, "AC.TooltipStopNeedlecasting".Translate(cache.pawnName, needleCastable.NeedleCastingInto.originalPawnData.name.ToStringShort),
+                           isNeedlecastingButtonActive, () => needleCastable.NeedleCastingInto.EndNeedlecasting());
+            }
+            else
+            {
+                DrawButton(iconRectWithOffset, needlecastIcon, "AC.TooltipNeedlecast".Translate(cache.pawnName),
+                           isNeedlecastingButtonActive,
+                           () =>
+                           {
+                               var connectablePawns = needleCastable.GetAllConnectablePawns();
+                               var floatList = new List<FloatMenuOption>();
+                               foreach (var otherPawn in connectablePawns)
+                               {
+                                   floatList.Add(new FloatMenuOption(otherPawn.NameShortColored, delegate ()
+                                   {
+                                       needleCastable.NeedlecastTo(otherPawn);
+                                   }, iconThing: otherPawn, iconColor: Color.white));
+                               }
+                               Find.WindowStack.Add(new FloatMenu(floatList));
+                           });
             }
 
             if (Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.clickCount == 2
@@ -416,6 +425,18 @@ namespace AlteredCarbon
                 selectedStack = stack;
             }
         }
+
+        private void DrawButton(Rect rect, Texture2D icon, string tooltip, bool isActive, Action action)
+        {
+            Color buttonColor = isActive ? Color.white : Color.grey;
+            Color mouseoverColor = isActive ? GenUI.MouseoverColor : Color.grey;
+            bool buttonClicked = Widgets.ButtonImage(rect, icon, buttonColor, mouseoverColor: mouseoverColor, tooltip: tooltip);
+            if (isActive && buttonClicked)
+            {
+                action?.Invoke();
+            }
+        }
+
 
         private void DrawRightPanel(Rect rect)
         {

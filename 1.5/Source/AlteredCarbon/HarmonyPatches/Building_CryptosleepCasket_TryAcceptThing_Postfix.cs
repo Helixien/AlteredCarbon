@@ -12,11 +12,14 @@ namespace AlteredCarbon
         {
             if (__result && thing is Pawn pawn && pawn.HasNeuralStack(out var neural))
             {
-                var matrix = __instance.GetComp<CompAffectedByFacilities>().LinkedFacilitiesListForReading
-                    .OfType<Building_NeuralMatrix>().FirstOrDefault();
-                if (matrix != null)
+                var comp = __instance.GetComp<CompAffectedByFacilities>();
+                if (comp != null)
                 {
-                    neural.NeuralData.trackedToMatrix = matrix;
+                    var matrix = comp.LinkedFacilitiesListForReading.OfType<Building_NeuralMatrix>().FirstOrDefault();
+                    if (matrix != null)
+                    {
+                        neural.NeuralData.trackedToMatrix = matrix;
+                    }
                 }
             }
         }

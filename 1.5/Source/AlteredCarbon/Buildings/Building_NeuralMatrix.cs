@@ -62,7 +62,7 @@ namespace AlteredCarbon
             }
         }
 
-        private IEnumerable<Gizmo> GetManageMatrix()
+        public IEnumerable<Gizmo> GetManageMatrix()
         {
             var manageNeuralMatrix = new Command_Action
             {

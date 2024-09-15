@@ -18,6 +18,9 @@ namespace AlteredCarbon
             labelKey = "AC.StackStorage";
         }
 
+        public override bool Hidden => IsVisible is false;
+        public override bool IsVisible => CompNeuralCache.GetMatrix() is null;
+
         public override void FillTab()
         {
             Text.Font = GameFont.Small;
