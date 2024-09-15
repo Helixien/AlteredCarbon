@@ -123,5 +123,6 @@ namespace AlteredCarbon
         public static ThingDef AC_RemoteStack;
         public static StackSavingOptions AC_StackSavingOptions;
         public static HediffDef AC_NeedlecastingStasis, AC_NeedlecastingSickness;
+        public static ThingDef AC_CastingRelay;
     }
 }

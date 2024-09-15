@@ -96,6 +96,7 @@
     <Compile Include="HarmonyPatches\Apparel_Notify_PawnKilled_Patch.cs" />
     <Compile Include="HarmonyPatches\Building_CryptosleepCasket_GetGizmos_Patch.cs" />
     <Compile Include="HarmonyPatches\Building_CryptosleepCasket_TryAcceptThing_Postfix.cs" />
+    <Compile Include="HarmonyPatches\CompAffectedByFacilities_CanLinkTo_Patch.cs" />
     <Compile Include="HarmonyPatches\CompBiocodable_CompInspectStringExtra_Patch.cs" />
     <Compile Include="HarmonyPatches\CompBiocodable_PostExposeData_Patch.cs" />
     <Compile Include="HarmonyPatches\CompBiocodable_Notify_Equipped_Patch.cs" />

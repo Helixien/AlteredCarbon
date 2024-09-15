@@ -17,7 +17,7 @@ namespace AlteredCarbon
     {
         public NeuralData neuralDataRewritten;
         public Building_NeuralMatrix trackedToMatrix;
-        public static bool debug => true;
+        public static bool debug => false;
         public ThingDef sourceStack;
         public Name name;
         public PawnKindDef kindDef;
@@ -191,8 +191,11 @@ namespace AlteredCarbon
                 dummyPawn.gender = dummyGender ?? originalGender;
             }
             dummyPawns.Add(dummyPawn);
-            OverwritePawn(dummyPawn, changeGlobalData: false, copyFromOrigPawn: hostPawn != null
-                && hostPawn.Dead is false && hostPawn.IsEmptySleeve() is false);
+            if (hostPawn != null && hostPawn.Dead is false && hostPawn.IsEmptySleeve() is false)
+            {
+                CopyFromPawn(hostPawn, sourceStack);
+            }
+            OverwritePawn(dummyPawn, changeGlobalData: false);
             if (hostPawn != null)
             {
                 dummyGender = hostPawn.gender;
@@ -634,6 +637,7 @@ namespace AlteredCarbon
             {
                 this.stackDegradation = stackDegradationHediff.stackDegradation;
             }
+
             AssignDummyPawnReferences();
         }
 
@@ -790,6 +794,13 @@ namespace AlteredCarbon
 
         private Name GetNameCopy(Name other)
         {
+            var name = GetNameCopyInt(other);
+            //Log.Message("Overwriting name: " + name?.ToStringShort + " - " + new StackTrace().ToString());
+            return name;
+        }
+
+        private Name GetNameCopyInt(Name other)
+        {
             if (other is NameTriple nameTriple)
             {
                 return new NameTriple(nameTriple.firstInt, nameTriple.nickInt, nameTriple.lastInt);
@@ -805,12 +816,8 @@ namespace AlteredCarbon
             return null;
         }
 
-        public void OverwritePawn(Pawn pawn, bool changeGlobalData = true, bool copyFromOrigPawn = true)
+        public void OverwritePawn(Pawn pawn, bool changeGlobalData = true)
         {
-            if (copyFromOrigPawn && hostPawn != null)
-            {
-                CopyFromPawn(hostPawn, sourceStack);
-            }
             pawn.Name = GetNameCopy(name);
             if (kindDef != null)
             {

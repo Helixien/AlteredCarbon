@@ -289,7 +289,7 @@ namespace AlteredCarbon
 
         private void DrawStackEntry(Rect rect, IStackHolder stack)
         {
-            if (cachedValues.TryGetValue(stack, out var cache) is false)
+            if (cachedValues.TryGetValue(stack, out var cache) is false || true)
             {
                 var data = stack.NeuralData;
                 var thing = stack.ThingHolder;
