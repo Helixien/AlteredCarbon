@@ -112,7 +112,7 @@ namespace AlteredCarbon
                 {
                     AlteredCarbonManager.Instance.emptySleeves.Remove(pawn);
                 }
-                data.OverwritePawn(pawn, copyFromOrigPawn: false);
+                data.OverwritePawn(pawn);
                 pawn.health.AddHediff(hediff, part);
                 ApplyMindEffects(pawn, hediff);
             }

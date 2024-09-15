@@ -15,7 +15,7 @@ namespace AlteredCarbon
     {
         public enum NeuralConnectorMode
         {
-            NotSet, CreateNeuralPrint, CreateSkilltrainer
+            NotSet, RegisterStack, CreateNeuralPrint, CreateSkilltrainer
         }
 
         private NeuralConnectorMode connectorMode;
@@ -103,6 +103,10 @@ namespace AlteredCarbon
         {
             get
             {
+                if (connectorMode == NeuralConnectorMode.RegisterStack)
+                {
+                    return true;
+                }
                 if (!debugDisableNeedForIngredients)
                 {
                     for (int i = 0; i < def.building.subcoreScannerFixedIngredients.Count; i++)
@@ -241,9 +245,17 @@ namespace AlteredCarbon
             }
             else
             {
-                if (connectorMode == NeuralConnectorMode.CreateNeuralPrint && selPawn.HasNeuralStack(out _) is false)
+                var stack = selPawn.GetNeuralStack();
+                if ((connectorMode == NeuralConnectorMode.CreateNeuralPrint
+                    || connectorMode == NeuralConnectorMode.RegisterStack)
+                    && stack is null)
                 {
                     return "AC.RequiresNeuralStackInstalled".Translate();
+                }
+                if (connectorMode == NeuralConnectorMode.RegisterStack
+                    && stack.NeuralData.trackedToMatrix == ConnectedMatrix)
+                {
+                    return "AC.AlreadyRegisteredToMatrix".Translate();
                 }
                 if (connectorMode == NeuralConnectorMode.CreateSkilltrainer && selPawn.skills.skills.MaxBy(x => x.Level).Level < 10)
                 {
@@ -264,6 +276,7 @@ namespace AlteredCarbon
             }
             return true;
         }
+
 
         public override void TryAcceptPawn(Pawn pawn)
         {
@@ -295,6 +308,7 @@ namespace AlteredCarbon
             {
                 switch (connectorMode)
                 {
+                    case NeuralConnectorMode.RegisterStack: return 800;
                     case NeuralConnectorMode.CreateNeuralPrint: return 12500;
                     case NeuralConnectorMode.CreateSkilltrainer: return 20000;
                     default: return 0;
@@ -434,11 +448,20 @@ namespace AlteredCarbon
                     fabricationTicksLeft--;
                     if (fabricationTicksLeft <= 0)
                     {
-                        var skill = Occupant.skills.skills.Where(x => x.Level >= 10).RandomElement();
-                        var def = ThingDef.Named(ThingDefGenerator_Neurotrainer.NeurotrainerDefPrefix + "_" + skill.def.defName);
-                        var skilTrainer = ThingMaker.MakeThing(def);
-                        GenPlace.TryPlaceThing(skilTrainer, InteractionCell, Map, ThingPlaceMode.Near);
-                        Messages.Message("AC.CreatingSkilltrainerCompleted".Translate(Occupant.Named("PAWN")), Occupant, MessageTypeDefOf.PositiveEvent);
+                        if (connectorMode == NeuralConnectorMode.CreateSkilltrainer)
+                        {
+                            var skill = Occupant.skills.skills.Where(x => x.Level >= 10).RandomElement();
+                            var def = ThingDef.Named(ThingDefGenerator_Neurotrainer.NeurotrainerDefPrefix + "_" + skill.def.defName);
+                            var skilTrainer = ThingMaker.MakeThing(def);
+                            GenPlace.TryPlaceThing(skilTrainer, InteractionCell, Map, ThingPlaceMode.Near);
+                            Messages.Message("AC.CreatingSkilltrainerCompleted".Translate(Occupant.Named("PAWN")), Occupant, MessageTypeDefOf.PositiveEvent);
+                        }
+                        else if (connectorMode == NeuralConnectorMode.RegisterStack)
+                        {
+                            var stack = Occupant.GetNeuralStack();
+                            stack.NeuralData.trackedToMatrix = ConnectedMatrix;
+                            Messages.Message("AC.RegisteringStackCompleted".Translate(Occupant.Named("PAWN")), Occupant, MessageTypeDefOf.PositiveEvent);
+                        }
                         FinishWork();
                     }
                 }
@@ -484,7 +507,6 @@ namespace AlteredCarbon
                 effectHusk = null;
                 progressBarEffecter?.Cleanup();
                 progressBarEffecter = null;
-                connectorMode = NeuralConnectorMode.NotSet;
             }
             if (state == SubcoreScannerState.Occupied)
             {
@@ -532,11 +554,11 @@ namespace AlteredCarbon
                 command_Action.action = delegate
                 {
                     var floatList = new List<FloatMenuOption>();
-                    //floatList.Add(new FloatMenuOption("AC.CreateNeuralPrint".Translate(), delegate
-                    //{
-                    //    initScanner = true;
-                    //    connectorMode = NeuralConnectorMode.CreateNeuralPrint;
-                    //}, itemIcon: EmptyNeuralPrint, Color.white)); 
+                    floatList.Add(new FloatMenuOption("AC.RegisterStack".Translate(), delegate
+                    {
+                        initScanner = true;
+                        connectorMode = NeuralConnectorMode.RegisterStack;
+                    }, itemIcon: AC_DefOf.AC_ActiveNeuralStack.uiIcon, Color.white));
                     floatList.Add(new FloatMenuOption("AC.CreateSkilltrainer".Translate(), delegate
                     {
                         initScanner = true; 

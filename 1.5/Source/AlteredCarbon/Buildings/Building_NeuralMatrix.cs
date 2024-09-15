@@ -33,11 +33,15 @@ namespace AlteredCarbon
         public bool Powered => this.compPower.PowerOn;
         public float NeedleCastRangeBoost()
         {
+            var boost = 0f;
             if (Powered)
             {
-
+                foreach (var linked in LinkedBuildings.Where(x => x.def == AC_DefOf.AC_CastingRelay && x.TryGetComp<CompPowerTrader>().PowerOn))
+                {
+                    boost += 5f;
+                }
             }
-            return 0f;
+            return boost;
         }
         public IEnumerable<NeuralStack> StoredNeuralStacks => compCache.innerContainer.OfType<NeuralStack>();
         public IEnumerable<NeuralStack> AllNeuralStacks => AllNeuralCaches.SelectMany(x => x.innerContainer.OfType<NeuralStack>());
@@ -62,7 +66,7 @@ namespace AlteredCarbon
             }
         }
 
-        private IEnumerable<Gizmo> GetManageMatrix()
+        public IEnumerable<Gizmo> GetManageMatrix()
         {
             var manageNeuralMatrix = new Command_Action
             {

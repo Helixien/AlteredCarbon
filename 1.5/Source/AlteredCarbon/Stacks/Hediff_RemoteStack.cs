@@ -107,46 +107,26 @@ namespace AlteredCarbon
                 pawn.health.RemoveHediff(hediff);
             }
 
+            var needlePawnData = new NeuralData();
             originalPawnData = new NeuralData();
+            originalPawnData.CopyFromPawn(pawn, needlecastable.NeuralData.sourceStack, copyRaceGenderInfo: true);
             if (needlecastable is Hediff_NeuralStack source)
             {
                 this.sourceHediff = source;
-                originalPawnData.CopyFromPawn(pawn, source.SourceStack);
+                needlePawnData.CopyFromPawn(source.Pawn, source.SourceStack);
             }
             else if (needlecastable is NeuralStack stack)
             {
                 this.sourceStack = stack;
-                originalPawnData.CopyFromPawn(pawn, stack.def);
             }
-
-            var needlePawnData = new NeuralData();
             needlePawnData.CopyDataFrom(needlecastable.NeuralData);
             needlePawnData.OverwritePawn(pawn);
-        }
-
-        public override void Tick()
-        {
-            base.Tick();
-            if (pawn.IsHashIntervalTick(30))
-            {
-                if (Needlecasted)
-                {
-                    if (CanBeConnected(Source) is false)
-                    {
-                        EndNeedlecasting();
-                    }
-                    else
-                    {
-                        UpdateSourcePawn();
-                    }
-                }
-            }
         }
 
         public void EndNeedlecasting()
         {
             UpdateSourcePawn();
-            originalPawnData.OverwritePawn(pawn, copyFromOrigPawn: false);
+            originalPawnData.OverwritePawn(pawn);
             var source = Source;
             if (source is Hediff_NeuralStack hediff)
             {
@@ -168,21 +148,40 @@ namespace AlteredCarbon
             }
         }
 
+        public override void Tick()
+        {
+            base.Tick();
+            if (pawn.IsHashIntervalTick(30))
+            {
+                if (Needlecasted)
+                {
+                    if (CanBeConnected(Source) is false)
+                    {
+                        EndNeedlecasting();
+                    }
+                    else
+                    {
+                        UpdateSourcePawn();
+                    }
+                }
+            }
+        }
+
         private void UpdateSourcePawn()
         {
-            var newPawnData = new NeuralData();
+            var newSourceData = new NeuralData();
             var source = Source;
-            newPawnData.trackedToMatrix = source.NeuralData.trackedToMatrix;
+            newSourceData.trackedToMatrix = source.NeuralData.trackedToMatrix;
             if (source is Hediff_NeuralStack hediff)
             {
-                newPawnData.CopyFromPawn(pawn, hediff.SourceStack);
-                hediff.NeuralData = newPawnData;
-                newPawnData.OverwritePawn(hediff.pawn, copyFromOrigPawn: false);
+                newSourceData.CopyFromPawn(pawn, hediff.SourceStack);
+                hediff.NeuralData = newSourceData;
+                newSourceData.OverwritePawn(hediff.pawn);
             }
             else if (source is NeuralStack stack)
             {
-                newPawnData.CopyFromPawn(pawn, stack.def);
-                stack.NeuralData = newPawnData;
+                newSourceData.CopyFromPawn(pawn, stack.def);
+                stack.NeuralData = newSourceData;
             }
         }
 

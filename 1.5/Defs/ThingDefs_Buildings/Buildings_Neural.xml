@@ -92,9 +92,7 @@
 			</li>
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Breakdownable"/>
-			<li Class="CompProperties_Facility">
-				<maxSimultaneous>1</maxSimultaneous>
-			</li>
+			<li Class="CompProperties_Facility"></li>
 			<li Class="CompProperties_ThingContainer">
 				<compClass>AlteredCarbon.CompNeuralCache</compClass>
 				<stackLimit>10</stackLimit>

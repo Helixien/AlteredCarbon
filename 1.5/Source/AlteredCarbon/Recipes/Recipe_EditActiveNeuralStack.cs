@@ -38,7 +38,7 @@ namespace AlteredCarbon
             }
             else if (thing is Pawn pawn && pawn.HasNeuralStack(out var hediff))
             {
-                rewrittenData.OverwritePawn(pawn, copyFromOrigPawn: false);
+                rewrittenData.OverwritePawn(pawn);
                 hediff.NeuralData = rewrittenData;
             }
         }

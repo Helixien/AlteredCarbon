@@ -51,7 +51,7 @@ namespace AlteredCarbon
                 if (value.hostPawn != null)
                 {
                     value.CopyFromPawn(value.hostPawn, value.sourceStack);
-                    Log.Message("Copying from pawn: " + value.hostPawn);
+                    Log.Message("Copying from pawn: " + value.name.ToStringShort);
                 }
                 neuralData = value;
             }
