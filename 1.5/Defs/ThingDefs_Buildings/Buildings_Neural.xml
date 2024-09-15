@@ -4,7 +4,7 @@
 	<ThingDef ParentName="BuildingBase">
 		<defName>AC_NeuralMatrix</defName>
 		<label>neural matrix</label>
-		<description>A quantum computing array, designed to store cortical stacks and make backups of them that can be restored if needed. Cortical stacks can be duplicated, when placed inside the array. Backups are synced between arrays, allowing for multiple ones to be built. \n\nStack Arrays will make an automatic backup of any colony cortical stacks that are installed on the local map every 24 hours. Backups are restored to empty cortical stacks if the original stack is destroyed.</description>
+		<description>A quantum computing array, designed to store and manage neural stacks. Neural Stacks stored inside can needlecast and remotely control any sleeve with a remote stack installed./n/nA vast number of buildings can be connected to it to expand a neural matrix's functionality.</description>
 		<thingClass>AlteredCarbon.Building_NeuralMatrix</thingClass>
 		<tickerType>Normal</tickerType>
 		<drawerType>RealtimeOnly</drawerType>
