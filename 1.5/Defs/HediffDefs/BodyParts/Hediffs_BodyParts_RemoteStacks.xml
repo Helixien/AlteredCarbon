@@ -4,7 +4,7 @@
 	<ThingDef ParentName="AC_StackBase">
 		<defName>AC_RemoteStack</defName>
 		<label>Remote stack</label>
-		<description>text.todo</description>
+		<description>An ultratech implant which allows for a neural stack to cast its stored human consciousness remotely into the body it is installed in. It is required for a sleeve to become a viable needlecasting target.</description>
 		<graphicData>
 			<texPath>Things/Item/RemoteStack</texPath>
 			<graphicClass>Graphic_StackCount</graphicClass>
@@ -19,11 +19,6 @@
 			<ComponentSpacer>2</ComponentSpacer>
 		</costList>
 		<thingSetMakerTags Inherit="False"/>
-		<tradeTags Inherit="False">
-			<li>AC_StacksUltra</li>
-			<li MayRequire="Ludeon.RimWorld.Royalty">ImplantEmpireRoyal</li>
-			<li>ExoticMisc</li>
-		</tradeTags>
 		<modExtensions Inherit="False"/>
 	</ThingDef>
 	<!-- ================================ Remote Stack Hediff	====================== -->

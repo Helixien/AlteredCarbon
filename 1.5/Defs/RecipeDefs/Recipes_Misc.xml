@@ -53,6 +53,59 @@
 		</skillRequirements>
 		<displayPriority>15</displayPriority>
 	</RecipeDef>
+	<!-- ================================ Remote Stack - Crafting====================== -->
+	<RecipeDef>
+		<defName>AC_MakeRemoteNeuralStack</defName>
+		<label>Make remote stack</label>
+		<description>Make a remote stack.</description>
+		<jobString>Making remote stack.</jobString>
+		<workAmount>14500</workAmount>
+		<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+		<effectWorking>Cook</effectWorking>
+		<soundWorking>Recipe_Machining</soundWorking>
+		<unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentSpacer</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Plasteel</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>8</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>ComponentSpacer</li>
+				<li>Plasteel</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<AC_RemoteStack>1</AC_RemoteStack>
+		</products>
+		<researchPrerequisite>AC_NeuralDigitalization</researchPrerequisite>
+		<workSkill>Crafting</workSkill>
+		<skillRequirements>
+			<Crafting>10</Crafting>
+		</skillRequirements>
+		<displayPriority>16</displayPriority>
+	</RecipeDef>
 	<!-- ================================ Neurak Stacks - Destroy - Base ====================== -->
 	<RecipeDef Abstract="True" Name="AC_DestroyStacksBase">
 		<workSpeedStat>GeneralLaborSpeed</workSpeedStat>

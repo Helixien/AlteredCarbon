@@ -12,7 +12,7 @@
 	<ResearchProjectDef ParentName="AC_ResearchBase">
 		<defName>AC_SleeveGestation</defName>
 		<label>sleeve gestation</label>
-		<description>Develop biotechnologies to create highly customizable synthetic bodies called sleeves for usage with neural stacks.</description>
+		<description>Develop advanced biotechnologies to create highly customizable synthetic bodies called sleeves for usage with neural stacks.</description>
 		<baseCost>6000</baseCost>
 		<researchViewX>12.00</researchViewX>
 		<researchViewY>2.90</researchViewY>
@@ -24,7 +24,7 @@
 	<ResearchProjectDef ParentName="AC_ResearchBase">
 		<defName>AC_NeuralDigitalization</defName>
 		<label>neural digitalization</label>
-		<description>text.todo</description>
+		<description>Delve into neural technologies to create implants that can house a fully digitised human consciousness.</description>
 		<baseCost>4000</baseCost>
 		<researchViewX>17.00</researchViewX>
 		<researchViewY>0.00</researchViewY>
@@ -36,9 +36,21 @@
 	<ResearchProjectDef ParentName="AC_ResearchBase">
 		<defName>AC_NeuralEditing</defName>
 		<label>neural editing</label>
-		<description>text.todo.</description>
+		<description>Further advance in neural technologies to enable the manipulation and duplication of digitised human consciousnesses.</description>
 		<baseCost>5000</baseCost>
 		<researchViewX>18.00</researchViewX>
+		<researchViewY>0.00</researchViewY>
+		<prerequisites>
+			<li>AC_NeuralDigitalization</li>
+		</prerequisites>
+	</ResearchProjectDef>
+	<!-- ================================ Neural Casting ====================== -->
+	<ResearchProjectDef ParentName="AC_ResearchBase">
+		<defName>AC_NeuralEditing</defName>
+		<label>neural casting</label>
+		<description>text.todo</description>
+		<baseCost>5000</baseCost>
+		<researchViewX>18.50</researchViewX>
 		<researchViewY>0.00</researchViewY>
 		<prerequisites>
 			<li>AC_NeuralDigitalization</li>
