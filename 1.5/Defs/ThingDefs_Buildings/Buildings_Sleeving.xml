@@ -96,7 +96,7 @@
 	<ThingDef ParentName="FurnitureBase">
 		<defName>AC_SleeveCasket</defName>
 		<label>sleeve casket</label>
-		<description>An open sarcophagus-like suspender designed to keep a sleeve in a state of suspended animation while still allowing medical access, such as installing implants or bionics.</description>
+		<description>A specialised, enclosed sarcophagus-like suspender, designed to maintain a sleeve in a state of suspended animation while still permitting medical access for procedures such as implant installations or bionic enhancements.</description>
 		<descriptionHyperlinks>
 			<ThingDef>AC_SleeveGestator</ThingDef>
 			<ThingDef>AC_ActiveNeuralStack</ThingDef>
@@ -105,7 +105,7 @@
 		<graphicData>
 			<texPath>Things/Building/Furniture/Bed/SleeveCasket</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
-			<drawSize>(2,2)</drawSize>
+			<drawSize>(2.5,2.5)</drawSize>
 		</graphicData>
 		<size>(1,2)</size>
 		<uiIconPath>Things/Building/Furniture/Bed/SleeveCasket_MenuIcon</uiIconPath>
@@ -129,7 +129,7 @@
 			<WorkToBuild>6000</WorkToBuild>
 			<Mass>50</Mass>
 			<Flammability>0.5</Flammability>
-			<BedRestEffectiveness>1</BedRestEffectiveness>
+			<BedRestEffectiveness>0.5</BedRestEffectiveness>
 			<Comfort>0.5</Comfort>
 			<ImmunityGainSpeedFactor>1.11</ImmunityGainSpeedFactor>
 			<MedicalTendQualityOffset>0.10</MedicalTendQualityOffset>
@@ -137,7 +137,7 @@
 			<BirthRitualQualityOffset MayRequire="Ludeon.RimWorld.Biotech">3</BirthRitualQualityOffset>
 		</statBases>
 		<building>
-			<bed_showSleeperBody>false</bed_showSleeperBody>
+			<bed_showSleeperBody>true</bed_showSleeperBody>
 			<buildingSizeCategory>Small</buildingSizeCategory>
 			<bed_humanlike>true</bed_humanlike>
 			<bed_healPerDay>10</bed_healPerDay>
@@ -168,7 +168,6 @@
 			<li Class="CompProperties_AffectedByFacilities">
 				<linkableFacilities>
 					<li>VitalsMonitor</li>
-					<li MayRequire="Ludeon.RimWorld.Ideology">SleepAccelerator</li>
 				</linkableFacilities>
 			</li>
 			<li Class="CompProperties_Breakdownable"/>
