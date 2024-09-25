@@ -40,6 +40,7 @@
 			<ThingDef>AC_ActiveNeuralStack</ThingDef>
 			<ThingDef>AC_NeuralEditor</ThingDef>
 		</descriptionHyperlinks>
+		<uiOrder>5001</uiOrder>
 		<altitudeLayer>BuildingOnTop</altitudeLayer>
 		<neverMultiSelect>true</neverMultiSelect>
 		<designationCategory>Biotech</designationCategory>
@@ -92,7 +93,7 @@
 			</li>
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Breakdownable"/>
-			<li Class="CompProperties_Facility"></li>
+			<li Class="CompProperties_Facility"/>
 			<li Class="CompProperties_ThingContainer">
 				<compClass>AlteredCarbon.CompNeuralCache</compClass>
 				<stackLimit>10</stackLimit>
@@ -119,9 +120,6 @@
 		</graphicData>
 		<size>(3,1)</size>
 		<defaultPlacingRot>South</defaultPlacingRot>
-		<descriptionHyperlinks>
-			<ThingDef>AC_ActiveNeuralStack</ThingDef>
-		</descriptionHyperlinks>
 		<designationCategory>Biotech</designationCategory>
 		<statBases>
 			<Mass>20</Mass>
@@ -145,6 +143,10 @@
 			<Plasteel>10</Plasteel>
 			<ComponentSpacer>2</ComponentSpacer>
 		</costList>
+		<descriptionHyperlinks>
+			<ThingDef>AC_ActiveNeuralStack</ThingDef>
+		</descriptionHyperlinks>
+		<uiOrder>5000</uiOrder>
 		<castEdgeShadows>true</castEdgeShadows>
 		<staticSunShadowHeight>0.20</staticSunShadowHeight>
 		<hasInteractionCell>true</hasInteractionCell>
@@ -179,69 +181,6 @@
 				<linkableFacilities>
 					<li>AC_NeuralMatrix</li>
 				</linkableFacilities>
-			</li>
-		</comps>
-	</ThingDef>
-	<!-- ================================ Stack Cache ====================== -->
-	<ThingDef ParentName="BuildingBase">
-		<defName>AC_StackCache</defName>
-		<label>stack cache</label>
-		<description>This building can store stacks safely. When powered and connected to a neural matrix, it allows stored stacks to needlecast and slowly mend corruption.</description>
-		<tickerType>Rare</tickerType>
-		<graphicData>
-			<texPath>Things/Building/Misc/StackCache</texPath>
-			<graphicClass>Graphic_Multi</graphicClass>
-			<drawSize>(2, 2)</drawSize>
-		</graphicData>
-		<size>(2, 2)</size>
-		<castEdgeShadows>true</castEdgeShadows>
-		<passability>PassThroughOnly</passability>
-		<fillPercent>0.4</fillPercent>
-		<canOverlapZones>false</canOverlapZones>
-		<statBases>
-			<MaxHitPoints>400</MaxHitPoints>
-			<WorkToBuild>5000</WorkToBuild>
-			<Mass>50</Mass>
-			<Flammability>0.5</Flammability>
-		</statBases>
-		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
-		<costList>
-			<Steel>50</Steel>
-			<Plasteel>20</Plasteel>
-			<ComponentIndustrial>1</ComponentIndustrial>
-		</costList>
-		<researchPrerequisites>
-			<li>AC_NeuralDigitalization</li>
-		</researchPrerequisites>
-		<descriptionHyperlinks>
-			<ThingDef>AC_EmptyNeuralStack</ThingDef>
-			<ThingDef>AC_ActiveNeuralStack</ThingDef>
-			<ThingDef>AC_NeuralMatrix</ThingDef>
-		</descriptionHyperlinks>
-		<designationCategory>Biotech</designationCategory>
-		<inspectorTabs>
-			<li>AlteredCarbon.ITab_StackStorageContents</li>
-		</inspectorTabs>
-		<comps>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerTrader</compClass>
-				<basePowerConsumption>75</basePowerConsumption>
-			</li>
-			<li Class="CompProperties_Facility">
-				<maxSimultaneous>10</maxSimultaneous>
-				<maxDistance>12.9</maxDistance>
-				<showMaxSimultaneous>false</showMaxSimultaneous>
-			</li>
-			<li Class="CompProperties_AffectedByFacilities">
-				<linkableFacilities>
-					<li>AC_NeuralMatrix</li>
-				</linkableFacilities>
-			</li>
-			<li Class="CompProperties_Flickable"/>
-			<li Class="CompProperties_ThingContainer">
-				<compClass>AlteredCarbon.CompNeuralCache</compClass>
-				<stackLimit>10</stackLimit>
-				<drawContainedThing>false</drawContainedThing>
 			</li>
 		</comps>
 	</ThingDef>
@@ -280,6 +219,7 @@
 		<descriptionHyperlinks>
 			<ThingDef>AC_NeuralMatrix</ThingDef>
 		</descriptionHyperlinks>
+		<uiOrder>5002</uiOrder>
 		<containedPawnsSelectable>true</containedPawnsSelectable>
 		<passability>PassThroughOnly</passability>
 		<fillPercent>0.4</fillPercent>
@@ -366,6 +306,7 @@
 		<descriptionHyperlinks>
 			<ThingDef>AC_NeuralMatrix</ThingDef>
 		</descriptionHyperlinks>
+		<uiOrder>5003</uiOrder>
 		<rotatable>false</rotatable>
 		<canOverlapZones>false</canOverlapZones>
 		<fillPercent>0.4</fillPercent>
@@ -389,6 +330,70 @@
 				</linkableFacilities>
 			</li>
 			<li Class="CompProperties_Flickable"/>
+		</comps>
+	</ThingDef>
+	<!-- ================================ Stack Cache ====================== -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>AC_StackCache</defName>
+		<label>stack cache</label>
+		<description>This building can store stacks safely. When powered and connected to a neural matrix, it allows stored stacks to needlecast and slowly mend corruption.</description>
+		<tickerType>Rare</tickerType>
+		<graphicData>
+			<texPath>Things/Building/Misc/StackCache</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(2, 2)</drawSize>
+		</graphicData>
+		<size>(2, 2)</size>
+		<castEdgeShadows>true</castEdgeShadows>
+		<passability>PassThroughOnly</passability>
+		<fillPercent>0.4</fillPercent>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<MaxHitPoints>400</MaxHitPoints>
+			<WorkToBuild>5000</WorkToBuild>
+			<Mass>50</Mass>
+			<Flammability>0.5</Flammability>
+		</statBases>
+		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+		<costList>
+			<Steel>50</Steel>
+			<Plasteel>20</Plasteel>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</costList>
+		<researchPrerequisites>
+			<li>AC_NeuralDigitalization</li>
+		</researchPrerequisites>
+		<descriptionHyperlinks>
+			<ThingDef>AC_EmptyNeuralStack</ThingDef>
+			<ThingDef>AC_ActiveNeuralStack</ThingDef>
+			<ThingDef>AC_NeuralMatrix</ThingDef>
+		</descriptionHyperlinks>
+		<uiOrder>5004</uiOrder>
+		<designationCategory>Biotech</designationCategory>
+		<inspectorTabs>
+			<li>AlteredCarbon.ITab_StackStorageContents</li>
+		</inspectorTabs>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>75</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Facility">
+				<maxSimultaneous>10</maxSimultaneous>
+				<maxDistance>12.9</maxDistance>
+				<showMaxSimultaneous>false</showMaxSimultaneous>
+			</li>
+			<li Class="CompProperties_AffectedByFacilities">
+				<linkableFacilities>
+					<li>AC_NeuralMatrix</li>
+				</linkableFacilities>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_ThingContainer">
+				<compClass>AlteredCarbon.CompNeuralCache</compClass>
+				<stackLimit>10</stackLimit>
+				<drawContainedThing>false</drawContainedThing>
+			</li>
 		</comps>
 	</ThingDef>
 </Defs>
