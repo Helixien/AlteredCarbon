@@ -95,8 +95,6 @@ namespace AlteredCarbon
         public XenotypeDef OriginalXenotypeDef { get => originalXenotypeDef; set => originalXenotypeDef = value; }
         public string OriginalXenotypeName { get => originalXenotypeName; set => originalXenotypeName = value; }
 
-        private Gender? dummyGender;
-
         private int pawnID;
 
         // Royalty
@@ -188,17 +186,12 @@ namespace AlteredCarbon
                 dummyPawn = AC_Utils.CreateEmptyPawn(hostPawn?.kindDef ?? kindDef ?? PawnKindDefOf.Colonist,
                     faction, OriginalRace ?? ThingDefOf.Human, ticks, OriginalXenotypeDef != null
                     ? OriginalXenotypeDef : XenotypeDefOf.Baseliner);
-                dummyPawn.gender = dummyGender ?? originalGender;
+                dummyPawn.gender = originalGender;
             }
             dummyPawns.Add(dummyPawn);
-            if (hostPawn != null && hostPawn.Dead is false && hostPawn.IsEmptySleeve() is false)
-            {
-                CopyFromPawn(hostPawn, sourceStack);
-            }
             OverwritePawn(dummyPawn, changeGlobalData: false);
             if (hostPawn != null)
             {
-                dummyGender = hostPawn.gender;
                 AC_Utils.CopyBody(hostPawn, dummyPawn, copyAgeInfo: true, copyGenesFully: true);
                 dummyPawn.RefreshGraphic();
             }
@@ -794,7 +787,7 @@ namespace AlteredCarbon
         private Name GetNameCopy(Name other)
         {
             var name = GetNameCopyInt(other);
-            //Log.Message("Overwriting name: " + name?.ToStringShort + " - " + new StackTrace().ToString());
+            Log.Message("Overwriting name: " + name?.ToStringShort + " - " + new StackTrace().ToString());
             return name;
         }
 
@@ -1817,7 +1810,7 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref editTime, "editTime");
             Scribe_Values.Look(ref stackDegradation, "stackDegradation");
             Scribe_Values.Look(ref stackDegradationToAdd, "stackDegradationToAdd");
-            Scribe_Values.Look(ref dummyGender, "dummyGender");
+
             Scribe_Deep.Look(ref neuralDataRewritten, "neuralDataRewritten");
             Scribe_References.Look(ref trackedToMatrix, "trackedToMatrix");
             if (Scribe.mode == LoadSaveMode.PostLoadInit)

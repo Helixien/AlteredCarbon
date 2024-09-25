@@ -14,13 +14,13 @@ namespace AlteredCarbon
             looking = true;
             if (__instance.pawn.HasRemoteStack(out var remote) && remote.Needlecasted)
             {
-                if (remote.CanBeConnected(remote.Source) is false)
+                if (remote.GetConnectStatus(remote.Source) != ConnectStatus.Connectable)
                 {
                     remote.EndNeedlecasting();
                 }
             }
             else if (__instance.pawn.HasNeuralStack(out var neural) && neural.needleCastingInto != null 
-                && neural.needleCastingInto.CanBeConnected(neural) is false)
+                && neural.needleCastingInto.GetConnectStatus(neural) != ConnectStatus.Connectable)
             {
                 neural.needleCastingInto.EndNeedlecasting();
             }

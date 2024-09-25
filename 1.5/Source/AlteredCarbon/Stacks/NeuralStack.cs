@@ -398,18 +398,10 @@ namespace AlteredCarbon
         public Hediff_RemoteStack needleCastingInto;
         public Hediff_RemoteStack NeedleCastingInto => needleCastingInto;
         public bool Needlecasting => needleCastingInto != null;
-        public HashSet<Pawn> GetAllConnectablePawns()
+
+        public Dictionary<Pawn, ConnectStatus> GetAllConnectablePawns()
         {
-            var connectablePawns = new HashSet<Pawn>();
-            foreach (var otherPawn in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive)
-            {
-                if (otherPawn.HasRemoteStack(out var remoteStack) && remoteStack.Needlecasted is false
-                    && remoteStack.CanBeConnected(this))
-                {
-                    connectablePawns.Add(otherPawn);
-                }
-            }
-            return connectablePawns;
+            return AC_Utils.GetAllConnectablePawnsFor(this);
         }
 
         public void NeedlecastTo(LocalTargetInfo target)

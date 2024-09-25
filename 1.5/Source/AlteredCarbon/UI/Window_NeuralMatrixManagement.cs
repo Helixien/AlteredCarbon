@@ -92,6 +92,11 @@ namespace AlteredCarbon
 
         IEnumerable<StackState> GetStates(IStackHolder stackHolder)
         {
+            var needleCastable = stackHolder as INeedlecastable;
+            if (needleCastable.Needlecasting)
+            {
+                yield return StackState.Needlecasting;
+            }
             if (stackHolder.ThingHolder is NeuralStack neuralStack)
             {
                 if (neuralStack.ParentHolder is CompNeuralCache)
@@ -106,11 +111,6 @@ namespace AlteredCarbon
                 if (pawn.Dead)
                 {
                     yield return StackState.Dead;
-                }
-                var needleCastable = stackHolder as INeedlecastable;
-                if (needleCastable.Needlecasting)
-                {
-                    yield return StackState.Needlecasting;
                 }
                 if (pawn.IsLost())
                 {
@@ -401,14 +401,7 @@ namespace AlteredCarbon
                            () =>
                            {
                                var connectablePawns = needleCastable.GetAllConnectablePawns();
-                               var floatList = new List<FloatMenuOption>();
-                               foreach (var otherPawn in connectablePawns)
-                               {
-                                   floatList.Add(new FloatMenuOption(otherPawn.NameShortColored, delegate ()
-                                   {
-                                       needleCastable.NeedlecastTo(otherPawn);
-                                   }, iconThing: otherPawn, iconColor: Color.white));
-                               }
+                               var floatList = GetFloatList(needleCastable, connectablePawns);
                                Find.WindowStack.Add(new FloatMenu(floatList));
                            });
             }
@@ -424,6 +417,27 @@ namespace AlteredCarbon
             {
                 selectedStack = stack;
             }
+        }
+
+        public static List<FloatMenuOption> GetFloatList(INeedlecastable needleCastable, Dictionary<Pawn, ConnectStatus> connectablePawns)
+        {
+            var floatList = new List<FloatMenuOption>();
+            foreach (var otherPawn in connectablePawns)
+            {
+                if (otherPawn.Value != ConnectStatus.Connectable)
+                {
+                    var label = otherPawn.Key.LabelShort.Colorize(PawnNameColorUtility.PawnNameColorOf(otherPawn.Key)) + ": " + otherPawn.Value.GetLabel();
+                    floatList.Add(new FloatMenuOption(label, null, iconThing: otherPawn.Key, iconColor: Color.white));
+                }
+                else
+                {
+                    floatList.Add(new FloatMenuOption(otherPawn.Key.LabelShort.Colorize(PawnNameColorUtility.PawnNameColorOf(otherPawn.Key)), delegate ()
+                    {
+                        needleCastable.NeedlecastTo(otherPawn.Key);
+                    }, iconThing: otherPawn.Key, iconColor: Color.white));
+                }
+            }
+            return floatList;
         }
 
         private void DrawButton(Rect rect, Texture2D icon, string tooltip, bool isActive, Action action)

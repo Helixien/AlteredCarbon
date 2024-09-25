@@ -690,6 +690,36 @@ namespace AlteredCarbon
             return pawn.HasRemoteStack(out _);
         }
 
+        public static Dictionary<Pawn, ConnectStatus> GetAllConnectablePawnsFor(INeedlecastable needlecastable)
+        {
+            var connectablePawns = new Dictionary<Pawn, ConnectStatus>();
+            foreach (var otherPawn in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive)
+            {
+                if (otherPawn.HasRemoteStack(out var remoteStack) && remoteStack.Needlecasted is false)
+                {
+                    var connectStatus = remoteStack.GetConnectStatus(needlecastable);
+                    if (connectStatus != ConnectStatus.NotConnectable)
+                    {
+                        connectablePawns[otherPawn] = connectStatus;
+                    }
+                }
+            }
+            return connectablePawns;
+        }
+
+        public static string GetLabel(this ConnectStatus connectStatus)
+        {
+            if (connectStatus == ConnectStatus.OutOfRange)
+            {
+                return "AC.OutOfRange".Translate();
+            }
+            else if (connectStatus == ConnectStatus.Downed)
+            {
+                return "DownedLower".Translate();
+            }
+            return connectStatus.ToString();
+        }
+
         public static void ResetInitialComponents(this Pawn pawn)
         {
             pawn.records = new Pawn_RecordsTracker(pawn);
@@ -889,6 +919,13 @@ namespace AlteredCarbon
         {
             pawn.health.AddHediff(AC_DefOf.AC_EmptySleeve);
             AlteredCarbonManager.Instance.emptySleeves.Add(pawn);
+        }
+
+        public static void UndoEmptySleeve(this Pawn pawn)
+        {
+            AlteredCarbonManager.Instance.emptySleeves.Remove(pawn);
+            var hediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_EmptySleeve);
+            pawn.health.RemoveHediff(hediff);
         }
 
         public static void SetKillEffects(this Pawn pawn, bool disable)

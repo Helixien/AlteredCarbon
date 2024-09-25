@@ -33,7 +33,15 @@ namespace AlteredCarbon
         }
 
         public Thing ThingHolder => this;
-        public Pawn Pawn => NeuralData.DummyPawn;
+        public Pawn Pawn
+        {
+            get
+            {
+                NeuralData.RefreshDummyPawn();
+                return NeuralData.DummyPawn;
+            }
+        }
+
         protected GraphicData hostileGraphicData;
         protected GraphicData friendlyGraphicData;
         protected GraphicData strangerGraphicData;

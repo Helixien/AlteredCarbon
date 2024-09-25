@@ -9,10 +9,15 @@ using Verse;
 
 namespace AlteredCarbon
 {
+    public enum ConnectStatus
+    {
+        Connectable, OutOfRange, Downed, NotConnectable
+    }
+
     public interface INeedlecastable
     {
         public Thing ThingHolder { get; }
-        public HashSet<Pawn> GetAllConnectablePawns();
+        public Dictionary<Pawn, ConnectStatus> GetAllConnectablePawns();
         public bool Needlecasting { get; }
         public Hediff_RemoteStack NeedleCastingInto {  get; }
         public void NeedlecastTo(LocalTargetInfo target);
@@ -109,26 +114,17 @@ namespace AlteredCarbon
             }
         }
 
-        public HashSet<Pawn> GetAllConnectablePawns()
-        {
-            var connectablePawns = new HashSet<Pawn>();
-            foreach (var otherPawn in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive)
-            {
-                if (otherPawn.HasRemoteStack(out var remoteStack) && remoteStack.Needlecasted is false
-                    && remoteStack.CanBeConnected(this))
-                {
-                    connectablePawns.Add(otherPawn);
-                }
-            }
-            return connectablePawns;
-        }
-
         public void NeedlecastTo(LocalTargetInfo target)
         {
             needleCastingInto = target.Pawn.GetRemoteStack();
             NeuralData.CopyFromPawn(pawn, SourceStack);
             needleCastingInto.Needlecast(this);
             pawn.health.AddHediff(AC_DefOf.AC_NeedlecastingStasis);
+        }
+
+        public Dictionary<Pawn, ConnectStatus> GetAllConnectablePawns()
+        {
+            return AC_Utils.GetAllConnectablePawnsFor(this);
         }
 
         public override void PostAdd(DamageInfo? dinfo)

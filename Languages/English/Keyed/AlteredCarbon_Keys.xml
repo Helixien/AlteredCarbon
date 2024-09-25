@@ -149,6 +149,7 @@
 	<AC.Stored>Stored</AC.Stored>
 	<AC.Dormant>Dormant</AC.Dormant>
 	<AC.Lost>Lost</AC.Lost>
+	<AC.OutOfRange>Out of range</AC.OutOfRange>
 	<!-- ================================ Other ====================== -->
 	<AC.CommandCallsNeuroformers>Call psylink neuroformers</AC.CommandCallsNeuroformers>
 	<AC.SetBodyParts>Install body parts</AC.SetBodyParts>

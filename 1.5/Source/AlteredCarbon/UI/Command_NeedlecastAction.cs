@@ -19,7 +19,7 @@ namespace AlteredCarbon
             {
                 var sourcePawn = (source as Pawn);
                 var neuralStack = sourcePawn.GetNeuralStack();
-                return neuralStack.GetAllConnectablePawns().Cast<Thing>().ToHashSet();
+                return AC_Utils.GetAllConnectablePawnsFor(neuralStack).Select(x => x.Key).Cast<Thing>().ToHashSet();
             }
         }
 
@@ -27,13 +27,12 @@ namespace AlteredCarbon
         {
             get
             {
-                foreach (Pawn pawn in Things.OfType<Pawn>())
+                var sourcePawn = (source as Pawn);
+                var neuralStack = sourcePawn.GetNeuralStack();
+                var list = Window_NeuralMatrixManagement.GetFloatList(neuralStack, AC_Utils.GetAllConnectablePawnsFor(neuralStack));
+                foreach (var entry in list)
                 {
-                    yield return new FloatMenuOption(pawn.NameShortColored, delegate ()
-                    {
-                        info.action(pawn);
-                        Find.Targeter.StopTargeting();
-                    }, iconThing: pawn, iconColor: Color.white);
+                    yield return entry;
                 }
             }
         }

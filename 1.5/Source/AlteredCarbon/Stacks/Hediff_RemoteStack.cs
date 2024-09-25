@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RimWorld;
+using System.Collections.Generic;
 using System.Linq;
 using Verse;
 
@@ -23,39 +24,60 @@ namespace AlteredCarbon
             }
         }
 
-        public bool CanBeConnected(INeedlecastable needlecastable)
+        public ConnectStatus GetConnectStatus(INeedlecastable needlecastable)
         {
-            if (pawn.Dead || pawn.Downed && pawn.IsEmptySleeve() is false || pawn.IsLost())
+            if (pawn.Faction != Faction.OfPlayer && pawn.IsPrisonerOfColony is false 
+                && pawn.IsSlaveOfColony is false && pawn.IsEmptySleeve() is false)
             {
-                return false;
+                return ConnectStatus.NotConnectable;
+            }
+            if (pawn.Downed)
+            {
+                if (pawn.IsEmptySleeve())
+                {
+                    pawn.UndoEmptySleeve();
+                    if (pawn.Downed)
+                    {
+                        pawn.MakeEmptySleeve();
+                        return ConnectStatus.Downed;
+                    }
+                }
+                else
+                {
+                    return ConnectStatus.Downed;
+                }
+            }
+            if (pawn.Dead || pawn.IsLost())
+            {
+                return ConnectStatus.NotConnectable;
             }
             if (needlecastable is Hediff_NeuralStack hediff)
             {
                 if (hediff.pawn.Dead || hediff.pawn.IsLost())
                 {
-                    return false;
+                    return ConnectStatus.NotConnectable;
                 }
             }
             else if (needlecastable is NeuralStack stack)
             {
                 if (stack.Destroyed || stack.ParentHolder is not CompNeuralCache comp)
                 {
-                    return false;
+                    return ConnectStatus.NotConnectable;
                 }
                 else
                 {
                     var matrix = comp.GetMatrix();
                     if (matrix is null || matrix.Powered is false || stack.NeuralData.trackedToMatrix != matrix)
                     {
-                        return false;
+                        return ConnectStatus.NotConnectable;
                     }
                 }
             }
             if (!InNeedlecastingRange(needlecastable.ThingHolder))
             {
-                return false;
+                return ConnectStatus.OutOfRange;
             }
-            return true;
+            return ConnectStatus.Connectable;
         }
 
         public bool InNeedlecastingRange(Thing source)
@@ -102,9 +124,7 @@ namespace AlteredCarbon
             wasEmptySleeve = pawn.IsEmptySleeve();
             if (wasEmptySleeve)
             {
-                AlteredCarbonManager.Instance.emptySleeves.Remove(pawn);
-                var hediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_EmptySleeve);
-                pawn.health.RemoveHediff(hediff);
+                pawn.UndoEmptySleeve();
             }
 
             var needlePawnData = new NeuralData();
@@ -155,7 +175,7 @@ namespace AlteredCarbon
             {
                 if (Needlecasted)
                 {
-                    if (CanBeConnected(Source) is false)
+                    if (GetConnectStatus(Source) != ConnectStatus.Connectable)
                     {
                         EndNeedlecasting();
                     }
