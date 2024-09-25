@@ -37,8 +37,10 @@
 		<defName>AC_PainProtection</defName>
 		<label>pain protection</label>
 		<labelNoun>pain protection</labelNoun>
-		<description>text.todo</description>
+		<description>Dampened pain receptors due to usage of chrysalis-class armor. Vastly enhances the wearer's ability to tolerate injury and nullifies pain sensitivity, allowing for greater physical resilience.</description>
 		<hediffClass>HediffWithComps</hediffClass>
+		<defaultLabelColor>(0, 0.7, 0.95)</defaultLabelColor>
+		<isBad>false</isBad>
 		<stages>
 			<li>
 				<painFactor>0</painFactor>

@@ -15,11 +15,13 @@
 		<defName>AC_NeedlecastingStasis</defName>
 		<label>needlecasting stasis</label>
 		<description>A temporary comatose state that minimises metabolic activity while the caster operates a remote sleeve. The original body reawakens seamlessly once the connection is severed, resuming normal biological functions as the consciousness returns.</description>
+		<defaultLabelColor>(0, 0.91, 0.93)</defaultLabelColor>
 		<isBad>false</isBad>
 		<initialSeverity>1</initialSeverity>
 		<maxSeverity>1</maxSeverity>
 		<stages>
 			<li>
+				<label>active</label>
 				<painFactor>0</painFactor>
 				<capMods>
 					<li>
@@ -34,31 +36,69 @@
 	<HediffDef ParentName="AC_SleeveBase">
 		<defName>AC_NeedlecastingSickness</defName>
 		<label>needlecasting sickness</label>
-		<description>After-effects of needlecasting and controlling a remote sleeve.using a cryptosleep pod. Upon severing the connection, the body takes time to restart and rebalance its natural metabolic processes. While this is ongoing, the caster suffers from nausea and slight dizziness for a short time.</description>
+		<description>After-effects of needlecasting. Upon severing the connection, the body takes time to restart and rebalance its natural metabolic processes. While this is ongoing, the caster suffers from nausea and slight dizziness for a short time.</description>
+		<defaultLabelColor>(0.9, 1.0, 0.35)</defaultLabelColor>
 		<makesSickThought>true</makesSickThought>
 		<isBad>false</isBad>
+		<initialSeverity>1</initialSeverity>
+		<maxSeverity>1</maxSeverity>
 		<stages>
 			<li>
+				<label>wearing off</label>
+				<painFactor>0.95</painFactor>
 				<vomitMtbDays>0.135</vomitMtbDays>
 				<capMods>
 					<li>
 						<capacity>Consciousness</capacity>
-						<postFactor>0.1</postFactor>
+						<postFactor>0.75</postFactor>
 					</li>
 					<li>
 						<capacity>Moving</capacity>
-						<postFactor>0.1</postFactor>
+						<postFactor>-0.2</postFactor>
 					</li>
 					<li>
 						<capacity>Manipulation</capacity>
-						<postFactor>0.1</postFactor>
+						<postFactor>-0.2</postFactor>
+					</li>
+					<li>
+						<capacity>Talking</capacity>
+						<offset>-0.05</offset>
 					</li>
 				</capMods>
+			</li>
+			<li>
+				<minSeverity>0.5</minSeverity>
+				<label>disoriented</label>
+				<vomitMtbDays>0.25</vomitMtbDays>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<postFactor>0.95</postFactor>
+					</li>
+					<li>
+						<capacity>Moving</capacity>
+						<postFactor>-0.5</postFactor>
+					</li>
+					<li>
+						<capacity>Manipulation</capacity>
+						<postFactor>-0.5</postFactor>
+					</li>
+					<li>
+						<capacity>Talking</capacity>
+						<offset>-0.2</offset>
+					</li>
+				</capMods>
+				<mentalStateGivers>
+					<li>
+						<mentalState>WanderConfused</mentalState>
+						<mtbDays>25</mtbDays>
+					</li>
+				</mentalStateGivers>
 			</li>
 		</stages>
 		<comps>
 			<li Class="HediffCompProperties_Disappears">
-				<disappearsAfterTicks>2000~5000</disappearsAfterTicks>
+				<disappearsAfterTicks>2500~6000</disappearsAfterTicks>
 				<showRemainingTime>true</showRemainingTime>
 			</li>
 		</comps>
