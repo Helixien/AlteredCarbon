@@ -816,6 +816,7 @@ namespace AlteredCarbon
                 pawn.kindDef = kindDef;
             }
             PawnComponentsUtility.CreateInitialComponents(pawn);
+            PawnComponentsUtility.AddAndRemoveDynamicComponents(pawn);
             if (pawn.Faction != faction)
             {
                 pawn.SetFaction(faction);
@@ -851,7 +852,6 @@ namespace AlteredCarbon
             SetGuestData(pawn);
             SetPawnSettings(pawn);
             SetHediffs(pawn);
-            pawn.needs.AddOrRemoveNeedsAsAppropriate();
 
             if (ModCompatibility.IndividualityIsActive)
             {
@@ -899,7 +899,7 @@ namespace AlteredCarbon
 
         private void ResetRelationships(Pawn pawn)
         {
-            foreach (var rel in pawn.relations.directRelations)
+            foreach (var rel in pawn.relations.directRelations.ToList())
             {
                 rel.otherPawn.relations.directRelations.RemoveAll(x => x.otherPawn == pawn);
             }
@@ -1325,10 +1325,7 @@ namespace AlteredCarbon
                 }
             }
 
-            if (favoriteColor.HasValue)
-            {
-                pawn.story.favoriteColor = favoriteColor.Value;
-            }
+            pawn.story.favoriteColor = favoriteColor;
         }
 
         private void AssignRoyaltyData(Pawn pawn)

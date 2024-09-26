@@ -51,7 +51,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="RJW">
-      <HintPath>..\..\..\..\rjw-master\1.4\Assemblies\RJW.dll</HintPath>
+      <HintPath>..\..\..\..\rjw-master\1.5\Assemblies\RJW.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SyrTraits">
@@ -317,7 +317,7 @@
       <Version>2.3.3</Version>
       <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <Publicize Include="Assembly-CSharp;VAspirE" />
+    <Publicize Include="Assembly-CSharp;VAspirE;RJW" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="NeuralPrint%28disabled%29\" />
