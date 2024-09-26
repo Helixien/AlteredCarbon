@@ -93,6 +93,7 @@
 				</li>
 			</options>
 		</colorGenerator>
+		<tickerType>Normal</tickerType>
 		<comps>
 			<li Class="VFECore.CompProperties_ApparelHediffs">
 				<hediffDefnames>

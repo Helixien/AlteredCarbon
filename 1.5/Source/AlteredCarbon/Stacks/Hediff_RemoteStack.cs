@@ -146,6 +146,7 @@ namespace AlteredCarbon
         public void EndNeedlecasting()
         {
             UpdateSourcePawn();
+            pawn.health.AddHediff(AC_DefOf.AC_NeedlecastingSickness);
             originalPawnData.OverwritePawn(pawn);
             var source = Source;
             if (source is Hediff_NeuralStack hediff)

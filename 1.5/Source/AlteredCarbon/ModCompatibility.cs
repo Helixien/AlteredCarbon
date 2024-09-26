@@ -136,7 +136,7 @@ namespace AlteredCarbon
 
         public static List<string> GetAspirations(Pawn pawn)
         {
-			var need = pawn.needs.TryGetNeed<VAspirE.Need_Fulfillment>();
+			var need = pawn?.needs?.TryGetNeed<VAspirE.Need_Fulfillment>();
             if (need != null)
             {
 				var list = new List<string>();
@@ -151,7 +151,7 @@ namespace AlteredCarbon
 
         public static void SetAspirations(Pawn pawn, List<string> aspirations)
         {
-            var need = pawn.needs.TryGetNeed<VAspirE.Need_Fulfillment>();
+            var need = pawn?.needs?.TryGetNeed<VAspirE.Need_Fulfillment>();
             if (need != null)
             {
 				need.Aspirations.Clear();
@@ -171,7 +171,7 @@ namespace AlteredCarbon
 
         public static List<int> GetCompletedAspirations(Pawn pawn)
         {
-            var need = pawn.needs.TryGetNeed<VAspirE.Need_Fulfillment>();
+            var need = pawn?.needs?.TryGetNeed<VAspirE.Need_Fulfillment>();
             if (need != null)
             {
                 return need.completedTicks.ToList();
@@ -181,7 +181,7 @@ namespace AlteredCarbon
 
         public static void SetCompletedAspirations(Pawn pawn, List<int> completedTicks)
         {
-            var need = pawn.needs.TryGetNeed<VAspirE.Need_Fulfillment>();
+            var need = pawn?.needs?.TryGetNeed<VAspirE.Need_Fulfillment>();
             if (need != null)
             {
                 need.completedTicks.Clear();

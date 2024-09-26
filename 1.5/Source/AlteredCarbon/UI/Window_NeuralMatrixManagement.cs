@@ -93,7 +93,8 @@ namespace AlteredCarbon
         IEnumerable<StackState> GetStates(IStackHolder stackHolder)
         {
             var needleCastable = stackHolder as INeedlecastable;
-            if (needleCastable.Needlecasting)
+            bool needlecasting = needleCastable.Needlecasting;
+            if (needlecasting)
             {
                 yield return StackState.Needlecasting;
             }
@@ -103,7 +104,9 @@ namespace AlteredCarbon
                 {
                     yield return StackState.Stored;
                 }
-                yield return StackState.Dormant;
+                if (needlecasting is false)
+
+                    yield return StackState.Dormant;
             }
             else if (stackHolder.ThingHolder is Pawn pawn)
             {
@@ -277,9 +280,6 @@ namespace AlteredCarbon
             }
         }
 
-
-        private Dictionary<IStackHolder, (Thing thing, TaggedString pawnName, string factionName)> cachedValues = new();
-
         private static readonly Texture2D addIcon = ContentFinder<Texture2D>.Get("UI/Icons/Add", true);
         private static readonly Texture2D cancelIcon = ContentFinder<Texture2D>.Get("UI/Icons/Cancel", true);
         private static readonly Texture2D needlecastIcon = ContentFinder<Texture2D>.Get("UI/Icons/Needlecast", true);
@@ -289,17 +289,18 @@ namespace AlteredCarbon
 
         private void DrawStackEntry(Rect rect, IStackHolder stack)
         {
-            if (cachedValues.TryGetValue(stack, out var cache) is false || true)
+            var data = stack.NeuralData;
+            var thing = stack.ThingHolder;
+            if (thing is Pawn && thing.Spawned is false && thing.ParentHolder is Thing holderThing)
             {
-                var data = stack.NeuralData;
-                var thing = stack.ThingHolder;
-                if (thing is Pawn && thing.Spawned is false && thing.ParentHolder is Thing holderThing)
-                {
-                    thing = holderThing;
-                }
-                cachedValues[stack] = cache = new(thing, data.PawnNameColored, data.faction?.Name);
+                thing = holderThing;
             }
-
+            var needleCastingInto = (stack as INeedlecastable).NeedleCastingInto;
+            if (needleCastingInto != null)
+            {
+                thing = needleCastingInto.pawn;
+            }
+            (Thing thing, TaggedString pawnName, string factionName) cache = new(thing, data.PawnNameColored, data.faction?.Name);
             Rect iconRect = new(rect.x, rect.y, rect.height, rect.height);
             Widgets.ThingIcon(iconRect, cache.thing);
 
@@ -383,27 +384,30 @@ namespace AlteredCarbon
                 }
             }
 
+            if (stack.NeuralData.trackedToMatrix == matrix)
+            {
+                bool isNeedlecastingButtonActive = true;
+                if (neuralStack != null && neuralStack.ParentHolder is not CompNeuralCache)
+                {
+                    isNeedlecastingButtonActive = false;
+                }
 
-            bool isNeedlecastingButtonActive = true;
-            if (neuralStack != null && neuralStack.ParentHolder is not CompNeuralCache)
-            {
-                isNeedlecastingButtonActive = false;
-            }
-            if (needleCasting)
-            {
-                DrawButton(iconRectWithOffset, cancelIcon, "AC.TooltipStopNeedlecasting".Translate(cache.pawnName, needleCastable.NeedleCastingInto.originalPawnData.name.ToStringShort),
-                           isNeedlecastingButtonActive, () => needleCastable.NeedleCastingInto.EndNeedlecasting());
-            }
-            else
-            {
-                DrawButton(iconRectWithOffset, needlecastIcon, "AC.TooltipNeedlecast".Translate(cache.pawnName),
-                           isNeedlecastingButtonActive,
-                           () =>
-                           {
-                               var connectablePawns = needleCastable.GetAllConnectablePawns();
-                               var floatList = GetFloatList(needleCastable, connectablePawns);
-                               Find.WindowStack.Add(new FloatMenu(floatList));
-                           });
+                if (needleCasting)
+                {
+                    DrawButton(iconRectWithOffset, cancelIcon, "AC.TooltipStopNeedlecasting".Translate(cache.pawnName, needleCastable.NeedleCastingInto.originalPawnData.name.ToStringShort),
+                               isNeedlecastingButtonActive, () => needleCastable.NeedleCastingInto.EndNeedlecasting());
+                }
+                else
+                {
+                    DrawButton(iconRectWithOffset, needlecastIcon, "AC.TooltipNeedlecast".Translate(cache.pawnName),
+                               isNeedlecastingButtonActive,
+                               () =>
+                               {
+                                   var connectablePawns = needleCastable.GetAllConnectablePawns();
+                                   var floatList = GetFloatList(needleCastable, connectablePawns);
+                                   Find.WindowStack.Add(new FloatMenu(floatList));
+                               });
+                }
             }
 
             if (Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.clickCount == 2
@@ -433,6 +437,7 @@ namespace AlteredCarbon
                 {
                     floatList.Add(new FloatMenuOption(otherPawn.Key.LabelShort.Colorize(PawnNameColorUtility.PawnNameColorOf(otherPawn.Key)), delegate ()
                     {
+                        Find.Targeter.StopTargeting();
                         needleCastable.NeedlecastTo(otherPawn.Key);
                     }, iconThing: otherPawn.Key, iconColor: Color.white));
                 }

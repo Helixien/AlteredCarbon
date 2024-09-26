@@ -851,6 +851,7 @@ namespace AlteredCarbon
             SetGuestData(pawn);
             SetPawnSettings(pawn);
             SetHediffs(pawn);
+            pawn.needs.AddOrRemoveNeedsAsAppropriate();
 
             if (ModCompatibility.IndividualityIsActive)
             {
