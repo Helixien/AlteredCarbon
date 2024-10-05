@@ -10,7 +10,7 @@ namespace AlteredCarbon
     {
         public static void Postfix(Building_CryptosleepCasket __instance, Thing thing, bool __result)
         {
-            if (__result && thing is Pawn pawn && pawn.HasNeuralStack(out var neural))
+            if (__result && thing is Pawn pawn && pawn.Faction == Faction.OfPlayer && pawn.HasNeuralStack(out var neural))
             {
                 var comp = __instance.GetComp<CompAffectedByFacilities>();
                 if (comp != null)

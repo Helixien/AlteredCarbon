@@ -442,6 +442,10 @@ namespace AlteredCarbon
                     }, iconThing: otherPawn.Key, iconColor: Color.white));
                 }
             }
+            if (connectablePawns.Any() is false)
+            {
+                floatList.Add(new FloatMenuOption("None".Translate(), null));
+            }
             return floatList;
         }
 

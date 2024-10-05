@@ -87,7 +87,7 @@ namespace AlteredCarbon
 
         public void Notify_HauledTo(Pawn hauler, Thing thing, int count)
         {
-            if (thing is NeuralStack stack)
+            if (thing is NeuralStack stack && stack.NeuralData.faction == Faction.OfPlayer)
             {
                 var matrix = GetMatrix();
                 if (matrix != null)
