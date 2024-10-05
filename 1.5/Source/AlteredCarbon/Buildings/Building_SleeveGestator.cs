@@ -483,13 +483,14 @@ namespace AlteredCarbon
             {
                 pawn.CreateEmptySleeve(keepNaturalAbilities: true, keepPsycastAbilities: true);
                 ResurrectionUtility.TryResurrect(pawn);
+                pawn.DeSpawn();
                 innerContainer.TryAddOrTransfer(pawn);
                 if (Find.WorldPawns.Contains(pawn))
                 {
                     Find.WorldPawns.RemovePawn(pawn);
                 }
             }
-            AlteredCarbonManager.Instance.emptySleeves.Add(pawn);
+            pawn.health.healthState = PawnHealthState.Mobile;
             Messages.Message("AC.FinishedGrowingSleeve".Translate(), this, MessageTypeDefOf.CautionInput);
             pawn.RefreshGraphic();
         }
@@ -529,8 +530,8 @@ namespace AlteredCarbon
 
         public override void EjectContents()
         {
-            base.EjectContents();
             var pawn = InnerPawn;
+            base.EjectContents();
             PawnComponentsUtility.AddComponentsForSpawn(pawn);
             pawn.filth.GainFilth(ThingDefOf.Filth_Slime);
             pawn.MakeEmptySleeve();

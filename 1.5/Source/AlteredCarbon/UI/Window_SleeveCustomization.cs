@@ -193,6 +193,7 @@ namespace AlteredCarbon
             {
                 curSleeve.ageTracker.AgeBiologicalTicks = (long)Mathf.FloorToInt(sleeveAge * 3600000f);
                 curSleeve.ageTracker.AgeChronologicalTicks = curSleeve.ageTracker.AgeBiologicalTicks;
+                RecheckEverything();
             }
             label = "SelectXenogerm".Translate() + ":";
             labelRect = GetLabelRect(label, ref firstColumnPos);
@@ -221,7 +222,6 @@ namespace AlteredCarbon
                     }
                     convertedGenes = new List<Gene>();
                     RecheckBodyOptions();
-                    InitializeIndexes();
                 }));
             }
 
@@ -235,8 +235,8 @@ namespace AlteredCarbon
                         var oldRace = currentPawnKindDef.race;
                         currentPawnKindDef.race = x;
                         CreateSleeve(curSleeve.gender);
-                        raceTypeIndex = permittedRaces.IndexOf(x);
                         currentPawnKindDef.race = oldRace;
+
                     }, floatMenu: false);
             }
 
@@ -260,7 +260,6 @@ namespace AlteredCarbon
                         {
                             GeneUtils.ApplyGene(x, curSleeve, IsXenogene(x));
                             RecheckEverything();
-                            indexesPerCategory[category.Key] = groupedGenes.IndexOf(x);
                         }, floatMenu: false);
                 }
             }
@@ -333,7 +332,6 @@ namespace AlteredCarbon
                         curSleeve.story.headType = selected.Value;
                     }
                     RecheckEverything();
-                    headTypeIndex = permittedHeads.IndexOf(selected);
                 }, floatMenu: true);
 
             if (curSleeve.gender == Gender.Male)
@@ -351,7 +349,6 @@ namespace AlteredCarbon
                             curSleeve.story.bodyType = x.Value;
                         }
                         RecheckEverything();
-                        maleBodyTypeIndex = permittedBodyTypes.IndexOf(x);
                     }, floatMenu: true);
             }
             else if (curSleeve.gender == Gender.Female)
@@ -369,7 +366,6 @@ namespace AlteredCarbon
                             curSleeve.story.bodyType = x.Value;
                         }
                         RecheckEverything();
-                        femaleBodyTypeIndex = permittedBodyTypes.IndexOf(x);
                     }, floatMenu: true);
             }
             var permittedHairs = GetPermittedHairs();
@@ -398,7 +394,6 @@ namespace AlteredCarbon
                 {
                     curSleeve.story.hairDef = x;
                     RecheckEverything();
-                    hairTypeIndex = permittedHairs.IndexOf(x);
                 }, floatMenu: false);
             }
             var permittedBeards = GetPermittedBeards();
@@ -407,7 +402,6 @@ namespace AlteredCarbon
                 {
                     curSleeve.style.beardDef = x;
                     RecheckEverything();
-                    beardTypeIndex = permittedBeards.IndexOf(x);
                 }, floatMenu: false);
 
             DoSelectionButtons(ref firstColumnPos, "AC.SleeveQuality".Translate(), ref sleeveQualityIndex,
@@ -661,7 +655,6 @@ namespace AlteredCarbon
         public void RecheckEverything()
         {
             RecheckBodyOptions();
-            InitializeIndexes();
             UpdateGrowCost();
         }
 
@@ -671,7 +664,6 @@ namespace AlteredCarbon
             var permittedBodyTypes = GetPermittedBodyTypes(true).Select(x => x.Value).ToList();
             var permittedHairs = GetPermittedHairs();
             var permittedBeards = GetPermittedBeards();
-
             if (permittedHeads.Contains(curSleeve.story.headType) is false)
             {
                 curSleeve.story.headType = permittedHeads.RandomElement();
@@ -680,7 +672,6 @@ namespace AlteredCarbon
             {
                 curSleeve.story.bodyType = permittedBodyTypes.RandomElement();
             }
-
             if (curSleeve.story.hairDef != null && permittedHairs.Contains(curSleeve.story.hairDef) is false)
             {
                 curSleeve.story.hairDef = permittedHairs.RandomElement();
@@ -688,6 +679,43 @@ namespace AlteredCarbon
             if (curSleeve.style.beardDef != null && permittedBeards.Contains(curSleeve.style.beardDef) is false)
             {
                 curSleeve.style.beardDef = permittedBeards.RandomElement();
+            }
+            hairTypeIndex = permittedHairs.IndexOf(curSleeve.story.hairDef);
+            beardTypeIndex = permittedBeards.IndexOf(curSleeve.style.beardDef);
+            headTypeIndex = permittedHeads.IndexOf(curSleeve.story.headType);
+            indexesPerCategory = new Dictionary<string, int>();
+            var genes = curSleeve.genes.GenesListForReading.Where(x => x.def.exclusionTags.NullOrEmpty() is false).Select(x => x.def).ToList();
+            foreach (var gene in genes)
+            {
+                foreach (var tag in gene.exclusionTags)
+                {
+                    var genesOfThisTag = curSleeve.genes.GenesListForReading.Where(x => x.def.exclusionTags.NullOrEmpty() is false
+                        && x.def.exclusionTags.Contains(tag)).ToList();
+                    var activeGene = genesOfThisTag.FirstOrDefault(x => x.Active);
+                    indexesPerCategory[tag] = genesOfThisTag.IndexOf(activeGene);
+                }
+            }
+
+            if (ModCompatibility.AlienRacesIsActive)
+            {
+                raceTypeIndex = ModCompatibility.GetPermittedRaces().IndexOf(curSleeve.def);
+            }
+
+            if (curSleeve.gender == Gender.Male)
+            {
+                maleBodyTypeIndex = permittedBodyTypes.IndexOf(curSleeve.story.bodyType);
+            }
+            else if (curSleeve.gender == Gender.Female)
+            {
+                femaleBodyTypeIndex = permittedBodyTypes.IndexOf(curSleeve.story.bodyType);
+            }
+
+            foreach (var gene in AC_Utils.sleeveQualities)
+            {
+                if (curSleeve.genes.GetGene(gene) != null)
+                {
+                    sleeveQualityIndex = AC_Utils.sleeveQualities.IndexOf(gene);
+                }
             }
         }
 
@@ -902,7 +930,7 @@ namespace AlteredCarbon
                 }
             }
             currentPawnKindDef = curSleeve.kindDef;
-            InitializeIndexes();
+            RecheckBodyOptions();
         }
 
         private Xenogerm TryFindXenogerm(List<GeneDef> xenogenes)
@@ -918,46 +946,6 @@ namespace AlteredCarbon
             return null;
         }
 
-        private void InitializeIndexes()
-        {
-            hairTypeIndex = GetPermittedHairs().IndexOf(curSleeve.story.hairDef);
-            beardTypeIndex = GetPermittedBeards().IndexOf(curSleeve.style.beardDef);
-            headTypeIndex = GetPermittedHeads().Select(x => x.Value).ToList().IndexOf(curSleeve.story.headType);
-            indexesPerCategory = new Dictionary<string, int>();
-            var genes = curSleeve.genes.GenesListForReading.Where(x => x.def.exclusionTags.NullOrEmpty() is false).Select(x => x.def).ToList();
-            foreach (var gene in genes)
-            {
-                foreach (var tag in gene.exclusionTags)
-                {
-                    var genesOfThisTag = curSleeve.genes.GenesListForReading.Where(x => x.def.exclusionTags.NullOrEmpty() is false
-                        && x.def.exclusionTags.Contains(tag)).ToList();
-                    var activeGene = genesOfThisTag.FirstOrDefault(x => x.Active);
-                    indexesPerCategory[tag] = genesOfThisTag.IndexOf(activeGene);
-                }
-            }
-
-            if (ModCompatibility.AlienRacesIsActive)
-            {
-                raceTypeIndex = ModCompatibility.GetPermittedRaces().IndexOf(curSleeve.def);
-            }
-
-            if (curSleeve.gender == Gender.Male)
-            {
-                maleBodyTypeIndex = GetPermittedBodyTypes().Select(x => x.Value).ToList().IndexOf(curSleeve.story.bodyType);
-            }
-            else if (curSleeve.gender == Gender.Female)
-            {
-                femaleBodyTypeIndex = GetPermittedBodyTypes().Select(x => x.Value).ToList().IndexOf(curSleeve.story.bodyType);
-            }
-
-            foreach (var gene in AC_Utils.sleeveQualities)
-            {
-                if (curSleeve.genes.GetGene(gene) != null)
-                {
-                    sleeveQualityIndex = AC_Utils.sleeveQualities.IndexOf(gene);
-                }
-            }
-        }
         private void CreateSleeve(Gender gender)
         {
             curXenogerm = null;

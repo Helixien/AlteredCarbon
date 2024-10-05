@@ -925,7 +925,10 @@ namespace AlteredCarbon
         {
             AlteredCarbonManager.Instance.emptySleeves.Remove(pawn);
             var hediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_EmptySleeve);
-            pawn.health.RemoveHediff(hediff);
+            if (hediff != null)
+            {
+                pawn.health.RemoveHediff(hediff);
+            }
         }
 
         public static void SetKillEffects(this Pawn pawn, bool disable)

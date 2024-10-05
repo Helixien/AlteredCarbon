@@ -787,7 +787,7 @@ namespace AlteredCarbon
         private Name GetNameCopy(Name other)
         {
             var name = GetNameCopyInt(other);
-            Log.Message("Overwriting name: " + name?.ToStringShort + " - " + new StackTrace().ToString());
+            //Log.Message("Overwriting name: " + name?.ToStringShort + " - " + new StackTrace().ToString());
             return name;
         }
 

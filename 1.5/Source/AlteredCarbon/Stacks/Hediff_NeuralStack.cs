@@ -229,6 +229,11 @@ namespace AlteredCarbon
                     preventSpawningStack = false;
                     return null;
                 }
+                if (def != AC_DefOf.AC_ArchotechStack && placeMode == ThingPlaceMode.Direct 
+                    && pawn.Corpse is Corpse corpse && corpse.Destroyed is false)
+                {
+                    placeMode = ThingPlaceMode.Near;
+                }
                 var healthRatio = partHealth / part.def.GetMaxHealth(pawn);
                 var stackDef = SourceStack;
                 var neuralStack = ThingMaker.MakeThing(stackDef) as NeuralStack;
@@ -250,10 +255,6 @@ namespace AlteredCarbon
                 else if (caravan != null)
                 {
                     CaravanInventoryUtility.GiveThing(caravan, neuralStack);
-                }
-                else
-                {
-                    Log.Error("Failed to spawn neural stack from " + pawn);
                 }
                 var degradationHediff = pawn.health.hediffSet.GetFirstHediff<Hediff_StackDegradation>();
                 if (degradationHediff != null)

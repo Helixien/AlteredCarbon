@@ -105,13 +105,14 @@ namespace AlteredCarbon
                     dummyPawn.Kill(null, hediff);
                     dummyPawn.Corpse.DeSpawn();
                 }
+                else
+                {
+                    pawn.UndoEmptySleeve();
+                }
 
                 AlteredCarbonManager.Instance.StacksIndex.Remove(data.PawnID);
                 AlteredCarbonManager.Instance.ReplaceStackWithPawn(neuralStack, pawn);
-                if (AlteredCarbonManager.Instance.emptySleeves.Contains(pawn))
-                {
-                    AlteredCarbonManager.Instance.emptySleeves.Remove(pawn);
-                }
+
                 data.OverwritePawn(pawn);
                 pawn.health.AddHediff(hediff, part);
                 ApplyMindEffects(pawn, hediff);

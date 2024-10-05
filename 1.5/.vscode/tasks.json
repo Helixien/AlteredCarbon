@@ -1,0 +1,27 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+		{
+			"label": "SaveAllFiles",
+			"command": "${command:workbench.action.files.saveAll}",
+			"type": "shell",
+			"problemMatcher": []
+		},
+        {
+            "label": "build",
+            "type": "process",
+            "command": "dotnet",
+            "args": [
+                "build",
+                "${workspaceFolder}/Source/AlteredCarbon/AlteredCarbon.csproj"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+			"dependsOrder": "sequence",   // need this, "parallel" is the default otherwise
+            "dependsOn": "Save All Files"  // Add this line to ensure saving happens before build
+        }
+    ]
+}

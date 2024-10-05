@@ -24,9 +24,9 @@ namespace AlteredCarbon
                 {
                     stackGroup.Value.deadPawns.Remove(___pawn);
                     stackGroup.Value.copiedPawns.Add(___pawn);
-                    if (AlteredCarbonManager.Instance.emptySleeves.Contains(___pawn))
+                    if (___pawn.IsEmptySleeve())
                     {
-                        AlteredCarbonManager.Instance.emptySleeves.Remove(___pawn);
+                        ___pawn.UndoEmptySleeve();
                     }
                     AlteredCarbonManager.Instance.TryAddRelationships(___pawn, stackGroup.Value);
                     ___pawn.health.AddHediff(AC_DefOf.AC_BrainTrauma, ___pawn.health.hediffSet.GetBrain());
