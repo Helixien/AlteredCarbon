@@ -13,6 +13,7 @@ using Verse.AI;
 namespace AlteredCarbon
 {
     [HotSwappable]
+    [StaticConstructorOnStartup]
     public class NeuralData : IExposable
     {
         public NeuralData neuralDataRewritten;
@@ -78,7 +79,8 @@ namespace AlteredCarbon
         private Battle battleActive;
         private int battleExitTick;
 
-        public List<Hediff> savedHediffs = new List<Hediff>();
+        private List<Hediff> savedHediffs = new List<Hediff>();
+        private List<AbilityDef> abilities = new List<AbilityDef>();
 
         public bool ContainsData => hostPawn != null || name != null;
 
@@ -111,7 +113,6 @@ namespace AlteredCarbon
         private float targetPsyfocus = 0.5f;
 
         // VE
-        private List<AbilityDef> abilities = new List<AbilityDef>();
         private List<VFECore.Abilities.AbilityDef> VEAbilities = new List<VFECore.Abilities.AbilityDef>();
         private Hediff VPE_PsycastAbilityImplant;
 
@@ -124,20 +125,7 @@ namespace AlteredCarbon
         public Precept_RoleMulti precept_RoleMulti;
         public Precept_RoleSingle precept_RoleSingle;
 
-        // [SYR] Individuality
-        private int sexuality;
-        private float romanceFactor;
-
-        // Psychology
-        private PsychologyData psychologyData;
-        // RJW
-        private RJWData rjwData;
-        // Vanilla Skills Expanded
-        private List<IExposable> expertiseRecords;
-
-        // Vanilla Aspiration Expanded
-        private List<string> aspirations = new List<string>();
-        private List<int> aspirationsCompletedTicks = new List<int>();
+        public List<ModCompatibilityEntry> modCompatibilityEntries = new List<ModCompatibilityEntry>();
 
         // misc
         public bool? diedFromCombat;
@@ -602,28 +590,9 @@ namespace AlteredCarbon
                 }
             }
 
-            if (ModCompatibility.IndividualityIsActive)
+            foreach (var modEntry in ModCompatibilityEntries)
             {
-                sexuality = ModCompatibility.GetSyrTraitsSexuality(pawn);
-                romanceFactor = ModCompatibility.GetSyrTraitsRomanceFactor(pawn);
-            }
-            if (ModCompatibility.PsychologyIsActive)
-            {
-                psychologyData = ModCompatibility.GetPsychologyData(pawn);
-            }
-            if (ModCompatibility.RimJobWorldIsActive)
-            {
-                rjwData = ModCompatibility.GetRjwData(pawn);
-            }
-            if (ModCompatibility.VanillaSkillsExpandedIsActive)
-            {
-                expertiseRecords = ModCompatibility.GetExpertises(pawn);
-            }
-
-            if (ModCompatibility.VanillaAspirationsExpandedIsActive)
-            {
-                aspirations = ModCompatibility.GetAspirations(pawn);
-                aspirationsCompletedTicks = ModCompatibility.GetCompletedAspirations(pawn);
+                modEntry.FetchData(pawn);
             }
 
             var stackDegradationHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_StackDegradation) as Hediff_StackDegradation;
@@ -632,6 +601,53 @@ namespace AlteredCarbon
                 this.stackDegradation = stackDegradationHediff.stackDegradation;
             }
         }
+
+
+        private static readonly List<string> activeModIdentifiers;
+
+        private static readonly Dictionary<string, Type> modEntryTypeMap = new Dictionary<string, Type>
+        {
+            { "Mlie.SYRIndividuality", typeof(IndividualityCompatibilityEntry) },
+            { "Community.Psychology.UnofficialUpdate", typeof(PsychologyCompatibilityEntry) },
+            { "rim.job.world", typeof(RimJobWorldCompatibilityEntry) },
+            { "vanillaexpanded.skills", typeof(VanillaSkillsExpandedCompatibilityEntry) },
+            { "VanillaExpanded.VanillaAspirationsExpanded", typeof(AspirationsCompatibilityEntry) },
+            { "VanillaExpanded.VAnomalyEInsanity", typeof(VanillaAnomalyInsanityCompatibilityEntry) }
+        };
+
+        static NeuralData()
+        {
+            activeModIdentifiers = modEntryTypeMap
+                .Where(entry => ModsConfig.IsActive(entry.Key))
+                .Select(entry => entry.Key)
+                .ToList();
+            Log.Message("[Altered Carbon] Activated mod compat for " + activeModIdentifiers.ToStringSafeEnumerable());
+        }
+
+        private bool initialized = false;
+        public List<ModCompatibilityEntry> ModCompatibilityEntries
+        {
+            get
+            {
+                modCompatibilityEntries ??= new List<ModCompatibilityEntry>();
+                if (!initialized)
+                {
+                    initialized = true;
+                    foreach (var modIdentifier in activeModIdentifiers)
+                    {
+                        if (!modCompatibilityEntries.Any(existingEntry => existingEntry.modIdentifier == modIdentifier))
+                        {
+                            var entryType = modEntryTypeMap[modIdentifier];
+                            var entry = (ModCompatibilityEntry)Activator.CreateInstance(entryType, modIdentifier);
+                            modCompatibilityEntries.Add(entry);
+                        }
+                    }
+                }
+                return modCompatibilityEntries.Where(entry => entry.isActive).ToList();
+            }
+        }
+
+
 
         private Hediff MakeCopy(Hediff hediff, Pawn pawn)
         {
@@ -766,11 +782,14 @@ namespace AlteredCarbon
             diedFromCombat = other.diedFromCombat;
             stackGroupID = other.stackGroupID;
 
-            sexuality = other.sexuality;
-            romanceFactor = other.romanceFactor;
-            psychologyData = other.psychologyData;
-            rjwData = other.rjwData;
-            expertiseRecords = other.expertiseRecords;
+            foreach (var otherEntry in other.ModCompatibilityEntries)
+            {
+                var entry = ModCompatibilityEntries.FirstOrDefault(x => x.modIdentifier == otherEntry.modIdentifier);
+                if (entry != null)
+                {
+                    entry.CopyFrom(otherEntry);
+                }
+            }
 
             stackDegradation = other.stackDegradation;
             AssignDummyPawnReferences();
@@ -853,27 +872,9 @@ namespace AlteredCarbon
             SetPawnSettings(pawn);
             SetHediffs(pawn);
 
-            if (ModCompatibility.IndividualityIsActive)
+            foreach (var modEntry in ModCompatibilityEntries)
             {
-                ModCompatibility.SetSyrTraitsSexuality(pawn, sexuality);
-                ModCompatibility.SetSyrTraitsRomanceFactor(pawn, romanceFactor);
-            }
-            if (ModCompatibility.PsychologyIsActive && psychologyData != null)
-            {
-                ModCompatibility.SetPsychologyData(pawn, psychologyData);
-            }
-            if (ModCompatibility.RimJobWorldIsActive && rjwData != null)
-            {
-                ModCompatibility.SetRjwData(pawn, rjwData);
-            }
-            if (ModCompatibility.VanillaSkillsExpandedIsActive)
-            {
-                ModCompatibility.SetExpertises(pawn, expertiseRecords);
-            }
-            if (ModCompatibility.VanillaAspirationsExpandedIsActive)
-            {
-                ModCompatibility.SetAspirations(pawn, aspirations);
-                ModCompatibility.SetCompletedAspirations(pawn, aspirationsCompletedTicks);
+                modEntry.SetData(pawn);
             }
         }
 
@@ -1609,51 +1610,6 @@ namespace AlteredCarbon
             return false;
         }
 
-        //public void TryQueueAutoRestoration()
-        //{
-        //    if (AnyPawnExist() || AnyNeuralStackExist())
-        //    {
-        //        return;
-        //    }
-        //    var prints = new List<NeuralPrint>();
-        //    foreach (var map in Find.Maps)
-        //    {
-        //        prints.AddRange(map.listerThings.ThingsOfDef(AC_DefOf.AC_NeuralPrint).Cast<NeuralPrint>());
-        //        foreach (var matrix in map.listerThings.ThingsOfDef(AC_DefOf.AC_NeuralMatrix).Cast<Building_NeuralMatrix>())
-        //        {
-        //            prints.AddRange(matrix.StoredNeuralPrints);
-        //        }
-        //    }
-        //    var foundPrint = prints.Where(x => x.CanAutoRestorePawn(this))
-        //        .OrderByDescending(x => x.NeuralData.lastTimeBackedUp).FirstOrDefault();
-        //    if (foundPrint != null)
-        //    {
-        //        var map = foundPrint.MapHeld;
-        //        var editors = map.listerThings.ThingsOfDef(AC_DefOf.AC_NeuralEditor)
-        //            .OfType<Building_NeuralEditor>().ToList();
-        //        foreach (var editor in editors)
-        //        {
-        //            if (foundPrint.Spawned is false && foundPrint.ParentHolder is Building_NeuralMatrix 
-        //                && foundPrint.ParentHolder != editor.ConnectedMatrix)
-        //            {
-        //                continue;
-        //            }
-        //            if (editor.autoRestoreIsEnabled is false)
-        //            {
-        //                continue;
-        //            }
-        //            if (editor.CanAddOperationOn(foundPrint))
-        //            {
-        //                editor.billStack.AddBill(new Bill_OperateOnStack(foundPrint, AC_DefOf.AC_RestoreStackFromNeuralPrint, null));
-        //                var pawnArg = DummyPawn.Named("PAWN");
-        //                Find.LetterStack.ReceiveLetter("AC.RestoringQueued".Translate(pawnArg),
-        //                    "AC.RestoringQueuedDesc".Translate(pawnArg), LetterDefOf.NeutralEvent, editor);
-        //            }
-        //            break;
-        //        }
-        //    }
-        //}
-
         public void ExposeData()
         {
             Scribe_Values.Look(ref pawnID, "pawnID");
@@ -1761,30 +1717,6 @@ namespace AlteredCarbon
                 Scribe_References.Look(ref precept_RoleMulti, "precept_RoleMulti");
             }
 
-            if (ModCompatibility.IndividualityIsActive)
-            {
-                Scribe_Values.Look(ref sexuality, "sexuality", -1);
-                Scribe_Values.Look(ref romanceFactor, "romanceFactor", -1f);
-            }
-            if (ModCompatibility.PsychologyIsActive)
-            {
-                Scribe_Deep.Look(ref psychologyData, "psychologyData");
-            }
-            if (ModCompatibility.RimJobWorldIsActive)
-            {
-                Scribe_Deep.Look(ref rjwData, "rjwData");
-            }
-            if (ModCompatibility.VanillaSkillsExpandedIsActive)
-            {
-                Scribe_Collections.Look(ref expertiseRecords, "expertiseRecords", LookMode.Deep, hostPawn);
-            }
-
-            if (ModCompatibility.VanillaAspirationsExpandedIsActive)
-            {
-                Scribe_Collections.Look(ref aspirations, "aspirations", LookMode.Value);
-                Scribe_Collections.Look(ref aspirationsCompletedTicks, nameof(aspirationsCompletedTicks), LookMode.Value);
-            }
-
             Scribe_Defs.Look(ref sourceStack, "sourceStack");
             Scribe_Values.Look(ref psylinkLevel, "psylinkLevel");
             Scribe_Collections.Look(ref abilities, "abilities", LookMode.Def);
@@ -1804,6 +1736,8 @@ namespace AlteredCarbon
                 }
                 VPE_PsycastAbilityImplant.loadID = Find.UniqueIDsManager.GetNextHediffID();
             }
+
+            Scribe_Collections.Look(ref modCompatibilityEntries, "modCompatibilityEntries", LookMode.Deep);
 
             Scribe_Values.Look(ref editTime, "editTime");
             Scribe_Values.Look(ref stackDegradation, "stackDegradation");
@@ -1829,6 +1763,7 @@ namespace AlteredCarbon
                 favor.CleanupDict();
                 heirs.CleanupDict();
                 savedHediffs.CleanupList();
+                modCompatibilityEntries.CleanupList();
                 if (pawnID == 0 && hostPawn != null)
                 {
                     pawnID = hostPawn.thingIDNumber;

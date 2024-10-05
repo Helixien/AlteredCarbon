@@ -1098,7 +1098,7 @@ namespace AlteredCarbon
         public static List<T> CopyList<T>(this List<T> list)
         {
             if (list is null) return new List<T>();
-            return list.ToList();
+            return list.ListFullCopy();
         }
 
         public static Dictionary<K, V> CopyDict<K, V>(this Dictionary<K, V> dict)

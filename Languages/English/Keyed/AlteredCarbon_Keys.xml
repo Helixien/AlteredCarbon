@@ -71,7 +71,7 @@
 	<AC.CancelSleeveBodyGrowingDesc>Cancel sleeve growing.</AC.CancelSleeveBodyGrowingDesc>
 	<AC.BodyShape>Body shape</AC.BodyShape>
 	<AC.Cancel>Cancel</AC.Cancel>
-	<AC.GrowthProgress>Growth progress:</AC.GrowthProgress>
+	<AC.GrowthProgress>Growth progress: </AC.GrowthProgress>
 	<AC.HairColour>Hair colour</AC.HairColour>
 	<AC.HairType>Hair type</AC.HairType>
 	<AC.HeadShape>Head shape</AC.HeadShape>

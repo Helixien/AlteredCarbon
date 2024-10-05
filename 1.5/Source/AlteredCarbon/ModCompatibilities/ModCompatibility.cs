@@ -9,13 +9,12 @@ using Verse;
 
 namespace AlteredCarbon
 {
+
     [StaticConstructorOnStartup]
     public static class ModCompatibility
     {
         public static bool FacialAnimationsIsActive;
         public static bool AlienRacesIsActive;
-        public static bool IndividualityIsActive;
-        public static bool PsychologyIsActive;
         public static bool RimJobWorldIsActive;
         private static readonly MethodInfo tryGetRaceGroupDef;
         private static readonly Type raceGroupDef_HelperType;
@@ -24,14 +23,11 @@ namespace AlteredCarbon
         public static bool VanillaSkillsExpandedIsActive;
         public static bool VanillaFactionsExpandedAncientsIsActive;
         public static bool VanillaRacesExpandedAndroidIsActive;
-        public static bool VanillaAspirationsExpandedIsActive;
 
         static ModCompatibility()
         {
             AlienRacesIsActive = ModsConfig.IsActive("erdelf.HumanoidAlienRaces");
             FacialAnimationsIsActive = ModsConfig.IsActive("Nals.FacialAnimation");
-            IndividualityIsActive = ModLister.HasActiveModWithName("[SYR] Individuality");
-            PsychologyIsActive = ModsConfig.IsActive("Community.Psychology.UnofficialUpdate");
             RimJobWorldIsActive = ModsConfig.IsActive("rim.job.world");
             if (RimJobWorldIsActive)
             {
@@ -51,7 +47,6 @@ namespace AlteredCarbon
                 AC_Utils.harmony.Patch(AccessTools.Method("VREAndroids.CharacterCardUtility_DoLeftSection_Patch:Prefix"),
                 new HarmonyMethod(AccessTools.Method(typeof(ModCompatibility), "CharacterCardUtility_DoLeftSection_PatchPrefix")));
             }
-            VanillaAspirationsExpandedIsActive = ModsConfig.IsActive("VanillaExpanded.VanillaAspirationsExpanded");
         }
 
         public static bool CharacterCardUtility_DoLeftSection_PatchPrefix(Pawn __0, ref bool __result)
@@ -107,91 +102,6 @@ namespace AlteredCarbon
             foreach (var def in DefDatabase<VSE.Passions.PassionDef>.AllDefs)
             {
                 Window_StackEditor.AllPassions[def.index] = def.Icon;
-            }
-        }
-        public static List<IExposable> GetExpertises(Pawn pawn)
-        {
-            VSE.ExpertiseTracker expertiseTracker = VSE.ExpertiseTrackers.Expertise(pawn);
-            if (expertiseTracker != null)
-            {
-                return expertiseTracker.AllExpertise.Cast<IExposable>().ToList();
-            }
-            return null;
-        }
-        public static void SetExpertises(Pawn pawn, List<IExposable> expertises)
-        {
-            VSE.ExpertiseTracker expertiseTracker = VSE.ExpertiseTrackers.Expertise(pawn);
-            if (expertiseTracker != null)
-            {
-                expertiseTracker.ClearExpertise();
-                if (expertises != null)
-                {
-                    foreach (var expertise in expertises.Cast<VSE.ExpertiseRecord>())
-                    {
-                        expertiseTracker.AllExpertise.Add(expertise);
-                    }
-                }
-            }
-        }
-
-        public static List<string> GetAspirations(Pawn pawn)
-        {
-            var need = pawn?.needs?.TryGetNeed<VAspirE.Need_Fulfillment>();
-            if (need != null)
-            {
-                var list = new List<string>();
-                foreach (var asp in need.Aspirations)
-                {
-                    list.Add(asp.defName);
-                }
-                return list;
-            }
-            return null;
-        }
-
-        public static void SetAspirations(Pawn pawn, List<string> aspirations)
-        {
-            var need = pawn?.needs?.TryGetNeed<VAspirE.Need_Fulfillment>();
-            if (need != null)
-            {
-                need.Aspirations.Clear();
-                if (aspirations != null)
-                {
-                    foreach (var aspiration in aspirations)
-                    {
-                        var def = DefDatabase<VAspirE.AspirationDef>.GetNamed(aspiration);
-                        if (def != null)
-                        {
-                            need.Aspirations.Add(def);
-                        }
-                    }
-                }
-            }
-        }
-
-        public static List<int> GetCompletedAspirations(Pawn pawn)
-        {
-            var need = pawn?.needs?.TryGetNeed<VAspirE.Need_Fulfillment>();
-            if (need != null)
-            {
-                return need.completedTicks.ToList();
-            }
-            return null;
-        }
-
-        public static void SetCompletedAspirations(Pawn pawn, List<int> completedTicks)
-        {
-            var need = pawn?.needs?.TryGetNeed<VAspirE.Need_Fulfillment>();
-            if (need != null)
-            {
-                need.completedTicks.Clear();
-                if (completedTicks != null)
-                {
-                    foreach (var ticks in completedTicks)
-                    {
-                        need.completedTicks.Add(ticks);
-                    }
-                }
             }
         }
 
@@ -387,16 +297,6 @@ namespace AlteredCarbon
             }
             return GetGrowableRaces(excludedRaces).OrderBy(entry => entry.LabelCap.RawText).ToList();
         }
-        public static int GetSyrTraitsSexuality(Pawn pawn)
-        {
-            SyrTraits.CompIndividuality comp = ThingCompUtility.TryGetComp<SyrTraits.CompIndividuality>(pawn);
-            return comp != null ? (int)comp.sexuality : -1;
-        }
-        public static float GetSyrTraitsRomanceFactor(Pawn pawn)
-        {
-            SyrTraits.CompIndividuality comp = ThingCompUtility.TryGetComp<SyrTraits.CompIndividuality>(pawn);
-            return comp != null ? comp.RomanceFactor : -1f;
-        }
 
         public static void CopyFacialFeatures(Pawn source, Pawn dest)
         {
@@ -423,54 +323,6 @@ namespace AlteredCarbon
                         }
                     }
                 }
-            }
-        }
-        public static void SetSyrTraitsSexuality(Pawn pawn, int sexuality)
-        {
-            SyrTraits.CompIndividuality comp = ThingCompUtility.TryGetComp<SyrTraits.CompIndividuality>(pawn);
-            if (comp != null)
-            {
-                comp.sexuality = (SyrTraits.CompIndividuality.Sexuality)sexuality;
-            }
-        }
-        public static void SetSyrTraitsRomanceFactor(Pawn pawn, float romanceFactor)
-        {
-            SyrTraits.CompIndividuality comp = ThingCompUtility.TryGetComp<SyrTraits.CompIndividuality>(pawn);
-            if (comp != null)
-            {
-                comp.RomanceFactor = romanceFactor;
-            }
-        }
-
-        public static PsychologyData GetPsychologyData(Pawn pawn)
-        {
-            Psychology.CompPsychology comp = ThingCompUtility.TryGetComp<Psychology.CompPsychology>(pawn);
-            if (comp != null)
-            {
-                PsychologyData psychologyData = new PsychologyData();
-                Psychology.Pawn_SexualityTracker sexualityTracker = comp.Sexuality;
-                psychologyData.sexDrive = sexualityTracker.sexDrive;
-                psychologyData.romanticDrive = sexualityTracker.romanticDrive;
-                psychologyData.kinseyRating = sexualityTracker.kinseyRating;
-                psychologyData.knownSexualities = sexualityTracker.knownSexualities;
-                return psychologyData;
-            }
-            return null;
-        }
-
-        public static void SetPsychologyData(Pawn pawn, PsychologyData psychologyData)
-        {
-            Psychology.CompPsychology comp = ThingCompUtility.TryGetComp<Psychology.CompPsychology>(pawn);
-            if (comp != null)
-            {
-                Psychology.Pawn_SexualityTracker sexualityTracker = new Psychology.Pawn_SexualityTracker(pawn)
-                {
-                    sexDrive = psychologyData.sexDrive,
-                    romanticDrive = psychologyData.romanticDrive,
-                    kinseyRating = psychologyData.kinseyRating
-                };
-                sexualityTracker.knownSexualities = psychologyData.knownSexualities;
-                comp.Sexuality = sexualityTracker;
             }
         }
 
@@ -642,103 +494,6 @@ namespace AlteredCarbon
         private static bool IsAnus(this HediffDef hediffDef)
         {
             return hediffDef.defName.ToLower().Contains("anus");
-        }
-
-        public static RJWData GetRjwData(Pawn pawn)
-        {
-            RJWData rjwData = null;
-            try
-            {
-                rjw.DataStore dataStore = Find.World.GetComponent<rjw.DataStore>();
-                if (dataStore != null)
-                {
-                    rjwData = new RJWData();
-                    rjw.PawnData pawnData = dataStore.GetPawnData(pawn);
-                    if (pawnData != null)
-                    {
-                        foreach (FieldInfo fieldInfo in typeof(rjw.PawnData).GetFields())
-                        {
-                            try
-                            {
-                                FieldInfo newField = rjwData.GetType().GetField(fieldInfo.Name);
-                                newField.SetValue(rjwData, fieldInfo.GetValue(pawnData));
-                            }
-                            catch { }
-                        }
-                    }
-
-                }
-                rjw.CompRJW comp = ThingCompUtility.TryGetComp<rjw.CompRJW>(pawn);
-                if (comp != null)
-                {
-                    if (rjwData is null)
-                    {
-                        rjwData = new RJWData();
-                    }
-                    rjwData.quirksave = comp.quirksave;
-                    if (rjwData.quirksave != null)
-                    {
-                        rjwData.quirksave = rjwData.quirksave.Replace("Fertile", "");
-                        rjwData.quirksave = rjwData.quirksave.Replace("Infertile", "");
-                    }
-                    rjwData.orientation = (OrientationAC)(int)comp.orientation;
-                    rjwData.NextHookupTick = comp.NextHookupTick;
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error("Error getting RJW data: " + ex.ToString());
-            }
-            return rjwData;
-        }
-
-        public static void SetRjwData(Pawn pawn, RJWData rjwData)
-        {
-            try
-            {
-                rjw.DataStore dataStore = Find.World.GetComponent<rjw.DataStore>();
-                if (dataStore != null)
-                {
-                    rjw.PawnData pawnData = dataStore.GetPawnData(pawn);
-                    if (pawnData != null)
-                    {
-                        foreach (FieldInfo fieldInfo in typeof(RJWData).GetFields())
-                        {
-                            try
-                            {
-                                FieldInfo newField = pawnData.GetType().GetField(fieldInfo.Name);
-                                newField.SetValue(pawnData, fieldInfo.GetValue(rjwData));
-                            }
-                            catch { }
-                        }
-                        if (pawnData.Hero)
-                        {
-                            foreach (Pawn otherPawn in PawnsFinder.AllMapsCaravansAndTravelingTransportPods_Alive_OfPlayerFaction)
-                            {
-                                if (otherPawn != pawn)
-                                {
-                                    rjw.PawnData otherPawnData = dataStore.GetPawnData(otherPawn);
-                                    otherPawnData.Hero = false;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                rjw.CompRJW comp = ThingCompUtility.TryGetComp<rjw.CompRJW>(pawn);
-                if (comp != null)
-                {
-                    comp.quirksave = rjwData.quirksave;
-                    comp.quirks = new System.Text.StringBuilder(comp.quirksave);
-
-                    comp.orientation = (rjw.Orientation)(int)rjwData.orientation;
-                    comp.NextHookupTick = rjwData.NextHookupTick;
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error("Error setting RJW data: " + e.ToString());
-            }
         }
     }
 }

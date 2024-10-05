@@ -63,6 +63,10 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="VAEInsanity">
+      <HintPath>..\..\..\..\VanillaAnomalyExpanded-Insanity\1.5\Assemblies\VAEInsanity.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="VAspirE">
       <HintPath>..\..\..\..\..\..\..\workshop\content\294100\3268401022\1.5\Assemblies\VAspirE.dll</HintPath>
       <Private>False</Private>
@@ -158,6 +162,13 @@
     <Compile Include="Jobs\WorkGiver_HaulNeuralStacks.cs" />
     <Compile Include="HarmonyPatches\BillPatches\JobDriver_DoBill_MakeNewToils_Patch.cs" />
     <Compile Include="Jobs\WorkGiver_HaulToNeuralConnector.cs" />
+    <Compile Include="ModCompatibilities\AspirationsCompatibilityEntry.cs" />
+    <Compile Include="ModCompatibilities\IndividualityCompatibilityEntry.cs" />
+    <Compile Include="ModCompatibilities\ModCompatibilityEntry.cs" />
+    <Compile Include="ModCompatibilities\PsychologyCompatibilityEntry.cs" />
+    <Compile Include="ModCompatibilities\RimJobWorldCompatibilityEntry.cs" />
+    <Compile Include="ModCompatibilities\VanillaAnomalyInsanityCompatibilityEntry.cs" />
+    <Compile Include="ModCompatibilities\VanillaSkillsExpandedCompatibilityEntry.cs" />
     <Compile Include="Recipes\Bill_EditStack.cs" />
     <Compile Include="HarmonyPatches\HealthCardUtility_GenerateSurgeryOption_Patch.cs" />
     <Compile Include="Recipes\Bill_OperateOnThing.cs" />
@@ -233,7 +244,7 @@
     <Compile Include="Jobs\WorkGiver_ExtractStack.cs" />
     <Compile Include="Jobs\WorkGiver_CancelIncubatingProcess.cs" />
     <Compile Include="Jobs\WorkGiver_StartIncubatingProcess.cs" />
-    <Compile Include="ModCompatibility.cs" />
+    <Compile Include="ModCompatibilities\ModCompatibility.cs" />
     <Compile Include="AC_DefOf.cs" />
     <Compile Include="AlteredCarbonMod.cs" />
     <Compile Include="AlteredCarbonSettingsWorker_General.cs" />

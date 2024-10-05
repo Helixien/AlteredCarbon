@@ -522,7 +522,7 @@ namespace AlteredCarbon
             Widgets.Label(infoContentRect,
                 "AC.CurrentlyStatus".Translate() + ": " + GetStackStateStatus(selectedStack) + "\n" +
                 "AC.OriginalGender".Translate() + ": " + neuralData.OriginalGender.ToString() + "\n" +
-                "AC.NeedlecastingRange".Translate() + ": todo" + "\n" +
+                "AC.NeedlecastingRange".Translate() + ": " + (1f + matrix.NeedleCastRangeBoost()) + "\n" +
                 "AC.StackDegradation".Translate() + ": " + neuralData.stackDegradation.ToStringPercent().Colorize(Color.red));
             Text.Font = GameFont.Small;
 
