@@ -8,6 +8,7 @@
 				<xpath>/Defs/ThingDef[defName="FabricationBench"]/recipes</xpath>
 				<value>
 					<li>AC_MakeEmptyNeuralStack</li>
+					<li>AC_MakeRemoteNeuralStack</li>
 				</value>
 			</li>
 			<!-- ================================ Change Neutroamine draw size ====================== -->

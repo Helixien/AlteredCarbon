@@ -1,5 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
+	<!-- ================================ Sleeve Casket ====================== -->
+	<ThingDef ParentName="FurnitureBase">
+		<defName>AC_SleeveCasket</defName>
+		<label>sleeve casket</label>
+		<description>A specialised, enclosed sarcophagus-like suspender, designed to maintain a sleeve in a state of suspended animation while still permitting medical access for procedures such as implant installations or bionic enhancements.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_SleeveGestator</ThingDef>
+			<ThingDef>AC_ActiveNeuralStack</ThingDef>
+		</descriptionHyperlinks>
+		<thingClass>AlteredCarbon.Building_SleeveCasket</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Furniture/Bed/SleeveCasket</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(2.5,2.5)</drawSize>
+		</graphicData>
+		<size>(1,2)</size>
+		<uiIconPath>Things/Building/Furniture/Bed/SleeveCasket_MenuIcon</uiIconPath>
+		<uiIconScale>1.0</uiIconScale>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<designationCategory>Biotech</designationCategory>
+		<statBases>
+			<MarketValue>1500</MarketValue>
+			<MaxHitPoints>250</MaxHitPoints>
+			<WorkToBuild>6000</WorkToBuild>
+			<Mass>50</Mass>
+			<Flammability>0.5</Flammability>
+			<BedRestEffectiveness>0.5</BedRestEffectiveness>
+			<Comfort>0.5</Comfort>
+			<ImmunityGainSpeedFactor>1.11</ImmunityGainSpeedFactor>
+			<MedicalTendQualityOffset>0.10</MedicalTendQualityOffset>
+			<SurgerySuccessChanceFactor>1.2</SurgerySuccessChanceFactor>
+			<BirthRitualQualityOffset MayRequire="Ludeon.RimWorld.Biotech">3</BirthRitualQualityOffset>
+		</statBases>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+		<researchPrerequisites>
+			<li>AC_SleeveGestation</li>
+		</researchPrerequisites>
+		<costList>
+			<Steel>100</Steel>
+			<Plasteel>15</Plasteel>
+			<Uranium>5</Uranium>
+			<ComponentSpacer>2</ComponentSpacer>
+		</costList>
+		<uiOrder>4901</uiOrder>
+		<pathCost>35</pathCost>
+		<canOverlapZones>false</canOverlapZones>
+		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+		<tickerType>Normal</tickerType>
+		<drawerType>RealtimeOnly</drawerType>
+		<passability>PassThroughOnly</passability>
+		<castEdgeShadows>True</castEdgeShadows>
+		<fillPercent>0.5</fillPercent>
+		<thingCategories>
+			<li>BuildingsMisc</li>
+		</thingCategories>
+		<building>
+			<bed_showSleeperBody>true</bed_showSleeperBody>
+			<buildingSizeCategory>Small</buildingSizeCategory>
+			<bed_humanlike>true</bed_humanlike>
+			<bed_healPerDay>10</bed_healPerDay>
+			<bed_defaultMedical>true</bed_defaultMedical>
+			<ai_chillDestination>false</ai_chillDestination>
+			<buildingTags>
+				<li>Biotech</li>
+			</buildingTags>
+			<bed_UseSheetColor>false</bed_UseSheetColor>
+		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<shortCircuitInRain>true</shortCircuitInRain>
+				<basePowerConsumption>125</basePowerConsumption>
+				<idlePowerDraw>15</idlePowerDraw>
+			</li>
+			<li Class="CompProperties_AffectedByFacilities">
+				<linkableFacilities>
+					<li>VitalsMonitor</li>
+				</linkableFacilities>
+			</li>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_AssignableToPawn">
+				<drawAssignmentOverlay>false</drawAssignmentOverlay>
+				<compClass>CompAssignableToPawn_Bed</compClass>
+			</li>
+		</comps>
+	</ThingDef>
 	<!-- ================================ Sleeve Gestator ====================== -->
 	<ThingDef ParentName="BuildingBase">
 		<defName>AC_SleeveGestator</defName>
@@ -44,7 +130,8 @@
 			<Plasteel>50</Plasteel>
 			<ComponentSpacer>6</ComponentSpacer>
 		</costList>
-		<pathCost>90</pathCost>
+		<uiOrder>4901</uiOrder>
+		<pathCost>150</pathCost>
 		<blockWind>true</blockWind>
 		<canOverlapZones>false</canOverlapZones>
 		<neverMultiSelect>true</neverMultiSelect>
@@ -89,91 +176,6 @@
 			<li Class="CompProperties_Glower">
 				<glowRadius>5</glowRadius>
 				<glowColor>(96,161,153,0)</glowColor>
-			</li>
-		</comps>
-	</ThingDef>
-	<!-- ================================ Sleeve Casket ====================== -->
-	<ThingDef ParentName="FurnitureBase">
-		<defName>AC_SleeveCasket</defName>
-		<label>sleeve casket</label>
-		<description>A specialised, enclosed sarcophagus-like suspender, designed to maintain a sleeve in a state of suspended animation while still permitting medical access for procedures such as implant installations or bionic enhancements.</description>
-		<descriptionHyperlinks>
-			<ThingDef>AC_SleeveGestator</ThingDef>
-			<ThingDef>AC_ActiveNeuralStack</ThingDef>
-		</descriptionHyperlinks>
-		<thingClass>AlteredCarbon.Building_SleeveCasket</thingClass>
-		<graphicData>
-			<texPath>Things/Building/Furniture/Bed/SleeveCasket</texPath>
-			<graphicClass>Graphic_Multi</graphicClass>
-			<drawSize>(2.5,2.5)</drawSize>
-		</graphicData>
-		<size>(1,2)</size>
-		<uiIconPath>Things/Building/Furniture/Bed/SleeveCasket_MenuIcon</uiIconPath>
-		<uiIconScale>1.0</uiIconScale>
-		<defaultPlacingRot>South</defaultPlacingRot>
-		<designationCategory>Biotech</designationCategory>
-		<pathCost>35</pathCost>
-		<canOverlapZones>false</canOverlapZones>
-		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
-		<tickerType>Normal</tickerType>
-		<drawerType>RealtimeOnly</drawerType>
-		<passability>PassThroughOnly</passability>
-		<castEdgeShadows>True</castEdgeShadows>
-		<fillPercent>0.5</fillPercent>
-		<thingCategories>
-			<li>BuildingsMisc</li>
-		</thingCategories>
-		<statBases>
-			<MarketValue>1500</MarketValue>
-			<MaxHitPoints>250</MaxHitPoints>
-			<WorkToBuild>6000</WorkToBuild>
-			<Mass>50</Mass>
-			<Flammability>0.5</Flammability>
-			<BedRestEffectiveness>0.5</BedRestEffectiveness>
-			<Comfort>0.5</Comfort>
-			<ImmunityGainSpeedFactor>1.11</ImmunityGainSpeedFactor>
-			<MedicalTendQualityOffset>0.10</MedicalTendQualityOffset>
-			<SurgerySuccessChanceFactor>1.2</SurgerySuccessChanceFactor>
-			<BirthRitualQualityOffset MayRequire="Ludeon.RimWorld.Biotech">3</BirthRitualQualityOffset>
-		</statBases>
-		<building>
-			<bed_showSleeperBody>true</bed_showSleeperBody>
-			<buildingSizeCategory>Small</buildingSizeCategory>
-			<bed_humanlike>true</bed_humanlike>
-			<bed_healPerDay>10</bed_healPerDay>
-			<bed_defaultMedical>true</bed_defaultMedical>
-			<ai_chillDestination>false</ai_chillDestination>
-			<buildingTags>
-				<li>Biotech</li>
-			</buildingTags>
-			<bed_UseSheetColor>false</bed_UseSheetColor>
-		</building>
-		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
-		<researchPrerequisites>
-			<li>AC_SleeveGestation</li>
-		</researchPrerequisites>
-		<costList>
-			<Steel>100</Steel>
-			<Plasteel>15</Plasteel>
-			<Uranium>5</Uranium>
-			<ComponentSpacer>2</ComponentSpacer>
-		</costList>
-		<comps>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerTrader</compClass>
-				<shortCircuitInRain>true</shortCircuitInRain>
-				<basePowerConsumption>125</basePowerConsumption>
-				<idlePowerDraw>15</idlePowerDraw>
-			</li>
-			<li Class="CompProperties_AffectedByFacilities">
-				<linkableFacilities>
-					<li>VitalsMonitor</li>
-				</linkableFacilities>
-			</li>
-			<li Class="CompProperties_Breakdownable"/>
-			<li Class="CompProperties_AssignableToPawn">
-				<drawAssignmentOverlay>false</drawAssignmentOverlay>
-				<compClass>CompAssignableToPawn_Bed</compClass>
 			</li>
 		</comps>
 	</ThingDef>

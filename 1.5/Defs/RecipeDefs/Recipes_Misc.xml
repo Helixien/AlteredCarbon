@@ -99,7 +99,7 @@
 		<products>
 			<AC_RemoteStack>1</AC_RemoteStack>
 		</products>
-		<researchPrerequisite>AC_NeuralDigitalization</researchPrerequisite>
+		<researchPrerequisite>AC_NeuralCasting</researchPrerequisite>
 		<workSkill>Crafting</workSkill>
 		<skillRequirements>
 			<Crafting>10</Crafting>

@@ -1,5 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
+	<!-- ================================ Crypto Stasis ====================== -->
+	<HediffDef>
+		<defName>AC_CryptoStasis</defName>
+		<label>crypto stasis</label>
+		<labelNoun>crypto stasis</labelNoun>
+		<description>Active effect of the sleeve caskets suspension systems.</description>
+		<hediffClass>HediffWithComps</hediffClass>
+		<isBad>false</isBad>
+		<stages>
+			<li>
+				<painFactor>0</painFactor>
+			</li>
+		</stages>
+	</HediffDef>
+	<!-- ================================ Armour Pain Protection ====================== -->
+	<HediffDef>
+		<defName>AC_PainProtection</defName>
+		<label>pain protection</label>
+		<labelNoun>pain protection</labelNoun>
+		<description>Dampened pain receptors due to usage of chrysalis-class armor. Vastly enhances the wearer's ability to tolerate injury and nullifies pain sensitivity, allowing for greater physical resilience.</description>
+		<hediffClass>HediffWithComps</hediffClass>
+		<defaultLabelColor>(0, 0.7, 0.95)</defaultLabelColor>
+		<isBad>false</isBad>
+		<stages>
+			<li>
+				<painFactor>0</painFactor>
+			</li>
+		</stages>
+	</HediffDef>
 	<!-- ================================ Degradation - Brain Trauma ====================== -->
 	<HediffDef>
 		<defName>AC_BrainTrauma</defName>
@@ -29,21 +58,6 @@
 						<offset>0.5</offset>
 					</li>
 				</capMods>
-			</li>
-		</stages>
-	</HediffDef>
-	<!-- ================================ Armour Pain Protection ====================== -->
-	<HediffDef>
-		<defName>AC_PainProtection</defName>
-		<label>pain protection</label>
-		<labelNoun>pain protection</labelNoun>
-		<description>Dampened pain receptors due to usage of chrysalis-class armor. Vastly enhances the wearer's ability to tolerate injury and nullifies pain sensitivity, allowing for greater physical resilience.</description>
-		<hediffClass>HediffWithComps</hediffClass>
-		<defaultLabelColor>(0, 0.7, 0.95)</defaultLabelColor>
-		<isBad>false</isBad>
-		<stages>
-			<li>
-				<painFactor>0</painFactor>
 			</li>
 		</stages>
 	</HediffDef>
