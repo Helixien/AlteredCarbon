@@ -7,6 +7,7 @@
 		<requiredResearchFacilities>
 			<li>MultiAnalyzer</li>
 		</requiredResearchFacilities>
+		<tab>AC_AlteredCarbon</tab>
 	</ResearchProjectDef>
 	<!-- ================================ Sleeve Gestating ====================== -->
 	<ResearchProjectDef ParentName="AC_ResearchBase">
@@ -14,122 +15,269 @@
 		<label>sleeve gestation</label>
 		<description>Develop advanced biotechnologies to create highly customizable synthetic bodies called sleeves for usage with neural stacks.</description>
 		<baseCost>6000</baseCost>
-		<researchViewX>12.00</researchViewX>
-		<researchViewY>2.90</researchViewY>
+		<researchViewX>0.00</researchViewX>
+		<researchViewY>1.50</researchViewY>
 		<prerequisites>
 			<li>MicroelectronicsBasics</li>
 		</prerequisites>
+		<generalRules>
+			<rulesStrings>
+				<li>subject->sleeve gestation</li>
+				<li>subject->sleeve creation</li>
+				<li>subject->sleeve growing</li>
+				<li>subject_story->collaborated with leading biotech firms to produce synthetic bodies</li>
+				<li>subject_story->enabled the transfer of human consciousness into engineered sleeves, overcoming physical death</li>
+				<li>subject_story->monopolized the market of sleeve manufacturing, offering elite bodies to the wealthy</li>
+				<li>subject_gerund->gestating synthetic sleeves</li>
+			</rulesStrings>
+		</generalRules>
 	</ResearchProjectDef>
 	<!-- ================================ Neural Digitalization ====================== -->
 	<ResearchProjectDef ParentName="AC_ResearchBase">
 		<defName>AC_NeuralDigitalization</defName>
 		<label>neural digitalization</label>
 		<description>Delve into neural technologies to create implants that can house a fully digitised human consciousness.</description>
-		<baseCost>4000</baseCost>
-		<researchViewX>17.00</researchViewX>
-		<researchViewY>0.00</researchViewY>
+		<baseCost>8000</baseCost>
+		<researchViewX>0.00</researchViewX>
+		<researchViewY>0.40</researchViewY>
 		<prerequisites>
 			<li>AdvancedFabrication</li>
 		</prerequisites>
+		<generalRules>
+			<rulesStrings>
+				<li>subject->neural digitalization</li>
+				<li>subject_story->pioneered the process of transferring human minds into digital form, extending life beyond biology</li>
+				<li>subject_story->digitized the minds of an entire research team, effectively creating a virtual scientific think tank</li>
+				<li>subject_story->sold digitized consciousnesses as a means of immortality to the highest bidders</li>
+				<li>subject_story->transferred a dying political leader's mind into a server, allowing them to continue governing from a virtual state</li>
+				<li>subject_story->created a virtual paradise where the minds of the deceased could interact with the living in a simulated world</li>
+				<li>subject_story->engineered a mass migration of consciousnesses into a digital utopia, leaving behind a depopulated physical world</li>
+				<li>subject_story->sparked ethical debates as digital minds began demanding equal rights and autonomy over their virtual existence</li>
+				<li>subject_story->uncovered a flaw in the digitization process, where some digital consciousnesses experienced fragmentation and memory loss</li>
+				<li>subject_gerund->digitizing neural patterns</li>
+			</rulesStrings>
+		</generalRules>
 	</ResearchProjectDef>
 	<!-- ================================ Neural Editing ====================== -->
 	<ResearchProjectDef ParentName="AC_ResearchBase">
 		<defName>AC_NeuralEditing</defName>
 		<label>neural editing</label>
-		<description>Further advance in neural technologies to enable the manipulation and duplication of digitised human consciousnesses.</description>
+		<description>Continue to advance neural technologies to facilitate the manipulation and replication of digitised human consciousness.</description>
 		<baseCost>5000</baseCost>
-		<researchViewX>18.00</researchViewX>
-		<researchViewY>0.00</researchViewY>
+		<researchViewX>1.00</researchViewX>
+		<researchViewY>0.10</researchViewY>
 		<prerequisites>
 			<li>AC_NeuralDigitalization</li>
 		</prerequisites>
+		<generalRules>
+			<rulesStrings>
+				<li>subject->neural editing</li>
+				<li>subject_story->perfected the ability to modify memories and personality traits within a digitised consciousness</li>
+				<li>subject_story->cloned and edited consciousnesses to create specialized versions of individuals for specific tasks</li>
+				<li>subject_story->erased traumatic experiences from digital minds, offering relief to those suffering from psychological damage</li>
+				<li>subject_story->sparked controversy after governments began secretly editing the minds of political dissidents to ensure compliance</li>
+				<li>subject_gerund->editing neural data</li>
+			</rulesStrings>
+		</generalRules>
 	</ResearchProjectDef>
 	<!-- ================================ Neural Casting ====================== -->
 	<ResearchProjectDef ParentName="AC_ResearchBase">
-		<defName>AC_NeuralEditing</defName>
+		<defName>AC_NeuralCasting</defName>
 		<label>neural casting</label>
-		<description>text.todo</description>
-		<baseCost>5000</baseCost>
-		<researchViewX>18.50</researchViewX>
-		<researchViewY>0.00</researchViewY>
+		<description>Research the ability for projecting a digitised consciousness by integrating psychic subwaves with short-range, high-speed communication frequencies.</description>
+		<baseCost>4000</baseCost>
+		<researchViewX>1.00</researchViewX>
+		<researchViewY>0.70</researchViewY>
 		<prerequisites>
 			<li>AC_NeuralDigitalization</li>
 		</prerequisites>
+    <generalRules>
+        <rulesStrings>
+            <li>subject->neural casting</li>
+
+            <li>subject_story->developed methods to project digitized consciousness, allowing individuals to communicate over vast distances without physical presence</li>
+            <li>subject_story->combined psychic subwaves with advanced technology to create a seamless link between minds, revolutionizing long-distance interactions</li>
+            <li>subject_story->prompted speculation about the potential for consciousness transfer, raising ethical and philosophical debates</li>
+            <li>subject_story->became a cornerstone of new forms of telepathic communication, enabling collaborative efforts across great distances</li>
+
+            <li>subject_gerund->researching the integration of psychic and technological communication</li>
+        </rulesStrings>
+    </generalRules>
+	</ResearchProjectDef>
+	<!-- ================================ Skilltrainer production ====================== -->
+	<ResearchProjectDef ParentName="AC_ResearchBase">
+		<defName>AC_SkilltrainerProduction</defName>
+		<label>skilltrainer production</label>
+		<description>Leverage neural technologies and a blend of torturous virtual realities to program skilltrainers from living individuals. A person's mind will be forced to complete a multitude of skill-related tasks over and over, creating artificial neural patterns that will be transferred to the skilltrainer's mechanites.</description>
+		<baseCost>8000</baseCost>
+		<researchViewX>1.00</researchViewX>
+		<researchViewY>1.30</researchViewY>
+		<prerequisites>
+			<li>AC_NeuralDigitalization</li>
+		</prerequisites>
+		<generalRules>
+			<rulesStrings>
+				<li>subject->skilltrainer production</li>
+				<li>subject_story->engineered brutal virtual environments where minds were pushed to their limits, perfecting skills through forced repetition</li>
+				<li>subject_story->built a system where the most talented minds were harvested to mass-produce skilltrainer devices for rapid learning</li>
+				<li>subject_story->sparked an outcry after it was revealed that individuals were subjected to months of torturous simulations to create skilltrainers in mere days</li>
+				<li>subject_story->fueled a black market of skilltrainers created from illegally captured minds, offering expertise at the cost of another's suffering</li>
+				<li>subject_gerund->programming skilltrainers through forced neural repetition</li>
+			</rulesStrings>
+		</generalRules>
 	</ResearchProjectDef>
 	<!-- ================================ Chrysalis Powered Armor ====================== -->
 	<ResearchProjectDef ParentName="AC_ResearchBase">
 		<defName>AC_ChrysalisPoweredArmor</defName>
 		<label>chrysalis armor</label>
-		<description>Craft chrysalis armor, specilized for a wide range of different battle field scenarios and needs, while providing the most protection possible. Note that these also require advanced components.</description>
-		<baseCost>8500</baseCost>
+		<description>Craft chrysalis armor, specialised for a wide range of different battlefield scenarios and needs, while providing the most protection possible. Note that these also require advanced components.</description>
+		<baseCost>9000</baseCost>
 		<techLevel>Ultra</techLevel>
 		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
 		<requiredResearchFacilities>
 			<li>MultiAnalyzer</li>
 		</requiredResearchFacilities>
-		<researchViewX>17.00</researchViewX>
-		<researchViewY>2.10</researchViewY>
+		<researchViewX>0.00</researchViewX>
+		<researchViewY>4.00</researchViewY>
 		<prerequisites>
 			<li>PoweredArmor</li>
 		</prerequisites>
+		<generalRules>
+			<rulesStrings>
+				<li>subject->chrysalis armor</li>
+				<li>subject_story->developed adaptive powered armor capable of transforming to suit any combat situation, from heavy assault to covert operations</li>
+				<li>subject_story->equipped elite military units with chrysalis armor, turning the tide in critical battles with its unmatched protection and versatility</li>
+				<li>subject_story->sparked a revolution in personal defense as mercenary groups and security forces adopted chrysalis armor for their operations</li>
+				<li>subject_story->introduced armor so advanced that it became a status symbol among the ultra-wealthy, blending battlefield technology with high fashion</li>
+				<li>subject_gerund->crafting versatile chrysalis armor</li>
+			</rulesStrings>
+		</generalRules>
 	</ResearchProjectDef>
+	<!-- ================================ Advanced Shield Belt ====================== -->
 	<ResearchProjectDef ParentName="AC_ResearchBase">
-		<!-- ================================ Advanced Shield Belt ====================== -->
 		<defName>AC_AdvancedShieldBelt</defName>
 		<label>advanced shields</label>
-		<description>text.todo</description>
-		<baseCost>2500</baseCost>
+		<description>Develop advanced shield gear that supports the use of ranged weapons and incorporates implantable shield Auras.</description>
+		<baseCost>6000</baseCost>
 		<techLevel>Ultra</techLevel>
 		<requiredResearchFacilities>
 			<li>MultiAnalyzer</li>
 		</requiredResearchFacilities>
 		<requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
-		<researchViewX>15.00</researchViewX>
-		<researchViewY>1.50</researchViewY>
+		<researchViewX>0.00</researchViewX>
+		<researchViewY>3.50</researchViewY>
 		<prerequisites>
 			<li>ShieldBelt</li>
 		</prerequisites>
+		<generalRules>
+			<rulesStrings>
+				<li>subject->advanced shields</li>
+				<li>subject_story->designed shield gear that protects while allowing soldiers to fire ranged weapons, greatly improving combat effectiveness</li>
+				<li>subject_story->implemented implantable shield auras for personal defense, allowing wearers to move unimpeded while maintaining a protective barrier</li>
+				<li>subject_story->outfitted security forces with advanced shields, drastically reducing casualties in high-risk environments</li>
+				<li>subject_story->introduced shields so advanced that they became essential in competitive combat sports, providing safety without sacrificing mobility</li>
+				<li>subject_gerund->developing advanced personal shields</li>
+			</rulesStrings>
+		</generalRules>
 	</ResearchProjectDef>
 	<!-- ================================ Vocal Synthesis ====================== -->
 	<ResearchProjectDef ParentName="AC_ResearchBase">
 		<defName>AC_VocalSynthesis</defName>
 		<label>vocal synthesis</label>
-		<description>text.todo</description>
+		<description>Craft bionic implants that enhance vocal capabilities, making them more effective for social interactions.</description>
+		<baseCost>2000</baseCost>
 		<prerequisites>
 			<li>Fabrication</li>
 		</prerequisites>
 		<hiddenPrerequisites>
 			<li>Prosthetics</li>
 		</hiddenPrerequisites>
-		<researchViewX>18.00</researchViewX>
-		<researchViewY>5.30</researchViewY>
+		<researchViewX>1.00</researchViewX>
+		<researchViewY>4.70</researchViewY>
+		<generalRules>
+			<rulesStrings>
+				<li>subject->vocal synthesis</li>
+				<li>subject_story->developed bionic vocal implants that revolutionized communication for diplomats, leaders, and performers</li>
+				<li>subject_story->enhanced the social and persuasive abilities of high-profile individuals, allowing them to influence with remarkable clarity and tone</li>
+				<li>subject_story->became a luxury commodity among celebrities and public figures, allowing them to perfect their voices</li>
+				<li>subject_story->led to the rise of vocal modification in entertainment industries, where synthesized voices became a hallmark of high-end performances</li>
+				<li>subject_gerund->synthesizing enhanced vocal implants</li>
+			</rulesStrings>
+		</generalRules>
 	</ResearchProjectDef>
 	<!-- ================================ Mental Fortification ====================== -->
 	<ResearchProjectDef ParentName="AC_ResearchBase">
 		<defName>AC_MentalFortification</defName>
 		<label>mental fortification</label>
-		<description>text.todo</description>
+		<description>Craft brain implants that safeguard the user against mental breaks.</description>
+		<baseCost>4000</baseCost>
 		<prerequisites>
 			<li>Fabrication</li>
 		</prerequisites>
 		<hiddenPrerequisites>
 			<li>Prosthetics</li>
 		</hiddenPrerequisites>
-		<researchViewX>17.00</researchViewX>
-		<researchViewY>5.70</researchViewY>
+		<researchViewX>1.00</researchViewX>
+		<researchViewY>5.20</researchViewY>
+		<generalRules>
+			<rulesStrings>
+				<li>subject->mental fortification</li>
+				<li>subject_story->developed brain implants that stabilized emotional states, providing resilience against stress and trauma</li>
+				<li>subject_story->became a critical tool for military and high-stress professions, allowing individuals to operate under extreme pressure without breaking down</li>
+				<li>subject_story->sparked ethical debates as corporations began using these implants to ensure compliance and loyalty in high-stakes environments</li>
+				<li>subject_story->enabled a new era of psychological stability, where mental fortification became a routine enhancement for those in leadership roles</li>
+				<li>subject_gerund->fortifying mental resilience through brain implants</li>
+			</rulesStrings>
+		</generalRules>
 	</ResearchProjectDef>
 	<!-- ================================ REM-sleep Enchanment ====================== -->
 	<ResearchProjectDef ParentName="AC_ResearchBase">
 		<defName>AC_REMEnchanment</defName>
 		<label>REM-sleep enchanment</label>
-		<description>text.todo</description>
+		<description>Craft brain implants that enhance the user’s REM sleep, promoting deeper and more restorative rest.</description>
+		<baseCost>2000</baseCost>
 		<prerequisites>
 			<li>Fabrication</li>
 		</prerequisites>
 		<hiddenPrerequisites>
 			<li>Prosthetics</li>
 		</hiddenPrerequisites>
-		<researchViewX>17.00</researchViewX>
-		<researchViewY>3.10</researchViewY>
+		<researchViewX>1.00</researchViewX>
+		<researchViewY>4.00</researchViewY>
+		<generalRules>
+			<rulesStrings>
+				<li>subject->REM-sleep enhancement</li>
+				<li>subject_story->developed brain implants that significantly improved the quality of REM sleep, leading to heightened cognitive function and creativity</li>
+				<li>subject_story->became popular among artists and thinkers who sought to unlock their full potential during sleep</li>
+				<li>subject_story->prompted concerns over dependency, as users became reliant on implants for natural rest</li>
+				<li>subject_story->created a new industry focused on sleep technology, revolutionizing wellness and productivity across various sectors</li>
+				<li>subject_gerund->enhancing REM sleep through advanced brain implants</li>
+			</rulesStrings>
+		</generalRules>
+	</ResearchProjectDef>
+	<!-- ================================ Rogian Armaments ====================== -->
+	<ResearchProjectDef ParentName="AC_ResearchBase">
+		<defName>AC_RogianArmaments</defName>
+		<label>rogian armaments</label>
+		<description>Craft specialized bionic limb replacements designed for combat that do not hinder the user’s ability to function in day to day life.</description>
+		<baseCost>6000</baseCost>
+		<prerequisites>
+			<li>Fabrication</li>
+		</prerequisites>
+		<hiddenPrerequisites>
+			<li>Prosthetics</li>
+		</hiddenPrerequisites>
+		<researchViewX>1.00</researchViewX>
+		<researchViewY>3.50</researchViewY>
+		<generalRules>
+			<rulesStrings>
+				<li>subject->rogian armaments</li>
+				<li>subject_story->engineered bionic limbs that enhanced combat effectiveness while maintaining everyday functionality for users</li>
+				<li>subject_story->adopted by elite soldiers, these armaments provided superior strength and agility without compromising dexterity</li>
+				<li>subject_story->raised ethical concerns regarding the militarization of prosthetics, as many questioned the line between aid and enhancement</li>
+				<li>subject_story->became a status symbol in both military and civilian circles, representing the pinnacle of advanced technology</li>
+				<li>subject_gerund->crafting combat-ready bionic limb replacements</li>
+			</rulesStrings>
+		</generalRules>
 	</ResearchProjectDef>
 </Defs>

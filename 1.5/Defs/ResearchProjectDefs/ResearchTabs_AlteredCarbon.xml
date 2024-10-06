@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<!-- ================================ Altered Carbon - Research Tab ====================== -->
+	<ResearchTabDef>
+		<defName>AC_AlteredCarbon</defName>
+		<label>Altered Carbon</label>
+		<generalTitle>Research projects added by ALtered Carbon</generalTitle>
+		<generalDescription>Unlock new ultratech technologies by researching at a research bench. You can only have one active project at a time.</generalDescription>
+	</ResearchTabDef>
+</Defs>
