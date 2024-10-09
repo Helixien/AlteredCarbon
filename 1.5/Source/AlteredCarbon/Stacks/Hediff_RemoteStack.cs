@@ -26,26 +26,39 @@ namespace AlteredCarbon
 
         public ConnectStatus GetConnectStatus(INeedlecastable needlecastable)
         {
-            if (pawn.Faction != Faction.OfPlayer && pawn.IsPrisonerOfColony is false 
+            var excludedHediffs = new List<HediffDef>
+            {
+                AC_DefOf.AC_EmptySleeve, AC_DefOf.AC_CryptoStasis
+            };
+            var removedHedifs = new List<Hediff>();
+            foreach (var hediffDef in excludedHediffs)
+            {
+                var hediff = pawn.GetHediff(hediffDef);
+                if (hediff != null)
+                {
+                    removedHedifs.Add(hediff);
+                    pawn.health.hediffSet.hediffs.Remove(hediff);
+                }
+            }
+            pawn.health.capacities.Notify_CapacityLevelsDirty();
+            var status = GetStatusInternal(needlecastable);
+            foreach (var removed in removedHedifs)
+            {
+                pawn.health.hediffSet.hediffs.Add(removed);
+            }
+            return status;
+        }
+
+        private ConnectStatus GetStatusInternal(INeedlecastable needlecastable)
+        {
+            if (pawn.Faction != Faction.OfPlayer && pawn.IsPrisonerOfColony is false
                 && pawn.IsSlaveOfColony is false && pawn.IsEmptySleeve() is false)
             {
                 return ConnectStatus.NotConnectable;
             }
             if (pawn.Downed)
             {
-                if (pawn.IsEmptySleeve())
-                {
-                    pawn.UndoEmptySleeve();
-                    if (pawn.Downed)
-                    {
-                        pawn.MakeEmptySleeve();
-                        return ConnectStatus.Downed;
-                    }
-                }
-                else
-                {
-                    return ConnectStatus.Downed;
-                }
+                return ConnectStatus.Downed;
             }
             if (pawn.Dead || pawn.IsLost())
             {
@@ -122,6 +135,7 @@ namespace AlteredCarbon
         public void Needlecast(INeedlecastable needlecastable)
         {
             wasEmptySleeve = pawn.IsEmptySleeve();
+            Log.Message("Needlecast wasEmptySleeve: " + wasEmptySleeve);
             if (wasEmptySleeve)
             {
                 pawn.UndoEmptySleeve();
@@ -141,6 +155,12 @@ namespace AlteredCarbon
             }
             needlePawnData.CopyDataFrom(needlecastable.NeuralData);
             needlePawnData.OverwritePawn(pawn);
+            pawn.jobs.StopAll();
+            var stasis = pawn.GetHediff(AC_DefOf.AC_CryptoStasis);
+            if (stasis != null)
+            {
+                pawn.health.RemoveHediff(stasis);
+            }
         }
 
         public void EndNeedlecasting()
@@ -151,7 +171,7 @@ namespace AlteredCarbon
             var source = Source;
             if (source is Hediff_NeuralStack hediff)
             {
-                var coma = hediff.pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_NeedlecastingStasis);
+                var coma = hediff.pawn.GetHediff(AC_DefOf.AC_NeedlecastingStasis);
                 hediff.needleCastingInto = null;
                 hediff.pawn.health.RemoveHediff(coma);
                 hediff.pawn.health.AddHediff(AC_DefOf.AC_NeedlecastingSickness);
@@ -163,6 +183,7 @@ namespace AlteredCarbon
                 sourceStack = null;
             }
             originalPawnData = null;
+            Log.Message("EndNeedlecasting wasEmptySleeve: " + wasEmptySleeve);
             if (wasEmptySleeve)
             {
                 pawn.MakeEmptySleeve();

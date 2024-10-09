@@ -8,7 +8,7 @@ namespace AlteredCarbon
         public override int CurStageIndex => GetThoughtStageIndex();
         public int GetThoughtStageIndex()
         {
-            var hediff = pawn.health.hediffSet.GetFirstHediffOfDef(def.hediff) as Hediff_StackDegradation;
+            var hediff = pawn.GetHediff(def.hediff) as Hediff_StackDegradation;
             if (hediff == null) return 0;
             else if (hediff.stackDegradation >= 0.9f) return 5;
             else if (hediff.stackDegradation >= 0.6f) return 4;

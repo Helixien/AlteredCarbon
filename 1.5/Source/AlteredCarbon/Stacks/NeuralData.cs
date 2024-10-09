@@ -595,7 +595,7 @@ namespace AlteredCarbon
                 modEntry.FetchData(pawn);
             }
 
-            var stackDegradationHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_StackDegradation) as Hediff_StackDegradation;
+            var stackDegradationHediff = pawn.GetHediff(AC_DefOf.AC_StackDegradation) as Hediff_StackDegradation;
             if (stackDegradationHediff != null)
             {
                 this.stackDegradation = stackDegradationHediff.stackDegradation;

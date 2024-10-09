@@ -16,6 +16,5 @@ namespace AlteredCarbon
             return true;
         }
     }
-
 }
 

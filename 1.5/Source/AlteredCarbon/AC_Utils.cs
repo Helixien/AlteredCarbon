@@ -826,12 +826,12 @@ namespace AlteredCarbon
         {
             if (pawn?.health?.hediffSet != null)
             {
-                if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_NeuralStack) is Hediff_NeuralStack hediff)
+                if (pawn.GetHediff(AC_DefOf.AC_NeuralStack) is Hediff_NeuralStack hediff)
                 {
                     hediff_NeuralStack = hediff;
                     return true;
                 }
-                else if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_ArchotechStack) is Hediff_NeuralStack hediff2)
+                else if (pawn.GetHediff(AC_DefOf.AC_ArchotechStack) is Hediff_NeuralStack hediff2)
                 {
                     hediff_NeuralStack = hediff2;
                     return true;
@@ -854,7 +854,7 @@ namespace AlteredCarbon
         {
             if (pawn?.health?.hediffSet != null)
             {
-                if (pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_RemoteStackHediff) is Hediff_RemoteStack hediff)
+                if (pawn.GetHediff(AC_DefOf.AC_RemoteStackHediff) is Hediff_RemoteStack hediff)
                 {
                     hediff_RemoteStack = hediff;
                     return true;
@@ -924,7 +924,7 @@ namespace AlteredCarbon
         public static void UndoEmptySleeve(this Pawn pawn)
         {
             AlteredCarbonManager.Instance.emptySleeves.Remove(pawn);
-            var hediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_EmptySleeve);
+            var hediff = pawn.GetHediff(AC_DefOf.AC_EmptySleeve);
             if (hediff != null)
             {
                 pawn.health.RemoveHediff(hediff);
@@ -1052,6 +1052,16 @@ namespace AlteredCarbon
                     }
                 }
             }
+        }
+
+        public static Hediff GetHediff(this Pawn pawn, HediffDef hediff)
+        {
+            return pawn?.health?.hediffSet?.GetFirstHediffOfDef(hediff);
+        }
+
+        public static bool HasHediff(this Pawn pawn, HediffDef hediff)
+        {
+            return pawn.GetHediff(hediff) != null;
         }
 
         public static void CleanupList<T>(this List<T> list, Predicate<T> predicate = null)

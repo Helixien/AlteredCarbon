@@ -11,7 +11,7 @@ namespace AlteredCarbon
     public class Ability_ArchotechStackSkip : Ability
     {
         public NeuralStack archoStackForAbility;
-        public Hediff_NeuralStack Hediff_NeuralStack => pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_ArchotechStack) as Hediff_NeuralStack;
+        public Hediff_NeuralStack Hediff_NeuralStack => pawn.GetHediff(AC_DefOf.AC_ArchotechStack) as Hediff_NeuralStack;
         public override bool ValidateTarget(LocalTargetInfo target, bool showMessages = true)
         {
             return Validate(target, showMessages);

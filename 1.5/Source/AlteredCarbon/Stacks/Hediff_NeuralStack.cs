@@ -142,7 +142,7 @@ namespace AlteredCarbon
                 }
             }
 
-            var emptySleeveHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_EmptySleeve);
+            var emptySleeveHediff = pawn.GetHediff(AC_DefOf.AC_EmptySleeve);
             if (emptySleeveHediff != null)
             {
                 pawn.health.RemoveHediff(emptySleeveHediff);

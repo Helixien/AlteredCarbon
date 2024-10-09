@@ -124,5 +124,6 @@ namespace AlteredCarbon
         public static StackSavingOptions AC_StackSavingOptions;
         public static HediffDef AC_NeedlecastingStasis, AC_NeedlecastingSickness;
         public static ThingDef AC_CastingRelay;
+        public static HediffDef AC_CryptoStasis;
     }
 }

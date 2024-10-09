@@ -3,6 +3,7 @@ using Verse;
 
 namespace AlteredCarbon
 {
+
     public class Hediff_StackDegradation : HediffWithComps
     {
         public float stackDegradation;

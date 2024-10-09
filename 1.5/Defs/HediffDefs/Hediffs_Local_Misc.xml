@@ -6,11 +6,17 @@
 		<label>crypto stasis</label>
 		<labelNoun>crypto stasis</labelNoun>
 		<description>Active effect of the sleeve caskets suspension systems.</description>
-		<hediffClass>HediffWithComps</hediffClass>
+		<hediffClass>AlteredCarbon.Hediff_CryptoStasis</hediffClass>
 		<isBad>false</isBad>
 		<stages>
 			<li>
 				<painFactor>0</painFactor>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<setMax>0.01</setMax>
+					</li>
+				</capMods>
 			</li>
 		</stages>
 	</HediffDef>

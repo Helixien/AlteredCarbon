@@ -98,6 +98,10 @@
     <Compile Include="CompApparelAbilities.cs" />
     <Compile Include="HarmonyPatches\Alert_ColonistLeftUnburied_IsCorpseOfColonist_Patch.cs" />
     <Compile Include="HarmonyPatches\Apparel_Notify_PawnKilled_Patch.cs" />
+    <Compile Include="HarmonyPatches\HediffSet_CalculateBleedRate_Patch.cs" />
+    <Compile Include="HarmonyPatches\Hediff_Pregnant_Tick_Patch.cs" />
+    <Compile Include="HarmonyPatches\HediffComp_Immunizable_SeverityChangePerDay_Patch.cs" />
+    <Compile Include="HarmonyPatches\Pawn_NeedsTracker_NeedsTrackerTick_Patch.cs" />
     <Compile Include="HarmonyPatches\Building_CryptosleepCasket_GetGizmos_Patch.cs" />
     <Compile Include="HarmonyPatches\Building_CryptosleepCasket_TryAcceptThing_Postfix.cs" />
     <Compile Include="HarmonyPatches\CompAffectedByFacilities_CanLinkTo_Patch.cs" />
@@ -146,6 +150,7 @@
     <Compile Include="HarmonyPatches\BillPatches\WorkGiver_DoBill_TryFindBestBillIngredients_Patch.cs" />
     <Compile Include="HarmonyPatches\BillPatches\WorkGiver_DoBill_TryFindBestIngredientsHelper_Patch.cs" />
     <Compile Include="HediffComp_MeleeWeapon.cs" />
+    <Compile Include="Hediffs\Hediff_CryptoStasis.cs" />
     <Compile Include="Jobs\JobDriver_ChargeCuirassierBelt.cs" />
     <Compile Include="Jobs\JobDriver_HaulCorpseToGestation.cs" />
     <Compile Include="Jobs\JobDriver_HaulThingsToContainer.cs" />
@@ -182,7 +187,7 @@
     <Compile Include="SleevePreset.cs" />
     <Compile Include="Stacks\CompNeuralCache.cs" />
     <Compile Include="Stacks\Hediff_RemoteStack.cs" />
-    <Compile Include="Stacks\RJWData.cs" />
+    <Compile Include="ModCompatibilities\RJWData.cs" />
     <Compile Include="Stacks\ThingWithNeuralData.cs" />
     <Compile Include="Thoughts\Thought_StackDegradation.cs" />
     <Compile Include="UI\Alert_ColonistStackNeedsExtracting.cs" />
@@ -223,7 +228,7 @@
     <Compile Include="HarmonyPatches\SocialCardUtility_GetPawnSituationLabel_Patch.cs" />
     <Compile Include="Recipes\Bill_OperateOnStack.cs" />
     <Compile Include="Stacks\Ability_ArchotechStackSkip.cs" />
-    <Compile Include="Stacks\Hediff_StackDegradation.cs" />
+    <Compile Include="Hediffs\Hediff_StackDegradation.cs" />
     <Compile Include="Stacks\ScenPart_NeuralStack.cs" />
     <Compile Include="UI\Command_ActionOnThing.cs" />
     <Compile Include="UI\Command_NeedlecastAction.cs" />
@@ -250,7 +255,6 @@
     <Compile Include="AlteredCarbonSettingsWorker_General.cs" />
     <Compile Include="HarmonyPatches\Pawn_HealthTracker_Notify_Resurrected_Patch.cs" />
     <Compile Include="HarmonyPatches\PawnRenderer_RenderPawnInternal_Patch.cs" />
-    <Compile Include="HarmonyPatches\BedPatches\BedPatches.cs" />
     <Compile Include="HarmonyPatches\BillPatches\Bill_IsFixedOrAllowedIngredient_Patch.cs" />
     <Compile Include="HarmonyPatches\SituationalThoughtHandler_CheckRecalculateMoodThoughts_Patch.cs" />
     <Compile Include="Recipes\Recipe_WipeActiveNeuralStack.cs" />
@@ -264,7 +268,7 @@
     <Compile Include="UI\Window_SelectItem.cs" />
     <Compile Include="UI\Window_SleeveCustomization.cs" />
     <Compile Include="ExcludeRacesModExtension.cs" />
-    <Compile Include="Stacks\PsychologyData.cs" />
+    <Compile Include="ModCompatibilities\PsychologyData.cs" />
     <Compile Include="Stacks\NeuralData.cs" />
     <Compile Include="Stacks\StackGroupData.cs" />
     <Compile Include="Thoughts\ThoughtWorker_WomansBody.cs" />

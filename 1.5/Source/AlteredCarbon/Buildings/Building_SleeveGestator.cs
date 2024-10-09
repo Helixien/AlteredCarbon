@@ -469,7 +469,7 @@ namespace AlteredCarbon
             var scars = pawn.health.hediffSet.hediffs.Where(x => x.IsPermanent());
             var brainTraumas = pawn.health.hediffSet.hediffs.Where(x => x.def == AC_DefOf.AC_BrainTrauma || x.def == AC_DefOf.TraumaSavant);
             var toRemove = injuries.Cast<Hediff>().Concat(missingParts).Concat(scars).Concat(brainTraumas).ToList();
-            var bloodlossHediff = pawn.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.BloodLoss);
+            var bloodlossHediff = pawn.GetHediff(HediffDefOf.BloodLoss);
             if (bloodlossHediff != null)
             {
                 toRemove.Add(bloodlossHediff);

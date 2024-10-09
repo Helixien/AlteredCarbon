@@ -138,7 +138,7 @@ namespace AlteredCarbon
         {
             if (AC_Utils.editStacksSettings.enableStackDegradation && hediff.NeuralData.stackDegradation > 0)
             {
-                var stackDegradationHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AC_DefOf.AC_StackDegradation) as Hediff_StackDegradation;
+                var stackDegradationHediff = pawn.GetHediff(AC_DefOf.AC_StackDegradation) as Hediff_StackDegradation;
                 if (stackDegradationHediff is null)
                 {
                     BodyPartRecord neckRecord = pawn.GetNeck();
