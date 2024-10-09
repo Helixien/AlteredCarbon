@@ -79,33 +79,29 @@ namespace AlteredCarbon
             }
             foreach (var occupant in this.CurOccupants)
             {
-                if (occupant.jobs?.curDriver?.asleep is true)
+                if (occupant.HasHediff(AC_DefOf.AC_CryptoStasis) is false)
                 {
-                    if (occupant.HasHediff(AC_DefOf.AC_CryptoStasis) is false)
-                    {
-                        occupant.health.AddHediff(AC_DefOf.AC_CryptoStasis);
-                        Log.Message("Giving AC_CryptoStasis hediff ");
-                    }
-                    if (occupant.needs.food.CurLevel < occupant.needs.food.MaxLevel)
-                    {
-                        occupant.needs.food.CurLevel += 0.001f;
-                    }
-                    if (ModCompatibility.DubsBadHygieneActive)
-                    {
-                        ModCompatibility.FillThirstNeed(occupant, 0.001f);
-                        ModCompatibility.FillHygieneNeed(occupant, 0.001f);
-                        ModCompatibility.FillBladderNeed(occupant, 0.001f);
-                    }
-                    var malnutrition = occupant.GetHediff(HediffDefOf.Malnutrition);
-                    if (malnutrition != null)
-                    {
-                        occupant.health.RemoveHediff(malnutrition);
-                    }
-                    var dehydration = occupant.health.hediffSet.hediffs.FirstOrDefault(x => x.def.defName == "DBHDehydration");
-                    if (dehydration != null)
-                    {
-                        occupant.health.RemoveHediff(dehydration);
-                    }
+                    occupant.health.AddHediff(AC_DefOf.AC_CryptoStasis);
+                }
+                if (occupant.needs.food.CurLevel < occupant.needs.food.MaxLevel)
+                {
+                    occupant.needs.food.CurLevel += 0.001f;
+                }
+                if (ModCompatibility.DubsBadHygieneActive)
+                {
+                    ModCompatibility.FillThirstNeed(occupant, 0.001f);
+                    ModCompatibility.FillHygieneNeed(occupant, 0.001f);
+                    ModCompatibility.FillBladderNeed(occupant, 0.001f);
+                }
+                var malnutrition = occupant.GetHediff(HediffDefOf.Malnutrition);
+                if (malnutrition != null)
+                {
+                    occupant.health.RemoveHediff(malnutrition);
+                }
+                var dehydration = occupant.health.hediffSet.hediffs.FirstOrDefault(x => x.def.defName == "DBHDehydration");
+                if (dehydration != null)
+                {
+                    occupant.health.RemoveHediff(dehydration);
                 }
             }
         }

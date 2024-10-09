@@ -24,8 +24,10 @@ namespace AlteredCarbon
             }
         }
 
+        public static bool lookingForConnectStatus;
         public ConnectStatus GetConnectStatus(INeedlecastable needlecastable)
         {
+            lookingForConnectStatus = true;
             var excludedHediffs = new List<HediffDef>
             {
                 AC_DefOf.AC_EmptySleeve, AC_DefOf.AC_CryptoStasis
@@ -37,15 +39,15 @@ namespace AlteredCarbon
                 if (hediff != null)
                 {
                     removedHedifs.Add(hediff);
-                    pawn.health.hediffSet.hediffs.Remove(hediff);
+                    pawn.health.RemoveHediff(hediff);
                 }
             }
-            pawn.health.capacities.Notify_CapacityLevelsDirty();
             var status = GetStatusInternal(needlecastable);
             foreach (var removed in removedHedifs)
             {
-                pawn.health.hediffSet.hediffs.Add(removed);
+                pawn.health.AddHediff(removed);
             }
+            lookingForConnectStatus = false;
             return status;
         }
 
@@ -134,8 +136,8 @@ namespace AlteredCarbon
 
         public void Needlecast(INeedlecastable needlecastable)
         {
+            HediffSet_DirtyCache_Patch.looking = true;
             wasEmptySleeve = pawn.IsEmptySleeve();
-            Log.Message("Needlecast wasEmptySleeve: " + wasEmptySleeve);
             if (wasEmptySleeve)
             {
                 pawn.UndoEmptySleeve();
@@ -161,6 +163,8 @@ namespace AlteredCarbon
             {
                 pawn.health.RemoveHediff(stasis);
             }
+            HediffSet_DirtyCache_Patch.looking = false;
+            pawn.health.hediffSet.DirtyCache();
         }
 
         public void EndNeedlecasting()
@@ -183,7 +187,6 @@ namespace AlteredCarbon
                 sourceStack = null;
             }
             originalPawnData = null;
-            Log.Message("EndNeedlecasting wasEmptySleeve: " + wasEmptySleeve);
             if (wasEmptySleeve)
             {
                 pawn.MakeEmptySleeve();

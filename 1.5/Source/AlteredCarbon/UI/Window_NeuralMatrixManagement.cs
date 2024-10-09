@@ -386,7 +386,7 @@ namespace AlteredCarbon
 
             if (stack.NeuralData.trackedToMatrix == matrix)
             {
-                bool isNeedlecastingButtonActive = true;
+                bool isNeedlecastingButtonActive = AC_DefOf.AC_NeuralCasting.IsFinished;
                 if (neuralStack != null && neuralStack.ParentHolder is not CompNeuralCache)
                 {
                     isNeedlecastingButtonActive = false;

@@ -125,5 +125,6 @@ namespace AlteredCarbon
         public static HediffDef AC_NeedlecastingStasis, AC_NeedlecastingSickness;
         public static ThingDef AC_CastingRelay;
         public static HediffDef AC_CryptoStasis;
+        public static ResearchProjectDef AC_NeuralCasting;
     }
 }

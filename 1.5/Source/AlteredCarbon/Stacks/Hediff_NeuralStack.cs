@@ -84,6 +84,10 @@ namespace AlteredCarbon
 
         public IEnumerable<Gizmo> GetNeedleCastingGizmos()
         {
+            if (AC_DefOf.AC_NeuralCasting.IsFinished is false)
+            {
+                yield break;
+            }
             if (pawn.ParentHolder is Building_CryptosleepCasket && pawn.IsColonist || pawn.IsColonistPlayerControlled)
             {
                 if (Needlecasting)
