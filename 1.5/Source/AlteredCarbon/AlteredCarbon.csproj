@@ -98,9 +98,11 @@
     <Compile Include="CompApparelAbilities.cs" />
     <Compile Include="HarmonyPatches\Alert_ColonistLeftUnburied_IsCorpseOfColonist_Patch.cs" />
     <Compile Include="HarmonyPatches\Apparel_Notify_PawnKilled_Patch.cs" />
+    <Compile Include="HarmonyPatches\Corpse_DeSpawn_Patch.cs" />
     <Compile Include="HarmonyPatches\HediffSet_CalculateBleedRate_Patch.cs" />
     <Compile Include="HarmonyPatches\Hediff_Pregnant_Tick_Patch.cs" />
     <Compile Include="HarmonyPatches\HediffComp_Immunizable_SeverityChangePerDay_Patch.cs" />
+    <Compile Include="HarmonyPatches\PawnUtility_GetPosture_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_NeedsTracker_NeedsTrackerTick_Patch.cs" />
     <Compile Include="HarmonyPatches\Building_CryptosleepCasket_GetGizmos_Patch.cs" />
     <Compile Include="HarmonyPatches\Building_CryptosleepCasket_TryAcceptThing_Postfix.cs" />

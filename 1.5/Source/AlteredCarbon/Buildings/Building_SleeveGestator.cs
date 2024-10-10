@@ -117,13 +117,14 @@ namespace AlteredCarbon
         public override void DrawAt(Vector3 drawLoc, bool flip = false)
         {
             base.DrawAt(drawLoc, flip);
-            if (incubatorState != IncubatorState.ToBeActivated && InnerPawn != null)
+            var innerPawn = InnerPawn;
+            if (incubatorState != IncubatorState.ToBeActivated && innerPawn != null)
             {
                 Vector3 newPos = drawLoc;
                 newPos.z += 0.2f;
                 newPos.y += 1;
                 float growthProgress = GrowthProgress;
-                if (growthProgress < 0.05f && InnerPawn.Dead is false)
+                if (growthProgress < 0.05f && innerPawn.Dead is false)
                 {
                     Vector2 drawSize = Vector2.one * Mathf.Lerp(0.3f, 0.7f, growthProgress / 0.05f);
                     if (growthProgress < 0.02f)
@@ -139,12 +140,12 @@ namespace AlteredCarbon
                 {
                     try
                     {
-                        InnerPawn.Rotation = Rotation;
-                        InnerPawn.DynamicDrawPhaseAt(DrawPhase.Draw, newPos + PawnDrawOffset, flip);
+                        innerPawn.Rotation = Rotation;
+                        innerPawn.DynamicDrawPhaseAt(DrawPhase.Draw, newPos + PawnDrawOffset, flip);
                     }
                     catch (Exception e)
                     {
-                        Log.Error("Error drawing " + InnerPawn + " - " + e.ToString());
+                        Log.Error("Error drawing " + innerPawn + " - " + e.ToString());
                     }
                 }
             }

@@ -3,16 +3,15 @@ using Verse;
 
 namespace AlteredCarbon
 {
-    [HarmonyPatch(typeof(Pawn), "Destroy")]
-    public static class Pawn_Destroy_Patch
+    [HarmonyPatch(typeof(Corpse), "DeSpawn")]
+    public static class Corpse_DeSpawn_Patch
     {
-        public static void Prefix(Pawn __instance)
+        public static void Prefix(Corpse __instance)
         {
-            if (__instance.Corpse is null && __instance.HasNeuralStack(out var stackHediff))
+            if (__instance.InnerPawn.HasNeuralStack(out var stackHediff) && Pawn_Kill_Patch.pawnWithStackBeingKilled == __instance.InnerPawn)
             {
                 if (stackHediff.def == AC_DefOf.AC_ArchotechStack)
                 {
-                    stackHediff.preventKill = true;
                     stackHediff.SpawnStack(placeMode: ThingPlaceMode.Direct, psycastEffect: true);
                 }
             }

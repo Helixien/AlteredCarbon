@@ -9,11 +9,16 @@ namespace AlteredCarbon
     [HarmonyPatch(typeof(Pawn), "Kill")]
     public static class Pawn_Kill_Patch
     {
+        public static Pawn pawnWithStackBeingKilled;
         public static void Prefix(Pawn __instance, DamageInfo? dinfo, Hediff exactCulprit = null)
         {
             if (__instance.HasStackInsideOrOutside() || __instance.IsEmptySleeve())
             {
                 __instance.DisableKillEffects();
+            }
+            if (__instance.HasNeuralStack())
+            {
+                pawnWithStackBeingKilled = __instance;
             }
 
             if (AlteredCarbonManager.Instance.StacksIndex.TryGetValue(__instance.thingIDNumber, out var neuralStack))
@@ -28,8 +33,10 @@ namespace AlteredCarbon
                 }
             }
         }
+
         public static void Postfix(Pawn __instance, DamageInfo? dinfo, Hediff exactCulprit = null)
         {
+            pawnWithStackBeingKilled = null;
             if (__instance.Dead)
             {
                 if (__instance.HasNeuralStack(out var stackHediff))

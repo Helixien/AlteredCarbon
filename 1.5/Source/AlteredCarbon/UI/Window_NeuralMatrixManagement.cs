@@ -357,7 +357,8 @@ namespace AlteredCarbon
             }
             if (neuralStack != null)
             {
-                if (neuralStack.ParentHolder is CompNeuralCache)
+                bool isStored = neuralStack.ParentHolder is CompNeuralCache;
+                if (isStored)
                 {
                     DrawButton(iconRectWithOffset, downArrowIcon, tooltip: "AC.TooltipRemoveStack".Translate(), isRemoveButtonActive, delegate
                     {
@@ -369,17 +370,31 @@ namespace AlteredCarbon
 
                 if (AC_Utils.stackRecipesByDef.TryGetValue(neuralStack.def, out var installInfo))
                 {
-                    if (Widgets.ButtonImage(iconRectWithOffset, installStackIcon, tooltip: "AC.TooltipImplantStack".Translate(cache.pawnName)))
+                    var assignedPawn = neuralStack.AssignedPawnForInstalling;
+                    bool isImplantingButtonActive = isStored && needleCasting is false;
+                    if (assignedPawn != null)
                     {
-                        Close();
-                        Find.Targeter.BeginTargeting(neuralStack.ForPawn(), delegate (LocalTargetInfo x)
-                        {
-                            if (AC_Utils.CanImplantStackTo(installInfo.recipe.addsHediff, x.Pawn, neuralStack, true))
-                            {
-                                neuralStack.InstallStackRecipe(x.Pawn, installInfo.recipe);
-                            }
-                        });
+                        DrawButton(iconRectWithOffset, cancelIcon, "AC.TooltipCancelImplanting".Translate(cache.pawnName, assignedPawn.Label),
+                            isImplantingButtonActive, () => assignedPawn.BillStack.bills
+                            .RemoveAll(x => x is Bill_InstallStack installStack 
+                            && installStack.stackToInstall == neuralStack));
                     }
+                    else
+                    {
+                        DrawButton(iconRectWithOffset, installStackIcon, tooltip:
+                            "AC.TooltipImplantStack".Translate(cache.pawnName), isImplantingButtonActive, delegate
+                            {
+                                Close();
+                                Find.Targeter.BeginTargeting(neuralStack.ForPawn(), delegate (LocalTargetInfo x)
+                                {
+                                    if (AC_Utils.CanImplantStackTo(installInfo.recipe.addsHediff, x.Pawn, neuralStack, true))
+                                    {
+                                        neuralStack.InstallStackRecipe(x.Pawn, installInfo.recipe);
+                                    }
+                                });
+                            });
+                    }
+
                     iconRectWithOffset.x -= iconSpacing;
                 }
             }
@@ -387,7 +402,8 @@ namespace AlteredCarbon
             if (stack.NeuralData.trackedToMatrix == matrix)
             {
                 bool isNeedlecastingButtonActive = AC_DefOf.AC_NeuralCasting.IsFinished;
-                if (neuralStack != null && neuralStack.ParentHolder is not CompNeuralCache)
+
+                if (neuralStack != null && (neuralStack.ParentHolder is not CompNeuralCache || neuralStack.AssignedPawnForInstalling is not null))
                 {
                     isNeedlecastingButtonActive = false;
                 }

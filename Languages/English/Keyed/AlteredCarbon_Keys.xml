@@ -144,6 +144,7 @@
 	<AC.TooltipNeedlecast>Needlecast {0} into a controllable sleeve.</AC.TooltipNeedlecast>
 	<AC.TooltipStopManaging>Stop tracking {0} stack.</AC.TooltipStopManaging>
 	<AC.TooltipStopNeedlecasting>Stop needlecasting {0} into {1}.</AC.TooltipStopNeedlecasting>
+	<AC.TooltipCancelImplanting>Cancel implanting {0} into {1}.</AC.TooltipCancelImplanting>
 	<AC.Dead>Dead</AC.Dead>
 	<AC.Needlecasting>Needlecasting</AC.Needlecasting>
 	<AC.Stored>Stored</AC.Stored>

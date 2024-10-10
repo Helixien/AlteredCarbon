@@ -247,37 +247,54 @@ namespace AlteredCarbon
             }
         }
 
-        public void InstallStackRecipe(Pawn medPawn, RecipeDef recipe)
+        private Pawn assignedPawnForInstalling;
+
+        public Pawn AssignedPawnForInstalling
         {
-            if (medPawn.HasNeuralStack(out var stackHediff) && (stackHediff.def == recipe.addsHediff || stackHediff.def == AC_DefOf.AC_ArchotechStack))
+            get
+            {
+                if (assignedPawnForInstalling is not null)
+                {
+                    if (assignedPawnForInstalling.BillStack.bills.Any(x => x is Bill_InstallStack install && install.stackToInstall == this))
+                    {
+                        return assignedPawnForInstalling;
+                    }
+                    assignedPawnForInstalling = null;
+                }
+                return null;
+            }
+        }
+        public void InstallStackRecipe(Pawn patient, RecipeDef recipe)
+        {
+            if (patient.HasNeuralStack(out var stackHediff) && (stackHediff.def == recipe.addsHediff || stackHediff.def == AC_DefOf.AC_ArchotechStack))
             {
                 if (stackHediff.def != recipe.addsHediff)
                 {
-                    Messages.Message("AC.PawnStackCannotDowngrade".Translate(medPawn.Named("PAWN")), MessageTypeDefOf.CautionInput);
+                    Messages.Message("AC.PawnStackCannotDowngrade".Translate(patient.Named("PAWN")), MessageTypeDefOf.CautionInput);
                 }
                 else if (stackHediff.def == AC_DefOf.AC_NeuralStack)
                 {
-                    Messages.Message("AC.PawnAlreadyHasStack".Translate(medPawn.Named("PAWN")), MessageTypeDefOf.CautionInput);
+                    Messages.Message("AC.PawnAlreadyHasStack".Translate(patient.Named("PAWN")), MessageTypeDefOf.CautionInput);
                 }
                 else
                 {
-                    Messages.Message("AC.PawnAlreadyHasArchotechStack".Translate(medPawn.Named("PAWN")), MessageTypeDefOf.CautionInput);
+                    Messages.Message("AC.PawnAlreadyHasArchotechStack".Translate(patient.Named("PAWN")), MessageTypeDefOf.CautionInput);
                 }
             }
-            else if (recipe.Worker.GetPartsToApplyOn(medPawn, recipe).FirstOrDefault() is null)
+            else if (recipe.Worker.GetPartsToApplyOn(patient, recipe).FirstOrDefault() is null)
             {
                 Messages.Message("AC.CannotInstallStackNeckIsMissingOrAnotherImplantInstalled".Translate(), MessageTypeDefOf.CautionInput);
             }
             else
             {
-                medPawn.BillStack.Bills.RemoveAll(x => x is Bill_InstallStack);
-                if (medPawn.IsAndroid())
+                patient.BillStack.Bills.RemoveAll(x => x is Bill_InstallStack);
+                if (patient.IsAndroid())
                 {
                     recipe = ModCompatibility.GetRecipeForAndroid(recipe);
                 }
                 Bill_InstallStack bill_Medical = new Bill_InstallStack(recipe, this);
-                medPawn.BillStack.AddBill(bill_Medical);
-                bill_Medical.Part = recipe.Worker.GetPartsToApplyOn(medPawn, recipe).First();
+                patient.BillStack.AddBill(bill_Medical);
+                bill_Medical.Part = recipe.Worker.GetPartsToApplyOn(patient, recipe).First();
                 var compForbiddable = this.GetComp<CompForbiddable>();
                 if (compForbiddable.Forbidden)
                 {
@@ -287,30 +304,31 @@ namespace AlteredCarbon
                 {
                     PlayerKnowledgeDatabase.KnowledgeDemonstrated(recipe.conceptLearned, KnowledgeAmount.Total);
                 }
-                Map map = medPawn.Map;
+                Map map = patient.Map;
                 if (!map.mapPawns.FreeColonists.Any((Pawn col) => recipe.PawnSatisfiesSkillRequirements(col)))
                 {
                     Bill.CreateNoPawnsWithSkillDialog(recipe);
                 }
-                if (!medPawn.InBed() && medPawn.RaceProps.IsFlesh)
+                if (!patient.InBed() && patient.RaceProps.IsFlesh)
                 {
-                    if (medPawn.RaceProps.Humanlike)
+                    if (patient.RaceProps.Humanlike)
                     {
-                        if (!map.listerBuildings.allBuildingsColonist.Any((Building x) => x is Building_Bed && RestUtility.CanUseBedEver(medPawn, x.def) && ((Building_Bed)x).Medical))
+                        if (!map.listerBuildings.allBuildingsColonist.Any((Building x) => x is Building_Bed && RestUtility.CanUseBedEver(patient, x.def) && ((Building_Bed)x).Medical))
                         {
-                            Messages.Message("MessageNoMedicalBeds".Translate(), medPawn, MessageTypeDefOf.CautionInput, historical: false);
+                            Messages.Message("MessageNoMedicalBeds".Translate(), patient, MessageTypeDefOf.CautionInput, historical: false);
                         }
                     }
-                    else if (!map.listerBuildings.allBuildingsColonist.Any((Building x) => x is Building_Bed && RestUtility.CanUseBedEver(medPawn, x.def)))
+                    else if (!map.listerBuildings.allBuildingsColonist.Any((Building x) => x is Building_Bed && RestUtility.CanUseBedEver(patient, x.def)))
                     {
-                        Messages.Message("MessageNoAnimalBeds".Translate(), medPawn, MessageTypeDefOf.CautionInput, historical: false);
+                        Messages.Message("MessageNoAnimalBeds".Translate(), patient, MessageTypeDefOf.CautionInput, historical: false);
                     }
                 }
-                if (medPawn.Faction != null && !medPawn.Faction.Hidden && !medPawn.Faction.HostileTo(Faction.OfPlayer) && recipe.Worker.IsViolationOnPawn(medPawn, bill_Medical.Part, Faction.OfPlayer))
+                if (patient.Faction != null && !patient.Faction.Hidden && !patient.Faction.HostileTo(Faction.OfPlayer) && recipe.Worker.IsViolationOnPawn(patient, bill_Medical.Part, Faction.OfPlayer))
                 {
-                    Messages.Message("MessageMedicalOperationWillAngerFaction".Translate(medPawn.HomeFaction), medPawn, MessageTypeDefOf.CautionInput, historical: false);
+                    Messages.Message("MessageMedicalOperationWillAngerFaction".Translate(patient.HomeFaction), patient, MessageTypeDefOf.CautionInput, historical: false);
                 }
-                recipe.Worker.CheckForWarnings(medPawn);
+                recipe.Worker.CheckForWarnings(patient);
+                assignedPawnForInstalling = patient;
             }
         }
 
@@ -417,6 +435,8 @@ namespace AlteredCarbon
             Scribe_Deep.Look(ref casterPawn, "casterPawn");
             Scribe_References.Look(ref hediff, "hediff");
             Scribe_References.Look(ref needleCastingInto, "needleCastingInto");
+            Scribe_References.Look(ref assignedPawnForInstalling, "assignedPawnForInstalling");
+
         }
     }
 }
