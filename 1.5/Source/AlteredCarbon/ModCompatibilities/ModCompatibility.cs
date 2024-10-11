@@ -295,7 +295,8 @@ namespace AlteredCarbon
                     }
                 }
             }
-            return GetGrowableRaces(excludedRaces).OrderBy(entry => entry.LabelCap.RawText).ToList();
+            return DefDatabase<AlienRace.ThingDef_AlienRace>.AllDefs.Where(x => !excludedRaces.Contains(x))
+                .Cast<ThingDef>().OrderBy(entry => entry.LabelCap.RawText).ToList();
         }
 
         public static void CopyFacialFeatures(Pawn source, Pawn dest)
@@ -359,10 +360,6 @@ namespace AlteredCarbon
             return alienRace.alienRace?.generalSettings?.alienPartGenerator?.bodyTypes?.Any() ?? false
                 ? alienRace.alienRace.generalSettings.alienPartGenerator.bodyTypes
                 : DefDatabase<BodyTypeDef>.AllDefsListForReading;
-        }
-        public static List<ThingDef> GetGrowableRaces(List<ThingDef> excluded)
-        {
-            return DefDatabase<AlienRace.ThingDef_AlienRace>.AllDefs.Where(x => !excluded.Contains(x)).Cast<ThingDef>().ToList();
         }
 
         public static void FillThirstNeed(Pawn pawn, float value)

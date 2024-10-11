@@ -230,7 +230,8 @@ namespace AlteredCarbon
             {
                 var permittedRaces = ModCompatibility.GetPermittedRaces();
                 DoSelectionButtons(ref firstColumnPos, "AC.SelectRace".Translate(), ref raceTypeIndex,
-                    (ThingDef x) => x.LabelCap, permittedRaces, delegate (ThingDef x)
+                    (ThingDef x) => x.label != ThingDefOf.Human.label ? x.LabelCap : x == ThingDefOf.Human 
+                    ? x.LabelCap : x.defName.SplitCamelCase(), permittedRaces, delegate (ThingDef x)
                     {
                         var oldRace = currentPawnKindDef.race;
                         currentPawnKindDef.race = x;

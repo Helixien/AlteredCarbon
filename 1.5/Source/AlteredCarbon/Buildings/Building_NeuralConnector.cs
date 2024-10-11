@@ -362,7 +362,7 @@ namespace AlteredCarbon
             occupant.TakeDamage(dinfo);
             occupant.forceNoDeathNotification = false;
             ThoughtUtility.GiveThoughtsForPawnExecuted(occupant, null, PawnExecutionKind.Ripscanned);
-            Messages.Message("MessagePawnKilledRipscanner".Translate(occupant.Named("PAWN")), occupant, MessageTypeDefOf.NegativeHealthEvent);
+            Messages.Message("AC.MessagePawnKilledNeuralConnector".Translate(occupant.Named("PAWN")), occupant, MessageTypeDefOf.NegativeHealthEvent);
         }
 
         public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Pawn selPawn)

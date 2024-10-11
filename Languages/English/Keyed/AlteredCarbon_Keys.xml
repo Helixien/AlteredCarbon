@@ -265,6 +265,7 @@ If you edit the content from a non-colonist stack from another faction, their en
 	<AC.AlreadyRegisteredToMatrix>Already registered to the neural matrix</AC.AlreadyRegisteredToMatrix>
 	<AC.RegisteringStackCompleted>Registering stack completed for {PAWN_nameDef}.</AC.RegisteringStackCompleted>
 	<AC.RegisterStack>Register stack</AC.RegisterStack>
+	<AC.MessagePawnKilledNeuralConnector>{PAWN_nameDef}'s brain has been destroyed by the neural connector.</AC.MessagePawnKilledNeuralConnector>
 	<!-- ================================ Neural Cache ====================== -->
 	<AC.EjectStackTooltip>Eject this neural stack from the array.</AC.EjectStackTooltip>
 	<AC.EjectStackConfirmation>Do you really want to eject {0}? It will be immediately ejected onto the ground nearby.</AC.EjectStackConfirmation>

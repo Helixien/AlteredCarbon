@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Mincho, The Mint Choco Slime ~ HAR ver.</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+				<li Class="PatchOperationConditional">
+					<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="Mincho_ThingDef"]/modExtensions</xpath>
+					<nomatch Class="PatchOperationAddModExtension">
+						<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="Mincho_ThingDef"]</xpath>
+						<value>
+							<li Class="AlteredCarbon.ExcludeRacesModExtension">
+								<canBeGrown>false</canBeGrown>
+							</li>
+						</value>
+					</nomatch>
+					<match Class="PatchOperationAdd">
+						<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="Mincho_ThingDef"]/modExtensions</xpath>
+						<value>
+							<li Class="AlteredCarbon.ExcludeRacesModExtension">
+								<canBeGrown>false</canBeGrown>
+							</li>
+						</value>
+					</match>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+</Patch>
