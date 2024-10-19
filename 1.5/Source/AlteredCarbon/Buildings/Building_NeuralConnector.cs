@@ -43,32 +43,12 @@ namespace AlteredCarbon
         private Effecter progressBarEffecter;
 
         public static readonly Texture2D CancelLoadingIcon = ContentFinder<Texture2D>.Get("UI/Designators/Cancel");
-        //public static readonly Texture2D EmptyNeuralPrint = ContentFinder<Texture2D>.Get("Things/Item/NeuralPrint/EmptyNeuralPrint/EmptyNeuralPrintA");
+
         public static readonly Texture2D Skilltrainer = ContentFinder<Texture2D>.Get("Things/Item/Special/MechSerumNeurotrainer");
 
         public static readonly CachedTexture InsertPersonIcon = new CachedTexture("UI/Icons/InsertPersonSubcoreScanner");
 
         private static Dictionary<Rot4, ThingDef> MotePerRotation;
-
-        private static readonly Dictionary<Rot4, Vector3> HuskEffectOffsets = new Dictionary<Rot4, Vector3>
-    {
-        {
-            Rot4.North,
-            new Vector3(0f, 0f, 0.47f)
-        },
-        {
-            Rot4.South,
-            new Vector3(0f, 0f, -0.3f)
-        },
-        {
-            Rot4.East,
-            new Vector3(0.4f, 0f, -0.025f)
-        },
-        {
-            Rot4.West,
-            new Vector3(-0.4f, 0f, -0.025f)
-        }
-    };
 
         private const float ProgressBarOffsetZ = -0.8f;
 
@@ -76,13 +56,35 @@ namespace AlteredCarbon
 
         public float HeldPawnDrawPos_Y => DrawPos.y + 1f / 26f;
 
-        public float HeldPawnBodyAngle => Rotation.AsAngle;
+        public float HeldPawnBodyAngle => Rotation.Opposite.AsAngle;
 
-        public PawnPosture HeldPawnPosture => PawnPosture.LayingOnGroundFaceUp;
+        public PawnPosture HeldPawnPosture => PawnPosture.LayingOnGroundNormal;
 
         public bool PowerOn => this.TryGetComp<CompPowerTrader>().PowerOn;
 
-        public override Vector3 PawnDrawOffset => new Vector3(0.5f, 0, 0.5f);
+        public override Vector3 PawnDrawOffset
+        {
+            get
+            {
+                if (Rotation == Rot4.South)
+                {
+                    return new Vector3(0.5f, 0, 0f);
+                }
+                else if (Rotation == Rot4.North)
+                {
+                    return new Vector3(-0.5f, 0, 0.2f);
+                }
+                else if (Rotation == Rot4.West)
+                {
+                    return new Vector3(0f, 0, -0.4f);
+                }
+                else if (Rotation == Rot4.East)
+                {
+                    return new Vector3(0f, 0, 0.45f);
+                }
+                return Vector3.zero;
+            }
+        }
 
         public Pawn Occupant
         {
@@ -412,7 +414,7 @@ namespace AlteredCarbon
         public override void DynamicDrawPhaseAt(DrawPhase phase, Vector3 drawLoc, bool flip = false)
         {
             base.DynamicDrawPhaseAt(phase, drawLoc, flip);
-            Occupant?.Drawer.renderer.DynamicDrawPhaseAt(phase, drawLoc, null, neverAimWeapon: true);
+            Occupant?.Drawer.renderer.DynamicDrawPhaseAt(phase, drawLoc + PawnDrawOffset, null, neverAimWeapon: true);
         }
 
         public override void Tick()
@@ -424,19 +426,19 @@ namespace AlteredCarbon
             {
                 {
                     Rot4.South,
-                    ThingDefOf.SoftScannerGlow_South
+                    AC_DefOf.AC_ConnectorGlow_South
                 },
                 {
                     Rot4.East,
-                    ThingDefOf.SoftScannerGlow_East
+                    AC_DefOf.AC_ConnectorGlow_East
                 },
                 {
                     Rot4.West,
-                    ThingDefOf.SoftScannerGlow_West
+                    AC_DefOf.AC_ConnectorGlow_West
                 },
                 {
                     Rot4.North,
-                    ThingDefOf.SoftScannerGlow_North
+                    AC_DefOf.AC_ConnectorGlow_North
                 }
             };
             }
@@ -475,9 +477,14 @@ namespace AlteredCarbon
  
                 if (workingMote == null || workingMote.Destroyed)
                 {
-                    workingMote = MoteMaker.MakeAttachedOverlay(this, MotePerRotation[Rotation], Vector3.zero);
+                    workingMote = MoteMaker.MakeAttachedOverlay(this, MotePerRotation[Rotation], PawnDrawOffset);
                 }
                 workingMote.Maintain();
+                if (effectHusk == null)
+                {
+                    effectHusk = AC_DefOf.AC_NeuralConnectorHeadGlow.Spawn(this, base.MapHeld, PawnDrawOffset);
+                }
+                effectHusk.EffectTick(this, this);
                 if (connectorMode != NeuralConnectorMode.NotSet)
                 {
                     if (progressBarEffecter == null)

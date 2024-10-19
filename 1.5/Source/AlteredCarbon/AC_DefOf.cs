@@ -126,5 +126,7 @@ namespace AlteredCarbon
         public static ThingDef AC_CastingRelay;
         public static HediffDef AC_CryptoStasis;
         public static ResearchProjectDef AC_NeuralCasting;
+        public static EffecterDef AC_NeuralConnectorHeadGlow;
+        public static ThingDef AC_ConnectorGlow_North, AC_ConnectorGlow_South, AC_ConnectorGlow_West, AC_ConnectorGlow_East;
     }
 }
