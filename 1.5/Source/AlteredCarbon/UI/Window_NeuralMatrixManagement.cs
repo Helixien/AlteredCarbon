@@ -401,7 +401,7 @@ namespace AlteredCarbon
 
             if (stack.NeuralData.trackedToMatrix == matrix)
             {
-                bool isNeedlecastingButtonActive = AC_DefOf.AC_NeuralCasting.IsFinished;
+                bool isNeedlecastingButtonActive = AC_DefOf.AC_NeuralCasting.IsFinished && stack.NeuralData.faction == Faction.OfPlayer;
 
                 if (neuralStack != null && (neuralStack.ParentHolder is not CompNeuralCache || neuralStack.AssignedPawnForInstalling is not null))
                 {

@@ -174,7 +174,7 @@ namespace AlteredCarbon
                 dummyPawn = AC_Utils.CreateEmptyPawn(hostPawn?.kindDef ?? kindDef ?? PawnKindDefOf.Colonist,
                     faction, OriginalRace ?? ThingDefOf.Human, ticks, OriginalXenotypeDef != null
                     ? OriginalXenotypeDef : XenotypeDefOf.Baseliner);
-                dummyPawn.gender = originalGender;
+                dummyPawn.gender = OriginalGender;
             }
             dummyPawns.Add(dummyPawn);
             OverwritePawn(dummyPawn, changeGlobalData: false);
@@ -797,6 +797,7 @@ namespace AlteredCarbon
 
         public void CopyOriginalData(NeuralData other)
         {
+
             OriginalGender = other.OriginalGender;
             OriginalRace = other.OriginalRace;
             OriginalXenotypeDef = other.OriginalXenotypeDef;
