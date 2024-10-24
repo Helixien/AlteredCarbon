@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-	<!-- ================================ Neural Stack - Crafting====================== -->
+	<!-- ================================ Neural Stack ====================== -->
+	<!-- ================================ Neural Stack - Crafting ====================== -->
 	<RecipeDef>
 		<defName>AC_MakeEmptyNeuralStack</defName>
 		<label>Make neural stack</label>

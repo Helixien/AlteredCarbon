@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-
-	<!-- ================================ Arm-Blade - Mono ====================== -->
+<!--
+	<!{1}** ================================ Arm-Blade - Mono ====================== **{1}>
 	<HediffDef ParentName="ImplantHediffBase" MayRequire="Ludeon.Rimworld.Royalty">
 		<defName>AC_MonoArmBlade</defName>
 		<label>mono arm blade</label>
@@ -99,7 +99,7 @@
 		</appliedOnFixedBodyParts>
 		<addsHediff>AC_MonoArmBlade</addsHediff>
 	</RecipeDef>
-	<!-- ================================ Arm-Blade - Plasma ====================== -->
+	<!{1}** ================================ Arm-Blade - Plasma ====================== **{1}>
 	<HediffDef ParentName="ImplantHediffBase" MayRequire="Ludeon.Rimworld.Royalty">
 		<defName>AC_PlasmaArmBlade</defName>
 		<label>plasma arm blade</label>
@@ -211,7 +211,7 @@
 		</appliedOnFixedBodyParts>
 		<addsHediff>AC_PlasmaArmBlade</addsHediff>
 	</RecipeDef>
-	<!-- ================================ Arm-Blade - Tox ====================== -->
+	<!{1}** ================================ Arm-Blade - Tox ====================== **{1}>
 	<HediffDef ParentName="ImplantHediffBase" MayRequire="OskarPotocki.VFE.Empire">
 		<defName>AC_ToxArmBlade</defName>
 		<label>tox arm blade</label>
@@ -308,5 +308,5 @@
 			<li>Arm</li>
 		</appliedOnFixedBodyParts>
 		<addsHediff>AC_ToxArmBlade</addsHediff>
-	</RecipeDef>
+	</RecipeDef>-->
 </Defs>

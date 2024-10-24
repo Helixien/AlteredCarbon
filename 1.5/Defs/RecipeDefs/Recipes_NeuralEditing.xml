@@ -6,7 +6,7 @@
 		<effectWorking>AC_NeuralEditing</effectWorking>
 		<soundWorking>AC_Interact_NeuralEditing</soundWorking>
 	</RecipeDef>
-	<!-- ================================ Neural Editing - Duplicate active Neural stacks ====================== -->
+	<!-- ================================ Neural Editing - Duplicate Neural stacks - Base ====================== -->
 	<RecipeDef ParentName="AC_RecipeNeuralEditing" Name="AC_DuplicateNeuralStackBase" Abstract="True">
 		<label>Duplicate stack</label>
 		<description>Duplicate the content of an active neural stack, effectively creating a "clone" or "duplicate" of the consciousness stored on the original stack.</description>
@@ -17,7 +17,7 @@
 			<Intellectual>10</Intellectual>
 		</skillRequirements>
 	</RecipeDef>
-	
+	<!-- ================================ Neural Editing - Duplicate Neural stacks - From Stack ====================== -->
 	<RecipeDef ParentName="AC_DuplicateNeuralStackBase">
 		<defName>AC_DuplicateNeuralStack</defName>
 		<ingredients>
@@ -51,7 +51,7 @@
 			</thingDefs>
 		</defaultIngredientFilter>
 	</RecipeDef>
-	
+	<!-- ================================ Neural Editing - Duplicate Neural stacks - From Pawn ====================== -->
 	<RecipeDef ParentName="AC_DuplicateNeuralStackBase">
 		<defName>AC_DuplicateNeuralStackPawn</defName>
 		<ingredients>
@@ -75,7 +75,7 @@
 			</thingDefs>
 		</defaultIngredientFilter>
 	</RecipeDef>
-	<!-- ================================ Neural Editing - Neural stacks ====================== -->
+	<!-- ================================ Neural Editing - Modify Neural stacks - Base ====================== -->
 	<RecipeDef ParentName="AC_RecipeNeuralEditing" Name="AC_EditActiveNeuralStackBase" Abstract="True">
 		<label>Modify stack</label>
 		<description>Modify the neural data stored on an active stack. This process can take not only time, but can also be very destructive on the consciousness stored on the selected stack.</description>
@@ -89,7 +89,7 @@
 			<li>AC_NeuralEditing</li>
 		</researchPrerequisites>
 	</RecipeDef>
-	
+	<!-- ================================ Neural Editing - Modify Neural stacks - From Stack ====================== -->
 	<RecipeDef ParentName="AC_EditActiveNeuralStackBase">
 		<defName>AC_EditActiveNeuralStack</defName>
 		<ingredients>
@@ -113,7 +113,7 @@
 			</thingDefs>
 		</defaultIngredientFilter>
 	</RecipeDef>
-	
+	<!-- ================================ Neural Editing - Modify Neural stacks - From Pawn ====================== -->
 	<RecipeDef ParentName="AC_EditActiveNeuralStackBase">
 		<defName>AC_EditActiveNeuralStackPawn</defName>
 	</RecipeDef>
